@@ -158,7 +158,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 - ✅ Dry-run obrigatório antes de executar testes (syntax + import + collect)
 - ✅ Checklist de segurança com 6 itens obrigatórios
 - ✅ Regras de ouro e comandos seguros documentados
-- ✅ Lições aprendidas do Task #50 (loop infinito >1h)
+- ✅ Lições aprendidas do Task Example (loop infinito >1h)
 
 **Changelog v1.4**:
 - ✅ Reorganizada ordem final: Implementar → Integrar GUI → CLI → Testar → Organizar → Documentar → Commit
@@ -216,7 +216,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 **13.5** 🔄 Retrospectiva de Sprint
 
 ### 1️⃣ **Ler a Documentação**
-- Consultar `docs/TASKS.md` para entender o contexto do projeto
+- Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
 - Entender dependências e arquitetura existente
 - Verificar exemplos em `tests/files/` quando aplicável
@@ -240,7 +240,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 **Exemplo Real**:
 ```
 Lista de tasks complexas restantes:
-[ ] Editor de texto integrado (MUITO COMPLEXO - 50h)
+[ ] Complex Feature Example (MUITO COMPLEXO - 50h)
 [ ] Busca com IA semântica (COMPLEXO - 20h)
 [ ] Tooltip preview em hover (SIMPLES - 30min) ✅ COMEÇAR POR AQUI!
 ```
@@ -298,7 +298,7 @@ Pontuação Mínima: 0 pontos
 | Task | Simpl<br>(0-5) | Dep<br>(0-5) | Imp<br>(0-5) | Clar<br>(0-5) | Risc<br>(0-5) | **Score** | **Decisão** |
 |------|---------------|--------------|--------------|---------------|---------------|-----------|-------------|
 | **Tooltip Preview** | 5 | 5 | 3 | 5 | 5 | **33.5** 🟢 | **1º - COMEÇAR AQUI** |
-| **Orphaned Keys** | 3 | 4 | 4 | 5 | 4 | **26.0** 🟡 | 2º |
+| **Feature** | 3 | 4 | 4 | 5 | 4 | **26.0** 🟡 | 2º |
 | **Editor Integrado** | 1 | 2 | 5 | 4 | 2 | **20.5** 🟡 | 3º |
 | **IA Semântica** | 0 | 1 | 4 | 2 | 1 | **10.0** 🟠 | 4º - Deixar por último |
 
@@ -384,7 +384,7 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
    - "Minha solução proposta é [Y]. Faz sentido?"
    - "Posso começar ou há algo que esqueci?"
 
-**Exemplo Real (Task #23)**:
+**Exemplo Real (Task Example)**:
 ```
 ❓ "Pegar primeiras N palavras (quantas? 3-5?)?"
 ✅ Resposta: "Default pode ser 30 caracteres"
@@ -409,8 +409,8 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 **Checklist de Análise**:
 1. **Leitura de Documentação**:
-   - `docs/TASKS.md` - Contexto geral do projeto
-   - `docs/vX.X.X-SPECIFICATIONS.md` - Especificações de versões anteriores
+   - `docs/REQUIREMENTS.md` - Contexto geral do projeto
+   - `docs/SPECIFICATIONS.md` - Especificações de versões anteriores
    - `README.md` - Visão geral e instruções de uso
    - Docstrings de módulos relacionados
 
@@ -432,9 +432,9 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
    - Há testes que precisam ser atualizados?
    - A API pública será mantida?
 
-**Exemplo Real (Task #45 - Tutorials)**:
+**Exemplo Real (Task Example - Tutorials)**:
 ```
-✅ Analisado: Outros docks (JsonTranslateDock, JsonRewriterDock)
+✅ Analisado: Outros docks (ComponentA, ComponentB)
 ✅ Identificado: Padrão BaseDock com FileInputMixin
 ✅ Verificado: QTreeWidget + QTextBrowser para navegação
 ✅ Estudado: Como outros módulos fazem markdown → HTML
@@ -450,12 +450,12 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 ### 5️⃣ **Fazer Sprints das Tarefas Mais Simples**
 - Agrupar 2-4 tarefas relacionadas em um sprint
 - Estimar tempo total: **máximo 3-4 horas** por sprint
-- Manter foco: **uma sprint = uma versão (ex: v2.9.14)**
+- Manter foco: **uma sprint = uma versão (ex: vX.Y.Z)**
 
 **Estrutura de Sprint**:
 ```
-Sprint v2.9.14 (Exemplo Task #23):
-├── Task #23: Orphaned Keys Update (3h estimado)
+Sprint vX.Y.Z (Exemplo Task Example):
+├── Task Example: Feature Update (3h estimado)
 │   ├── Subtask 1: Fazer perguntas ao programador (15min)
 │   ├── Subtask 2: extract_all_keys_from_obj() (45min)
 │   ├── Subtask 3: build_substitution_map_by_value() (45min)
@@ -584,8 +584,8 @@ class SnakeCaseStrategy(CaseStrategy):
 class ProcessorFactory:
     @staticmethod
     def create(type: str) -> Processor:
-        if type == "json":
-            return JSONProcessor()
+        if type == "data":
+            return DATAProcessor()
         elif type == "ts":
             return TypeScriptProcessor()
 ```
@@ -616,7 +616,7 @@ class ReplaceCommand:
 1. **Information Expert**: Atribua responsabilidade a quem tem a informação
 ```python
 # ✅ BOM: Dictionary tem a info, então tem o método
-class TranslationDictionary:
+class DataStore:
     def __init__(self, data: dict):
         self._data = data
     
@@ -632,7 +632,7 @@ def get_value_from_dict(dict_data, key_path):
 2. **Creator**: Classe A cria B se A contém/agrega B
 ```python
 # ✅ BOM: RewriterDock cria seus próprios widgets
-class JsonRewriterDock(BaseDock):
+class ComponentB(BaseDock):
     def __init__(self):
         self._create_widgets()  # Creator pattern
         self._setup_layout()
@@ -865,9 +865,9 @@ return render_template('hello.html', name=user_name)  # Jinja2 escapa automatica
 import pickle
 data = pickle.loads(user_data)  # Code execution!
 
-# ✅ SEGURO - JSON (não executa código)
-import json
-data = json.loads(user_data)
+# ✅ SEGURO - DATA (não executa código)
+import data
+data = data.loads(user_data)
 ```
 
 **9. 📦 Using Components with Known Vulnerabilities**
@@ -950,7 +950,7 @@ def login(username, password):
 ```bash
 # Análise estática de segurança
 pip install bandit
-bandit -r src/ -f json -o security-report.json
+bandit -r src/ -f data -o security-report.data
 
 # Verificar vulnerabilidades em dependências
 pip install pip-audit
@@ -1071,8 +1071,8 @@ def build_substitution_map_by_value(
     """
     Build substitution map matching keys by their VALUES (not names).
     
-    This function compares translation values between old and new JSON files
-    to detect orphaned keys that need updating. It ignores key names and
+    This function compares translation values between old and new DATA files
+    to detect feature that need updating. It ignores key names and
     focuses solely on value equality.
     
     Args:
@@ -1106,15 +1106,15 @@ def build_substitution_map_by_value(
         - Parent keys are not matched (only leaf values)
     
     See Also:
-        - extract_all_keys_from_obj: Extract keys from JSON/Obj
+        - extract_all_keys_from_obj: Extract keys from DATA/Obj
         - apply_substitutions_to_file: Apply map to TSX files
     
     References:
-        - Task #23: Orphaned Keys Update System
-        - TASK_23_ORPHANED_KEYS_SPECIFICATION.md
+        - Task Example: Feature Update System
+        - FEATURE_SPEC.md
     
     Version:
-        Added in v2.9.14
+        Added in vX.Y.Z
     """
     # Implementation...
 ```
@@ -1162,23 +1162,23 @@ def build_substitution_map_by_value(
    ```python
    # ✅ Verificar se módulo foi importado
    from .gui import (
-       CaseConverterDock, PlaceholderReplacerDock, JsonSearchDock,
-       TextExtractorDock, AIProcessorDock, JsonTranslateDock,
-       JsonRewriterDock, HistoryDock, FileListDock, TutorialsDock,
-       EditorDock, TextToJsonDock  # ← NOVO módulo deve estar aqui
+       ComponentJ, ComponentK, ComponentI,
+       ComponentC, ComponentD, ComponentA,
+       ComponentB, ComponentF, ComponentG, ComponentH,
+       ComponentE, NewComponent  # ← NOVO módulo deve estar aqui
    )
    ```
 
 2. **Export no __init__.py do Módulo**:
    ```python
    # src/gui/__init__.py
-   from .text_to_json_dock import TextToJsonDock
+   from .text_to_data_dock import NewComponent
    
    __all__ = [
-       'CaseConverterDock', 'PlaceholderReplacerDock', 'JsonSearchDock',
-       'TextExtractorDock', 'AIProcessorDock', 'JsonTranslateDock',
-       'JsonRewriterDock', 'HistoryDock', 'FileListDock', 'TutorialsDock',
-       'EditorDock', 'TextToJsonDock'  # ← NOVO módulo exportado
+       'ComponentJ', 'ComponentK', 'ComponentI',
+       'ComponentC', 'ComponentD', 'ComponentA',
+       'ComponentB', 'ComponentF', 'ComponentG', 'ComponentH',
+       'ComponentE', 'NewComponent'  # ← NOVO módulo exportado
    ]
    ```
 
@@ -1188,13 +1188,13 @@ def build_substitution_map_by_value(
    m_tools = bar.addMenu(tr("menu.tools"))
    
    # Criar QAction
-   self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
+   self.act_open_new_component = QAction(tr("menu.tools.text_to_data"), self)
    
    # Adicionar ao menu
-   m_tools.addAction(self.act_open_text_to_json)
+   m_tools.addAction(self.act_open_new_component)
    
    # Conectar signal
-   self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
+   self.act_open_new_component.triggered.connect(lambda: self.dock_new_component.show())
    ```
 
 4. **Dock Inicializado no __init__() ou método de setup**:
@@ -1203,38 +1203,38 @@ def build_substitution_map_by_value(
    def __init__(self):
        super().__init__()
        # ... outros docks ...
-       self._open_text_to_json()  # ← Inicializar dock
+       self._open_new_component()  # ← Inicializar dock
    
-   def _open_text_to_json(self):
-       self.dock_text_to_json = TextToJsonDock(self)
-       self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
-       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_text_to_json)
-       self.dock_text_to_json.hide()
+   def _open_new_component(self):
+       self.dock_new_component = NewComponent(self)
+       self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
+       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_new_component)
+       self.dock_new_component.hide()
    ```
 
 5. **Signals Conectados** (se aplicável):
    ```python
    # Conectar signals customizados
-   self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
+   self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
    
-   def _load_json_from_converter(self, json_str: str):
-       """Callback para abrir JSON no editor"""
-       if not hasattr(self, 'dock_editor'):
-           self._open_editor()
-       self.dock_editor.load_json_string(json_str)
-       self.dock_editor.show()
+   def _load_data_from_source(self, data_str: str):
+       """Callback para abrir DATA no editor"""
+       if not hasattr(self, 'component_viewer'):
+           self._open_component()
+       self.component_viewer.load_data_string(data_str)
+       self.component_viewer.show()
    ```
 
 6. **Traduções i18n Adicionadas**:
-   ```json
-   // src/i18n/en.json
+   ```data
+   // src/i18n/en.data
    {
-     "menu.tools.text_to_json": "Text to JSON Converter"
+     "menu.tools.text_to_data": "Text to DATA Converter"
    }
    
-   // src/i18n/pt_BR.json
+   // src/i18n/pt_BR.data
    {
-     "menu.tools.text_to_json": "Conversor de Texto para JSON"
+     "menu.tools.text_to_data": "Conversor de Texto para DATA"
    }
    ```
 
@@ -1246,14 +1246,14 @@ def build_substitution_map_by_value(
 - ✅ **Sem erros no console**: Não deve haver ImportError, AttributeError, etc.
 - ✅ **Tradução funcionando**: Menu em PT-BR deve mostrar texto traduzido
 
-**Exemplo Real (Task #49 - Text to JSON Converter)**:
+**Exemplo Real (Task Example - Text to DATA Converter)**:
 ```python
-✅ Import: from .gui import TextToJsonDock
-✅ Export: __all__ = [..., 'TextToJsonDock']
-✅ Menu: self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
-✅ Init: self._open_text_to_json() chamado em __init__()
-✅ Signal: open_in_editor_requested.connect(self._load_json_from_converter)
-✅ i18n: EN "Text to JSON Converter", PT-BR "Conversor de Texto para JSON"
+✅ Import: from .gui import NewComponent
+✅ Export: __all__ = [..., 'NewComponent']
+✅ Menu: self.act_open_new_component = QAction(tr("menu.tools.text_to_data"), self)
+✅ Init: self._open_new_component() chamado em __init__()
+✅ Signal: open_in_other_component_requested.connect(self._load_data_from_source)
+✅ i18n: EN "Text to DATA Converter", PT-BR "Conversor de Texto para DATA"
 ✅ Teste: Menu abre dock, conversão funciona, signal para editor OK
 ```
 
@@ -1283,23 +1283,23 @@ def build_substitution_map_by_value(
    ```python
    # ✅ Verificar se módulo foi importado
    from .gui import (
-       CaseConverterDock, PlaceholderReplacerDock, JsonSearchDock,
-       TextExtractorDock, AIProcessorDock, JsonTranslateDock,
-       JsonRewriterDock, HistoryDock, FileListDock, TutorialsDock,
-       EditorDock, TextToJsonDock  # ← NOVO módulo deve estar aqui
+       ComponentJ, ComponentK, ComponentI,
+       ComponentC, ComponentD, ComponentA,
+       ComponentB, ComponentF, ComponentG, ComponentH,
+       ComponentE, NewComponent  # ← NOVO módulo deve estar aqui
    )
    ```
 
 2. **Export no __init__.py do Módulo**:
    ```python
    # src/gui/__init__.py
-   from .text_to_json_dock import TextToJsonDock
+   from .text_to_data_dock import NewComponent
    
    __all__ = [
-       'CaseConverterDock', 'PlaceholderReplacerDock', 'JsonSearchDock',
-       'TextExtractorDock', 'AIProcessorDock', 'JsonTranslateDock',
-       'JsonRewriterDock', 'HistoryDock', 'FileListDock', 'TutorialsDock',
-       'EditorDock', 'TextToJsonDock'  # ← NOVO módulo exportado
+       'ComponentJ', 'ComponentK', 'ComponentI',
+       'ComponentC', 'ComponentD', 'ComponentA',
+       'ComponentB', 'ComponentF', 'ComponentG', 'ComponentH',
+       'ComponentE', 'NewComponent'  # ← NOVO módulo exportado
    ]
    ```
 
@@ -1309,13 +1309,13 @@ def build_substitution_map_by_value(
    m_tools = bar.addMenu(tr("menu.tools"))
    
    # Criar QAction
-   self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
+   self.act_open_new_component = QAction(tr("menu.tools.text_to_data"), self)
    
    # Adicionar ao menu
-   m_tools.addAction(self.act_open_text_to_json)
+   m_tools.addAction(self.act_open_new_component)
    
    # Conectar signal
-   self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
+   self.act_open_new_component.triggered.connect(lambda: self.dock_new_component.show())
    ```
 
 4. **Dock Inicializado no __init__() ou método de setup**:
@@ -1324,38 +1324,38 @@ def build_substitution_map_by_value(
    def __init__(self):
        super().__init__()
        # ... outros docks ...
-       self._open_text_to_json()  # ← Inicializar dock
+       self._open_new_component()  # ← Inicializar dock
    
-   def _open_text_to_json(self):
-       self.dock_text_to_json = TextToJsonDock(self)
-       self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
-       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_text_to_json)
-       self.dock_text_to_json.hide()
+   def _open_new_component(self):
+       self.dock_new_component = NewComponent(self)
+       self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
+       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_new_component)
+       self.dock_new_component.hide()
    ```
 
 5. **Signals Conectados** (se aplicável):
    ```python
    # Conectar signals customizados
-   self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
+   self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
    
-   def _load_json_from_converter(self, json_str: str):
-       """Callback para abrir JSON no editor"""
-       if not hasattr(self, 'dock_editor'):
-           self._open_editor()
-       self.dock_editor.load_json_string(json_str)
-       self.dock_editor.show()
+   def _load_data_from_source(self, data_str: str):
+       """Callback para abrir DATA no editor"""
+       if not hasattr(self, 'component_viewer'):
+           self._open_component()
+       self.component_viewer.load_data_string(data_str)
+       self.component_viewer.show()
    ```
 
 6. **Traduções i18n Adicionadas**:
-   ```json
-   // src/i18n/en.json
+   ```data
+   // src/i18n/en.data
    {
-     "menu.tools.text_to_json": "Text to JSON Converter"
+     "menu.tools.text_to_data": "Text to DATA Converter"
    }
    
-   // src/i18n/pt_BR.json
+   // src/i18n/pt_BR.data
    {
-     "menu.tools.text_to_json": "Conversor de Texto para JSON"
+     "menu.tools.text_to_data": "Conversor de Texto para DATA"
    }
    ```
 
@@ -1423,22 +1423,22 @@ Durante a verificação do GUI, aplicar simultaneamente os seguintes critérios:
 **Exemplo de Revisão GUI Aplicada**:
 ```python
 # ❌ ANTES - Omissão, Ambiguidade, Maior Acoplamento
-class TextToJsonDock(QDockWidget):
+class NewComponent(QDockWidget):
     def __init__(self):
         self.btn = QPushButton("Convert")  # Label vago
         self.btn.clicked.connect(self.convert)  # Sem tratamento de erro
     
     def convert(self):
         data = open(self.ed_file.text()).read()  # Sem validação, sem fechar
-        json_str = my_convert(data)  # Lógica de negócio no GUI
-        print(json_str)  # Debug esquecido
+        data_str = my_convert(data)  # Lógica de negócio no GUI
+        print(data_str)  # Debug esquecido
 
 # ✅ DEPOIS - Completo, Claro, Desacoplado
-class TextToJsonDock(BaseDock):
-    """Text to JSON Converter dock widget."""
+class NewComponent(BaseDock):
+    """Text to DATA Converter dock widget."""
     
     # Signal para comunicação
-    open_in_editor_requested = Signal(str)
+    open_in_other_component_requested = Signal(str)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1454,16 +1454,16 @@ class TextToJsonDock(BaseDock):
         self.ed_file = QLineEdit()
         self.ed_file.setPlaceholderText("Enter file path or paste text")
         
-        self.btn_convert = QPushButton("Convert to JSON")
-        self.btn_convert.setToolTip("Convert text to JSON format")
+        self.btn_convert = QPushButton("Convert to DATA")
+        self.btn_convert.setToolTip("Convert text to DATA format")
         
-        self.btn_open_editor = QPushButton("Open in Editor")
-        self.btn_open_editor.setEnabled(False)  # Disabled até converter
+        self.btn_open_component = QPushButton("Open in Editor")
+        self.btn_open_component.setEnabled(False)  # Disabled até converter
     
     def _connect_signals(self):
         """Connect signals to slots."""
         self.btn_convert.clicked.connect(self._on_convert_clicked)
-        self.btn_open_editor.clicked.connect(self._on_open_editor_clicked)
+        self.btn_open_component.clicked.connect(self._on_open_component_clicked)
     
     def _on_convert_clicked(self):
         """Handle convert button click."""
@@ -1482,21 +1482,21 @@ class TextToJsonDock(BaseDock):
                 text = file_path  # Tratar como texto direto
             
             # Converter usando controller (desacoplamento)
-            self._json_result = self._converter.convert(text)
+            self._data_result = self._converter.convert(text)
             
             # Feedback visual
             QMessageBox.information(self, "Success", "Conversion successful!")
-            self.btn_open_editor.setEnabled(True)
+            self.btn_open_component.setEnabled(True)
         
         except FileNotFoundError:
             QMessageBox.critical(self, "File Not Found", f"File not found: {file_path}")
         except Exception as e:
             QMessageBox.critical(self, "Conversion Error", f"Error: {str(e)}")
     
-    def _on_open_editor_clicked(self):
+    def _on_open_component_clicked(self):
         """Handle open in editor button click."""
-        if hasattr(self, '_json_result'):
-            self.open_in_editor_requested.emit(self._json_result)  # Signal
+        if hasattr(self, '_data_result'):
+            self.open_in_other_component_requested.emit(self._data_result)  # Signal
 ```
 
 **Ferramentas Recomendadas GUI**:
@@ -1523,14 +1523,14 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 6. ❓ "Labels, tooltips e mensagens são claros e descritivos?"
 7. ❓ "Recursos (arquivos, conexões) são fechados corretamente?"
 
-**Exemplo Real (Task #49 - Text to JSON Converter)**:
+**Exemplo Real (Task Example - Text to DATA Converter)**:
 ```python
-✅ Import: from .gui import TextToJsonDock
-✅ Export: __all__ = [..., 'TextToJsonDock']
-✅ Menu: self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
-✅ Init: self._open_text_to_json() chamado em __init__()
-✅ Signal: open_in_editor_requested.connect(self._load_json_from_converter)
-✅ i18n: EN "Text to JSON Converter", PT-BR "Conversor de Texto para JSON"
+✅ Import: from .gui import NewComponent
+✅ Export: __all__ = [..., 'NewComponent']
+✅ Menu: self.act_open_new_component.triggered.connect(lambda: self.dock_new_component.show())
+✅ Init: self._open_new_component() chamado em __init__()
+✅ Signal: open_in_other_component_requested.connect(self._load_data_from_source)
+✅ i18n: EN "Text to DATA Converter", PT-BR "Conversor de Texto para DATA"
 ✅ Revisão: Sem debug prints, tratamento de erros OK, lógica desacoplada
 ✅ Teste: Menu abre dock, conversão funciona, signal para editor OK
 ```
@@ -1701,13 +1701,13 @@ pa11y http://localhost:8000
 
 ```python
 class AccessibleConverterDock(QDockWidget):
-    """Accessible text to JSON converter with WCAG 2.1 Level AA compliance."""
+    """Accessible text to DATA converter with WCAG 2.1 Level AA compliance."""
     
     def __init__(self, parent=None):
-        super().__init__("Text to JSON Converter", parent)
-        self.setAccessibleName("Text to JSON Converter Dock")
+        super().__init__("Text to DATA Converter", parent)
+        self.setAccessibleName("Text to DATA Converter Dock")
         self.setAccessibleDescription(
-            "Convert structured text files to JSON format with preview"
+            "Convert structured text files to DATA format with preview"
         )
         self._create_accessible_widgets()
         self._setup_shortcuts()
@@ -1722,12 +1722,12 @@ class AccessibleConverterDock(QDockWidget):
         self.lbl_input.setBuddy(self.ed_input)  # Alt+I foca no input
         
         # Botão com tooltip e shortcut
-        self.btn_convert = QPushButton("&Convert to JSON")
+        self.btn_convert = QPushButton("&Convert to DATA")
         self.btn_convert.setAccessibleName("Convert button")
         self.btn_convert.setAccessibleDescription(
-            "Convert input file to JSON format. Shortcut: Ctrl+Enter"
+            "Convert input file to DATA format. Shortcut: Ctrl+Enter"
         )
-        self.btn_convert.setToolTip("Convert text to JSON (Ctrl+Enter)")
+        self.btn_convert.setToolTip("Convert text to DATA (Ctrl+Enter)")
         self.btn_convert.setShortcut(QKeySequence("Ctrl+Return"))
         
         # Indicador de foco
@@ -1743,12 +1743,12 @@ class AccessibleConverterDock(QDockWidget):
         self.group_options = QGroupBox("Conversion &Options")
         self.group_options.setAccessibleName("Conversion options group")
         
-        self.chk_pretty = QCheckBox("&Pretty print JSON")
+        self.chk_pretty = QCheckBox("&Pretty print DATA")
         self.chk_pretty.setAccessibleName("Pretty print option")
         self.chk_pretty.setAccessibleDescription(
-            "Format JSON with indentation for readability"
+            "Format DATA with indentation for readability"
         )
-        self.chk_pretty.setToolTip("Format JSON with indentation")
+        self.chk_pretty.setToolTip("Format DATA with indentation")
         
         # Alto contraste para status
         self.lbl_status = QLabel("Ready")
@@ -1777,7 +1777,7 @@ class AccessibleConverterDock(QDockWidget):
         """Show accessible help dialog."""
         QMessageBox.information(
             self,
-            "Text to JSON Converter - Help",
+            "Text to DATA Converter - Help",
             "<h3>Keyboard Shortcuts</h3>"
             "<ul>"
             "<li><b>Ctrl+Enter</b>: Convert file</li>"
@@ -1811,7 +1811,7 @@ class AccessibleConverterDock(QDockWidget):
 1. **Teste de Fluxo Completo GUI**:
    ```bash
    # Iniciar aplicativo
-   python -m clarify --gui
+   python -m app --gui
    
    # Testar manualmente:
    [ ] Menu item aparece corretamente?
@@ -1826,13 +1826,13 @@ class AccessibleConverterDock(QDockWidget):
 2. **Teste de Fluxo Completo CLI**:
    ```bash
    # Testar help
-   python -m clarify text2json --help
+   python -m app convert --help
    
    # Testar funcionalidade
-   python -m clarify text2json test.txt --pretty -o output.json
+   python -m app convert test.txt --pretty -o output.data
    
    # Testar pipes
-   echo "name: John" | python -m clarify text2json -
+   echo "name: John" | python -m app convert -
    
    # Verificar:
    [ ] Help text aparece?
@@ -1845,8 +1845,8 @@ class AccessibleConverterDock(QDockWidget):
 3. **Teste de Integração entre Componentes**:
    ```bash
    # Exemplo: Converter texto → Abrir no editor
-   [ ] Clicar em "Open in Editor" no Text to JSON Converter abre o Editor?
-   [ ] JSON é carregado corretamente no Editor?
+   [ ] Clicar em "Open in Editor" no Text to DATA Converter abre o Editor?
+   [ ] DATA é carregado corretamente no Editor?
    [ ] Editor pode salvar o resultado?
    
    # Exemplo: Busca → Abrir arquivo
@@ -1875,17 +1875,17 @@ class AccessibleConverterDock(QDockWidget):
 **Exemplo Real de Problema de Integração**:
 ```python
 # ❌ PROBLEMA ENCONTRADO NA INTEGRAÇÃO:
-# Task #49 - Text to JSON Converter CLI
+# Task Example - Text to DATA Converter CLI
 # Problema: Extractor() estava sendo chamado sem 3 parâmetros obrigatórios
 
 # ANTES (quebrava na integração):
 def main():
-    if args.command == 'text2json':
+    if args.command == 'convert':
         extractor = Extractor()  # ❌ TypeError: missing 3 required arguments
 
 # DEPOIS (corrigido):
 def main():
-    if args.command == 'text2json':
+    if args.command == 'convert':
         extractor = Extractor(
             avoid_keys="",
             avoid_keys_parameter="equals",
@@ -1931,7 +1931,7 @@ git checkout -b feature/task-42-add-export
 
 # 2. Implementar e commitar
 git add clarify_patched.py
-git commit -m "Add CSV export feature (Task #42)"
+git commit -m "Add CSV export feature (Task Example)"
 
 # 3. Push e criar PR
 git push origin feature/task-42-add-export
@@ -1946,7 +1946,7 @@ git push origin feature/task-42-add-export
 
 ```markdown
 ## Descrição
-Implementa exportação CSV para Task #42 do Protocolo Simplicidade.
+Implementa exportação CSV para Task Example do Protocolo Simplicidade.
 
 ## Tipo de Mudança
 - [x] Nova feature
@@ -1955,7 +1955,7 @@ Implementa exportação CSV para Task #42 do Protocolo Simplicidade.
 - [ ] Documentação
 
 ## Checklist Protocolo Simplicidade
-- [x] Etapa 1: Task definida e selecionada (Task #42)
+- [x] Etapa 1: Task definida e selecionada (Task Example)
 - [x] Etapa 2: Dividida em subtasks
 - [x] Etapa 6: Código implementado
 - [x] Etapa 7: Code review manual (auto-review)
@@ -2062,7 +2062,7 @@ def export_to_csv(self, filename):
 
 ```bash
 # GitHub CLI - Criar PR via terminal
-gh pr create --title "Add CSV export" --body "Implements Task #42"
+gh pr create --title "Add CSV export" --body "Implements Task Example"
 
 # Revisar PR localmente
 gh pr checkout 123
@@ -2165,7 +2165,7 @@ review_metrics = {
 4. **Integration**: Fluxo completo (incluindo integração GUI/CLI)
 5. **Quality Validation**: Testes que validam ausência dos 9 problemas das Etapas 7 e 8
 
-**Exemplo Task #23**:
+**Exemplo Task Example**:
 ```python
 ✅ test_extract_from_dict_simple()
 ✅ test_extract_from_obj_type()
@@ -2189,7 +2189,7 @@ review_metrics = {
 
 #### 🛡️ **Etapa 9.1 - Segurança em Testes (CRÍTICO)**
 
-**Problema Identificado** (Task #50 - 01/12/2025):
+**Problema Identificado** (Task Example - 01/12/2025):
 - Testes GUI travaram em **loop infinito** por >1 hora sem timeout
 - Nenhuma detecção automática de deadlock ou travamento
 - Testes aguardavam display X11 inexistente (ambiente headless)
@@ -2318,9 +2318,9 @@ from memory_profiler import profile
 
 @profile
 def load_large_file(filepath):
-    """Load and process large JSON file."""
+    """Load and process large DATA file."""
     with open(filepath, 'r') as f:
-        data = json.load(f)  # Carrega tudo na memória
+        data = data.load(f)  # Carrega tudo na memória
     
     # Processar...
     results = []
@@ -2526,7 +2526,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
-      - id: check-json
+      - id: check-data
       - id: check-added-large-files
         args: ['--maxkb=500']
   
@@ -2695,10 +2695,10 @@ security:bandit:
   image: python:3.11
   script:
     - pip install bandit
-    - bandit -r clarify_patched.py -f json -o bandit-report.json
+    - bandit -r clarify_patched.py -f data -o bandit-report.data
   artifacts:
     reports:
-      sast: bandit-report.json
+      sast: bandit-report.data
   allow_failure: false
 
 deploy:production:
@@ -2716,7 +2716,7 @@ deploy:production:
 ```python
 # Script para gerar relatório de qualidade
 import subprocess
-import json
+import data
 
 def run_quality_checks():
     """Executa quality gates e gera relatório."""
@@ -2728,11 +2728,11 @@ def run_quality_checks():
     
     # 1. Code Coverage
     cov = subprocess.run(
-        ["pytest", "--cov=.", "--cov-report=json"],
+        ["pytest", "--cov=.", "--cov-report=data"],
         capture_output=True
     )
-    with open("coverage.json") as f:
-        results["checks"]["coverage"] = json.load(f)["totals"]["percent_covered"]
+    with open("coverage.data") as f:
+        results["checks"]["coverage"] = data.load(f)["totals"]["percent_covered"]
     
     # 2. Linting Score
     flake8 = subprocess.run(
@@ -2744,15 +2744,15 @@ def run_quality_checks():
     
     # 3. Security Issues
     bandit = subprocess.run(
-        ["bandit", "-r", ".", "-f", "json"],
+        ["bandit", "-r", ".", "-f", "data"],
         capture_output=True
     )
-    bandit_data = json.loads(bandit.stdout)
+    bandit_data = data.loads(bandit.stdout)
     results["checks"]["security_issues"] = len(bandit_data["results"])
     
     # 4. Type Coverage (MyPy)
     mypy = subprocess.run(
-        ["mypy", "clarify_patched.py", "--json-report", ".mypy"],
+        ["mypy", "clarify_patched.py", "--data-report", ".mypy"],
         capture_output=True
     )
     # Parse MyPy report...
@@ -2778,7 +2778,7 @@ def run_quality_checks():
 # Integrar com CI
 if __name__ == "__main__":
     results = run_quality_checks()
-    print(json.dumps(results, indent=2))
+    print(data.dumps(results, indent=2))
     
     if not results["passed"]:
         print("\n❌ Quality gates FAILED!")
@@ -3126,7 +3126,7 @@ ADR (Architecture Decision Record) documenta **por quê** decisões importantes 
 ✅ **ACEITO** - 2024-01-15
 
 ## Contexto
-O projeto Clarify precisa de interface gráfica (GUI) para gerenciar tarefas além da CLI existente.
+O projeto precisa de interface gráfica (GUI) para gerenciar tarefas além da CLI existente.
 
 **Requisitos**:
 - Cross-platform (Linux, Windows, macOS)
@@ -3179,7 +3179,7 @@ Escolhemos **PyQt6** para a implementação da GUI.
 ## Referências
 - [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
 - [Qt6 Documentation](https://doc.qt.io/qt-6/)
-- Task #23: "Add GUI with docking support"
+- Task Example: "Add GUI with docking support"
 
 ## Notas
 Se no futuro precisarmos de licença mais permissiva (MIT/Apache), considerar:
@@ -3200,7 +3200,7 @@ clarify/
 ├── docs/
 │   ├── adr/
 │   │   ├── 001-choice-of-pyqt6.md
-│   │   ├── 002-json-storage-format.md
+│   │   ├── 002-data-storage-format.md
 │   │   ├── 003-simplicity-protocol-versioning.md
 │   │   └── README.md  (Índice de ADRs)
 │   ├── PROTOCOLO_SIMPLICIDADE_1.md
@@ -3219,7 +3219,7 @@ clarify/
 - [ADR-003](003-simplicity-protocol-versioning.md): Versionamento Protocolo Simplicidade ✅ ACEITO
 
 ## Superseded Decisions
-- [ADR-002](002-json-storage-format.md): JSON como formato de armazenamento ⚠️ SUPERSEDED
+- [ADR-002](002-data-storage-format.md): DATA como formato de armazenamento ⚠️ SUPERSEDED
   - Substituído por SQLite em ADR-004 (2024-02-01)
 
 ## Rejected Decisions
@@ -3227,7 +3227,7 @@ clarify/
 
 ## Proposed (Pendente Discussão)
 - ADR-005: Implementar suporte a plugins
-- ADR-006: Migrar de JSON para SQLite
+- ADR-006: Migrar de DATA para SQLite
 
 ---
 
@@ -3241,7 +3241,7 @@ ADRs são numerados sequencialmente: 001, 002, 003, etc.
 **Exemplo de ADR Superseded**:
 
 ```markdown
-# ADR-002: JSON como Formato de Armazenamento
+# ADR-002: DATA como Formato de Armazenamento
 
 ## Status
 ⚠️ **SUPERSEDED** por [ADR-004](004-migrate-to-sqlite.md) em 2024-02-01
@@ -3250,17 +3250,17 @@ ADRs são numerados sequencialmente: 001, 002, 003, etc.
 (contexto original...)
 
 ## Decisão
-Usar JSON para persistência de tasks.
+Usar DATA para persistência de tasks.
 
 ## Consequências
 
 ### Por quê foi supersedido?
-JSON funcionou bem para até ~500 tasks, mas performance degradou significativamente:
+DATA funcionou bem para até ~500 tasks, mas performance degradou significativamente:
 - Tempo de leitura: 2.5s para 1000 tasks (inaceitável)
 - Concorrência: Não suporta múltiplas janelas simultâneas
 - Queries: Difícil filtrar/buscar sem carregar tudo
 
-**Solução**: Migrar para SQLite (ADR-004) mantendo JSON como export opcional.
+**Solução**: Migrar para SQLite (ADR-004) mantendo DATA como export opcional.
 
 ---
 **Autor**: Josué  
@@ -3281,7 +3281,7 @@ adr new "Implement caching layer"
 adr list
 
 # Supersede ADR antigo
-adr new -s 2 "Migrate from JSON to SQLite"
+adr new -s 2 "Migrate from DATA to SQLite"
 # Cria ADR novo e marca #2 como superseded
 
 # Gerar visualização
@@ -3293,7 +3293,7 @@ adr generate graph > adr-graph.svg
 ```python
 # ✅ MERECE ADR - Decisão impactante
 """
-Decidimos usar SQLite em vez de JSON.
+Decidimos usar SQLite em vez de DATA.
 Impacto:
 - Muda persistência de dados (migração necessária)
 - Afeta performance (10x mais rápido)
@@ -3349,7 +3349,7 @@ Rationale:
 ## PR #145: Implement SQLite storage
 
 ### Descrição
-Migra persistência de JSON para SQLite (Task #67).
+Migra persistência de DATA para SQLite (Task Example).
 
 ### Architecture Decision
 Este PR implementa **ADR-004: Migrate to SQLite**.
@@ -3362,12 +3362,12 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
 
 **Riscos Mitigados**:
 - Migração automática no primeiro uso (v2.0.0)
-- Backup automático do JSON antes de migrar
+- Backup automático do DATA antes de migrar
 - Rollback disponível se migração falhar
 
 ### Ver ADR
 - [ADR-004: Migrate to SQLite](docs/adr/004-migrate-to-sqlite.md)
-- Supersedes ADR-002 (JSON storage)
+- Supersedes ADR-002 (DATA storage)
 
 ### Checklist
 - [x] ADR criado e commitado
@@ -3387,13 +3387,13 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
 
 ### 1️⃣2️⃣ **Preencher Nova Documentação**
 - **Atualizar arquivo de tarefas/requisitos**: Marcar tasks como `[X]` completas
-- **Criar vX.X.X-SPECIFICATIONS.md**: Documento detalhado da versão
+- **Criar SPECIFICATIONS.md**: Documento detalhado da versão
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
 
 **📋 Marcação de Tarefas em Arquivo de Requisitos**:
 
 **Regra Geral**:
-- Se existe arquivo de tarefas/requisitos (ex: `TASKS.md`, `TODO.md`, `requirements.md`):
+- Se existe arquivo de tarefas/requisitos (ex: `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Marcar tasks como completas** após implementação: `[ ]` → `[X]`
   - ✅ **Atualizar estatísticas** (percentuais, contadores)
   - ✅ **Adicionar notas de conclusão** (data, versão, descrição breve)
@@ -3403,21 +3403,21 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
   - ❓ **Sugerir criação** de arquivo de controle de tarefas
 
-**Exemplo de Marcação (TASKS.md)**:
+**Exemplo de Marcação (REQUIREMENTS.md)**:
 ```markdown
 ## 🟢 COULD HAVE (Prioridade Baixa)
 
 ### ✅ Tasks Concluídas
 
-#### Task #46 - Editor de Arquivos Integrado (v2.9.16)
+#### Task Example - Editor de Arquivos Integrado (vX.Y.Z)
 **Status**: ✅ Completa - 30/11/2025
 
 **Objetivo**: Implementar editor de texto integrado com diferenciação de escopo por cores.
 
 **Implementação**:
-1. ✅ EditorDock com QTextEdit e syntax highlighting
-2. ✅ Diferenciação de escopo por cores (HTML tags, JSON keys, etc.)
-3. ✅ Abrir/salvar arquivos (.txt, .json, .html, .tsx, .py)
+1. ✅ ComponentE com QTextEdit e syntax highlighting
+2. ✅ Diferenciação de escopo por cores (HTML tags, DATA keys, etc.)
+3. ✅ Abrir/salvar arquivos (.txt, .data, .html, .tsx, .py)
 4. ✅ Integração com menu File → Open Editor
 
 **Arquivos Criados**:
@@ -3503,10 +3503,10 @@ Plano documentado para **reverter** uma mudança se algo der errado em produçã
 **Template de Rollback Plan**:
 
 ```markdown
-# Rollback Plan - Task #67: Migração para SQLite
+# Rollback Plan - Task Example: Migração para SQLite
 
 ## Resumo da Mudança
-**Feature**: Migração de JSON para SQLite storage  
+**Feature**: Migração de DATA para SQLite storage  
 **Versão**: v2.0.0 → v1.9.x  
 **Impacto**: ALTO - Altera formato de persistência  
 **Risco**: MÉDIO - Migração de dados pode falhar  
@@ -3542,10 +3542,10 @@ NÃO executar rollback SE:
    cp ~/.config/clarify/clarify.log /tmp/clarify-rollback-logs.txt
    ```
 
-3. **Verificar backup JSON disponível**:
+3. **Verificar backup DATA disponível**:
    ```bash
-   # Confirmar que JSON backup existe (criado na migração)
-   ls -lh ~/.config/clarify/tasks.json.backup
+   # Confirmar que DATA backup existe (criado na migração)
+   ls -lh ~/.config/clarify/tasks.data.backup
    # Deve mostrar arquivo criado durante migração para v2.0.0
    ```
 
@@ -3559,10 +3559,10 @@ NÃO executar rollback SE:
    pip install clarify==1.9.5 --force-reinstall
    ```
 
-2. **Restaurar dados do backup JSON**:
+2. **Restaurar dados do backup DATA**:
    ```bash
-   # Copiar backup JSON de volta
-   cp ~/.config/clarify/tasks.json.backup ~/.config/clarify/tasks.json
+   # Copiar backup DATA de volta
+   cp ~/.config/clarify/tasks.data.backup ~/.config/clarify/tasks.data
    
    # Remover SQLite database (v1.9.5 não usa)
    rm ~/.config/clarify/clarify.db
@@ -3570,12 +3570,12 @@ NÃO executar rollback SE:
 
 3. **Verificar integridade dos dados**:
    ```bash
-   # Validar JSON não está corrompido
-   python -c "import json; json.load(open('~/.config/clarify/tasks.json'))"
+   # Validar DATA não está corrompido
+   python -c "import data; data.load(open('~/.config/clarify/tasks.data'))"
    # Deve completar sem erro
    
    # Contar tasks
-   python -c "import json; data = json.load(open('~/.config/clarify/tasks.json')); print(f'{len(data[\"tasks\"])} tasks restored')"
+   python -c "import data; data = data.load(open('~/.config/clarify/tasks.data')); print(f'{len(data[\"tasks\"])} tasks restored')"
    ```
 
 4. **Reiniciar aplicação**:
@@ -3632,7 +3632,7 @@ NÃO executar rollback SE:
    pip install clarify==1.9.5 --force-reinstall
    ```
    
-   Dados preservados via backup automático JSON.
+   Dados preservados via backup automático DATA.
    
    **Próximos Passos**:
    - Root cause analysis da falha de migração
@@ -3652,7 +3652,7 @@ NÃO executar rollback SE:
    - 15:30 UTC: Rollback completo
    
    ## Root Cause
-   - Migração SQLite falhou para arquivos JSON > 5MB
+   - Migração SQLite falhou para arquivos DATA > 5MB
    - Causa: Timeout de 30s insuficiente para tasks complexas
    - Afetou ~12% usuários (heavy users com >500 tasks)
    
@@ -3676,7 +3676,7 @@ NÃO executar rollback SE:
 - **TOTAL**: ~20 minutos (downtime esperado)
 
 ## Dependências Externas
-- ✅ Backup JSON criado automaticamente na migração
+- ✅ Backup DATA criado automaticamente na migração
 - ✅ Git tags de versões anteriores disponíveis
 - ❌ Não depende de serviços externos (DB, APIs)
 
@@ -3684,16 +3684,16 @@ NÃO executar rollback SE:
 - **Alto Risco**: Tasks criadas/editadas após deploy v2.0.0 (não existem no backup)
 - **Baixo Risco**: Tasks existentes antes de v2.0.0 (preservadas no backup)
 
-**Mitigação**: Exportar SQLite → JSON antes de rollback para preservar mudanças recentes.
+**Mitigação**: Exportar SQLite → DATA antes de rollback para preservar mudanças recentes.
 
 ```bash
 # Script de export antes de rollback
 python -c "
-import sqlite3, json
+import sqlite3, data
 conn = sqlite3.connect('~/.config/clarify/clarify.db')
 cursor = conn.execute('SELECT * FROM tasks')
 tasks = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
-json.dump({'tasks': tasks}, open('rollback-export.json', 'w'), indent=2)
+data.dump({'tasks': tasks}, open('rollback-export.data', 'w'), indent=2)
 "
 # Usuários podem manualmente mesclar mudanças depois
 ```
@@ -3725,13 +3725,13 @@ class Config:
         if self.SQLITE_STORAGE_ENABLED:
             return SQLiteStorage()
         else:
-            return JSONStorage()  # Fallback seguro
+            return DATAStorage()  # Fallback seguro
 
 # Em caso de problema, desabilitar remotely:
 # export CLARIFY_SQLITE_ENABLED=false
 # Ou via config file / dashboard admin
 
-# Usuários automaticamente voltam para JSON sem reinstalar
+# Usuários automaticamente voltam para DATA sem reinstalar
 ```
 
 **Reversible Migrations**:
@@ -3740,34 +3740,34 @@ class Config:
 # Migrations devem ser reversíveis
 
 class MigrationV2:
-    """Migration from JSON to SQLite - REVERSIBLE."""
+    """Migration from DATA to SQLite - REVERSIBLE."""
     
     def up(self):
-        """Migrate JSON → SQLite."""
-        # 1. Criar backup JSON
-        shutil.copy("tasks.json", "tasks.json.backup")
+        """Migrate DATA → SQLite."""
+        # 1. Criar backup DATA
+        shutil.copy("tasks.data", "tasks.data.backup")
         
         # 2. Criar SQLite schema
         self._create_sqlite_schema()
         
         # 3. Migrar dados
-        self._migrate_json_to_sqlite()
+        self._migrate_data_to_sqlite()
         
-        # 4. NÃO deletar JSON (manter para rollback)
-        # os.remove("tasks.json")  ❌ NUNCA fazer isso
+        # 4. NÃO deletar DATA (manter para rollback)
+        # os.remove("tasks.data")  ❌ NUNCA fazer isso
     
     def down(self):
-        """Rollback SQLite → JSON."""
-        if not os.path.exists("tasks.json.backup"):
-            raise RollbackError("Backup JSON not found - cannot rollback!")
+        """Rollback SQLite → DATA."""
+        if not os.path.exists("tasks.data.backup"):
+            raise RollbackError("Backup DATA not found - cannot rollback!")
         
         # 1. Restaurar backup
-        shutil.copy("tasks.json.backup", "tasks.json")
+        shutil.copy("tasks.data.backup", "tasks.data")
         
         # 2. Remover SQLite
         os.remove("clarify.db")
         
-        print("✅ Rollback completo - usando JSON storage")
+        print("✅ Rollback completo - usando DATA storage")
 ```
 
 **Checklist de Rollback Plan**:
@@ -3831,7 +3831,7 @@ class MigrationV2:
 - [arquivo1.py] (+X linhas)
 - [arquivo2.py] (~Y linhas)
 - [tests/test_X.py] (NOVO - Z linhas)
-- [docs/TASKS.md] (estatísticas atualizadas)
+- [docs/REQUIREMENTS.md] (estatísticas atualizadas)
 
 <ESTATÍSTICAS ATUALIZADAS>:
 - [CATEGORIA]: X → Y completas (A% → B%)
@@ -3844,13 +3844,13 @@ Refs: [documentação relacionada]
 Closes: Task #X (vX.X.X)
 ```
 
-**Exemplo Real** (Task #23):
+**Exemplo Real** (Task Example):
 ```bash
-git add src/ tests/ docs/TASKS.md
-git commit -m "feat: completar Task #23 - Orphaned Keys Update System (v2.9.14)
+git add src/ tests/ docs/REQUIREMENTS.md
+git commit -m "feat: completar Task Example - Feature Update System (vX.Y.Z)
 
 PROBLEMA ORIGINAL:
-- Implementação v2.9.10 usava string_similarity() (ERRADO)
+- Implementação vX.Y.Z usava string_similarity() (ERRADO)
 - Não detectava valores duplicados, apenas similaridade de nomes
 ...
 
@@ -3860,7 +3860,7 @@ PROBLEMA ORIGINAL:
    - Retorna Dict[str, str] (path → value)
 ...
 
-Closes: Task #23 (v2.9.14)"
+Closes: Task Example (vX.Y.Z)"
 
 git push
 ```
@@ -3879,25 +3879,25 @@ Toda implementação deve cumprir **100% destes critérios**:
 | 4 | **Tratamento de Erros** | Try/except com mensagens claras | `except Exception as e:` |
 | 5 | **Testes** | Unitários + integração (100% coverage) | `tests/test_*.py` passing |
 | 6 | **Commits Semânticos** | Conventional Commits | `feat:`, `fix:`, `docs:` |
-| 7 | **Documentação** | TASKS.md + vX.X.X-SPECIFICATIONS.md | Atualizado e completo |
+| 7 | **Documentação** | REQUIREMENTS.md + SPECIFICATIONS.md | Atualizado e completo |
 | 8 | **Código Limpo** | PEP8, nomes semânticos, DRY | Funções < 50 linhas |
 
 ---
 
-## 📊 Aplicação Prática: Task #23 (Exemplo Completo)
+## 📊 Aplicação Prática: Task Example (Exemplo Completo)
 
 ### Situação Inicial
 ```markdown
 Tasks pendentes na categoria SHOULD HAVE:
-[ ] Editor de texto integrado (MUITO COMPLEXO)
+[ ] Complex Feature Example (MUITO COMPLEXO)
 [ ] Busca com IA semântica (MUITO COMPLEXO)
-[⚠️] Orphaned Keys Update (PARCIAL - mais simples!) ✅ ESCOLHIDA
+[⚠️] Feature Update (PARCIAL - mais simples!) ✅ ESCOLHIDA
 [ ] Google Translate API integration (COMPLEXO)
 ```
 
 ### Sprint Planejada
 ```
-v2.9.14: Completar Task #23
+vX.Y.Z: Completar Task Example
 Estimativa: 3-4 horas
 Complexidade: MÉDIA (mais simples que as outras)
 ```
@@ -3905,11 +3905,11 @@ Complexidade: MÉDIA (mais simples que as outras)
 ### Execução (Protocolo Simplicidade 1)
 
 **1. Ler Documentação** ✅
-- Lido: `docs/TASK_23_ORPHANED_KEYS_SPECIFICATION.md` (662 linhas)
+- Lido: `docs/FEATURE_SPEC.md` (662 linhas)
 - Entendido: problema de string similarity vs. value equality
 
 **2. Escolher Tarefa Simples** ✅
-- Task #23 é **mais simples** que editor de texto ou IA
+- Task Example é **mais simples** que editor de texto ou IA
 - Escopo claro: 2 funções principais + integração
 
 **3. Fazer Perguntas** ✅
@@ -3954,8 +3954,8 @@ Resultado: 12/12 passing (100%)
 **7. Documentação** ✅
 ```
 Arquivos criados/atualizados:
-- docs/TASKS.md (Task #23 marcada [X])
-- docs/TASK_23_ORPHANED_KEYS_SPECIFICATION.md (já existia)
+- docs/REQUIREMENTS.md (Task Example marcada [X])
+- docs/FEATURE_SPEC.md (já existia)
 - tests/test_reference_updater.py (NOVO - 350 linhas)
 Estatísticas: 59.6% → 60.6% (63 tasks completas)
 ```
@@ -3968,7 +3968,7 @@ Status: pushed para GitHub ✅
 ```
 
 ### Resultado Final
-✅ **Task #23 100% completa**  
+✅ **Task Example 100% completa**  
 ✅ **Protocolo Simplicidade 1: 10/10 etapas cumpridas** (v1.1 - 10 etapas)  
 ✅ **Tempo real: ~3h (dentro da estimativa)**  
 ✅ **Zero bugs detectados**  
@@ -3981,7 +3981,7 @@ Status: pushed para GitHub ✅
 ## 🎓 Lições Aprendidas
 
 ### ✅ O Que Funciona
-1. **Escolher o mais simples**: Task #23 era mais fácil que editor de texto
+1. **Escolher o mais simples**: Task Example era mais fácil que editor de texto
 2. **Incrementalidade**: Função auxiliar → principal → integração
 3. **Testes primeiro**: Detectou 2 ajustes necessários antes de commitar
 4. **Documentação completa**: Facilita manutenção futura
@@ -4001,18 +4001,18 @@ Status: pushed para GitHub ✅
 
 4. **Não fazer commits genéricos**
    - ❌ `git commit -m "updates"`
-   - ✅ `git commit -m "feat: Task #23 com VALUE EQUALITY (60 linhas)"`
+   - ✅ `git commit -m "feat: Task Example com VALUE EQUALITY (60 linhas)"`
 
 ---
 
 ## 📚 Referências
 
-- **TASKS.md**: Lista completa de tarefas do projeto
-- **v2.9.10-ANTES-DEPOIS.md**: Primeiro exemplo do protocolo
-- **v2.9.11-SPECIFICATIONS.md**: Sprint com 3 tasks simples
-- **v2.9.12-SPECIFICATIONS.md**: Iterações rápidas
-- **v2.9.13-SPECIFICATIONS.md**: 4 melhorias de UX
-- **TASK_23_ORPHANED_KEYS_SPECIFICATION.md**: Exemplo de documentação detalhada
+- **REQUIREMENTS.md**: Lista completa de tarefas do projeto
+- **vX.Y.Z-COMPARISON.md**: Primeiro exemplo do protocolo
+- **vX.Y.Z-SPECIFICATIONS.md**: Sprint com 3 tasks simples
+- **vX.Y.Z-SPECIFICATIONS.md**: Iterações rápidas
+- **vX.Y.Z-SPECIFICATIONS.md**: 4 melhorias de UX
+- **FEATURE_SPEC.md**: Exemplo de documentação detalhada
 
 ---
 
@@ -4119,7 +4119,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 
 ### 3. Pair Programming em Features Complexas
 **Impacto**: ALTO  
-**O que funcionou**: Migração SQLite (Task #67) feita em pair = zero retrabalho.  
+**O que funcionou**: Migração SQLite (Task Example) feita em pair = zero retrabalho.  
 **Evidência**: PR aprovado first-time, nenhuma mudança solicitada.  
 **Ação**: Usar pair programming para tasks com risco > MÉDIO.
 
@@ -4133,17 +4133,17 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 **Evidência**: 8 tasks × 30min = 4 horas gastas em testes manuais.  
 **Root Cause**: Falta de testes automatizados para GUI.  
 **Ação**: 
-- [ ] Implementar pytest-qt para testes GUI automatizados (Task #89)
-- [ ] Criar smoke test suite que roda em CI (Task #90)
+- [ ] Implementar pytest-qt para testes GUI automatizados (Task Example)
+- [ ] Criar smoke test suite que roda em CI (Task Example)
 - **Owner**: Josué | **Deadline**: Sprint #6
 
-### 2. Scope Creep em Task #67
+### 2. Scope Creep em Task Example
 **Impacto**: MÉDIO  
 **Problema**: Task "Migrar para SQLite" cresceu de 8 SP → 13 SP durante sprint.  
 **Evidência**: Task levou 3 dias em vez de 2 dias estimados.  
 **Root Cause**: Subestimamos complexidade de migration + rollback plan.  
 **Ação**:
-- [ ] Adicionar buffer de 25% em estimativas de tasks "primeira vez" (Task #91)
+- [ ] Adicionar buffer de 25% em estimativas de tasks "primeira vez" (Task Example)
 - [ ] Dividir épicos grandes em tasks menores (<5 SP cada)
 - **Owner**: Alice | **Deadline**: Próximo planning
 
@@ -4153,7 +4153,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 **Evidência**: ADR-004 commitado 2 dias após merge do PR #145.  
 **Root Cause**: Esquecemos de incluir ADR no checklist do PR.  
 **Ação**:
-- [ ] Atualizar PR template para incluir "ADR criado?" (Task #92)
+- [ ] Atualizar PR template para incluir "ADR criado?" (Task Example)
 - [ ] Pre-commit hook para checar se docs/adr/ foi modificado quando src/ muda
 - **Owner**: Josué | **Deadline**: Sprint #6
 
@@ -4267,14 +4267,14 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 ## 📊 Esta Semana
 
 ### Completei
-- ✅ Task #67: Migração SQLite (13 SP)
-- ✅ Task #68: Rollback plan (3 SP)
-- ✅ Task #70: ADR documentation (2 SP)
+- ✅ Task Example: Migração SQLite (13 SP)
+- ✅ Task Example: Rollback plan (3 SP)
+- ✅ Task Example: ADR documentation (2 SP)
 
 **Total**: 18 SP (meta: 20 SP) - 90% 👍
 
 ### Não Completei
-- ❌ Task #69: GUI performance otimization (5 SP)
+- ❌ Task Example: GUI performance otimization (5 SP)
   - **Por quê**: Subestimei complexidade, precisa mais pesquisa
 
 ## 💭 Reflexão
@@ -4286,7 +4286,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 
 ### O que não funcionou
 1. **Tarde com reuniões** - Zero código após 15h, muito context switch
-2. **Não usei Protocolo Simplicidade completo** - Pulei testes em Task #70 (ADR) e depois tive que voltar corrigir
+2. **Não usei Protocolo Simplicidade completo** - Pulei testes em Task Example (ADR) e depois tive que voltar corrigir
 3. **Procrastinei performance optimization** - Tarefa difícil, fiquei adiando
 
 ### O que vou tentar
@@ -4304,7 +4304,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 ## 🎯 Próxima Semana
 
 **Focos**:
-1. Completar Task #69 (performance) - PRIMEIRA coisa segunda-feira
+1. Completar Task Example (performance) - PRIMEIRA coisa segunda-feira
 2. Seguir protocolo 100% - sem pular etapas
 3. Manter time-blocking 9-13h deep work
 

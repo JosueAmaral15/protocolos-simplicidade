@@ -1,133 +1,23 @@
-# Protocolo Simplicidade 3 - Solo Developer em Produção
+# Protocolo Simplicidade 1
 
 **Autor**: Josué Amaral  
-**Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.1  
-**Última Atualização**: 09 de Dezembro de 2025  
-**Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+**Data de Criação**: 30 de Novembro de 2025  
+**Versão**: 2.0  
+**Última Atualização**: 10 de Dezembro de 2025  
+**Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
 
----
+**Changelog v2.0** (10/12/2025):
+- ✅ **[COMPLEMENTAÇÃO]** Adicionada seção "🎯 Quando Usar Simplicidade 1?"
+- ✅ Critérios claros: ✅ Quando usar (8 critérios) | ❌ Quando NÃO usar (6 critérios)
+- ✅ Migração: Quando evoluir para Simplicidade 2 (equipes) ou 3 (produção solo)
+- ✅ Rationale detalhado: Por quê Simplicidade 1 é ágil mas insuficiente para produção
+- ✅ Inspiração: Conceitos adaptados do Simplicidade 3 v3.1 (tabelas comparativas, critérios)
 
-## 🎯 Por Quê Simplicidade 3 Existe?
-
-### Contexto do Projeto
-- 👤 **Solo Developer**: Você programa sozinho (sem equipe)
-- 🚀 **Produção**: Aplicação tem usuários reais dependendo
-- ⚠️ **Crítico**: Bugs afetam usuários, downtime tem impacto
-- 📈 **Evolutivo**: Projeto de longo prazo, não é protótipo
-
-### Por Quê NÃO Simplicidade 1?
-❌ **Simplicidade 1** é **insuficiente para produção**:
-- ❌ Sem security checklist → Vulnerabilidades podem ir para produção
-- ❌ Sem CI/CD automation → Validação manual = erros humanos
-- ❌ Sem rollback plan → Se quebrar em produção, você está sozinho debugando
-- ❌ Sem profiling → Performance degrada sem você perceber
-- ❌ Documentação básica → Você esquece decisões complexas após 3 meses
-
-**Risco Real**: Aplicação simples hoje = dívida técnica gigante em 6 meses.
-
-### Por Quê NÃO Simplicidade 2?
-❌ **Simplicidade 2** tem **overhead de equipe** desnecessário para solo dev:
-- ❌ **Code Review por Pares** (Etapa 9.5) → Você não tem pares
-- ❌ **Sprint Retrospectives formais** (Etapa 13.5) → Overkill para uma pessoa
-- ❌ **ADR formais** (Etapa 11.5) → Pode simplificar para notas de decisão
-- ❌ **Accessibility WCAG** (Etapa 8.5) → Só se app for público/acessível
-- ❌ **API Documentation Sphinx** (Etapa 6.6) → Docstrings são suficientes
-
-**Problema Real**: Burocracia consome tempo de desenvolvimento sem ganho real para solo.
-
-### ✅ Simplicidade 3 - Solução Híbrida
-
-**Filosofia**: **Segurança e automação de produção** SEM overhead de equipe.
-
-**Fórmula**:
-```
-Simplicidade 3 = Base Simplicidade 1 (13 etapas)
-                 + 3 OBRIGATÓRIAS de produção (Security, CI/CD, Rollback)
-                 + 3 OPCIONAIS pragmáticas (Matriz, Profiling, Notas ADR)
-                 = 16-19 etapas totais
-```
-
-**Etapas OBRIGATÓRIAS Adicionais** (vs Simplicidade 1):
-1. ⭐ **Etapa 6.5: Security Checklist OWASP** - CRÍTICO para produção
-2. ⭐ **Etapa 10.6: CI/CD Quality Gates** - Automação essencial
-3. ⭐ **Etapa 12.5: Rollback Plans** - Segurança em deploy
-
-**Etapas OPCIONAIS Adaptadas** (quando fizer sentido):
-4. 📊 **Etapa 2.5: Matriz de Decisão** - Quando tem 10+ tasks para priorizar
-5. ⚡ **Etapa 10.5: Profiling** - Para features lentas (>1s)
-6. 📝 **Etapa 11.5: Notas de Decisão** - ADR simplificado (não formal)
-
-**Removidas do Simplicidade 2** (não fazem sentido solo):
-- ❌ Etapa 9.5: Code Review por Pares
-- ❌ Etapa 13.5: Sprint Retrospectives formais
-- ❌ Etapa 8.5: Accessibility WCAG (a menos que app seja público)
-- ❌ Etapa 6.6: API Documentation formal (docstrings suficientes)
-
----
-
-## 📊 Comparação dos Protocolos
-
-| Aspecto | Simplicidade 1 | Simplicidade 3 | Simplicidade 2 |
-|---------|----------------|----------------|----------------|
-| **Etapas** | 13 obrigatórias | 16 obrig + 3 opc | 13 obrig + 10 opc |
-| **Cenário** | Protótipos/interno | **Solo em produção** | Equipes enterprise |
-| **Security** | ❌ Não | ✅ OWASP obrigatório | ✅ OWASP obrigatório |
-| **CI/CD** | ❌ Não | ✅ Obrigatório | ✅ Obrigatório |
-| **Rollback** | ❌ Não | ✅ Obrigatório | ✅ Obrigatório |
-| **Code Review** | ❌ Não | ❌ Solo | ✅ Pares |
-| **Retrospectives** | ❌ Não | ❌ Solo | ✅ Equipe |
-| **Overhead** | Baixo | **Médio** | Alto |
-| **Produção** | ❌ Não recomendado | ✅ **IDEAL** | ✅ Sim |
-| **Time/Task** | ~2-3h | ~3-4h | ~4-6h |
-
----
-
-## 🎯 Quando Usar Simplicidade 3?
-
-### ✅ Use Simplicidade 3 SE:
-- ✅ Você programa **sozinho** (solo developer)
-- ✅ Aplicação está ou vai para **produção**
-- ✅ Tem **usuários reais** dependendo (não é protótipo)
-- ✅ Bugs têm **impacto** (downtime, perda de dados)
-- ✅ Projeto de **longo prazo** (>6 meses)
-- ✅ Precisa **segurança** (dados de usuários, LGPD)
-- ✅ Quer **automação** (CI/CD para não depender de memória)
-
-### ❌ NÃO use Simplicidade 3 SE:
-- ❌ Protótipo/POC descartável → Use **Simplicidade 1**
-- ❌ Script de uso único → Use **Simplicidade 1**
-- ❌ Equipe de 2+ pessoas → Use **Simplicidade 2** (tem code review)
-- ❌ App interno não-crítico → Use **Simplicidade 1**
-- ❌ Aprendendo/experimentando → Use **Simplicidade 1**
-
----
-
-**Changelog v3.1** (09/12/2025):
+**Changelog v1.9** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
 - ✅ Rationale: Acelera decisões, reduz carga cognitiva, mantém consistência com código existente
 - ✅ Classificação: **OPCIONAL mas ALTAMENTE RECOMENDADO**
-
-**Changelog v3.0** (02/12/2025):
-- ✅ **[HÍBRIDO]** Criado Protocolo Simplicidade 3 para solo developer em produção
-- ✅ Base: Simplicidade 1 (13 etapas) + 3 obrigatórias de produção
-- ✅ **OBRIGATÓRIAS NOVAS**:
-  - Etapa 6.5: Security Checklist OWASP (⭐ ALTA PRIORIDADE)
-  - Etapa 10.6: CI/CD Quality Gates (⭐ ALTA PRIORIDADE)
-  - Etapa 12.5: Rollback Plans (⭐ ALTA PRIORIDADE)
-- ✅ **OPCIONAIS PRAGMÁTICAS**:
-  - Etapa 2.5: Matriz de Decisão (quando 10+ tasks)
-  - Etapa 10.5: Profiling e Otimização (features lentas)
-  - Etapa 11.5: Notas de Decisão (ADR simplificado)
-- ✅ **REMOVIDAS** (não fazem sentido solo):
-  - ❌ Code Review por Pares (sem pares)
-  - ❌ Sprint Retrospectives formais (overkill solo)
-  - ❌ Accessibility WCAG (a menos que público)
-  - ❌ API Documentation formal (docstrings suficientes)
-- ✅ Rationale detalhado: Por quê não Simplicidade 1 ou 2
-- ✅ Tabela comparativa dos 3 protocolos
-- ✅ Total: 16 obrigatórias + 3 opcionais = 16-19 etapas
 
 **Changelog v1.8** (02/12/2025):
 - ✅ **[REORGANIZAÇÃO]** Revisão de Código integrada nas etapas CLI e GUI
@@ -166,7 +56,7 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 - ✅ Dry-run obrigatório antes de executar testes (syntax + import + collect)
 - ✅ Checklist de segurança com 6 itens obrigatórios
 - ✅ Regras de ouro e comandos seguros documentados
-- ✅ Lições aprendidas do Task #50 (loop infinito >1h)
+- ✅ Lições aprendidas de bugs críticos em produção
 
 **Changelog v1.4**:
 - ✅ Reorganizada ordem final: Implementar → Integrar GUI → CLI → Testar → Organizar → Documentar → Commit
@@ -192,37 +82,55 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 **Princípio**: Do simples ao complexo, incremental, profissional e completo.
 
-**NOVO v3.0**: + **Segurança e automação para produção** sem overhead de equipe.
+---
+
+## 🎯 Quando Usar Simplicidade 1?
+
+### ✅ Use Simplicidade 1 SE:
+- ✅ Projeto **solo** ou pequena equipe (1-3 devs)
+- ✅ Features **simples a médias**
+- ✅ **Prototipagem rápida** ou POC
+- ✅ Primeiro desenvolvimento de uma funcionalidade
+- ✅ **Velocidade** é mais importante que perfeição
+- ✅ Projetos **internos não-críticos**
+- ✅ **Aprendendo** novas tecnologias ou experimentando
+- ✅ Scripts de **uso único** ou ferramentas temporárias
+
+### ❌ NÃO use Simplicidade 1 SE:
+- ❌ Aplicação **crítica de produção** → Use **Simplicidade 3** (solo) ou **Simplicidade 2** (equipe)
+- ❌ Sistema com **requisitos de segurança** (dados sensíveis, LGPD) → Use **Simplicidade 3**
+- ❌ Features de **alto impacto/risco** → Use **Simplicidade 2** ou **3**
+- ❌ Equipes **grandes** (>5 devs) → Use **Simplicidade 2**
+- ❌ Biblioteca/API **pública** → Use **Simplicidade 2**
+- ❌ Sistema com **requisitos de performance** críticos → Use **Simplicidade 2** ou **3**
+
+### 🔄 Quando Migrar para Outros Protocolos?
+- **→ Simplicidade 3**: Quando projeto interno virar produção com usuários reais
+- **→ Simplicidade 2**: Quando equipe crescer para 3+ desenvolvedores
+
+**Rationale**: Simplicidade 1 é **ágil e pragmático** para desenvolvimento rápido, mas **não tem camadas de segurança críticas para produção** (security checklist, CI/CD, rollback plans). É perfeito para **aprender, prototipar e iterar rapidamente**, mas deve ser **upgradado** quando o código for para produção ou equipe crescer.
 
 ---
 
-## 📋 Espinha Dorsal do Protocolo (16 Etapas Obrigatórias)
+## 📋 Espinha Dorsal do Protocolo (13 Etapas)
 
-**Resumo Executivo** (⭐ = NOVO vs Simplicidade 1):
+**Resumo Executivo**:
 1. 📚 Ler a documentação
 2. ✅ Escolher tarefas mais simples
-   - 2.5 📊 [OPCIONAL] Matriz de Decisão (quando 10+ tasks)
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
 4. 🔍 Analisar e estudar o projeto
 5. 🎯 Fazer sprints das tarefas mais simples
 6. 💻 Implementar com arquitetura profissional (GoF + GRASP)
-   - 6.5 🔒 ⭐ **Security Checklist OWASP** (OBRIGATÓRIO)
-7. ⌨️ Verificar Implementação CLI + Revisão de Código (9 critérios)
-8. 🖥️ Verificar Implementação GUI + Revisão de Código (9 critérios)
-9. 🔗 Verificar Integração com Programa Principal
+7. ⌨️ **Verificar Implementação CLI + Revisão de Código (9 critérios)**
+8. 🖥️ **Verificar Implementação GUI + Revisão de Código (9 critérios)**
+9. 🔗 **Verificar Integração com Programa Principal**
 🔟 🧪 Fazer testes (100% cobertura)
-   - 10.5 ⚡ [OPCIONAL] Profiling e Otimização (se >1s)
-   - 10.6 🤖 ⭐ **CI/CD Quality Gates** (OBRIGATÓRIO)
 1️⃣1️⃣ 🧹 Organizar pasta raiz
-   - 11.5 📝 [OPCIONAL] Notas de Decisão (ADR simplificado)
 1️⃣2️⃣ 📝 Preencher documentação
-   - 12.5 🔄 ⭐ **Rollback Plans** (OBRIGATÓRIO)
 1️⃣3️⃣ 🚀 Fazer commit e push
 
-**Total**: 13 base + 3 obrigatórias novas ⭐ + 3 opcionais = **16-19 etapas**
-
 ### 1️⃣ **Ler a Documentação**
-- Consultar `docs/TASKS.md` para entender o contexto do projeto
+- Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
 - Entender dependências e arquitetura existente
 - Verificar exemplos em `tests/files/` quando aplicável
@@ -246,48 +154,10 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 **Exemplo Real**:
 ```
 Lista de tasks complexas restantes:
-[ ] Editor de texto integrado (MUITO COMPLEXO - 50h)
+[ ] Complex Feature Example (MUITO COMPLEXO - 50h)
 [ ] Busca com IA semântica (COMPLEXO - 20h)
 [ ] Tooltip preview em hover (SIMPLES - 30min) ✅ COMEÇAR POR AQUI!
 ```
-
----
-
-### 2️⃣.5️⃣ **Matriz de Decisão Objetiva** [OPCIONAL]
-
-**Quando Usar**: Quando tem 10+ tasks e não está óbvio qual é mais simples.
-
-**O quê é**: Sistema de pontuação com 5 critérios (0-5 pontos cada):
-1. **Simplicidade Técnica** (código, algoritmo, conceitos novos)
-2. **Dependências** (arquivos a modificar, módulos afetados)
-3. **Impacto** (valor usuário, frequência uso)
-4. **Clareza** (requisitos definidos, exemplos)
-5. **Risco** (quebrar código, reversibilidade)
-
-**Fórmula**:
-```
-Prioridade = (Simplicidade × 2) + Dependências + (Impacto × 1.5) + Clareza + Risco
-```
-
-**Interpretação**:
-- **30-35 pontos**: 🟢 IDEAL - Começar imediatamente
-- **20-29 pontos**: 🟡 BOM
-- **10-19 pontos**: 🟠 MÉDIO
-- **0-9 pontos**: 🔴 COMPLEXO - Deixar por último
-
-**Exemplo Rápido**:
-
-| Task | Simpl | Dep | Imp | Clar | Risc | **Score** | Decisão |
-|------|-------|-----|-----|------|------|-----------|---------|
-| **Tooltip Preview** | 5 | 5 | 3 | 5 | 5 | **33.5** 🟢 | **ESCOLHER** |
-| **Editor Integrado** | 1 | 2 | 5 | 4 | 2 | **20.5** 🟡 | Depois |
-
-**Quando NÃO usar**:
-- ❌ Apenas 1-3 tasks (óbvio qual é mais simples)
-- ❌ Bugfix urgente (ignora pontuação)
-- ❌ Task bloqueante (prioridade absoluta)
-
-📘 **Detalhes completos**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 2.5 (template, exemplos)
 
 ---
 
@@ -295,7 +165,7 @@ Prioridade = (Simplicidade × 2) + Dependências + (Impacto × 1.5) + Clareza + 
 - **CRÍTICO**: Nunca assumir ou adivinhar requisitos
 - Fazer **todas as perguntas necessárias** até sanar **100% das dúvidas**
 - Validar entendimento antes de começar a implementar
-- 🤖 **[NOVO v3.1]** A IA **PODE e É ALTAMENTE RECOMENDADA** fornecer **sugestões e palpites** de resposta para cada pergunta (opcional, mas incentivado)
+- 🤖 **[NOVO v1.9]** A IA **PODE e É ALTAMENTE RECOMENDADA** fornecer **sugestões e palpites** de resposta para cada pergunta (opcional, mas incentivado)
 
 **Formato Recomendado de Perguntas com Sugestões**:
 ```
@@ -336,16 +206,16 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
    - "Minha solução proposta é [Y]. Faz sentido?"
    - "Posso começar ou há algo que esqueci?"
 
-**Exemplo Real (Task #23)**:
+**Exemplo de Validação de Requisitos**:
 ```
-❓ "Pegar primeiras N palavras (quantas? 3-5?)?"
+❓ "Quantos caracteres/elementos devem ser processados? (default: 30?)"
 ✅ Resposta: "Default pode ser 30 caracteres"
 
-❓ "Converter para camelCase removendo acentos?"
-✅ Resposta: "Sim, devem ser removidos acentos"
+❓ "Deve aplicar normalização de texto (remover acentos, converter case)?"
+✅ Resposta: "Sim, devem ser normalizados"
 
-❓ "Conflitos de nomes: como resolver?"
-✅ Resposta: "Se tiverem a mesma chave pai, não mexa. Linha menor vence."
+❓ "Como resolver conflitos quando houver duplicatas?"
+✅ Resposta: "Usar critério de prioridade específico (ex: mais antigo vence)"
 ```
 
 **Por quê?**: Economiza tempo, evita retrabalho, garante que a solução atende exatamente o que foi pedido.
@@ -361,8 +231,8 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 **Checklist de Análise**:
 1. **Leitura de Documentação**:
-   - `docs/TASKS.md` - Contexto geral do projeto
-   - `docs/vX.X.X-SPECIFICATIONS.md` - Especificações de versões anteriores
+   - `docs/` - Contexto geral do projeto e especificações
+   - Documentos de design e arquitetura
    - `README.md` - Visão geral e instruções de uso
    - Docstrings de módulos relacionados
 
@@ -384,15 +254,17 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
    - Há testes que precisam ser atualizados?
    - A API pública será mantida?
 
-**Exemplo Real (Task #45 - Tutorials)**:
+**Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
+
+**Exemplo de Análise de Código Existente**:
 ```
-✅ Analisado: Outros docks (JsonTranslateDock, JsonRewriterDock)
-✅ Identificado: Padrão BaseDock com FileInputMixin
-✅ Verificado: QTreeWidget + QTextBrowser para navegação
-✅ Estudado: Como outros módulos fazem markdown → HTML
-✅ Localizado: Onde adicionar imports em app.py
-✅ Confirmado: Estrutura de menu em _build_menu()
-→ Resultado: Implementação em 2h ao invés de 5h (economia de 60%)
+✅ Analisado: Implementações similares existentes no projeto
+✅ Identificado: Padrões de classes base e mixins utilizados
+✅ Verificado: Widgets e componentes UI reutilizáveis
+✅ Estudado: Como outros módulos resolvem problemas semelhantes
+✅ Localizado: Onde adicionar novos imports no código principal
+✅ Confirmado: Estrutura de integração com sistema existente
+→ Resultado: Implementação mais rápida e consistente (economia de 60%)
 ```
 
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
@@ -402,16 +274,16 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 ### 5️⃣ **Fazer Sprints das Tarefas Mais Simples**
 - Agrupar 2-4 tarefas relacionadas em um sprint
 - Estimar tempo total: **máximo 3-4 horas** por sprint
-- Manter foco: **uma sprint = uma versão (ex: v2.9.14)**
+- Manter foco: **uma sprint = uma versão incremental**
 
 **Estrutura de Sprint**:
 ```
-Sprint v2.9.14 (Exemplo Task #23):
-├── Task #23: Orphaned Keys Update (3h estimado)
+Sprint vX.Y.Z (Exemplo de Feature):
+├── Task: Feature Implementation (3h estimado)
 │   ├── Subtask 1: Fazer perguntas ao programador (15min)
-│   ├── Subtask 2: extract_all_keys_from_obj() (45min)
-│   ├── Subtask 3: build_substitution_map_by_value() (45min)
-│   ├── Subtask 4: Integração em cli_dedupe() (30min)
+│   ├── Subtask 2: Implementar função auxiliar principal (45min)
+│   ├── Subtask 3: Implementar função de processamento (45min)
+│   ├── Subtask 4: Integração com código existente (30min)
 │   ├── Subtask 5: Testes unitários (60min)
 │   └── Subtask 6: Documentação (30min)
 └── Total: 3h45min ✅
@@ -536,10 +408,10 @@ class SnakeCaseStrategy(CaseStrategy):
 class ProcessorFactory:
     @staticmethod
     def create(type: str) -> Processor:
-        if type == "json":
-            return JSONProcessor()
-        elif type == "ts":
-            return TypeScriptProcessor()
+        if type == "type_a":
+            return ProcessorA()
+        elif type == "type_b":
+            return ProcessorB()
 ```
 
 3. **Observer Pattern** (notificação de eventos):
@@ -567,24 +439,24 @@ class ReplaceCommand:
 
 1. **Information Expert**: Atribua responsabilidade a quem tem a informação
 ```python
-# ✅ BOM: Dictionary tem a info, então tem o método
-class TranslationDictionary:
+# ✅ BOM: Classe tem a informação, então tem o método
+class DataStore:
     def __init__(self, data: dict):
         self._data = data
     
     def get_value(self, key_path: str) -> Optional[str]:
-        """Dictionary conhece sua estrutura"""
+        """Classe conhece sua estrutura"""
         return self._navigate_path(key_path)
 
 # ❌ RUIM: Classe externa manipula estrutura interna
-def get_value_from_dict(dict_data, key_path):
+def get_value_from_data(data_store, key_path):
     # Acesso direto à estrutura interna do dict
 ```
 
 2. **Creator**: Classe A cria B se A contém/agrega B
 ```python
 # ✅ BOM: RewriterDock cria seus próprios widgets
-class JsonRewriterDock(BaseDock):
+class ComponentB(BaseDock):
     def __init__(self):
         self._create_widgets()  # Creator pattern
         self._setup_layout()
@@ -653,184 +525,32 @@ def complex_function_with_everything():
 
 **Padrão Correto** ✅:
 ```python
-# Módulo: src/rewriter/key_extractor.py
-class KeyExtractor:
-    """Alta coesão: só extrai chaves"""
-    def extract_from_obj(self, data) -> Dict[str, str]:
-        return self._recurse(data, prefix='t')
+# Módulo: src/processor/extractor.py
+class DataExtractor:
+    """Alta coesão: só extrai dados"""
+    def extract_from_source(self, data) -> Dict[str, str]:
+        return self._recurse(data, prefix='item')
 
-# Módulo: src/rewriter/substitution_builder.py
-class SubstitutionMapBuilder:
-    """Alta coesão: só constrói mapas"""
-    def build_by_value(self, old, new) -> Dict[str, str]:
+# Módulo: src/processor/transformer.py
+class DataTransformer:
+    """Alta coesão: só transforma dados"""
+    def transform(self, old, new) -> Dict[str, str]:
         return self._match_values(old, new)
 
-# Módulo: src/rewriter/reference_updater.py
-class ReferenceUpdater:
+# Módulo: src/processor/updater.py
+class DataUpdater:
     """Baixo acoplamento: usa interfaces"""
-    def __init__(self, extractor: KeyExtractor, builder: SubstitutionMapBuilder):
+    def __init__(self, extractor: DataExtractor, transformer: DataTransformer):
         self._extractor = extractor  # Injeção de dependência
-        self._builder = builder
+        self._transformer = transformer
     
     def update_project(self, dir: str) -> Dict[str, int]:
         """Coordena mas não implementa tudo"""
         old = self._extractor.extract(self._read_old())
         new = self._extractor.extract(self._read_new())
-        map = self._builder.build_by_value(old, new)
-        return self._apply_to_files(dir, map)
+        mapping = self._transformer.transform(old, new)
+        return self._apply_to_files(dir, mapping)
 ```
-
----
-
-### 6️⃣.5️⃣ **Security Checklist OWASP** ⭐ [OBRIGATÓRIO]
-
-> **CRÍTICO PARA PRODUÇÃO**: Esta etapa é **OBRIGATÓRIA** no Simplicidade 3.
-
-**Por quê obrigatório para produção**:
-- ✅ Vulnerabilidades afetam **usuários reais**
-- ✅ Você está **sozinho** - sem segundo par de olhos
-- ✅ LGPD/GDPR se aplica a dados de usuários
-- ✅ Checklist rápido (10-15min) previne problemas caros
-
-**OWASP Top 10 - Checklist Simplificado**:
-
-```markdown
-## Security Checklist - Task #XX
-
-### 1. Injection (SQL, Command, Code)
-- [ ] Todas queries SQL usam **parametrização** (sem f-strings)?
-- [ ] Comandos shell sanitizados (**shlex.quote()** ou evitados)?
-- [ ] `eval()`, `exec()`, `__import__()` NÃO usados?
-
-### 2. Autenticação
-- [ ] Senhas NUNCA em plaintext (usar **bcrypt/argon2**)?
-- [ ] Tokens/sessions têm **expiração** e **invalidação**?
-- [ ] Rate limiting em endpoints de login (prevenir brute-force)?
-
-### 3. Dados Sensíveis
-- [ ] Dados sensíveis **NÃO** em logs (senhas, tokens, CPF)?
-- [ ] Arquivos sensíveis têm **permissões corretas** (600/700)?
-- [ ] Secrets em **variáveis de ambiente** (não hardcoded)?
-
-### 4. XML/XXE (se usar XML)
-- [ ] Parser XML tem **entity expansion desabilitado**?
-- [ ] Validação de schema antes de parsear?
-
-### 5. Controle de Acesso
-- [ ] Permissões verificadas **antes** de operações críticas?
-- [ ] Usuário não pode acessar dados de **outros usuários**?
-- [ ] Paths validados (sem **path traversal**: `../../etc/passwd`)?
-
-### 6. Configurações Inseguras
-- [ ] **DEBUG=False** em produção?
-- [ ] Secrets **NÃO** commitados no Git (.env no .gitignore)?
-- [ ] Deps atualizadas (**pip-audit** sem vulnerabilidades)?
-
-### 7. XSS (se tiver web/HTML)
-- [ ] Output HTML **escapado** (usar template engine)?
-- [ ] User input **sanitizado** antes de exibir?
-
-### 8. Desserialização Insegura
-- [ ] **pickle** evitado (ou validado se necessário)?
-- [ ] JSON preferido sobre pickle para dados externos?
-
-### 9. Deps Vulneráveis
-- [ ] `pip-audit` executado e sem HIGH/CRITICAL?
-- [ ] Dependências atualizadas (últimos 6 meses)?
-
-### 10. Logs/Monitoring
-- [ ] Operações críticas **logadas** (create, update, delete)?
-- [ ] Logs **NÃO** contêm dados sensíveis?
-```
-
-**Exemplo INSEGURO vs SEGURO**:
-
-```python
-# ❌ INSEGURO - SQL Injection
-def get_user(username):
-    query = f"SELECT * FROM users WHERE name='{username}'"
-    return db.execute(query)
-# Ataque: username = "admin' OR '1'='1"
-
-# ✅ SEGURO - Parametrizado
-def get_user(username):
-    query = "SELECT * FROM users WHERE name=?"
-    return db.execute(query, (username,))
-
-# ❌ INSEGURO - Command Injection
-def backup_file(filename):
-    os.system(f"tar -czf backup.tar.gz {filename}")
-# Ataque: filename = "file.txt; rm -rf /"
-
-# ✅ SEGURO - Lista de args
-def backup_file(filename):
-    subprocess.run(["tar", "-czf", "backup.tar.gz", filename], check=True)
-
-# ❌ INSEGURO - Senha em log
-logger.info(f"User {username} logged in with password {password}")
-
-# ✅ SEGURO - Sem dados sensíveis
-logger.info(f"User {username} logged in successfully")
-
-# ❌ INSEGURO - Path Traversal
-def read_file(user_path):
-    with open(f"/app/data/{user_path}") as f:
-        return f.read()
-# Ataque: user_path = "../../etc/passwd"
-
-# ✅ SEGURO - Validar path
-def read_file(user_path):
-    safe_path = os.path.abspath(f"/app/data/{user_path}")
-    if not safe_path.startswith("/app/data/"):
-        raise ValueError("Invalid path")
-    with open(safe_path) as f:
-        return f.read()
-```
-
-**Ferramentas Automáticas** (executar ANTES de commit):
-
-```bash
-# 1. Vulnerabilidades em dependências
-pip install pip-audit
-pip-audit
-# Se reportar HIGH/CRITICAL, atualizar deps
-
-# 2. Security linter
-pip install bandit
-bandit -r . -ll  # Low confidence + Low severity
-# Revisar issues reportados
-
-# 3. Secrets detectados
-pip install detect-secrets
-detect-secrets scan > .secrets.baseline
-# Revisar se algum secret vazou
-```
-
-**Pre-commit Hook** (automatizar):
-
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.6
-    hooks:
-      - id: bandit
-        args: ['-ll']
-  
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
-    hooks:
-      - id: detect-secrets
-```
-
-**Quando PULAR o checklist** (raramente):
-- ❌ Código interno sem dados sensíveis
-- ❌ Script descartável de uso único
-- ❌ Protótipo não-produção
-
-**Tempo Estimado**: 10-15 minutos por task.
-
-📘 **Checklist completo com 10 exemplos**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 6.5
 
 ---
 
@@ -842,43 +562,41 @@ repos:
 
 **Checklist de Implementação CLI**:
 
-1. **Import Correto no app.py**:
+1. **Import Correto no Arquivo Principal**:
    ```python
    # ✅ Verificar se módulo foi importado
-   from .gui import (
-       CaseConverterDock, PlaceholderReplacerDock, JsonSearchDock,
-       TextExtractorDock, AIProcessorDock, JsonTranslateDock,
-       JsonRewriterDock, HistoryDock, FileListDock, TutorialsDock,
-       EditorDock, TextToJsonDock  # ← NOVO módulo deve estar aqui
+   from .modules import (
+       ModuleA, ModuleB, ModuleC,
+       ModuleD, ModuleE, ModuleF,
+       ModuleG, ModuleH, NewModule  # ← NOVO módulo deve estar aqui
    )
    ```
 
 2. **Export no __init__.py do Módulo**:
    ```python
-   # src/gui/__init__.py
-   from .text_to_json_dock import TextToJsonDock
+   # src/modules/__init__.py
+   from .new_module import NewModule
    
    __all__ = [
-       'CaseConverterDock', 'PlaceholderReplacerDock', 'JsonSearchDock',
-       'TextExtractorDock', 'AIProcessorDock', 'JsonTranslateDock',
-       'JsonRewriterDock', 'HistoryDock', 'FileListDock', 'TutorialsDock',
-       'EditorDock', 'TextToJsonDock'  # ← NOVO módulo exportado
+       'ModuleA', 'ModuleB', 'ModuleC',
+       'ModuleD', 'ModuleE', 'ModuleF',
+       'ModuleG', 'ModuleH', 'NewModule'  # ← NOVO módulo exportado
    ]
    ```
 
-3. **Menu Item Criado e Conectado**:
+3. **Interface/Menu Item Criado e Conectado**:
    ```python
-   # Em _build_menu() ou similar
-   m_tools = bar.addMenu(tr("menu.tools"))
+   # Em _build_interface() ou similar
+   menu = self.create_menu("Tools")
    
-   # Criar QAction
-   self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
+   # Criar ação
+   self.action_new_feature = Action("New Feature", self)
    
-   # Adicionar ao menu
-   m_tools.addAction(self.act_open_text_to_json)
+   # Adicionar ao menu/interface
+   menu.add_action(self.action_new_feature)
    
    # Conectar signal
-   self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
+   self.action_new_feature.triggered.connect(lambda: self.new_module.execute())
    ```
 
 4. **Dock Inicializado no __init__() ou método de setup**:
@@ -887,38 +605,38 @@ repos:
    def __init__(self):
        super().__init__()
        # ... outros docks ...
-       self._open_text_to_json()  # ← Inicializar dock
+       self._open_new_component()  # ← Inicializar dock
    
-   def _open_text_to_json(self):
-       self.dock_text_to_json = TextToJsonDock(self)
-       self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
-       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_text_to_json)
-       self.dock_text_to_json.hide()
+   def _open_new_component(self):
+       self.dock_new_component = NewComponent(self)
+       self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
+       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_new_component)
+       self.dock_new_component.hide()
    ```
 
 5. **Signals Conectados** (se aplicável):
    ```python
    # Conectar signals customizados
-   self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
+   self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
    
-   def _load_json_from_converter(self, json_str: str):
-       """Callback para abrir JSON no editor"""
-       if not hasattr(self, 'dock_editor'):
-           self._open_editor()
-       self.dock_editor.load_json_string(json_str)
-       self.dock_editor.show()
+   def _load_data_from_source(self, data_str: str):
+       """Callback para abrir DATA no editor"""
+       if not hasattr(self, 'component_viewer'):
+           self._open_component()
+       self.component_viewer.load_data_string(data_str)
+       self.component_viewer.show()
    ```
 
 6. **Traduções i18n Adicionadas**:
-   ```json
-   // src/i18n/en.json
+   ```data
+   // src/i18n/en.data
    {
-     "menu.tools.text_to_json": "Text to JSON Converter"
+     "menu.tools.text_to_data": "Text to DATA Converter"
    }
    
-   // src/i18n/pt_BR.json
+   // src/i18n/pt_BR.data
    {
-     "menu.tools.text_to_json": "Conversor de Texto para JSON"
+     "menu.tools.text_to_data": "Conversor de Texto para DATA"
    }
    ```
 
@@ -930,14 +648,14 @@ repos:
 - ✅ **Sem erros no console**: Não deve haver ImportError, AttributeError, etc.
 - ✅ **Tradução funcionando**: Menu em PT-BR deve mostrar texto traduzido
 
-**Exemplo Real (Task #49 - Text to JSON Converter)**:
+**Exemplo Real (Task Example - Text to DATA Converter)**:
 ```python
-✅ Import: from .gui import TextToJsonDock
-✅ Export: __all__ = [..., 'TextToJsonDock']
-✅ Menu: self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
-✅ Init: self._open_text_to_json() chamado em __init__()
-✅ Signal: open_in_editor_requested.connect(self._load_json_from_converter)
-✅ i18n: EN "Text to JSON Converter", PT-BR "Conversor de Texto para JSON"
+✅ Import: from .gui import NewComponent
+✅ Export: __all__ = [..., 'NewComponent']
+✅ Menu: self.act_open_new_component = QAction(tr("menu.tools.text_to_data"), self)
+✅ Init: self._open_new_component() chamado em __init__()
+✅ Signal: open_in_other_component_requested.connect(self._load_data_from_source)
+✅ i18n: EN "Text to DATA Converter", PT-BR "Conversor de Texto para DATA"
 ✅ Teste: Menu abre dock, conversão funciona, signal para editor OK
 ```
 
@@ -967,23 +685,23 @@ repos:
    ```python
    # ✅ Verificar se módulo foi importado
    from .gui import (
-       CaseConverterDock, PlaceholderReplacerDock, JsonSearchDock,
-       TextExtractorDock, AIProcessorDock, JsonTranslateDock,
-       JsonRewriterDock, HistoryDock, FileListDock, TutorialsDock,
-       EditorDock, TextToJsonDock  # ← NOVO módulo deve estar aqui
+       ComponentJ, ComponentK, ComponentI,
+       ComponentC, ComponentD, ComponentA,
+       ComponentB, ComponentF, ComponentG, ComponentH,
+       ComponentE, NewComponent  # ← NOVO módulo deve estar aqui
    )
    ```
 
 2. **Export no __init__.py do Módulo**:
    ```python
    # src/gui/__init__.py
-   from .text_to_json_dock import TextToJsonDock
+   from .text_to_data_dock import NewComponent
    
    __all__ = [
-       'CaseConverterDock', 'PlaceholderReplacerDock', 'JsonSearchDock',
-       'TextExtractorDock', 'AIProcessorDock', 'JsonTranslateDock',
-       'JsonRewriterDock', 'HistoryDock', 'FileListDock', 'TutorialsDock',
-       'EditorDock', 'TextToJsonDock'  # ← NOVO módulo exportado
+       'ComponentJ', 'ComponentK', 'ComponentI',
+       'ComponentC', 'ComponentD', 'ComponentA',
+       'ComponentB', 'ComponentF', 'ComponentG', 'ComponentH',
+       'ComponentE', 'NewComponent'  # ← NOVO módulo exportado
    ]
    ```
 
@@ -993,13 +711,13 @@ repos:
    m_tools = bar.addMenu(tr("menu.tools"))
    
    # Criar QAction
-   self.act_open_text_to_json = QAction(tr("menu.tools.text_to_json"), self)
+   self.act_open_new_component = QAction(tr("menu.tools.text_to_data"), self)
    
    # Adicionar ao menu
-   m_tools.addAction(self.act_open_text_to_json)
+   m_tools.addAction(self.act_open_new_component)
    
    # Conectar signal
-   self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
+   self.act_open_new_component.triggered.connect(lambda: self.dock_new_component.show())
    ```
 
 4. **Dock Inicializado no __init__() ou método de setup**:
@@ -1008,38 +726,38 @@ repos:
    def __init__(self):
        super().__init__()
        # ... outros docks ...
-       self._open_text_to_json()  # ← Inicializar dock
+       self._open_new_component()  # ← Inicializar dock
    
-   def _open_text_to_json(self):
-       self.dock_text_to_json = TextToJsonDock(self)
-       self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
-       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_text_to_json)
-       self.dock_text_to_json.hide()
+   def _open_new_component(self):
+       self.dock_new_component = NewComponent(self)
+       self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
+       self.addDockWidget(Qt.RightDockWidgetArea, self.dock_new_component)
+       self.dock_new_component.hide()
    ```
 
 5. **Signals Conectados** (se aplicável):
    ```python
    # Conectar signals customizados
-   self.dock_text_to_json.open_in_editor_requested.connect(self._load_json_from_converter)
+   self.dock_new_component.open_in_other_component_requested.connect(self._load_data_from_source)
    
-   def _load_json_from_converter(self, json_str: str):
-       """Callback para abrir JSON no editor"""
-       if not hasattr(self, 'dock_editor'):
-           self._open_editor()
-       self.dock_editor.load_json_string(json_str)
-       self.dock_editor.show()
+   def _load_data_from_source(self, data_str: str):
+       """Callback para abrir DATA no editor"""
+       if not hasattr(self, 'component_viewer'):
+           self._open_component()
+       self.component_viewer.load_data_string(data_str)
+       self.component_viewer.show()
    ```
 
 6. **Traduções i18n Adicionadas**:
-   ```json
-   // src/i18n/en.json
+   ```data
+   // src/i18n/en.data
    {
-     "menu.tools.text_to_json": "Text to JSON Converter"
+     "menu.tools.text_to_data": "Text to DATA Converter"
    }
    
-   // src/i18n/pt_BR.json
+   // src/i18n/pt_BR.data
    {
-     "menu.tools.text_to_json": "Conversor de Texto para JSON"
+     "menu.tools.text_to_data": "Conversor de Texto para DATA"
    }
    ```
 
@@ -1107,22 +825,22 @@ Durante a verificação do GUI, aplicar simultaneamente os seguintes critérios:
 **Exemplo de Revisão GUI Aplicada**:
 ```python
 # ❌ ANTES - Omissão, Ambiguidade, Maior Acoplamento
-class TextToJsonDock(QDockWidget):
+class NewComponent(QDockWidget):
     def __init__(self):
         self.btn = QPushButton("Convert")  # Label vago
         self.btn.clicked.connect(self.convert)  # Sem tratamento de erro
     
     def convert(self):
         data = open(self.ed_file.text()).read()  # Sem validação, sem fechar
-        json_str = my_convert(data)  # Lógica de negócio no GUI
-        print(json_str)  # Debug esquecido
+        data_str = my_convert(data)  # Lógica de negócio no GUI
+        print(data_str)  # Debug esquecido
 
 # ✅ DEPOIS - Completo, Claro, Desacoplado
-class TextToJsonDock(BaseDock):
-    """Text to JSON Converter dock widget."""
+class NewComponent(BaseDock):
+    """Text to DATA Converter dock widget."""
     
     # Signal para comunicação
-    open_in_editor_requested = Signal(str)
+    open_in_other_component_requested = Signal(str)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1138,16 +856,16 @@ class TextToJsonDock(BaseDock):
         self.ed_file = QLineEdit()
         self.ed_file.setPlaceholderText("Enter file path or paste text")
         
-        self.btn_convert = QPushButton("Convert to JSON")
-        self.btn_convert.setToolTip("Convert text to JSON format")
+        self.btn_convert = QPushButton("Convert to DATA")
+        self.btn_convert.setToolTip("Convert text to DATA format")
         
-        self.btn_open_editor = QPushButton("Open in Editor")
-        self.btn_open_editor.setEnabled(False)  # Disabled até converter
+        self.btn_open_component = QPushButton("Open in Editor")
+        self.btn_open_component.setEnabled(False)  # Disabled até converter
     
     def _connect_signals(self):
         """Connect signals to slots."""
         self.btn_convert.clicked.connect(self._on_convert_clicked)
-        self.btn_open_editor.clicked.connect(self._on_open_editor_clicked)
+        self.btn_open_component.clicked.connect(self._on_open_component_clicked)
     
     def _on_convert_clicked(self):
         """Handle convert button click."""
@@ -1166,21 +884,21 @@ class TextToJsonDock(BaseDock):
                 text = file_path  # Tratar como texto direto
             
             # Converter usando controller (desacoplamento)
-            self._json_result = self._converter.convert(text)
+            self._data_result = self._converter.convert(text)
             
             # Feedback visual
             QMessageBox.information(self, "Success", "Conversion successful!")
-            self.btn_open_editor.setEnabled(True)
+            self.btn_open_component.setEnabled(True)
         
         except FileNotFoundError:
             QMessageBox.critical(self, "File Not Found", f"File not found: {file_path}")
         except Exception as e:
             QMessageBox.critical(self, "Conversion Error", f"Error: {str(e)}")
     
-    def _on_open_editor_clicked(self):
+    def _on_open_component_clicked(self):
         """Handle open in editor button click."""
-        if hasattr(self, '_json_result'):
-            self.open_in_editor_requested.emit(self._json_result)  # Signal
+        if hasattr(self, '_data_result'):
+            self.open_in_other_component_requested.emit(self._data_result)  # Signal
 ```
 
 **Ferramentas Recomendadas GUI**:
@@ -1207,14 +925,14 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 6. ❓ "Labels, tooltips e mensagens são claros e descritivos?"
 7. ❓ "Recursos (arquivos, conexões) são fechados corretamente?"
 
-**Exemplo Real (Task #49 - Text to JSON Converter)**:
+**Exemplo Real (Task Example - Text to DATA Converter)**:
 ```python
-✅ Import: from .gui import TextToJsonDock
-✅ Export: __all__ = [..., 'TextToJsonDock']
-✅ Menu: self.act_open_text_to_json.triggered.connect(lambda: self.dock_text_to_json.show())
-✅ Init: self._open_text_to_json() chamado em __init__()
-✅ Signal: open_in_editor_requested.connect(self._load_json_from_converter)
-✅ i18n: EN "Text to JSON Converter", PT-BR "Conversor de Texto para JSON"
+✅ Import: from .gui import NewComponent
+✅ Export: __all__ = [..., 'NewComponent']
+✅ Menu: self.act_open_new_component.triggered.connect(lambda: self.dock_new_component.show())
+✅ Init: self._open_new_component() chamado em __init__()
+✅ Signal: open_in_other_component_requested.connect(self._load_data_from_source)
+✅ i18n: EN "Text to DATA Converter", PT-BR "Conversor de Texto para DATA"
 ✅ Revisão: Sem debug prints, tratamento de erros OK, lógica desacoplada
 ✅ Teste: Menu abre dock, conversão funciona, signal para editor OK
 ```
@@ -1232,7 +950,7 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 1. **Teste de Fluxo Completo GUI**:
    ```bash
    # Iniciar aplicativo
-   python -m clarify --gui
+   python -m app --gui
    
    # Testar manualmente:
    [ ] Menu item aparece corretamente?
@@ -1247,13 +965,13 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 2. **Teste de Fluxo Completo CLI**:
    ```bash
    # Testar help
-   python -m clarify text2json --help
+   python -m app convert --help
    
    # Testar funcionalidade
-   python -m clarify text2json test.txt --pretty -o output.json
+   python -m app convert test.txt --pretty -o output.data
    
    # Testar pipes
-   echo "name: John" | python -m clarify text2json -
+   echo "name: John" | python -m app convert -
    
    # Verificar:
    [ ] Help text aparece?
@@ -1266,8 +984,8 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 3. **Teste de Integração entre Componentes**:
    ```bash
    # Exemplo: Converter texto → Abrir no editor
-   [ ] Clicar em "Open in Editor" no Text to JSON Converter abre o Editor?
-   [ ] JSON é carregado corretamente no Editor?
+   [ ] Clicar em "Open in Editor" no Text to DATA Converter abre o Editor?
+   [ ] DATA é carregado corretamente no Editor?
    [ ] Editor pode salvar o resultado?
    
    # Exemplo: Busca → Abrir arquivo
@@ -1296,17 +1014,17 @@ grep -r "print(" src/gui/ --exclude="*_test.py"
 **Exemplo Real de Problema de Integração**:
 ```python
 # ❌ PROBLEMA ENCONTRADO NA INTEGRAÇÃO:
-# Task #49 - Text to JSON Converter CLI
+# Task Example - Text to DATA Converter CLI
 # Problema: Extractor() estava sendo chamado sem 3 parâmetros obrigatórios
 
 # ANTES (quebrava na integração):
 def main():
-    if args.command == 'text2json':
+    if args.command == 'convert':
         extractor = Extractor()  # ❌ TypeError: missing 3 required arguments
 
 # DEPOIS (corrigido):
 def main():
-    if args.command == 'text2json':
+    if args.command == 'convert':
         extractor = Extractor(
             avoid_keys="",
             avoid_keys_parameter="equals",
@@ -1343,15 +1061,15 @@ def main():
 4. **Integration**: Fluxo completo (incluindo integração GUI/CLI)
 5. **Quality Validation**: Testes que validam ausência dos 9 problemas das Etapas 7 e 8
 
-**Exemplo Task #23**:
+**Exemplo de Suite de Testes**:
 ```python
-✅ test_extract_from_dict_simple()
-✅ test_extract_from_obj_type()
-✅ test_simple_substitution_same_value()
-✅ test_different_values_no_substitution()
-✅ test_apply_substitutions_tsx_file()
-✅ test_update_multiple_files()
-# ... 12 testes no total (100% passing)
+✅ test_basic_functionality()
+✅ test_with_valid_input()
+✅ test_edge_case_empty()
+✅ test_edge_case_large_input()
+✅ test_error_handling()
+✅ test_integration_complete_flow()
+# ... testes cobrindo casos normais, edge cases e integração
 ```
 
 **Por quê testar DEPOIS da integração e revisão?**:
@@ -1367,10 +1085,10 @@ def main():
 
 #### 🛡️ **Etapa 9.1 - Segurança em Testes (CRÍTICO)**
 
-**Problema Identificado** (Task #50 - 01/12/2025):
-- Testes GUI travaram em **loop infinito** por >1 hora sem timeout
-- Nenhuma detecção automática de deadlock ou travamento
-- Testes aguardavam display X11 inexistente (ambiente headless)
+**Problema Comum em Testes**:
+- Testes GUI podem travar em **loop infinito** sem timeout
+- Falta de detecção automática de deadlock ou travamento
+- Testes aguardam recursos não disponíveis (ex: display X11 em ambiente headless)
 
 **Soluções Obrigatórias**:
 
@@ -1421,163 +1139,6 @@ def main():
    ```
 
 **Por quê?**: Evitar travamentos infinitos, proteger tempo de desenvolvimento, garantir testes confiáveis.
-
----
-
-### 🔟.5️⃣ **Profiling e Otimização** [OPCIONAL]
-
-**Quando Usar**: Feature crítica está **lenta** (>1s para usuário).
-
-**Ferramentas**:
-```bash
-# CPU profiling
-python -m cProfile -s cumulative app.py > profile.txt
-
-# Memory profiling
-pip install memory_profiler
-python -m memory_profiler app.py
-```
-
-**Exemplo**:
-```python
-# ❌ LENTO - O(n²) 5.2s para 1000 tasks
-def find_duplicates_slow(tasks):
-    for i, t1 in enumerate(tasks):
-        for j, t2 in enumerate(tasks):
-            if i != j and t1.title == t2.title:
-                # duplicado
-
-# ✅ RÁPIDO - O(n) 0.02s (260x faster)
-def find_duplicates_fast(tasks):
-    seen = {}
-    for task in tasks:
-        if task.title in seen:
-            # duplicado
-        seen[task.title] = task
-```
-
-**Quando Parar**: Otimizar só vale se **tempo salvo × frequência** > 1min/dia.
-
-📘 **Detalhes**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 10.5
-
----
-
-### 🔟.6️⃣ **CI/CD Quality Gates** ⭐ [OBRIGATÓRIO]
-
-> **CRÍTICO PARA PRODUÇÃO**: Esta etapa é **OBRIGATÓRIA** no Simplicidade 3.
-
-**Por quê obrigatório**:
-- ✅ **Memória falha**: Você esquece de rodar testes manualmente
-- ✅ **Automação 24/7**: CI valida **todo** commit automaticamente
-- ✅ **Confiança**: Sabe que código quebrado não vai para produção
-- ✅ **Rápido**: Feedback em minutos (não horas debugando)
-
-**Pre-commit Hooks** (validação local):
-
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
-      - id: trailing-whitespace
-      - id: check-yaml
-      - id: check-json
-  
-  - repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
-  
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-        args: ['--max-line-length=88']
-  
-  - repo: local
-    hooks:
-      - id: pytest
-        name: pytest
-        entry: pytest
-        language: system
-        args: ['tests/', '-v']
-```
-
-```bash
-# Instalar
-pip install pre-commit
-pre-commit install
-
-# Agora todo `git commit` executa validações automaticamente
-# Se falhar, commit é BLOQUEADO até corrigir
-```
-
-**GitHub Actions** (CI pipeline):
-
-```yaml
-# .github/workflows/ci.yml
-name: CI Quality Gates
-
-on: [push, pull_request]
-
-jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install deps
-      run: |
-        pip install -r requirements.txt
-        pip install pytest pytest-cov flake8 black bandit
-    
-    - name: Black formatting
-      run: black --check .
-    
-    - name: Flake8 linting
-      run: flake8 . --max-line-length=88
-    
-    - name: Bandit security
-      run: bandit -r . -ll
-    
-    - name: Tests + Coverage
-      run: |
-        pytest --cov=. --cov-report=term
-        coverage report --fail-under=80
-      # Falha se cobertura < 80%
-```
-
-**GitLab CI**:
-
-```yaml
-# .gitlab-ci.yml
-stages:
-  - test
-
-test:
-  image: python:3.11
-  script:
-    - pip install -r requirements.txt pytest pytest-cov
-    - pytest --cov=. --cov-report=term
-    - coverage report --fail-under=80
-```
-
-**Badge no README** (status visual):
-
-```markdown
-[![CI](https://github.com/user/repo/workflows/CI/badge.svg)](https://github.com/user/repo/actions)
-[![Coverage](https://codecov.io/gh/user/repo/branch/main/graph/badge.svg)](https://codecov.io/gh/user/repo)
-```
-
-**Tempo Setup**: ~30 minutos (uma vez). Depois automático.
-
-📘 **Configurações completas**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 10.6
 
 ---
 
@@ -1867,69 +1428,15 @@ python tests/run_tests_monitored.py
 
 ---
 
-### 1️⃣1️⃣.5️⃣ **Notas de Decisão** [OPCIONAL]
-
-**Quando Usar**: Decisão importante/não-óbvia foi tomada e você pode esquecer o "por quê" depois.
-
-**O quê documentar**:
-- ✅ Escolha de biblioteca/framework importante
-- ✅ Trade-off significativo (performance vs simplicidade)
-- ✅ Decisão de NÃO fazer algo (com rationale)
-- ✅ Arquitetura/pattern escolhido
-
-**Formato Simplificado** (ADR light):
-
-```markdown
-# Decisão: Usar PyQt6 em vez de Tkinter
-
-**Data**: 2025-01-15
-**Status**: ✅ Aceito
-
-**Contexto**: Preciso GUI com dock widgets profissionais.
-
-**Decisão**: Escolhi PyQt6.
-
-**Por quê**:
-- ✅ QDockWidget nativo (Tkinter não tem)
-- ✅ Styling com QSS (CSS-like)
-- ✅ Documentação excelente
-
-**Trade-offs**:
-- ❌ Licença GPL (OK, projeto é open-source)
-- ❌ Binário maior (~50MB vs ~5MB Tkinter)
-
-**Se mudar no futuro**: Considerar PySide6 (LGPL) se precisar licença permissiva.
-```
-
-**Onde guardar**:
-```
-docs/
-├── decisions/
-│   ├── 001-pyqt6-choice.md
-│   ├── 002-json-storage.md
-│   └── README.md
-```
-
-**Quando NÃO documentar**:
-- ❌ Decisões triviais (naming, formatação)
-- ❌ Escolhas óbvias/convencionais
-- ❌ Código autoexplicativo
-
-**Tempo**: 5-10 minutos por decisão importante.
-
-📘 **ADR formal com template**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 11.5
-
----
-
 ### 1️⃣2️⃣ **Preencher Nova Documentação**
 - **Atualizar arquivo de tarefas/requisitos**: Marcar tasks como `[X]` completas
-- **Criar vX.X.X-SPECIFICATIONS.md**: Documento detalhado da versão
+- **Criar SPECIFICATIONS.md**: Documento detalhado da versão
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
 
 **📋 Marcação de Tarefas em Arquivo de Requisitos**:
 
 **Regra Geral**:
-- Se existe arquivo de tarefas/requisitos (ex: `TASKS.md`, `TODO.md`, `requirements.md`):
+- Se existe arquivo de tarefas/requisitos (ex: `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Marcar tasks como completas** após implementação: `[ ]` → `[X]`
   - ✅ **Atualizar estatísticas** (percentuais, contadores)
   - ✅ **Adicionar notas de conclusão** (data, versão, descrição breve)
@@ -1939,21 +1446,21 @@ docs/
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
   - ❓ **Sugerir criação** de arquivo de controle de tarefas
 
-**Exemplo de Marcação (TASKS.md)**:
+**Exemplo de Marcação (REQUIREMENTS.md)**:
 ```markdown
 ## 🟢 COULD HAVE (Prioridade Baixa)
 
 ### ✅ Tasks Concluídas
 
-#### Task #46 - Editor de Arquivos Integrado (v2.9.16)
+#### Task Example - Editor de Arquivos Integrado (vX.Y.Z)
 **Status**: ✅ Completa - 30/11/2025
 
 **Objetivo**: Implementar editor de texto integrado com diferenciação de escopo por cores.
 
 **Implementação**:
-1. ✅ EditorDock com QTextEdit e syntax highlighting
-2. ✅ Diferenciação de escopo por cores (HTML tags, JSON keys, etc.)
-3. ✅ Abrir/salvar arquivos (.txt, .json, .html, .tsx, .py)
+1. ✅ ComponentE com QTextEdit e syntax highlighting
+2. ✅ Diferenciação de escopo por cores (HTML tags, DATA keys, etc.)
+3. ✅ Abrir/salvar arquivos (.txt, .data, .html, .tsx, .py)
 4. ✅ Integração com menu File → Open Editor
 
 **Arquivos Criados**:
@@ -2014,110 +1521,6 @@ docs/
 
 ---
 
-### 1️⃣2️⃣.5️⃣ **Rollback Plans** ⭐ [OBRIGATÓRIO]
-
-> **CRÍTICO PARA PRODUÇÃO**: Esta etapa é **OBRIGATÓRIA** no Simplicidade 3.
-
-**Por quê obrigatório**:
-- ✅ **Produção**: Bugs afetam usuários reais
-- ✅ **Solo**: Você está sozinho para resolver emergências
-- ✅ **Downtime**: Rollback rápido minimiza impacto
-- ✅ **Confiança**: Deploy ousado sabendo que pode reverter
-
-**Quando criar Rollback Plan**:
-- ✅ Feature crítica (pagamento, autenticação, dados)
-- ✅ Mudança em schema/migrations de dados
-- ✅ Alteração em API pública
-- ✅ Deploy de alto risco
-
-**Template Simplificado**:
-
-```markdown
-# Rollback Plan - Task #XX: [Nome Feature]
-
-## Critérios para Rollback
-Executar rollback SE:
-- [ ] Taxa de erro > 5% em 1h após deploy
-- [ ] Usuários reportam perda de dados
-- [ ] Crashes frequentes (>5 reports)
-- [ ] Performance pior que versão anterior (>2x mais lento)
-
-## Como Reverter (Passo-a-Passo)
-
-### 1. Preparação (5min)
-```bash
-# Backup estado atual
-cp data.db data.db.backup-$(date +%s)
-cp app.log rollback-logs.txt
-```
-
-### 2. Rollback Código (5min)
-```bash
-# Voltar para versão anterior
-git checkout v1.9.5
-# OU
-pip install app==1.9.5 --force-reinstall
-```
-
-### 3. Restaurar Dados (se necessário)
-```bash
-# Restaurar backup JSON/DB criado na migração
-cp data.json.backup data.json
-```
-
-### 4. Validar (5min)
-```bash
-# Smoke tests
-app --version  # Deve mostrar v1.9.5
-app test-basic-flow
-```
-
-## Tempo Total Rollback
-~15-20 minutos (downtime esperado)
-
-## Backup Necessário
-- ✅ Backup automático criado no deploy
-- ✅ Git tag da versão anterior existe
-- ❌ Não depende de serviços externos
-
-## Dados em Risco
-- **Alto**: Dados criados após deploy (não no backup)
-- **Baixo**: Dados existentes (preservados no backup)
-
-**Mitigação**: Exportar dados novos antes de rollback.
-```
-
-**Alternativa: Feature Flags** (melhor que rollback):
-
-```python
-# Desabilitar feature remotamente sem redeploy
-FEATURE_NEW_EXPORT = os.getenv("ENABLE_NEW_EXPORT", "false") == "true"
-
-def export_data():
-    if FEATURE_NEW_EXPORT:
-        return new_export()  # Nova implementação
-    else:
-        return old_export()  # Fallback seguro
-
-# Em caso de problema: export ENABLE_NEW_EXPORT=false
-# Usuários automaticamente voltam para versão antiga
-```
-
-**Checklist Rápido**:
-```markdown
-- [ ] Critérios de rollback definidos (quando executar?)
-- [ ] Passos de rollback documentados (como reverter?)
-- [ ] Backup automatizado (dados preservados?)
-- [ ] Tempo de rollback estimado (<30min?)
-- [ ] Feature flag considerada (alternativa melhor?)
-```
-
-**Tempo Criação**: 10-15 minutos por feature crítica.
-
-📘 **Rollback Plans completos**: Ver `PROTOCOLO_SIMPLICIDADE_2.md` - Etapa 12.5
-
----
-
 ### 1️⃣3️⃣ **Fazer Commit e Push**
 - **Formato**: Conventional Commits (feat/fix/docs/refactor/test)
 - **Mensagem**: Descritiva, completa, com contexto
@@ -2145,7 +1548,7 @@ def export_data():
 - [arquivo1.py] (+X linhas)
 - [arquivo2.py] (~Y linhas)
 - [tests/test_X.py] (NOVO - Z linhas)
-- [docs/TASKS.md] (estatísticas atualizadas)
+- [docs/REQUIREMENTS.md] (estatísticas atualizadas)
 
 <ESTATÍSTICAS ATUALIZADAS>:
 - [CATEGORIA]: X → Y completas (A% → B%)
@@ -2158,13 +1561,13 @@ Refs: [documentação relacionada]
 Closes: Task #X (vX.X.X)
 ```
 
-**Exemplo Real** (Task #23):
+**Exemplo Real** (Task Example):
 ```bash
-git add src/ tests/ docs/TASKS.md
-git commit -m "feat: completar Task #23 - Orphaned Keys Update System (v2.9.14)
+git add src/ tests/ docs/REQUIREMENTS.md
+git commit -m "feat: completar Task Example - Feature Update System (vX.Y.Z)
 
 PROBLEMA ORIGINAL:
-- Implementação v2.9.10 usava string_similarity() (ERRADO)
+- Implementação vX.Y.Z usava string_similarity() (ERRADO)
 - Não detectava valores duplicados, apenas similaridade de nomes
 ...
 
@@ -2174,7 +1577,7 @@ PROBLEMA ORIGINAL:
    - Retorna Dict[str, str] (path → value)
 ...
 
-Closes: Task #23 (v2.9.14)"
+Closes: Task Example (vX.Y.Z)"
 
 git push
 ```
@@ -2193,25 +1596,25 @@ Toda implementação deve cumprir **100% destes critérios**:
 | 4 | **Tratamento de Erros** | Try/except com mensagens claras | `except Exception as e:` |
 | 5 | **Testes** | Unitários + integração (100% coverage) | `tests/test_*.py` passing |
 | 6 | **Commits Semânticos** | Conventional Commits | `feat:`, `fix:`, `docs:` |
-| 7 | **Documentação** | TASKS.md + vX.X.X-SPECIFICATIONS.md | Atualizado e completo |
+| 7 | **Documentação** | REQUIREMENTS.md + SPECIFICATIONS.md | Atualizado e completo |
 | 8 | **Código Limpo** | PEP8, nomes semânticos, DRY | Funções < 50 linhas |
 
 ---
 
-## 📊 Aplicação Prática: Task #23 (Exemplo Completo)
+## 📊 Aplicação Prática: Task Example (Exemplo Completo)
 
 ### Situação Inicial
 ```markdown
 Tasks pendentes na categoria SHOULD HAVE:
-[ ] Editor de texto integrado (MUITO COMPLEXO)
+[ ] Complex Feature Example (MUITO COMPLEXO)
 [ ] Busca com IA semântica (MUITO COMPLEXO)
-[⚠️] Orphaned Keys Update (PARCIAL - mais simples!) ✅ ESCOLHIDA
+[⚠️] Feature Update (PARCIAL - mais simples!) ✅ ESCOLHIDA
 [ ] Google Translate API integration (COMPLEXO)
 ```
 
 ### Sprint Planejada
 ```
-v2.9.14: Completar Task #23
+vX.Y.Z: Completar Task Example
 Estimativa: 3-4 horas
 Complexidade: MÉDIA (mais simples que as outras)
 ```
@@ -2219,11 +1622,11 @@ Complexidade: MÉDIA (mais simples que as outras)
 ### Execução (Protocolo Simplicidade 1)
 
 **1. Ler Documentação** ✅
-- Lido: `docs/TASK_23_ORPHANED_KEYS_SPECIFICATION.md` (662 linhas)
+- Lido: `docs/FEATURE_SPEC.md` (662 linhas)
 - Entendido: problema de string similarity vs. value equality
 
 **2. Escolher Tarefa Simples** ✅
-- Task #23 é **mais simples** que editor de texto ou IA
+- Task Example é **mais simples** que editor de texto ou IA
 - Escopo claro: 2 funções principais + integração
 
 **3. Fazer Perguntas** ✅
@@ -2268,8 +1671,8 @@ Resultado: 12/12 passing (100%)
 **7. Documentação** ✅
 ```
 Arquivos criados/atualizados:
-- docs/TASKS.md (Task #23 marcada [X])
-- docs/TASK_23_ORPHANED_KEYS_SPECIFICATION.md (já existia)
+- docs/REQUIREMENTS.md (Task Example marcada [X])
+- docs/FEATURE_SPEC.md (já existia)
 - tests/test_reference_updater.py (NOVO - 350 linhas)
 Estatísticas: 59.6% → 60.6% (63 tasks completas)
 ```
@@ -2282,7 +1685,7 @@ Status: pushed para GitHub ✅
 ```
 
 ### Resultado Final
-✅ **Task #23 100% completa**  
+✅ **Task Example 100% completa**  
 ✅ **Protocolo Simplicidade 1: 10/10 etapas cumpridas** (v1.1 - 10 etapas)  
 ✅ **Tempo real: ~3h (dentro da estimativa)**  
 ✅ **Zero bugs detectados**  
@@ -2295,7 +1698,7 @@ Status: pushed para GitHub ✅
 ## 🎓 Lições Aprendidas
 
 ### ✅ O Que Funciona
-1. **Escolher o mais simples**: Task #23 era mais fácil que editor de texto
+1. **Escolher o mais simples**: Task Example era mais fácil que editor de texto
 2. **Incrementalidade**: Função auxiliar → principal → integração
 3. **Testes primeiro**: Detectou 2 ajustes necessários antes de commitar
 4. **Documentação completa**: Facilita manutenção futura
@@ -2315,18 +1718,18 @@ Status: pushed para GitHub ✅
 
 4. **Não fazer commits genéricos**
    - ❌ `git commit -m "updates"`
-   - ✅ `git commit -m "feat: Task #23 com VALUE EQUALITY (60 linhas)"`
+   - ✅ `git commit -m "feat: Task Example com VALUE EQUALITY (60 linhas)"`
 
 ---
 
 ## 📚 Referências
 
-- **TASKS.md**: Lista completa de tarefas do projeto
-- **v2.9.10-ANTES-DEPOIS.md**: Primeiro exemplo do protocolo
-- **v2.9.11-SPECIFICATIONS.md**: Sprint com 3 tasks simples
-- **v2.9.12-SPECIFICATIONS.md**: Iterações rápidas
-- **v2.9.13-SPECIFICATIONS.md**: 4 melhorias de UX
-- **TASK_23_ORPHANED_KEYS_SPECIFICATION.md**: Exemplo de documentação detalhada
+- **REQUIREMENTS.md**: Lista completa de tarefas do projeto
+- **vX.Y.Z-COMPARISON.md**: Primeiro exemplo do protocolo
+- **vX.Y.Z-SPECIFICATIONS.md**: Sprint com 3 tasks simples
+- **vX.Y.Z-SPECIFICATIONS.md**: Iterações rápidas
+- **vX.Y.Z-SPECIFICATIONS.md**: 4 melhorias de UX
+- **FEATURE_SPEC.md**: Exemplo de documentação detalhada
 
 ---
 
@@ -2355,47 +1758,27 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
     └──────────────┘
 ```
 
-**Resultado**: Progresso constante, código profissional, zero dívida técnica, **seguro para produção**.
+**Resultado**: Progresso constante, código profissional, zero dívida técnica.
 
 ---
 
 ## 🎯 Mensagem Final
 
-> "Quero um trabalho completo, profissional e **seguro para produção** - desenvolvendo sozinho!"
+> "Quero um trabalho completo e profissional!"
 
-**Simplicidade 3 garante**:
-- ✅ **Base sólida**: 13 etapas obrigatórias do Simplicidade 1
-- ✅ **Segurança**: OWASP checklist obrigatório (vulnerabilidades = zero)
-- ✅ **Automação**: CI/CD valida todo commit (memória não falha)
-- ✅ **Proteção**: Rollback plans para features críticas
-- ✅ **Pragmático**: SEM overhead de equipe (code review, retrospectives formais)
-- ✅ **Priorização**: Matriz de decisão quando necessário
-- ✅ **Performance**: Profiling para features lentas
-- ✅ **Rastreabilidade**: Notas de decisão para escolhas importantes
-
-**Simplicidade 3 é ideal para**:
-- 👤 **Solo developer** (você sozinho)
-- 🚀 **Produção** (usuários reais dependendo)
-- ⚠️ **Crítico** (bugs têm impacto)
-- 📈 **Longo prazo** (projeto evolutivo >6 meses)
-
-**Quando usar outro protocolo**:
-- Protótipo descartável → Use **Simplicidade 1**
-- Equipe 2+ pessoas → Use **Simplicidade 2** (tem code review por pares)
+**Este protocolo garante**:
+- ✅ Qualidade profissional (12 etapas obrigatórias)
+- ✅ Progresso incremental (do simples ao complexo)
+- ✅ Documentação completa (nunca esquecer o que foi feito)
+- ✅ Código testado (100% confiável)
+- ✅ Integração verificada (GUI + CLI funcionais)
+- ✅ Commits organizados (histórico limpo)
 
 **Releia este documento antes de cada sprint!**
 
 ---
 
-## 📚 Documentos Relacionados
-
-- 📘 **PROTOCOLO_SIMPLICIDADE_1.md**: Base (13 etapas) - Para protótipos/interno
-- 📕 **PROTOCOLO_SIMPLICIDADE_2.md**: Avançado (23 etapas) - Para equipes enterprise
-- 📗 **PROTOCOLO_SIMPLICIDADE_3.md**: Híbrido (16 etapas) - **Solo dev em produção** ⭐
-
----
-
-**Versão**: 3.0  
-**Última atualização**: 02 de Dezembro de 2025  
+**Versão**: 1.4  
+**Última atualização**: 01 de Dezembro de 2025  
 **Mantido por**: Josué Amaral  
-**Status**: ATIVO - Protocolo para solo developer em produção
+**Status**: ATIVO - Protocolo oficial do projeto
