@@ -3403,6 +3403,19 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
   - ❓ **Sugerir criação** de arquivo de controle de tarefas
 
+**📁 Localização do Arquivo TASKS.md**:
+- **Preferência padrão**: O arquivo `TASKS.md`, quando produzido, deve ser colocado em `docs/TASKS.md`
+- **Criar pasta docs/**: Se a pasta `docs/` não existe no projeto, ela deve ser criada automaticamente
+- **Flexibilidade**: O usuário ou programador pode optar por colocar em outro local se preferir
+- **Exemplo de criação**:
+  ```bash
+  # Criar pasta docs se não existir
+  mkdir -p docs
+  
+  # Criar ou atualizar TASKS.md
+  echo "# Tasks" > docs/TASKS.md
+  ```
+
 **Exemplo de Marcação (REQUIREMENTS.md)**:
 ```markdown
 ## 🟢 COULD HAVE (Prioridade Baixa)
