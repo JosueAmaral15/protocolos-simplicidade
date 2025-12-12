@@ -76,6 +76,27 @@ Considere a existência de erros no workspace (aba "Problemas" do IDE) como **bl
 > "Até que os erros não sejam sanados, as tarefas e as funcionalidades não podem continuar sendo implementadas."
 
 Esta regra está documentada em detalhes em cada protocolo após a seção "Filosofia Central".
+## 📋 Gerenciamento de Tarefas (TASKS.md)
+
+Todos os protocolos Simplicidade agora incluem suporte integrado para gerenciamento de tarefas através de um arquivo `TASKS.md` (ou arquivo alternativo de sua escolha).
+
+### Recursos do Sistema de Tarefas:
+- ✅ **Arquivo Padrão**: `TASKS.md` na raiz do projeto (formato ASCII: `.md`, `.txt`)
+- 🔄 **Flexível**: Use qualquer nome/localização de arquivo (desde que seja ASCII)
+- 🤖 **Recomendações IA (Opcional)**: Sistema inteligente de sugestão de novas tarefas
+- 📊 **Curva de Crescimento**: Recomendações seguem padrão quadrático (crescem, atingem pico, depois diminuem)
+- 🎯 **Controle de Escopo**: Apenas sugestões relevantes ao projeto
+- 🔢 **Limite Configurável**: Default de 30 novas tarefas recomendadas (personalizável)
+
+### Como Funciona a IA de Recomendações:
+A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguindo um padrão de 5 fases:
+1. **Fase 1 (0-20%)**: Crescimento inicial - poucas tarefas essenciais
+2. **Fase 2 (20-40%)**: Aceleração - features principais
+3. **Fase 3 (40-70%)**: Pico máximo - máximo de ideias e oportunidades  
+4. **Fase 4 (70-90%)**: Desaceleração - apenas críticas
+5. **Fase 5 (90-100%)**: Exaustão - parar de adicionar features
+
+📖 **Detalhes completos**: Veja seção "Recomendações de Tarefas pela IA" na Etapa 12 de cada protocolo.
 
 ---
 
@@ -86,12 +107,12 @@ Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para o
 ### No Cursor (Rules for AI)
 Adicione o seguinte prompt nas configurações globais ou do projeto:
 
-> "Sempre analise o contexto do projeto. Se for um projeto novo ou protótipo, siga estritamente o `PROTOCOLO_SIMPLICIDADE_1.md`. Se eu informar que é um projeto em produção e estou sozinho, adote o `PROTOCOLO_SIMPLICIDADE_3.md` e valide cada etapa de segurança comigo."
+> "Sempre analise o contexto do projeto. Se for um projeto novo ou protótipo, siga estritamente o `PROTOCOLO_SIMPLICIDADE_1.md`. Se eu informar que é um projeto em produção e estou sozinho, adote o `PROTOCOLO_SIMPLICIDADE_3.md` e valide cada etapa de segurança comigo. Sempre consulte o TASKS.md para gerenciar tarefas do projeto."
 
 ### No GitHub Copilot
 Ao iniciar uma task, invoque o contexto:
 
-> "@workspace Hoje vamos trabalhar na Task #42. Como este é um projeto crítico em produção, leia o `PROTOCOLO_SIMPLICIDADE_3.md` e guie-me passo a passo começando pela Etapa 1."
+> "@workspace Hoje vamos trabalhar na Task #42 do TASKS.md. Como este é um projeto crítico em produção, leia o `PROTOCOLO_SIMPLICIDADE_3.md` e guie-me passo a passo começando pela Etapa 1."
 
 ---
 
