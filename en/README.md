@@ -47,6 +47,30 @@ Created specifically for the developer who doesn't have a team but needs the sec
 
 ---
 
+## 📋 Task Management (TASKS.md)
+
+All Simplicity protocols now include integrated support for task management through a `TASKS.md` file (or alternative file of your choice).
+
+### Task System Features:
+- ✅ **Default File**: `TASKS.md` in project root (ASCII format: `.md`, `.txt`)
+- 🔄 **Flexible**: Use any file name/location (as long as it's ASCII)
+- 🤖 **AI Recommendations (Optional)**: Intelligent system for suggesting new tasks
+- 📊 **Growth Curve**: Recommendations follow quadratic pattern (grow, peak, then decrease)
+- 🎯 **Scope Control**: Only project-relevant suggestions
+- 🔢 **Configurable Limit**: Default of 30 new recommended tasks (customizable)
+
+### How AI Recommendations Work:
+AI can dynamically suggest new tasks as the project evolves, following a 5-phase pattern:
+1. **Phase 1 (0-20%)**: Initial growth - few essential tasks
+2. **Phase 2 (20-40%)**: Acceleration - main features
+3. **Phase 3 (40-70%)**: Maximum peak - maximum ideas and opportunities
+4. **Phase 4 (70-90%)**: Deceleration - only critical tasks
+5. **Phase 5 (90-100%)**: Exhaustion - stop adding features
+
+📖 **Complete details**: See "AI Task Recommendations" section in Step 12 of each protocol.
+
+---
+
 ## 🤖 How to Use with AI (Cursor / GitHub Copilot)
 
 These protocols were designed to be read by AI Assistants. To get the best results, configure your AI as follows:
@@ -54,12 +78,12 @@ These protocols were designed to be read by AI Assistants. To get the best resul
 ### In Cursor (Rules for AI)
 Add the following prompt to your global or project settings:
 
-> "Always analyze the project context. If it's a new project or prototype, strictly follow `PROTOCOLO_SIMPLICIDADE_1.md`. If I inform you that it's a production project and I'm working alone, adopt `PROTOCOLO_SIMPLICIDADE_3.md` and validate each security step with me."
+> "Always analyze the project context. If it's a new project or prototype, strictly follow `PROTOCOLO_SIMPLICIDADE_1.md`. If I inform you that it's a production project and I'm working alone, adopt `PROTOCOLO_SIMPLICIDADE_3.md` and validate each security step with me. Always consult TASKS.md to manage project tasks."
 
 ### In GitHub Copilot
 When starting a task, invoke the context:
 
-> "@workspace Today we're working on Task #42. As this is a critical production project, read `PROTOCOLO_SIMPLICIDADE_3.md` and guide me step-by-step starting from Step 1."
+> "@workspace Today we're working on Task #42 from TASKS.md. As this is a critical production project, read `PROTOCOLO_SIMPLICIDADE_3.md` and guide me step-by-step starting from Step 1."
 
 ---
 
