@@ -186,6 +186,103 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 
 ---
 
+## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
+
+> **CRÍTICO**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos**.
+
+### 🚨 Tipos de Erros que Bloqueiam o Desenvolvimento
+
+Considere a existência de erros no workspace (visíveis na aba "Problemas" do IDE) como **indesejável e bloqueante**. Caso aconteça alguma ocorrência dos seguintes tipos de erro, a **correção é prioridade absoluta** antes de continuar:
+
+1. **❌ Problemas de Sintaxe**
+   - Erros de parsing do código
+   - Parênteses, chaves ou colchetes não fechados
+   - Indentação incorreta (Python)
+   - Ponto-e-vírgula faltando (JavaScript, C, Java)
+
+2. **❌ Inconsistências de Código**
+   - Variáveis declaradas mas não utilizadas
+   - Imports não utilizados ou faltantes
+   - Código morto (unreachable code)
+   - Type mismatches (TypeScript, Python com type hints)
+
+3. **❌ Omissões Inesperadas**
+   - Funções declaradas mas não implementadas
+   - Parâmetros obrigatórios faltando
+   - Return statements ausentes quando esperados
+   - Documentação obrigatória faltando
+
+4. **❌ Fatos Incorretos**
+   - Referências a variáveis inexistentes
+   - Chamadas de funções com número errado de argumentos
+   - Acesso a propriedades inexistentes
+   - Imports de módulos inexistentes
+
+5. **❌ Ambiguidades**
+   - Warnings de type checking
+   - Possíveis null/undefined references
+   - Shadowing de variáveis
+   - Conversões de tipo implícitas perigosas
+
+6. **❌ Arquivos Faltosos**
+   - Dependências não instaladas
+   - Módulos importados mas não encontrados
+   - Arquivos de configuração ausentes
+   - Assets referenciados mas inexistentes
+
+7. **❌ Falhas de Execução**
+   - Build failures
+   - Compilation errors
+   - Testes falhando
+   - Linter errors (quando configurado)
+
+### ✅ Quando Pode Continuar
+
+**SOMENTE** continue com o desenvolvimento de novas funcionalidades quando:
+
+- ✅ **Zero erros** na aba "Problemas" do workspace
+- ✅ **Todos os builds** completam com sucesso
+- ✅ **Todos os testes** passam (se já existentes)
+- ✅ **Linter/formatter** não reporta erros críticos
+- ✅ **Type checker** não reporta erros (se aplicável)
+
+### 📋 Checklist Antes de Cada Tarefa
+
+```markdown
+Antes de iniciar qualquer tarefa nova:
+
+[ ] Verificar aba "Problemas" do IDE (0 erros)
+[ ] Executar build do projeto (sucesso)
+[ ] Executar testes existentes (todos passando)
+[ ] Executar linter/formatter (sem erros críticos)
+[ ] Verificar imports e dependências (todas resolvidas)
+[ ] Confirmar que código está em estado limpo (commitável)
+```
+
+### ⏱️ Tempo Estimado para Correção
+
+- **Erros de Sintaxe**: ~2-5 minutos por erro
+- **Imports/Dependências**: ~5-10 minutos
+- **Type Errors**: ~5-15 minutos por erro
+- **Testes Falhando**: ~10-30 minutos (depende da complexidade)
+
+**Regra Prática**: Se você tem >10 erros no workspace, **dedique 1-2 horas** para limpar tudo antes de prosseguir.
+
+### 🎯 Rationale
+
+**Por quê esta regra é crítica?**
+
+1. **Prevenção de Cascata**: Um erro não corrigido pode gerar 10 novos erros
+2. **Qualidade do Código**: Código com erros = dívida técnica imediata
+3. **Confiabilidade**: Funcionalidades novas em cima de código quebrado = bugs garantidos
+4. **Produtividade**: Corrigir erros antigos + novos é mais demorado que corrigir só os antigos
+5. **Profissionalismo**: Código limpo e sem erros é requisito mínimo
+
+**Mensagem**: 
+> "Até que os erros não sejam sanados, as tarefas e as funcionalidades não podem continuar sendo implementadas."
+
+---
+
 ## 📋 Espinha Dorsal do Protocolo (23 Etapas: 13 Obrigatórias + 10 Opcionais)
 
 ### **Etapas Obrigatórias** (Protocolo Simplicidade 1):

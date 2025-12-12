@@ -47,6 +47,35 @@ Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da 
 
 ---
 
+## ⚠️ Regra Fundamental para Todos os Protocolos
+
+> **CRÍTICO**: Antes de implementar novas funcionalidades, **todos os erros no workspace devem ser corrigidos**.
+
+Todos os três protocolos agora incluem uma **Regra de Ouro** que deve ser seguida sem exceção:
+
+### 🚨 Prioridade Absoluta para Erros
+
+Considere a existência de erros no workspace (aba "Problemas" do IDE) como **bloqueante**. Os seguintes tipos de erro devem ser corrigidos ANTES de continuar:
+
+- ❌ Problemas de sintaxe
+- ❌ Inconsistências de código
+- ❌ Omissões inesperadas
+- ❌ Fatos incorretos
+- ❌ Ambiguidades
+- ❌ Arquivos faltosos
+- ❌ Falhas de execução
+
+### ✅ Continue Apenas Quando
+
+- ✅ Zero erros na aba "Problemas"
+- ✅ Todos os builds completam com sucesso
+- ✅ Todos os testes passam
+- ✅ Linter/formatter sem erros críticos
+
+**Mensagem:**
+> "Até que os erros não sejam sanados, as tarefas e as funcionalidades não podem continuar sendo implementadas."
+
+Esta regra está documentada em detalhes em cada protocolo após a seção "Filosofia Central".
 ## 📋 Gerenciamento de Tarefas (TASKS.md)
 
 Todos os protocolos Simplicidade agora incluem suporte integrado para gerenciamento de tarefas através de um arquivo `TASKS.md` (ou arquivo alternativo de sua escolha).

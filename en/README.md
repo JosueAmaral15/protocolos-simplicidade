@@ -47,6 +47,35 @@ Created specifically for the developer who doesn't have a team but needs the sec
 
 ---
 
+## ⚠️ Fundamental Rule for All Protocols
+
+> **CRITICAL**: Before implementing new features, **all workspace errors must be fixed**.
+
+All three protocols now include a **Golden Rule** that must be followed without exception:
+
+### 🚨 Absolute Priority for Errors
+
+Consider the existence of errors in the workspace (IDE's "Problems" tab) as **blocking**. The following types of errors must be fixed BEFORE continuing:
+
+- ❌ Syntax issues
+- ❌ Code inconsistencies
+- ❌ Unexpected omissions
+- ❌ Incorrect facts
+- ❌ Ambiguities
+- ❌ Missing files
+- ❌ Execution failures
+
+### ✅ Continue Only When
+
+- ✅ Zero errors in the "Problems" tab
+- ✅ All builds complete successfully
+- ✅ All tests pass
+- ✅ Linter/formatter without critical errors
+
+**Message:**
+> "Until the errors are resolved, tasks and features cannot continue being implemented."
+
+This rule is documented in detail in each protocol after the "Core Philosophy" section.
 ## 📋 Task Management (TASKS.md)
 
 All Simplicity protocols now include integrated support for task management through a `TASKS.md` file (or alternative file of your choice).
