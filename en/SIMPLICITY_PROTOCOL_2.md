@@ -189,6 +189,103 @@ However, this rigor comes with a **cost**: ~4-6h per task vs ~2-3h in Simplicity
 
 ---
 
+## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
+
+> **CRITICAL**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed**.
+
+### 🚨 Types of Errors That Block Development
+
+Consider the existence of errors in the workspace (visible in the IDE's "Problems" tab) as **undesirable and blocking**. If any of the following types of errors occur, **fixing them is an absolute priority** before continuing:
+
+1. **❌ Syntax Issues**
+   - Code parsing errors
+   - Unclosed parentheses, braces, or brackets
+   - Incorrect indentation (Python)
+   - Missing semicolons (JavaScript, C, Java)
+
+2. **❌ Code Inconsistencies**
+   - Variables declared but not used
+   - Unused or missing imports
+   - Dead code (unreachable code)
+   - Type mismatches (TypeScript, Python with type hints)
+
+3. **❌ Unexpected Omissions**
+   - Functions declared but not implemented
+   - Missing required parameters
+   - Missing return statements when expected
+   - Missing mandatory documentation
+
+4. **❌ Incorrect Facts**
+   - References to non-existent variables
+   - Function calls with wrong number of arguments
+   - Access to non-existent properties
+   - Imports of non-existent modules
+
+5. **❌ Ambiguities**
+   - Type checking warnings
+   - Possible null/undefined references
+   - Variable shadowing
+   - Dangerous implicit type conversions
+
+6. **❌ Missing Files**
+   - Dependencies not installed
+   - Imported modules not found
+   - Missing configuration files
+   - Referenced but non-existent assets
+
+7. **❌ Execution Failures**
+   - Build failures
+   - Compilation errors
+   - Failing tests
+   - Linter errors (when configured)
+
+### ✅ When You Can Continue
+
+**ONLY** continue with development of new features when:
+
+- ✅ **Zero errors** in the workspace "Problems" tab
+- ✅ **All builds** complete successfully
+- ✅ **All tests** pass (if they already exist)
+- ✅ **Linter/formatter** doesn't report critical errors
+- ✅ **Type checker** doesn't report errors (if applicable)
+
+### 📋 Checklist Before Each Task
+
+```markdown
+Before starting any new task:
+
+[ ] Check IDE "Problems" tab (0 errors)
+[ ] Run project build (success)
+[ ] Run existing tests (all passing)
+[ ] Run linter/formatter (no critical errors)
+[ ] Verify imports and dependencies (all resolved)
+[ ] Confirm code is in clean state (committable)
+```
+
+### ⏱️ Estimated Time for Fixing
+
+- **Syntax Errors**: ~2-5 minutes per error
+- **Imports/Dependencies**: ~5-10 minutes
+- **Type Errors**: ~5-15 minutes per error
+- **Failing Tests**: ~10-30 minutes (depends on complexity)
+
+**Rule of Thumb**: If you have >10 errors in the workspace, **dedicate 1-2 hours** to clean everything before proceeding.
+
+### 🎯 Rationale
+
+**Why is this rule critical?**
+
+1. **Cascade Prevention**: One uncorrected error can generate 10 new errors
+2. **Code Quality**: Code with errors = immediate technical debt
+3. **Reliability**: New features on top of broken code = guaranteed bugs
+4. **Productivity**: Fixing old + new errors is more time-consuming than fixing only old ones
+5. **Professionalism**: Clean, error-free code is a minimum requirement
+
+**Message**: 
+> "Until the errors are resolved, tasks and features cannot continue being implemented."
+
+---
+
 ## 📋 Protocol Backbone (23 Steps: 13 Mandatory + 10 Optional)
 
 ### **Mandatory Steps** (Simplicity Protocol 1):
