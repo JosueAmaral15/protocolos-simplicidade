@@ -133,12 +133,28 @@ Here's the English translation of the provided document:
 1️⃣3️⃣ 🚀 Commit and push
 
 ### 1️⃣ **Read the Documentation**
+- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
 - Consult `docs/REQUIREMENTS.md` to understand the project context
 - Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
 - Understand existing dependencies and architecture
 - Check examples in `tests/files/` when applicable
 
-**Why?**: Avoid rework and ensure consistency with existing code.
+**📋 About the Task File**:
+
+The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+
+**Task File Requirements**:
+- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
+- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
+- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+
+**If no task file exists**:
+1. AI should ask the user: "Which file do you use to manage tasks?"
+2. If none exists, suggest creating the default `TASKS.md`
+3. Confirm file location and name with the user
+
+**Why?**: Avoid rework and ensure consistency with existing code. The task file centralizes project planning and progress.
 
 ---
 
@@ -1436,19 +1452,244 @@ python tests/run_tests_monitored.py
 - **Update tasks/requirements file**: Mark tasks as `[X]` complete
 - **Create SPECIFICATIONS.md**: Detailed version document
 - **Update statistics**: Project completion percentage
+- **🤖 [OPTIONAL] Manage AI task recommendations**
 
-**📋 Task Marking in Requirements File**:
+**📋 TASKS.md Management**:
 
 **General Rule**:
-- If a tasks/requirements file exists (e.g., `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
+- If a tasks/requirements file exists (e.g., `TASKS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Mark tasks as complete** after implementation: `[ ]` → `[X]`
   - ✅ **Update statistics** (percentages, counters)
   - ✅ **Add completion notes** (date, version, brief description)
+  - 🤖 **[OPTIONAL] Add new AI-recommended tasks** (see section below)
   
 - If a tasks/requirements file **DOES NOT exist**:
   - ❓ **Ask the user** for the file location/path
   - ❓ **Ask about next tasks and requirements** if no formal document exists
-  - ❓ **Suggest creating** a task control file
+  - ❓ **Suggest creating** `TASKS.md` as the default file
+
+---
+
+### 🤖 **AI Task Recommendations (OPTIONAL)**
+
+**When to Use**:
+- ✅ After completing implementations or sprints
+- ✅ When the project is evolving and can benefit from new functionalities
+- ✅ To identify improvement opportunities and refine requirements
+- ❌ DO NOT use for disposable projects or temporary prototypes
+
+**Initial Question to User** (ask ONCE at project start):
+```
+❓ Would you like AI to dynamically recommend new tasks in TASKS.md 
+   as the project evolves?
+   
+Options:
+A) ✅ Yes, add recommendations from time to time
+B) ❌ No, maintain only tasks I define manually
+C) 🔢 Yes, but with a maximum limit of [X] new tasks (default: 30)
+```
+
+**If user accepts (option A or C)**:
+
+#### **Recommendation Dynamics (Quadratic Curve)**
+
+AI should follow a recommendation pattern that **grows, reaches a peak, and then decreases**:
+
+```
+AI-Recommended Tasks Throughout the Project:
+
+Project Start (0-20% complete):
+├── 🟢 PHASE 1: INITIAL GROWTH (0-5 tasks)
+│   ├── Recommendations: Few and essential
+│   ├── Focus: Establish solid project foundation
+│   └── Examples: CI/CD setup, test structure, basic documentation
+
+Early Development (20-40% complete):
+├── 🟢 PHASE 2: ACCELERATION (5-15 tasks)
+│   ├── Recommendations: Gradually increasing
+│   ├── Focus: Main features, important integrations
+│   └── Examples: Essential APIs, core features, UX improvements
+
+Mid Development (40-70% complete):
+├── 🟡 PHASE 3: MAXIMUM PEAK (15-30 total tasks)
+│   ├── Recommendations: Maximum ideas and opportunities
+│   ├── Focus: Polishing, secondary features, optimizations
+│   └── Examples: Performance tuning, accessibility, i18n, analytics
+
+Late Development (70-90% complete):
+├── 🟠 PHASE 4: DECELERATION (10-15 remaining tasks)
+│   ├── Recommendations: Decreasing, only critical
+│   ├── Focus: Finalization, bugfixes, stability
+│   └── Examples: Edge cases, integration tests, final documentation
+
+Final Stage (90-100% complete):
+└── 🔴 PHASE 5: EXHAUSTION (0-5 final tasks)
+    ├── Recommendations: STOP adding new features
+    ├── Focus: Release readiness, final review
+    └── Examples: Only critical adjustments or blocking bugfixes
+```
+
+**Curve Formula** (for AI implementers):
+```
+num_recommended_tasks = -4 * (progress - 0.5)² + 30
+where:
+- progress = completion percentage (0.0 to 1.0)
+- num_recommended_tasks = cumulative total of recommended tasks
+- Peak maximum at ~50% project completion (30 tasks if default not changed)
+```
+
+#### **Limits and Controls**
+
+**Configurable Maximum Limit**:
+- 📊 **Default**: 30 new tasks/ideas recommended by AI
+- ⚙️ **Configurable**: User can specify another value (e.g., 10, 50, 100)
+- 🔢 **Question**: "What is the maximum number of tasks AI can recommend? (default: 30)"
+
+**Scope Control**:
+```markdown
+### ✅ CRITERIA for AI Recommendations
+
+1. **Within Scope**:
+   - ✅ Aligned with project theme/purpose
+   - ✅ Based on user feedback (real or simulated)
+   - ✅ Improvement of existing requirements
+   - ✅ Product professionalism and quality
+
+2. **OUT of Scope** (DO NOT recommend):
+   - ❌ Features unrelated to main theme
+   - ❌ "Cool but unnecessary" ideas (feature creep)
+   - ❌ Unjustified technologies/frameworks
+   - ❌ Generic recommendations without project context
+
+3. **Prioritization**:
+   - 🔴 MUST HAVE: Critical for the project
+   - 🟡 SHOULD HAVE: Important but not blocking
+   - 🟢 COULD HAVE: Nice to have, low priority
+   - ⚪ WON'T HAVE: Explicitly out of scope
+```
+
+#### **Recommendation Format in TASKS.md**
+
+```markdown
+## 🤖 AI-Recommended Tasks
+
+_These tasks were suggested by AI based on project progress and 
+user feedback. Review and approve before implementing._
+
+### 🔴 MUST HAVE (Critical)
+- [ ] **[AI-001]** Implement 2-factor authentication
+  - **Reason**: Critical security for user data
+  - **Impact**: High (GDPR compliance requirement)
+  - **Effort**: 8-12 hours
+  - **Priority**: ⭐⭐⭐⭐⭐
+
+### 🟡 SHOULD HAVE (Important)
+- [ ] **[AI-002]** Add analytics dashboard
+  - **Reason**: Stakeholders requested usage metrics
+  - **Impact**: Medium (improves decision making)
+  - **Effort**: 4-6 hours
+  - **Priority**: ⭐⭐⭐⭐
+
+### 🟢 COULD HAVE (Improvements)
+- [ ] **[AI-003]** Dark mode in application theme
+  - **Reason**: Frequent request from end users
+  - **Impact**: Low (UX enhancement)
+  - **Effort**: 2-3 hours
+  - **Priority**: ⭐⭐⭐
+
+---
+**📊 AI Recommendation Statistics**:
+- Total recommended: 3/30 (10% of limit)
+- Current phase: PHASE 2 - ACCELERATION (progress: 35%)
+- Next review: After next sprint
+```
+
+#### **Addition Frequency**
+
+**When AI should add new tasks**:
+- ✅ **After each completed sprint/milestone**
+- ✅ **When progress reaches milestones**: 25%, 50%, 75%
+- ✅ **When user explicitly requests**: "Suggest new tasks"
+- ❌ **NEVER** add tasks in the middle of active implementation
+
+**User Approval**:
+```
+❓ After each sprint, ask:
+"Would you like to review [X] new AI-recommended tasks for TASKS.md?"
+
+A) ✅ Yes, add to TASKS.md for review
+B) 📋 Yes, but show preview before adding
+C) ⏭️ Skip for now (don't add this sprint)
+D) 🛑 Stop recommendations (disable permanently)
+```
+
+#### **Complete Example**
+
+```markdown
+# TASKS.md
+
+## 📊 Project Statistics
+- **Overall Progress**: 45% complete (18/40 tasks)
+- **Current Phase**: PHASE 3 - MAXIMUM PEAK
+- **AI Tasks**: 12/30 recommended (40% of limit)
+
+## ✅ Completed Tasks (18)
+- [x] Initial project setup
+- [x] Implement basic authentication
+- [x] User CRUD
+... (15 more)
+
+## 🔨 Pending Original Tasks (22)
+- [ ] Payment API integration
+- [ ] Notification system
+... (20 more)
+
+## 🤖 AI-Recommended Tasks (12/30 used)
+
+### 🔴 MUST HAVE
+- [ ] **[AI-001]** Rate limiting on API endpoints
+  - **Reason**: Prevent abuse and ensure stability
+  - **Impact**: High (security and performance)
+  - **Effort**: 3-4 hours
+  
+- [ ] **[AI-002]** Structured logging for debugging
+  - **Reason**: Facilitate troubleshooting in production
+  - **Impact**: High (operational)
+  - **Effort**: 2-3 hours
+
+### 🟡 SHOULD HAVE
+- [ ] **[AI-003]** Export data to CSV format
+  - **Reason**: Stakeholder request for analysis
+  - **Impact**: Medium (convenience)
+  - **Effort**: 2 hours
+
+... (9 more tasks)
+
+---
+**🎯 Next Recommendation Review**: After Sprint 8 (when reaching 60% progress)
+```
+
+#### **Disabling Recommendations**
+
+If user wants to **stop** recommendations:
+
+```markdown
+## 🤖 AI Recommendations: DISABLED
+
+_User chose to manage tasks manually._
+
+**To reactivate**: Request AI "Reactivate task recommendations"
+```
+
+---
+
+**Why this functionality is valuable?**:
+- ✅ **AI Creativity**: Identifies opportunities developers might not see
+- ✅ **Professionalism**: Suggests best practices and quality patterns
+- ✅ **Refinement**: Collaborates with requirements to meet client expectations
+- ✅ **Control**: User has full control (limit, approval, disable)
+- ✅ **Focus**: Growth/decay curve prevents feature creep
+- ✅ **Scope**: Recommendations based on project context and feedback
 
 **📁 TASKS.md File Location**:
 - **Default preference**: The `TASKS.md` file, when created, should be placed in `docs/TASKS.md`
