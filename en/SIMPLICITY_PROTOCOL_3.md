@@ -222,12 +222,28 @@ Simplicity 3 = Simplicity 1 Base (13 steps)
 **Total**: 13 base + 3 new mandatory ⭐ + 3 optional = **16-19 steps**
 
 ### 1️⃣ **Read the Documentation**
+- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
 - Consult `docs/REQUIREMENTS.md` to understand the project context
 - Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
 - Understand dependencies and existing architecture
 - Check examples in `tests/files/` when applicable
 
-**Why?**: Avoid rework and ensure coherence with existing code.
+**📋 About the Task File**:
+
+The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+
+**Task File Requirements**:
+- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
+- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
+- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+
+**If no task file exists**:
+1. AI should ask the user: "Which file do you use to manage tasks?"
+2. If none exists, suggest creating the default `TASKS.md`
+3. Confirm file location and name with the user
+
+**Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
 
 ---
 
@@ -1925,19 +1941,26 @@ docs/
 - **Update tasks/requirements file**: Mark tasks as `[X]` complete
 - **Create SPECIFICATIONS.md**: Detailed document for the version
 - **Update statistics**: Project completion percentage
+- **🤖 [OPTIONAL] Manage AI task recommendations**
 
-**📋 Task Marking in Requirements File**:
+**📋 TASKS.md Management**:
 
 **General Rule**:
-- If a tasks/requirements file exists (e.g., `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
+- If a tasks/requirements file exists (e.g., `TASKS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Mark tasks as complete** after implementation: `[ ]` → `[X]`
   - ✅ **Update statistics** (percentages, counters)
   - ✅ **Add completion notes** (date, version, brief description)
+  - 🤖 **[OPTIONAL] Add new AI-recommended tasks** (see details in SIMPLICITY_PROTOCOL_1.md - Step 12)
   
 - If a tasks/requirements file **DOES NOT exist**:
   - ❓ **Ask the user** for the file location/path
   - ❓ **Ask about next tasks and requirements** if no formal document
-  - ❓ **Suggest creating** a task control file
+  - ❓ **Suggest creating** `TASKS.md` as the default file
+
+**🤖 AI Task Recommendations (Solo Developer)**:
+For solo developers (Simplicity 3), AI recommendations are especially valuable as there's no team for brainstorming. AI acts as a "second brain" suggesting improvements and opportunities. Since you're working alone, you have autonomy to quickly accept/reject recommendations without needing team consensus.
+
+📘 **Complete details of recommendation functionality**: See `SIMPLICITY_PROTOCOL_1.md` - Step 12 - Section "AI Task Recommendations"
 
 **Example of Marking (REQUIREMENTS.md)**:
 ```markdown
