@@ -3406,6 +3406,19 @@ This PR implements **ADR-004: Migrate to SQLite**.
   - ❓ **Ask about next tasks and requirements** if no formal document
   - ❓ **Suggest creating** a task control file
 
+**📁 TASKS.md File Location**:
+- **Default preference**: The `TASKS.md` file, when created, should be placed in `docs/TASKS.md`
+- **Create docs/ folder**: If the `docs/` folder does not exist in the project, it should be created automatically
+- **Flexibility**: The user or programmer can choose to place it in another location if preferred
+- **Creation example**:
+  ```bash
+  # Create docs folder if it doesn't exist
+  mkdir -p docs
+  
+  # Create or update TASKS.md
+  echo "# Tasks" > docs/TASKS.md
+  ```
+
 **Example of Marking (REQUIREMENTS.md)**:
 ```markdown
 ## 🟢 COULD HAVE (Low Priority)
