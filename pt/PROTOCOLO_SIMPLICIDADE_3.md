@@ -222,12 +222,28 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 **Total**: 13 base + 3 obrigatórias novas ⭐ + 3 opcionais = **16-19 etapas**
 
 ### 1️⃣ **Ler a Documentação**
+- Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
 - Entender dependências e arquitetura existente
 - Verificar exemplos em `tests/files/` quando aplicável
 
-**Por quê?**: Evitar retrabalho e garantir coerência com o código existente.
+**📋 Sobre o Arquivo de Tarefas**:
+
+O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto, mas você pode usar qualquer arquivo no formato ASCII (`.txt`, `.md`, etc.) conforme sua preferência.
+
+**Requisitos do Arquivo de Tarefas**:
+- ✅ **Formato ASCII obrigatório**: `.md`, `.txt` ou similar (legível como texto plano)
+- ❌ **NÃO aceito**: `.docx`, `.pdf`, ou formatos binários
+- 📍 **Localização**: Raiz do projeto ou em `docs/` (ex: `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternativo**: Se preferir outro nome/localização, especifique no início do projeto
+
+**Se não existir arquivo de tarefas**:
+1. A IA deve perguntar ao usuário: "Qual arquivo você usa para gerenciar tarefas?" 
+2. Se não houver, sugerir criação do `TASKS.md` padrão
+3. Confirmar localização e nome do arquivo com o usuário
+
+**Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
 ---
 
@@ -1925,19 +1941,26 @@ docs/
 - **Atualizar arquivo de tarefas/requisitos**: Marcar tasks como `[X]` completas
 - **Criar SPECIFICATIONS.md**: Documento detalhado da versão
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
+- **🤖 [OPCIONAL] Gerenciar recomendações de novas tarefas pela IA**
 
-**📋 Marcação de Tarefas em Arquivo de Requisitos**:
+**📋 Gerenciamento do TASKS.md**:
 
 **Regra Geral**:
-- Se existe arquivo de tarefas/requisitos (ex: `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
+- Se existe arquivo de tarefas/requisitos (ex: `TASKS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Marcar tasks como completas** após implementação: `[ ]` → `[X]`
   - ✅ **Atualizar estatísticas** (percentuais, contadores)
   - ✅ **Adicionar notas de conclusão** (data, versão, descrição breve)
+  - 🤖 **[OPCIONAL] Adicionar novas tarefas recomendadas pela IA** (ver detalhes em PROTOCOLO_SIMPLICIDADE_1.md - Etapa 12)
   
 - Se **NÃO existe** arquivo de tarefas/requisitos:
   - ❓ **Perguntar ao usuário** qual o local/path do arquivo
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
-  - ❓ **Sugerir criação** de arquivo de controle de tarefas
+  - ❓ **Sugerir criação** de `TASKS.md` como arquivo padrão
+
+**🤖 Recomendações de Tarefas pela IA (Solo Developer)**:
+Para solo developers (Simplicidade 3), as recomendações da IA são especialmente valiosas pois não há equipe para brainstorming. A IA age como um "segundo cérebro" sugerindo melhorias e oportunidades. Como você está sozinho, tem autonomia para aceitar/rejeitar recomendações rapidamente sem necessidade de consenso em equipe.
+
+📘 **Detalhes completos da funcionalidade de recomendações**: Ver `PROTOCOLO_SIMPLICIDADE_1.md` - Etapa 12 - Seção "Recomendações de Tarefas pela IA"
 
 **Exemplo de Marcação (REQUIREMENTS.md)**:
 ```markdown

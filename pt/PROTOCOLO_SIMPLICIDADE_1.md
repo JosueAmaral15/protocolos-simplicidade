@@ -130,12 +130,28 @@
 1️⃣3️⃣ 🚀 Fazer commit e push
 
 ### 1️⃣ **Ler a Documentação**
+- Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
 - Entender dependências e arquitetura existente
 - Verificar exemplos em `tests/files/` quando aplicável
 
-**Por quê?**: Evitar retrabalho e garantir coerência com o código existente.
+**📋 Sobre o Arquivo de Tarefas**:
+
+O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto, mas você pode usar qualquer arquivo no formato ASCII (`.txt`, `.md`, etc.) conforme sua preferência.
+
+**Requisitos do Arquivo de Tarefas**:
+- ✅ **Formato ASCII obrigatório**: `.md`, `.txt` ou similar (legível como texto plano)
+- ❌ **NÃO aceito**: `.docx`, `.pdf`, ou formatos binários
+- 📍 **Localização**: Raiz do projeto ou em `docs/` (ex: `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternativo**: Se preferir outro nome/localização, especifique no início do projeto
+
+**Se não existir arquivo de tarefas**:
+1. A IA deve perguntar ao usuário: "Qual arquivo você usa para gerenciar tarefas?" 
+2. Se não houver, sugerir criação do `TASKS.md` padrão
+3. Confirmar localização e nome do arquivo com o usuário
+
+**Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
 ---
 
@@ -1432,19 +1448,244 @@ python tests/run_tests_monitored.py
 - **Atualizar arquivo de tarefas/requisitos**: Marcar tasks como `[X]` completas
 - **Criar SPECIFICATIONS.md**: Documento detalhado da versão
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
+- **🤖 [OPCIONAL] Gerenciar recomendações de novas tarefas pela IA**
 
-**📋 Marcação de Tarefas em Arquivo de Requisitos**:
+**📋 Gerenciamento do TASKS.md**:
 
 **Regra Geral**:
-- Se existe arquivo de tarefas/requisitos (ex: `REQUIREMENTS.md`, `TODO.md`, `requirements.md`):
+- Se existe arquivo de tarefas/requisitos (ex: `TASKS.md`, `TODO.md`, `requirements.md`):
   - ✅ **Marcar tasks como completas** após implementação: `[ ]` → `[X]`
   - ✅ **Atualizar estatísticas** (percentuais, contadores)
   - ✅ **Adicionar notas de conclusão** (data, versão, descrição breve)
+  - 🤖 **[OPCIONAL] Adicionar novas tarefas recomendadas pela IA** (ver seção abaixo)
   
 - Se **NÃO existe** arquivo de tarefas/requisitos:
   - ❓ **Perguntar ao usuário** qual o local/path do arquivo
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
-  - ❓ **Sugerir criação** de arquivo de controle de tarefas
+  - ❓ **Sugerir criação** de `TASKS.md` como arquivo padrão
+
+---
+
+### 🤖 **Recomendações de Tarefas pela IA (OPCIONAL)**
+
+**Quando Usar**:
+- ✅ Após completar implementações ou sprints
+- ✅ Quando o projeto está evoluindo e pode se beneficiar de novas funcionalidades
+- ✅ Para identificar oportunidades de melhoria e refinamento de requisitos
+- ❌ NÃO usar em projetos descartáveis ou protótipos temporários
+
+**Pergunta Inicial ao Usuário** (fazer UMA VEZ no início do projeto):
+```
+❓ Gostaria que a IA recomende novas tarefas dinamicamente no TASKS.md 
+   conforme o projeto evolui?
+   
+Opções:
+A) ✅ Sim, adicionar recomendações de vez em quando
+B) ❌ Não, manter apenas tarefas que eu definir manualmente
+C) 🔢 Sim, mas com limite máximo de [X] novas tarefas (default: 30)
+```
+
+**Se o usuário aceitar (opção A ou C)**:
+
+#### **Dinâmica de Recomendação (Curva Quadrática)**
+
+A IA deve seguir um padrão de recomendação que **cresce, atinge um pico e depois diminui**:
+
+```
+Tarefas Recomendadas pela IA ao Longo do Projeto:
+
+Início do Projeto (0-20% completo):
+├── 🟢 FASE 1: CRESCIMENTO INICIAL (0-5 tarefas)
+│   ├── Recomendações: Poucas e essenciais
+│   ├── Foco: Estabelecer base sólida do projeto
+│   └── Exemplos: Setup CI/CD, estrutura de testes, documentação básica
+
+Early Development (20-40% completo):
+├── 🟢 FASE 2: ACELERAÇÃO (5-15 tarefas)
+│   ├── Recomendações: Aumentando gradualmente
+│   ├── Foco: Features principais, integrações importantes
+│   └── Exemplos: APIs essenciais, funcionalidades core, UX melhorias
+
+Mid Development (40-70% completo):
+├── 🟡 FASE 3: PICO MÁXIMO (15-30 tarefas total)
+│   ├── Recomendações: Máximo de ideias e oportunidades
+│   ├── Foco: Polimento, features secundárias, otimizações
+│   └── Exemplos: Performance tuning, acessibilidade, i18n, analytics
+
+Late Development (70-90% completo):
+├── 🟠 FASE 4: DESACELERAÇÃO (10-15 tarefas restantes)
+│   ├── Recomendações: Diminuindo, apenas críticas
+│   ├── Foco: Finalização, bugfixes, estabilidade
+│   └── Exemplos: Edge cases, testes de integração, documentação final
+
+Final Stage (90-100% completo):
+└── 🔴 FASE 5: EXAUSTÃO (0-5 tarefas finais)
+    ├── Recomendações: PARAR de adicionar novas features
+    ├── Foco: Release readiness, última revisão
+    └── Exemplos: Apenas ajustes críticos ou bugfixes bloqueantes
+```
+
+**Fórmula da Curva** (para implementadores da IA):
+```
+num_tarefas_recomendadas = -4 * (progresso - 0.5)² + 30
+onde:
+- progresso = percentual completo (0.0 a 1.0)
+- num_tarefas_recomendadas = total acumulado de tarefas recomendadas
+- Pico máximo em ~50% do projeto (30 tarefas se default não alterado)
+```
+
+#### **Limites e Controles**
+
+**Limite Máximo Configurável**:
+- 📊 **Default**: 30 novas tarefas/ideias recomendadas pela IA
+- ⚙️ **Configurável**: Usuário pode especificar outro valor (ex: 10, 50, 100)
+- 🔢 **Pergunta**: "Qual o máximo de tarefas que a IA pode recomendar? (default: 30)"
+
+**Controle de Escopo**:
+```markdown
+### ✅ CRITÉRIOS para Recomendações da IA
+
+1. **Dentro do Escopo**:
+   - ✅ Alinhado com o tema/propósito do projeto
+   - ✅ Baseado em feedback de usuários (real ou simulado)
+   - ✅ Melhoria de requisitos existentes
+   - ✅ Profissionalismo e qualidade do produto
+
+2. **FORA do Escopo** (NÃO recomendar):
+   - ❌ Features não relacionadas ao tema principal
+   - ❌ Ideias "legais mas desnecessárias" (feature creep)
+   - ❌ Tecnologias/frameworks não justificados
+   - ❌ Recomendações genéricas sem contexto do projeto
+
+3. **Priorização**:
+   - 🔴 MUST HAVE: Crítico para o projeto
+   - 🟡 SHOULD HAVE: Importante mas não bloqueante
+   - 🟢 COULD HAVE: Nice to have, baixa prioridade
+   - ⚪ WON'T HAVE: Explicitamente fora do escopo
+```
+
+#### **Formato das Recomendações no TASKS.md**
+
+```markdown
+## 🤖 Tarefas Recomendadas pela IA
+
+_Estas tarefas foram sugeridas pela IA com base no progresso do projeto e 
+feedback de usuários. Revisar e aprovar antes de implementar._
+
+### 🔴 MUST HAVE (Críticas)
+- [ ] **[IA-001]** Implementar autenticação de 2 fatores
+  - **Razão**: Segurança crítica para dados de usuários
+  - **Impacto**: Alto (requisito de compliance LGPD)
+  - **Esforço**: 8-12 horas
+  - **Prioridade**: ⭐⭐⭐⭐⭐
+
+### 🟡 SHOULD HAVE (Importantes)
+- [ ] **[IA-002]** Adicionar dashboard de analytics
+  - **Razão**: Stakeholders solicitaram métricas de uso
+  - **Impacto**: Médio (melhora tomada de decisão)
+  - **Esforço**: 4-6 horas
+  - **Prioridade**: ⭐⭐⭐⭐
+
+### 🟢 COULD HAVE (Melhorias)
+- [ ] **[IA-003]** Dark mode no tema da aplicação
+  - **Razão**: Pedido frequente de usuários finais
+  - **Impacto**: Baixo (UX enhancement)
+  - **Esforço**: 2-3 horas
+  - **Prioridade**: ⭐⭐⭐
+
+---
+**📊 Estatísticas de Recomendações da IA**:
+- Total recomendadas: 3/30 (10% do limite)
+- Fase atual: FASE 2 - ACELERAÇÃO (progresso: 35%)
+- Próxima revisão: Após próxima sprint
+```
+
+#### **Frequência de Adição**
+
+**Quando a IA deve adicionar novas tarefas**:
+- ✅ **Após cada sprint/milestone** completada
+- ✅ **Quando progresso atinge marcos**: 25%, 50%, 75%
+- ✅ **Quando usuário solicita** explicitamente: "Sugira novas tarefas"
+- ❌ **NUNCA** adicionar tarefas no meio de uma implementação ativa
+
+**Aprovação do Usuário**:
+```
+❓ Após cada sprint, perguntar:
+"Deseja revisar [X] novas tarefas recomendadas pela IA para o TASKS.md?"
+
+A) ✅ Sim, adicionar ao TASKS.md para revisão
+B) 📋 Sim, mas mostrar preview antes de adicionar
+C) ⏭️ Pular por agora (não adicionar nesta sprint)
+D) 🛑 Parar recomendações (desabilitar permanentemente)
+```
+
+#### **Exemplo Completo**
+
+```markdown
+# TASKS.md
+
+## 📊 Estatísticas do Projeto
+- **Progresso Geral**: 45% completo (18/40 tarefas)
+- **Fase Atual**: FASE 3 - PICO MÁXIMO
+- **Tarefas IA**: 12/30 recomendadas (40% do limite)
+
+## ✅ Tarefas Concluídas (18)
+- [x] Setup inicial do projeto
+- [x] Implementar autenticação básica
+- [x] CRUD de usuários
+... (15 mais)
+
+## 🔨 Tarefas Pendentes Originais (22)
+- [ ] Integração com API de pagamento
+- [ ] Sistema de notificações
+... (20 mais)
+
+## 🤖 Tarefas Recomendadas pela IA (12/30 usadas)
+
+### 🔴 MUST HAVE
+- [ ] **[IA-001]** Rate limiting em endpoints da API
+  - **Razão**: Prevenir abuso e garantir estabilidade
+  - **Impacto**: Alto (segurança e performance)
+  - **Esforço**: 3-4 horas
+  
+- [ ] **[IA-002]** Logging estruturado para debugging
+  - **Razão**: Facilitar troubleshooting em produção
+  - **Impacto**: Alto (operacional)
+  - **Esforço**: 2-3 horas
+
+### 🟡 SHOULD HAVE
+- [ ] **[IA-003]** Exportar dados em formato CSV
+  - **Razão**: Solicitação de stakeholders para análise
+  - **Impacto**: Médio (conveniência)
+  - **Esforço**: 2 horas
+
+... (9 tarefas mais)
+
+---
+**🎯 Próxima Revisão de Recomendações**: Após Sprint 8 (quando atingir 60% progresso)
+```
+
+#### **Desabilitando Recomendações**
+
+Se o usuário quiser **parar** as recomendações:
+
+```markdown
+## 🤖 Recomendações da IA: DESABILITADAS
+
+_O usuário optou por gerenciar tarefas manualmente._
+
+**Para reativar**: Solicitar à IA "Reativar recomendações de tarefas"
+```
+
+---
+
+**Por quê esta funcionalidade é valiosa?**:
+- ✅ **Criatividade IA**: Identifica oportunidades que desenvolvedores podem não ver
+- ✅ **Profissionalismo**: Sugere boas práticas e padrões de qualidade
+- ✅ **Refinamento**: Colabora com requisitos para atender expectativas do cliente
+- ✅ **Controle**: Usuário tem controle total (limite, aprovação, desabilitar)
+- ✅ **Foco**: Curva de crescimento/decrescimento evita feature creep
+- ✅ **Escopo**: Recomendações baseadas no contexto e feedback do projeto
 
 **Exemplo de Marcação (REQUIREMENTS.md)**:
 ```markdown
