@@ -293,6 +293,163 @@ Before starting any new task:
 
 ---
 
+## 📊 Recursive Division of Complex Tasks
+
+> **IMPORTANT**: If the task is very long or complex, and there are time limits or response length limits, the artificial intelligence should divide the task into smaller parts, recursively, until achieving a task that can provide a satisfactory response according to the determined response limit.
+
+### 🔄 Division Strategy (Solo Developer)
+
+**When to Apply** (Simplicity Protocol 3):
+- ✅ Task estimated at >4 hours (divide into 2-3 sprints)
+- ✅ Critical production feature
+- ✅ Very long response (>1000 lines of code)
+- ✅ Multiple interdependent functionalities
+- ✅ Requires security checklist + CI/CD + rollback plan
+- ✅ Risk of timeout or response limit
+- ✅ **Solo**: You need to pause and continue later (context)
+
+**How to Divide** (Recursively with Pragmatism):
+
+1. **Level 1 - Deployable Features (3-4 hours each)**:
+   ```
+   Large Feature: "Real-Time Notifications System"
+   ↓ Divide into (solo, production):
+   ├── Sprint 1: Basic WebSocket server (4h)
+   │   ├── Security: Rate limiting
+   │   ├── CI/CD: Connection tests
+   │   └── Rollback: Feature flag
+   ├── Sprint 2: Client subscription (3h)
+   │   ├── Security: Token validation
+   │   └── CI/CD: Integration tests
+   └── Sprint 3: Notification persistence (3h)
+       ├── Security: Data sanitization
+       ├── CI/CD: Database tests
+       └── Rollback: Database migration
+   
+   Each sprint → Deployable to production
+   Each sprint → Rollback plan if critical
+   ```
+
+2. **Level 2 - Testable Tasks (<3 hours)**:
+   ```
+   Sprint 1: Basic WebSocket server
+   ↓ Divide into:
+   ├── Task 1.1: Setup WebSocket library (30min)
+   │   └── Security: Check vulnerabilities (pip-audit)
+   ├── Task 1.2: Connection handler (1h)
+   │   └── Security: Auth token validation
+   ├── Task 1.3: Rate limiting (1h)
+   │   └── Security: Prevent DDoS
+   ├── Task 1.4: Tests + CI/CD (1h)
+   └── Task 1.5: Deploy + monitoring (30min)
+       └── Rollback: Feature flag WEBSOCKET_ENABLED
+   ```
+
+3. **Level 3 - Subtasks (<1 hour)** (rarely needed):
+   ```
+   Task 1.2: Connection handler
+   ↓ Divide into (if too complex):
+   ├── Subtask 1.2.1: Accept connection (20min)
+   ├── Subtask 1.2.2: Validate token (20min)
+   └── Subtask 1.2.3: Store connection (20min)
+   ```
+
+**Solo Stopping Criteria**:
+- ⏱️ Task can be completed in <3 hours
+- 📝 Response fits within reasonable limit (<500 lines)
+- ✅ Clear and well-defined scope
+- 🧪 Can be tested in isolation
+- 🔒 Security checklist applicable (10-15min)
+- 🤖 CI/CD validates automatically
+- 🔄 Simple rollback plan (if critical)
+- 💾 **Recoverable context**: If stopped, can continue later
+
+**Solo Division Principles**:
+1. **Independence**: Each subtask must be deployable alone
+2. **Context**: Each subtask must have self-explanatory context
+3. **Incremental Value**: Each subtask must work in production
+4. **Testability**: Each subtask must have automated tests
+5. **Security**: Each subtask must pass security checklist
+6. **Automation**: CI/CD validates everything (you don't forget anything)
+7. **Reversibility**: Critical features have rollback (you're alone)
+
+**Practical Solo in Production Example**:
+```markdown
+❌ BAD - Feature too large (12h):
+[ ] Implement complete billing system
+
+✅ GOOD - Divided for solo developer:
+
+Sprint 1 (4h) - Base structure (non-critical):
+├── Task 1.1: Invoice model (1h)
+│   └── CI/CD: Schema tests
+├── Task 1.2: Basic CRUD (2h)
+│   ├── Security: Access control
+│   └── CI/CD: Unit tests
+└── Task 1.3: Documentation + deploy (1h)
+    └── Rollback: N/A (doesn't affect users)
+
+Sprint 2 (4h) - Stripe Integration (CRITICAL):
+├── Task 2.1: Setup Stripe API (1h)
+│   ├── Security: API keys in env vars
+│   └── CI/CD: Connection test
+├── Task 2.2: Create payment intent (2h)
+│   ├── Security: Amount validation, idempotency
+│   └── CI/CD: Mock Stripe tests
+└── Task 2.3: Deploy + rollback plan (1h)
+    └── Rollback: FEATURE_STRIPE_ENABLED=false
+    └── Monitoring: Alert if >5% error
+
+Sprint 3 (3h) - Webhooks (CRITICAL):
+├── Task 3.1: Webhook receiver (1.5h)
+│   ├── Security: Signature validation (OWASP)
+│   └── CI/CD: Webhook tests
+├── Task 3.2: Event processing (1h)
+│   └── Security: Idempotency check
+└── Task 3.3: Deploy + monitoring (30min)
+    └── Rollback: Disable webhook endpoint
+
+Each Sprint:
+- Security checklist (15min)
+- Automatic CI/CD (GitHub Actions)
+- Rollback plan if critical
+- Production deployment
+- **You alone can complete it**
+```
+
+**When to Divide vs When to Simplify**:
+
+```markdown
+If task is too large to divide efficiently:
+
+❌ BAD - Over-dividing:
+[ ] Task: Add "Save" button
+    ├── Subtask 1: Create button (10min)
+    ├── Subtask 2: Add event (10min)
+    └── Subtask 3: Test (10min)
+→ Division overhead > benefit
+
+✅ GOOD - Atomic task (30min total):
+[ ] Task: Add "Save" button with handler
+
+Rule of thumb:
+- Task <1h → Don't divide (atomic)
+- Task 1-3h → Evaluate (divide if >3 components)
+- Task >3h → Always divide
+```
+
+**Decision Matrix for Solo** (when there are multiple ways to divide):
+
+| Division | Solo-friendly | Deploy | Rollback | Context | **Score** |
+|---------|---------------|--------|----------|---------|-----------|
+| **By deployable feature** | 5 | 5 | 5 | 4 | **33** 🟢 |
+| By layer (backend/frontend) | 3 | 2 | 2 | 3 | **17** 🟡 |
+| By priority (MVP → Nice-to-have) | 5 | 5 | 4 | 5 | **34** 🟢 |
+
+**Why?**: Dividing tasks for solo developers ensures incremental deliveries with security, facilitates resuming context, allows quick rollback (you're alone in emergencies), and keeps code always deployable.
+
+---
+
 ## 📋 Protocol Backbone (16 Mandatory Steps)
 
 **Executive Summary** (⭐ = NEW vs Simplicity 1):

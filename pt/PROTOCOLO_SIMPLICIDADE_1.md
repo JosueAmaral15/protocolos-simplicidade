@@ -181,6 +181,90 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## 📊 Divisão Recursiva de Tarefas Complexas
+
+> **IMPORTANTE**: Se a tarefa for muito longa ou complexa, e houver limites de tempo ou comprimento de resposta, a inteligência artificial deve dividir a tarefa em partes menores, recursivamente, até conseguir uma tarefa que possa fornecer uma resposta satisfatória e de acordo com o limite de resposta determinado.
+
+### 🔄 Estratégia de Divisão
+
+**Quando Aplicar**:
+- ✅ Tarefa estimada em >4 horas (divide em 2+ sprints)
+- ✅ Resposta muito longa (>1000 linhas de código)
+- ✅ Múltiplas funcionalidades interdependentes
+- ✅ Escopo não claro ou ambíguo
+- ✅ Risco de timeout ou limite de resposta
+
+**Como Dividir** (Recursivamente):
+
+1. **Nível 1 - Divisão por Funcionalidade**:
+   ```
+   Tarefa Grande: "Sistema de Autenticação Completo"
+   ↓ Dividir em:
+   ├── Task 1.1: Login básico (username/password)
+   ├── Task 1.2: Recuperação de senha
+   ├── Task 1.3: 2FA (autenticação de dois fatores)
+   └── Task 1.4: OAuth/Social login
+   ```
+
+2. **Nível 2 - Divisão por Componente** (se ainda muito grande):
+   ```
+   Task 1.1: Login básico
+   ↓ Dividir em:
+   ├── Task 1.1.1: Backend - API de autenticação
+   ├── Task 1.1.2: Frontend - Formulário de login
+   ├── Task 1.1.3: Validação e segurança
+   └── Task 1.1.4: Testes unitários
+   ```
+
+3. **Nível 3 - Divisão por Etapa** (se ainda muito grande):
+   ```
+   Task 1.1.1: Backend - API de autenticação
+   ↓ Dividir em:
+   ├── Task 1.1.1.1: Modelo de usuário (database schema)
+   ├── Task 1.1.1.2: Hash de senha (bcrypt)
+   ├── Task 1.1.1.3: Geração de token JWT
+   └── Task 1.1.1.4: Endpoint /api/login
+   ```
+
+**Critério de Parada**:
+- ⏱️ Tarefa pode ser completada em <3 horas
+- 📝 Resposta cabe em limite razoável (arquivo único, <500 linhas)
+- ✅ Escopo claro e bem definido
+- 🧪 Pode ser testada isoladamente
+
+**Princípios de Divisão**:
+1. **Independência**: Cada subtarefa deve ser o mais independente possível
+2. **Coesão**: Subtarefas relacionadas devem estar próximas na sequência
+3. **Valor Incremental**: Cada subtarefa deve adicionar valor ao projeto
+4. **Testabilidade**: Cada subtarefa deve ser testável isoladamente
+
+**Exemplo Prático**:
+```markdown
+❌ RUIM - Tarefa muito grande:
+[ ] Implementar sistema completo de gerenciamento de tarefas (estimado: 20h)
+
+✅ BOM - Dividido recursivamente:
+Sprint 1 (3h):
+├── [x] Task 1.1: Modelo de Task (database schema)
+└── [x] Task 1.2: CRUD básico (create/read)
+
+Sprint 2 (3h):
+├── [ ] Task 2.1: Update e Delete
+└── [ ] Task 2.2: Filtros e busca
+
+Sprint 3 (3h):
+├── [ ] Task 3.1: GUI - Lista de tarefas
+└── [ ] Task 3.2: GUI - Formulário de edição
+
+Sprint 4 (2h):
+├── [ ] Task 4.1: Testes unitários
+└── [ ] Task 4.2: Documentação
+```
+
+**Por quê?**: Dividir tarefas grandes garante progresso constante, evita timeouts, facilita debugging, e mantém foco em entregas incrementais.
+
+---
+
 ## 🎯 Quando Usar Simplicidade 1?
 
 ### ✅ Use Simplicidade 1 SE:
