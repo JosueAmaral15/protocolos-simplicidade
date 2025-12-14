@@ -3299,7 +3299,8 @@ python tests/run_tests_monitored.py
 ---
 
 ### 11. **Organize Project Root Folder**
-- **CRITICAL**: Before documentation, **organize the root folder**
+- **CRITICAL**: Before documentation and commit, **organize the root folder recursively**
+- **MANDATORY**: Files must be organized in the correct folders before commit
 - Remove temporary files, unnecessary backups
 - Verify all files are in the correct places
 - Clear cache and generated files (`__pycache__`, `.pyc`)
@@ -3317,30 +3318,71 @@ python tests/run_tests_monitored.py
    find . -type f -name "*.pyo" -delete
    ```
 
-2. **Directory Structure Verification**:
+2. **Directory Structure Verification (MANDATORY)**:
    - `src/` - source code
-   - `tests/` - unit tests
-   - `docs/` - documentation
+   - `tests/` - **ALL test files** (mandatory)
+   - `docs/` - **ALL documents and markdown files** (mandatory)
    - Organized root files (README, setup.py, etc.)
 
-**Example**:
-```bash
-# BEFORE (messy folder):
-├── src/
-├── apply_v2913_patches.py  ❌ temporary
-├── test_temp.py           ❌ disposable test
-├── backup_old/            ❌ old backup
-├── __pycache__/           ❌ cache
-└── file.py.backup_v2913   ❌ unnecessary backup
+3. **Mandatory Recursive Organization**:
+   
+   **⚠️ FUNDAMENTAL RULE**: 
+   > Before commit, files must be organized in folders recursively. This is **mandatory** to keep the environment clean and organized.
 
-# AFTER (organized):
-├── src/          ✅
-├── tests/        ✅
-├── docs/         ✅
-└── README.md     ✅
+   **Specific Rules by File Type**:
+   
+   a) **Test Files** → `tests/`
+      - ✅ `test_*.py`, `*_test.py` → `tests/`
+      - ✅ Test structure should mirror code structure
+      - ✅ Example: `tests/unit/`, `tests/integration/`, `tests/fixtures/`
+   
+   b) **Documents and Markdown** → `docs/`
+      - ✅ All `.md` files (except root README.md) → `docs/`
+      - ✅ Documentation files → `docs/`
+      - ✅ **Recursive organization within `docs/`**:
+        - `docs/api/` - API documentation
+        - `docs/tutorials/` - Tutorials
+        - `docs/architecture/` - Architectural decisions (ADRs)
+        - `docs/user-guide/` - User guides
+        - `docs/dev-guide/` - Development guides
+        - `docs/adr/` - Architecture Decision Records (see Step 11.5)
+      - ✅ Create subfolders that identify file context
+   
+   c) **Source Code** → `src/` or appropriate folder
+      - ✅ Organize by modules/features
+      - ✅ Example: `src/core/`, `src/utils/`, `src/api/`
+
+**Complete Example**:
+```bash
+# BEFORE (disorganized):
+├── src/
+├── test_utils.py              ❌ test outside tests/
+├── API_DOCS.md                ❌ doc outside docs/
+├── tutorial.md                ❌ doc outside docs/
+├── apply_v2913_patches.py     ❌ temporary
+├── test_temp.py               ❌ temporary test
+├── backup_old/                ❌ old backup
+├── __pycache__/               ❌ cache
+└── file.py.backup_v2913       ❌ unnecessary backup
+
+# AFTER (recursively organized):
+├── src/
+│   ├── core/
+│   └── utils/
+├── tests/                     ✅ ALL tests
+│   ├── unit/
+│   │   └── test_utils.py     ✅ test moved
+│   └── integration/
+├── docs/                      ✅ ALL documents
+│   ├── api/
+│   │   └── API_DOCS.md       ✅ doc moved
+│   ├── tutorials/
+│   │   └── tutorial.md       ✅ doc moved
+│   └── adr/                   ✅ ADRs organized
+└── README.md                  ✅ root README kept
 ```
 
-**Why?**: Keep repository clean, avoid committing garbage, facilitate navigation, professionalism. Document the **clean** state of the project.
+**Why?**: Keep repository clean, avoid committing garbage, facilitate navigation, professionalism, recursive organization ensures scalability. Document the **clean** and **organized** state of the project.
 
 ---
 

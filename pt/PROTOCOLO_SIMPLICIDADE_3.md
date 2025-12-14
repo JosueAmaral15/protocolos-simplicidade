@@ -2100,7 +2100,8 @@ python tests/run_tests_monitored.py
 ---
 
 ### 1️⃣1️⃣ **Organizar Pasta Raiz do Projeto**
-- **CRÍTICO**: Antes da documentação, **organizar a pasta raiz**
+- **CRÍTICO**: Antes da documentação e do commit, **organizar a pasta raiz recursivamente**
+- **OBRIGATÓRIO**: Arquivos devem estar organizados nas pastas corretas antes do commit
 - Remover arquivos temporários, backups desnecessários
 - Verificar se todos os arquivos estão nos lugares corretos
 - Limpar cache e arquivos gerados (`__pycache__`, `.pyc`)
@@ -2118,30 +2119,71 @@ python tests/run_tests_monitored.py
    find . -type f -name "*.pyo" -delete
    ```
 
-2. **Verificação de Estrutura de Diretórios**:
+2. **Verificação de Estrutura de Diretórios (OBRIGATÓRIO)**:
    - `src/` - código-fonte
-   - `tests/` - testes unitários
-   - `docs/` - documentação
+   - `tests/` - **TODOS os arquivos de teste** (obrigatório)
+   - `docs/` - **TODOS os documentos e arquivos markdown** (obrigatório)
    - Arquivos raiz organizados (README, setup.py, etc.)
 
-**Exemplo**:
-```bash
-# ANTES (pasta bagunçada):
-├── src/
-├── apply_v2913_patches.py  ❌ temporário
-├── test_temp.py           ❌ teste descartável
-├── backup_old/            ❌ backup antigo
-├── __pycache__/           ❌ cache
-└── file.py.backup_v2913   ❌ backup desnecessário
+3. **Organização Recursiva Obrigatória**:
+   
+   **⚠️ REGRA FUNDAMENTAL**: 
+   > Antes do commit, os arquivos devem ser organizados nas pastas recursivamente. Isto é **obrigatório** para manter o ambiente limpo e organizado.
 
-# DEPOIS (organizado):
-├── src/          ✅
-├── tests/        ✅
-├── docs/         ✅
-└── README.md     ✅
+   **Regras Específicas por Tipo de Arquivo**:
+   
+   a) **Arquivos de Teste** → `tests/`
+      - ✅ `test_*.py`, `*_test.py` → `tests/`
+      - ✅ Estrutura de testes deve espelhar estrutura do código
+      - ✅ Exemplo: `tests/unit/`, `tests/integration/`, `tests/fixtures/`
+   
+   b) **Documentos e Markdown** → `docs/`
+      - ✅ Todos arquivos `.md` (exceto README.md raiz) → `docs/`
+      - ✅ Arquivos de documentação → `docs/`
+      - ✅ **Organização recursiva dentro de `docs/`**:
+        - `docs/api/` - Documentação de API
+        - `docs/tutorials/` - Tutoriais
+        - `docs/architecture/` - Decisões arquiteturais
+        - `docs/user-guide/` - Guias de usuário
+        - `docs/dev-guide/` - Guias de desenvolvimento
+        - `docs/decisions/` - Notas de decisão (ver Etapa 11.5)
+      - ✅ Criar subpastas que identificam contexto dos arquivos
+   
+   c) **Código-Fonte** → `src/` ou pasta apropriada
+      - ✅ Organizar por módulos/features
+      - ✅ Exemplo: `src/core/`, `src/utils/`, `src/api/`
+
+**Exemplo Completo**:
+```bash
+# ANTES (pasta desorganizada):
+├── src/
+├── test_utils.py              ❌ teste fora de tests/
+├── API_DOCS.md                ❌ doc fora de docs/
+├── tutorial.md                ❌ doc fora de docs/
+├── apply_v2913_patches.py     ❌ temporário
+├── test_temp.py               ❌ teste temporário
+├── backup_old/                ❌ backup antigo
+├── __pycache__/               ❌ cache
+└── file.py.backup_v2913       ❌ backup desnecessário
+
+# DEPOIS (organizado recursivamente):
+├── src/
+│   ├── core/
+│   └── utils/
+├── tests/                     ✅ TODOS os testes
+│   ├── unit/
+│   │   └── test_utils.py     ✅ teste movido
+│   └── integration/
+├── docs/                      ✅ TODOS os documentos
+│   ├── api/
+│   │   └── API_DOCS.md       ✅ doc movido
+│   ├── tutorials/
+│   │   └── tutorial.md       ✅ doc movido
+│   └── decisions/             ✅ Notas de decisão
+└── README.md                  ✅ README raiz mantido
 ```
 
-**Por quê?**: Manter repositório limpo, evitar commits de lixo, facilitar navegação, profissionalismo. Documentar o estado **limpo** do projeto.
+**Por quê?**: Manter repositório limpo, evitar commits de lixo, facilitar navegação, profissionalismo, organização recursiva garante escalabilidade. Documentar o estado **limpo** e **organizado** do projeto.
 
 ---
 
