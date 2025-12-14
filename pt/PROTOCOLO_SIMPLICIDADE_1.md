@@ -389,6 +389,14 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 - Estimar tempo total: **máximo 3-4 horas** por sprint
 - Manter foco: **uma sprint = uma versão incremental**
 
+**⚠️ Importante - Divisão de Tarefas em Subtasks**:
+> Tarefas devem ser divididas em partes menores **somente se realmente necessário**, isto é:
+> - ✅ Quando há **maior probabilidade de estourar o tempo máximo** (>4h)
+> - ✅ Quando há **maior possibilidade da resposta ser muito longa** (implementação complexa)
+> - ❌ **NÃO dividir** se a tarefa é razoavelmente simples e cabe no limite de tempo
+> 
+> Esta decisão deve ser feita pela **inteligência artificial responsável pela programação** do projeto, baseada na complexidade real da tarefa.
+
 **Estrutura de Sprint**:
 ```
 Sprint vX.Y.Z (Exemplo de Feature):
