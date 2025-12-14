@@ -566,7 +566,7 @@ Options: A) [option A] | B) [option B] | C) [option C]
 ### 5️⃣ **Sprint the Simplest Tasks**
 - Group 2-4 related tasks into a sprint
 - Estimate total time: **maximum 3-4 hours** per sprint
-- Stay focused: **one sprint = one version (e.g., vX.Y.Z)**
+- Maintain focus: **one sprint = one version (e.g., vX.Y.Z)**
 
 **⚠️ Important - Task Division into Subtasks**:
 > Tasks should be divided into smaller parts **only if really necessary**, that is:
