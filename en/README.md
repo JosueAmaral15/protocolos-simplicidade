@@ -72,8 +72,21 @@ Consider the existence of errors in the workspace (IDE's "Problems" tab) as **bl
 - ✅ All tests pass
 - ✅ Linter/formatter without critical errors
 
-**Message:**
-> "Until the errors are resolved, tasks and features cannot continue being implemented."
+### 🤖 Important: This Rule is For AI Assistants
+
+**This rule applies specifically to AI assistants (such as Cursor, GitHub Copilot, etc.):**
+
+- ✅ **AI MUST** fix all existing errors BEFORE implementing new features
+- ✅ **AI MUST** resolve issues proactively, not wait for humans to fix them
+- ✅ **AI MUST** treat error correction as the highest priority
+
+**This does NOT mean:**
+- ❌ Human developers must stop implementing when errors exist
+- ❌ The project cannot advance while errors are present
+- ❌ Humans need to manually fix the errors
+
+**Message for AIs:**
+> "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue."
 
 This rule is documented in detail in each protocol after the "Core Philosophy" section.
 ## 📋 Task Management (TASKS.md)
