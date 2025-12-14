@@ -191,7 +191,20 @@ However, this rigor comes with a **cost**: ~4-6h per task vs ~2-3h in Simplicity
 
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
-> **CRITICAL**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed**.
+> **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.
+
+### 🤖 This Rule is For AI Assistants
+
+**If you are an AI (Cursor, GitHub Copilot, etc.):**
+- ✅ **YOU MUST** fix all existing errors BEFORE implementing new features
+- ✅ **YOU MUST** resolve issues proactively, not wait for humans to fix them
+- ✅ **YOU MUST** treat error correction as the highest priority
+- ✅ **YOU MUST** clean the workspace before adding new code
+
+**This rule does NOT mean:**
+- ❌ That human developers must stop implementing when errors exist
+- ❌ That the project cannot advance while errors are present
+- ❌ That humans need to manually fix the errors
 
 ### 🚨 Types of Errors That Block Development
 
@@ -281,8 +294,8 @@ Before starting any new task:
 4. **Productivity**: Fixing old + new errors is more time-consuming than fixing only old ones
 5. **Professionalism**: Clean, error-free code is a minimum requirement
 
-**Message**: 
-> "Until the errors are resolved, tasks and features cannot continue being implemented."
+**Message for AIs**: 
+> "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue with implementation."
 
 ---
 

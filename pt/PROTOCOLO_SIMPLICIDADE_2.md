@@ -188,7 +188,20 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
-> **CRÍTICO**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos**.
+> **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.
+
+### 🤖 Esta Regra é Para Assistentes de IA
+
+**Se você é uma IA (Cursor, GitHub Copilot, etc.):**
+- ✅ **VOCÊ DEVE** corrigir todos os erros existentes ANTES de implementar novas funcionalidades
+- ✅ **VOCÊ DEVE** resolver problemas de forma proativa, não esperar que humanos os corrijam
+- ✅ **VOCÊ DEVE** tratar a correção de erros como prioridade máxima
+- ✅ **VOCÊ DEVE** limpar o workspace antes de adicionar novo código
+
+**Esta regra NÃO significa:**
+- ❌ Que desenvolvedores humanos devem parar de implementar quando existem erros
+- ❌ Que o projeto não pode avançar enquanto houver erros
+- ❌ Que humanos precisam corrigir os erros manualmente
 
 ### 🚨 Tipos de Erros que Bloqueiam o Desenvolvimento
 
@@ -278,8 +291,8 @@ Antes de iniciar qualquer tarefa nova:
 4. **Produtividade**: Corrigir erros antigos + novos é mais demorado que corrigir só os antigos
 5. **Profissionalismo**: Código limpo e sem erros é requisito mínimo
 
-**Mensagem**: 
-> "Até que os erros não sejam sanados, as tarefas e as funcionalidades não podem continuar sendo implementadas."
+**Mensagem para IAs**: 
+> "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
 
 ---
 

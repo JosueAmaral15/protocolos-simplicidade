@@ -72,8 +72,21 @@ Considere a existência de erros no workspace (aba "Problemas" do IDE) como **bl
 - ✅ Todos os testes passam
 - ✅ Linter/formatter sem erros críticos
 
-**Mensagem:**
-> "Até que os erros não sejam sanados, as tarefas e as funcionalidades não podem continuar sendo implementadas."
+### 🤖 Importante: Esta Regra é Para Assistentes de IA
+
+**Esta regra se aplica especificamente a assistentes de IA (como Cursor, GitHub Copilot, etc.):**
+
+- ✅ **A IA DEVE** corrigir todos os erros existentes ANTES de implementar novas funcionalidades
+- ✅ **A IA DEVE** resolver problemas de forma proativa, não esperar que humanos os corrijam
+- ✅ **A IA DEVE** tratar a correção de erros como prioridade máxima
+
+**Não significa que:**
+- ❌ Desenvolvedores humanos devem parar de implementar quando existem erros
+- ❌ O projeto não pode avançar enquanto houver erros
+- ❌ Humanos precisam corrigir os erros manualmente
+
+**Mensagem para IAs:**
+> "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue."
 
 Esta regra está documentada em detalhes em cada protocolo após a seção "Filosofia Central".
 ## 📋 Gerenciamento de Tarefas (TASKS.md)
