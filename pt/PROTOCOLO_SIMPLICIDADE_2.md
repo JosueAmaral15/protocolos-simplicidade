@@ -283,6 +283,131 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## 📊 Divisão Recursiva de Tarefas Complexas
+
+> **IMPORTANTE**: Se a tarefa for muito longa ou complexa, e houver limites de tempo ou comprimento de resposta, a inteligência artificial deve dividir a tarefa em partes menores, recursivamente, até conseguir uma tarefa que possa fornecer uma resposta satisfatória e de acordo com o limite de resposta determinado.
+
+### 🔄 Estratégia de Divisão (Enterprise)
+
+**Quando Aplicar** (Protocolo Simplicidade 2):
+- ✅ Tarefa estimada em >6 horas (divide em 3+ sprints)
+- ✅ Feature enterprise com múltiplos stakeholders
+- ✅ Resposta muito longa (>1500 linhas de código)
+- ✅ Múltiplas funcionalidades interdependentes
+- ✅ Requer code review por pares em cada fase
+- ✅ Risco de timeout ou limite de resposta
+
+**Como Dividir** (Recursivamente com ADRs):
+
+1. **Nível 1 - Épicos (2-4 semanas)**:
+   ```
+   Épico: "Sistema de Pagamentos Enterprise"
+   ↓ Dividir em:
+   ├── Sprint 1: Integração Stripe (6h)
+   ├── Sprint 2: Webhooks e notificações (6h)
+   ├── Sprint 3: Dashboard de transações (8h)
+   ├── Sprint 4: Auditoria e compliance (6h)
+   └── Sprint 5: Rollback e recovery (4h)
+   
+   Cada sprint → ADR documentado
+   Cada sprint → Code review por pares
+   Cada sprint → Deploy incremental
+   ```
+
+2. **Nível 2 - Sprints (4-8 horas)**:
+   ```
+   Sprint 1: Integração Stripe
+   ↓ Dividir em:
+   ├── Task 1.1: Setup API keys + secrets (1h)
+   ├── Task 1.2: Checkout session endpoint (2h)
+   ├── Task 1.3: Webhook receiver (2h)
+   └── Task 1.4: Testes + Security checklist (1h)
+   
+   Cada task → Quality gates (CI/CD)
+   ```
+
+3. **Nível 3 - Tasks (<4 horas)** (se ainda muito grande):
+   ```
+   Task 1.2: Checkout session endpoint
+   ↓ Dividir em:
+   ├── Subtask 1.2.1: Schema de Order (30min)
+   ├── Subtask 1.2.2: Validação de input (30min)
+   ├── Subtask 1.2.3: Criação de session Stripe (1h)
+   ├── Subtask 1.2.4: Logging e monitoring (30min)
+   └── Subtask 1.2.5: Testes unitários (1h)
+   ```
+
+**Critério de Parada**:
+- ⏱️ Tarefa pode ser completada em <4 horas (vs <3h no Simplicidade 1)
+- 📝 Resposta cabe em limite razoável (<1000 linhas)
+- ✅ Escopo claro, com critérios de aceitação definidos
+- 🧪 Pode ser testada isoladamente
+- 👥 Pode ser revisada por pares em <1h
+- 🔒 Security checklist pode ser aplicado isoladamente
+- 🤖 CI/CD pode validar isoladamente
+
+**Princípios de Divisão Enterprise**:
+1. **Independência**: Cada subtarefa deve ser deployável independentemente
+2. **Coesão**: Subtarefas relacionadas devem estar próximas na sequência
+3. **Valor Incremental**: Cada subtarefa deve adicionar valor mensurável
+4. **Testabilidade**: Cada subtarefa deve ter 100% cobertura de testes
+5. **Reversibilidade**: Cada subtarefa deve ter rollback plan (se crítica)
+6. **Documentação**: Cada sprint deve ter ADR se houver decisão arquitetural
+7. **Revisabilidade**: Cada subtarefa deve ter diff pequeno para code review
+
+**Exemplo Prático Enterprise**:
+```markdown
+❌ RUIM - Épico muito grande (60h):
+[ ] Implementar plataforma completa de e-commerce
+
+✅ BOM - Dividido em épicos e sprints:
+
+Épico 1 - Catálogo de Produtos (2 semanas):
+├── Sprint 1.1 (6h): CRUD produtos + categorias
+│   ├── ADR-001: Escolha de PostgreSQL
+│   └── Rollback plan: N/A (não-crítico)
+├── Sprint 1.2 (6h): Busca e filtros
+│   └── ADR-002: ElasticSearch vs PostgreSQL full-text
+└── Sprint 1.3 (4h): Upload de imagens (S3)
+    └── Rollback plan: Reverter para storage local
+
+Épico 2 - Carrinho de Compras (1 semana):
+├── Sprint 2.1 (6h): Session-based cart
+│   ├── ADR-003: Redis para sessions
+│   └── Security checklist: Session fixation, CSRF
+└── Sprint 2.2 (4h): Persistência e checkout
+    └── Rollback plan: Fallback para in-memory
+
+Épico 3 - Pagamentos (2 semanas):
+├── Sprint 3.1 (6h): Integração Stripe
+│   ├── ADR-004: Stripe vs PayPal
+│   ├── Security checklist: PCI-DSS compliance
+│   └── Rollback plan: CRÍTICO (feature flag)
+├── Sprint 3.2 (6h): Webhooks
+│   └── Security checklist: Webhook validation
+└── Sprint 3.3 (4h): Dashboard transações
+    └── Rollback plan: N/A (apenas visualização)
+
+Cada Sprint:
+- Code review por 2 pares
+- CI/CD quality gates (80% coverage)
+- Security scan (bandit + pip-audit)
+- Deploy staging → produção
+```
+
+**Matriz de Decisão para Dividir**:
+Use Matriz de Decisão (Etapa 2.5) quando há múltiplas formas de dividir:
+
+| Divisão | Complexidade | Risco | Valor | Independência | **Score** |
+|---------|--------------|-------|-------|---------------|-----------|
+| **Por funcionalidade** | 3 | 2 | 5 | 5 | **23** 🟢 |
+| Por camada (backend/frontend) | 2 | 4 | 3 | 2 | **17** 🟡 |
+| Por equipe | 4 | 3 | 2 | 3 | **18** 🟡 |
+
+**Por quê?**: Dividir tarefas enterprise garante entregas incrementais com valor, facilita code review, permite rollback granular, e mantém velocity estável em equipes grandes.
+
+---
+
 ## 📋 Espinha Dorsal do Protocolo (23 Etapas: 13 Obrigatórias + 10 Opcionais)
 
 ### **Etapas Obrigatórias** (Protocolo Simplicidade 1):

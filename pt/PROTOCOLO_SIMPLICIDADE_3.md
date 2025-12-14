@@ -293,6 +293,163 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## 📊 Divisão Recursiva de Tarefas Complexas
+
+> **IMPORTANTE**: Se a tarefa for muito longa ou complexa, e houver limites de tempo ou comprimento de resposta, a inteligência artificial deve dividir a tarefa em partes menores, recursivamente, até conseguir uma tarefa que possa fornecer uma resposta satisfatória e de acordo com o limite de resposta determinado.
+
+### 🔄 Estratégia de Divisão (Solo Developer)
+
+**Quando Aplicar** (Protocolo Simplicidade 3):
+- ✅ Tarefa estimada em >4 horas (divide em 2-3 sprints)
+- ✅ Feature crítica para produção
+- ✅ Resposta muito longa (>1000 linhas de código)
+- ✅ Múltiplas funcionalidades interdependentes
+- ✅ Requer security checklist + CI/CD + rollback plan
+- ✅ Risco de timeout ou limite de resposta
+- ✅ **Solo**: Você precisa pausar e continuar depois (contexto)
+
+**Como Dividir** (Recursivamente com Pragmatismo):
+
+1. **Nível 1 - Features Deployáveis (3-4 horas cada)**:
+   ```
+   Feature Grande: "Sistema de Notificações em Tempo Real"
+   ↓ Dividir em (solo, produção):
+   ├── Sprint 1: WebSocket server básico (4h)
+   │   ├── Security: Rate limiting
+   │   ├── CI/CD: Connection tests
+   │   └── Rollback: Feature flag
+   ├── Sprint 2: Client subscription (3h)
+   │   ├── Security: Token validation
+   │   └── CI/CD: Integration tests
+   └── Sprint 3: Persistência de notificações (3h)
+       ├── Security: Data sanitization
+       ├── CI/CD: Database tests
+       └── Rollback: Database migration
+   
+   Cada sprint → Deployável em produção
+   Cada sprint → Rollback plan se crítico
+   ```
+
+2. **Nível 2 - Tasks Testáveis (<3 horas)**:
+   ```
+   Sprint 1: WebSocket server básico
+   ↓ Dividir em:
+   ├── Task 1.1: Setup WebSocket library (30min)
+   │   └── Security: Check vulnerabilities (pip-audit)
+   ├── Task 1.2: Connection handler (1h)
+   │   └── Security: Auth token validation
+   ├── Task 1.3: Rate limiting (1h)
+   │   └── Security: Prevent DDoS
+   ├── Task 1.4: Testes + CI/CD (1h)
+   └── Task 1.5: Deploy + monitoring (30min)
+       └── Rollback: Feature flag WEBSOCKET_ENABLED
+   ```
+
+3. **Nível 3 - Subtasks (<1 hora)** (raramente necessário):
+   ```
+   Task 1.2: Connection handler
+   ↓ Dividir em (se muito complexo):
+   ├── Subtask 1.2.1: Accept connection (20min)
+   ├── Subtask 1.2.2: Validate token (20min)
+   └── Subtask 1.2.3: Store connection (20min)
+   ```
+
+**Critério de Parada Solo**:
+- ⏱️ Tarefa pode ser completada em <3 horas
+- 📝 Resposta cabe em limite razoável (<500 linhas)
+- ✅ Escopo claro e bem definido
+- 🧪 Pode ser testada isoladamente
+- 🔒 Security checklist aplicável (10-15min)
+- 🤖 CI/CD valida automaticamente
+- 🔄 Rollback plan simples (se crítico)
+- 💾 **Contexto recuperável**: Se parar, pode continuar depois
+
+**Princípios de Divisão Solo**:
+1. **Independência**: Cada subtarefa deve ser deployável sozinha
+2. **Contexto**: Cada subtarefa deve ter contexto autoexplicativo
+3. **Valor Incremental**: Cada subtarefa deve funcionar em produção
+4. **Testabilidade**: Cada subtarefa deve ter testes automatizados
+5. **Segurança**: Cada subtarefa deve passar security checklist
+6. **Automação**: CI/CD valida tudo (você não esquece nada)
+7. **Reversibilidade**: Features críticas têm rollback (você está sozinho)
+
+**Exemplo Prático Solo em Produção**:
+```markdown
+❌ RUIM - Feature muito grande (12h):
+[ ] Implementar sistema completo de billing
+
+✅ BOM - Dividido para solo developer:
+
+Sprint 1 (4h) - Estrutura base (não-crítico):
+├── Task 1.1: Modelo de Invoice (1h)
+│   └── CI/CD: Schema tests
+├── Task 1.2: CRUD básico (2h)
+│   ├── Security: Access control
+│   └── CI/CD: Unit tests
+└── Task 1.3: Documentação + deploy (1h)
+    └── Rollback: N/A (não afeta usuários)
+
+Sprint 2 (4h) - Integração Stripe (CRÍTICO):
+├── Task 2.1: Setup Stripe API (1h)
+│   ├── Security: API keys em env vars
+│   └── CI/CD: Connection test
+├── Task 2.2: Create payment intent (2h)
+│   ├── Security: Amount validation, idempotency
+│   └── CI/CD: Mock Stripe tests
+└── Task 2.3: Deploy + rollback plan (1h)
+    └── Rollback: FEATURE_STRIPE_ENABLED=false
+    └── Monitoring: Alert se >5% erro
+
+Sprint 3 (3h) - Webhooks (CRÍTICO):
+├── Task 3.1: Webhook receiver (1.5h)
+│   ├── Security: Signature validation (OWASP)
+│   └── CI/CD: Webhook tests
+├── Task 3.2: Event processing (1h)
+│   └── Security: Idempotency check
+└── Task 3.3: Deploy + monitoring (30min)
+    └── Rollback: Desabilitar webhook endpoint
+
+Cada Sprint:
+- Security checklist (15min)
+- CI/CD automático (GitHub Actions)
+- Rollback plan se crítico
+- Deploy em produção
+- **Você sozinho pode completar**
+```
+
+**Quando Dividir vs Quando Simplificar**:
+
+```markdown
+Se tarefa é muito grande para dividir eficientemente:
+
+❌ RUIM - Dividir demais:
+[ ] Task: Adicionar botão "Salvar"
+    ├── Subtask 1: Criar botão (10min)
+    ├── Subtask 2: Adicionar evento (10min)
+    └── Subtask 3: Testar (10min)
+→ Overhead de divisão > benefício
+
+✅ BOM - Tarefa atômica (30min total):
+[ ] Task: Adicionar botão "Salvar" com handler
+
+Regra prática:
+- Tarefa <1h → Não dividir (atômica)
+- Tarefa 1-3h → Avaliar (dividir se >3 componentes)
+- Tarefa >3h → Sempre dividir
+```
+
+**Matriz de Decisão para Solo** (quando há múltiplas formas de dividir):
+
+| Divisão | Solo-friendly | Deploy | Rollback | Contexto | **Score** |
+|---------|---------------|--------|----------|----------|-----------|
+| **Por feature deployável** | 5 | 5 | 5 | 4 | **33** 🟢 |
+| Por camada (backend/frontend) | 3 | 2 | 2 | 3 | **17** 🟡 |
+| Por prioridade (MVP → Nice-to-have) | 5 | 5 | 4 | 5 | **34** 🟢 |
+
+**Por quê?**: Dividir tarefas para solo developer garante entregas incrementais com segurança, facilita retomar contexto, permite rollback rápido (você está sozinho em emergência), e mantém código deployável sempre.
+
+---
+
 ## 📋 Espinha Dorsal do Protocolo (16 Etapas Obrigatórias)
 
 **Resumo Executivo** (⭐ = NOVO vs Simplicidade 1):

@@ -286,6 +286,131 @@ Before starting any new task:
 
 ---
 
+## 📊 Recursive Division of Complex Tasks
+
+> **IMPORTANT**: If the task is very long or complex, and there are time limits or response length limits, the artificial intelligence should divide the task into smaller parts, recursively, until achieving a task that can provide a satisfactory response according to the determined response limit.
+
+### 🔄 Division Strategy (Enterprise)
+
+**When to Apply** (Simplicity Protocol 2):
+- ✅ Task estimated at >6 hours (divide into 3+ sprints)
+- ✅ Enterprise feature with multiple stakeholders
+- ✅ Very long response (>1500 lines of code)
+- ✅ Multiple interdependent functionalities
+- ✅ Requires peer code review at each phase
+- ✅ Risk of timeout or response limit
+
+**How to Divide** (Recursively with ADRs):
+
+1. **Level 1 - Epics (2-4 weeks)**:
+   ```
+   Epic: "Enterprise Payment System"
+   ↓ Divide into:
+   ├── Sprint 1: Stripe Integration (6h)
+   ├── Sprint 2: Webhooks and notifications (6h)
+   ├── Sprint 3: Transaction dashboard (8h)
+   ├── Sprint 4: Audit and compliance (6h)
+   └── Sprint 5: Rollback and recovery (4h)
+   
+   Each sprint → Documented ADR
+   Each sprint → Peer code review
+   Each sprint → Incremental deployment
+   ```
+
+2. **Level 2 - Sprints (4-8 hours)**:
+   ```
+   Sprint 1: Stripe Integration
+   ↓ Divide into:
+   ├── Task 1.1: Setup API keys + secrets (1h)
+   ├── Task 1.2: Checkout session endpoint (2h)
+   ├── Task 1.3: Webhook receiver (2h)
+   └── Task 1.4: Tests + Security checklist (1h)
+   
+   Each task → Quality gates (CI/CD)
+   ```
+
+3. **Level 3 - Tasks (<4 hours)** (if still too large):
+   ```
+   Task 1.2: Checkout session endpoint
+   ↓ Divide into:
+   ├── Subtask 1.2.1: Order schema (30min)
+   ├── Subtask 1.2.2: Input validation (30min)
+   ├── Subtask 1.2.3: Stripe session creation (1h)
+   ├── Subtask 1.2.4: Logging and monitoring (30min)
+   └── Subtask 1.2.5: Unit tests (1h)
+   ```
+
+**Stopping Criteria**:
+- ⏱️ Task can be completed in <4 hours (vs <3h in Simplicity 1)
+- 📝 Response fits within reasonable limit (<1000 lines)
+- ✅ Clear scope with defined acceptance criteria
+- 🧪 Can be tested in isolation
+- 👥 Can be peer-reviewed in <1h
+- 🔒 Security checklist can be applied in isolation
+- 🤖 CI/CD can validate in isolation
+
+**Enterprise Division Principles**:
+1. **Independence**: Each subtask must be independently deployable
+2. **Cohesion**: Related subtasks should be close in sequence
+3. **Incremental Value**: Each subtask should add measurable value
+4. **Testability**: Each subtask must have 100% test coverage
+5. **Reversibility**: Each subtask must have rollback plan (if critical)
+6. **Documentation**: Each sprint must have ADR if architectural decision
+7. **Reviewability**: Each subtask must have small diff for code review
+
+**Practical Enterprise Example**:
+```markdown
+❌ BAD - Epic too large (60h):
+[ ] Implement complete e-commerce platform
+
+✅ GOOD - Divided into epics and sprints:
+
+Epic 1 - Product Catalog (2 weeks):
+├── Sprint 1.1 (6h): Product CRUD + categories
+│   ├── ADR-001: PostgreSQL choice
+│   └── Rollback plan: N/A (non-critical)
+├── Sprint 1.2 (6h): Search and filters
+│   └── ADR-002: ElasticSearch vs PostgreSQL full-text
+└── Sprint 1.3 (4h): Image upload (S3)
+    └── Rollback plan: Revert to local storage
+
+Epic 2 - Shopping Cart (1 week):
+├── Sprint 2.1 (6h): Session-based cart
+│   ├── ADR-003: Redis for sessions
+│   └── Security checklist: Session fixation, CSRF
+└── Sprint 2.2 (4h): Persistence and checkout
+    └── Rollback plan: Fallback to in-memory
+
+Epic 3 - Payments (2 weeks):
+├── Sprint 3.1 (6h): Stripe Integration
+│   ├── ADR-004: Stripe vs PayPal
+│   ├── Security checklist: PCI-DSS compliance
+│   └── Rollback plan: CRITICAL (feature flag)
+├── Sprint 3.2 (6h): Webhooks
+│   └── Security checklist: Webhook validation
+└── Sprint 3.3 (4h): Transaction dashboard
+    └── Rollback plan: N/A (visualization only)
+
+Each Sprint:
+- Code review by 2 peers
+- CI/CD quality gates (80% coverage)
+- Security scan (bandit + pip-audit)
+- Deploy staging → production
+```
+
+**Decision Matrix for Division**:
+Use Decision Matrix (Step 2.5) when there are multiple ways to divide:
+
+| Division | Complexity | Risk | Value | Independence | **Score** |
+|---------|------------|------|-------|--------------|-----------|
+| **By functionality** | 3 | 2 | 5 | 5 | **23** 🟢 |
+| By layer (backend/frontend) | 2 | 4 | 3 | 2 | **17** 🟡 |
+| By team | 4 | 3 | 2 | 3 | **18** 🟡 |
+
+**Why?**: Dividing enterprise tasks ensures incremental deliveries with value, facilitates code review, allows granular rollback, and maintains stable velocity in large teams.
+
+---
+
 ## 📋 Protocol Backbone (23 Steps: 13 Mandatory + 10 Optional)
 
 ### **Mandatory Steps** (Simplicity Protocol 1):
