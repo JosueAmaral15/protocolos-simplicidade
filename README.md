@@ -5,7 +5,7 @@
 
 Este repositório contém a suíte "Simplicidade", um conjunto de protocolos criados por **Josué Amaral** para guiar o ciclo de vida de desenvolvimento de software, desde a prototipagem rápida até sistemas críticos em produção.
 
-Começo dizendo o seguinte para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos.
+Observação importante para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos.
 
 ---
 
