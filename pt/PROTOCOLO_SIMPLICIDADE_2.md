@@ -3861,6 +3861,164 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
   - ❓ **Sugerir criação** de `TASKS.md` como arquivo padrão
 
+---
+
+### 📊 **Legenda de Classificação de Tarefas (Simplicidade 2)**
+
+**Objetivo**: Padronizar a classificação e priorização de tarefas para facilitar a organização pela IA, comunicação entre equipe e compreensão entre diferentes sistemas de inteligência artificial.
+
+**Nota para Simplicidade 2**: Em ambientes enterprise com equipes grandes, a classificação de tarefas deve ser **integrada com a Matriz de Decisão (Etapa 2.5)** para garantir escolhas objetivas e rastreáveis.
+
+#### **Status da Tarefa**
+
+- 🔴 **Not Started** (Não Iniciada) - Aguardando início, sem trabalho realizado
+- 🟡 **In Progress** (Em Progresso) - Desenvolvimento ativo, trabalho em andamento
+- 🟢 **Done** (Concluída) - Implementada, testada, revisada por pares e finalizada
+- 🔵 **Blocked** (Bloqueada) - Impedida por dependência externa ou problema técnico
+
+#### **Complexidade da Tarefa**
+
+- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências, escopo claro
+- 🟡 **Média** (1-2h) - Risco médio, algumas integrações, pode requerer testes adicionais
+- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências, escopo aberto ou ambíguo
+
+#### **Priorização MoSCoW**
+
+- 🔴 **Must Have** - Crítico para o funcionamento do sistema, bloqueante para release
+- 🟡 **Should Have** - Importante mas não bloqueante, pode ser adiado se necessário
+- 🟢 **Could Have** - Desejável se houver tempo, baixa prioridade
+- ⚪ **Won't Have** (Later) - Explicitamente fora do escopo atual, para versões futuras
+
+#### **Integração com Matriz de Decisão (Simplicidade 2)**
+
+A Matriz de Decisão (Etapa 2.5) fornece scoring numérico (0-35 pontos) complementar aos indicadores visuais:
+
+```markdown
+## Sprint v3.2 - Backlog Priorizado
+
+### 🔴 MUST HAVE
+
+| Task | Status | Complex. | Score | Ordem |
+|------|--------|----------|-------|-------|
+| #42 Auth 2FA | 🔴 | 🔴 | 25.0 | 3º |
+| #43 Rate Limiting | 🔴 | 🟡 | 28.5 | 2º |
+| #44 Logging | 🔴 | 🟢 | 33.5 | 1º ⭐ COMEÇAR AQUI |
+
+**Justificativa**: Task #44 tem maior score (33.5) apesar de ser Must Have como as outras.
+Começar por ela reduz riscos e permite time se aquecer antes das tasks complexas.
+```
+
+**Combinando Matriz de Decisão + Classificação Visual**:
+1. Use **Matriz de Decisão** para scoring objetivo (5 critérios numéricos)
+2. Use **Indicadores Visuais** (🔴🟡🟢🔵) para status rápido no backlog
+3. Use **MoSCoW** para definir escopo de releases
+4. Use **Complexidade** para balancear sprints (não só tarefas difíceis)
+
+#### **Frameworks Avançados de Priorização**
+
+Para equipes enterprise que precisam justificar decisões para stakeholders:
+
+##### **Matriz RICE** (Quantitativa)
+
+`Score RICE = (Reach × Impact × Confidence) / Effort`
+
+Útil para:
+- ✅ Decisões de product management com múltiplas features competindo
+- ✅ Apresentações para C-level (dados objetivos)
+- ✅ Planejamento de roadmap de longo prazo
+
+**Exemplo Enterprise**:
+```markdown
+| Feature | Reach | Impact | Conf. | Effort | RICE | Decisão |
+|---------|-------|--------|-------|--------|------|---------|
+| SSO Integration | 5000 | 3 | 80% | 80h | 150 | Q1 2024 |
+| Dashboard v2 | 2000 | 2 | 100% | 40h | 100 | Q2 2024 |
+| Dark Mode | 8000 | 0.5 | 100% | 20h | 200 | Q1 2024 ⭐ |
+
+Decisão: Priorizar Dark Mode (RICE=200) antes de SSO (RICE=150)
+Razão: Maior alcance com menor esforço, apesar de impacto individual menor
+```
+
+##### **Matriz de Eisenhower** (Urgência × Importância)
+
+Útil para:
+- ✅ Gestão de incidentes e crises
+- ✅ Priorização em contextos com muitas "urgências"
+- ✅ Identificar tarefas que devem ser delegadas ou automatizadas
+
+**Adaptação para Equipes**:
+- **Q1 (Urgente + Importante)**: Time sênior / Tech leads
+- **Q2 (Não Urgente + Importante)**: Time pleno, planejado
+- **Q3 (Urgente + Não Importante)**: Delegar para júnior ou automatizar
+- **Q4 (Não Urgente + Não Importante)**: Eliminar ou backlog muito distante
+
+#### **Exemplo Completo Simplicidade 2**
+
+```markdown
+# TASKS.md - Sprint v4.1 (Enterprise Team)
+
+## 📊 Legenda
+- **Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Done | 🔵 Blocked
+- **Complexidade**: 🟢 Simples (0-1h) | 🟡 Média (1-2h) | 🔴 Complexa (>2h)
+- **MoSCoW**: 🔴 Must | 🟡 Should | 🟢 Could | ⚪ Won't
+
+## 📊 Estatísticas
+- Progresso: 65% (26/40 tarefas)
+- Velocity: 12 story points/sprint
+- Bugs Abertos: 3 (1 crítico, 2 médios)
+
+## 🔴 MUST HAVE - Release v4.1
+
+### Prioridade Alta (Matriz Score > 25)
+- 🔴🟢 [ ] #101 Adicionar rate limiting (Score: 33.5) ⭐ INICIAR
+  - **Assignee**: @maria (Backend Lead)
+  - **Revisão**: @joao (Security Review obrigatório)
+  - **Estimativa**: 3h
+  - **Dependências**: Nenhuma
+  
+- 🟡🟡 [ ] #102 Implementar circuit breaker (Score: 28.0, 60% completo)
+  - **Assignee**: @pedro (Pleno)
+  - **Revisão**: @maria (Code Review)
+  - **Estimativa**: 5h (2h restantes)
+  - **Blocker Resolvido**: ✅ Biblioteca atualizada para v3.2
+
+### Prioridade Média (Matriz Score 15-25)
+- 🔵🔴 [ ] #103 Migrar para Kubernetes (Score: 22.0, BLOQUEADO)
+  - **Assignee**: @infra-team
+  - **Blocker**: Aguardando aprovação orçamento DevOps
+  - **Estimativa**: 16h
+  - **Fallback**: Manter Docker Swarm por mais 1 sprint
+
+## 🟡 SHOULD HAVE - Release v4.2
+- 🔴🟡 [ ] #104 Adicionar métricas Prometheus (Score: 26.5)
+- 🔴🟢 [ ] #105 Tooltips de ajuda (Score: 30.0)
+
+## 🟢 COULD HAVE - Backlog
+- 🔴🟡 [ ] #106 Dark mode (RICE: 200, alta prioridade no backlog)
+
+---
+**Próxima Retrospectiva**: Sexta 15h (validar recomendações da IA)
+```
+
+#### **Recomendações para IA em Contexto Enterprise**
+
+**Ao classificar tarefas para equipes (Simplicidade 2), a IA deve**:
+1. ✅ **Considerar Code Review**: Tasks complexas precisam de revisor sênior disponível
+2. ✅ **Balancear carga de trabalho**: Não alocar todas tasks complexas para mesma pessoa
+3. ✅ **Respeitar dependências de equipe**: Backend antes de Frontend em integrações
+4. ✅ **Documentar decisões**: Usar ADR (Etapa 11.5) para escolhas arquiteturais importantes
+5. ✅ **Comunicar blockers**: Marcar 🔵 e notificar time imediatamente
+6. ✅ **Integrar com Matriz de Decisão**: Scoring + indicadores visuais complementares
+7. ✅ **Validar com stakeholders**: Features MUST HAVE confirmadas em Sprint Planning
+
+**Diferenças Simplicidade 2 vs 1**:
+- **S2**: Matriz de Decisão (scoring numérico) é **OBRIGATÓRIA** quando 3+ tasks competem
+- **S2**: Status deve refletir **code review** (não marcar Done sem aprovação de pares)
+- **S2**: Recomendações da IA validadas em **Retrospectiva de Sprint** (Etapa 13.5)
+- **S2**: Complexidade inclui **tempo de review** e **teste de aceitação**
+
+---
+
 **🤖 Recomendações de Tarefas pela IA**:
 Para equipes enterprise (Simplicidade 2), as recomendações da IA devem ser **revisadas em retrospectivas de sprint** (Etapa 13.5) antes de serem adicionadas ao TASKS.md. Isso garante consenso da equipe e alinhamento com stakeholders.
 

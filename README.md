@@ -98,10 +98,45 @@ Todos os protocolos Simplicidade agora incluem suporte integrado para gerenciame
 ### Recursos do Sistema de Tarefas:
 - ✅ **Arquivo Padrão**: `TASKS.md` na raiz do projeto (formato ASCII: `.md`, `.txt`)
 - 🔄 **Flexível**: Use qualquer nome/localização de arquivo (desde que seja ASCII)
+- 📊 **Sistema de Classificação**: Status, Complexidade e Priorização integrados
 - 🤖 **Recomendações IA (Opcional)**: Sistema inteligente de sugestão de novas tarefas
 - 📊 **Curva de Crescimento**: Recomendações seguem padrão quadrático (crescem, atingem pico, depois diminuem)
 - 🎯 **Controle de Escopo**: Apenas sugestões relevantes ao projeto
 - 🔢 **Limite Configurável**: Default de 30 novas tarefas recomendadas (personalizável)
+
+### 📊 Sistema de Classificação de Tarefas
+
+Todos os três protocolos incluem um sistema padronizado de classificação para facilitar a organização pela IA:
+
+#### **Status da Tarefa**
+- 🔴 **Not Started** - Aguardando início
+- 🟡 **In Progress** - Em desenvolvimento
+- 🟢 **Done** - Concluído e testado
+- 🔵 **Blocked** - Bloqueado por dependência
+
+#### **Complexidade**
+- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências, escopo claro
+- 🟡 **Média** (1-2h) - Risco médio, algumas integrações
+- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências, escopo aberto
+
+#### **Priorização MoSCoW**
+- 🔴 **Must Have** - Crítico para o funcionamento do sistema, bloqueante
+- 🟡 **Should Have** - Importante mas não bloqueante
+- 🟢 **Could Have** - Desejável se houver tempo, baixa prioridade
+- ⚪ **Won't Have** (Later) - Fora do escopo atual, para versões futuras
+
+#### **Frameworks Avançados (Opcional)**
+- **Matriz RICE**: Para análise quantitativa (Reach × Impact × Confidence / Effort)
+- **Matriz de Eisenhower**: Para gestão de urgências (Urgente × Importante)
+- **Matriz de Decisão**: Scoring numérico de 0-35 pontos (Simplicidade 2/3)
+
+**Exemplo de uso combinado**:
+```markdown
+### 🔴 MUST HAVE
+- 🔴🟢 [ ] Implementar autenticação (Not Started, Simples, 1h)
+- 🟡🟡 [ ] Adicionar validação (In Progress, Média, 1.5h, 60% completo)
+- 🟢🟢 [x] Configurar banco de dados (Done, Simples, 0.5h)
+```
 
 ### Como Funciona a IA de Recomendações:
 A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguindo um padrão de 5 fases:
@@ -111,7 +146,7 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 4. **Fase 4 (70-90%)**: Desaceleração - apenas críticas
 5. **Fase 5 (90-100%)**: Exaustão - parar de adicionar features
 
-📖 **Detalhes completos**: Veja seção "Recomendações de Tarefas pela IA" na Etapa 12 de cada protocolo.
+📖 **Detalhes completos**: Veja seção "Legenda de Classificação de Tarefas" e "Recomendações de Tarefas pela IA" na Etapa 12 de cada protocolo.
 
 ---
 

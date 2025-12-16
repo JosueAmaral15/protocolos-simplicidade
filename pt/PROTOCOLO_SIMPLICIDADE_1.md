@@ -1863,6 +1863,223 @@ python tests/run_tests_monitored.py
 
 ---
 
+### 📊 **Legenda de Classificação de Tarefas**
+
+**Objetivo**: Padronizar a classificação e priorização de tarefas para facilitar a organização pela IA e compreensão entre diferentes sistemas de inteligência artificial.
+
+#### **Status da Tarefa**
+
+As tarefas devem ser marcadas com indicadores de status para rastreamento visual:
+
+- 🔴 **Not Started** (Não Iniciada) - Aguardando início, sem trabalho realizado
+- 🟡 **In Progress** (Em Progresso) - Desenvolvimento ativo, trabalho em andamento
+- 🟢 **Done** (Concluída) - Implementada, testada e finalizada
+- 🔵 **Blocked** (Bloqueada) - Impedida por dependência externa ou problema técnico
+
+**Exemplo de uso**:
+```markdown
+- 🔴 [ ] Implementar autenticação OAuth2
+- 🟡 [ ] Adicionar validação de formulários (50% completo)
+- 🟢 [x] Configurar banco de dados PostgreSQL
+- 🔵 [ ] Deploy em produção (aguardando aprovação de infra)
+```
+
+#### **Complexidade da Tarefa**
+
+Classificação baseada em tempo estimado, risco e quantidade de dependências:
+
+- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências, escopo claro e bem definido
+  - Exemplos: Ajustar texto, corrigir typo, adicionar tooltip, pequeno bugfix
+  - Características: Modificação de 1-2 arquivos, sem impacto em outros módulos
+  
+- 🟡 **Média** (1-2h) - Risco médio, algumas integrações, pode requerer testes adicionais
+  - Exemplos: Nova funcionalidade simples, refatoração de módulo, integração com API
+  - Características: Modificação de 3-5 arquivos, alguma integração com sistema existente
+  
+- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências, escopo aberto ou ambíguo
+  - Exemplos: Arquitetura nova, migração de banco, feature crítica com muitos edge cases
+  - Características: Múltiplos arquivos afetados, alta complexidade algorítmica, requer pesquisa
+
+**Exemplo de uso**:
+```markdown
+## Backlog por Complexidade
+
+### 🟢 Tarefas Simples (0-1h)
+- [ ] Adicionar loading spinner no botão de submit
+- [ ] Corrigir alinhamento do header
+
+### 🟡 Tarefas Médias (1-2h)
+- [ ] Implementar paginação na listagem
+- [ ] Adicionar filtros de busca avançada
+
+### 🔴 Tarefas Complexas (>2h)
+- [ ] Migrar autenticação para SSO
+- [ ] Implementar sistema de cache distribuído
+```
+
+#### **Priorização MoSCoW**
+
+Framework para classificar a importância relativa de cada tarefa:
+
+- 🔴 **Must Have** - Crítico para o funcionamento do sistema, bloqueante para release
+  - Sem isso, o produto não funciona ou não atende requisito fundamental
+  - Exemplos: Login, salvamento de dados, funcionalidade core do produto
+  
+- 🟡 **Should Have** - Importante mas não bloqueante, pode ser adiado se necessário
+  - Adiciona valor significativo mas sistema funciona sem
+  - Exemplos: Exportação de relatórios, notificações por email, dark mode
+  
+- 🟢 **Could Have** - Desejável se houver tempo, baixa prioridade
+  - Nice to have, melhora experiência mas não é essencial
+  - Exemplos: Animações, easter eggs, features experimentais
+  
+- ⚪ **Won't Have** (Later) - Explicitamente fora do escopo atual, para versões futuras
+  - Boa ideia mas não para agora, documentar para backlog futuro
+  - Exemplos: Versão mobile app, integração com sistema legado
+
+**Exemplo de uso**:
+```markdown
+## Priorização MoSCoW - Sprint v1.0
+
+### 🔴 MUST HAVE (Obrigatório)
+- [ ] Sistema de autenticação funcional
+- [ ] CRUD completo de usuários
+- [ ] Persistência de dados
+
+### 🟡 SHOULD HAVE (Importante)
+- [ ] Recuperação de senha
+- [ ] Validação de email
+- [ ] Logs de auditoria
+
+### 🟢 COULD HAVE (Desejável)
+- [ ] Avatar customizável
+- [ ] Tema escuro
+- [ ] Atalhos de teclado
+
+### ⚪ WON'T HAVE (Futuro)
+- [ ] Integração com redes sociais
+- [ ] Aplicativo mobile nativo
+```
+
+#### **Frameworks Avançados de Priorização (OPCIONAL)**
+
+Para projetos complexos que requerem análise quantitativa mais sofisticada:
+
+##### **Matriz RICE** (Reach, Impact, Confidence, Effort)
+
+Pontuação: `Score RICE = (Reach × Impact × Confidence) / Effort`
+
+- **Reach** (Alcance): Quantas pessoas serão impactadas? (ex: 100 usuários/mês)
+- **Impact** (Impacto): Quanto impacto por pessoa? (0.25=mínimo, 3=massivo)
+- **Confidence** (Confiança): Quão certos estamos? (50%=baixa, 100%=alta)
+- **Effort** (Esforço): Quantas pessoas-hora? (ex: 2h, 10h, 40h)
+
+**Exemplo**:
+```markdown
+| Task | Reach | Impact | Confidence | Effort | Score RICE |
+|------|-------|--------|------------|--------|-----------|
+| Feature A | 1000 | 3 | 100% | 5h | 600 |
+| Feature B | 500 | 2 | 80% | 10h | 80 |
+| Feature C | 100 | 1 | 50% | 2h | 25 |
+
+Prioridade: A > B > C
+```
+
+##### **Matriz de Eisenhower** (Urgente vs Importante)
+
+Classificação em quadrantes para gestão de tempo:
+
+- ⭐ **Q1: Urgente + Importante** → Fazer IMEDIATAMENTE
+  - Crises, bugs críticos em produção, deadlines iminentes
+  
+- 📅 **Q2: Não Urgente + Importante** → PLANEJAR e fazer depois
+  - Planejamento estratégico, refatoração, documentação, testes
+  
+- 🔀 **Q3: Urgente + Não Importante** → DELEGAR ou automatizar
+  - Interrupções, algumas reuniões, emails não críticos
+  
+- 🗑️ **Q4: Não Urgente + Não Importante** → ELIMINAR
+  - Distrações, tarefas que não agregam valor real
+
+**Exemplo**:
+```markdown
+## Matriz de Eisenhower - Sprint Atual
+
+### ⭐ Q1: FAZER AGORA (Urgente + Importante)
+- [ ] 🔴 Corrigir bug de segurança reportado
+- [ ] 🔴 Implementar feature bloqueante para cliente
+
+### 📅 Q2: PLANEJAR (Importante + Não Urgente)
+- [ ] 🟡 Refatorar módulo de autenticação
+- [ ] 🟡 Escrever documentação técnica
+- [ ] 🟡 Implementar testes unitários faltantes
+
+### 🔀 Q3: DELEGAR (Urgente + Não Importante)
+- [ ] 🟢 Responder emails de stakeholders
+- [ ] 🟢 Atualizar status report
+
+### 🗑️ Q4: ELIMINAR (Não Urgente + Não Importante)
+- [ ] ⚪ Pesquisar nova biblioteca X (não necessária agora)
+```
+
+#### **Combinando Indicadores**
+
+Para máxima clareza, combine status + complexidade + priorização:
+
+```markdown
+## Sprint v2.3 - Backlog Organizado
+
+### 🔴 MUST HAVE
+- 🔴🟢 [ ] Adicionar botão de logout (Not Started, Simples, 0.5h)
+- 🟡🟡 [ ] Implementar reset de senha (In Progress, Média, 1.5h, 60% completo)
+- 🟢🟢 [x] Configurar HTTPS (Done, Simples, 1h)
+- 🔵🔴 [ ] Migrar para PostgreSQL (Blocked, Complexa, 4h, aguardando DBA)
+
+### 🟡 SHOULD HAVE  
+- 🔴🟡 [ ] Adicionar filtros de busca (Not Started, Média, 2h)
+- 🟡🟢 [ ] Loading states (In Progress, Simples, 0.5h)
+
+### 🟢 COULD HAVE
+- 🔴🟡 [ ] Dark mode (Not Started, Média, 1.5h)
+```
+
+**Interpretação dos Indicadores Combinados**:
+- **Primeiro emoji** = Status (🔴 Not Started, 🟡 In Progress, 🟢 Done, 🔵 Blocked)
+- **Segundo emoji** = Complexidade (🟢 Simples, 🟡 Média, 🔴 Complexa)
+- **Seção** = Prioridade MoSCoW (Must/Should/Could/Won't)
+
+#### **Recomendações para IA**
+
+**Ao classificar tarefas, a IA deve**:
+1. ✅ **Começar pelas tarefas mais simples** dentro de cada categoria de prioridade
+2. ✅ **Considerar dependências** antes de marcar como "Bloqueada"
+3. ✅ **Atualizar status** proativamente conforme progresso
+4. ✅ **Usar MoSCoW** para definir escopo de sprints/releases
+5. ✅ **Aplicar RICE/Eisenhower** quando houver 10+ tarefas para priorizar
+6. ✅ **Equilibrar complexidade**: Não acumular apenas tarefas complexas no backlog
+7. ✅ **Ser consistente**: Manter mesmo padrão de classificação ao longo do projeto
+
+**Exemplo de decisão da IA**:
+```
+Cenário: 15 tarefas no backlog, todas "MUST HAVE"
+
+Decisão da IA:
+1. Filtrar por complexidade → Identificar 5 simples, 7 médias, 3 complexas
+2. Ordenar por dependências → 2 tarefas estão bloqueadas
+3. Calcular RICE score → Priorizar as 3 com maior impacto/esforço
+4. Sugerir ordem: Começar pelas 3 simples + 2 médias independentes
+5. Deixar as 3 complexas para depois (quando time estiver aquecido)
+```
+
+**Quando usar cada framework**:
+- **Apenas Status + Complexidade**: Projetos pequenos (< 20 tarefas)
+- **+ MoSCoW**: Projetos médios, definir escopo de releases
+- **+ RICE**: Quando há múltiplas features competindo por recursos limitados
+- **+ Eisenhower**: Quando há pressão de tempo e muitas "urgências" falsas
+- **Matriz de Decisão (Etapa 2.5 do Simplicidade 2/3)**: Quando escolha entre tarefas não é óbvia
+
+---
+
 ### 🤖 **Recomendações de Tarefas pela IA (OPCIONAL)**
 
 **Quando Usar**:
@@ -1970,25 +2187,28 @@ _Estas tarefas foram sugeridas pela IA com base no progresso do projeto e
 feedback de usuários. Revisar e aprovar antes de implementar._
 
 ### 🔴 MUST HAVE (Críticas)
-- [ ] **[IA-001]** Implementar autenticação de 2 fatores
+- 🔴🔴 [ ] **[IA-001]** Implementar autenticação de 2 fatores
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🔴 Complexa (8-12h)
   - **Razão**: Segurança crítica para dados de usuários
   - **Impacto**: Alto (requisito de compliance LGPD)
-  - **Esforço**: 8-12 horas
-  - **Prioridade**: ⭐⭐⭐⭐⭐
+  - **Prioridade MoSCoW**: Must Have
 
 ### 🟡 SHOULD HAVE (Importantes)
-- [ ] **[IA-002]** Adicionar dashboard de analytics
+- 🔴🟡 [ ] **[IA-002]** Adicionar dashboard de analytics
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🟡 Média (4-6h)
   - **Razão**: Stakeholders solicitaram métricas de uso
   - **Impacto**: Médio (melhora tomada de decisão)
-  - **Esforço**: 4-6 horas
-  - **Prioridade**: ⭐⭐⭐⭐
+  - **Prioridade MoSCoW**: Should Have
 
 ### 🟢 COULD HAVE (Melhorias)
-- [ ] **[IA-003]** Dark mode no tema da aplicação
+- 🔴🟢 [ ] **[IA-003]** Dark mode no tema da aplicação
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🟢 Simples (2-3h)
   - **Razão**: Pedido frequente de usuários finais
   - **Impacto**: Baixo (UX enhancement)
-  - **Esforço**: 2-3 horas
-  - **Prioridade**: ⭐⭐⭐
+  - **Prioridade MoSCoW**: Could Have
 
 ---
 **📊 Estatísticas de Recomendações da IA**:
@@ -2016,10 +2236,29 @@ C) ⏭️ Pular por agora (não adicionar nesta sprint)
 D) 🛑 Parar recomendações (desabilitar permanentemente)
 ```
 
-#### **Exemplo Completo**
+#### **Exemplo Completo com Sistema de Classificação**
 
 ```markdown
 # TASKS.md
+
+## 📊 Legenda de Classificação
+
+### Status
+- 🔴 **Not Started** - Aguardando início
+- 🟡 **In Progress** - Em desenvolvimento
+- 🟢 **Done** - Concluído e testado
+- 🔵 **Blocked** - Bloqueado por dependência
+
+### Complexidade
+- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências
+- 🟡 **Média** (1-2h) - Risco médio, algumas integrações
+- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências
+
+### Priorização MoSCoW
+- 🔴 **Must Have** - Crítico, bloqueante
+- 🟡 **Should Have** - Importante, não bloqueante
+- 🟢 **Could Have** - Desejável, baixa prioridade
+- ⚪ **Won't Have** - Fora do escopo atual
 
 ## 📊 Estatísticas do Projeto
 - **Progresso Geral**: 45% completo (18/40 tarefas)
@@ -2027,34 +2266,50 @@ D) 🛑 Parar recomendações (desabilitar permanentemente)
 - **Tarefas IA**: 12/30 recomendadas (40% do limite)
 
 ## ✅ Tarefas Concluídas (18)
-- [x] Setup inicial do projeto
-- [x] Implementar autenticação básica
-- [x] CRUD de usuários
+- 🟢🟢 [x] Setup inicial do projeto (Done, Simples)
+- 🟢🟡 [x] Implementar autenticação básica (Done, Média)
+- 🟢🟡 [x] CRUD de usuários (Done, Média)
 ... (15 mais)
 
 ## 🔨 Tarefas Pendentes Originais (22)
-- [ ] Integração com API de pagamento
-- [ ] Sistema de notificações
-... (20 mais)
+
+### 🔴 MUST HAVE
+- 🔴🔴 [ ] Integração com API de pagamento (Not Started, Complexa, 5h)
+- 🟡🟡 [ ] Sistema de notificações (In Progress, Média, 2h, 40% completo)
+- 🔵🟢 [ ] Deploy em produção (Blocked, Simples, 1h, aguardando aprovação)
+
+### 🟡 SHOULD HAVE
+- 🔴🟢 [ ] Adicionar tooltips de ajuda (Not Started, Simples, 0.5h)
+... (12 mais)
+
+### 🟢 COULD HAVE
+- 🔴🟡 [ ] Tema customizável (Not Started, Média, 2h)
+... (7 mais)
 
 ## 🤖 Tarefas Recomendadas pela IA (12/30 usadas)
 
 ### 🔴 MUST HAVE
-- [ ] **[IA-001]** Rate limiting em endpoints da API
+- 🔴🟡 [ ] **[IA-001]** Rate limiting em endpoints da API
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🟡 Média (3-4h)
   - **Razão**: Prevenir abuso e garantir estabilidade
   - **Impacto**: Alto (segurança e performance)
-  - **Esforço**: 3-4 horas
+  - **MoSCoW**: Must Have
   
-- [ ] **[IA-002]** Logging estruturado para debugging
+- 🔴🟢 [ ] **[IA-002]** Logging estruturado para debugging
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🟢 Simples (2-3h)
   - **Razão**: Facilitar troubleshooting em produção
   - **Impacto**: Alto (operacional)
-  - **Esforço**: 2-3 horas
+  - **MoSCoW**: Must Have
 
 ### 🟡 SHOULD HAVE
-- [ ] **[IA-003]** Exportar dados em formato CSV
+- 🔴🟢 [ ] **[IA-003]** Exportar dados em formato CSV
+  - **Status**: 🔴 Not Started
+  - **Complexidade**: 🟢 Simples (2h)
   - **Razão**: Solicitação de stakeholders para análise
   - **Impacto**: Médio (conveniência)
-  - **Esforço**: 2 horas
+  - **MoSCoW**: Should Have
 
 ... (9 tarefas mais)
 

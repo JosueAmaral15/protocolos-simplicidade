@@ -2429,6 +2429,217 @@ docs/
   - ❓ **Perguntar sobre próximas tarefas e requisitos** caso não haja documento formal
   - ❓ **Sugerir criação** de `TASKS.md` como arquivo padrão
 
+---
+
+### 📊 **Legenda de Classificação de Tarefas (Simplicidade 3 - Solo Developer)**
+
+**Objetivo**: Padronizar a classificação e priorização de tarefas para facilitar a organização pela IA quando você está trabalhando sozinho em produção.
+
+**Nota para Simplicidade 3**: Como solo developer, você precisa de classificação **pragmática e rápida** que não adicione overhead desnecessário. A classificação deve ajudar a tomar decisões rápidas sem burocracia de equipe.
+
+#### **Status da Tarefa**
+
+- 🔴 **Not Started** (Não Iniciada) - Aguardando início, sem trabalho realizado
+- 🟡 **In Progress** (Em Progresso) - Desenvolvimento ativo, trabalho em andamento
+- 🟢 **Done** (Concluída) - Implementada, testada, validada em CI/CD e finalizada
+- 🔵 **Blocked** (Bloqueada) - Impedida por dependência externa ou problema técnico
+
+**Dica Solo**: Minimize tarefas 🔵 Blocked. Como você está sozinho, blockers são especialmente custosos. Se algo está bloqueado, veja se há workaround temporário ou outra tarefa para avançar.
+
+#### **Complexidade da Tarefa**
+
+- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências, escopo claro
+- 🟡 **Média** (1-2h) - Risco médio, algumas integrações, pode requerer testes adicionais
+- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências, escopo aberto ou ambíguo
+
+**Estratégia Solo**: Intercale tarefas complexas com simples. Após resolver uma 🔴 complexa, faça 2-3 🟢 simples para manter momentum e motivação. Evite acumular apenas tarefas complexas no sprint.
+
+#### **Priorização MoSCoW**
+
+- 🔴 **Must Have** - Crítico para o funcionamento do sistema, bloqueante para release
+- 🟡 **Should Have** - Importante mas não bloqueante, pode ser adiado se necessário
+- 🟢 **Could Have** - Desejável se houver tempo, baixa prioridade
+- ⚪ **Won't Have** (Later) - Explicitamente fora do escopo atual, para versões futuras
+
+**Dica Solo**: Seja rigoroso com MoSCoW. A tentação de fazer tudo é real quando você está sozinho. Use ⚪ Won't Have generosamente para evitar feature creep.
+
+#### **Integração com Matriz de Decisão (Opcional)**
+
+A Matriz de Decisão (Etapa 2.5) é **opcional** no Simplicidade 3, mas útil quando você tem 10+ tarefas para priorizar:
+
+```markdown
+## Sprint v2.5 - Backlog Solo Developer
+
+### 🔴 MUST HAVE (Obrigatórias para Release)
+
+| Task | Status | Complex. | Score | Nota |
+|------|--------|----------|-------|------|
+| #25 Security patch CVE-2024-1234 | 🔴 | 🟢 | 34.0 | Crítico! Começar hoje |
+| #26 Rollback plan para deploy | 🔴 | 🟡 | 29.0 | Fazer antes do deploy |
+| #27 Implementar backup automático | 🔴 | 🟡 | 27.5 | Produção requer |
+
+**Decisão**: Começar por #25 (maior score + mais simples). Depois #26 e #27.
+```
+
+**Quando usar Matriz de Decisão**:
+- ✅ Quando tem 10+ tarefas e não é óbvio por onde começar
+- ✅ Quando várias tarefas são "Must Have" e precisa desempatar
+- ✅ Quando quer justificar decisões para você mesmo (ou para cliente)
+- ❌ Quando tem 1-5 tarefas óbvias (overhead desnecessário)
+
+#### **Frameworks Avançados de Priorização (Opcional)**
+
+Para solo developer em produção, mantenha priorização simples. Use frameworks avançados apenas quando realmente necessário:
+
+##### **Matriz RICE** (Quando justificar para cliente/stakeholders)
+
+Use quando cliente questiona prioridades ou quando você precisa defender decisões de roadmap.
+
+**Exemplo Solo**:
+```markdown
+| Feature Solicitada | RICE Score | Decisão |
+|-------------------|-----------|---------|
+| API v2 com GraphQL | 50 | ✅ Próximo trimestre |
+| Dark mode | 180 | ✅ Este mês (maior ROI) |
+| Multi-idiomas (i18n) | 25 | ⚪ Backlog distante |
+
+**Justificativa para cliente**: Dark mode tem 3.6x mais valor que API v2 
+considerando alcance (mais usuários) e esforço (menos horas).
+```
+
+##### **Matriz de Eisenhower** (Gestão de Urgências)
+
+**Adaptação Solo Developer**:
+- **Q1 (Urgente + Importante)**: Fazer AGORA (bugs produção, incidentes)
+- **Q2 (Importante + Não Urgente)**: AGENDAR (features planejadas, refatoração)
+- **Q3 (Urgente + Não Importante)**: AUTOMATIZAR (deploys, relatórios, emails)
+- **Q4 (Não Urgente + Não Importante)**: ELIMINAR (não gaste tempo aqui!)
+
+**Exemplo Solo**:
+```markdown
+## Esta Semana - Matriz Eisenhower
+
+### ⭐ Q1: FAZER AGORA
+- 🔴🟢 [ ] Corrigir bug de segurança reportado (1h)
+- 🔴🟡 [ ] Deploy de hotfix v2.3.1 (1.5h)
+
+### 📅 Q2: AGENDAR (Segunda-feira)
+- 🔴🟡 [ ] Implementar feature X solicitada por cliente (2h)
+- 🔴🟢 [ ] Atualizar documentação da API (0.5h)
+
+### 🤖 Q3: AUTOMATIZAR (não fazer manual!)
+- [ ] Deploy manual → Implementar CD pipeline (investir 3h, economizar 30min/semana)
+- [ ] Relatórios semanais → Script automático
+
+### 🗑️ Q4: ELIMINAR
+- [ ] ~~Refatorar código que funciona bem~~ (desnecessário agora)
+- [ ] ~~Pesquisar framework novo X~~ (sem necessidade real)
+```
+
+#### **Exemplo Completo Simplicidade 3 (Solo Developer)**
+
+```markdown
+# TASKS.md - Projeto SaaS Solo em Produção
+
+## 📊 Legenda
+- **Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Done | 🔵 Blocked
+- **Complexidade**: 🟢 Simples (0-1h) | 🟡 Média (1-2h) | 🔴 Complexa (>2h)
+- **MoSCoW**: 🔴 Must | 🟡 Should | 🟢 Could | ⚪ Won't
+
+## 📊 Status do Projeto
+- **Versão Atual**: v3.2.1 em produção
+- **Progresso**: 72% (29/40 features planejadas)
+- **Usuários Ativos**: 1.245 (crescimento 15% mês)
+- **Uptime**: 99.8% (últimos 30 dias)
+- **Próximo Release**: v3.3.0 (15 dias)
+
+## 🔴 MUST HAVE - Release v3.3.0
+
+### Alta Prioridade (Crítico)
+- 🔴🟢 [ ] #88 Implementar rate limiting (1h) ⭐ FAZER HOJE
+  - **Razão**: Segurança, prevenir abuso da API
+  - **CI/CD**: Incluir testes de carga
+  - **Rollback Plan**: Flag feature toggle preparada
+  
+- 🟡🟡 [ ] #89 Adicionar health check endpoint (1.5h, 70% completo)
+  - **Razão**: Monitoramento de uptime para Kubernetes
+  - **Faltando**: Testes de integração + documentação
+  - **Dependência**: Rate limiting deve estar funcionando
+
+### Média Prioridade
+- 🔵🔴 [ ] #90 Migrar banco para PostgreSQL 14 (4h, BLOQUEADO)
+  - **Blocker**: Aguardando janela de manutenção (próximo domingo 3h-6h)
+  - **Rollback Plan**: ✅ Snapshot do banco atual criado
+  - **Fallback**: Se falhar, permanecer em PG 12 por mais 1 mês
+
+## 🟡 SHOULD HAVE - Release v3.4.0 (backlog)
+- 🔴🟡 [ ] #91 Dashboard de métricas (2h)
+- 🔴🟢 [ ] #92 Melhorar mensagens de erro (0.5h)
+
+## 🟢 COULD HAVE - Backlog Futuro
+- 🔴🟡 [ ] #93 Dark mode (1.5h, RICE=180 - boa prioridade)
+- 🔴🔴 [ ] #94 Integração com Slack (3h)
+
+## ⚪ WON'T HAVE - Não fazer agora
+- [ ] #95 Versão mobile app nativo (100h+, muito esforço)
+  - **Alternativa**: PWA já funciona bem no mobile
+- [ ] #96 Multi-tenancy (80h+, complexidade alta)
+  - **Razão**: Apenas 1 cliente por enquanto, não justifica
+
+---
+
+## 🤖 Recomendações da IA (3/30 usadas)
+
+### 🔴 MUST HAVE Sugeridas
+- 🔴🟢 [ ] **[IA-001]** Adicionar logs estruturados (1h)
+  - **Razão**: Facilitar debugging de incidentes em produção
+  - **Integração**: Usar biblioteca já presente (loguru)
+
+---
+
+## 📝 Notas de Decisão (ADR Simplificado)
+
+**#90 - Por quê PostgreSQL 14?**
+- Performance: 20% mais rápido em queries complexas (benchmark interno)
+- Segurança: Patches de segurança críticos não backportados para PG 12
+- Suporte: PG 12 EOL em nov/2024 (6 meses)
+- **Decisão**: Migrar agora com rollback plan robusto
+
+---
+
+**Próxima revisão**: Segunda-feira (revisar progresso, ajustar prioridades)
+```
+
+#### **Recomendações para IA ao Trabalhar com Solo Developer**
+
+**Ao classificar tarefas para solo developer (Simplicidade 3), a IA deve**:
+
+1. ✅ **Priorizar tarefas simples primeiro** - Solo dev precisa de wins rápidos para momentum
+2. ✅ **Evitar acúmulo de blockers** - Sugerir workarounds ou tarefas alternativas
+3. ✅ **Balancear complexidade** - Intercalar tarefas difíceis com fáceis
+4. ✅ **Considerar energia/motivação** - Sexta à tarde? Tarefas simples. Segunda cedo? Tarefas complexas
+5. ✅ **Documentar decisões importantes** - Solo dev esquece contexto após 3 meses
+6. ✅ **Ser rigoroso com "Won't Have"** - Proteger contra feature creep
+7. ✅ **Automatizar o que for repetitivo** - Solo dev não tem tempo para tarefas manuais
+8. ✅ **Priorizar segurança e CI/CD** - Sem equipe para revisar, automação é essencial
+9. ✅ **Sugerir rollback plans** - Solo dev não tem time para ajudar se algo der errado
+10. ✅ **Manter classificação pragmática** - Não adicionar overhead de processo
+
+**Diferenças Simplicidade 3 vs 2**:
+- **S3**: Classificação deve ser **rápida** (não perder tempo em scoring elaborado)
+- **S3**: Priorizar **automação** sobre processo manual (CI/CD, testes automáticos)
+- **S3**: **Rollback plans obrigatórios** (não tem equipe para ajudar em incidentes)
+- **S3**: Matriz de Decisão **opcional** (só quando realmente necessário, não overhead)
+- **S3**: Recomendações da IA aceitas **diretamente** (não precisa consenso de equipe)
+
+**Diferenças Simplicidade 3 vs 1**:
+- **S3**: Adiciona **Security Checklist** obrigatório (produção requer)
+- **S3**: Adiciona **CI/CD Quality Gates** obrigatório (automação essencial)
+- **S3**: Adiciona **Rollback Plans** obrigatório (segurança em deploy)
+- **S3**: Mantém classificação de S1, mas com foco em **produção crítica**
+
+---
+
 **🤖 Recomendações de Tarefas pela IA (Solo Developer)**:
 Para solo developers (Simplicidade 3), as recomendações da IA são especialmente valiosas pois não há equipe para brainstorming. A IA age como um "segundo cérebro" sugerindo melhorias e oportunidades. Como você está sozinho, tem autonomia para aceitar/rejeitar recomendações rapidamente sem necessidade de consenso em equipe.
 

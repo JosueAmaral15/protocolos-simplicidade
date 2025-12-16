@@ -3875,6 +3875,164 @@ This PR implements **ADR-004: Migrate to SQLite**.
   - ❓ **Ask about next tasks and requirements** if no formal document
   - ❓ **Suggest creating** `TASKS.md` as the default file
 
+---
+
+### 📊 **Task Classification Legend (Simplicity 2)**
+
+**Objective**: Standardize task classification and prioritization to facilitate AI organization, team communication, and understanding between different artificial intelligence systems.
+
+**Note for Simplicity 2**: In enterprise environments with large teams, task classification should be **integrated with the Decision Matrix (Step 2.5)** to ensure objective and traceable choices.
+
+#### **Task Status**
+
+- 🔴 **Not Started** - Awaiting start, no work done
+- 🟡 **In Progress** - Active development, work underway
+- 🟢 **Done** - Implemented, tested, peer-reviewed and completed
+- 🔵 **Blocked** - Impeded by external dependency or technical issue
+
+#### **Task Complexity**
+
+- 🟢 **Simple** (0-1h) - Low risk, few dependencies, clear scope
+- 🟡 **Medium** (1-2h) - Medium risk, some integrations, may require additional tests
+- 🔴 **Complex** (>2h) - High risk, many dependencies, open or ambiguous scope
+
+#### **MoSCoW Prioritization**
+
+- 🔴 **Must Have** - Critical for system functionality, release blocker
+- 🟡 **Should Have** - Important but not blocking, can be postponed if needed
+- 🟢 **Could Have** - Desirable if time permits, low priority
+- ⚪ **Won't Have** (Later) - Explicitly out of current scope, for future versions
+
+#### **Integration with Decision Matrix (Simplicity 2)**
+
+The Decision Matrix (Step 2.5) provides numerical scoring (0-35 points) complementary to visual indicators:
+
+```markdown
+## Sprint v3.2 - Prioritized Backlog
+
+### 🔴 MUST HAVE
+
+| Task | Status | Complex. | Score | Order |
+|------|--------|----------|-------|-------|
+| #42 2FA Auth | 🔴 | 🔴 | 25.0 | 3rd |
+| #43 Rate Limiting | 🔴 | 🟡 | 28.5 | 2nd |
+| #44 Logging | 🔴 | 🟢 | 33.5 | 1st ⭐ START HERE |
+
+**Justification**: Task #44 has highest score (33.5) despite being Must Have like others.
+Starting with it reduces risks and allows team to warm up before complex tasks.
+```
+
+**Combining Decision Matrix + Visual Classification**:
+1. Use **Decision Matrix** for objective scoring (5 numerical criteria)
+2. Use **Visual Indicators** (🔴🟡🟢🔵) for quick status in backlog
+3. Use **MoSCoW** to define release scope
+4. Use **Complexity** to balance sprints (not only difficult tasks)
+
+#### **Advanced Prioritization Frameworks**
+
+For enterprise teams that need to justify decisions to stakeholders:
+
+##### **RICE Matrix** (Quantitative)
+
+`RICE Score = (Reach × Impact × Confidence) / Effort`
+
+Useful for:
+- ✅ Product management decisions with multiple competing features
+- ✅ Presentations to C-level (objective data)
+- ✅ Long-term roadmap planning
+
+**Enterprise Example**:
+```markdown
+| Feature | Reach | Impact | Conf. | Effort | RICE | Decision |
+|---------|-------|--------|-------|--------|------|----------|
+| SSO Integration | 5000 | 3 | 80% | 80h | 150 | Q1 2024 |
+| Dashboard v2 | 2000 | 2 | 100% | 40h | 100 | Q2 2024 |
+| Dark Mode | 8000 | 0.5 | 100% | 20h | 200 | Q1 2024 ⭐ |
+
+Decision: Prioritize Dark Mode (RICE=200) over SSO (RICE=150)
+Reason: Greater reach with less effort, despite lower individual impact
+```
+
+##### **Eisenhower Matrix** (Urgency × Importance)
+
+Useful for:
+- ✅ Incident and crisis management
+- ✅ Prioritization in contexts with many false "urgencies"
+- ✅ Identifying tasks to delegate or automate
+
+**Team Adaptation**:
+- **Q1 (Urgent + Important)**: Senior team / Tech leads
+- **Q2 (Not Urgent + Important)**: Mid-level team, planned
+- **Q3 (Urgent + Not Important)**: Delegate to junior or automate
+- **Q4 (Not Urgent + Not Important)**: Eliminate or distant backlog
+
+#### **Complete Simplicity 2 Example**
+
+```markdown
+# TASKS.md - Sprint v4.1 (Enterprise Team)
+
+## 📊 Legend
+- **Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Done | 🔵 Blocked
+- **Complexity**: 🟢 Simple (0-1h) | 🟡 Medium (1-2h) | 🔴 Complex (>2h)
+- **MoSCoW**: 🔴 Must | 🟡 Should | 🟢 Could | ⚪ Won't
+
+## 📊 Statistics
+- Progress: 65% (26/40 tasks)
+- Velocity: 12 story points/sprint
+- Open Bugs: 3 (1 critical, 2 medium)
+
+## 🔴 MUST HAVE - Release v4.1
+
+### High Priority (Matrix Score > 25)
+- 🔴🟢 [ ] #101 Add rate limiting (Score: 33.5) ⭐ START
+  - **Assignee**: @maria (Backend Lead)
+  - **Review**: @joao (Security Review required)
+  - **Estimate**: 3h
+  - **Dependencies**: None
+  
+- 🟡🟡 [ ] #102 Implement circuit breaker (Score: 28.0, 60% complete)
+  - **Assignee**: @pedro (Mid-level)
+  - **Review**: @maria (Code Review)
+  - **Estimate**: 5h (2h remaining)
+  - **Blocker Resolved**: ✅ Library updated to v3.2
+
+### Medium Priority (Matrix Score 15-25)
+- 🔵🔴 [ ] #103 Migrate to Kubernetes (Score: 22.0, BLOCKED)
+  - **Assignee**: @infra-team
+  - **Blocker**: Awaiting DevOps budget approval
+  - **Estimate**: 16h
+  - **Fallback**: Keep Docker Swarm for 1 more sprint
+
+## 🟡 SHOULD HAVE - Release v4.2
+- 🔴🟡 [ ] #104 Add Prometheus metrics (Score: 26.5)
+- 🔴🟢 [ ] #105 Help tooltips (Score: 30.0)
+
+## 🟢 COULD HAVE - Backlog
+- 🔴🟡 [ ] #106 Dark mode (RICE: 200, high backlog priority)
+
+---
+**Next Retrospective**: Friday 3pm (validate AI recommendations)
+```
+
+#### **Recommendations for AI in Enterprise Context**
+
+**When classifying tasks for teams (Simplicity 2), AI should**:
+1. ✅ **Consider Code Review**: Complex tasks need available senior reviewer
+2. ✅ **Balance workload**: Don't allocate all complex tasks to same person
+3. ✅ **Respect team dependencies**: Backend before Frontend in integrations
+4. ✅ **Document decisions**: Use ADR (Step 11.5) for important architectural choices
+5. ✅ **Communicate blockers**: Mark 🔵 and notify team immediately
+6. ✅ **Integrate with Decision Matrix**: Scoring + visual indicators complementary
+7. ✅ **Validate with stakeholders**: MUST HAVE features confirmed in Sprint Planning
+
+**Simplicity 2 vs 1 Differences**:
+- **S2**: Decision Matrix (numerical scoring) is **MANDATORY** when 3+ tasks compete
+- **S2**: Status should reflect **code review** (don't mark Done without peer approval)
+- **S2**: AI recommendations validated in **Sprint Retrospective** (Step 13.5)
+- **S2**: Complexity includes **review time** and **acceptance testing**
+
+---
+
 **🤖 AI Task Recommendations**:
 For enterprise teams (Simplicity 2), AI recommendations should be **reviewed in sprint retrospectives** (Step 13.5) before being added to TASKS.md. This ensures team consensus and alignment with stakeholders.
 

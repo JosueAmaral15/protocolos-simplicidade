@@ -2440,6 +2440,168 @@ docs/
   - ❓ **Ask about next tasks and requirements** if no formal document
   - ❓ **Suggest creating** `TASKS.md` as the default file
 
+---
+
+### 📊 **Task Classification Legend (Simplicity 3 - Solo Developer)**
+
+**Objective**: Standardize task classification and prioritization to facilitate AI organization when working alone in production.
+
+**Note for Simplicity 3**: As a solo developer, you need **pragmatic and fast** classification that doesn't add unnecessary overhead. Classification should help make quick decisions without team bureaucracy.
+
+#### **Task Status**
+
+- 🔴 **Not Started** - Awaiting start, no work done
+- 🟡 **In Progress** - Active development, work underway
+- 🟢 **Done** - Implemented, tested, validated in CI/CD and completed
+- 🔵 **Blocked** - Impeded by external dependency or technical issue
+
+**Solo Tip**: Minimize 🔵 Blocked tasks. As you're alone, blockers are especially costly. If something's blocked, see if there's a temporary workaround or another task to advance.
+
+#### **Task Complexity**
+
+- 🟢 **Simple** (0-1h) - Low risk, few dependencies, clear scope
+- 🟡 **Medium** (1-2h) - Medium risk, some integrations, may require additional tests
+- 🔴 **Complex** (>2h) - High risk, many dependencies, open or ambiguous scope
+
+**Solo Strategy**: Alternate complex tasks with simple ones. After solving a 🔴 complex task, do 2-3 🟢 simple ones to maintain momentum and motivation. Avoid accumulating only complex tasks in sprint.
+
+#### **MoSCoW Prioritization**
+
+- 🔴 **Must Have** - Critical for system functionality, release blocker
+- 🟡 **Should Have** - Important but not blocking, can be postponed if needed
+- 🟢 **Could Have** - Desirable if time permits, low priority
+- ⚪ **Won't Have** (Later) - Explicitly out of current scope, for future versions
+
+**Solo Tip**: Be strict with MoSCoW. The temptation to do everything is real when you're alone. Use ⚪ Won't Have generously to avoid feature creep.
+
+#### **Integration with Decision Matrix (Optional)**
+
+The Decision Matrix (Step 2.5) is **optional** in Simplicity 3, but useful when you have 10+ tasks to prioritize:
+
+```markdown
+## Sprint v2.5 - Solo Developer Backlog
+
+### 🔴 MUST HAVE (Required for Release)
+
+| Task | Status | Complex. | Score | Note |
+|------|--------|----------|-------|------|
+| #25 Security patch CVE-2024-1234 | 🔴 | 🟢 | 34.0 | Critical! Start today |
+| #26 Rollback plan for deploy | 🔴 | 🟡 | 29.0 | Do before deploy |
+| #27 Implement auto backup | 🔴 | 🟡 | 27.5 | Production requires |
+
+**Decision**: Start with #25 (highest score + simplest). Then #26 and #27.
+```
+
+**When to use Decision Matrix**:
+- ✅ When you have 10+ tasks and it's not obvious where to start
+- ✅ When multiple tasks are "Must Have" and you need to break the tie
+- ✅ When you want to justify decisions to yourself (or to client)
+- ❌ When you have 1-5 obvious tasks (unnecessary overhead)
+
+#### **Complete Simplicity 3 Example (Solo Developer)**
+
+```markdown
+# TASKS.md - Solo SaaS Project in Production
+
+## 📊 Legend
+- **Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Done | 🔵 Blocked
+- **Complexity**: 🟢 Simple (0-1h) | 🟡 Medium (1-2h) | 🔴 Complex (>2h)
+- **MoSCoW**: 🔴 Must | 🟡 Should | 🟢 Could | ⚪ Won't
+
+## 📊 Project Status
+- **Current Version**: v3.2.1 in production
+- **Progress**: 72% (29/40 planned features)
+- **Active Users**: 1,245 (15% monthly growth)
+- **Uptime**: 99.8% (last 30 days)
+- **Next Release**: v3.3.0 (15 days)
+
+## 🔴 MUST HAVE - Release v3.3.0
+
+### High Priority (Critical)
+- 🔴🟢 [ ] #88 Implement rate limiting (1h) ⭐ DO TODAY
+  - **Reason**: Security, prevent API abuse
+  - **CI/CD**: Include load tests
+  - **Rollback Plan**: Feature flag toggle ready
+  
+- 🟡🟡 [ ] #89 Add health check endpoint (1.5h, 70% complete)
+  - **Reason**: Uptime monitoring for Kubernetes
+  - **Missing**: Integration tests + documentation
+  - **Dependency**: Rate limiting must be working
+
+### Medium Priority
+- 🔵🔴 [ ] #90 Migrate database to PostgreSQL 14 (4h, BLOCKED)
+  - **Blocker**: Awaiting maintenance window (next Sunday 3h-6h)
+  - **Rollback Plan**: ✅ Current database snapshot created
+  - **Fallback**: If it fails, stay on PG 12 for 1 more month
+
+## 🟡 SHOULD HAVE - Release v3.4.0 (backlog)
+- 🔴🟡 [ ] #91 Metrics dashboard (2h)
+- 🔴🟢 [ ] #92 Improve error messages (0.5h)
+
+## 🟢 COULD HAVE - Future Backlog
+- 🔴🟡 [ ] #93 Dark mode (1.5h, RICE=180 - good priority)
+- 🔴🔴 [ ] #94 Slack integration (3h)
+
+## ⚪ WON'T HAVE - Don't do now
+- [ ] #95 Native mobile app version (100h+, too much effort)
+  - **Alternative**: PWA already works well on mobile
+- [ ] #96 Multi-tenancy (80h+, high complexity)
+  - **Reason**: Only 1 client for now, not justified
+
+---
+
+## 🤖 AI Recommendations (3/30 used)
+
+### 🔴 MUST HAVE Suggested
+- 🔴🟢 [ ] **[AI-001]** Add structured logging (1h)
+  - **Reason**: Facilitate production incident debugging
+  - **Integration**: Use existing library (loguru)
+
+---
+
+## 📝 Decision Notes (Simplified ADR)
+
+**#90 - Why PostgreSQL 14?**
+- Performance: 20% faster in complex queries (internal benchmark)
+- Security: Critical security patches not backported to PG 12
+- Support: PG 12 EOL in Nov/2024 (6 months)
+- **Decision**: Migrate now with robust rollback plan
+
+---
+
+**Next review**: Monday (review progress, adjust priorities)
+```
+
+#### **Recommendations for AI Working with Solo Developer**
+
+**When classifying tasks for solo developer (Simplicity 3), AI should**:
+
+1. ✅ **Prioritize simple tasks first** - Solo dev needs quick wins for momentum
+2. ✅ **Avoid blocker accumulation** - Suggest workarounds or alternative tasks
+3. ✅ **Balance complexity** - Alternate difficult tasks with easy ones
+4. ✅ **Consider energy/motivation** - Friday afternoon? Simple tasks. Monday morning? Complex tasks
+5. ✅ **Document important decisions** - Solo dev forgets context after 3 months
+6. ✅ **Be strict with "Won't Have"** - Protect against feature creep
+7. ✅ **Automate what's repetitive** - Solo dev doesn't have time for manual tasks
+8. ✅ **Prioritize security and CI/CD** - Without team to review, automation is essential
+9. ✅ **Suggest rollback plans** - Solo dev doesn't have team to help if something goes wrong
+10. ✅ **Keep classification pragmatic** - Don't add process overhead
+
+**Simplicity 3 vs 2 Differences**:
+- **S3**: Classification should be **fast** (don't waste time on elaborate scoring)
+- **S3**: Prioritize **automation** over manual process (CI/CD, automatic tests)
+- **S3**: **Rollback plans mandatory** (no team to help in incidents)
+- **S3**: Decision Matrix **optional** (only when really necessary, not overhead)
+- **S3**: AI recommendations accepted **directly** (no team consensus needed)
+
+**Simplicity 3 vs 1 Differences**:
+- **S3**: Adds **Security Checklist** mandatory (production requires)
+- **S3**: Adds **CI/CD Quality Gates** mandatory (automation essential)
+- **S3**: Adds **Rollback Plans** mandatory (deployment safety)
+- **S3**: Maintains S1 classification, but focused on **critical production**
+
+---
+
 **🤖 AI Task Recommendations (Solo Developer)**:
 For solo developers (Simplicity 3), AI recommendations are especially valuable as there's no team for brainstorming. AI acts as a "second brain" suggesting improvements and opportunities. Since you're working alone, you have autonomy to quickly accept/reject recommendations without needing team consensus.
 
