@@ -98,10 +98,45 @@ All Simplicity protocols now include integrated support for task management thro
 ### Task System Features:
 - ✅ **Default File**: `TASKS.md` in project root (ASCII format: `.md`, `.txt`)
 - 🔄 **Flexible**: Use any file name/location (as long as it's ASCII)
+- 📊 **Classification System**: Integrated Status, Complexity, and Prioritization
 - 🤖 **AI Recommendations (Optional)**: Intelligent system for suggesting new tasks
 - 📊 **Growth Curve**: Recommendations follow quadratic pattern (grow, peak, then decrease)
 - 🎯 **Scope Control**: Only project-relevant suggestions
 - 🔢 **Configurable Limit**: Default of 30 new recommended tasks (customizable)
+
+### 📊 Task Classification System
+
+All three protocols include a standardized classification system to facilitate organization by AI:
+
+#### **Task Status**
+- 🔴 **Not Started** - Awaiting start
+- 🟡 **In Progress** - Active development
+- 🟢 **Done** - Completed and tested
+- 🔵 **Blocked** - Blocked by dependency
+
+#### **Complexity**
+- 🟢 **Simple** (0-1h) - Low risk, few dependencies, clear scope
+- 🟡 **Medium** (1-2h) - Medium risk, some integrations
+- 🔴 **Complex** (>2h) - High risk, many dependencies, open scope
+
+#### **MoSCoW Prioritization**
+- 🔴 **Must Have** - Critical for system functionality, release blocker
+- 🟡 **Should Have** - Important but not blocking
+- 🟢 **Could Have** - Desirable if time permits, low priority
+- ⚪ **Won't Have** (Later) - Out of current scope, for future versions
+
+#### **Advanced Frameworks (Optional)**
+- **RICE Matrix**: For quantitative analysis (Reach × Impact × Confidence / Effort)
+- **Eisenhower Matrix**: For urgency management (Urgent × Important)
+- **Decision Matrix**: Numeric scoring 0-35 points (Simplicity 2/3)
+
+**Combined usage example**:
+```markdown
+### 🔴 MUST HAVE
+- 🔴🟢 [ ] Implement authentication (Not Started, Simple, 1h)
+- 🟡🟡 [ ] Add validation (In Progress, Medium, 1.5h, 60% complete)
+- 🟢🟢 [x] Configure database (Done, Simple, 0.5h)
+```
 
 ### How AI Recommendations Work:
 AI can dynamically suggest new tasks as the project evolves, following a 5-phase pattern:
@@ -111,7 +146,7 @@ AI can dynamically suggest new tasks as the project evolves, following a 5-phase
 4. **Phase 4 (70-90%)**: Deceleration - only critical tasks
 5. **Phase 5 (90-100%)**: Exhaustion - stop adding features
 
-📖 **Complete details**: See "AI Task Recommendations" section in Step 12 of each protocol.
+📖 **Complete details**: See "Task Classification Legend" and "AI Task Recommendations" sections in Step 12 of each protocol.
 
 ---
 
