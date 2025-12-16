@@ -4453,9 +4453,32 @@ class MigrationV2:
 ---
 
 ### 13. **Commit and Push**
-- **Format**: Conventional Commits (feat/fix/docs/refactor/test)
+- **Format**: Conventional Commits (MANDATORY)
+- **Language**: All commit messages must be **EXCLUSIVELY IN ENGLISH** (mandatory requirement)
 - **Message**: Descriptive, complete, with context
 - **Frequency**: 1 commit per task or logical group of changes
+
+**Standardized Commit Types** (MANDATORY):
+- `feat`: Indicates a new feature
+  - Example: `git commit -m "feat: add Header component"`
+- `fix`: Indicates a bug fix
+  - Example: `git commit -m "fix: remove wrong prop in Header"`
+- `refactor`: Indicates code refactoring
+  - Example: `git commit -m "refactor: add title in Header"`
+- `test`: Indicates test changes
+  - Example: `git commit -m "test: add test in title Header"`
+- `style`: Indicates style/formatting changes
+  - Example: `git commit -m "style: add Header title background"`
+- `docs`: Indicates documentation changes
+  - Example: `git commit -m "docs: add get started in readme"`
+- `chore`: Indicates development environment changes
+  - Example: `git commit -m "chore: change eslint rules"`
+- `build`: Indicates dependency changes
+  - Example: `git commit -m "build: add sass"`
+- `revert`: Indicates reversion of a previous commit
+  - Example: `git commit -m "revert: back to adc1234 commit"`
+
+⚠️ **IMPORTANT**: All commit messages must be written **EXCLUSIVELY IN ENGLISH**!
 
 **Commit Message Structure**:
 ```

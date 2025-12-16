@@ -2838,9 +2838,32 @@ def export_data():
 ---
 
 ### 1️⃣3️⃣ **Fazer Commit e Push**
-- **Formato**: Conventional Commits (feat/fix/docs/refactor/test)
+- **Formato**: Conventional Commits (OBRIGATÓRIO)
+- **Idioma**: Todas as mensagens de commit devem ser **EXCLUSIVAMENTE EM INGLÊS** (requisito obrigatório)
 - **Mensagem**: Descritiva, completa, com contexto
 - **Frequência**: 1 commit por task ou grupo lógico de mudanças
+
+**Tipos de Commit Padronizados** (OBRIGATÓRIOS):
+- `feat`: Indica uma nova feature
+  - Exemplo: `git commit -m "feat: add Header component"`
+- `fix`: Indica uma correção de bug
+  - Exemplo: `git commit -m "fix: remove wrong prop in Header"`
+- `refactor`: Indica uma refatoração de código
+  - Exemplo: `git commit -m "refactor: add title in Header"`
+- `test`: Indica alterações em testes
+  - Exemplo: `git commit -m "test: add test in title Header"`
+- `style`: Indica alterações de estilo/formatação
+  - Exemplo: `git commit -m "style: add Header title background"`
+- `docs`: Indica alteração na documentação
+  - Exemplo: `git commit -m "docs: add get started in readme"`
+- `chore`: Indica alteração de ambiente de desenvolvimento
+  - Exemplo: `git commit -m "chore: change eslint rules"`
+- `build`: Indica alteração de dependências
+  - Exemplo: `git commit -m "build: add sass"`
+- `revert`: Indica reversão de commit anterior
+  - Exemplo: `git commit -m "revert: back to adc1234 commit"`
+
+⚠️ **IMPORTANTE**: Todas as mensagens de commit devem ser escritas **EXCLUSIVAMENTE EM INGLÊS**!
 
 **Estrutura de Commit Message**:
 ```
