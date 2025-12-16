@@ -131,6 +131,32 @@ Ao iniciar uma task, invoque o contexto:
 
 ---
 
+## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
+
+**Todos os protocolos Simplicidade agora incluem diretrizes sobre o idioma do código:**
+
+### 📋 Regra Padrão
+- **Por padrão**: Nomes de variáveis e comentários devem estar em **português** para projetos nacionais
+- **Alternativa**: Inglês pode ser usado para projetos internacionais ou de código aberto
+- **Flexibilidade**: Permite opção mista (variáveis em inglês, comentários em português)
+
+### 🤔 Pergunta Obrigatória
+**A IA deve perguntar ao programador na primeira sessão** qual idioma preferir para:
+- Nomes de variáveis
+- Comentários no código
+- Docstrings
+
+Esta preferência será registrada e aplicada consistentemente em todo o projeto.
+
+### 🎯 Rationale
+- **Projetos Nacionais**: Português facilita compreensão e manutenção para times brasileiros
+- **Projetos Internacionais**: Inglês facilita colaboração com desenvolvedores de todo o mundo
+- **Consistência**: Definir padrão no início evita mistura confusa de idiomas
+
+**Detalhes completos**: Veja seção "🌐 Idioma do Código" em cada protocolo.
+
+---
+
 ## 📝 Créditos e Versionamento
 
 - **Autor:** Josué Amaral

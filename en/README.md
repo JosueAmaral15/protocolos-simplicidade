@@ -131,6 +131,32 @@ When starting a task, invoke the context:
 
 ---
 
+## 🌐 Code Language: Variable Naming and Comments
+
+**All Simplicity protocols now include guidelines about code language:**
+
+### 📋 Default Rule
+- **By default**: Variable names and comments should be in **native language** for national projects (e.g., Portuguese for Brazil/Portugal)
+- **Alternative**: English can be used for international or open-source projects
+- **Flexibility**: Allows mixed option (variables in English, comments in native language)
+
+### 🤔 Mandatory Question
+**The AI must ask the programmer in the first session** which language to prefer for:
+- Variable names
+- Code comments
+- Docstrings
+
+This preference will be registered and applied consistently throughout the project.
+
+### 🎯 Rationale
+- **National Projects**: Native language facilitates understanding and maintenance for local teams
+- **International Projects**: English facilitates collaboration with developers worldwide
+- **Consistency**: Defining standard at the start avoids confusing language mixing
+
+**Complete details**: See "🌐 Code Language" section in each protocol.
+
+---
+
 ## 📝 Credits and Versioning
 
 - **Author:** Josué Amaral
