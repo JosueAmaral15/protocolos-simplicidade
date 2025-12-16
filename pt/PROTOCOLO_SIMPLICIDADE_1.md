@@ -2274,7 +2274,505 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
 
 ---
 
-**Versão**: 1.4  
-**Última atualização**: 01 de Dezembro de 2025  
+## 💡 Boas Práticas de Programação para IAs
+
+> **Esta seção contém recomendações específicas para melhorar a qualidade do código gerado por inteligências artificiais.**
+
+### 1. 📖 **Código Legível e Autodocumentado**
+
+**Por quê importante**: IAs devem produzir código que humanos possam entender e manter facilmente.
+
+**Práticas**:
+- ✅ **Nomes descritivos**: Use nomes que explicam o propósito
+  ```python
+  # ❌ RUIM
+  def proc(d, x):
+      return d[x] if x in d else None
+  
+  # ✅ BOM
+  def get_user_preference(preferences_dict, preference_key):
+      """Retorna preferência do usuário ou None se não existir."""
+      return preferences_dict.get(preference_key)
+  ```
+
+- ✅ **Funções pequenas e focadas**: Uma função = uma responsabilidade
+  ```python
+  # ❌ RUIM - Função faz múltiplas coisas
+  def process_user_data(user):
+      # valida
+      # transforma
+      # salva no banco
+      # envia email
+      # registra log
+      pass  # 150 linhas
+  
+  # ✅ BOM - Funções especializadas
+  def validate_user_data(user): pass
+  def transform_user_data(user): pass
+  def save_user_to_database(user): pass
+  def send_welcome_email(user): pass
+  def log_user_registration(user): pass
+  ```
+
+- ✅ **Evitar "números mágicos"**: Use constantes nomeadas
+  ```python
+  # ❌ RUIM
+  if user.age > 18 and balance < 1000:
+      apply_fee(balance * 0.05)
+  
+  # ✅ BOM
+  MINIMUM_ADULT_AGE = 18
+  BALANCE_THRESHOLD = 1000
+  SERVICE_FEE_RATE = 0.05
+  
+  if user.age > MINIMUM_ADULT_AGE and balance < BALANCE_THRESHOLD:
+      apply_fee(balance * SERVICE_FEE_RATE)
+  ```
+
+### 2. 🎯 **Convenções de Nomenclatura Consistentes**
+
+**Por quê importante**: Consistência facilita navegação e compreensão do código.
+
+**Práticas por linguagem**:
+
+**Python**:
+- ✅ `snake_case` para funções e variáveis
+- ✅ `PascalCase` para classes
+- ✅ `SCREAMING_SNAKE_CASE` para constantes
+- ✅ `_private_method` para métodos privados
+
+**JavaScript/TypeScript**:
+- ✅ `camelCase` para funções e variáveis
+- ✅ `PascalCase` para classes e componentes
+- ✅ `SCREAMING_SNAKE_CASE` para constantes
+- ✅ `_privateMethod` ou `#privateField` para privados
+
+**Convenções gerais**:
+- ✅ Verbos para funções: `get_user()`, `calculate_total()`, `validate_input()`
+- ✅ Substantivos para classes: `UserManager`, `PaymentProcessor`
+- ✅ Booleanos com prefixos: `is_valid`, `has_permission`, `can_edit`
+
+### 3. 🛡️ **Tratamento de Erros Robusto**
+
+**Por quê importante**: Código em produção deve lidar graciosamente com falhas.
+
+**Práticas**:
+- ✅ **Sempre validar entrada**:
+  ```python
+  def divide(a, b):
+      if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+          raise TypeError("Argumentos devem ser números")
+      if b == 0:
+          raise ValueError("Divisor não pode ser zero")
+      return a / b
+  ```
+
+- ✅ **Usar exceções específicas**:
+  ```python
+  # ❌ RUIM - Exceção genérica
+  try:
+      process_payment(amount)
+  except Exception as e:
+      print("Erro")
+  
+  # ✅ BOM - Exceções específicas
+  try:
+      process_payment(amount)
+  except PaymentDeclinedError as e:
+      notify_user("Pagamento recusado")
+  except InsufficientFundsError as e:
+      notify_user("Saldo insuficiente")
+  except NetworkError as e:
+      retry_payment(amount)
+  ```
+
+- ✅ **Logging adequado**:
+  ```python
+  import logging
+  
+  try:
+      result = risky_operation()
+  except Exception as e:
+      logging.error(f"Falha em risky_operation: {e}", exc_info=True)
+      raise  # Re-raise para permitir handling em nível superior
+  ```
+
+### 4. 🧪 **Estratégias de Teste Eficazes**
+
+**Por quê importante**: Testes garantem que o código funciona e continua funcionando.
+
+**Práticas**:
+- ✅ **Testes unitários para lógica de negócio**:
+  ```python
+  def test_calculate_discount():
+      # Arrange
+      original_price = 100
+      discount_rate = 0.2
+      
+      # Act
+      final_price = calculate_discount(original_price, discount_rate)
+      
+      # Assert
+      assert final_price == 80
+  ```
+
+- ✅ **Testar edge cases**:
+  ```python
+  def test_edge_cases():
+      assert calculate_discount(0, 0.5) == 0  # Preço zero
+      assert calculate_discount(100, 0) == 100  # Desconto zero
+      assert calculate_discount(100, 1.0) == 0  # Desconto 100%
+      
+      with pytest.raises(ValueError):
+          calculate_discount(100, -0.1)  # Desconto negativo
+      
+      with pytest.raises(ValueError):
+          calculate_discount(-100, 0.1)  # Preço negativo
+  ```
+
+- ✅ **Mocks para dependências externas**:
+  ```python
+  from unittest.mock import Mock, patch
+  
+  def test_send_notification():
+      with patch('email_service.send') as mock_send:
+          notify_user("user@example.com", "Test message")
+          mock_send.assert_called_once()
+  ```
+
+### 5. 🔒 **Segurança em Primeiro Lugar**
+
+**Por quê importante**: Vulnerabilidades podem ter consequências graves.
+
+**Práticas**:
+- ✅ **Nunca confiar em input do usuário**:
+  ```python
+  # ❌ RUIM - SQL Injection
+  query = f"SELECT * FROM users WHERE id = {user_id}"
+  
+  # ✅ BOM - Parametrização
+  query = "SELECT * FROM users WHERE id = ?"
+  cursor.execute(query, (user_id,))
+  ```
+
+- ✅ **Secrets em variáveis de ambiente**:
+  ```python
+  # ❌ RUIM
+  API_KEY = "sk-1234567890abcdef"  # Hardcoded
+  
+  # ✅ BOM
+  import os
+  API_KEY = os.getenv('API_KEY')
+  if not API_KEY:
+      raise ValueError("API_KEY não configurada")
+  ```
+
+- ✅ **Sanitizar output para prevenir XSS**:
+  ```python
+  from html import escape
+  
+  # ❌ RUIM
+  html = f"<div>Hello {user_name}</div>"
+  
+  # ✅ BOM
+  html = f"<div>Hello {escape(user_name)}</div>"
+  ```
+
+### 6. ⚡ **Otimização de Performance**
+
+**Por quê importante**: Código lento = usuários insatisfeitos.
+
+**Práticas**:
+- ✅ **Escolher estrutura de dados correta**:
+  ```python
+  # ❌ RUIM - Busca em lista O(n)
+  if user_id in user_list:  # 1000 comparações
+      # ...
+  
+  # ✅ BOM - Busca em set O(1)
+  if user_id in user_set:  # 1 comparação
+      # ...
+  ```
+
+- ✅ **Evitar loops desnecessários**:
+  ```python
+  # ❌ RUIM - Loop duplo O(n²)
+  for item in list1:
+      for item2 in list2:
+          if item == item2:
+              # ...
+  
+  # ✅ BOM - Set intersection O(n)
+  common_items = set(list1) & set(list2)
+  for item in common_items:
+      # ...
+  ```
+
+- ✅ **Lazy loading quando apropriado**:
+  ```python
+  # ❌ RUIM - Carrega tudo na memória
+  all_users = User.objects.all()  # 1 milhão de registros
+  for user in all_users:
+      process(user)
+  
+  # ✅ BOM - Iterator que carrega sob demanda
+  for user in User.objects.iterator():
+      process(user)
+  ```
+
+### 7. 📝 **Documentação Clara e Útil**
+
+**Por quê importante**: Código é lido muito mais vezes do que é escrito.
+
+**Práticas**:
+- ✅ **Docstrings completos**:
+  ```python
+  def calculate_shipping(weight, distance, express=False):
+      """
+      Calcula o custo de envio baseado em peso e distância.
+      
+      Args:
+          weight (float): Peso do pacote em kg
+          distance (float): Distância em km
+          express (bool): Se True, usa envio expresso (default: False)
+      
+      Returns:
+          float: Custo de envio em reais
+      
+      Raises:
+          ValueError: Se peso ou distância for negativo
+      
+      Examples:
+          >>> calculate_shipping(2.5, 100)
+          25.0
+          >>> calculate_shipping(2.5, 100, express=True)
+          37.5
+      """
+      if weight < 0 or distance < 0:
+          raise ValueError("Peso e distância devem ser positivos")
+      
+      base_cost = weight * distance * 0.1
+      return base_cost * 1.5 if express else base_cost
+  ```
+
+- ✅ **Comentários explicam "por quê", não "o quê"**:
+  ```python
+  # ❌ RUIM - Comenta o óbvio
+  x = x + 1  # Incrementa x
+  
+  # ✅ BOM - Explica o motivo
+  # Incrementa o contador para incluir o elemento atual na contagem
+  # pois o range() exclui o último elemento
+  x = x + 1
+  ```
+
+- ✅ **README com exemplos práticos**:
+  ```markdown
+  # Como usar
+  
+  ## Instalação
+  ```bash
+  pip install mypackage
+  ```
+  
+  ## Exemplo básico
+  ```python
+  from mypackage import Calculator
+  
+  calc = Calculator()
+  result = calc.add(2, 3)
+  print(result)  # Output: 5
+  ```
+  ```
+
+### 8. 🏗️ **Organização e Modularidade**
+
+**Por quê importante**: Código organizado é mais fácil de manter e escalar.
+
+**Práticas**:
+- ✅ **Separação de responsabilidades**:
+  ```
+  project/
+  ├── models/       # Estruturas de dados
+  ├── services/     # Lógica de negócio
+  ├── controllers/  # Coordenação de fluxo
+  ├── views/        # Interface com usuário
+  ├── utils/        # Funções auxiliares
+  └── tests/        # Testes automatizados
+  ```
+
+- ✅ **DRY (Don't Repeat Yourself)**:
+  ```python
+  # ❌ RUIM - Código duplicado
+  def process_order_a():
+      validate()
+      calculate()
+      save()
+  
+  def process_order_b():
+      validate()
+      calculate()
+      save()
+  
+  # ✅ BOM - Código reutilizado
+  def process_order_common():
+      validate()
+      calculate()
+      save()
+  
+  def process_order_a():
+      process_order_common()
+      # lógica específica A
+  
+  def process_order_b():
+      process_order_common()
+      # lógica específica B
+  ```
+
+- ✅ **Princípio da responsabilidade única**:
+  ```python
+  # ❌ RUIM - Classe faz muitas coisas
+  class User:
+      def __init__(self): pass
+      def save_to_database(self): pass
+      def send_email(self): pass
+      def generate_pdf_report(self): pass
+  
+  # ✅ BOM - Classes especializadas
+  class User:
+      def __init__(self): pass
+  
+  class UserRepository:
+      def save(self, user): pass
+  
+  class EmailService:
+      def send(self, to, message): pass
+  
+  class ReportGenerator:
+      def generate_pdf(self, user): pass
+  ```
+
+### 9. 🔄 **Controle de Versão Efetivo**
+
+**Por quê importante**: Histórico limpo facilita debugging e colaboração.
+
+**Práticas**:
+- ✅ **Commits atômicos e descritivos**:
+  ```bash
+  # ❌ RUIM
+  git commit -m "fixes"
+  git commit -m "updates"
+  
+  # ✅ BOM
+  git commit -m "feat: adiciona validação de email no formulário de cadastro"
+  git commit -m "fix: corrige cálculo de desconto para valores acima de R$ 1000"
+  ```
+
+- ✅ **Branches para features**:
+  ```bash
+  # Criar branch para nova funcionalidade
+  git checkout -b feature/user-authentication
+  
+  # Desenvolver e commitar
+  git commit -m "feat: implementa login com JWT"
+  
+  # Merge após review
+  git checkout main
+  git merge feature/user-authentication
+  ```
+
+- ✅ **.gitignore apropriado**:
+  ```gitignore
+  # Python
+  __pycache__/
+  *.pyc
+  .env
+  venv/
+  
+  # JavaScript
+  node_modules/
+  dist/
+  .env.local
+  
+  # IDEs
+  .vscode/
+  .idea/
+  *.swp
+  
+  # OS
+  .DS_Store
+  Thumbs.db
+  ```
+
+### 10. 📦 **Gerenciamento de Dependências**
+
+**Por quê importante**: Dependências mal gerenciadas causam problemas de compatibilidade.
+
+**Práticas**:
+- ✅ **Fixar versões**:
+  ```
+  # ❌ RUIM - requirements.txt
+  flask
+  requests
+  
+  # ✅ BOM - requirements.txt
+  flask==2.3.2
+  requests==2.31.0
+  ```
+
+- ✅ **Usar ambientes virtuais**:
+  ```bash
+  # Python
+  python -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  
+  # Node.js
+  npm install  # Usa package-lock.json
+  ```
+
+- ✅ **Verificar vulnerabilidades**:
+  ```bash
+  # Python
+  pip install pip-audit
+  pip-audit
+  
+  # Node.js
+  npm audit
+  npm audit fix
+  ```
+
+### 🎯 **Checklist Rápido para IAs**
+
+Antes de gerar/commitar código, verificar:
+
+- [ ] Nomes são descritivos e seguem convenções da linguagem?
+- [ ] Funções têm responsabilidade única e são pequenas?
+- [ ] Há tratamento de erros para casos excepcionais?
+- [ ] Código está testado (unitários + edge cases)?
+- [ ] Não há vulnerabilidades de segurança óbvias?
+- [ ] Performance é aceitável (sem algoritmos O(n²) desnecessários)?
+- [ ] Há documentação (docstrings, comentários úteis)?
+- [ ] Código está organizado em módulos lógicos?
+- [ ] Commits são descritivos (conventional commits)?
+- [ ] Dependências estão com versões fixadas?
+
+### 📚 **Recursos Adicionais**
+
+- **Clean Code** (Robert C. Martin) - Princípios de código limpo
+- **SOLID Principles** - Orientação a objetos bem feita
+- **Design Patterns** (GoF) - Soluções comuns para problemas comuns
+- **OWASP Top 10** - Principais vulnerabilidades de segurança
+- **PEP 8** (Python) - Guia de estilo Python
+- **Google Style Guides** - Guias de estilo por linguagem
+
+---
+
+**Releia este documento antes de cada sprint!**
+
+---
+
+**Versão**: 2.0  
+**Última atualização**: 16 de Dezembro de 2025  
 **Mantido por**: Josué Amaral  
 **Status**: ATIVO - Protocolo oficial do projeto
