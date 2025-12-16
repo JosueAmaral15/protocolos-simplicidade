@@ -197,6 +197,172 @@ Before starting any new task:
 
 ---
 
+## 🌐 Code Language: Variable Naming and Comments
+
+> **IMPORTANT FOR AIs**: The choice of language for variable names and comments should be defined at the beginning of the project, preferably during the first session of interaction with the programmer.
+
+### 📋 Default Rule
+
+**By default**, when programming with artificial intelligence:
+- ✅ **Variable names**: Should be in **English** (recommended for international projects)
+- ✅ **Comments**: Should be in **English** (recommended for international projects)
+- ✅ **Docstrings**: Should be in **English** (recommended for international projects)
+
+**Note**: For Portuguese-speaking developers working on national projects, **Portuguese is the recommended default**. The AI should adapt based on the programmer's language preference.
+
+**Justification**: Facilitates understanding and maintenance of code for developers, maintaining consistency with project documentation and communication. English is recommended for international projects, while native language (e.g., Portuguese) is recommended for national projects.
+
+### 🤔 Mandatory Question in First Session
+
+**The AI MUST ask the programmer at the first moment (or during the first session)**:
+
+```
+❓ Code Language Preferences
+
+To maintain consistency in the project, I need to define the default 
+language for variable names and comments in the code:
+
+💡 Suggestion: English (recommended for international projects)
+   or Native Language (recommended for national projects)
+
+Options:
+A) 🇺🇸 English - Variables and comments in English (RECOMMENDED for international)
+B) 🇧🇷 Native Language - Variables and comments in native language (RECOMMENDED for national)
+C) 🌍 Mixed - Variables in English, comments in native language
+D) ⚙️ Custom - Specify custom preference
+
+What is your preference?
+```
+
+### ✅ Available Options
+
+#### Option A: 🇺🇸 English (RECOMMENDED for International Projects)
+```python
+# ✅ Example in English
+def calculate_total_price(items: List[Item]) -> float:
+    """
+    Calculates the total price of a list of items.
+    
+    Args:
+        items: List of items to be summed
+        
+    Returns:
+        Total price with taxes included
+    """
+    subtotal_price = sum(item.price for item in items)
+    tax_rate = 0.15
+    final_price = subtotal_price * (1 + tax_rate)
+    return final_price
+```
+
+#### Option B: 🇧🇷 Native Language (e.g., Portuguese)
+```python
+# ✅ Exemplo em Português
+def calcular_preco_total(itens: List[Item]) -> float:
+    """
+    Calcula o preço total de uma lista de itens.
+    
+    Args:
+        itens: Lista de itens a serem somados
+        
+    Returns:
+        Preço total com impostos incluídos
+    """
+    preco_subtotal = sum(item.preco for item in itens)
+    taxa_imposto = 0.15
+    preco_final = preco_subtotal * (1 + taxa_imposto)
+    return preco_final
+```
+
+#### Option C: 🌍 Mixed (Variables in English, Comments in Native Language)
+```python
+# ✅ Mixed Example
+def calculate_total_price(items: List[Item]) -> float:
+    """
+    Calcula o preço total de uma lista de itens.
+    
+    Args:
+        items: Lista de itens a serem somados
+        
+    Returns:
+        Preço total com impostos incluídos
+    """
+    subtotal_price = sum(item.price for item in items)
+    tax_rate = 0.15  # Taxa de imposto de 15%
+    final_price = subtotal_price * (1 + tax_rate)
+    return final_price
+```
+
+### 📝 Register the Preference
+
+After the programmer's response, the AI should:
+
+1. **Register the preference** in a visible location (e.g., README.md, CONTRIBUTING.md)
+2. **Apply consistently** throughout all generated code
+3. **Remember the preference** in future sessions of the same project
+
+**Example Registration in README.md**:
+```markdown
+## 🌐 Code Conventions
+
+- **Code Language**: English
+- **Variables**: Names in English (e.g., `active_user`, `calculate_total`)
+- **Comments**: In English
+- **Documentation**: In English
+```
+
+### 🔄 Preference Change
+
+The programmer can request a language change at any time:
+- ✅ "Switch to English from now on"
+- ✅ "I prefer comments in Portuguese, but variables in English"
+- ✅ "Use English only for public APIs"
+
+**The AI should confirm the change** and update the conventions documentation.
+
+### ⚠️ Common Exceptions
+
+Regardless of the language choice, **keep in English**:
+- ✅ Library and framework names (e.g., `import pandas`, `from flask import`)
+- ✅ Language keywords (e.g., `def`, `class`, `if`, `for`)
+- ✅ Public API names (if code is distributed internationally)
+- ✅ Technical terms without adequate translation (e.g., `callback`, `payload`, `refactoring`)
+
+### 🎯 Rationale
+
+**Why ask the programmer?**
+
+1. **Project Context**: National vs. international projects have different needs
+2. **Team**: Brazilian team may prefer Portuguese; international team needs English
+3. **Readability**: Code is read more times than written - should be clear for maintainers
+4. **Consistency**: Defining standard at the start avoids confusing language mixing
+5. **Professionalism**: Demonstrates attention to detail and respect for developer preferences
+
+**Why English as recommended for international?**
+
+For international/open-source projects:
+- ✅ Universal programming language
+- ✅ Easier collaboration with developers worldwide
+- ✅ Better integration with English documentation and resources
+- ✅ Industry standard for libraries and frameworks
+
+**Why Native Language for national projects?**
+
+For national/regional projects (e.g., Portuguese for Brazil/Portugal):
+- ✅ Developers read and understand faster
+- ✅ Facilitates onboarding of new team members
+- ✅ Documentation and code in same language = less mental translation
+- ✅ Variables represent business concepts in native language
+
+**When to prefer English?**
+
+- 🌍 International open-source project
+- 🌍 Multicultural team
+- 🌍 Product aimed at global market
+- 🌍 Library/framework for public distribution
+
+---
+
 ## 📊 Recursive Division of Complex Tasks
 
 > **IMPORTANT**: If the task is very long or complex, and there are time limits or response length limits, the artificial intelligence should divide the task into smaller parts, recursively, until achieving a task that can provide a satisfactory response according to the determined response limit.

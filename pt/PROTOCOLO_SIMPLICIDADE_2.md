@@ -296,6 +296,161 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
+
+> **IMPORTANTE PARA IAs**: A escolha do idioma para nomes de variáveis e comentários deve ser definida logo no início do projeto, preferencialmente na primeira sessão de interação com o programador.
+
+### 📋 Regra Padrão
+
+**Por padrão**, ao programar com inteligência artificial:
+- ✅ **Nomes de variáveis**: Devem estar em **português**
+- ✅ **Comentários**: Devem estar em **português**
+- ✅ **Docstrings**: Devem estar em **português**
+
+**Justificativa**: Facilita a compreensão e manutenção do código para desenvolvedores que falam português como língua nativa, mantendo consistência com a documentação e comunicação do projeto.
+
+### 🤔 Pergunta Obrigatória na Primeira Sessão
+
+**A IA DEVE perguntar ao programador no primeiro momento (ou durante a primeira sessão)**:
+
+```
+❓ Preferências de Idioma para o Código
+
+Para manter consistência no projeto, preciso definir o idioma padrão 
+para nomes de variáveis e comentários no código:
+
+💡 Sugestão: Português (recomendado para projetos nacionais)
+
+Opções:
+A) 🇧🇷 Português - Variáveis e comentários em português (PADRÃO)
+B) 🇺🇸 Inglês - Variáveis e comentários em inglês
+C) 🌍 Misto - Variáveis em inglês, comentários em português
+D) ⚙️ Personalizado - Especificar preferência customizada
+
+Qual sua preferência?
+```
+
+### ✅ Opções Disponíveis
+
+#### Opção A: 🇧🇷 Português (PADRÃO RECOMENDADO)
+```python
+# ✅ Exemplo em Português
+def calcular_preco_total(itens: List[Item]) -> float:
+    """
+    Calcula o preço total de uma lista de itens.
+    
+    Args:
+        itens: Lista de itens a serem somados
+        
+    Returns:
+        Preço total com impostos incluídos
+    """
+    preco_subtotal = sum(item.preco for item in itens)
+    taxa_imposto = 0.15
+    preco_final = preco_subtotal * (1 + taxa_imposto)
+    return preco_final
+```
+
+#### Opção B: 🇺🇸 Inglês
+```python
+# ✅ Exemplo em Inglês
+def calculate_total_price(items: List[Item]) -> float:
+    """
+    Calculates the total price of a list of items.
+    
+    Args:
+        items: List of items to be summed
+        
+    Returns:
+        Total price with taxes included
+    """
+    subtotal_price = sum(item.price for item in items)
+    tax_rate = 0.15
+    final_price = subtotal_price * (1 + tax_rate)
+    return final_price
+```
+
+#### Opção C: 🌍 Misto (Variáveis em Inglês, Comentários em Português)
+```python
+# ✅ Exemplo Misto
+def calculate_total_price(items: List[Item]) -> float:
+    """
+    Calcula o preço total de uma lista de itens.
+    
+    Args:
+        items: Lista de itens a serem somados
+        
+    Returns:
+        Preço total com impostos incluídos
+    """
+    subtotal_price = sum(item.price for item in items)
+    tax_rate = 0.15  # Taxa de imposto de 15%
+    final_price = subtotal_price * (1 + tax_rate)
+    return final_price
+```
+
+### 📝 Registrar a Preferência
+
+Após a resposta do programador, a IA deve:
+
+1. **Registrar a preferência** em um local visível (ex: README.md, CONTRIBUTING.md)
+2. **Aplicar consistentemente** em todo o código gerado
+3. **Lembrar da preferência** em sessões futuras do mesmo projeto
+
+**Exemplo de Registro no README.md**:
+```markdown
+## 🌐 Convenções de Código
+
+- **Idioma do Código**: Português
+- **Variáveis**: Nomes em português (ex: `usuario_ativo`, `calcular_total`)
+- **Comentários**: Em português
+- **Documentação**: Em português
+```
+
+### 🔄 Alteração de Preferência
+
+O programador pode solicitar mudança de idioma a qualquer momento:
+- ✅ "Mude para inglês a partir de agora"
+- ✅ "Prefiro comentários em português, mas variáveis em inglês"
+- ✅ "Use inglês apenas para APIs públicas"
+
+**A IA deve confirmar a mudança** e atualizar a documentação de convenções.
+
+### ⚠️ Exceções Comuns
+
+Independente da escolha do idioma, **mantenha em inglês**:
+- ✅ Nomes de bibliotecas e frameworks (ex: `import pandas`, `from flask import`)
+- ✅ Palavras-chave da linguagem (ex: `def`, `class`, `if`, `for`)
+- ✅ Nomes de APIs públicas (se o código for distribuído internacionalmente)
+- ✅ Termos técnicos sem tradução adequada (ex: `callback`, `payload`, `refactoring`)
+
+### 🎯 Rationale
+
+**Por quê perguntar ao programador?**
+
+1. **Contexto do Projeto**: Projetos nacionais vs. internacionais têm necessidades diferentes
+2. **Equipe**: Time brasileiro pode preferir português; time internacional precisa inglês
+3. **Legibilidade**: Código é lido mais vezes do que escrito - deve ser claro para quem mantém
+4. **Consistência**: Definir padrão no início evita mistura confusa de idiomas
+5. **Profissionalismo**: Demonstra atenção aos detalhes e respeito pelas preferências do desenvolvedor
+
+**Por quê Português como padrão?**
+
+Para projetos brasileiros/portugueses:
+- ✅ Desenvolvedores leem e entendem mais rápido
+- ✅ Facilita onboarding de novos membros do time
+- ✅ Documentação e código no mesmo idioma = menos tradução mental
+- ✅ Variáveis representam conceitos de negócio em português
+
+**Quando preferir Inglês?**
+
+- 🌍 Projeto open-source internacional
+- 🌍 Equipe multicultural
+- 🌍 Produto voltado para mercado global
+- 🌍 Biblioteca/framework para distribuição pública
+
+---
+
 ## 📊 Divisão Recursiva de Tarefas Complexas
 
 > **IMPORTANTE**: Se a tarefa for muito longa ou complexa, e houver limites de tempo ou comprimento de resposta, a inteligência artificial deve dividir a tarefa em partes menores, recursivamente, até conseguir uma tarefa que possa fornecer uma resposta satisfatória e de acordo com o limite de resposta determinado.
