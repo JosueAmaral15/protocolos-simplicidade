@@ -1924,7 +1924,7 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 
 **Data**: DD/MM/AAAA
 **Sprint**: X tasks em Y horas
-**Metodologia**: Protocolo Simplicidade [1/2/3]
+**Metodologia**: Protocolo Simplicidade 1
 
 ## 📋 Objetivos da Sprint
 - Task #X: [descrição]
@@ -1961,7 +1961,7 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 # Exemplo prático de como usar a funcionalidade
 ```
 
-## ✅ Qualidade (Protocolo Simplicidade [1/2/3])
+## ✅ Qualidade (Protocolo Simplicidade 1)
 - ✅ Arquitetura Modular
 - ✅ Type Hints (100%)
 - ✅ Docstrings completas

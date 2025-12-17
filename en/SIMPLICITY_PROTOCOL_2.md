@@ -3867,7 +3867,7 @@ This PR implements **ADR-004: Migrate to SQLite**.
 
 > **CRITICAL FOR AIs**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
 
-**📖 See SIMPLICITY_PROTOCOL_1.md - Step 12** for complete documentation requirements, templates, and validation checklists.
+**📖 See SIMPLICITY_PROTOCOL_1.md. - Step 12** for complete documentation requirements, templates, and validation checklists.
 
 #### **🏢 Enterprise-Specific Documentation (Simplicity 2)**
 

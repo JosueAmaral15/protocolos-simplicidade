@@ -1939,7 +1939,7 @@ Each version specification file must contain at minimum:
 
 **Date**: DD/MM/YYYY
 **Sprint**: X tasks in Y hours
-**Methodology**: Simplicity Protocol [1/2/3]
+**Methodology**: Simplicity Protocol 1
 
 ## 📋 Sprint Objectives
 - Task #X: [description]
@@ -1976,7 +1976,7 @@ Each version specification file must contain at minimum:
 # Practical example of how to use the functionality
 ```
 
-## ✅ Quality (Simplicity Protocol [1/2/3])
+## ✅ Quality (Simplicity Protocol 1)
 - ✅ Modular Architecture
 - ✅ Type Hints (100%)
 - ✅ Complete Docstrings
