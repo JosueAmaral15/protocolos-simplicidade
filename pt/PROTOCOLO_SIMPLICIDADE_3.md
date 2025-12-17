@@ -2554,9 +2554,9 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 - Deploy strategy: [descrição]
 
 **Exemplo de Uso**:
-\`\`\`python
+```python
 # Exemplo prático de como usar a funcionalidade
-\`\`\`
+```
 
 ## ✅ Qualidade (Protocolo Simplicidade 3)
 - ✅ Arquitetura Modular

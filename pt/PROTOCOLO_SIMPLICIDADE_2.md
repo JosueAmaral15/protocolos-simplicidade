@@ -3985,9 +3985,9 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 - Otimizações aplicadas: [lista]
 
 **Exemplo de Uso**:
-\`\`\`python
+```python
 # Exemplo prático de como usar a funcionalidade
-\`\`\`
+```
 
 ## ✅ Qualidade (Protocolo Simplicidade 2)
 - ✅ Arquitetura Modular

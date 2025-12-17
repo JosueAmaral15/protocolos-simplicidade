@@ -1972,9 +1972,9 @@ Each version specification file must contain at minimum:
 - Covered scenarios: [list]
 
 **Usage Example**:
-\`\`\`python
+```python
 # Practical example of how to use the functionality
-\`\`\`
+```
 
 ## ✅ Quality (Simplicity Protocol [1/2/3])
 - ✅ Modular Architecture

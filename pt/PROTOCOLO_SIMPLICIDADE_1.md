@@ -1957,9 +1957,9 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 - Cenários cobertos: [lista]
 
 **Exemplo de Uso**:
-\`\`\`python
+```python
 # Exemplo prático de como usar a funcionalidade
-\`\`\`
+```
 
 ## ✅ Qualidade (Protocolo Simplicidade [1/2/3])
 - ✅ Arquitetura Modular
