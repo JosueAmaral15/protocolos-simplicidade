@@ -62,7 +62,7 @@ Simplicity 3 = Simplicity 1 Base (13 steps)
 - ❌ Step 9.5: Peer Code Review
 - ❌ Step 13.5: Formal Sprint Retrospectives
 - ❌ Step 8.5: Accessibility WCAG (unless app is public)
-- ❌ Step 6.6: Formal API Documentation (docstrings are sufficient)
+- ❌ Step 6.7: Formal API Documentation (docstrings are sufficient)
 
 ---
 

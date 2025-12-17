@@ -106,7 +106,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 - ✅ **[NOVO PROTOCOLO]** Criado Protocolo Simplicidade 2 baseado em Simplicidade 1 v1.8
 - ✅ **Etapa 2.5**: Matriz de Decisão para escolha objetiva de tarefas (ALTA PRIORIDADE)
 - ✅ **Etapa 6.5**: Checklist de Segurança - OWASP Top 10 (ALTA PRIORIDADE)
-- ✅ **Etapa 6.6**: Gerar Documentação de API (Sphinx/pdoc)
+- ✅ **Etapa 6.7**: Gerar Documentação de API (Sphinx/pdoc)
 - ✅ **Etapa 8.5**: Checklist de Acessibilidade - WCAG 2.1
 - ✅ **Etapa 9.5**: Code Review por Pares (Pull Request)
 - ✅ **Etapa 10.5**: Profiling e Otimização (features críticas)

@@ -109,7 +109,7 @@ However, this rigor comes with a **cost**: ~4-6h per task vs ~2-3h in Simplicity
 - ✅ **[NEW PROTOCOL]** Created Simplicity Protocol 2 based on Simplicity 1 v1.8
 - ✅ **Step 2.5**: Decision Matrix for objective task selection (HIGH PRIORITY)
 - ✅ **Step 6.5**: Security Checklist - OWASP Top 10 (HIGH PRIORITY)
-- ✅ **Step 6.6**: Generate API Documentation (Sphinx/pdoc)
+- ✅ **Step 6.7**: Generate API Documentation (Sphinx/pdoc)
 - ✅ **Step 8.5**: Accessibility Checklist - WCAG 2.1
 - ✅ **Step 9.5**: Peer Code Review (Pull Request)
 - ✅ **Step 10.5**: Profiling and Optimization (critical features)

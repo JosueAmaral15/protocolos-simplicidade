@@ -203,6 +203,47 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 
 ---
 
+## 🎨 Requisito Obrigatório: Ícones do Projeto
+
+> **NOVO**: Todos os protocolos agora exigem que a IA produza ou faça download de ícones apropriados para cada projeto.
+
+### 📋 O Que Mudou
+
+A partir das versões mais recentes, **todos os três protocolos** incluem agora a **Etapa 6.6: Ícones do Projeto** como requisito **OBRIGATÓRIO**.
+
+### 🎯 Quando Aplicar
+Durante a **Etapa 6 (Implementação)**, após definir a estrutura básica do projeto.
+
+### 🎨 O Que é Necessário
+
+A IA deve:
+1. **Perguntar ao programador** se já possui um ícone
+2. **Criar ícone simples** (SVG com iniciais do projeto) OU
+3. **Baixar ícone gratuito** (de fontes verificadas: Heroicons, Lucide, Tabler, Iconoir)
+4. **Converter para formatos necessários** (favicon.ico, SVG, PNG em múltiplos tamanhos)
+5. **Organizar em pasta dedicada** (`assets/icons/` preferencial)
+6. **Integrar no projeto** (HTML, manifest.json, código da aplicação)
+
+### 📁 Formatos por Tecnologia
+
+- **Web**: favicon.ico, icon.svg, icon-192.png, icon-512.png, apple-touch-icon.png
+- **Desktop**: icon.png (256x256, 512x512), icon.ico (Windows), icon.icns (macOS)
+- **Mobile**: icon.png (1024x1024), ic_launcher.png (densidades variadas Android)
+
+### ⏱️ Tempo Estimado
+**15-30 minutos** por projeto - investimento pequeno, grande impacto na percepção de qualidade.
+
+### 🎯 Rationale
+- ✅ **Profissionalismo**: Projetos sem ícone parecem incompletos
+- ✅ **Identidade Visual**: Usuários reconhecem o app pelo ícone (branding)
+- ✅ **UX**: Facilita localizar o app entre múltiplas abas/janelas
+- ✅ **Requisitos de Plataforma**: App stores EXIGEM ícones
+- ✅ **PWA**: Navegadores solicitam ícones para instalação
+
+📖 **Detalhes completos**: Veja Etapa 6.6 de cada protocolo para ferramentas de conversão, exemplos de integração, checklist de validação e recursos gratuitos.
+
+---
+
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:

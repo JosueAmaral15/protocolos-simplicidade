@@ -62,7 +62,7 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 - ❌ Etapa 9.5: Code Review por Pares
 - ❌ Etapa 13.5: Sprint Retrospectives formais
 - ❌ Etapa 8.5: Accessibility WCAG (a menos que app seja público)
-- ❌ Etapa 6.6: API Documentation formal (docstrings suficientes)
+- ❌ Etapa 6.7: API Documentation formal (docstrings suficientes)
 
 ---
 
