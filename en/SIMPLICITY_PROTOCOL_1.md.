@@ -599,6 +599,52 @@ Options: A) [option A] | B) [option B] | C) [option C]
 
 **Why?**: Saves time, avoids rework, ensures the solution meets exactly what was requested.
 
+#### 🌐 **Online Research: When AI Has Many Doubts or Difficulties**
+
+> **IMPORTANT FOR AIs**: If you have **many doubts** about how to solve a particular problem, or have **significant difficulties** solving that same problem, **remember that you can perform online research**.
+
+**When to Perform Online Research**:
+- ✅ When there are complex technical doubts that you cannot resolve alone
+- ✅ When you encounter a critical problem that has no obvious solution in the existing code
+- ✅ When you need to understand how to implement something completely new
+- ✅ When there is an error or bug that is difficult to diagnose
+- ✅ When you need practical implementation examples
+
+**Where to Search** (in order of priority):
+1. **📚 Official GitHub Documentation of Related Projects**:
+   - Similar repositories or those that solve similar problems
+   - Issues and Pull Requests discussing similar problems
+   - Wiki and technical documentation of related open source projects
+
+2. **📖 Online Documentation Platforms**:
+   - Official documentation of libraries and frameworks used in the project
+   - Specialized tutorials and technical guides
+   - Technical blogs and articles from experienced developers
+
+3. **💬 Question and Answer Platforms**:
+   - **StackOverflow**: Main platform for programming questions
+   - **GitHub Discussions**: For project-specific questions
+   - Other technical communities relevant to the project's technology
+
+**Why Online Research Is Important**:
+- ✅ **Saves time**: Complex problems may already have documented solutions
+- ✅ **Best practices**: Learn from implementations already validated by the community
+- ✅ **Avoid reinventing the wheel**: Many problems have already been solved by other developers
+- ✅ **Reduces errors**: Solutions tested and approved by the community have fewer bugs
+- ✅ **Updates**: Discover the most modern and efficient approaches
+
+**Example Flow with Online Research**:
+```
+1. ❓ I tried to implement [feature X] but encountered [problem Y]
+2. 🔍 I searched on GitHub: "similar implementation [feature X]"
+3. 📚 I found 3 similar projects that solve this in different ways
+4. 💡 I analyzed the examples and identified the most appropriate approach for our context
+5. ✅ I implemented based on the best practices found
+6. 📝 I documented the solution source for future reference
+```
+
+**⚠️ Important**: Always cite the consulted sources in the project documentation for future reference and traceability.
+
 ---
 
 ### 4️⃣ **Analyze and Study the Project**

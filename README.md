@@ -219,6 +219,45 @@ Ao iniciar uma task, invoque o contexto:
 
 ---
 
+## 🔍 Pesquisas Online: Capacidade da IA para Resolver Problemas Complexos
+
+**Todos os protocolos Simplicidade agora incluem orientações sobre pesquisas online para a IA:**
+
+### 📋 Quando a IA Deve Pesquisar Online
+
+Se a inteligência artificial está com **muitas dúvidas** sobre como resolver um determinado problema, ou tem **dificuldades significativas** para resolver esse mesmo problema, ela **pode e deve efetuar pesquisas online**.
+
+### 🎯 Onde Pesquisar
+
+As pesquisas podem ser realizadas em:
+
+1. **📚 Documentação do GitHub de Projetos Relacionados**:
+   - Repositórios similares ou que resolvem problemas parecidos
+   - Issues e Pull Requests relevantes
+   - Wiki e documentação técnica de projetos open source
+
+2. **📖 Plataformas de Documentação Online**:
+   - Documentação oficial das bibliotecas e frameworks
+   - Tutoriais e guias técnicos especializados
+   - Blogs técnicos de desenvolvedores experientes
+
+3. **💬 Plataformas de Perguntas e Respostas**:
+   - **StackOverflow**: Principal plataforma para dúvidas de programação
+   - **GitHub Discussions**: Para questões específicas de projetos
+   - Outras comunidades técnicas relevantes
+
+### ✅ Por Quê Isso é Importante
+
+- ✅ **Economiza tempo**: Problemas complexos já podem ter soluções documentadas
+- ✅ **Melhores práticas**: Aprenda com implementações já validadas pela comunidade
+- ✅ **Evita reinventar a roda**: Muitos problemas já foram resolvidos por outros
+- ✅ **Reduz erros**: Soluções testadas pela comunidade têm menos bugs
+- ✅ **Mantém atualizado**: Descubra as abordagens mais modernas
+
+**Detalhes completos**: Veja seção "🌐 Pesquisas Online" na Etapa 3 de cada protocolo.
+
+---
+
 ## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
 
 **Todos os protocolos Simplicidade agora incluem diretrizes sobre o idioma do código:**
