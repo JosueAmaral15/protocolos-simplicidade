@@ -2426,6 +2426,58 @@ docs/
 - **Update statistics**: Project completion percentage
 - **🤖 [OPTIONAL] Manage AI task recommendations**
 
+---
+
+### ⚠️ **MANDATORY REQUIREMENT: Complete Documentation of All AI Implementations**
+
+> **CRITICAL FOR AIs**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
+
+**📖 See SIMPLICITY_PROTOCOL_1.md. - Step 12** for complete documentation requirements, templates, and validation checklists.
+
+#### **👤 Solo Developer in Production - Specific Documentation (Simplicity 3)**
+
+In addition to base documentation requirements, Simplicity 3 adds:
+
+**Critical Documentation for Solo in Production**:
+- ✅ **OWASP Security Checklist** - MANDATORY in `docs/SECURITY.md`
+- ✅ **Rollback Plans** - MANDATORY in `docs/ROLLBACK.md` for critical features
+- ✅ **Decision Notes** - Pragmatic ADRs (simplified) in `docs/DECISIONS.md`
+- ✅ **CI/CD Configuration** - Documented setup and quality gates
+- ✅ **"Why I Did This" Notes** - Important for remembering context after 3-6 months
+
+**📂 Solo Production Documentation Structure**:
+
+```
+docs/
+├── REQUIREMENTS.md
+├── vX.Y.Z-SPECIFICATIONS.md
+├── CHANGELOG.md
+├── ARCHITECTURE.md
+├── DECISIONS.md             # Pragmatic decision notes (simplified ADRs)
+├── SECURITY.md              # OWASP checklist (MANDATORY)
+├── ROLLBACK.md              # Rollback plans (MANDATORY)
+└── [feature]-GUIDE.md
+```
+
+**🔍 Additional Validation for Solo Production**:
+
+Before commit, AI must also verify:
+- [ ] ✅ **OWASP security checklist complete in SECURITY.md (MANDATORY)**
+- [ ] ✅ **Rollback plan documented for critical features (MANDATORY)**
+- [ ] ✅ Decision notes created for important choices (DECISIONS.md)
+- [ ] ✅ CI/CD configuration documented
+- [ ] ✅ Context notes for future self (why specific solutions were chosen)
+
+**Rationale for Solo Developer**: 
+- **Your Memory Fades**: After 3-6 months, you'll forget why you made specific decisions
+- **Production Emergencies**: Complete documentation speeds up debugging at 3AM
+- **Security is Your Responsibility**: No team to catch vulnerabilities - documentation is critical
+- **Rollback Must Be Fast**: When things break in production, you need documented recovery plans
+- **Future Handoff**: If you grow or sell, documentation enables smooth transition
+- **Your "Second Brain"**: Documentation is your safety net as a solo developer
+
+---
+
 **📋 TASKS.md Management**:
 
 **General Rule**:
