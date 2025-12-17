@@ -91,6 +91,59 @@ Consider the existence of errors in the workspace (IDE's "Problems" tab) as **bl
 > "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue."
 
 This rule is documented in detail in each protocol after the "Core Philosophy" section.
+
+---
+
+## 📝 Mandatory Documentation in `docs/` Folder
+
+> **CRITICAL**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
+
+All three protocols now include a **Mandatory Documentation Requirement** that must be followed in each cycle:
+
+### 📚 Documentation Golden Rule
+
+**For AI Assistants:**
+
+The AI **MUST** document **ALL** implementations in the `docs/` folder:
+- ✅ Implemented functionalities (detailed description + behaviors)
+- ✅ Created/modified code (files + changes)
+- ✅ Architectural decisions (applied patterns + justifications)
+- ✅ Integrations and dependencies
+- ✅ Implemented tests (coverage + scenarios)
+- ✅ Practical usage examples
+
+### 📂 Minimum Mandatory Structure
+
+```
+docs/
+├── REQUIREMENTS.md          # Tasks and requirements (updated each cycle)
+├── vX.Y.Z-SPECIFICATIONS.md # Detailed version specifications
+├── CHANGELOG.md             # History of all changes
+├── ARCHITECTURE.md          # Architectural decisions
+└── [other files per protocol]
+```
+
+### 🎯 By Protocol
+
+- **Simplicity 1**: Complete basic documentation (functionalities + architecture + tests)
+- **Simplicity 2**: + Formal ADRs + OWASP + API docs + Accessibility
+- **Simplicity 3**: + Mandatory OWASP + Rollback plans + Decision notes
+
+### ⚠️ Validation Before Commit
+
+The AI **MUST NOT** commit without:
+- [ ] ✅ `docs/` folder updated
+- [ ] ✅ SPECIFICATIONS.md created/updated
+- [ ] ✅ All functionalities documented
+- [ ] ✅ All behaviors described
+- [ ] ✅ Technical decisions justified
+
+**Rationale**: Complete documentation ensures traceability, maintainability, continuity, and professionalism. It's especially critical for production projects and solo development.
+
+📖 **Complete details**: See Step 12 of each protocol for templates, checklists, and examples.
+
+---
+
 ## 📋 Task Management (TASKS.md)
 
 All Simplicity protocols now include integrated support for task management through a `TASKS.md` file (or alternative file of your choice).

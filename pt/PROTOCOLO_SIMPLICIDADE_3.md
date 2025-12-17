@@ -2415,6 +2415,204 @@ docs/
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
 - **🤖 [OPCIONAL] Gerenciar recomendações de novas tarefas pela IA**
 
+---
+
+### ⚠️ **REQUISITO OBRIGATÓRIO: Documentação Completa de Todas as Implementações da IA**
+
+> **CRÍTICO PARA IAs**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
+
+#### **🤖 Regra de Ouro para Assistentes de IA**
+
+**Se você é uma IA implementando código:**
+- ✅ **VOCÊ DEVE** documentar TODAS as implementações que realizar em cada ciclo
+- ✅ **VOCÊ DEVE** criar/atualizar arquivos na pasta `docs/` para cada funcionalidade nova
+- ✅ **VOCÊ DEVE** descrever TODOS os comportamentos novos implementados
+- ✅ **VOCÊ DEVE** marcar claramente o que foi adicionado, modificado ou removido
+- ✅ **VOCÊ DEVE** incluir exemplos de uso das novas funcionalidades
+- ✅ **VOCÊ DEVE** documentar decisões técnicas e arquiteturais tomadas
+
+#### **📝 O Que Deve Ser Documentado (OBRIGATÓRIO)**
+
+Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
+
+1. **Funcionalidades Implementadas**:
+   - Nome e descrição detalhada de cada nova funcionalidade
+   - Propósito e casos de uso
+   - Comportamento esperado e edge cases
+
+2. **Código Criado/Modificado**:
+   - Arquivos novos criados (path completo + descrição)
+   - Arquivos modificados (path + o que foi alterado)
+   - Funções/classes principais adicionadas ou modificadas
+
+3. **Arquitetura e Decisões Técnicas**:
+   - Padrões de design aplicados (GoF, GRASP)
+   - Estrutura de módulos e suas responsabilidades
+   - Decisões arquiteturais e suas justificativas
+   - **[SIMPLICIDADE 3]** Notas de decisão pragmáticas (ADR simplificado, não formal)
+
+4. **Comportamentos e Integrações**:
+   - Como a funcionalidade interage com o resto do sistema
+   - Dependências criadas ou modificadas
+   - Fluxos de dados e controle
+
+5. **Testes Implementados**:
+   - Quantidade e tipos de testes criados
+   - Cenários de teste cobertos
+   - Cobertura de testes alcançada
+
+6. **Exemplos de Uso**:
+   - Como utilizar a nova funcionalidade
+   - Exemplos de código (CLI, API, GUI)
+   - Casos de uso práticos
+
+7. **[SIMPLICIDADE 3] Documentação Solo em Produção**:
+   - Checklist de segurança OWASP preenchido (OBRIGATÓRIO)
+   - Planos de rollback documentados (OBRIGATÓRIO)
+   - Configuração de CI/CD e quality gates
+   - Notas sobre como você resolveu problemas específicos (importante para lembrar depois)
+
+#### **📂 Estrutura Obrigatória de Documentação (Simplicidade 3)**
+
+A pasta `docs/` deve conter no mínimo:
+
+```
+docs/
+├── REQUIREMENTS.md          # Lista de tarefas e requisitos (atualizado a cada ciclo)
+├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão atual
+├── CHANGELOG.md             # Histórico de mudanças (o que foi implementado e quando)
+├── ARCHITECTURE.md          # Decisões arquiteturais e estrutura do projeto
+├── DECISIONS.md             # Notas de decisão técnica (ADR simplificado para solo dev)
+├── SECURITY.md              # Checklist OWASP e vulnerabilidades mitigadas (OBRIGATÓRIO)
+├── ROLLBACK.md              # Planos de rollback para features críticas (OBRIGATÓRIO)
+└── [feature]-GUIDE.md       # Guias específicos para funcionalidades complexas
+```
+
+**Criação Automática**:
+- Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA
+- Se um arquivo de documentação não existe, ele **DEVE SER CRIADO** pela IA no primeiro ciclo
+- Todos os arquivos devem ser atualizados **A CADA CICLO** de implementação
+
+#### **📋 Template Mínimo para SPECIFICATIONS.md (Simplicidade 3)**
+
+Cada arquivo de especificações de versão deve conter no mínimo:
+
+```markdown
+# [Nome do Projeto] vX.Y.Z - [Nome Descritivo]
+
+**Data**: DD/MM/AAAA
+**Sprint**: X tasks em Y horas
+**Metodologia**: Protocolo Simplicidade 3 (Solo Developer em Produção)
+
+## 📋 Objetivos da Sprint
+- Task #X: [descrição]
+- Task #Y: [descrição]
+
+## 🎯 Funcionalidades Implementadas
+
+### Task #X: [Nome da Funcionalidade]
+**Problema Original**:
+- [Descrição do problema ou necessidade]
+
+**Solução Implementada**:
+- ✅ [Feature/função 1]: [descrição detalhada]
+- ✅ [Feature/função 2]: [descrição detalhada]
+
+**Comportamentos Novos**:
+- [Comportamento 1]: [como funciona]
+- [Comportamento 2]: [como funciona]
+
+**Arquitetura**:
+- Padrão [X] aplicado: [justificativa]
+- Módulos criados: [lista com responsabilidades]
+- Decisão técnica: [breve nota sobre escolha arquitetural importante]
+
+**Arquivos Criados/Modificados**:
+- `path/to/file.py` (+XXX linhas) - [descrição]
+- `path/to/test.py` (NOVO) - [descrição]
+
+**Testes**:
+- XX unit tests (YY passing)
+- Cenários cobertos: [lista]
+- Cobertura: ZZ%
+
+**Segurança (OWASP) - OBRIGATÓRIO**:
+- [ ] A01: Broken Access Control - [Status/Mitigação]
+- [ ] A02: Cryptographic Failures - [Status/Mitigação]
+- [ ] A03: Injection - [Status/Mitigação]
+- (ver SECURITY.md para checklist completo)
+
+**Rollback Plan - OBRIGATÓRIO** (se feature crítica):
+- Como reverter: [passos]
+- Tempo estimado: [X minutos]
+- Impacto: [descrição]
+- (ver ROLLBACK.md para planos detalhados)
+
+**CI/CD**:
+- Quality gates: [passing/failing]
+- Automated tests: [status]
+- Deploy strategy: [descrição]
+
+**Exemplo de Uso**:
+\`\`\`python
+# Exemplo prático de como usar a funcionalidade
+\`\`\`
+
+## ✅ Qualidade (Protocolo Simplicidade 3)
+- ✅ Arquitetura Modular
+- ✅ Type Hints (100%)
+- ✅ Docstrings completas
+- ✅ Tratamento de erros
+- ✅ Testes (X passing, Y% coverage)
+- ✅ CI/CD quality gates passing
+- ✅ Security checklist OWASP completo
+- ✅ Rollback plan documentado
+- ✅ Commits semânticos
+- ✅ **Documentação completa na pasta docs/**
+- ✅ Código limpo (PEP8/ESLint/etc)
+
+## 📊 Estatísticas
+- TOTAL: X% completo (Y/Z tasks)
+- Commits: N pushed
+- CI/CD: Passing
+```
+
+#### **🔍 Validação da Documentação (Simplicidade 3)**
+
+Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
+
+- [ ] ✅ Pasta `docs/` existe e está atualizada
+- [ ] ✅ Arquivo SPECIFICATIONS.md criado/atualizado para este ciclo
+- [ ] ✅ TODAS as funcionalidades implementadas estão documentadas
+- [ ] ✅ TODOS os comportamentos novos estão descritos
+- [ ] ✅ TODOS os arquivos criados/modificados estão listados
+- [ ] ✅ Decisões técnicas e arquiteturais estão justificadas
+- [ ] ✅ Notas de decisão criadas para escolhas importantes (DECISIONS.md)
+- [ ] ✅ Exemplos de uso estão incluídos
+- [ ] ✅ Testes estão documentados
+- [ ] ✅ **Checklist de segurança OWASP está completo (SECURITY.md) - OBRIGATÓRIO**
+- [ ] ✅ **Plano de rollback documentado para features críticas (ROLLBACK.md) - OBRIGATÓRIO**
+- [ ] ✅ Configuração CI/CD documentada
+
+**Se algum item não estiver completo, a IA NÃO DEVE prosseguir para o commit** até completar a documentação.
+
+#### **📌 Rationale: Por Quê Este Requisito é OBRIGATÓRIO (especialmente para Solo Developer)**
+
+1. **Rastreabilidade**: Permite entender TUDO que foi implementado ao longo do tempo
+2. **Memória Futura**: Você é solo - vai esquecer decisões após 3-6 meses sem ver o código
+3. **Continuidade**: Se você precisar passar o projeto para outro dev, a documentação é essencial
+4. **Debugging em Produção**: Documentação completa acelera diagnóstico de problemas
+5. **Auditoria de Segurança**: Como solo dev em produção, você é responsável por segurança
+6. **Rollback Rápido**: Documentação de rollback é essencial quando algo quebra às 3AM
+7. **Profissionalismo**: Projetos sérios em produção exigem documentação completa
+8. **Redução de Risco**: Solo dev não tem equipe para validar - documentação é sua rede de segurança
+9. **Onboarding Futuro**: Se crescer e contratar, documentação facilita entrada de novos devs
+10. **Compliance**: Muitos regulamentos exigem documentação de implementações
+
+**Este requisito transforma a pasta `docs/` em seu "segundo cérebro" e rede de segurança como solo developer em produção.**
+
+---
+
 **📋 Gerenciamento do TASKS.md**:
 
 **Regra Geral**:

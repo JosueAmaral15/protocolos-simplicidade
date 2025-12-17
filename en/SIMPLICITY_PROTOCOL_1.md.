@@ -1862,6 +1862,164 @@ python tests/run_tests_monitored.py
 - **Update statistics**: Project completion percentage
 - **🤖 [OPTIONAL] Manage AI task recommendations**
 
+---
+
+### ⚠️ **MANDATORY REQUIREMENT: Complete Documentation of All AI Implementations**
+
+> **CRITICAL FOR AIs**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
+
+#### **🤖 Golden Rule for AI Assistants**
+
+**If you are an AI implementing code:**
+- ✅ **YOU MUST** document ALL implementations you perform in each cycle
+- ✅ **YOU MUST** create/update files in the `docs/` folder for each new functionality
+- ✅ **YOU MUST** describe ALL new implemented behaviors
+- ✅ **YOU MUST** clearly mark what was added, modified, or removed
+- ✅ **YOU MUST** include usage examples of new functionalities
+- ✅ **YOU MUST** document technical and architectural decisions made
+
+#### **📝 What Must Be Documented (MANDATORY)**
+
+For **EACH implementation cycle**, the AI must document in the `docs/` folder:
+
+1. **Implemented Functionalities**:
+   - Name and detailed description of each new functionality
+   - Purpose and use cases
+   - Expected behavior and edge cases
+
+2. **Created/Modified Code**:
+   - New files created (full path + description)
+   - Modified files (path + what was changed)
+   - Main functions/classes added or modified
+
+3. **Architecture and Technical Decisions**:
+   - Applied design patterns (GoF, GRASP)
+   - Module structure and their responsibilities
+   - Architectural decisions and their justifications
+
+4. **Behaviors and Integrations**:
+   - How the functionality interacts with the rest of the system
+   - Dependencies created or modified
+   - Data and control flows
+
+5. **Implemented Tests**:
+   - Quantity and types of tests created
+   - Test scenarios covered
+   - Test coverage achieved
+
+6. **Usage Examples**:
+   - How to use the new functionality
+   - Code examples (CLI, API, GUI)
+   - Practical use cases
+
+#### **📂 Mandatory Documentation Structure**
+
+The `docs/` folder must contain at minimum:
+
+```
+docs/
+├── REQUIREMENTS.md          # Task and requirements list (updated each cycle)
+├── vX.Y.Z-SPECIFICATIONS.md # Detailed specifications for current version
+├── CHANGELOG.md             # Change history (what was implemented and when)
+├── ARCHITECTURE.md          # Architectural decisions and project structure
+└── [feature]-GUIDE.md       # Specific guides for complex functionalities
+```
+
+**Automatic Creation**:
+- If the `docs/` folder doesn't exist, it **MUST BE AUTOMATICALLY CREATED** by the AI
+- If a documentation file doesn't exist, it **MUST BE CREATED** by the AI in the first cycle
+- All files must be updated **EVERY CYCLE** of implementation
+
+#### **📋 Minimum Template for SPECIFICATIONS.md**
+
+Each version specification file must contain at minimum:
+
+```markdown
+# [Project Name] vX.Y.Z - [Descriptive Name]
+
+**Date**: DD/MM/YYYY
+**Sprint**: X tasks in Y hours
+**Methodology**: Simplicity Protocol [1/2/3]
+
+## 📋 Sprint Objectives
+- Task #X: [description]
+- Task #Y: [description]
+
+## 🎯 Implemented Functionalities
+
+### Task #X: [Functionality Name]
+**Original Problem**:
+- [Problem or need description]
+
+**Implemented Solution**:
+- ✅ [Feature/function 1]: [detailed description]
+- ✅ [Feature/function 2]: [detailed description]
+
+**New Behaviors**:
+- [Behavior 1]: [how it works]
+- [Behavior 2]: [how it works]
+
+**Architecture**:
+- Pattern [X] applied: [justification]
+- Created modules: [list with responsibilities]
+
+**Created/Modified Files**:
+- `path/to/file.py` (+XXX lines) - [description]
+- `path/to/test.py` (NEW) - [description]
+
+**Tests**:
+- XX unit tests (YY passing)
+- Covered scenarios: [list]
+
+**Usage Example**:
+\`\`\`python
+# Practical example of how to use the functionality
+\`\`\`
+
+## ✅ Quality (Simplicity Protocol [1/2/3])
+- ✅ Modular Architecture
+- ✅ Type Hints (100%)
+- ✅ Complete Docstrings
+- ✅ Error Handling
+- ✅ Tests (X passing)
+- ✅ Semantic Commits
+- ✅ **Complete documentation in docs/ folder**
+- ✅ Clean Code (PEP8/ESLint/etc)
+
+## 📊 Statistics
+- TOTAL: X% complete (Y/Z tasks)
+- Commits: N pushed
+```
+
+#### **🔍 Documentation Validation**
+
+Before finalizing each cycle (Step 13 - Commit), the AI **MUST VERIFY**:
+
+- [ ] ✅ `docs/` folder exists and is updated
+- [ ] ✅ SPECIFICATIONS.md file created/updated for this cycle
+- [ ] ✅ ALL implemented functionalities are documented
+- [ ] ✅ ALL new behaviors are described
+- [ ] ✅ ALL created/modified files are listed
+- [ ] ✅ Technical and architectural decisions are justified
+- [ ] ✅ Usage examples are included
+- [ ] ✅ Tests are documented
+
+**If any item is not complete, the AI MUST NOT proceed to commit** until completing the documentation.
+
+#### **📌 Rationale: Why This Requirement is MANDATORY**
+
+1. **Traceability**: Allows understanding EVERYTHING that was implemented over time
+2. **Maintainability**: Facilitates future maintenance (by the same dev or others)
+3. **Organizational Knowledge**: Preserves project decisions and context
+4. **Onboarding**: New developers/AIs quickly understand the system
+5. **Auditing**: Enables review and validation of implementations
+6. **Continuity**: Ensures functionalities are not forgotten or lost
+7. **Professionalism**: Serious projects have complete and updated documentation
+
+**This requirement transforms the `docs/` folder into a living and complete history of everything implemented in the project.**
+
+---
+
 **📋 TASKS.md Management**:
 
 **General Rule**:

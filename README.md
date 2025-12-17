@@ -91,6 +91,59 @@ Considere a existência de erros no workspace (aba "Problemas" do IDE) como **bl
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue."
 
 Esta regra está documentada em detalhes em cada protocolo após a seção "Filosofia Central".
+
+---
+
+## 📝 Documentação Obrigatória na Pasta `docs/`
+
+> **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
+
+Todos os três protocolos agora incluem um **Requisito Obrigatório de Documentação** que deve ser seguido em cada ciclo:
+
+### 📚 Regra de Ouro da Documentação
+
+**Para Assistentes de IA:**
+
+A IA **DEVE** documentar **TODAS** as implementações na pasta `docs/`:
+- ✅ Funcionalidades implementadas (descrição detalhada + comportamentos)
+- ✅ Código criado/modificado (arquivos + mudanças)
+- ✅ Decisões arquiteturais (padrões aplicados + justificativas)
+- ✅ Integrações e dependências
+- ✅ Testes implementados (cobertura + cenários)
+- ✅ Exemplos de uso práticos
+
+### 📂 Estrutura Mínima Obrigatória
+
+```
+docs/
+├── REQUIREMENTS.md          # Tarefas e requisitos (atualizado a cada ciclo)
+├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão
+├── CHANGELOG.md             # Histórico de todas as mudanças
+├── ARCHITECTURE.md          # Decisões arquiteturais
+└── [outros arquivos conforme protocolo]
+```
+
+### 🎯 Por Protocolo
+
+- **Simplicidade 1**: Documentação básica completa (funcionalidades + arquitetura + testes)
+- **Simplicidade 2**: + ADRs formais + OWASP + API docs + Acessibilidade
+- **Simplicidade 3**: + OWASP obrigatório + Rollback plans + Notas de decisão
+
+### ⚠️ Validação Antes do Commit
+
+A IA **NÃO DEVE** fazer commit sem:
+- [ ] ✅ Pasta `docs/` atualizada
+- [ ] ✅ SPECIFICATIONS.md criado/atualizado
+- [ ] ✅ Todas funcionalidades documentadas
+- [ ] ✅ Todos comportamentos descritos
+- [ ] ✅ Decisões técnicas justificadas
+
+**Rationale**: Documentação completa garante rastreabilidade, manutenibilidade, continuidade e profissionalismo. É especialmente crítica para projetos em produção e desenvolvimento solo.
+
+📖 **Detalhes completos**: Veja Etapa 12 de cada protocolo para templates, checklists e exemplos.
+
+---
+
 ## 📋 Gerenciamento de Tarefas (TASKS.md)
 
 Todos os protocolos Simplicidade agora incluem suporte integrado para gerenciamento de tarefas através de um arquivo `TASKS.md` (ou arquivo alternativo de sua escolha).

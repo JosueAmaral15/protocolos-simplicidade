@@ -3847,6 +3847,205 @@ Este PR implementa **ADR-004: Migrate to SQLite**.
 - **Atualizar estatísticas**: Percentual de conclusão do projeto
 - **🤖 [OPCIONAL] Gerenciar recomendações de novas tarefas pela IA**
 
+---
+
+### ⚠️ **REQUISITO OBRIGATÓRIO: Documentação Completa de Todas as Implementações da IA**
+
+> **CRÍTICO PARA IAs**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
+
+#### **🤖 Regra de Ouro para Assistentes de IA**
+
+**Se você é uma IA implementando código:**
+- ✅ **VOCÊ DEVE** documentar TODAS as implementações que realizar em cada ciclo
+- ✅ **VOCÊ DEVE** criar/atualizar arquivos na pasta `docs/` para cada funcionalidade nova
+- ✅ **VOCÊ DEVE** descrever TODOS os comportamentos novos implementados
+- ✅ **VOCÊ DEVE** marcar claramente o que foi adicionado, modificado ou removido
+- ✅ **VOCÊ DEVE** incluir exemplos de uso das novas funcionalidades
+- ✅ **VOCÊ DEVE** documentar decisões técnicas e arquiteturais tomadas
+
+#### **📝 O Que Deve Ser Documentado (OBRIGATÓRIO)**
+
+Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
+
+1. **Funcionalidades Implementadas**:
+   - Nome e descrição detalhada de cada nova funcionalidade
+   - Propósito e casos de uso
+   - Comportamento esperado e edge cases
+
+2. **Código Criado/Modificado**:
+   - Arquivos novos criados (path completo + descrição)
+   - Arquivos modificados (path + o que foi alterado)
+   - Funções/classes principais adicionadas ou modificadas
+
+3. **Arquitetura e Decisões Técnicas**:
+   - Padrões de design aplicados (GoF, GRASP)
+   - Estrutura de módulos e suas responsabilidades
+   - Decisões arquiteturais e suas justificativas
+   - **[SIMPLICIDADE 2]** ADRs formais (Architecture Decision Records) quando aplicável
+
+4. **Comportamentos e Integrações**:
+   - Como a funcionalidade interage com o resto do sistema
+   - Dependências criadas ou modificadas
+   - Fluxos de dados e controle
+
+5. **Testes Implementados**:
+   - Quantidade e tipos de testes criados
+   - Cenários de teste cobertos
+   - Cobertura de testes alcançada
+
+6. **Exemplos de Uso**:
+   - Como utilizar a nova funcionalidade
+   - Exemplos de código (CLI, API, GUI)
+   - Casos de uso práticos
+
+7. **[SIMPLICIDADE 2] Documentação Enterprise Adicional**:
+   - Documentação de API (Sphinx/pdoc) para bibliotecas públicas
+   - Checklist de segurança OWASP preenchido
+   - Checklist de acessibilidade WCAG (para GUI)
+   - Resultados de profiling (para features críticas)
+   - Planos de rollback documentados
+
+#### **📂 Estrutura Obrigatória de Documentação (Simplicidade 2)**
+
+A pasta `docs/` deve conter no mínimo:
+
+```
+docs/
+├── REQUIREMENTS.md          # Lista de tarefas e requisitos (atualizado a cada ciclo)
+├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão atual
+├── CHANGELOG.md             # Histórico de mudanças (o que foi implementado e quando)
+├── ARCHITECTURE.md          # Decisões arquiteturais e estrutura do projeto
+├── ADR/                     # Architecture Decision Records (Simplicidade 2)
+│   ├── ADR-001-[decisao].md
+│   └── ADR-002-[decisao].md
+├── SECURITY.md              # Checklist OWASP e vulnerabilidades mitigadas
+├── API/                     # Documentação de API (se aplicável)
+│   └── api-reference.html   # Gerado por Sphinx/pdoc
+└── [feature]-GUIDE.md       # Guias específicos para funcionalidades complexas
+```
+
+**Criação Automática**:
+- Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA
+- Se um arquivo de documentação não existe, ele **DEVE SER CRIADO** pela IA no primeiro ciclo
+- Todos os arquivos devem ser atualizados **A CADA CICLO** de implementação
+
+#### **📋 Template Mínimo para SPECIFICATIONS.md (Simplicidade 2)**
+
+Cada arquivo de especificações de versão deve conter no mínimo:
+
+```markdown
+# [Nome do Projeto] vX.Y.Z - [Nome Descritivo]
+
+**Data**: DD/MM/AAAA
+**Sprint**: X tasks em Y horas
+**Metodologia**: Protocolo Simplicidade 2
+**Code Review**: [Aprovado por: Nome/Equipe]
+
+## 📋 Objetivos da Sprint
+- Task #X: [descrição]
+- Task #Y: [descrição]
+
+## 🎯 Funcionalidades Implementadas
+
+### Task #X: [Nome da Funcionalidade]
+**Problema Original**:
+- [Descrição do problema ou necessidade]
+
+**Solução Implementada**:
+- ✅ [Feature/função 1]: [descrição detalhada]
+- ✅ [Feature/função 2]: [descrição detalhada]
+
+**Comportamentos Novos**:
+- [Comportamento 1]: [como funciona]
+- [Comportamento 2]: [como funciona]
+
+**Arquitetura**:
+- Padrão [X] aplicado: [justificativa]
+- Módulos criados: [lista com responsabilidades]
+- ADR criado: `ADR-XXX-[nome].md` (se aplicável)
+
+**Arquivos Criados/Modificados**:
+- `path/to/file.py` (+XXX linhas) - [descrição]
+- `path/to/test.py` (NOVO) - [descrição]
+
+**Testes**:
+- XX unit tests (YY passing)
+- Cenários cobertos: [lista]
+- Cobertura: ZZ%
+
+**Segurança (OWASP)**:
+- [ ] A01: Broken Access Control - [Status/Mitigação]
+- [ ] A02: Cryptographic Failures - [Status/Mitigação]
+- [ ] A03: Injection - [Status/Mitigação]
+- (ver SECURITY.md para checklist completo)
+
+**Performance** (se feature crítica):
+- Profiling realizado: [ferramenta]
+- Gargalos identificados: [lista]
+- Otimizações aplicadas: [lista]
+
+**Exemplo de Uso**:
+\`\`\`python
+# Exemplo prático de como usar a funcionalidade
+\`\`\`
+
+## ✅ Qualidade (Protocolo Simplicidade 2)
+- ✅ Arquitetura Modular
+- ✅ Type Hints (100%)
+- ✅ Docstrings completas
+- ✅ Tratamento de erros
+- ✅ Testes (X passing, Y% coverage)
+- ✅ Code Review aprovado
+- ✅ CI/CD quality gates passing
+- ✅ Security checklist completo
+- ✅ Commits semânticos
+- ✅ **Documentação completa na pasta docs/**
+- ✅ Código limpo (PEP8/ESLint/etc)
+- ✅ Rollback plan documentado (se crítico)
+
+## 📊 Estatísticas
+- TOTAL: X% completo (Y/Z tasks)
+- Commits: N pushed
+- Code Review: Aprovado em DD/MM/AAAA
+```
+
+#### **🔍 Validação da Documentação (Simplicidade 2)**
+
+Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
+
+- [ ] ✅ Pasta `docs/` existe e está atualizada
+- [ ] ✅ Arquivo SPECIFICATIONS.md criado/atualizado para este ciclo
+- [ ] ✅ TODAS as funcionalidades implementadas estão documentadas
+- [ ] ✅ TODOS os comportamentos novos estão descritos
+- [ ] ✅ TODOS os arquivos criados/modificados estão listados
+- [ ] ✅ Decisões técnicas e arquiteturais estão justificadas
+- [ ] ✅ ADRs criados para decisões arquiteturais importantes
+- [ ] ✅ Exemplos de uso estão incluídos
+- [ ] ✅ Testes estão documentados
+- [ ] ✅ Checklist de segurança OWASP está completo (em SECURITY.md)
+- [ ] ✅ Resultados de profiling documentados (se aplicável)
+- [ ] ✅ Documentação de API gerada (se biblioteca pública)
+- [ ] ✅ Code review aprovado e documentado
+
+**Se algum item não estiver completo, a IA NÃO DEVE prosseguir para o commit** até completar a documentação.
+
+#### **📌 Rationale: Por Quê Este Requisito é OBRIGATÓRIO**
+
+1. **Rastreabilidade**: Permite entender TUDO que foi implementado ao longo do tempo
+2. **Manutenibilidade**: Facilita manutenção futura (pelo mesmo dev ou outros)
+3. **Conhecimento Organizacional**: Preserva decisões e contexto do projeto
+4. **Onboarding**: Novos desenvolvedores/IAs entendem rapidamente o sistema
+5. **Auditoria**: Possibilita revisão e validação de implementações (crítico para enterprise)
+6. **Continuidade**: Garante que funcionalidades não sejam esquecidas ou perdidas
+7. **Profissionalismo**: Projetos sérios têm documentação completa e atualizada
+8. **Conformidade**: Facilita auditorias de segurança, compliance (ISO, SOC2, etc.)
+9. **Colaboração em Equipe**: Essencial para equipes grandes e distribuídas
+10. **Gestão de Mudanças**: Documenta o porquê de cada decisão técnica (ADRs)
+
+**Este requisito transforma a pasta `docs/` em um histórico vivo e completo de tudo que foi implementado no projeto, essencial para ambientes enterprise.**
+
+---
+
 **📋 Gerenciamento do TASKS.md**:
 
 **Regra Geral**:
