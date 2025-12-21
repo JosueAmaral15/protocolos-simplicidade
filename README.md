@@ -244,6 +244,65 @@ A IA deve:
 
 ---
 
+## 📧 Requisito Obrigatório: Meios de Contato para Feedback
+
+> **NOVO**: Todos os protocolos agora exigem que a IA pergunte ao desenvolvedor sobre incluir meios de contato para feedback dos usuários.
+
+### 📋 O Que Mudou
+
+A partir das versões mais recentes, **todos os três protocolos** incluem agora uma pergunta obrigatória sobre **Meios de Contato para Feedback do Usuário** durante a primeira sessão.
+
+### 🎯 Quando Aplicar
+Durante a **primeira sessão** de interação com o programador, logo após definir preferências de idioma do código.
+
+### 📧 O Que é Necessário
+
+A IA deve:
+1. **Perguntar ao programador** se deseja incluir meios de contato
+2. **Recomendar email como padrão** para receber todos os tipos de feedback
+3. **Oferecer alternativas**: GitHub Issues, formulário de contato, múltiplos canais
+4. **Documentar no README.md** a seção de contato/feedback
+5. **Implementar formulário** (se aplicável para a aplicação)
+6. **Incluir política de feedback** (tempo de resposta, privacidade)
+
+### 📮 Tipos de Feedback Cobertos
+
+- 💬 **Comentários** gerais sobre o projeto
+- 💡 **Sugestões** de melhorias e novas funcionalidades
+- 🐛 **Críticas** construtivas e reportes de bugs
+- 😞 **Reclamações** sobre problemas encontrados
+- 🎉 **Elogios** e reconhecimento pelo trabalho
+- 📝 **Opiniões** sobre decisões de design e features
+
+### 🎯 Rationale
+- ✅ **Melhoria Contínua**: Feedback direto identifica problemas e oportunidades
+- ✅ **Engajamento**: Usuários se sentem mais conectados quando podem contribuir
+- ✅ **Qualidade**: Críticas e sugestões melhoram o software
+- ✅ **Priorização**: Feedback ajuda a entender o que é importante
+- ✅ **Motivação**: Elogios motivam a equipe de desenvolvimento
+- ✅ **Profissionalismo**: Canal aberto demonstra compromisso com usuários
+
+### 📝 Exemplo de Implementação
+
+```markdown
+## 📮 Feedback e Contato
+
+Adoraríamos ouvir sua opinião! Envie seus comentários, sugestões, 
+críticas, reclamações, elogios e opiniões para:
+
+- **Email**: feedback@meuprojeto.com.br
+- **Resposta**: Normalmente respondemos em até 48 horas
+
+Seu feedback nos ajuda a melhorar continuamente!
+```
+
+### ⏱️ Tempo Estimado
+**5-10 minutos** para adicionar ao README - investimento mínimo para canal essencial de comunicação.
+
+📖 **Detalhes completos**: Veja seção "Meios de Contato para Feedback do Usuário" de cada protocolo para opções completas, exemplos de formulários, políticas de privacidade e melhores práticas.
+
+---
+
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
