@@ -465,6 +465,260 @@ For national/regional projects (e.g., Portuguese for Brazil/Portugal):
 
 ---
 
+## 📧 Contact Methods for User Feedback
+
+> **IMPORTANT FOR AIs**: During the first session of interaction with the programmer, the artificial intelligence must ask if the developer would like to include contact methods in the project so that users can provide feedback to those responsible.
+
+### 📋 Context and Purpose
+
+Software projects greatly benefit from direct user feedback. Comments, suggestions, criticisms, complaints, compliments, and opinions are fundamental for the evolution and continuous improvement of the project.
+
+### 🤔 Mandatory Question in the First Session
+
+**The AI MUST ask the programmer at the very first moment (or during the first session)**:
+
+```
+❓ Contact Methods for User Feedback
+
+Would you like to include contact methods in the project so users
+can send feedback (comments, suggestions, criticisms, complaints,
+compliments, and opinions)?
+
+💡 Suggestion: Yes (recommended for projects with end users)
+
+Options:
+A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
+B) ✅ Yes, include GitHub Issues (for open-source projects)
+C) ✅ Yes, include contact form in the application
+D) ✅ Yes, include multiple channels (email + issues + form)
+E) ❌ No, do not include contact methods
+
+What is your preference?
+```
+
+### ✅ Available Options
+
+#### Option A: ✅ Email for Feedback (DEFAULT RECOMMENDED)
+
+**What to include**:
+- Dedicated email for feedback
+- All types of feedback are welcome:
+  - 💬 General comments
+  - 💡 Improvement suggestions
+  - 🐛 Constructive criticisms
+  - 😞 Complaints about problems
+  - 🎉 Compliments and recognition
+  - 📝 Opinions about features
+
+**Where to document**:
+```markdown
+## 📧 Feedback and Contact
+
+Your opinion is very important to us! Send your comments, 
+suggestions, criticisms, complaints, compliments, and opinions to:
+
+**Email**: feedback@yourproject.com
+
+All feedback is read and considered for future improvements.
+```
+
+**Implementation example (README.md)**:
+```markdown
+## 📮 Feedback
+
+We'd love to hear from you! Send your comments, suggestions, 
+criticisms, complaints, compliments, and opinions to:
+
+- **Email**: contact@myproject.com
+- **Response**: We typically respond within 48 hours
+
+Your feedback helps us improve continuously!
+```
+
+#### Option B: ✅ GitHub Issues
+
+**For open-source projects**:
+```markdown
+## 🐛 Report Problems or Give Feedback
+
+Use [GitHub Issues](https://github.com/your-user/your-project/issues) to:
+
+- 🐛 Report bugs
+- 💡 Suggest new features
+- 💬 Share general feedback
+- ❓ Ask questions
+
+**Available templates**:
+- Bug Report
+- Feature Request  
+- General Feedback
+```
+
+#### Option C: ✅ Contact Form in the Application
+
+**For web/desktop applications**:
+- Add "Feedback" or "Contact" section in the interface
+- Form with fields:
+  - Name (optional)
+  - Email (for response)
+  - Type: Comment | Suggestion | Criticism | Complaint | Compliment | Opinion
+  - Message
+- Send via email or save to database
+
+**Implementation example (GUI)**:
+```python
+# Menu: Help → Send Feedback
+class FeedbackDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Send Feedback")
+        
+        # Feedback type
+        self.type_combo = QComboBox()
+        self.type_combo.addItems([
+            "💬 Comment",
+            "💡 Suggestion",
+            "🐛 Criticism/Bug",
+            "😞 Complaint",
+            "🎉 Compliment",
+            "📝 Opinion"
+        ])
+        
+        # Email (optional)
+        self.email_input = QLineEdit()
+        self.email_input.setPlaceholderText("your@email.com (optional)")
+        
+        # Message
+        self.message_text = QTextEdit()
+        self.message_text.setPlaceholderText(
+            "Share your comments, suggestions, criticisms, "
+            "complaints, compliments, or opinions..."
+        )
+        
+        # Send button
+        self.send_button = QPushButton("Send Feedback")
+        self.send_button.clicked.connect(self.send_feedback)
+```
+
+#### Option D: ✅ Multiple Channels
+
+**Combine several options**:
+```markdown
+## 📞 Get in Touch
+
+We value your feedback! You can contact us through:
+
+### 📧 Email
+- **General Feedback**: feedback@project.com
+- **Technical Support**: support@project.com
+- We respond within 48 hours
+
+### 💬 GitHub Issues
+- Report bugs: [Issues](https://github.com/user/project/issues)
+- Suggest features: [Discussions](https://github.com/user/project/discussions)
+
+### 🌐 Contact Form
+- Access: Menu → Help → Send Feedback
+- Or: https://project.com/contact
+
+### 📱 Social Media
+- Twitter: [@yourproject](https://twitter.com/yourproject)
+- Discord: [Community](https://discord.gg/yourproject)
+```
+
+#### Option E: ❌ Do Not Include
+
+**When to choose this option**:
+- ⚠️ Personal/internal projects without external users
+- ⚠️ Disposable prototypes
+- ⚠️ Single-use scripts
+
+**Consequence**: Users will not have a direct channel for feedback, which may limit the project's evolution.
+
+### 📝 Register the Preference
+
+After the programmer's response, the AI should:
+
+1. **Add contact/feedback section** in README.md
+2. **Create CONTACT.md file** (if needed) with details
+3. **Implement form** (if application with interface)
+4. **Document** in CONTRIBUTING.md (for open-source projects)
+
+**Registration example (README.md)**:
+```markdown
+## 📬 Feedback and Contact
+
+This project values user feedback! 
+
+- **Email**: feedback@project.com
+- **Feedback types welcome**: Comments, suggestions, criticisms, 
+  complaints, compliments, and opinions
+- **Response time**: Within 48 business hours
+
+Your feedback is essential for continuous improvement!
+```
+
+### 🎯 Rationale
+
+**Why ask about contact methods?**
+
+1. **Continuous Improvement**: Direct feedback helps identify problems and opportunities
+2. **Engagement**: Users who can give feedback feel more connected to the project
+3. **Quality**: Criticisms and suggestions improve software quality
+4. **Prioritization**: Feedback helps understand what is most important to users
+5. **Recognition**: Compliments motivate the development team
+6. **Transparency**: Open channel demonstrates commitment to users
+
+**Why Email as default?**
+
+For projects with users:
+- ✅ **Universal**: Everyone has email
+- ✅ **Simple**: Doesn't require account or additional registration
+- ✅ **Direct**: Private and personal communication
+- ✅ **Consolidated**: All types of feedback in a single channel
+- ✅ **Traceable**: Complete history of communications
+- ✅ **Professional**: Formal channel suitable for any type of feedback
+
+**When to prefer other options?**
+
+- 🌍 **GitHub Issues**: Open-source projects (public transparency)
+- 🌍 **Form**: Apps with many users (organization and categorization)
+- 🌍 **Multiple channels**: Large projects (different audiences, different needs)
+- 🌍 **None**: Internal/personal projects without external users
+
+### ⚠️ Important Considerations
+
+**Feedback Management**:
+- ✅ Define who will respond to feedback (responsible person)
+- ✅ Establish expected response time (SLA)
+- ✅ Create process for triage and prioritization
+- ✅ Document relevant feedback (issues, backlog)
+- ✅ Always thank, even for criticisms
+
+**Privacy**:
+- ✅ Inform how contact data will be used
+- ✅ Do not share emails without permission
+- ✅ GDPR/LGPD compliance if applicable
+
+**Best practices example**:
+```markdown
+## 📧 Feedback Policy
+
+**We commit to**:
+- ✅ Respond to all feedback within 48 business hours
+- ✅ Treat all opinions with respect
+- ✅ Seriously consider criticisms and suggestions
+- ✅ Maintain contact data privacy (GDPR/LGPD)
+- ✅ Thank constructive contributions
+
+**You can expect**:
+- Personalized response (not automated)
+- Updates on implemented suggestions
+- Recognition in changelogs (if desired)
+```
+
+---
+
 ## 📊 Recursive Division of Complex Tasks
 
 > **IMPORTANT**: If the task is very long or complex, and there are time limits or response length limits, the artificial intelligence should divide the task into smaller parts, recursively, until achieving a task that can provide a satisfactory response according to the determined response limit.
