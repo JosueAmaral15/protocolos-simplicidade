@@ -203,6 +203,65 @@ AI can dynamically suggest new tasks as the project evolves, following a 5-phase
 
 ---
 
+## 📧 Mandatory Requirement: Contact Methods for Feedback
+
+> **NEW**: All protocols now require AI to ask the developer about including contact methods for user feedback.
+
+### 📋 What Changed
+
+Starting from the latest versions, **all three protocols** now include a mandatory question about **Contact Methods for User Feedback** during the first session.
+
+### 🎯 When to Apply
+During the **first session** of interaction with the programmer, right after defining code language preferences.
+
+### 📧 What is Required
+
+The AI must:
+1. **Ask the programmer** if they want to include contact methods
+2. **Recommend email as default** to receive all types of feedback
+3. **Offer alternatives**: GitHub Issues, contact form, multiple channels
+4. **Document in README.md** the contact/feedback section
+5. **Implement form** (if applicable for the application)
+6. **Include feedback policy** (response time, privacy)
+
+### 📮 Types of Feedback Covered
+
+- 💬 **Comments** general about the project
+- 💡 **Suggestions** for improvements and new features
+- 🐛 **Criticisms** constructive and bug reports
+- 😞 **Complaints** about problems encountered
+- 🎉 **Compliments** and recognition for the work
+- 📝 **Opinions** about design decisions and features
+
+### 🎯 Rationale
+- ✅ **Continuous Improvement**: Direct feedback identifies problems and opportunities
+- ✅ **Engagement**: Users feel more connected when they can contribute
+- ✅ **Quality**: Criticisms and suggestions improve software
+- ✅ **Prioritization**: Feedback helps understand what is important
+- ✅ **Motivation**: Compliments motivate the development team
+- ✅ **Professionalism**: Open channel demonstrates commitment to users
+
+### 📝 Implementation Example
+
+```markdown
+## 📮 Feedback and Contact
+
+We'd love to hear from you! Send your comments, suggestions, 
+criticisms, complaints, compliments, and opinions to:
+
+- **Email**: feedback@myproject.com
+- **Response**: We typically respond within 48 hours
+
+Your feedback helps us improve continuously!
+```
+
+### ⏱️ Estimated Time
+**5-10 minutes** to add to README - minimal investment for essential communication channel.
+
+📖 **Complete details**: See "Contact Methods for User Feedback" section in each protocol for complete options, form examples, privacy policies, and best practices.
+
+---
+
 ## 🤖 How to Use with AI (Cursor / GitHub Copilot)
 
 These protocols were designed to be read by AI Assistants. To get the best results, configure your AI as follows:
