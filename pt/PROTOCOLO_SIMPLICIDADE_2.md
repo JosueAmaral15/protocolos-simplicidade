@@ -805,6 +805,52 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 **Por quê?**: Economiza tempo, evita retrabalho, garante que a solução atende exatamente o que foi pedido.
 
+#### 🌐 **Pesquisas Online: Quando a IA Tem Muitas Dúvidas ou Dificuldades**
+
+> **IMPORTANTE PARA IAs**: Se você está com **muitas dúvidas** sobre como resolver um determinado problema, ou tem **dificuldades significativas** para resolver esse mesmo problema, **lembre-se de que você pode efetuar pesquisas online**.
+
+**Quando Realizar Pesquisas Online**:
+- ✅ Quando há dúvidas técnicas complexas que não consegue resolver sozinho
+- ✅ Quando encontra um problema crítico que não tem solução óbvia no código existente
+- ✅ Quando precisa entender como implementar algo completamente novo
+- ✅ Quando há um erro ou bug difícil de diagnosticar
+- ✅ Quando precisa de exemplos práticos de implementação
+
+**Onde Pesquisar** (em ordem de prioridade):
+1. **📚 Documentação Oficial do GitHub de Projetos Relacionados**:
+   - Repositórios similares ou que resolvem problemas parecidos
+   - Issues e Pull Requests que discutem problemas similares
+   - Wiki e documentação técnica de projetos open source relacionados
+
+2. **📖 Plataformas de Documentação Online**:
+   - Documentação oficial das bibliotecas e frameworks usados no projeto
+   - Tutoriais e guias técnicos especializados
+   - Blogs técnicos e artigos de desenvolvedores experientes
+
+3. **💬 Plataformas de Perguntas e Respostas**:
+   - **StackOverflow**: Principal plataforma para dúvidas de programação
+   - **GitHub Discussions**: Para questões específicas de projetos
+   - Outras comunidades técnicas relevantes para a tecnologia do projeto
+
+**Por Quê Pesquisas Online São Importantes**:
+- ✅ **Economiza tempo**: Problemas complexos já podem ter soluções documentadas
+- ✅ **Melhores práticas**: Aprenda com implementações já validadas pela comunidade
+- ✅ **Evita reinventar a roda**: Muitos problemas já foram resolvidos por outros desenvolvedores
+- ✅ **Reduz erros**: Soluções testadas e aprovadas pela comunidade têm menos bugs
+- ✅ **Atualização**: Descubra as abordagens mais modernas e eficientes
+
+**Exemplo de Fluxo com Pesquisa Online**:
+```
+1. ❓ Tentei implementar [funcionalidade X] mas encontrei [problema Y]
+2. 🔍 Pesquisei no GitHub: "similar implementation [funcionalidade X]"
+3. 📚 Encontrei 3 projetos similares que resolvem isso de formas diferentes
+4. 💡 Analisei os exemplos e identifiquei a abordagem mais adequada para nosso contexto
+5. ✅ Implementei baseado nas melhores práticas encontradas
+6. 📝 Documentei a fonte da solução para referência futura
+```
+
+**⚠️ Importante**: Sempre cite as fontes consultadas na documentação do projeto para referência futura e rastreabilidade.
+
 ---
 
 ### 4️⃣ **Analisar e Estudar o Projeto**

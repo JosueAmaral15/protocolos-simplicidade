@@ -219,6 +219,45 @@ When starting a task, invoke the context:
 
 ---
 
+## 🔍 Online Research: AI Capability to Solve Complex Problems
+
+**All Simplicity protocols now include guidance on online research for AI:**
+
+### 📋 When AI Should Research Online
+
+If the artificial intelligence has **many doubts** about how to solve a particular problem, or has **significant difficulties** solving that same problem, it **can and should perform online research**.
+
+### 🎯 Where to Search
+
+Research can be performed on:
+
+1. **📚 GitHub Documentation of Related Projects**:
+   - Similar repositories or those that solve similar problems
+   - Relevant Issues and Pull Requests
+   - Wiki and technical documentation of open source projects
+
+2. **📖 Online Documentation Platforms**:
+   - Official documentation of libraries and frameworks
+   - Specialized tutorials and technical guides
+   - Technical blogs from experienced developers
+
+3. **💬 Question and Answer Platforms**:
+   - **StackOverflow**: Main platform for programming questions
+   - **GitHub Discussions**: For project-specific questions
+   - Other relevant technical communities
+
+### ✅ Why This is Important
+
+- ✅ **Saves time**: Complex problems may already have documented solutions
+- ✅ **Best practices**: Learn from implementations already validated by the community
+- ✅ **Avoid reinventing the wheel**: Many problems have already been solved by others
+- ✅ **Reduces errors**: Community-tested solutions have fewer bugs
+- ✅ **Stay updated**: Discover the most modern approaches
+
+**Complete details**: See "🌐 Online Research" section in Step 3 of each protocol.
+
+---
+
 ## 🌐 Code Language: Variable Naming and Comments
 
 **All Simplicity protocols now include guidelines about code language:**
