@@ -461,7 +461,7 @@ Sprint 4 (2h):
 
 ---
 
-## 📋 Espinha Dorsal do Protocolo (13 Etapas)
+## 📋 Espinha Dorsal do Protocolo (14 Etapas)
 
 **Resumo Executivo**:
 1. 📚 Ler a documentação
@@ -470,6 +470,7 @@ Sprint 4 (2h):
 4. 🔍 Analisar e estudar o projeto
 5. 🎯 Fazer sprints das tarefas mais simples
 6. 💻 Implementar com arquitetura profissional (GoF + GRASP)
+   - 6.6 🎨 **Ícones do Projeto** (OBRIGATÓRIO)
 7. ⌨️ **Verificar Implementação CLI + Revisão de Código (9 critérios)**
 8. 🖥️ **Verificar Implementação GUI + Revisão de Código (9 critérios)**
 9. 🔗 **Verificar Integração com Programa Principal**
@@ -970,6 +971,377 @@ class DataUpdater:
         mapping = self._transformer.transform(old, new)
         return self._apply_to_files(dir, mapping)
 ```
+
+---
+
+### 6️⃣.6️⃣ **Ícones do Projeto** [OBRIGATÓRIO]
+
+> **CRÍTICO PARA IAs**: Todo projeto deve incluir ícones adequados para garantir profissionalismo e identidade visual.
+
+**Quando Aplicar**: Durante a implementação (Etapa 6), após definir a estrutura básica do projeto.
+
+#### 📋 Requisito Obrigatório
+
+A inteligência artificial **DEVE** produzir ou fazer download de um ícone para o projeto, seja:
+- 🌐 Site/Aplicação Web
+- 💻 Programa Desktop
+- 📱 Aplicativo Mobile
+- 🔧 Ferramenta/Utilitário
+
+#### 🎨 Formatos de Ícone por Tecnologia
+
+**Aplicações Web**:
+- ✅ **favicon.ico** (16x16, 32x32, 48x48 px) - Compatibilidade universal
+- ✅ **icon.svg** - Vetorial, escalável, moderno
+- ✅ **icon-192.png** e **icon-512.png** - PWA/Android
+- ✅ **apple-touch-icon.png** (180x180 px) - iOS
+
+**Aplicações Desktop**:
+- ✅ **icon.png** (256x256, 512x512 px) - Linux
+- ✅ **icon.ico** (múltiplos tamanhos) - Windows
+- ✅ **icon.icns** - macOS
+
+**Aplicações Mobile**:
+- ✅ **icon.png** (1024x1024 px) - iOS App Store
+- ✅ **ic_launcher.png** (múltiplas densidades) - Android
+- ✅ **adaptive-icon.xml** - Android adaptativo
+
+#### 📁 Estrutura de Pastas (OBRIGATÓRIO)
+
+Os ícones **DEVEM** ser organizados em uma pasta dedicada:
+
+```
+projeto/
+├── assets/              # ✅ PREFERIDO (padrão para todos)
+│   ├── icons/
+│   │   ├── favicon.ico
+│   │   ├── icon.svg
+│   │   ├── icon-192.png
+│   │   ├── icon-512.png
+│   │   └── apple-touch-icon.png
+│   └── ...
+│
+# OU alternativas conforme tecnologia:
+├── public/              # ✅ React, Vue, Next.js
+│   ├── favicon.ico
+│   └── icons/
+├── static/              # ✅ Flask, Django, Svelte
+│   └── icons/
+├── src/assets/          # ✅ Angular, Ionic
+│   └── icons/
+├── resources/           # ✅ Electron, Tauri
+│   └── icons/
+└── res/                 # ✅ Android nativo
+    └── drawable/
+```
+
+**Regra de Ouro**: Sempre usar uma pasta específica para ícones, nunca arquivos soltos na raiz do projeto.
+
+#### 🔧 Como Obter/Criar Ícones
+
+A IA deve seguir esta ordem de prioridade:
+
+1. **Perguntar ao Programador** (SEMPRE primeiro):
+   ```
+   ❓ Você já tem um ícone para o projeto?
+   
+   Opções:
+   A) ✅ Sim, tenho (forneça o caminho/arquivo)
+   B) 🎨 Não, crie um ícone simples para mim
+   C) 🔍 Não, baixe um ícone gratuito adequado
+   D) ⏭️ Pular por enquanto (não recomendado)
+   ```
+
+2. **Se A (Usuário fornece)**:
+   - Validar formato e tamanho
+   - Converter para formatos necessários (usar ferramentas como `convert`, `sharp`, `imagemagick`)
+   - Organizar na pasta correta
+
+3. **Se B (IA cria ícone simples)**:
+   - Criar ícone SVG vetorial com iniciais do projeto
+   - Exportar para formatos necessários (PNG, ICO)
+   - Usar cores da identidade do projeto (se definidas)
+
+4. **Se C (IA baixa ícone)**:
+   - Usar fontes gratuitas e sem copyright:
+     - ✅ [Heroicons](https://heroicons.com/) (MIT License)
+     - ✅ [Lucide Icons](https://lucide.dev/) (ISC License)
+     - ✅ [Tabler Icons](https://tabler-icons.io/) (MIT License)
+     - ✅ [Iconoir](https://iconoir.com/) (MIT License)
+   - Verificar licença antes de usar
+   - Documentar fonte no README
+
+5. **Se D (Pular)**:
+   - ⚠️ Avisar que projeto ficará sem identidade visual
+   - Adicionar task no TASKS.md para futuro: `[ ] Criar ícone do projeto`
+
+#### 🎨 Exemplo de Ícone SVG Simples (Gerado pela IA)
+
+```svg
+<!-- assets/icons/icon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#4F46E5"/>
+  <text x="50" y="65" font-family="Arial, sans-serif" font-size="48" 
+        font-weight="bold" fill="white" text-anchor="middle">MP</text>
+</svg>
+```
+
+#### 🔨 Ferramentas para Conversão de Ícones
+
+**Python** (recomendado para automação):
+```bash
+# Instalar Pillow
+pip install Pillow
+
+# Converter SVG para PNG (via cairosvg)
+pip install cairosvg
+python -c "import cairosvg; cairosvg.svg2png(url='icon.svg', write_to='icon.png', output_width=512)"
+
+# Criar ICO com múltiplos tamanhos
+from PIL import Image
+img = Image.open('icon.png')
+img.save('favicon.ico', format='ICO', sizes=[(16,16), (32,32), (48,48)])
+```
+
+**Node.js** (projetos web):
+```bash
+# Instalar sharp
+npm install sharp
+
+# Script de conversão
+node -e "
+const sharp = require('sharp');
+sharp('icon.svg').resize(192, 192).toFile('icon-192.png');
+sharp('icon.svg').resize(512, 512).toFile('icon-512.png');
+"
+```
+
+**ImageMagick** (universal):
+```bash
+# Converter SVG para PNG
+convert icon.svg -resize 192x192 icon-192.png
+
+# Criar favicon.ico
+convert icon.png -define icon:auto-resize=16,32,48 favicon.ico
+```
+
+#### 🗂️ Integração com o Projeto
+
+**HTML (Web)**:
+```html
+<!-- index.html -->
+<head>
+  <!-- Favicon básico -->
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  
+  <!-- SVG moderno (preferido) -->
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/icon.svg">
+  
+  <!-- PNG para diferentes tamanhos -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+  
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+  
+  <!-- Android Chrome -->
+  <link rel="manifest" href="/manifest.json">
+</head>
+```
+
+**manifest.json (PWA)**:
+```json
+{
+  "name": "Meu Projeto",
+  "short_name": "MP",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+```
+
+**Python (Desktop - PyQt/Tkinter)**:
+```python
+# PyQt6
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication
+
+app = QApplication([])
+app.setWindowIcon(QIcon('assets/icons/icon.png'))
+
+# Tkinter
+import tkinter as tk
+root = tk.Tk()
+root.iconbitmap('assets/icons/icon.ico')  # Windows
+# ou
+root.iconphoto(True, tk.PhotoImage(file='assets/icons/icon.png'))  # Linux/Mac
+```
+
+**Electron (Desktop)**:
+```javascript
+// main.js
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+
+const win = new BrowserWindow({
+  icon: path.join(__dirname, 'resources/icons/icon.png')
+});
+```
+
+**React Native (Mobile)**:
+```
+// android/app/src/main/res/
+mipmap-hdpi/ic_launcher.png      (72x72)
+mipmap-mdpi/ic_launcher.png      (48x48)
+mipmap-xhdpi/ic_launcher.png     (96x96)
+mipmap-xxhdpi/ic_launcher.png    (144x144)
+mipmap-xxxhdpi/ic_launcher.png   (192x192)
+
+// ios/ProjectName/Images.xcassets/AppIcon.appiconset/
+// Configurado via Xcode ou Contents.json
+```
+
+#### ⏰ Melhor Momento para Adicionar Ícones
+
+**Recomendação**: **Durante Etapa 6 (Implementação)**, preferencialmente:
+
+1. **Início do Projeto** (✅ IDEAL):
+   - Ao criar estrutura inicial de pastas
+   - Antes do primeiro commit
+   - Facilita identidade visual desde o início
+
+2. **MVP/Protótipo** (✅ BOM):
+   - Após funcionalidades básicas funcionarem
+   - Antes de mostrar para usuários/clientes
+   - Garante profissionalismo mínimo
+
+3. **Antes de Produção** (⚠️ ACEITÁVEL):
+   - Durante preparação para deploy
+   - Antes de publicar (App Store, Play Store, web)
+   - Mínimo necessário, mas atrasado
+
+4. **❌ NUNCA**: Deixar para "depois" sem data definida
+
+#### 📋 Checklist de Ícones (Validação)
+
+```markdown
+## Checklist de Ícones - Projeto [Nome]
+
+### Ícones Criados
+- [ ] Ícone principal criado/obtido (fonte: [especificar])
+- [ ] Licença verificada (se baixado de fonte externa)
+- [ ] Formato vetorial disponível (SVG) ou fonte PNG de alta qualidade
+
+### Formatos Necessários
+- [ ] **favicon.ico** (16x16, 32x32, 48x48 px)
+- [ ] **icon.svg** (vetorial)
+- [ ] **icon-192.png** (192x192 px) - PWA
+- [ ] **icon-512.png** (512x512 px) - PWA
+- [ ] **apple-touch-icon.png** (180x180 px) - iOS
+- [ ] Outros formatos específicos da tecnologia
+
+### Organização
+- [ ] Pasta `assets/icons/` criada
+- [ ] Todos os ícones organizados na pasta correta
+- [ ] Nenhum ícone solto na raiz do projeto
+
+### Integração
+- [ ] Ícone referenciado no HTML/código principal
+- [ ] manifest.json atualizado (se PWA)
+- [ ] Testado em navegador/aplicativo (ícone aparece)
+- [ ] Documentado no README (se ícone de terceiros)
+
+### Qualidade
+- [ ] Ícone tem boa resolução (não pixelado)
+- [ ] Cores adequadas ao projeto
+- [ ] Visível em fundos claros E escuros (se aplicável)
+- [ ] Reconhecível em tamanhos pequenos (16x16)
+```
+
+#### 🎯 Rationale: Por Quê Ícones São Obrigatórios
+
+1. **Profissionalismo**: Projetos sem ícone parecem incompletos/amadores
+2. **Identidade Visual**: Usuários reconhecem o app pelo ícone (branding)
+3. **Experiência do Usuário**: Ícone ajuda a localizar o app entre várias abas/janelas
+4. **Requisitos de Plataforma**: App stores (iOS/Android) EXIGEM ícones
+5. **PWA**: Navegadores solicitam ícones para instalação
+6. **Organização**: Facilita encontrar e gerenciar assets visuais
+7. **Rastreabilidade**: Documentar fonte garante conformidade de licença
+
+#### 🚨 Erros Comuns a Evitar
+
+❌ **Não Fazer**:
+- Deixar ícone na raiz do projeto (ex: `favicon.ico` solto)
+- Usar ícone de baixa resolução (pixelado quando ampliado)
+- Esquecer de referenciar no HTML/código
+- Usar ícone com copyright sem permissão
+- Criar apenas um tamanho (navegadores precisam de múltiplos)
+
+✅ **Fazer**:
+- Organizar em pasta dedicada (`assets/icons/`)
+- Gerar múltiplos tamanhos (16, 32, 192, 512 px)
+- Validar que ícone aparece corretamente
+- Documentar fonte se ícone de terceiros
+- Usar formato vetorial (SVG) quando possível
+
+#### 📚 Recursos Úteis
+
+**Geradores de Ícone Online** (gratuitos):
+- [Favicon.io](https://favicon.io/) - Gera favicon de texto/imagem/emoji
+- [RealFaviconGenerator](https://realfavicongenerator.net/) - Gera todos os formatos
+- [Favicon Generator](https://www.favicon-generator.org/) - Simples e rápido
+
+**Bancos de Ícones Gratuitos**:
+- [Heroicons](https://heroicons.com/) - MIT License
+- [Lucide Icons](https://lucide.dev/) - ISC License
+- [Tabler Icons](https://tabler-icons.io/) - MIT License
+- [Iconoir](https://iconoir.com/) - MIT License
+- [Bootstrap Icons](https://icons.getbootstrap.com/) - MIT License
+
+**Ferramentas de Conversão**:
+- [ImageMagick](https://imagemagick.org/) - CLI universal
+- [Pillow (Python)](https://pillow.readthedocs.io/) - Biblioteca de imagens
+- [Sharp (Node.js)](https://sharp.pixelplumbing.com/) - Alto desempenho
+
+#### 📝 Exemplo de Documentação no README
+
+```markdown
+## 🎨 Ícone do Projeto
+
+**Fonte**: Criado pela IA usando iniciais do projeto  
+**Licença**: Livre para uso (gerado para este projeto)  
+**Localização**: `assets/icons/`
+
+### Formatos Disponíveis
+- `icon.svg` - Vetorial (preferido)
+- `favicon.ico` - Navegadores (16, 32, 48 px)
+- `icon-192.png` - PWA/Android
+- `icon-512.png` - PWA/Android
+- `apple-touch-icon.png` - iOS
+
+### Cores
+- Principal: `#4F46E5` (Azul Índigo)
+- Texto: `#FFFFFF` (Branco)
+```
+
+#### ⏱️ Tempo Estimado
+
+- **Criar ícone simples (IA)**: 5-10 minutos
+- **Baixar e adaptar ícone**: 10-15 minutos
+- **Converter para formatos necessários**: 5-10 minutos
+- **Integrar no projeto**: 5-10 minutos
+- **TOTAL**: 15-30 minutos
+
+**Investimento pequeno, impacto grande na percepção de qualidade do projeto.**
 
 ---
 
