@@ -1963,6 +1963,455 @@ mipmap-xxxhdpi/ic_launcher.png   (192x192)
 
 ---
 
+### 6️⃣.7️⃣ **Execution Scripts to Facilitate Usage** [RECOMMENDED]
+
+> **RECOMMENDATION FOR AIs**: When dealing with an application or program written in a programming language that is executable, it's recommended to create batch scripts for Windows, Linux, and Mac accessible in the main folder or root directory, in order to facilitate application execution.
+
+**When to Apply**: During implementation (Step 6), especially after setting up the basic structure of the executable project.
+
+#### 📋 Context and Purpose
+
+Execution scripts in the project root significantly facilitate application usage, especially:
+- ✅ **Development**: Accelerates development cycle (run without manually configuring environment)
+- ✅ **Onboarding**: New developers can run the project immediately
+- ✅ **Testing**: Facilitates test execution and validation
+- ✅ **Production**: In some cases, can simplify deployment (if there are no better alternatives like Docker, systemd, etc.)
+
+#### 🎯 When to Create Execution Scripts
+
+**✅ CREATE scripts IF:**
+- ✅ Application is executable (not a library)
+- ✅ Requires environment configuration (variables, paths, dependencies)
+- ✅ Has multiple initialization commands
+- ✅ Needs setup before execution (migrations, build, etc.)
+- ✅ Team/users need to execute frequently
+
+**❌ DO NOT create scripts IF:**
+- ❌ Application already has well-documented native CLI
+- ❌ Uses standard language tools (npm start, cargo run, etc.)
+- ❌ Deployment uses orchestration (Docker, Kubernetes) - scripts stay in Dockerfile
+- ❌ Project is a library/framework (not executable)
+
+#### 📝 Recommended Folder Structure
+
+```
+project/
+├── run.bat                 # ✅ Windows (main execution)
+├── run.sh                  # ✅ Linux/Mac (main execution)
+├── dev.bat                 # 🔄 Development Windows (optional)
+├── dev.sh                  # 🔄 Development Linux/Mac (optional)
+├── test.bat                # 🧪 Tests Windows (optional)
+├── test.sh                 # 🧪 Tests Linux/Mac (optional)
+├── build.bat               # 🏗️ Build Windows (optional)
+├── build.sh                # 🏗️ Build Linux/Mac (optional)
+└── README.md               # Script usage documentation
+```
+
+**Golden Rule**: Scripts in project root = easy access. Complex scripts can stay in `scripts/` with simple wrappers in root.
+
+#### 💻 Script Examples by Language
+
+##### **Python**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Execution script for Linux/Mac
+
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}🚀 Starting Python application...${NC}"
+
+# Check if virtual environment exists
+if [ ! -d "venv" ]; then
+    echo -e "${RED}❌ Virtual environment not found. Creating...${NC}"
+    python3 -m venv venv
+fi
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Install/update dependencies
+if [ -f "requirements.txt" ]; then
+    echo -e "${GREEN}📦 Installing dependencies...${NC}"
+    pip install -q -r requirements.txt
+fi
+
+# Run application
+echo -e "${GREEN}✅ Running application...${NC}"
+python src/main.py "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Execution script for Windows
+
+echo 🚀 Starting Python application...
+
+REM Check if virtual environment exists
+if not exist "venv\" (
+    echo ❌ Virtual environment not found. Creating...
+    python -m venv venv
+)
+
+REM Activate virtual environment
+call venv\Scripts\activate.bat
+
+REM Install/update dependencies
+if exist "requirements.txt" (
+    echo 📦 Installing dependencies...
+    pip install -q -r requirements.txt
+)
+
+REM Executar aplicação
+echo ✅ Running application...
+python src\main.py %*
+```
+
+##### **Node.js**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Execution script for Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Starting Node.js application...${NC}"
+
+# Check if node_modules exists
+if [ ! -d "node_modules" ]; then
+    echo -e "${GREEN}📦 Installing dependencies...${NC}"
+    npm install
+fi
+
+# Run application
+echo -e "${GREEN}✅ Running application...${NC}"
+npm start "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Execution script for Windows
+
+echo 🚀 Starting Node.js application...
+
+REM Check if node_modules exists
+if not exist "node_modules\" (
+    echo 📦 Installing dependencies...
+    call npm install
+)
+
+REM Run application
+echo ✅ Running application...
+npm start %*
+```
+
+##### **Java**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Execution script for Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Starting Java application...${NC}"
+
+# Compile if necessary
+if [ ! -d "target" ]; then
+    echo -e "${GREEN}🏗️ Compiling project...${NC}"
+    mvn clean package -DskipTests
+fi
+
+# Run JAR
+echo -e "${GREEN}✅ Running application...${NC}"
+java -jar target/myapp.jar "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Execution script for Windows
+
+echo 🚀 Starting Java application...
+
+REM Compile if necessary
+if not exist "target\" (
+    echo 🏗️ Compiling project...
+    call mvn clean package -DskipTests
+)
+
+REM Run JAR
+echo ✅ Running application...
+java -jar target\myapp.jar %*
+```
+
+##### **Go**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Execution script for Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Starting Go application...${NC}"
+
+# Download dependencies if necessary
+if [ ! -f "go.sum" ]; then
+    echo -e "${GREEN}📦 Downloading dependencies...${NC}"
+    go mod download
+fi
+
+# Run application
+echo -e "${GREEN}✅ Running application...${NC}"
+go run cmd/main.go "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Execution script for Windows
+
+echo 🚀 Starting Go application...
+
+REM Download dependencies if necessary
+if not exist "go.sum" (
+    echo 📦 Downloading dependencies...
+    go mod download
+)
+
+REM Run application
+echo ✅ Running application...
+go run cmd\main.go %*
+```
+
+##### **Rust**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Execution script for Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Starting Rust application...${NC}"
+
+# Compile and run
+echo -e "${GREEN}✅ Running application (cargo run)...${NC}"
+cargo run --release "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Execution script for Windows
+
+echo 🚀 Starting Rust application...
+
+REM Compile and run
+echo ✅ Running application (cargo run)...
+cargo run --release %*
+```
+
+#### 🔧 Additional Useful Scripts
+
+##### **Development Script** (watch/reload mode)
+
+**dev.sh**:
+```bash
+#!/bin/bash
+# Development mode with auto-reload
+
+echo "🔄 Starting in development mode..."
+
+# Python
+# pip install watchdog
+# watchmedo auto-restart --directory=./src --pattern=*.py python src/main.py
+
+# Node.js
+# npm run dev  # nodemon or similar
+
+# Go
+# go install github.com/cosmtrek/air@latest
+# air
+
+# Rust
+# cargo install cargo-watch
+# cargo watch -x run
+```
+
+##### **Test Script**
+
+**test.sh**:
+```bash
+#!/bin/bash
+# Run tests
+
+echo "🧪 Running tests..."
+
+# Python
+# pytest tests/ -v
+
+# Node.js
+# npm test
+
+# Java
+# mvn test
+
+# Go
+# go test ./...
+
+# Rust
+# cargo test
+```
+
+#### 📋 Execution Scripts Checklist
+
+```markdown
+## Scripts Checklist - Project [Name]
+
+### Scripts Created
+- [ ] **run.sh** (Linux/Mac) - Main execution script
+- [ ] **run.bat** (Windows) - Main execution script
+- [ ] Execution permissions configured (`chmod +x *.sh`)
+- [ ] Scripts tested on each platform
+
+### Optional Scripts (as needed)
+- [ ] **dev.sh/dev.bat** - Development mode with auto-reload
+- [ ] **test.sh/test.bat** - Run automated tests
+- [ ] **build.sh/build.bat** - Compile/build project
+- [ ] **install.sh/install.bat** - Install dependencies
+- [ ] **clean.sh/clean.bat** - Clean build artifacts
+
+### Documentation
+- [ ] README.md updated with script usage instructions
+- [ ] Usage examples documented
+- [ ] System requirements documented (Python 3.9+, Node 18+, etc.)
+- [ ] Basic troubleshooting included
+
+### Script Features
+- [ ] Check if dependencies are installed
+- [ ] Create virtual environment/directories if needed
+- [ ] Clear and informative output messages
+- [ ] Support argument passing (`./run.sh --help`)
+- [ ] Handle errors gracefully
+- [ ] Include colors in output (optional, improves UX)
+```
+
+#### 📝 Example README Documentation
+
+```markdown
+## 🚀 How to Run
+
+### Requirements
+- Python 3.9+ (or Node.js 18+, Java 17+, etc.)
+- Git
+
+### Quick Start
+
+**Linux/Mac**:
+```bash
+./run.sh
+```
+
+**Windows**:
+```batch
+run.bat
+```
+
+### Available Scripts
+
+| Script | Description | Platform |
+|--------|-------------|----------|
+| `run.sh` / `run.bat` | Runs the main application | Linux/Mac / Windows |
+| `dev.sh` / `dev.bat` | Development mode (auto-reload) | Linux/Mac / Windows |
+| `test.sh` / `test.bat` | Runs automated tests | Linux/Mac / Windows |
+| `build.sh` / `build.bat` | Compiles/builds the project | Linux/Mac / Windows |
+
+### Arguments
+
+Pass arguments to application:
+```bash
+./run.sh --port 8080 --debug
+```
+
+### Troubleshooting
+
+**Error: Permission denied (Linux/Mac)**
+```bash
+chmod +x run.sh dev.sh test.sh build.sh
+```
+
+**Error: Dependencies not found**
+- Scripts automatically install dependencies on first run
+- If it fails, run manually: `pip install -r requirements.txt` (Python) or `npm install` (Node.js)
+```
+
+#### ⏱️ Estimated Time
+
+- **Create basic scripts (run.sh/run.bat)**: 10-15 minutes
+- **Add optional scripts (dev, test, build)**: 5-10 minutes each
+- **Document in README**: 10-15 minutes
+- **Test on multiple platforms**: 10-20 minutes
+- **TOTAL**: 30-60 minutes
+
+**Investment: ~30-60 minutes. Benefit: Saves hours of setup for each developer and user.**
+
+#### 🎯 Rationale: Why Execution Scripts Are Important
+
+1. **Developer Experience (DX)**: New developer clones repo, runs `./run.sh` and application works
+2. **Friction Reduction**: No need to read complex documentation to run project
+3. **Consistency**: Everyone runs the same way, reduces "works on my machine"
+4. **Automation**: Scripts can automatically configure environment (create venv, install deps)
+5. **Living Documentation**: Scripts serve as executable documentation of initialization process
+6. **Onboarding**: Accelerates entry of new team members
+7. **CI/CD**: Scripts can be reused in pipelines
+8. **Cross-Platform**: Explicit support for Windows, Linux, and Mac
+
+#### ⚠️ When NOT to Use Root Scripts
+
+**Use better alternatives when available:**
+- 🐳 **Docker/Docker Compose**: For apps with multiple dependencies (databases, queues, etc.)
+- 📦 **Native Package Managers**: `npm start`, `cargo run`, `go run` are already sufficient
+- 🎯 **Task Runners**: Makefile, Just, Task for complex projects
+- ☸️ **Orchestration**: Kubernetes, systemd for enterprise production
+
+**Recommended Combination**:
+```
+project/
+├── docker-compose.yml      # 🐳 For complete environment
+├── Makefile                # 🎯 For complex commands
+├── run.sh                  # ✅ Simple wrapper that calls Make/Docker
+└── README.md               # 📚 Documents when to use each one
+```
+
+**Wrapper example**:
+```bash
+#!/bin/bash
+# run.sh - Simple wrapper
+
+if command -v docker &> /dev/null; then
+    echo "🐳 Docker detected, using docker-compose..."
+    docker-compose up
+else
+    echo "⚠️ Docker not found, running locally..."
+    make run
+fi
+```
+
+---
+
 ### 7️⃣ **Verify CLI Implementation + Code Review**
 - **CRITICAL**: Verify that the new functionality is available via **CLI (Command Line Interface)**
 - **IMPORTANT**: During verification, apply the **9 Quality Criteria** to the CLI code

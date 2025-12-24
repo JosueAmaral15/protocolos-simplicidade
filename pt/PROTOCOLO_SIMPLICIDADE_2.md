@@ -2236,6 +2236,455 @@ mipmap-xxxhdpi/ic_launcher.png   (192x192)
 
 ---
 
+### 6️⃣.7️⃣ **Scripts de Execução para Facilitar o Uso** [RECOMENDADO]
+
+> **RECOMENDAÇÃO PARA IAs**: Quando se trata de um aplicativo ou programa escrito com uma linguagem de programação que é executável, é recomendado criar scripts em batch para Windows, Linux e Mac acessíveis na pasta principal ou diretório raiz, a fim de facilitar a execução do aplicativo.
+
+**Quando Aplicar**: Durante a implementação (Etapa 6), especialmente após configurar a estrutura básica do projeto executável.
+
+#### 📋 Contexto e Propósito
+
+Scripts de execução na raiz do projeto facilitam significativamente o uso da aplicação, especialmente:
+- ✅ **Desenvolvimento**: Acelera ciclo de desenvolvimento (executar sem configurar ambiente manualmente)
+- ✅ **Onboarding**: Novos desenvolvedores conseguem rodar projeto imediatamente
+- ✅ **Testes**: Facilita execução de testes e validação
+- ✅ **Produção**: Em alguns casos, pode simplificar deployment (se não houver alternativas melhores como Docker, systemd, etc.)
+
+#### 🎯 Quando Criar Scripts de Execução
+
+**✅ CRIAR scripts SE:**
+- ✅ Aplicação é executável (não é biblioteca)
+- ✅ Requer configuração de ambiente (variáveis, paths, dependências)
+- ✅ Tem múltiplos comandos de inicialização
+- ✅ Precisa de setup antes de executar (migrations, build, etc.)
+- ✅ Time/usuários precisam executar frequentemente
+
+**❌ NÃO criar scripts SE:**
+- ❌ Aplicação já tem CLI nativo bem documentado
+- ❌ Usa ferramentas padrão da linguagem (npm start, cargo run, etc.)
+- ❌ Deployment usa orquestração (Docker, Kubernetes) - scripts ficam no Dockerfile
+- ❌ Projeto é biblioteca/framework (não executável)
+
+#### 📝 Estrutura de Pastas Recomendada
+
+```
+projeto/
+├── run.bat                 # ✅ Windows (execução principal)
+├── run.sh                  # ✅ Linux/Mac (execução principal)
+├── dev.bat                 # 🔄 Desenvolvimento Windows (opcional)
+├── dev.sh                  # 🔄 Desenvolvimento Linux/Mac (opcional)
+├── test.bat                # 🧪 Testes Windows (opcional)
+├── test.sh                 # 🧪 Testes Linux/Mac (opcional)
+├── build.bat               # 🏗️ Build Windows (opcional)
+├── build.sh                # 🏗️ Build Linux/Mac (opcional)
+└── README.md               # Documentação de uso dos scripts
+```
+
+**Regra de Ouro**: Scripts na raiz do projeto = acesso fácil. Scripts complexos podem ficar em `scripts/` com wrappers simples na raiz.
+
+#### 💻 Exemplos de Scripts por Linguagem
+
+##### **Python**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Script de execução para Linux/Mac
+
+# Cores para output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}🚀 Iniciando aplicação Python...${NC}"
+
+# Verificar se ambiente virtual existe
+if [ ! -d "venv" ]; then
+    echo -e "${RED}❌ Ambiente virtual não encontrado. Criando...${NC}"
+    python3 -m venv venv
+fi
+
+# Ativar ambiente virtual
+source venv/bin/activate
+
+# Instalar/atualizar dependências
+if [ -f "requirements.txt" ]; then
+    echo -e "${GREEN}📦 Instalando dependências...${NC}"
+    pip install -q -r requirements.txt
+fi
+
+# Executar aplicação
+echo -e "${GREEN}✅ Executando aplicação...${NC}"
+python src/main.py "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Script de execução para Windows
+
+echo 🚀 Iniciando aplicação Python...
+
+REM Verificar se ambiente virtual existe
+if not exist "venv\" (
+    echo ❌ Ambiente virtual não encontrado. Criando...
+    python -m venv venv
+)
+
+REM Ativar ambiente virtual
+call venv\Scripts\activate.bat
+
+REM Instalar/atualizar dependências
+if exist "requirements.txt" (
+    echo 📦 Instalando dependências...
+    pip install -q -r requirements.txt
+)
+
+REM Executar aplicação
+echo ✅ Executando aplicação...
+python src\main.py %*
+```
+
+##### **Node.js**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Script de execução para Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Iniciando aplicação Node.js...${NC}"
+
+# Verificar se node_modules existe
+if [ ! -d "node_modules" ]; then
+    echo -e "${GREEN}📦 Instalando dependências...${NC}"
+    npm install
+fi
+
+# Executar aplicação
+echo -e "${GREEN}✅ Executando aplicação...${NC}"
+npm start "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Script de execução para Windows
+
+echo 🚀 Iniciando aplicação Node.js...
+
+REM Verificar se node_modules existe
+if not exist "node_modules\" (
+    echo 📦 Instalando dependências...
+    call npm install
+)
+
+REM Executar aplicação
+echo ✅ Executando aplicação...
+npm start %*
+```
+
+##### **Java**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Script de execução para Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
+
+# Compilar se necessário
+if [ ! -d "target" ]; then
+    echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+    mvn clean package -DskipTests
+fi
+
+# Executar JAR
+echo -e "${GREEN}✅ Executando aplicação...${NC}"
+java -jar target/myapp.jar "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Script de execução para Windows
+
+echo 🚀 Iniciando aplicação Java...
+
+REM Compilar se necessário
+if not exist "target\" (
+    echo 🏗️ Compilando projeto...
+    call mvn clean package -DskipTests
+)
+
+REM Executar JAR
+echo ✅ Executando aplicação...
+java -jar target\myapp.jar %*
+```
+
+##### **Go**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Script de execução para Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Iniciando aplicação Go...${NC}"
+
+# Baixar dependências se necessário
+if [ ! -f "go.sum" ]; then
+    echo -e "${GREEN}📦 Baixando dependências...${NC}"
+    go mod download
+fi
+
+# Executar aplicação
+echo -e "${GREEN}✅ Executando aplicação...${NC}"
+go run cmd/main.go "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Script de execução para Windows
+
+echo 🚀 Iniciando aplicação Go...
+
+REM Baixar dependências se necessário
+if not exist "go.sum" (
+    echo 📦 Baixando dependências...
+    go mod download
+)
+
+REM Executar aplicação
+echo ✅ Executando aplicação...
+go run cmd\main.go %*
+```
+
+##### **Rust**
+
+**run.sh (Linux/Mac)**:
+```bash
+#!/bin/bash
+# Script de execução para Linux/Mac
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${GREEN}🚀 Iniciando aplicação Rust...${NC}"
+
+# Compilar e executar
+echo -e "${GREEN}✅ Executando aplicação (cargo run)...${NC}"
+cargo run --release "$@"
+```
+
+**run.bat (Windows)**:
+```batch
+@echo off
+REM Script de execução para Windows
+
+echo 🚀 Iniciando aplicação Rust...
+
+REM Compilar e executar
+echo ✅ Executando aplicação (cargo run)...
+cargo run --release %*
+```
+
+#### 🔧 Scripts Adicionais Úteis
+
+##### **Script de Desenvolvimento** (modo watch/reload)
+
+**dev.sh**:
+```bash
+#!/bin/bash
+# Modo desenvolvimento com auto-reload
+
+echo "🔄 Iniciando em modo desenvolvimento..."
+
+# Python
+# pip install watchdog
+# watchmedo auto-restart --directory=./src --pattern=*.py python src/main.py
+
+# Node.js
+# npm run dev  # nodemon ou similar
+
+# Go
+# go install github.com/cosmtrek/air@latest
+# air
+
+# Rust
+# cargo install cargo-watch
+# cargo watch -x run
+```
+
+##### **Script de Testes**
+
+**test.sh**:
+```bash
+#!/bin/bash
+# Executar testes
+
+echo "🧪 Executando testes..."
+
+# Python
+# pytest tests/ -v
+
+# Node.js
+# npm test
+
+# Java
+# mvn test
+
+# Go
+# go test ./...
+
+# Rust
+# cargo test
+```
+
+#### 📋 Checklist de Scripts de Execução
+
+```markdown
+## Checklist de Scripts - Projeto [Nome]
+
+### Scripts Criados
+- [ ] **run.sh** (Linux/Mac) - Script principal de execução
+- [ ] **run.bat** (Windows) - Script principal de execução
+- [ ] Permissões de execução configuradas (`chmod +x *.sh`)
+- [ ] Scripts testados em cada plataforma
+
+### Scripts Opcionais (conforme necessidade)
+- [ ] **dev.sh/dev.bat** - Modo desenvolvimento com auto-reload
+- [ ] **test.sh/test.bat** - Executar testes automatizados
+- [ ] **build.sh/build.bat** - Compilar/build do projeto
+- [ ] **install.sh/install.bat** - Instalar dependências
+- [ ] **clean.sh/clean.bat** - Limpar artifacts de build
+
+### Documentação
+- [ ] README.md atualizado com instruções de uso dos scripts
+- [ ] Exemplos de uso documentados
+- [ ] Requisitos de sistema documentados (Python 3.9+, Node 18+, etc.)
+- [ ] Troubleshooting básico incluído
+
+### Funcionalidades dos Scripts
+- [ ] Verificam se dependências estão instaladas
+- [ ] Criam ambiente virtual/diretórios se necessário
+- [ ] Mensagens de output claras e informativas
+- [ ] Suportam passagem de argumentos (`./run.sh --help`)
+- [ ] Tratam erros graciosamente
+- [ ] Incluem cores no output (opcional, melhora UX)
+```
+
+#### 📝 Exemplo de Documentação no README
+
+```markdown
+## 🚀 Como Executar
+
+### Requisitos
+- Python 3.9+ (ou Node.js 18+, Java 17+, etc.)
+- Git
+
+### Execução Rápida
+
+**Linux/Mac**:
+```bash
+./run.sh
+```
+
+**Windows**:
+```batch
+run.bat
+```
+
+### Scripts Disponíveis
+
+| Script | Descrição | Plataforma |
+|--------|-----------|------------|
+| `run.sh` / `run.bat` | Executa a aplicação principal | Linux/Mac / Windows |
+| `dev.sh` / `dev.bat` | Modo desenvolvimento (auto-reload) | Linux/Mac / Windows |
+| `test.sh` / `test.bat` | Executa testes automatizados | Linux/Mac / Windows |
+| `build.sh` / `build.bat` | Compila/builda o projeto | Linux/Mac / Windows |
+
+### Argumentos
+
+Passar argumentos para aplicação:
+```bash
+./run.sh --port 8080 --debug
+```
+
+### Troubleshooting
+
+**Erro: Permission denied (Linux/Mac)**
+```bash
+chmod +x run.sh dev.sh test.sh build.sh
+```
+
+**Erro: Dependências não encontradas**
+- Scripts instalam dependências automaticamente na primeira execução
+- Se falhar, execute manualmente: `pip install -r requirements.txt` (Python) ou `npm install` (Node.js)
+```
+
+#### ⏱️ Tempo Estimado
+
+- **Criar scripts básicos (run.sh/run.bat)**: 10-15 minutos
+- **Adicionar scripts opcionais (dev, test, build)**: 5-10 minutos cada
+- **Documentar no README**: 10-15 minutos
+- **Testar em múltiplas plataformas**: 10-20 minutos
+- **TOTAL**: 30-60 minutos
+
+**Investimento: ~30-60 minutos. Benefício: Economiza horas de setup para cada desenvolvedor e usuário.**
+
+#### 🎯 Rationale: Por Quê Scripts de Execução São Importantes
+
+1. **Developer Experience (DX)**: Novo desenvolvedor clona repo, executa `./run.sh` e aplicação funciona
+2. **Redução de Fricção**: Sem necessidade de ler documentação complexa para rodar projeto
+3. **Consistência**: Todos executam da mesma forma, reduz "funciona na minha máquina"
+4. **Automação**: Scripts podem configurar ambiente automaticamente (criar venv, instalar deps)
+5. **Documentação Viva**: Scripts servem como documentação executável do processo de inicialização
+6. **Onboarding**: Acelera entrada de novos membros no time
+7. **CI/CD**: Scripts podem ser reutilizados em pipelines
+8. **Cross-Platform**: Suporte explícito para Windows, Linux e Mac
+
+#### ⚠️ Quando NÃO Usar Scripts na Raiz
+
+**Use alternativas melhores quando disponíveis:**
+- 🐳 **Docker/Docker Compose**: Para apps com múltiplas dependências (bancos, filas, etc.)
+- 📦 **Package Managers Nativos**: `npm start`, `cargo run`, `go run` já são suficientes
+- 🎯 **Task Runners**: Makefile, Just, Task para projetos complexos
+- ☸️ **Orquestração**: Kubernetes, systemd para produção enterprise
+
+**Combinação Recomendada**:
+```
+projeto/
+├── docker-compose.yml      # 🐳 Para ambiente completo
+├── Makefile                # 🎯 Para comandos complexos
+├── run.sh                  # ✅ Wrapper simples que chama Make/Docker
+└── README.md               # 📚 Documenta quando usar cada um
+```
+
+**Exemplo de wrapper**:
+```bash
+#!/bin/bash
+# run.sh - Wrapper simples
+
+if command -v docker &> /dev/null; then
+    echo "🐳 Docker detectado, usando docker-compose..."
+    docker-compose up
+else
+    echo "⚠️ Docker não encontrado, executando localmente..."
+    make run
+fi
+```
+
+---
+
 ### 7️⃣ **Verificar Implementação CLI + Revisão de Código**
 - **CRÍTICO**: Verificar se a nova funcionalidade está disponível via **CLI (Command Line Interface)**
 - **IMPORTANTE**: Durante a verificação, aplicar os **9 Critérios de Qualidade** ao código CLI
