@@ -6142,7 +6142,7 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
 
 **Why it matters**: Code that isn't regularly refactored tends to deteriorate over time, becoming difficult to maintain, understand, and evolve.
 
-> **CRITICAL FOR AI**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
+> **CRITICAL FOR AIs**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
 
 **Mandatory practices**:
 
