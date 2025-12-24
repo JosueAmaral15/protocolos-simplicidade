@@ -133,7 +133,7 @@ Process:
 - ❌ Makes initial testing difficult
 - ❌ Risk of over-engineering
 
-**Application in Clarify:**
+**Application Example:**
 - Phase 3.0 refactoring followed top-down
 - Started with `app.py` (root)
 - Extracted specialized modules (branches/leaves)
@@ -161,7 +161,7 @@ Process:
 - ❌ Risk of non-integrable components
 - ❌ Difficulty visualizing the whole
 
-**Application in Clarify:**
+**Application Example:**
 - Initial development of docks (leaves)
 - Creation of utilities (`utils/`)
 - Later integration in `MainWindow` (root)
@@ -190,7 +190,7 @@ Process:
 - ❌ Can create inconsistencies
 - ❌ Requires frequent refactoring
 
-**Application in Clarify:**
+**Application Example:**
 - **Ideal phase for new modules**
 - Start with functionality (e.g., `TranslatorDock`)
 - Extract helpers as needed
@@ -283,30 +283,30 @@ A → B → C → D → E → F  # Too deep!
 
 ---
 
-## 🔧 Practical Application in Clarify
+## 🔧 Practical Application Example
 
-### Current State (Post Phase 3.10)
+### Current State of a Project
 
 ```
 app.py (2636 lines)
 ├── MainWindow (Root - 1555 lines)
 │   ├── gui/preferences_dialog.py (Leaf)
-│   ├── gui/transparency_dialog.py (Leaf)
+│   ├── gui/settings_dialog.py (Leaf)
 │   ├── gui/plugin_manager_dialog.py (Leaf)
 │   ├── gui/layout_manager_dialog.py (Leaf)
 │   ├── gui/ui_builder.py (Branch)
 │   ├── gui/menu_builder.py (Branch)
 │   ├── gui/initialization_manager.py (Branch)
 │   └── gui/tab_manager.py (Branch)
-├── ResultsTree (330 lines - should be leaf)
-└── JSXProcessor (370 lines - should be leaf)
+├── DataView (330 lines - should be leaf)
+└── DataProcessor (370 lines - should be leaf)
 ```
 
 ### Improvement Opportunities
 
 **Extract to leaves:**
-1. `ResultsTree` → `gui/results_tree.py`
-2. `JSXProcessor` → `processors/jsx_processor.py`
+1. `DataView` → `gui/data_view.py`
+2. `DataProcessor` → `processors/data_processor.py`
 
 **Expected result:**
 ```
@@ -378,10 +378,10 @@ The **Tree Imports Analogy** provides a powerful mental model for:
 
 ## 🔗 References
 
-- **Clarify Project:** Phase 3.0 Refactoring (2025)
 - **Clean Architecture:** Robert C. Martin
 - **Domain-Driven Design:** Eric Evans
 - **Design Patterns:** Gang of Four
+- **Refactoring:** Martin Fowler
 
 ---
 

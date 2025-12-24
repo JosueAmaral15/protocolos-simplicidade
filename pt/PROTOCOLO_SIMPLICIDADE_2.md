@@ -3549,7 +3549,7 @@ def main():
 git checkout -b feature/task-42-add-export
 
 # 2. Implementar e commitar
-git add clarify_patched.py
+git add project_app.py
 git commit -m "Add CSV export feature (Task Example)"
 
 # 3. Push e criar PR
@@ -3586,7 +3586,7 @@ Implementa exportação CSV para Task Example do Protocolo Simplicidade.
 ## Como Testar
 ```bash
 pytest tests/test_csv_export.py -v
-python clarify_patched.py --export tasks.csv
+python project_app.py --export tasks.csv
 ```
 
 ## Screenshots (se aplicável)
@@ -3686,7 +3686,7 @@ gh pr create --title "Add CSV export" --body "Implements Task Example"
 # Revisar PR localmente
 gh pr checkout 123
 pytest
-python clarify_patched.py --test
+python project_app.py --test
 
 # Aprovar PR
 gh pr review 123 --approve --body "LGTM! Código limpo e testado."
@@ -3884,11 +3884,11 @@ review_metrics = {
 
 ```bash
 # Profiling de CPU - descobrir funções lentas
-python -m cProfile -s cumulative clarify_patched.py > profile.txt
+python -m cProfile -s cumulative project_app.py > profile.txt
 
 # Profiling com visualização
 pip install snakeviz
-python -m cProfile -o profile.stats clarify_patched.py
+python -m cProfile -o profile.stats project_app.py
 snakeviz profile.stats  # Abre browser com flamegraph
 ```
 
@@ -3949,7 +3949,7 @@ def load_large_file(filepath):
     return results
 
 # Executar com profiling
-# python -m memory_profiler clarify_patched.py
+# python -m memory_profiler project_app.py
 ```
 
 **Exemplo de Otimização de Memória**:
@@ -4000,7 +4000,7 @@ def complex_calculation(data):
     return total
 
 # Executar
-# kernprof -l -v clarify_patched.py
+# kernprof -l -v project_app.py
 # Mostra tempo por linha de código
 ```
 
@@ -4075,12 +4075,12 @@ print(f"SPEEDUP: {before['avg_ms'] / after['avg_ms']:.1f}x")
 ```bash
 # py-spy - Sampling profiler (sem modificar código)
 pip install py-spy
-py-spy record -o profile.svg -- python clarify_patched.py
+py-spy record -o profile.svg -- python project_app.py
 # Gera flamegraph interativo
 
 # Scalene - CPU + Memory + GPU profiler
 pip install scalene
-scalene clarify_patched.py
+scalene project_app.py
 # Dashboard interativo no terminal
 
 # pytest-benchmark para testes
@@ -4223,22 +4223,22 @@ jobs:
     
     - name: Code Formatting (Black)
       run: |
-        black --check clarify_patched.py
+        black --check project_app.py
       continue-on-error: false
     
     - name: Linting (Flake8)
       run: |
-        flake8 clarify_patched.py --max-line-length=88 --statistics
+        flake8 project_app.py --max-line-length=88 --statistics
       continue-on-error: false
     
     - name: Type Checking (MyPy)
       run: |
-        mypy clarify_patched.py --ignore-missing-imports
+        mypy project_app.py --ignore-missing-imports
       continue-on-error: true  # Warnings, não erros
     
     - name: Security Scan (Bandit)
       run: |
-        bandit -r clarify_patched.py -ll
+        bandit -r project_app.py -ll
       continue-on-error: false
     
     - name: Unit Tests with Coverage
@@ -4280,7 +4280,7 @@ lint:black:
   image: python:3.11
   script:
     - pip install black
-    - black --check clarify_patched.py
+    - black --check project_app.py
   allow_failure: false
 
 lint:flake8:
@@ -4288,7 +4288,7 @@ lint:flake8:
   image: python:3.11
   script:
     - pip install flake8
-    - flake8 clarify_patched.py --max-line-length=88 --statistics
+    - flake8 project_app.py --max-line-length=88 --statistics
   allow_failure: false
 
 test:pytest:
@@ -4314,7 +4314,7 @@ security:bandit:
   image: python:3.11
   script:
     - pip install bandit
-    - bandit -r clarify_patched.py -f data -o bandit-report.data
+    - bandit -r project_app.py -f data -o bandit-report.data
   artifacts:
     reports:
       sast: bandit-report.data
@@ -4355,7 +4355,7 @@ def run_quality_checks():
     
     # 2. Linting Score
     flake8 = subprocess.run(
-        ["flake8", "clarify_patched.py", "--statistics"],
+        ["flake8", "project_app.py", "--statistics"],
         capture_output=True,
         text=True
     )
@@ -4371,7 +4371,7 @@ def run_quality_checks():
     
     # 4. Type Coverage (MyPy)
     mypy = subprocess.run(
-        ["mypy", "clarify_patched.py", "--data-report", ".mypy"],
+        ["mypy", "project_app.py", "--data-report", ".mypy"],
         capture_output=True
     )
     # Parse MyPy report...
@@ -4409,11 +4409,11 @@ if __name__ == "__main__":
 **Badge de Status no README**:
 
 ```markdown
-# Clarify - Task Management
+# MyProject - Task Management
 
-[![CI Status](https://github.com/user/clarify/workflows/CI/badge.svg)](https://github.com/user/clarify/actions)
-[![Coverage](https://codecov.io/gh/user/clarify/branch/main/graph/badge.svg)](https://codecov.io/gh/user/clarify)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=clarify&metric=alert_status)](https://sonarcloud.io/dashboard?id=clarify)
+[![CI Status](https://github.com/user/myproject/workflows/CI/badge.svg)](https://github.com/user/myproject/actions)
+[![Coverage](https://codecov.io/gh/user/myproject/branch/main/graph/badge.svg)](https://codecov.io/gh/user/myproject)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=myproject&metric=alert_status)](https://sonarcloud.io/dashboard?id=myproject)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Badges mostram status de qualidade visualmente
@@ -4833,7 +4833,7 @@ Escolhemos **PyQt6** para a implementação da GUI.
 
 ## Implementação
 - Refatorar código existente para separar lógica de apresentação
-- Criar `ClarifyGUI` class com QMainWindow
+- Criar `ProjectGUI` class com QMainWindow
 - Manter compatibilidade CLI para usuários existentes
 - Documentar instalação PyQt6 no README
 
@@ -4857,7 +4857,7 @@ Se no futuro precisarmos de licença mais permissiva (MIT/Apache), considerar:
 **Estrutura de Diretórios para ADRs**:
 
 ```
-clarify/
+myproject/
 ├── docs/
 │   ├── adr/
 │   │   ├── 001-choice-of-pyqt6.md
@@ -4866,7 +4866,7 @@ clarify/
 │   │   └── README.md  (Índice de ADRs)
 │   ├── PROTOCOLO_SIMPLICIDADE_1.md
 │   └── PROTOCOLO_SIMPLICIDADE_2.md
-├── clarify_patched.py
+├── project_app.py
 └── README.md
 ```
 
@@ -5482,7 +5482,7 @@ Para equipes enterprise (Simplicidade 2), as recomendações da IA devem ser **r
 
 **Estrutura da Documentação de Versão**:
 ```markdown
-# Clarify v2.9.X - [Nome Descritivo]
+# MyProject v2.9.X - [Nome Descritivo]
 
 **Data**: DD/MM/AAAA
 **Sprint**: X tasks em Y horas
@@ -5574,80 +5574,80 @@ NÃO executar rollback SE:
 2. **Backup estado atual**:
    ```bash
    # Backup do SQLite database atual
-   cp ~/.config/clarify/clarify.db ~/.config/clarify/clarify.db.backup-$(date +%s)
+   cp ~/.config/myproject/myproject.db ~/.config/myproject/myproject.db.backup-$(date +%s)
    
    # Backup de logs
-   cp ~/.config/clarify/clarify.log /tmp/clarify-rollback-logs.txt
+   cp ~/.config/myproject/myproject.log /tmp/myproject-rollback-logs.txt
    ```
 
 3. **Verificar backup DATA disponível**:
    ```bash
    # Confirmar que DATA backup existe (criado na migração)
-   ls -lh ~/.config/clarify/tasks.data.backup
+   ls -lh ~/.config/myproject/tasks.data.backup
    # Deve mostrar arquivo criado durante migração para v2.0.0
    ```
 
 ### Fase 2: Rollback (10 minutos)
 1. **Reverter código para versão anterior**:
    ```bash
-   cd ~/clarify
+   cd ~/myproject
    git checkout v1.9.5  # Tag da versão estável anterior
    
    # OU se em produção via package manager
-   pip install clarify==1.9.5 --force-reinstall
+   pip install myproject==1.9.5 --force-reinstall
    ```
 
 2. **Restaurar dados do backup DATA**:
    ```bash
    # Copiar backup DATA de volta
-   cp ~/.config/clarify/tasks.data.backup ~/.config/clarify/tasks.data
+   cp ~/.config/myproject/tasks.data.backup ~/.config/myproject/tasks.data
    
    # Remover SQLite database (v1.9.5 não usa)
-   rm ~/.config/clarify/clarify.db
+   rm ~/.config/myproject/myproject.db
    ```
 
 3. **Verificar integridade dos dados**:
    ```bash
    # Validar DATA não está corrompido
-   python -c "import data; data.load(open('~/.config/clarify/tasks.data'))"
+   python -c "import data; data.load(open('~/.config/myproject/tasks.data'))"
    # Deve completar sem erro
    
    # Contar tasks
-   python -c "import data; data = data.load(open('~/.config/clarify/tasks.data')); print(f'{len(data[\"tasks\"])} tasks restored')"
+   python -c "import data; data = data.load(open('~/.config/myproject/tasks.data')); print(f'{len(data[\"tasks\"])} tasks restored')"
    ```
 
 4. **Reiniciar aplicação**:
    ```bash
    # Se processo rodando, matar
-   pkill -f clarify
+   kill <myproject_pid>
    
    # Iniciar v1.9.5
-   python clarify.py
+   python myproject.py
    ```
 
 ### Fase 3: Validação (5 minutos)
 1. **Smoke Tests**:
    ```bash
    # Teste 1: App inicia sem crash
-   clarify --version
+   myproject --version
    # Esperado: v1.9.5
    
    # Teste 2: Lista tasks
-   clarify list
+   myproject list
    # Esperado: Tasks exibidas corretamente
    
    # Teste 3: Adicionar task
-   clarify add "Test rollback task"
+   myproject add "Test rollback task"
    # Esperado: Task adicionada sem erro
    
    # Teste 4: GUI abre (se aplicável)
-   clarify --gui &
+   myproject --gui &
    # Esperado: GUI abre sem crash
    ```
 
 2. **Verificar logs**:
    ```bash
-   tail -n 50 ~/.config/clarify/clarify.log
+   tail -n 50 ~/.config/myproject/myproject.log
    # Verificar ausência de erros SQLite
    ```
 
@@ -5667,7 +5667,7 @@ NÃO executar rollback SE:
    
    **Ação Usuários**:
    ```bash
-   pip install clarify==1.9.5 --force-reinstall
+   pip install myproject==1.9.5 --force-reinstall
    ```
    
    Dados preservados via backup automático DATA.
@@ -5728,7 +5728,7 @@ NÃO executar rollback SE:
 # Script de export antes de rollback
 python -c "
 import sqlite3, data
-conn = sqlite3.connect('~/.config/clarify/clarify.db')
+conn = sqlite3.connect('~/.config/myproject/myproject.db')
 cursor = conn.execute('SELECT * FROM tasks')
 tasks = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
 data.dump({'tasks': tasks}, open('rollback-export.data', 'w'), indent=2)
@@ -5756,7 +5756,7 @@ class Config:
     """Configuration with feature flags."""
     
     # Feature flag - controle remoto
-    SQLITE_STORAGE_ENABLED = os.getenv("CLARIFY_SQLITE_ENABLED", "true").lower() == "true"
+    SQLITE_STORAGE_ENABLED = os.getenv("MYPROJECT_SQLITE_ENABLED", "true").lower() == "true"
     
     def get_storage_backend(self):
         """Get storage backend based on feature flag."""
@@ -5766,7 +5766,7 @@ class Config:
             return DATAStorage()  # Fallback seguro
 
 # Em caso de problema, desabilitar remotely:
-# export CLARIFY_SQLITE_ENABLED=false
+# export MYPROJECT_SQLITE_ENABLED=false
 # Ou via config file / dashboard admin
 
 # Usuários automaticamente voltam para DATA sem reinstalar
@@ -5803,7 +5803,7 @@ class MigrationV2:
         shutil.copy("tasks.data.backup", "tasks.data")
         
         # 2. Remover SQLite
-        os.remove("clarify.db")
+        os.remove("myproject.db")
         
         print("✅ Rollback completo - usando DATA storage")
 ```
@@ -6132,7 +6132,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 **Template de Retrospective**:
 
 ```markdown
-# Sprint Retrospective #5 - Clarify Project
+# Sprint Retrospective #5 - MyProject
 
 **Data**: 2024-01-20  
 **Sprint**: 2024-01-08 → 2024-01-20 (2 semanas)  
@@ -6323,7 +6323,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 # Personal Retrospective - Week 3
 
 **Período**: 2024-01-15 → 2024-01-21  
-**Projeto**: Clarify - Task Management  
+**Projeto**: MyProject - Task Management  
 
 ## 📊 Esta Semana
 

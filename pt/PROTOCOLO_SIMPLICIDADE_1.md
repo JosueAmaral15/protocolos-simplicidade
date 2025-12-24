@@ -3756,7 +3756,7 @@ _O usuário optou por gerenciar tarefas manualmente._
 
 **Estrutura da Documentação de Versão**:
 ```markdown
-# Clarify v2.9.X - [Nome Descritivo]
+# MyProject v2.9.X - [Nome Descritivo]
 
 **Data**: DD/MM/AAAA
 **Sprint**: X tasks em Y horas

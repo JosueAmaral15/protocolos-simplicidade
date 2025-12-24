@@ -133,9 +133,9 @@ Processo:
 - ❌ Dificulta testes iniciais
 - ❌ Risco de over-engineering
 
-**Aplicação no Clarify:**
-- Refatoração Phase 3.0 seguiu top-down
-- Começamos com `app.py` (raiz)
+**Exemplo de Aplicação:**
+- Refatoração de projeto seguiu top-down
+- Começamos com `app.py` ou `main.py` (raiz)
 - Extraímos módulos especializados (galhos/folhas)
 
 ---
@@ -161,10 +161,10 @@ Processo:
 - ❌ Risco de componentes não integráveis
 - ❌ Dificuldade em visualizar o todo
 
-**Aplicação no Clarify:**
-- Desenvolvimento inicial de docks (folhas)
+**Exemplo de Aplicação:**
+- Desenvolvimento inicial de componentes UI (folhas)
 - Criação de utilities (`utils/`)
-- Integração posterior no `MainWindow` (raiz)
+- Integração posterior na janela principal (raiz)
 
 ---
 
@@ -190,11 +190,11 @@ Processo:
 - ❌ Pode criar inconsistências
 - ❌ Exige refatorações frequentes
 
-**Aplicação no Clarify:**
+**Exemplo de Aplicação:**
 - **Fase ideal para novos módulos**
-- Começar com funcionalidade (ex: `TranslatorDock`)
+- Começar com funcionalidade (ex: `EditorComponent`)
 - Extrair helpers conforme necessário
-- Integrar no `MainWindow` quando estável
+- Integrar na janela principal quando estável
 
 ---
 
@@ -283,30 +283,30 @@ A → B → C → D → E → F  # Muito profundo!
 
 ---
 
-## 🔧 Aplicação Prática no Clarify
+## 🔧 Exemplo Prático de Aplicação
 
-### Estado Atual (Pós Phase 3.10)
+### Estado Atual de um Projeto
 
 ```
 app.py (2636 linhas)
 ├── MainWindow (Raiz - 1555 linhas)
 │   ├── gui/preferences_dialog.py (Folha)
-│   ├── gui/transparency_dialog.py (Folha)
+│   ├── gui/settings_dialog.py (Folha)
 │   ├── gui/plugin_manager_dialog.py (Folha)
 │   ├── gui/layout_manager_dialog.py (Folha)
 │   ├── gui/ui_builder.py (Galho)
 │   ├── gui/menu_builder.py (Galho)
 │   ├── gui/initialization_manager.py (Galho)
 │   └── gui/tab_manager.py (Galho)
-├── ResultsTree (330 linhas - deveria ser folha)
-└── JSXProcessor (370 linhas - deveria ser folha)
+├── DataView (330 linhas - deveria ser folha)
+└── DataProcessor (370 linhas - deveria ser folha)
 ```
 
 ### Oportunidades de Melhoria
 
 **Extrair para folhas:**
-1. `ResultsTree` → `gui/results_tree.py`
-2. `JSXProcessor` → `processors/jsx_processor.py`
+1. `DataView` → `gui/data_view.py`
+2. `DataProcessor` → `processors/data_processor.py`
 
 **Resultado esperado:**
 ```
@@ -378,10 +378,10 @@ A **Analogia da Árvore de Importações** fornece um modelo mental poderoso par
 
 ## 🔗 Referências
 
-- **Clarify Project:** Phase 3.0 Refactoring (2025)
 - **Clean Architecture:** Robert C. Martin
 - **Domain-Driven Design:** Eric Evans
 - **Design Patterns:** Gang of Four
+- **Refactoring:** Martin Fowler
 
 ---
 

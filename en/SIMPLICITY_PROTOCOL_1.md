@@ -903,7 +903,7 @@ Options: A) [option A] | B) [option B] | C) [option C]
 ---
 
 ### 4️⃣ **Analyze and Study the Project**
-- **CRITICAL**: After clarifying all doubts, **study the code before implementing**
+- **CRITICAL**: After understanding all doubts, **study the code before implementing**
 - Read relevant documentation (README, docs/, code comments)
 - Understand existing architecture and patterns used
 - Check necessary dependencies and imports
@@ -3733,7 +3733,7 @@ _User chose to manage tasks manually._
 
 **Version Documentation Structure**:
 ```markdown
-# Clarify v2.9.X - [Descriptive Name]
+# MyProject v2.9.X - [Descriptive Name]
 
 **Date**: DD/MM/YYYY
 **Sprint**: X tasks in Y hours
