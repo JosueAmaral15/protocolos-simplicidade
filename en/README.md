@@ -343,6 +343,48 @@ This preference will be registered and applied consistently throughout the proje
 
 ---
 
+## 🌳 Tree Imports Analogy
+
+**New complementary document to the Simplicity Protocols!**
+
+The **[Tree Imports Analogy](TREE_IMPORTS_ANALOGY.md)** is a powerful mental model for understanding and organizing the dependency architecture in software projects.
+
+### 📚 What Is It?
+
+A guide that visualizes your project's import structure as a hierarchical tree:
+- 🌲 **Root**: Main file (orchestrator)
+- 🌿 **Branches**: Intermediate modules (coordinators)
+- 🍃 **Leaves**: Terminal modules (executors)
+
+### 🎯 What Is It For?
+
+- ✅ **Understanding** existing architecture
+- ✅ **Planning** new modules
+- ✅ **Refactoring** code organically
+- ✅ **Communicating** design decisions
+
+### 🔄 Development Approaches
+
+The document describes three complementary approaches:
+- **Top-Down**: From root to leaves (ideal for refactoring)
+- **Bottom-Up**: From leaves to root (ideal for reusable components)
+- **Middle-Out**: From middle outward (ideal for new modules)
+
+### 📖 Access the Document
+
+- **🇺🇸 English**: [TREE_IMPORTS_ANALOGY.md](TREE_IMPORTS_ANALOGY.md)
+- **🇧🇷 Português**: [../pt/ANALOGIA_ARVORE_IMPORTACOES.md](../pt/ANALOGIA_ARVORE_IMPORTACOES.md)
+
+### 🌍 Applicable to All Languages
+
+Python, JavaScript, Java, C++, and any language that supports module importing.
+
+**Golden Rule:**
+> *"The main file (root) should be the orchestrator, not the executor.  
+> The simpler the leaf, the more reusable the code."*
+
+---
+
 ## 📝 Credits and Versioning
 
 - **Author:** Josué Amaral
@@ -351,5 +393,6 @@ This preference will be registered and applied consistently throughout the proje
     - Simplicity 1: `v2.0`
     - Simplicity 2: `v2.2`
     - Simplicity 3: `v3.1`
+    - Tree Imports Analogy: `v1.0`
 
 > *"I want complete and professional work!"*
