@@ -4005,6 +4005,222 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
   npm audit fix
   ```
 
+### 11. 🔄 **Refatoração Frequente de Código**
+
+**Por quê importante**: Código que não é refatorado regularmente tende a se deteriorar com o tempo, tornando-se difícil de manter, entender e evoluir.
+
+> **CRÍTICO PARA IAs**: Lembre-se **frequentemente** de refatorar o código durante o desenvolvimento para manter a qualidade e evitar acúmulo de dívida técnica.
+
+**Práticas obrigatórias**:
+
+- ✅ **Evitar arquivos excessivamente grandes**:
+  ```
+  # 🚨 ALERTAS DE TAMANHO
+  - Arquivo > 500 linhas → Considere dividir
+  - Arquivo > 1000 linhas → DEVE dividir
+  - Classe > 300 linhas → Refatore em classes menores
+  - Função > 50 linhas → Divida em funções auxiliares
+  ```
+  
+  **Exemplo de refatoração**:
+  ```python
+  # ❌ RUIM - Arquivo com 1500 linhas
+  # user_manager.py (tudo em um arquivo)
+  class UserManager:
+      def create_user(): pass  # 100 linhas
+      def validate_user(): pass  # 150 linhas
+      def authenticate_user(): pass  # 200 linhas
+      def send_email(): pass  # 100 linhas
+      # ... mais 950 linhas
+  
+  # ✅ BOM - Dividido em módulos especializados
+  # user/
+  #   __init__.py
+  #   manager.py (200 linhas)
+  #   validator.py (150 linhas)
+  #   authenticator.py (200 linhas)
+  #   notifications.py (100 linhas)
+  ```
+
+- ✅ **Aumentar coesão (Single Responsibility Principle)**:
+  ```python
+  # ❌ RUIM - Baixa coesão (faz muitas coisas diferentes)
+  class OrderProcessor:
+      def process_order(self):
+          self.validate_payment()
+          self.send_email()
+          self.update_inventory()
+          self.generate_invoice()
+          self.log_analytics()
+  
+  # ✅ BOM - Alta coesão (cada classe tem uma responsabilidade)
+  class PaymentValidator:
+      def validate(self): pass
+  
+  class EmailNotifier:
+      def send_order_confirmation(self): pass
+  
+  class InventoryManager:
+      def update_stock(self): pass
+  
+  class InvoiceGenerator:
+      def generate(self): pass
+  
+  class AnalyticsLogger:
+      def log_order(self): pass
+  ```
+
+- ✅ **Melhorar legibilidade constantemente**:
+  ```python
+  # ❌ RUIM - Difícil de entender
+  def p(d, x, y):
+      return sum([d[i][x] * d[i][y] for i in range(len(d)) if x in d[i] and y in d[i]])
+  
+  # ✅ BOM - Auto-explicativo
+  def calculate_correlation_between_features(dataset, feature_x, feature_y):
+      """
+      Calcula a correlação entre duas features em um dataset.
+      
+      Args:
+          dataset: Lista de dicionários contendo features
+          feature_x: Nome da primeira feature
+          feature_y: Nome da segunda feature
+      
+      Returns:
+          float: Soma dos produtos das features quando ambas existem
+      """
+      correlation_sum = 0
+      for data_point in dataset:
+          if feature_x in data_point and feature_y in data_point:
+              correlation_sum += data_point[feature_x] * data_point[feature_y]
+      return correlation_sum
+  ```
+
+- ✅ **Eliminar redundâncias e aumentar reutilização**:
+  ```python
+  # ❌ RUIM - Código duplicado (redundância)
+  def get_active_users():
+      users = db.query("SELECT * FROM users")
+      active = [u for u in users if u.status == 'active' and u.verified == True]
+      return active
+  
+  def get_active_admins():
+      users = db.query("SELECT * FROM users")
+      active = [u for u in users if u.status == 'active' and u.verified == True and u.role == 'admin']
+      return active
+  
+  # ✅ BOM - Código reutilizável (DRY - Don't Repeat Yourself)
+  def get_verified_active_users(role=None):
+      """Retorna usuários ativos e verificados, opcionalmente filtrados por role."""
+      users = db.query("SELECT * FROM users")
+      filtered = [u for u in users if u.status == 'active' and u.verified == True]
+      
+      if role:
+          filtered = [u for u in filtered if u.role == role]
+      
+      return filtered
+  
+  def get_active_users():
+      return get_verified_active_users()
+  
+  def get_active_admins():
+      return get_verified_active_users(role='admin')
+  ```
+
+- ✅ **Hierarquizar código em pastas e diretórios**:
+  ```
+  # ❌ RUIM - Tudo na raiz (difícil de navegar)
+  project/
+    main.py
+    user_stuff.py
+    payment_things.py
+    email_sender.py
+    validators.py
+    helpers.py
+    utils.py
+    config.py
+    constants.py
+  
+  # ✅ BOM - Hierarquia lógica (fácil de entender e manter)
+  project/
+    main.py
+    config/
+      __init__.py
+      settings.py
+      constants.py
+    core/
+      __init__.py
+      models.py
+      exceptions.py
+    features/
+      users/
+        __init__.py
+        manager.py
+        validator.py
+      payments/
+        __init__.py
+        processor.py
+        validator.py
+    services/
+      email/
+        __init__.py
+        sender.py
+        templates.py
+    utils/
+      __init__.py
+      helpers.py
+      formatters.py
+  ```
+
+**Quando refatorar**:
+
+1. **Durante implementação de nova feature**:
+   - Antes de adicionar código novo, verifique se os arquivos existentes estão organizados
+   - Se encontrar código mal estruturado, refatore ANTES de adicionar nova funcionalidade
+
+2. **Após completar uma funcionalidade**:
+   - Revise o código implementado
+   - Identifique oportunidades de melhoria (DRY, SRP, nomes melhores)
+   - Refatore imediatamente enquanto o contexto está fresco
+
+3. **Ao revisar código (Etapas 7 e 8)**:
+   - Use os 9 critérios de qualidade como guia
+   - Se detectar redundância, menor coesão ou maior acoplamento → Refatore
+
+4. **Antes de fazer commit (Etapa 13)**:
+   - Último checkpoint: código está o mais limpo possível?
+   - Há algo que pode ser simplificado?
+
+5. **Periodicidade mínima**:
+   - ⚠️ **NUNCA** deixe passar mais de 3-5 funcionalidades sem refatorar
+   - 🚨 Se projeto tem > 10 arquivos com > 500 linhas → PRIORIZE refatoração
+
+**Benefícios da refatoração frequente**:
+- ✅ **Manutenção mais simples**: Código organizado é mais fácil de modificar
+- ✅ **Menos bugs**: Código limpo tem menos lugares para bugs se esconderem
+- ✅ **Onboarding rápido**: Novos desenvolvedores entendem o código mais rápido
+- ✅ **Velocidade**: Paradoxalmente, refatorar frequentemente ACELERA o desenvolvimento
+- ✅ **Validação facilitada**: Código modular é mais fácil de testar e verificar
+
+**Ferramentas para identificar necessidade de refatoração**:
+```bash
+# Python - Complexidade ciclomática
+pip install radon
+radon cc . -a -nb  # Mostrar funções complexas
+
+# Python - Código duplicado
+pip install pylint
+pylint --disable=all --enable=duplicate-code .
+
+# Python - Código morto
+pip install vulture
+vulture .
+
+# JavaScript - Análise de complexidade
+npm install -g complexity-report
+cr --format json src/
+```
+
 ### 🎯 **Checklist Rápido para IAs**
 
 Antes de gerar/commitar código, verificar:
@@ -4017,6 +4233,8 @@ Antes de gerar/commitar código, verificar:
 - [ ] Performance é aceitável (sem algoritmos O(n²) desnecessários)?
 - [ ] Há documentação (docstrings, comentários úteis)?
 - [ ] Código está organizado em módulos lógicos?
+- [ ] **Código foi refatorado recentemente?** (arquivos < 500 linhas, sem duplicação)
+- [ ] **Hierarquia de pastas está lógica?** (separação clara de responsabilidades)
 - [ ] Commits são descritivos (conventional commits)?
 - [ ] Dependências estão com versões fixadas?
 
