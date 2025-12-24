@@ -6138,6 +6138,222 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
   npm audit fix
   ```
 
+### 11. 🔄 **Frequent Code Refactoring**
+
+**Why it matters**: Code that isn't regularly refactored tends to deteriorate over time, becoming difficult to maintain, understand, and evolve.
+
+> **CRITICAL FOR AI**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
+
+**Mandatory practices**:
+
+- ✅ **Avoid excessively large files**:
+  ```
+  # 🚨 SIZE ALERTS
+  - File > 500 lines → Consider splitting
+  - File > 1000 lines → MUST split
+  - Class > 300 lines → Refactor into smaller classes
+  - Function > 50 lines → Split into helper functions
+  ```
+  
+  **Refactoring example**:
+  ```python
+  # ❌ BAD - 1500-line file
+  # user_manager.py (everything in one file)
+  class UserManager:
+      def create_user(): pass  # 100 lines
+      def validate_user(): pass  # 150 lines
+      def authenticate_user(): pass  # 200 lines
+      def send_email(): pass  # 100 lines
+      # ... 950 more lines
+  
+  # ✅ GOOD - Split into specialized modules
+  # user/
+  #   __init__.py
+  #   manager.py (200 lines)
+  #   validator.py (150 lines)
+  #   authenticator.py (200 lines)
+  #   notifications.py (100 lines)
+  ```
+
+- ✅ **Increase cohesion (Single Responsibility Principle)**:
+  ```python
+  # ❌ BAD - Low cohesion (does many different things)
+  class OrderProcessor:
+      def process_order(self):
+          self.validate_payment()
+          self.send_email()
+          self.update_inventory()
+          self.generate_invoice()
+          self.log_analytics()
+  
+  # ✅ GOOD - High cohesion (each class has one responsibility)
+  class PaymentValidator:
+      def validate(self): pass
+  
+  class EmailNotifier:
+      def send_order_confirmation(self): pass
+  
+  class InventoryManager:
+      def update_stock(self): pass
+  
+  class InvoiceGenerator:
+      def generate(self): pass
+  
+  class AnalyticsLogger:
+      def log_order(self): pass
+  ```
+
+- ✅ **Constantly improve readability**:
+  ```python
+  # ❌ BAD - Hard to understand
+  def p(d, x, y):
+      return sum([d[i][x] * d[i][y] for i in range(len(d)) if x in d[i] and y in d[i]])
+  
+  # ✅ GOOD - Self-explanatory
+  def calculate_correlation_between_features(dataset, feature_x, feature_y):
+      """
+      Calculates the correlation between two features in a dataset.
+      
+      Args:
+          dataset: List of dictionaries containing features
+          feature_x: Name of the first feature
+          feature_y: Name of the second feature
+      
+      Returns:
+          float: Sum of feature products when both exist
+      """
+      correlation_sum = 0
+      for data_point in dataset:
+          if feature_x in data_point and feature_y in data_point:
+              correlation_sum += data_point[feature_x] * data_point[feature_y]
+      return correlation_sum
+  ```
+
+- ✅ **Eliminate redundancies and increase reusability**:
+  ```python
+  # ❌ BAD - Duplicated code (redundancy)
+  def get_active_users():
+      users = db.query("SELECT * FROM users")
+      active = [u for u in users if u.status == 'active' and u.verified == True]
+      return active
+  
+  def get_active_admins():
+      users = db.query("SELECT * FROM users")
+      active = [u for u in users if u.status == 'active' and u.verified == True and u.role == 'admin']
+      return active
+  
+  # ✅ GOOD - Reusable code (DRY - Don't Repeat Yourself)
+  def get_verified_active_users(role=None):
+      """Returns active and verified users, optionally filtered by role."""
+      users = db.query("SELECT * FROM users")
+      filtered = [u for u in users if u.status == 'active' and u.verified == True]
+      
+      if role:
+          filtered = [u for u in filtered if u.role == role]
+      
+      return filtered
+  
+  def get_active_users():
+      return get_verified_active_users()
+  
+  def get_active_admins():
+      return get_verified_active_users(role='admin')
+  ```
+
+- ✅ **Hierarchize code into folders and directories**:
+  ```
+  # ❌ BAD - Everything in root (hard to navigate)
+  project/
+    main.py
+    user_stuff.py
+    payment_things.py
+    email_sender.py
+    validators.py
+    helpers.py
+    utils.py
+    config.py
+    constants.py
+  
+  # ✅ GOOD - Logical hierarchy (easy to understand and maintain)
+  project/
+    main.py
+    config/
+      __init__.py
+      settings.py
+      constants.py
+    core/
+      __init__.py
+      models.py
+      exceptions.py
+    features/
+      users/
+        __init__.py
+        manager.py
+        validator.py
+      payments/
+        __init__.py
+        processor.py
+        validator.py
+    services/
+      email/
+        __init__.py
+        sender.py
+        templates.py
+    utils/
+      __init__.py
+      helpers.py
+      formatters.py
+  ```
+
+**When to refactor**:
+
+1. **During new feature implementation**:
+   - Before adding new code, check if existing files are organized
+   - If you find poorly structured code, refactor BEFORE adding new functionality
+
+2. **After completing a feature**:
+   - Review the implemented code
+   - Identify improvement opportunities (DRY, SRP, better names)
+   - Refactor immediately while context is fresh
+
+3. **When reviewing code (Steps 7 and 8)**:
+   - Use the 9 quality criteria as a guide
+   - If you detect redundancy, lower cohesion, or higher coupling → Refactor
+
+4. **Before committing (Step 13)**:
+   - Last checkpoint: is the code as clean as possible?
+   - Is there anything that can be simplified?
+
+5. **Minimum periodicity**:
+   - ⚠️ **NEVER** let more than 3-5 features pass without refactoring
+   - 🚨 If project has > 10 files with > 500 lines → PRIORITIZE refactoring
+
+**Benefits of frequent refactoring**:
+- ✅ **Simpler maintenance**: Organized code is easier to modify
+- ✅ **Fewer bugs**: Clean code has fewer places for bugs to hide
+- ✅ **Faster onboarding**: New developers understand the code faster
+- ✅ **Speed**: Paradoxically, frequent refactoring ACCELERATES development
+- ✅ **Easier validation**: Modular code is easier to test and verify
+
+**Tools to identify refactoring needs**:
+```bash
+# Python - Cyclomatic complexity
+pip install radon
+radon cc . -a -nb  # Show complex functions
+
+# Python - Duplicated code
+pip install pylint
+pylint --disable=all --enable=duplicate-code .
+
+# Python - Dead code
+pip install vulture
+vulture .
+
+# JavaScript - Complexity analysis
+npm install -g complexity-report
+cr --format json src/
+```
+
 ### 🎯 **Quick Checklist for AI**
 
 Before generating/committing code, verify:
@@ -6150,6 +6366,8 @@ Before generating/committing code, verify:
 - [ ] Performance is acceptable (no unnecessary O(n²) algorithms)?
 - [ ] Is there documentation (docstrings, useful comments)?
 - [ ] Code is organized in logical modules?
+- [ ] **Code was recently refactored?** (files < 500 lines, no duplication)
+- [ ] **Folder hierarchy is logical?** (clear separation of responsibilities)
 - [ ] Commits are descriptive (conventional commits)?
 - [ ] Dependencies have pinned versions?
 
