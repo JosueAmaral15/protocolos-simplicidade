@@ -384,6 +384,48 @@ Esta preferência será registrada e aplicada consistentemente em todo o projeto
 
 ---
 
+## 🌳 Analogia da Árvore de Importações
+
+**Novo documento complementar aos Protocolos Simplicidade!**
+
+A **[Analogia da Árvore de Importações](pt/ANALOGIA_ARVORE_IMPORTACOES.md)** é um modelo mental poderoso para compreender e organizar a arquitetura de dependências em projetos de software.
+
+### 📚 O Que é?
+
+Um guia que visualiza a estrutura de importações do seu projeto como uma árvore hierárquica:
+- 🌲 **Raiz**: Arquivo principal (orquestrador)
+- 🌿 **Galhos**: Módulos intermediários (coordenadores)
+- 🍃 **Folhas**: Módulos terminais (executores)
+
+### 🎯 Para Que Serve?
+
+- ✅ **Compreender** arquitetura existente
+- ✅ **Planejar** novos módulos
+- ✅ **Refatorar** código organicamente
+- ✅ **Comunicar** decisões de design
+
+### 🔄 Abordagens de Desenvolvimento
+
+O documento descreve três abordagens complementares:
+- **Top-Down**: Da raiz para as folhas (ideal para refatoração)
+- **Bottom-Up**: Das folhas para a raiz (ideal para componentes reutilizáveis)
+- **Middle-Out**: Do meio para fora (ideal para novos módulos)
+
+### 📖 Acesse o Documento
+
+- **🇧🇷 Português**: [pt/ANALOGIA_ARVORE_IMPORTACOES.md](pt/ANALOGIA_ARVORE_IMPORTACOES.md)
+- **🇺🇸 English**: [en/TREE_IMPORTS_ANALOGY.md](en/TREE_IMPORTS_ANALOGY.md)
+
+### 🌍 Aplicável a Todas as Linguagens
+
+Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de módulos.
+
+**Regra de Ouro:**
+> *"O arquivo principal (raiz) deve ser o orquestrador, não o executor.  
+> Quanto mais simples a folha, mais reutilizável o código."*
+
+---
+
 ## 📝 Créditos e Versionamento
 
 - **Autor:** Josué Amaral
@@ -392,5 +434,6 @@ Esta preferência será registrada e aplicada consistentemente em todo o projeto
     - Simplicidade 1: `v2.0`
     - Simplicidade 2: `v2.2`
     - Simplicidade 3: `v3.1`
+    - Analogia da Árvore de Importações: `v1.0`
 
 > *"Quero um trabalho completo e profissional!"*
