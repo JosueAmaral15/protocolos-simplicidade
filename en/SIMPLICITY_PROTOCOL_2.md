@@ -350,14 +350,6 @@ Iteration 3: [1-128]   → Test [1-64]    ✅ Error present
 Iteration 4: [1-64]    → Test [1-32]    ❌ Error absent → Bug in [33-64]
 Iteration 5: [33-64]   → Test [33-48]   ✅ Error present
 Iteration 6: [33-48]   → Test [33-40]   ✅ Error present
-Iteration 7: [33-40]   → Test [33-36]   ✅ Error present
-Iteration 8: [33-36]   → Test [33-34]   ✅ Error present
-Iteration 9: [33-34]   → Test [line 33]  ❌ Error absent → Bug on line 34
-
-But refining: if it was line 48, the actual process would be:
-Iteration 4: [1-64]    → Test [1-32]    ❌ Error absent → Bug in [33-64]
-Iteration 5: [33-64]   → Test [33-48]   ✅ Error present
-Iteration 6: [33-48]   → Test [33-40]   ✅ Error present
 Iteration 7: [41-48]   → Test [41-44]   ✅ Error present
 Iteration 8: [45-48]   → Test [45-46]   ✅ Error present
 Iteration 9: [47-48]   → Test [line 47]  ❌ Error absent → ✅ Bug on line 48!

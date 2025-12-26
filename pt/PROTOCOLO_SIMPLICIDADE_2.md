@@ -347,14 +347,6 @@ Iteração 3: [1-128]   → Testar [1-64]    ✅ Erro presente
 Iteração 4: [1-64]    → Testar [1-32]    ❌ Erro ausente → Bug em [33-64]
 Iteração 5: [33-64]   → Testar [33-48]   ✅ Erro presente
 Iteração 6: [33-48]   → Testar [33-40]   ✅ Erro presente
-Iteração 7: [33-40]   → Testar [33-36]   ✅ Erro presente
-Iteração 8: [33-36]   → Testar [33-34]   ✅ Erro presente
-Iteração 9: [33-34]   → Testar [linha 33] ❌ Erro ausente → Bug na linha 34
-
-Mas refinando: se era linha 48, o processo real seria:
-Iteração 4: [1-64]    → Testar [1-32]    ❌ Erro ausente → Bug em [33-64]
-Iteração 5: [33-64]   → Testar [33-48]   ✅ Erro presente
-Iteração 6: [33-48]   → Testar [33-40]   ✅ Erro presente
 Iteração 7: [41-48]   → Testar [41-44]   ✅ Erro presente
 Iteração 8: [45-48]   → Testar [45-46]   ✅ Erro presente
 Iteração 9: [47-48]   → Testar [linha 47] ❌ Erro ausente → ✅ Bug na linha 48!
