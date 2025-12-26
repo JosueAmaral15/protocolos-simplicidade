@@ -203,6 +203,195 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 
 ---
 
+## 🎯 Planos de Ação (ACTION_PLANS.md)
+
+**Todos os protocolos Simplicidade agora incluem suporte para Planos de Ação** - uma ferramenta prática e urgente para guiar tarefas complexas através de passos intermediários bem definidos.
+
+### 📋 O Que São Planos de Ação?
+
+**Planos de Ação** são roteiros passo a passo detalhados para executar tarefas que envolvem:
+- 🔧 **Manutenção**: Atualizações de dependências, refatoração de código legado
+- 🐛 **Correção**: Bugs complexos que exigem múltiplas etapas
+- 🚀 **Evolução**: Novas funcionalidades que requerem planejamento intermediário
+- 🔄 **Adaptação**: Mudanças em APIs, migrações de tecnologia
+
+### 🎯 Planos de Ação vs TASKS.md: Qual a Diferença?
+
+| Aspecto | TASKS.md | ACTION_PLANS.md |
+| :--- | :--- | :--- |
+| **Propósito** | Gerenciamento de tarefas gerais do projeto | Guia detalhado de execução para tarefas específicas |
+| **Escopo** | Lista de features, melhorias, bugs | Passos intermediários de UMA tarefa complexa |
+| **Horizonte** | Médio/longo prazo (sprints, versões) | Curto prazo (horas, dias) |
+| **Detalhamento** | Descrição de alto nível | Passo a passo granular |
+| **Urgência** | Varia (Must/Should/Could/Won't) | Geralmente urgente e importante |
+| **Duração** | Permanente (histórico do projeto) | Temporário (descartado após conclusão) |
+| **Analogia** | Mapa do projeto (onde ir) | GPS com instruções (como chegar) |
+
+**Exemplo prático:**
+- **TASKS.md**: `[ ] Implementar autenticação OAuth2`
+- **ACTION_PLANS.md**: 
+  ```
+  PLANO DE AÇÃO #01: Implementar OAuth2
+  ├─ Passo 1: Instalar biblioteca passport.js
+  ├─ Passo 2: Configurar estratégia Google OAuth
+  ├─ Passo 3: Criar rotas /auth/google e /auth/callback
+  ├─ Passo 4: Implementar middleware de autenticação
+  └─ Passo 5: Adicionar testes de integração
+  ```
+
+### 📂 Estrutura do Arquivo ACTION_PLANS.md
+
+**Localização padrão**: `docs/ACTION_PLANS.md` (mesmo diretório do TASKS.md)
+
+**Template de Plano de Ação:**
+
+```markdown
+# Planos de Ação - [Nome do Projeto]
+
+## 🎯 PLANO DE AÇÃO #[ID]: [Título do Objetivo]
+
+**📅 Criado em**: YYYY-MM-DD  
+**⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal  
+**🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação  
+**⏱️ Estimativa**: [tempo total estimado]  
+**📌 Relacionado a**: Task #X do TASKS.md (se aplicável)
+
+### 📝 Contexto
+[Por que este plano de ação foi criado? Qual problema resolve?]
+
+### 🎯 Objetivo Final
+[O que será alcançado ao concluir todos os passos?]
+
+### 📋 Passos Intermediários
+
+- [ ] **Passo 1**: [Descrição detalhada]
+  - **Critério de conclusão**: [Como saber que está completo]
+  - **Tempo estimado**: [duração]
+  - **Dependências**: [o que precisa estar pronto antes]
+
+- [ ] **Passo 2**: [Descrição detalhada]
+  - **Critério de conclusão**: [...]
+  - **Tempo estimado**: [...]
+  - **Dependências**: Passo 1 completo
+
+[...continuar para todos os passos...]
+
+### ✅ Critérios de Conclusão
+- [ ] Todos os passos intermediários concluídos
+- [ ] Testes passando
+- [ ] Documentação atualizada
+- [ ] Code review aprovado (se aplicável)
+
+### 📊 Status do Plano
+**Progresso**: X/Y passos concluídos ([%]%)  
+**Status**: 🔴 Não Iniciado | 🟡 Em Progresso | 🟢 Concluído | ⏸️ Pausado | ❌ Cancelado
+
+---
+```
+
+### 🤖 Como a IA Deve Usar Planos de Ação
+
+**Quando criar um Plano de Ação:**
+1. ✅ Tarefa complexa com múltiplas etapas interdependentes
+2. ✅ Bug crítico que requer diagnóstico passo a passo
+3. ✅ Refatoração que afeta múltiplos módulos
+4. ✅ Migração de tecnologia ou versão de framework
+5. ✅ Implementação que pode ser dividida em subtarefas testáveis
+
+**Quando NÃO criar um Plano de Ação:**
+1. ❌ Tarefa simples de uma única etapa
+2. ❌ Correção trivial (typo, ajuste de CSS simples)
+3. ❌ Task já bem definida no TASKS.md
+
+**Fluxo de Trabalho:**
+```
+1. Consultar TASKS.md para ver tarefas pendentes
+2. Identificar tarefa complexa que precisa de Plano de Ação
+3. Criar Plano de Ação detalhado em ACTION_PLANS.md
+4. Executar passo a passo, marcando progresso
+5. Ao concluir, marcar tarefa no TASKS.md como completa
+6. Mover plano concluído para seção "Histórico" ou arquivo separado
+```
+
+### 🎯 Benefícios dos Planos de Ação
+
+- ✅ **Clareza**: Divide problemas complexos em passos gerenciáveis
+- ✅ **Rastreabilidade**: Histórico detalhado de como foi resolvido
+- ✅ **Continuidade**: Se interrompido, fácil retomar de onde parou
+- ✅ **Aprendizado**: Documenta o processo de resolução para referência futura
+- ✅ **Qualidade**: Força revisão de cada etapa antes de prosseguir
+- ✅ **Comunicação**: Facilita explicar progresso para stakeholders
+
+### ⏱️ Quando Descartar um Plano de Ação
+
+Após conclusão, você pode:
+1. **Mover para seção "📚 Histórico de Planos Concluídos"** no mesmo arquivo
+2. **Arquivar em** `docs/action_plans_history/[ano]/plan-[id].md`
+3. **Deletar** (se não houver valor histórico)
+
+**Recomendação**: Manter histórico de planos complexos para consulta futura e análise de padrões de problemas.
+
+### 📊 Exemplo Real Completo
+
+```markdown
+## 🎯 PLANO DE AÇÃO #03: Corrigir Memory Leak no Sistema de Cache
+
+**📅 Criado em**: 2025-12-26  
+**⚡ Prioridade**: 🔴 Crítica  
+**🏷️ Tipo**: Correção  
+**⏱️ Estimativa**: 4-6 horas  
+**📌 Relacionado a**: Bug #127 do TASKS.md
+
+### 📝 Contexto
+Aplicação apresentando consumo crescente de memória (de 200MB para 4GB em 48h).
+Profiling indicou vazamento no módulo de cache Redis.
+
+### 🎯 Objetivo Final
+Eliminar memory leak e garantir consumo estável de memória abaixo de 300MB.
+
+### 📋 Passos Intermediários
+
+- [x] **Passo 1**: Reproduzir problema em ambiente local
+  - **Critério de conclusão**: Script de teste mostrando leak consistente
+  - **Tempo estimado**: 30min
+  - **Resultado**: Script `test_memory_leak.py` criado, reproduz em 5min
+
+- [x] **Passo 2**: Analisar com memory profiler
+  - **Critério de conclusão**: Identificar linha de código causando leak
+  - **Tempo estimado**: 1h
+  - **Resultado**: Problema no `cache.py:145` - listeners não removidos
+
+- [ ] **Passo 3**: Implementar correção
+  - **Critério de conclusão**: Memória estável após 1h de testes
+  - **Tempo estimado**: 1h
+  - **Dependências**: Passos 1-2 completos
+
+- [ ] **Passo 4**: Adicionar testes de regressão
+  - **Critério de conclusão**: Teste automatizado detectando leaks
+  - **Tempo estimado**: 1.5h
+
+- [ ] **Passo 5**: Validar em staging
+  - **Critério de conclusão**: 24h sem aumento de memória
+  - **Tempo estimado**: 30min setup + 24h espera
+
+### ✅ Critérios de Conclusão
+- [ ] Memória estável < 300MB por 48h
+- [ ] Testes de regressão passando
+- [ ] Documentação atualizada
+- [ ] Deploy em produção validado
+
+### 📊 Status do Plano
+**Progresso**: 2/5 passos concluídos (40%)  
+**Status**: 🟡 Em Progresso  
+**Última atualização**: 2025-12-26 15:30
+```
+
+---
+
+📖 **Detalhes completos**: Veja seção "Planos de Ação" na Etapa 2 (Ler Código Existente) de cada protocolo para instruções específicas sobre quando e como criar planos de ação.
+
+---
+
 ## 🎨 Requisito Obrigatório: Ícones do Projeto
 
 > **NOVO**: Todos os protocolos agora exigem que a IA produza ou faça download de ícones apropriados para cada projeto.

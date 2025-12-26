@@ -203,6 +203,195 @@ AI can dynamically suggest new tasks as the project evolves, following a 5-phase
 
 ---
 
+## 🎯 Action Plans (ACTION_PLANS.md)
+
+**All Simplicity protocols now include support for Action Plans** - a practical and urgent tool to guide complex tasks through well-defined intermediate steps.
+
+### 📋 What Are Action Plans?
+
+**Action Plans** are detailed step-by-step roadmaps for executing tasks involving:
+- 🔧 **Maintenance**: Dependency updates, legacy code refactoring
+- 🐛 **Correction**: Complex bugs requiring multiple steps
+- 🚀 **Evolution**: New features requiring intermediate planning
+- 🔄 **Adaptation**: API changes, technology migrations
+
+### 🎯 Action Plans vs TASKS.md: What's the Difference?
+
+| Aspect | TASKS.md | ACTION_PLANS.md |
+| :--- | :--- | :--- |
+| **Purpose** | General project task management | Detailed execution guide for specific tasks |
+| **Scope** | List of features, improvements, bugs | Intermediate steps of ONE complex task |
+| **Horizon** | Medium/long term (sprints, versions) | Short term (hours, days) |
+| **Detail Level** | High-level description | Granular step-by-step |
+| **Urgency** | Varies (Must/Should/Could/Won't) | Usually urgent and important |
+| **Duration** | Permanent (project history) | Temporary (discarded after completion) |
+| **Analogy** | Project map (where to go) | GPS with instructions (how to get there) |
+
+**Practical example:**
+- **TASKS.md**: `[ ] Implement OAuth2 authentication`
+- **ACTION_PLANS.md**: 
+  ```
+  ACTION PLAN #01: Implement OAuth2
+  ├─ Step 1: Install passport.js library
+  ├─ Step 2: Configure Google OAuth strategy
+  ├─ Step 3: Create /auth/google and /auth/callback routes
+  ├─ Step 4: Implement authentication middleware
+  └─ Step 5: Add integration tests
+  ```
+
+### 📂 ACTION_PLANS.md File Structure
+
+**Default location**: `docs/ACTION_PLANS.md` (same directory as TASKS.md)
+
+**Action Plan Template:**
+
+```markdown
+# Action Plans - [Project Name]
+
+## 🎯 ACTION PLAN #[ID]: [Objective Title]
+
+**📅 Created on**: YYYY-MM-DD  
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal  
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation  
+**⏱️ Estimate**: [total estimated time]  
+**📌 Related to**: Task #X from TASKS.md (if applicable)
+
+### 📝 Context
+[Why was this action plan created? What problem does it solve?]
+
+### 🎯 Final Objective
+[What will be achieved upon completing all steps?]
+
+### 📋 Intermediate Steps
+
+- [ ] **Step 1**: [Detailed description]
+  - **Completion criteria**: [How to know it's complete]
+  - **Estimated time**: [duration]
+  - **Dependencies**: [what needs to be ready before]
+
+- [ ] **Step 2**: [Detailed description]
+  - **Completion criteria**: [...]
+  - **Estimated time**: [...]
+  - **Dependencies**: Step 1 complete
+
+[...continue for all steps...]
+
+### ✅ Completion Criteria
+- [ ] All intermediate steps completed
+- [ ] Tests passing
+- [ ] Documentation updated
+- [ ] Code review approved (if applicable)
+
+### 📊 Plan Status
+**Progress**: X/Y steps completed ([%]%)  
+**Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Completed | ⏸️ Paused | ❌ Cancelled
+
+---
+```
+
+### 🤖 How AI Should Use Action Plans
+
+**When to create an Action Plan:**
+1. ✅ Complex task with multiple interdependent steps
+2. ✅ Critical bug requiring step-by-step diagnosis
+3. ✅ Refactoring affecting multiple modules
+4. ✅ Technology or framework version migration
+5. ✅ Implementation that can be divided into testable subtasks
+
+**When NOT to create an Action Plan:**
+1. ❌ Simple single-step task
+2. ❌ Trivial correction (typo, simple CSS adjustment)
+3. ❌ Task already well-defined in TASKS.md
+
+**Workflow:**
+```
+1. Consult TASKS.md to see pending tasks
+2. Identify complex task needing Action Plan
+3. Create detailed Action Plan in ACTION_PLANS.md
+4. Execute step by step, marking progress
+5. Upon completion, mark task in TASKS.md as complete
+6. Move completed plan to "History" section or separate file
+```
+
+### 🎯 Benefits of Action Plans
+
+- ✅ **Clarity**: Breaks complex problems into manageable steps
+- ✅ **Traceability**: Detailed history of how it was resolved
+- ✅ **Continuity**: Easy to resume where left off if interrupted
+- ✅ **Learning**: Documents resolution process for future reference
+- ✅ **Quality**: Forces review of each step before proceeding
+- ✅ **Communication**: Facilitates explaining progress to stakeholders
+
+### ⏱️ When to Discard an Action Plan
+
+After completion, you can:
+1. **Move to "📚 Completed Plans History" section** in same file
+2. **Archive in** `docs/action_plans_history/[year]/plan-[id].md`
+3. **Delete** (if no historical value)
+
+**Recommendation**: Keep history of complex plans for future reference and problem pattern analysis.
+
+### 📊 Complete Real Example
+
+```markdown
+## 🎯 ACTION PLAN #03: Fix Memory Leak in Cache System
+
+**📅 Created on**: 2025-12-26  
+**⚡ Priority**: 🔴 Critical  
+**🏷️ Type**: Correction  
+**⏱️ Estimate**: 4-6 hours  
+**📌 Related to**: Bug #127 from TASKS.md
+
+### 📝 Context
+Application showing growing memory consumption (from 200MB to 4GB in 48h).
+Profiling indicated leak in Redis cache module.
+
+### 🎯 Final Objective
+Eliminate memory leak and ensure stable memory consumption below 300MB.
+
+### 📋 Intermediate Steps
+
+- [x] **Step 1**: Reproduce problem in local environment
+  - **Completion criteria**: Test script showing consistent leak
+  - **Estimated time**: 30min
+  - **Result**: `test_memory_leak.py` script created, reproduces in 5min
+
+- [x] **Step 2**: Analyze with memory profiler
+  - **Completion criteria**: Identify code line causing leak
+  - **Estimated time**: 1h
+  - **Result**: Problem in `cache.py:145` - listeners not removed
+
+- [ ] **Step 3**: Implement correction
+  - **Completion criteria**: Stable memory after 1h testing
+  - **Estimated time**: 1h
+  - **Dependencies**: Steps 1-2 complete
+
+- [ ] **Step 4**: Add regression tests
+  - **Completion criteria**: Automated test detecting leaks
+  - **Estimated time**: 1.5h
+
+- [ ] **Step 5**: Validate in staging
+  - **Completion criteria**: 24h without memory increase
+  - **Estimated time**: 30min setup + 24h wait
+
+### ✅ Completion Criteria
+- [ ] Stable memory < 300MB for 48h
+- [ ] Regression tests passing
+- [ ] Documentation updated
+- [ ] Production deploy validated
+
+### 📊 Plan Status
+**Progress**: 2/5 steps completed (40%)  
+**Status**: 🟡 In Progress  
+**Last update**: 2025-12-26 15:30
+```
+
+---
+
+📖 **Complete details**: See "Action Plans" section in Step 2 (Read Existing Code) of each protocol for specific instructions on when and how to create action plans.
+
+---
+
 ## 📧 Mandatory Requirement: Contact Methods for Feedback
 
 > **NEW**: All protocols now require AI to ask the developer about including contact methods for user feedback.

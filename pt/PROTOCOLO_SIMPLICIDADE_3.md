@@ -922,6 +922,131 @@ O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto,
 
 **Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
+**📋 Sobre Planos de Ação (ACTION_PLANS.md)**:
+
+Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md` para **tarefas que requerem guia passo a passo detalhado**.
+
+**O que são Planos de Ação?**
+- 🎯 **Roteiros práticos** com passos intermediários numerados para tarefas complexas
+- ⚡ **Mais urgente e detalhado** que items do TASKS.md
+- 🔧 **Aplicável a**: Manutenção, Correção, Evolução, Adaptação
+
+**Diferença entre TASKS.md e ACTION_PLANS.md:**
+- **TASKS.md**: Lista de tarefas gerais ("O QUE fazer") - ex: `[ ] Implementar autenticação OAuth2`
+- **ACTION_PLANS.md**: Guia detalhado de execução ("COMO fazer") - ex:
+  ```
+  PLANO #01: Implementar OAuth2
+  ├─ Passo 1: Instalar biblioteca passport.js
+  ├─ Passo 2: Configurar estratégia Google OAuth
+  ├─ Passo 3: Criar rotas /auth/google
+  └─ Passo 4: Adicionar testes
+  ```
+
+**Quando usar Planos de Ação:**
+- ✅ Tarefa complexa com múltiplas etapas interdependentes
+- ✅ Bug crítico que requer diagnóstico passo a passo
+- ✅ Refatoração que afeta múltiplos módulos
+- ✅ Migração de tecnologia ou atualização de framework
+
+**Especificidades para Simplicidade 3 (Solo Developer em Produção):**
+- 🔒 **Segurança obrigatória**: Incluir análise OWASP para cada passo que toque código sensível
+- 🔙 **Rollback Plan**: Cada plano de ação deve incluir estratégia de reversão (ver Etapa 12.5)
+- ⚡ **Automation-first**: Priorizar passos que podem ser automatizados/testados
+- 📊 **Métricas de produção**: Incluir validação de métricas (performance, disponibilidade)
+
+**Localização padrão**: `docs/ACTION_PLANS.md`
+
+**Template para Simplicidade 3 (Solo em Produção):**
+```markdown
+## 🎯 PLANO DE AÇÃO #[ID]: [Título]
+**📅 Criado em**: YYYY-MM-DD
+**⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal
+**🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação
+**🔒 Impacto de Segurança**: Sim | Não
+**💰 Impacto em Produção**: Crítico | Moderado | Baixo
+
+### 📝 Contexto
+[Por que este plano foi criado? Qual impacto no sistema em produção?]
+
+### 🎯 Objetivo Final
+[O que será alcançado? Qual métrica validará sucesso?]
+
+### 🔙 Rollback Plan (OBRIGATÓRIO)
+**Se algo der errado durante a execução:**
+- [ ] **Passo de reversão 1**: [Como desfazer passo 1]
+- [ ] **Passo de reversão 2**: [Como desfazer passo 2]
+- [ ] **Dados afetados**: [Como recuperar/restaurar]
+- [ ] **Tempo estimado de rollback**: [duração]
+
+### 📋 Passos Intermediários
+- [ ] **Passo 1**: [Descrição]
+  - **Critério de conclusão**: [...]
+  - **Tempo estimado**: [...]
+  - **Checklist de segurança**: 
+    - [ ] Input validation
+    - [ ] Output encoding
+    - [ ] Authentication/Authorization
+  - **Testes automatizados**: [comandos]
+  - **Rollback**: [como reverter este passo]
+  
+- [ ] **Passo 2**: [Descrição]
+  - **Critério de conclusão**: [...]
+  - **Dependências**: Passo 1
+  - **Checklist de segurança**: [...]
+  - **Validação em staging**: [comandos/URLs]
+[...]
+
+### 🔒 Análise de Segurança (OWASP)
+- [ ] **A01:2021 – Broken Access Control**: Avaliado
+- [ ] **A02:2021 – Cryptographic Failures**: Avaliado
+- [ ] **A03:2021 – Injection**: Avaliado
+[... outras categorias relevantes ...]
+
+### 📊 Validação de Métricas de Produção
+- [ ] **Performance**: Response time < Xms (monitorar por 24h)
+- [ ] **Disponibilidade**: Uptime > 99.9%
+- [ ] **Erros**: Error rate < 0.1%
+- [ ] **Recursos**: CPU/Memória dentro dos limites
+
+### ✅ Critérios de Conclusão
+- [ ] Todos passos concluídos
+- [ ] Testes automatizados passando (100% cobertura)
+- [ ] OWASP checklist validado
+- [ ] Documentação atualizada
+- [ ] Rollback plan testado
+- [ ] Validação em staging por 24h
+- [ ] Deploy em produção com monitoramento
+- [ ] Métricas de produção estáveis por 48h
+```
+
+**Fluxo de trabalho com Planos de Ação (Solo em Produção):**
+1. Consultar TASKS.md para ver tarefas pendentes
+2. Se tarefa complexa/crítica → criar Plano de Ação detalhado
+3. **Análise de segurança**: Aplicar OWASP checklist (Etapa 10.1)
+4. **Criar Rollback Plan**: Garantir capacidade de reverter (Etapa 12.5)
+5. **Executar em staging primeiro**: Validar por 24h mínimo
+6. Executar passo a passo, com testes automatizados
+7. **Deploy incremental**: Um passo por vez, com monitoramento
+8. **Validar métricas**: 48h de estabilidade antes de considerar completo
+9. Ao concluir → marcar task no TASKS.md como completa
+10. Mover plano para histórico com lições aprendidas
+
+**Benefícios para Solo Developer:**
+- ✅ **Segurança**: Checklist obrigatório evita vulnerabilidades
+- ✅ **Confiabilidade**: Rollback plan garante recuperação rápida
+- ✅ **Qualidade**: Passos testáveis garantem funcionamento
+- ✅ **Autonomia**: Processo completo documentado para você mesmo
+- ✅ **Manutenibilidade**: Histórico detalhado facilita correções futuras
+
+**⚠️ Quando um Plano de Ação é OBRIGATÓRIO em Simplicidade 3:**
+- 🔒 Mudanças que afetam **autenticação, autorização ou dados sensíveis**
+- 💰 Deploy em **produção com usuários ativos**
+- 🗄️ **Migrações de banco de dados** ou mudanças de schema
+- 🔄 **Atualizações de dependências críticas** (frameworks, bibliotecas de segurança)
+- 🐛 **Bugs críticos** que afetam disponibilidade ou segurança
+
+📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "Planos de Ação (ACTION_PLANS.md)"
+
 ---
 
 ### 2️⃣ **Escolher as Tarefas Mais Simples**

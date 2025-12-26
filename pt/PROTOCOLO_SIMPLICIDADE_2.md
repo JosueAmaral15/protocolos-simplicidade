@@ -884,6 +884,93 @@ O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto,
 
 **Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
+**📋 Sobre Planos de Ação (ACTION_PLANS.md)**:
+
+Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md` para **tarefas que requerem guia passo a passo detalhado**.
+
+**O que são Planos de Ação?**
+- 🎯 **Roteiros práticos** com passos intermediários numerados para tarefas complexas
+- ⚡ **Mais urgente e detalhado** que items do TASKS.md
+- 🔧 **Aplicável a**: Manutenção, Correção, Evolução, Adaptação
+
+**Diferença entre TASKS.md e ACTION_PLANS.md:**
+- **TASKS.md**: Lista de tarefas gerais ("O QUE fazer") - ex: `[ ] Implementar autenticação OAuth2`
+- **ACTION_PLANS.md**: Guia detalhado de execução ("COMO fazer") - ex:
+  ```
+  PLANO #01: Implementar OAuth2
+  ├─ Passo 1: Instalar biblioteca passport.js
+  ├─ Passo 2: Configurar estratégia Google OAuth
+  ├─ Passo 3: Criar rotas /auth/google
+  └─ Passo 4: Adicionar testes
+  ```
+
+**Quando usar Planos de Ação:**
+- ✅ Tarefa complexa com múltiplas etapas interdependentes
+- ✅ Bug crítico que requer diagnóstico passo a passo
+- ✅ Refatoração que afeta múltiplos módulos
+- ✅ Migração de tecnologia ou atualização de framework
+
+**Especificidades para Simplicidade 2 (Enterprise):**
+- 🤝 **Validação em equipe**: Planos de ação devem ser revisados por pares antes da execução
+- 📋 **Criar ADR**: Para planos de ação que envolvem decisões arquiteturais significativas (ver Etapa 11.5)
+- 👥 **Atribuição clara**: Cada passo do plano deve ter responsável designado
+- 📊 **Métricas**: Incluir métricas de sucesso mensuráveis para cada passo
+
+**Localização padrão**: `docs/ACTION_PLANS.md`
+
+**Template para Simplicidade 2 (Enterprise):**
+```markdown
+## 🎯 PLANO DE AÇÃO #[ID]: [Título]
+**📅 Criado em**: YYYY-MM-DD
+**⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal
+**🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação
+**👤 Responsável**: [Nome do Lead]
+**👥 Revisores**: [Nomes dos revisores]
+
+### 📝 Contexto
+[Por que este plano foi criado?]
+
+### 🎯 Objetivo Final
+[O que será alcançado?]
+
+### 📋 Passos Intermediários
+- [ ] **Passo 1**: [Descrição]
+  - **Responsável**: [Nome]
+  - **Critério de conclusão**: [...]
+  - **Métricas de sucesso**: [...]
+  
+- [ ] **Passo 2**: [Descrição]
+  - **Responsável**: [Nome]
+  - **Critério de conclusão**: [...]
+  - **Dependências**: Passo 1
+[...]
+
+### ✅ Critérios de Conclusão
+- [ ] Todos passos concluídos
+- [ ] Code Review aprovado (ver Etapa 9.5)
+- [ ] Testes passando
+- [ ] Documentação atualizada
+- [ ] ADR criado (se decisão arquitetural)
+```
+
+**Fluxo de trabalho com Planos de Ação (Enterprise):**
+1. Consultar TASKS.md para ver tarefas pendentes
+2. Se tarefa complexa → criar Plano de Ação detalhado
+3. **Revisão em equipe**: Validar plano antes de iniciar execução
+4. **Atribuir responsáveis** para cada passo
+5. Executar passo a passo, com code review de cada etapa
+6. Ao concluir → marcar task no TASKS.md como completa
+7. **Retrospectiva**: Discutir lições aprendidas (Etapa 13.5)
+8. Mover plano para histórico ou arquivo separado
+
+**Benefícios para equipes:**
+- ✅ **Coordenação**: Todos sabem quem faz o quê e quando
+- ✅ **Qualidade**: Múltiplas revisões reduzem erros
+- ✅ **Conhecimento compartilhado**: Plano documenta processo para toda equipe
+- ✅ **Onboarding**: Novos membros aprendem com planos anteriores
+
+📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "Planos de Ação (ACTION_PLANS.md)"
+
 ---
 
 ### 2️⃣ **Escolher as Tarefas Mais Simples**

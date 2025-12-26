@@ -933,6 +933,131 @@ The `TASKS.md` file is the **default file** for managing project tasks, but you 
 
 **Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
 
+**📋 About Action Plans (ACTION_PLANS.md)**:
+
+In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file for **tasks requiring detailed step-by-step guidance**.
+
+**What are Action Plans?**
+- 🎯 **Practical roadmaps** with numbered intermediate steps for complex tasks
+- ⚡ **More urgent and detailed** than TASKS.md items
+- 🔧 **Applicable to**: Maintenance, Correction, Evolution, Adaptation
+
+**Difference between TASKS.md and ACTION_PLANS.md:**
+- **TASKS.md**: List of general tasks ("WHAT to do") - e.g., `[ ] Implement OAuth2 authentication`
+- **ACTION_PLANS.md**: Detailed execution guide ("HOW to do it") - e.g.:
+  ```
+  PLAN #01: Implement OAuth2
+  ├─ Step 1: Install passport.js library
+  ├─ Step 2: Configure Google OAuth strategy
+  ├─ Step 3: Create /auth/google routes
+  └─ Step 4: Add tests
+  ```
+
+**When to use Action Plans:**
+- ✅ Complex task with multiple interdependent steps
+- ✅ Critical bug requiring step-by-step diagnosis
+- ✅ Refactoring affecting multiple modules
+- ✅ Technology migration or framework update
+
+**Specifics for Simplicity 3 (Solo Developer in Production):**
+- 🔒 **Mandatory security**: Include OWASP analysis for each step touching sensitive code
+- 🔙 **Rollback Plan**: Each action plan must include rollback strategy (see Step 12.5)
+- ⚡ **Automation-first**: Prioritize steps that can be automated/tested
+- 📊 **Production metrics**: Include validation of metrics (performance, availability)
+
+**Default location**: `docs/ACTION_PLANS.md`
+
+**Template for Simplicity 3 (Solo in Production):**
+```markdown
+## 🎯 ACTION PLAN #[ID]: [Title]
+**📅 Created on**: YYYY-MM-DD
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation
+**🔒 Security Impact**: Yes | No
+**💰 Production Impact**: Critical | Moderate | Low
+
+### 📝 Context
+[Why was this plan created? What impact on production system?]
+
+### 🎯 Final Objective
+[What will be achieved? Which metric will validate success?]
+
+### 🔙 Rollback Plan (MANDATORY)
+**If something goes wrong during execution:**
+- [ ] **Rollback step 1**: [How to undo step 1]
+- [ ] **Rollback step 2**: [How to undo step 2]
+- [ ] **Affected data**: [How to recover/restore]
+- [ ] **Estimated rollback time**: [duration]
+
+### 📋 Intermediate Steps
+- [ ] **Step 1**: [Description]
+  - **Completion criteria**: [...]
+  - **Estimated time**: [...]
+  - **Security checklist**: 
+    - [ ] Input validation
+    - [ ] Output encoding
+    - [ ] Authentication/Authorization
+  - **Automated tests**: [commands]
+  - **Rollback**: [how to revert this step]
+  
+- [ ] **Step 2**: [Description]
+  - **Completion criteria**: [...]
+  - **Dependencies**: Step 1
+  - **Security checklist**: [...]
+  - **Staging validation**: [commands/URLs]
+[...]
+
+### 🔒 Security Analysis (OWASP)
+- [ ] **A01:2021 – Broken Access Control**: Evaluated
+- [ ] **A02:2021 – Cryptographic Failures**: Evaluated
+- [ ] **A03:2021 – Injection**: Evaluated
+[... other relevant categories ...]
+
+### 📊 Production Metrics Validation
+- [ ] **Performance**: Response time < Xms (monitor for 24h)
+- [ ] **Availability**: Uptime > 99.9%
+- [ ] **Errors**: Error rate < 0.1%
+- [ ] **Resources**: CPU/Memory within limits
+
+### ✅ Completion Criteria
+- [ ] All steps completed
+- [ ] Automated tests passing (100% coverage)
+- [ ] OWASP checklist validated
+- [ ] Documentation updated
+- [ ] Rollback plan tested
+- [ ] Staging validation for 24h
+- [ ] Production deploy with monitoring
+- [ ] Production metrics stable for 48h
+```
+
+**Workflow with Action Plans (Solo in Production):**
+1. Consult TASKS.md to see pending tasks
+2. If complex/critical task → create detailed Action Plan
+3. **Security analysis**: Apply OWASP checklist (Step 10.1)
+4. **Create Rollback Plan**: Ensure ability to revert (Step 12.5)
+5. **Execute in staging first**: Validate for minimum 24h
+6. Execute step by step, with automated tests
+7. **Incremental deploy**: One step at a time, with monitoring
+8. **Validate metrics**: 48h stability before considering complete
+9. Upon completion → mark task in TASKS.md as complete
+10. Move plan to history with lessons learned
+
+**Benefits for Solo Developer:**
+- ✅ **Security**: Mandatory checklist prevents vulnerabilities
+- ✅ **Reliability**: Rollback plan ensures quick recovery
+- ✅ **Quality**: Testable steps guarantee functionality
+- ✅ **Autonomy**: Complete process documented for yourself
+- ✅ **Maintainability**: Detailed history facilitates future fixes
+
+**⚠️ When an Action Plan is MANDATORY in Simplicity 3:**
+- 🔒 Changes affecting **authentication, authorization, or sensitive data**
+- 💰 Deploy to **production with active users**
+- 🗄️ **Database migrations** or schema changes
+- 🔄 **Critical dependency updates** (frameworks, security libraries)
+- 🐛 **Critical bugs** affecting availability or security
+
+📖 **Complete details on Action Plans**: See README.md in repository, section "Action Plans (ACTION_PLANS.md)"
+
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**
