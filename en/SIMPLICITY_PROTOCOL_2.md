@@ -6838,6 +6838,83 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
       formatters.py
   ```
 
+- ✅ **Search for orphaned code after refactoring** (⭐ **MANDATORY**):
+  
+  > **CRITICAL**: After any refactoring, it is **MANDATORY** to search for orphaned code - code that was implemented but is no longer being used.
+  
+  **What is orphaned code?**
+  - ❌ Unused functions (defined but never called)
+  - ❌ Unused variables (declared but never referenced)
+  - ❌ Unused imports (imported but never used)
+  - ❌ Dead/unreachable code
+  - ❌ Uninstantiated classes (defined but never created)
+  - ❌ Uncalled methods (defined but never invoked)
+  
+  **Why search for orphaned code?**
+  - ✅ **Reduces complexity**: Less code = easier to understand
+  - ✅ **Improves maintenance**: Don't waste time on unused code
+  - ✅ **Avoids confusion**: Orphaned code can mislead developers
+  - ✅ **Performance**: Less code = faster startup
+  - ✅ **Security**: Orphaned code may contain forgotten vulnerabilities
+  
+  **Tools to detect orphaned code**:
+  ```bash
+  # Python - Unused code (functions, classes, variables)
+  pip install vulture
+  vulture src/ --min-confidence 80
+  # Output: unused functions/classes/variables
+  
+  # Python - Unused imports
+  pip install autoflake
+  autoflake --remove-all-unused-imports --check -r src/
+  # Or use pylint
+  pylint --disable=all --enable=unused-import src/
+  
+  # JavaScript/TypeScript - Unused code
+  npm install -g ts-prune  # For TypeScript
+  ts-prune
+  # Or ESLint
+  npm run lint -- --rule 'no-unused-vars: error'
+  
+  # For any language - Search for unused definitions
+  # 1. Generate list of definitions (functions, classes)
+  # 2. Search for references to each definition in code
+  # 3. If no reference found → orphaned code
+  ```
+  
+  **Usage example (Python)**:
+  ```python
+  # Before refactoring - 500-line file
+  
+  # Refactoring: split into 3 smaller files
+  # Now search for orphaned code:
+  
+  $ vulture src/ --min-confidence 80
+  src/old_module.py:45: unused function 'process_legacy_format' (100% confidence)
+  src/utils.py:123: unused function 'deprecated_helper' (90% confidence)
+  src/models.py:67: unused class 'OldDataModel' (100% confidence)
+  
+  # Action: Remove or document why keeping
+  # If truly unused → DELETE
+  # If will be used in future → Mark with comment and issue
+  ```
+  
+  **Orphaned code checklist** (execute AFTER refactoring):
+  ```markdown
+  - [ ] Run vulture (Python) or ts-prune (TypeScript)
+  - [ ] Review unused functions (confirm if truly orphaned)
+  - [ ] Remove unused imports (autoflake or similar tool)
+  - [ ] Check uninstantiated classes
+  - [ ] Search for old commented code (also orphaned code)
+  - [ ] Document if any "orphaned" code should be kept (e.g., public API)
+  ```
+  
+  **When NOT to remove**:
+  - ✅ **Public APIs**: Even if not used internally, external clients may use them
+  - ✅ **Hooks/callbacks**: May be called by frameworks
+  - ✅ **Test code**: Test helpers may appear unused
+  - ✅ **Planned code**: If there's an issue/task to use soon, keep (but document)
+
 **When to refactor**:
 
 1. **During new feature implementation**:
@@ -6848,6 +6925,7 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
    - Review the implemented code
    - Identify improvement opportunities (DRY, SRP, better names)
    - Refactor immediately while context is fresh
+   - **⭐ MANDATORY**: Search for orphaned code (vulture, autoflake, etc.)
 
 3. **When reviewing code (Steps 7 and 8)**:
    - Use the 9 quality criteria as a guide
@@ -6860,6 +6938,7 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
 5. **Minimum periodicity**:
    - ⚠️ **NEVER** let more than 3-5 features pass without refactoring
    - 🚨 If project has > 10 files with > 500 lines → PRIORITIZE refactoring
+   - ⭐ **Always search for orphaned code after refactoring** (not optional)
 
 **Benefits of frequent refactoring**:
 - ✅ **Simpler maintenance**: Organized code is easier to modify
