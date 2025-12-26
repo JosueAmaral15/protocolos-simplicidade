@@ -771,6 +771,73 @@ The `TASKS.md` file is the **default file** for managing project tasks, but you 
 
 **Why?**: Avoid rework and ensure consistency with existing code. The task file centralizes project planning and progress.
 
+**📋 About Action Plans (ACTION_PLANS.md)**:
+
+In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file for **tasks requiring detailed step-by-step guidance**.
+
+**What are Action Plans?**
+- 🎯 **Practical roadmaps** with numbered intermediate steps for complex tasks
+- ⚡ **More urgent and detailed** than TASKS.md items
+- 🔧 **Applicable to**: Maintenance, Correction, Evolution, Adaptation
+
+**Difference between TASKS.md and ACTION_PLANS.md:**
+- **TASKS.md**: List of general tasks ("WHAT to do") - e.g., `[ ] Implement OAuth2 authentication`
+- **ACTION_PLANS.md**: Detailed execution guide ("HOW to do it") - e.g.:
+  ```
+  PLAN #01: Implement OAuth2
+  ├─ Step 1: Install passport.js library
+  ├─ Step 2: Configure Google OAuth strategy
+  ├─ Step 3: Create /auth/google routes
+  └─ Step 4: Add tests
+  ```
+
+**When to use Action Plans:**
+- ✅ Complex task with multiple interdependent steps
+- ✅ Critical bug requiring step-by-step diagnosis
+- ✅ Refactoring affecting multiple modules
+- ✅ Technology migration or framework update
+
+**Default location**: `docs/ACTION_PLANS.md`
+
+**Basic template:**
+```markdown
+## 🎯 ACTION PLAN #[ID]: [Title]
+**📅 Created on**: YYYY-MM-DD
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation
+
+### 📝 Context
+[Why was this plan created?]
+
+### 🎯 Final Objective
+[What will be achieved?]
+
+### 📋 Intermediate Steps
+- [ ] **Step 1**: [Description + completion criteria]
+- [ ] **Step 2**: [Description + completion criteria]
+[...]
+
+### ✅ Completion Criteria
+- [ ] All steps completed
+- [ ] Tests passing
+- [ ] Documentation updated
+```
+
+**Workflow with Action Plans:**
+1. Consult TASKS.md to see pending tasks
+2. If complex task → create detailed Action Plan
+3. Execute step by step, marking progress
+4. Upon completion → mark task in TASKS.md as complete
+5. Move plan to "History" section or separate file
+
+**Benefits:**
+- ✅ Breaks complex problems into manageable steps
+- ✅ Allows easy resumption if interrupted
+- ✅ Documents resolution process for future reference
+- ✅ Forces review of each step before proceeding
+
+📖 **Complete details on Action Plans**: See README.md in repository, section "Action Plans (ACTION_PLANS.md)"
+
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**

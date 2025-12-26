@@ -898,6 +898,93 @@ The `TASKS.md` file is the **default file** for managing project tasks, but you 
 
 **Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
 
+**📋 About Action Plans (ACTION_PLANS.md)**:
+
+In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file for **tasks requiring detailed step-by-step guidance**.
+
+**What are Action Plans?**
+- 🎯 **Practical roadmaps** with numbered intermediate steps for complex tasks
+- ⚡ **More urgent and detailed** than TASKS.md items
+- 🔧 **Applicable to**: Maintenance, Correction, Evolution, Adaptation
+
+**Difference between TASKS.md and ACTION_PLANS.md:**
+- **TASKS.md**: List of general tasks ("WHAT to do") - e.g., `[ ] Implement OAuth2 authentication`
+- **ACTION_PLANS.md**: Detailed execution guide ("HOW to do it") - e.g.:
+  ```
+  PLAN #01: Implement OAuth2
+  ├─ Step 1: Install passport.js library
+  ├─ Step 2: Configure Google OAuth strategy
+  ├─ Step 3: Create /auth/google routes
+  └─ Step 4: Add tests
+  ```
+
+**When to use Action Plans:**
+- ✅ Complex task with multiple interdependent steps
+- ✅ Critical bug requiring step-by-step diagnosis
+- ✅ Refactoring affecting multiple modules
+- ✅ Technology migration or framework update
+
+**Specifics for Simplicity 2 (Enterprise):**
+- 🤝 **Team validation**: Action plans must be reviewed by peers before execution
+- 📋 **Create ADR**: For action plans involving significant architectural decisions (see Step 11.5)
+- 👥 **Clear assignment**: Each plan step must have assigned responsible person
+- 📊 **Metrics**: Include measurable success metrics for each step
+
+**Default location**: `docs/ACTION_PLANS.md`
+
+**Template for Simplicity 2 (Enterprise):**
+```markdown
+## 🎯 ACTION PLAN #[ID]: [Title]
+**📅 Created on**: YYYY-MM-DD
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation
+**👤 Lead**: [Lead name]
+**👥 Reviewers**: [Reviewer names]
+
+### 📝 Context
+[Why was this plan created?]
+
+### 🎯 Final Objective
+[What will be achieved?]
+
+### 📋 Intermediate Steps
+- [ ] **Step 1**: [Description]
+  - **Responsible**: [Name]
+  - **Completion criteria**: [...]
+  - **Success metrics**: [...]
+  
+- [ ] **Step 2**: [Description]
+  - **Responsible**: [Name]
+  - **Completion criteria**: [...]
+  - **Dependencies**: Step 1
+[...]
+
+### ✅ Completion Criteria
+- [ ] All steps completed
+- [ ] Code Review approved (see Step 9.5)
+- [ ] Tests passing
+- [ ] Documentation updated
+- [ ] ADR created (if architectural decision)
+```
+
+**Workflow with Action Plans (Enterprise):**
+1. Consult TASKS.md to see pending tasks
+2. If complex task → create detailed Action Plan
+3. **Team review**: Validate plan before starting execution
+4. **Assign responsible parties** for each step
+5. Execute step by step, with code review of each stage
+6. Upon completion → mark task in TASKS.md as complete
+7. **Retrospective**: Discuss lessons learned (Step 13.5)
+8. Move plan to history or separate file
+
+**Benefits for teams:**
+- ✅ **Coordination**: Everyone knows who does what and when
+- ✅ **Quality**: Multiple reviews reduce errors
+- ✅ **Shared knowledge**: Plan documents process for entire team
+- ✅ **Onboarding**: New members learn from previous plans
+
+📖 **Complete details on Action Plans**: See README.md in repository, section "Action Plans (ACTION_PLANS.md)"
+
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**
