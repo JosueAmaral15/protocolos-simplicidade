@@ -94,6 +94,80 @@ Esta regra está documentada em detalhes em cada protocolo após a seção "Filo
 
 ---
 
+## 🔍 Busca Binária para Localização de Defeitos
+
+> **NOVO**: Todos os protocolos agora incluem metodologia de **busca binária** para localização eficiente de bugs e defeitos.
+
+### 📋 O Que é?
+
+A **busca binária para debugging** é uma técnica algorítmica poderosa que reduz o espaço de busca pela metade a cada iteração, permitindo localizar defeitos em **O(log N) passos** ao invés de O(N) passos de uma busca linear.
+
+### 🎯 Quando Aplicar
+
+Durante a correção de erros, quando:
+- O erro é reproduzível mas a causa não é óbvia
+- O codebase é grande (>100 linhas)
+- Você suspeita que o bug está em uma região específica mas ampla
+- Um erro apareceu após mudanças grandes (múltiplos commits)
+
+### 💡 Como Funciona
+
+**Exemplo Prático**: Encontrar um erro na linha 48 de um arquivo com 512 linhas
+
+1. **Iteração 1**: Comente metade do código (linhas 257-512), teste o restante
+   - Erro persiste? Bug está em [1-256]
+   - Erro desaparece? Bug está em [257-512]
+
+2. **Iteração 2**: Repita o processo na metade identificada
+   - Continue dividindo: [1-256] → [1-128] → [1-64] → [33-64] → [33-48]...
+
+3. **Resultado**: 9 iterações para encontrar o bug (vs. até 512 tentativas lineares)
+
+### ⚡ Eficiência
+
+| Tamanho do Código | Busca Linear | Busca Binária | Ganho |
+|------------------|--------------|---------------|-------|
+| 512 linhas | até 512 passos | 9 passos | **56.9x mais rápido** |
+| 1024 linhas | até 1024 passos | 10 passos | **102.4x mais rápido** |
+| 4096 linhas | até 4096 passos | 12 passos | **341.3x mais rápido** |
+
+### 🎨 Aplicações Criativas
+
+A busca binária não se limita a linhas de código. Pode ser aplicada a:
+
+- **📦 Dependências/Imports**: Comente metade dos imports para encontrar conflitos
+- **🔧 Configurações**: Desabilite metade das configs para encontrar problemas
+- **🗃️ Dados**: Processe metade do dataset para identificar dados problemáticos
+- **⚙️ Features**: Desabilite metade das features para localizar regressões
+- **📅 Histórico Git**: Use `git bisect` para encontrar commit que introduziu bug
+- **🔄 Iterações de Loop**: Execute metade das iterações para identificar problema
+
+### 📖 Onde Encontrar
+
+Cada protocolo contém uma seção completa "🔍 Busca Binária para Localização de Defeitos" com:
+- ✅ Metodologia passo a passo detalhada
+- ✅ Exemplos práticos com código
+- ✅ Técnicas de implementação (comentários, flags, git bisect)
+- ✅ Checklist de 11 passos
+- ✅ Tabela de eficiência comparativa
+- ✅ Dicas práticas e rationale
+
+### 🚀 Rationale
+
+**Por quê a busca binária é poderosa para debugging?**
+
+1. **⚡ Eficiência Algorítmica**: Economia exponencial de tempo
+2. **🎯 Isolamento Preciso**: Reduz incerteza sistematicamente  
+3. **🧠 Menor Carga Cognitiva**: Decisões simples (erro presente: sim/não)
+4. **📊 Previsibilidade**: Sabe exatamente quantos passos serão necessários
+5. **🔄 Aplicabilidade Universal**: Funciona para código, dados, configs, histórico
+6. **✅ Garantia de Sucesso**: Se o bug é reproduzível, sempre encontra
+
+**Mensagem para IAs:**
+> "A criatividade no uso de busca binária não tem limites. Sempre considere se um problema de debugging pode ser reduzido a uma busca binária - você economizará tempo e encontrará bugs mais rapidamente."
+
+---
+
 ## 📝 Documentação Obrigatória na Pasta `docs/`
 
 > **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.

@@ -94,6 +94,80 @@ This rule is documented in detail in each protocol after the "Core Philosophy" s
 
 ---
 
+## 🔍 Binary Search for Bug Localization
+
+> **NEW**: All protocols now include **binary search** methodology for efficient bug and defect localization.
+
+### 📋 What is it?
+
+**Binary search for debugging** is a powerful algorithmic technique that reduces the search space by half with each iteration, allowing you to locate defects in **O(log N) steps** instead of O(N) steps of a linear search.
+
+### 🎯 When to Apply
+
+During error correction, when:
+- The error is reproducible but the cause is not obvious
+- The codebase is large (>100 lines)
+- You suspect the bug is in a specific but broad region
+- An error appeared after large changes (multiple commits)
+
+### 💡 How it Works
+
+**Practical Example**: Finding an error on line 48 of a file with 512 lines
+
+1. **Iteration 1**: Comment out half the code (lines 257-512), test the rest
+   - Error persists? Bug is in [1-256]
+   - Error disappears? Bug is in [257-512]
+
+2. **Iteration 2**: Repeat the process on the identified half
+   - Continue dividing: [1-256] → [1-128] → [1-64] → [33-64] → [33-48]...
+
+3. **Result**: 9 iterations to find the bug (vs. up to 512 linear attempts)
+
+### ⚡ Efficiency
+
+| Code Size | Linear Search | Binary Search | Gain |
+|-----------|--------------|---------------|------|
+| 512 lines | up to 512 steps | 9 steps | **56.9x faster** |
+| 1024 lines | up to 1024 steps | 10 steps | **102.4x faster** |
+| 4096 lines | up to 4096 steps | 12 steps | **341.3x faster** |
+
+### 🎨 Creative Applications
+
+Binary search is not limited to lines of code. It can be applied to:
+
+- **📦 Dependencies/Imports**: Comment out half the imports to find conflicts
+- **🔧 Configurations**: Disable half the configs to find issues
+- **🗃️ Data**: Process half the dataset to identify problematic data
+- **⚙️ Features**: Disable half the features to locate regressions
+- **📅 Git History**: Use `git bisect` to find the commit that introduced the bug
+- **🔄 Loop Iterations**: Execute half the iterations to identify issues
+
+### 📖 Where to Find
+
+Each protocol contains a complete section "🔍 Binary Search for Bug Localization" with:
+- ✅ Detailed step-by-step methodology
+- ✅ Practical examples with code
+- ✅ Implementation techniques (comments, flags, git bisect)
+- ✅ 11-step checklist
+- ✅ Comparative efficiency table
+- ✅ Practical tips and rationale
+
+### 🚀 Rationale
+
+**Why is binary search powerful for debugging?**
+
+1. **⚡ Algorithmic Efficiency**: Exponential time savings
+2. **🎯 Precise Isolation**: Reduces uncertainty systematically
+3. **🧠 Lower Cognitive Load**: Simple decisions (error present: yes/no)
+4. **📊 Predictability**: Know exactly how many steps will be needed
+5. **🔄 Universal Applicability**: Works for code, data, configs, history
+6. **✅ Success Guarantee**: If the bug is reproducible, it always finds it
+
+**Message for AIs:**
+> "Creativity in using binary search has no limits. Always consider whether a debugging problem can be reduced to a binary search - you'll save time and find bugs faster."
+
+---
+
 ## 📝 Mandatory Documentation in `docs/` Folder
 
 > **CRITICAL**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
