@@ -4705,6 +4705,83 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
       formatters.py
   ```
 
+- ✅ **Procurar por código órfão após refatoração** (⭐ **OBRIGATÓRIO**):
+  
+  > **CRÍTICO**: Após qualquer refatoração, é **OBRIGATÓRIO** procurar por código órfão - código que foi implementado mas não está mais sendo utilizado.
+  
+  **O que é código órfão?**
+  - ❌ Funções não utilizadas (definidas mas nunca chamadas)
+  - ❌ Variáveis não utilizadas (declaradas mas nunca referenciadas)
+  - ❌ Imports não utilizados (importados mas nunca usados)
+  - ❌ Código morto/inalcançável (unreachable code)
+  - ❌ Classes não instanciadas (definidas mas nunca criadas)
+  - ❌ Métodos não chamados (definidos mas nunca invocados)
+  
+  **Por quê procurar código órfão?**
+  - ✅ **Reduz complexidade**: Menos código = mais fácil entender
+  - ✅ **Melhora manutenção**: Não gastar tempo em código não usado
+  - ✅ **Evita confusão**: Código órfão pode enganar desenvolvedores
+  - ✅ **Performance**: Menos código = startup mais rápido
+  - ✅ **Segurança**: Código órfão pode conter vulnerabilidades esquecidas
+  
+  **Ferramentas para detectar código órfão**:
+  ```bash
+  # Python - Código não utilizado (funções, classes, variáveis)
+  pip install vulture
+  vulture src/ --min-confidence 80
+  # Saída: funções/classes/variáveis não utilizadas
+  
+  # Python - Imports não utilizados
+  pip install autoflake
+  autoflake --remove-all-unused-imports --check -r src/
+  # Ou usar pylint
+  pylint --disable=all --enable=unused-import src/
+  
+  # JavaScript/TypeScript - Código não utilizado
+  npm install -g ts-prune  # Para TypeScript
+  ts-prune
+  # Ou ESLint
+  npm run lint -- --rule 'no-unused-vars: error'
+  
+  # Para qualquer linguagem - Buscar definições não usadas
+  # 1. Gerar lista de definições (funções, classes)
+  # 2. Buscar referências a cada definição no código
+  # 3. Se nenhuma referência encontrada → código órfão
+  ```
+  
+  **Exemplo de uso (Python)**:
+  ```python
+  # Antes da refatoração - arquivo com 500 linhas
+  
+  # Refatoração: dividiu em 3 arquivos menores
+  # Agora procurar código órfão:
+  
+  $ vulture src/ --min-confidence 80
+  src/old_module.py:45: unused function 'process_legacy_format' (100% confidence)
+  src/utils.py:123: unused function 'deprecated_helper' (90% confidence)
+  src/models.py:67: unused class 'OldDataModel' (100% confidence)
+  
+  # Ação: Remover ou documentar por que manter
+  # Se realmente não usado → DELETAR
+  # Se será usado futuro → Marcar com comentário e issue
+  ```
+  
+  **Checklist de código órfão** (executar APÓS refatoração):
+  ```markdown
+  - [ ] Executar vulture (Python) ou ts-prune (TypeScript)
+  - [ ] Revisar funções não utilizadas (confirmar se realmente órfãs)
+  - [ ] Remover imports não utilizados (autoflake ou ferramenta similar)
+  - [ ] Verificar classes não instanciadas
+  - [ ] Procurar código comentado antigo (também é código órfão)
+  - [ ] Documentar se algum código "órfão" deve ser mantido (ex: API pública)
+  ```
+  
+  **Quando NÃO remover**:
+  - ✅ **APIs públicas**: Mesmo não usadas internamente, clientes externos podem usar
+  - ✅ **Hooks/callbacks**: Podem ser chamados por frameworks
+  - ✅ **Código de teste**: Helpers de teste podem parecer não usados
+  - ✅ **Código planejado**: Se há issue/task para usar em breve, manter (mas documentar)
+
 **Quando refatorar**:
 
 1. **Durante implementação de nova feature**:
@@ -4715,6 +4792,7 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
    - Revise o código implementado
    - Identifique oportunidades de melhoria (DRY, SRP, nomes melhores)
    - Refatore imediatamente enquanto o contexto está fresco
+   - **⭐ OBRIGATÓRIO**: Procure por código órfão (vulture, autoflake, etc.)
 
 3. **Ao revisar código (Etapas 7 e 8)**:
    - Use os 9 critérios de qualidade como guia
@@ -4727,6 +4805,7 @@ O Protocolo Simplicidade 1 é um **ciclo iterativo**:
 5. **Periodicidade mínima**:
    - ⚠️ **NUNCA** deixe passar mais de 3-5 funcionalidades sem refatorar
    - 🚨 Se projeto tem > 10 arquivos com > 500 linhas → PRIORIZE refatoração
+   - ⭐ **Sempre procure código órfão após refatorar** (não opcional)
 
 **Benefícios da refatoração frequente**:
 - ✅ **Manutenção mais simples**: Código organizado é mais fácil de modificar
