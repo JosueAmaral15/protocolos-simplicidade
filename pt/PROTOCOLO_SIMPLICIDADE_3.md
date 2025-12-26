@@ -1022,7 +1022,7 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 **Fluxo de trabalho com Planos de Ação (Solo em Produção):**
 1. Consultar TASKS.md para ver tarefas pendentes
 2. Se tarefa complexa/crítica → criar Plano de Ação detalhado
-3. **Análise de segurança**: Aplicar OWASP checklist (Etapa 10.1)
+3. **Análise de segurança**: Aplicar OWASP checklist (Etapa 6.5)
 4. **Criar Rollback Plan**: Garantir capacidade de reverter (Etapa 12.5)
 5. **Executar em staging primeiro**: Validar por 24h mínimo
 6. Executar passo a passo, com testes automatizados

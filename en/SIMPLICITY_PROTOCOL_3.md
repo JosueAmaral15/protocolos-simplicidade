@@ -1033,7 +1033,7 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 **Workflow with Action Plans (Solo in Production):**
 1. Consult TASKS.md to see pending tasks
 2. If complex/critical task → create detailed Action Plan
-3. **Security analysis**: Apply OWASP checklist (Step 10.1)
+3. **Security analysis**: Apply OWASP checklist (Step 6.5)
 4. **Create Rollback Plan**: Ensure ability to revert (Step 12.5)
 5. **Execute in staging first**: Validate for minimum 24h
 6. Execute step by step, with automated tests
