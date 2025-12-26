@@ -983,9 +983,9 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
   - **Critério de conclusão**: [...]
   - **Tempo estimado**: [...]
   - **Checklist de segurança**: 
-    - [ ] Input validation
-    - [ ] Output encoding
-    - [ ] Authentication/Authorization
+    - [ ] Validação de entrada
+    - [ ] Codificação de saída
+    - [ ] Autenticação/Autorização
   - **Testes automatizados**: [comandos]
   - **Rollback**: [como reverter este passo]
   
