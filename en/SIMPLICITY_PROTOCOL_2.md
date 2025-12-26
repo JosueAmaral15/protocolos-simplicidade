@@ -299,6 +299,201 @@ Before starting any new task:
 
 ---
 
+## 🔍 Binary Search for Bug Localization
+
+> **IMPORTANT FOR AIs**: When dealing with error correction and bug elimination, remember that you can use **binary search** to locate defects efficiently.
+
+### 🎯 Core Concept
+
+Binary search is a powerful technique that reduces the search space by half with each iteration, allowing you to locate defects in **O(log N) steps**, where N is the number of lines, commands, or instructions in the algorithm.
+
+**Practical Example**: 
+- If an error is on line 48 of a file with 512 lines
+- Linear search: up to 512 checks
+- Binary search: only **9 checks** (log₂(512) = 9)
+
+### 📋 Binary Search Debugging Methodology
+
+#### **1️⃣ Initial Step: Divide Code in Half**
+
+Starting with a file of N lines where an error exists:
+1. Comment out half of the code (e.g., lines 257-512)
+2. Execute/test the remaining half (lines 1-256)
+3. Check if the error persists
+
+**Decision**:
+- ✅ **Error persists**: The bug is in the active half (1-256)
+- ❌ **Error disappears**: The bug is in the commented half (257-512)
+
+#### **2️⃣ Recursion: Keep Dividing**
+
+Once you've identified the half with the problem, repeat the process:
+
+**Iteration 2** (error in 1-256):
+- Comment out lines 129-256
+- Test lines 1-128
+- Identify which quarter contains the bug
+
+**Iteration 3** (error in 1-128):
+- Comment out lines 65-128
+- Test lines 1-64
+- Identify which eighth contains the bug
+
+**Continue until** you locate exactly the problematic line/block.
+
+#### **3️⃣ Complete Example: 512 Lines → Line 48**
+
+```
+Iteration 1: [1-512]   → Test [1-256]   ✅ Error present
+Iteration 2: [1-256]   → Test [1-128]   ✅ Error present  
+Iteration 3: [1-128]   → Test [1-64]    ✅ Error present
+Iteration 4: [1-64]    → Test [1-32]    ❌ Error absent → Bug in [33-64]
+Iteration 5: [33-64]   → Test [33-48]   ✅ Error present
+Iteration 6: [33-48]   → Test [33-40]   ✅ Error present
+Iteration 7: [41-48]   → Test [41-44]   ✅ Error present
+Iteration 8: [45-48]   → Test [45-46]   ✅ Error present
+Iteration 9: [47-48]   → Test [line 47]  ❌ Error absent → ✅ Bug on line 48!
+```
+
+**Result**: 9 iterations to find the bug in 512 lines (vs. up to 512 linear attempts).
+
+### 🛠️ Implementation Techniques
+
+#### **A) Temporary Comments**
+```python
+# BINARY SEARCH - Iteration 1: Testing [1-256]
+# Lines 257-512 temporarily disabled
+# def suspicious_function():  
+#     potentially_buggy_code()
+#     more_code()
+```
+
+#### **B) Debug Flags**
+```python
+DEBUG_BINARY_SEARCH = True
+RANGE_START = 1
+RANGE_END = 256
+
+if DEBUG_BINARY_SEARCH and not (RANGE_START <= current_line <= RANGE_END):
+    return  # Skip execution outside test range
+```
+
+#### **C) Git Bisect** (for bugs introduced in commits)
+```bash
+# Use git bisect to find the commit that introduced the bug
+git bisect start
+git bisect bad HEAD              # Current commit has bug
+git bisect good v1.0.0           # Commit v1.0.0 didn't have bug
+# Git automatically performs binary search on commits
+```
+
+#### **D) Partitioned Unit Tests**
+```python
+# Split test suite in half
+pytest tests/test_module_part1.py  # First half
+pytest tests/test_module_part2.py  # Second half
+# Identify which half contains failing test
+```
+
+### 🎨 Creative Applications of Binary Search
+
+Binary search is not limited to lines of code. It can be applied to:
+
+1. **📦 Dependencies/Imports**:
+   - Comment out half of the imports
+   - Identify which import causes conflict/error
+   
+2. **🔧 Configuration Parameters**:
+   - Disable half of the configurations
+   - Find problematic configuration
+
+3. **🗃️ Input Data**:
+   - Process half of the dataset
+   - Identify which subset causes error
+
+4. **⚙️ Features/Functionality**:
+   - Disable half of the features
+   - Locate feature causing regression
+
+5. **🧩 Modules/Components**:
+   - Disable half of the modules
+   - Find module with bug
+
+6. **📅 Version History** (Git Bisect):
+   - Test version in middle of history
+   - Find commit that introduced bug
+
+7. **🔄 Loop Iterations**:
+   - Execute half of the iterations
+   - Identify in which iteration error occurs
+
+### ✅ Binary Search Debugging Checklist
+
+```markdown
+[ ] 1. Confirm error is consistently reproducible
+[ ] 2. Identify total scope (N lines/modules/commits)
+[ ] 3. Calculate required iterations: log₂(N)
+[ ] 4. Create backup or test branch
+[ ] 5. Iteration 1: Comment/disable upper/lower half
+[ ] 6. Run test and check if error persists
+[ ] 7. Record result and reduce scope by half
+[ ] 8. Repeat until isolating exact line/block/commit
+[ ] 9. Analyze isolated code to understand root cause
+[ ] 10. Apply fix and validate with tests
+[ ] 11. Remove debug code/temporary comments
+```
+
+### 🎯 When to Use Binary Search for Debugging
+
+**✅ Use when:**
+- Error is reproducible but cause is not obvious
+- Large codebase (>100 lines)
+- Suspect bug is in specific but broad region
+- Error appeared after large changes (multiple commits)
+- Test fails but there's no clear indication of problem
+- Performance degraded but don't know which function is responsible
+
+**❌ Don't use when:**
+- Error is sporadic/non-reproducible (race condition, timing issue)
+- Stack trace already points to exact line of problem
+- Code is very small (<50 lines)
+- Bug is obvious after quick code review
+
+### ⏱️ Binary Search Efficiency
+
+| Size (N) | Linear Search | Binary Search | Gain |
+|----------|--------------|---------------|------|
+| 32 lines  | up to 32 steps | 5 steps | 6.4x faster |
+| 128 lines | up to 128 steps | 7 steps | 18.3x faster |
+| 512 lines | up to 512 steps | 9 steps | 56.9x faster |
+| 1024 lines | up to 1024 steps | 10 steps | 102.4x faster |
+| 4096 lines | up to 4096 steps | 12 steps | 341.3x faster |
+
+### 💡 Practical Tips
+
+1. **Document the Process**: Record each iteration and result
+2. **Use Version Control**: Create branches for each test
+3. **Automate When Possible**: Scripts to comment/uncomment blocks
+4. **Combine with Logs**: Add prints to confirm block execution
+5. **Test Independently**: Ensure the test is deterministic
+6. **Validate Before and After**: Confirm bug exists before and is fixed after
+
+### 🚀 Rationale
+
+**Why is binary search powerful for debugging?**
+
+1. **⚡ Algorithmic Efficiency**: O(log N) vs O(N) - exponential time savings
+2. **🎯 Precise Isolation**: Reduces uncertainty systematically
+3. **🧠 Lower Cognitive Load**: Simple decisions (error present: yes/no)
+4. **📊 Predictability**: Know exactly how many steps will be needed
+5. **🔄 Universal Applicability**: Works for code, data, configurations, history
+6. **✅ Success Guarantee**: If the bug is reproducible, binary search always finds it
+
+**Message for AIs**:
+> "Creativity in using binary search has no limits. Always consider whether a debugging problem can be reduced to a binary search - you'll save time and find bugs faster."
+
+---
+
 ## 🌐 Code Language: Variable Naming and Comments
 
 > **IMPORTANT FOR AIs**: The choice of language for variable names and comments should be defined at the beginning of the project, preferably during the first session of interaction with the programmer.
