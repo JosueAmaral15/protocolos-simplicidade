@@ -1282,6 +1282,142 @@ Task #XX escolhida porque:
 
 ---
 
+### 2️⃣.6️⃣ **Organização Ordinal de Tarefas** ⭐ ALTAMENTE RECOMENDADO PARA EQUIPES
+
+> **Para Equipes Enterprise**: Sistema essencial para coordenar desenvolvimento paralelo e minimizar conflitos.
+
+**Quando Usar** (Simplicidade 2):
+- ✅ Projetos com equipes **médias/grandes** (3+ desenvolvedores)
+- ✅ **>15 tarefas** interdependentes
+- ✅ **Múltiplas features** sendo desenvolvidas simultaneamente
+- ✅ Necessidade de **paralelização** máxima
+- ✅ Risco de **conflitos de merge** frequentes
+
+#### 📊 Sistema de Prefixos para Equipes
+
+**Hierarquia com Letras e Números**:
+```markdown
+🔴 MUST HAVE - Release v1.0.0
+
+A. Infrastructure (Owner: DevOps Team)
+   🔴🟢 [ ] A.1. Estrutura de diretórios (0.5h)
+   🔴🟢 [ ] A.2. CI/CD pipeline (1h)
+
+B. Backend API (Owner: Backend Team)
+   🔴🟡 [ ] B.1. Modelo User (1.5h)
+   🔴🟡 [ ] B.2. API endpoints (2h) - Depende: B.1
+   🔴🔴 [ ] B.3. Autenticação JWT (2.5h) - Depende: B.2
+
+C. Frontend (Owner: Frontend Team)
+   🔴🟢 [ ] C.1. Componentes básicos (1h)
+   🔴🟡 [ ] C.2. Tela de login (2h) - Depende: B.3, C.1
+```
+
+**Análise de Paralelização**:
+- ✅ Grupo A, B, C iniciam **simultaneamente**
+- ✅ A.1, B.1, C.1 podem ser feitos **em paralelo**
+- ❌ B.2 aguarda B.1 (dependência)
+- ❌ C.2 aguarda B.3 e C.1 (dependências cruzadas)
+
+**Estratégia de Branches** (Equipes):
+```markdown
+Branch Strategy:
+├── feat/infra (DevOps): A.1 → A.2
+├── feat/backend-api (Backend): B.1 → B.2 → B.3
+└── feat/frontend (Frontend): C.1 → C.2 (aguarda B.3)
+
+Coordination Points:
+1. Sprint 1: Merge A.1, B.1, C.1 (parallel)
+2. Sprint 2: Backend continua B.2, B.3
+3. Sprint 3: Merge B.3, Frontend pode iniciar C.2
+```
+
+#### 🤝 Coordenação de Equipe
+
+**Code Review e Dependências**:
+```markdown
+B.C.2. Conversão árvore → RPN
+   B.C.2.1. Parser (Dev: Alice)
+   B.C.2.2. Serializer (Dev: Bob)
+   B.C.2. Integração (Dev: Carol) - Aguarda PR de Alice e Bob
+
+Workflow:
+1. Alice e Bob trabalham em paralelo (B.C.2.1, B.C.2.2)
+2. Alice abre PR #45 → Code Review por Charlie
+3. Bob abre PR #46 → Code Review por Charlie
+4. Carol aguarda merge de #45 e #46
+5. Carol inicia B.C.2, cria PR #47
+```
+
+#### 📋 ADR e Organização Ordinal
+
+Para decisões arquiteturais que afetam múltiplas tarefas:
+
+```markdown
+# ADR-005: Escolha de ORM para Backend
+
+**Contexto**: Tarefa B.1 (Modelo User) precisa definir ORM
+
+**Decisão**: SQLAlchemy 2.0
+
+**Impacto nas Tarefas**:
+- B.1: Implementar com SQLAlchemy
+- B.2: API endpoints usarão SQLAlchemy sessions
+- B.3: JWT validation integra com User model
+- C.2: Frontend aguarda endpoints de B.2
+
+**Comunicação**: 
+- Notificar Backend Team (B.x tasks)
+- Atualizar documentação técnica
+```
+
+#### ✅ Benefícios para Equipes Enterprise
+
+**Para Desenvolvedores**:
+- ✅ Autonomia: Sabe qual task iniciar sem perguntar ao lead
+- ✅ Visibilidade: Vê quais tasks estão bloqueadas
+- ✅ Coordenação: Identifica quando aguardar merge de colega
+
+**Para Tech Leads**:
+- ✅ Planejamento: Aloca desenvolvedores em tasks paralelas
+- ✅ Monitoramento: Acompanha progresso por prefixo ordinal
+- ✅ Risco: Identifica gargalos (dependências seriais)
+
+**Para o Projeto**:
+- ✅ Velocidade: Paralelização máxima reduz tempo 40-60%
+- ✅ Qualidade: Ordem correta evita retrabalho
+- ✅ Redução de conflitos: Branches isoladas por grupo
+- ✅ Onboarding: Novos membros entendem estrutura rapidamente
+
+#### 🔄 Retrospectivas e Organização Ordinal
+
+Ao final do sprint (Etapa 13.5 - Retrospectiva):
+
+```markdown
+# Retrospectiva Sprint #5 - Análise de Paralelização
+
+**O Que Funcionou**:
+✅ Grupos A e B foram 100% paralelos (zero conflitos)
+✅ Prefixos ordinais facilitaram planejamento
+
+**O Que Não Funcionou**:
+❌ Subestimamos dependência de C.2 em B.3
+❌ Frontend Team ficou bloqueado 2 dias
+
+**Ações para Próximo Sprint**:
+- [ ] Mapear dependências cruzadas ANTES de iniciar sprint
+- [ ] Adicionar prefixo ordinal que reflita dependências cruzadas
+- [ ] Exemplo: C.B.3.2 (indica que C.2 depende de B.3)
+```
+
+📘 **Documentação Completa**: Ver `ORGANIZACAO_ORDINAL_TAREFAS.md` para:
+- Hierarquia profunda (C.B.1.D.1)
+- Exemplos de projetos complexos
+- Fluxograma de decisão
+- Instruções para IAs
+
+---
+
 ### 3️⃣ **Fazer Perguntas e Mais Perguntas ao Programador**
 - **CRÍTICO**: Nunca assumir ou adivinhar requisitos
 - Fazer **todas as perguntas necessárias** até sanar **100% das dúvidas**

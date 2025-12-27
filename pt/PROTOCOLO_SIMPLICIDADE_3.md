@@ -1304,6 +1304,134 @@ Prioridade = (Simplicidade × 2) + Dependências + (Impacto × 1.5) + Clareza + 
 
 ---
 
+### 2️⃣.6️⃣ **Organização Ordinal de Tarefas** [RECOMENDADO PARA SOLO]
+
+> **Para Solo Developer em Produção**: Sistema pragmático para maximizar paralelização e eficiência.
+
+**Quando Usar** (Simplicidade 3):
+- ✅ Projetos **solo** com >10 tarefas interdependentes
+- ✅ Necessidade de **alternar entre contextos** (pausar e retomar)
+- ✅ Múltiplas **branches de feature** simultâneas
+- ✅ Trabalho **assíncrono** (não linear)
+- ✅ **Produção**: Necessidade de deploy incremental
+
+#### 📊 Sistema Simplificado para Solo
+
+**Numeração Pragmática**:
+```markdown
+## 🔴 MUST HAVE - Sprint v2.1.0
+
+1. 🔴🟢 [ ] Setup CI/CD (0.5h) - Independente
+2. 🔴🟢 [ ] Criar modelo User (1h) - Independente
+3. 🔴🟡 [ ] API Login (2h) - Depende: #2
+4. 🔴🔴 [ ] 2FA (3h) - Depende: #3
+
+**Análise Solo**:
+- Tasks #1 e #2: PARALELAS (posso alternar livremente)
+- Tasks #3 e #4: SERIAIS (#3 antes de #4)
+- Task #1: Posso fazer em qualquer momento (zero dependências)
+```
+
+**Hierarquia para Contextos Múltiplos**:
+```markdown
+A. Feature Autenticação (Branch: feat/auth)
+   A.1. 🔴🟢 [ ] Modelo User (1h)
+   A.2. 🔴🟡 [ ] Login JWT (2h) - Depende: A.1
+   A.3. 🔴🔴 [ ] 2FA (3h) - Depende: A.2
+
+B. Feature API (Branch: feat/api)
+   B.1. 🔴🟢 [ ] Endpoints básicos (1.5h)
+   B.2. 🔴🟡 [ ] Validação (1h) - Depende: B.1
+
+**Estratégia Solo**:
+1. Segunda-feira: A.1 (1h manhã)
+2. Segunda-feira: B.1 (1.5h tarde) ← Mudo de contexto
+3. Terça-feira: A.2 (2h manhã)
+4. Terça-feira: B.2 (1h tarde) ← Paralelo
+5. Quarta-feira: A.3 (3h) ← Volta para auth
+```
+
+#### ⚡ Benefícios para Solo em Produção
+
+**Produtividade**:
+- ✅ **Alternar contextos** quando bloqueado/cansado
+- ✅ **Deploy incremental**: Merge A.1, A.2 sem esperar A.3
+- ✅ **Rollback granular**: Reverter A.3 sem afetar A.1, A.2
+
+**Organização Mental**:
+- ✅ **Retomar trabalho**: Prefixo ordinal indica onde parou
+- ✅ **Priorização clara**: Sabe quais tasks fazer primeiro
+- ✅ **Pausar/Retomar**: Branch por grupo facilita contexto
+
+**Exemplo Real** (Solo Developer):
+```markdown
+Sexta-feira 17h: Preciso parar no meio de A.2
+
+TASKS.md:
+A. Feature Autenticação (Branch: feat/auth)
+   ✅ A.1. Modelo User (DONE - commit abc123)
+   🟡 A.2. Login JWT (IN PROGRESS - 60% completo)
+      → Próximo: Implementar refresh token
+   ⚪ A.3. 2FA (BLOCKED - aguarda A.2)
+
+Segunda-feira 9h: Retomo facilmente olhando TASKS.md
+→ Sei exatamente onde continuar (A.2, refresh token)
+→ Sei que A.3 está bloqueada até terminar A.2
+```
+
+#### 🔙 Rollback Plans e Organização Ordinal
+
+Para produção solo, combine com Etapa 12.5 (Rollback Plans):
+
+```markdown
+A.2. Login JWT (2h) - CRÍTICO para produção
+
+Rollback Plan:
+- SE taxa de erro > 5%: Reverter APENAS A.2
+- Manter A.1 (modelo) em produção
+- Feature flag: ENABLE_JWT_LOGIN=false
+- Fallback: Login básico (versão anterior)
+
+Prefixo ordinal permite rollback GRANULAR:
+✅ Reverter A.2 sem tocar A.1
+❌ Sem prefixo: Reverter "feature autenticação" toda
+```
+
+#### 🤖 IA Como Assistente Solo
+
+A IA pode sugerir organização ordinal:
+
+```markdown
+💡 **Sugestão da IA**: Identifiquei 8 tarefas no seu backlog
+
+Análise de dependências:
+- 3 tarefas INDEPENDENTES (1, 2, 5)
+- 2 grupos PARALELOS (A.x, B.x)
+- 1 dependência CRUZADA (C aguarda A.3)
+
+Recomendação para maximizar produtividade:
+1. Esta semana: Grupos A e B (parallel)
+   - Segunda: A.1 (manhã) + B.1 (tarde)
+   - Terça: A.2 (manhã) + B.2 (tarde)
+2. Próxima semana: A.3 → C.1 (serial)
+
+Prefere essa organização ou quer ajustar?
+```
+
+#### ✅ Quando NÃO Usar (Solo)
+
+- ❌ Projeto <5 tarefas (overhead desnecessário)
+- ❌ Sprint de 1 dia (linear é suficiente)
+- ❌ Todas tarefas SERIAIS (sem paralelização possível)
+
+📘 **Documentação Completa**: Ver `ORGANIZACAO_ORDINAL_TAREFAS.md` para:
+- Hierarquia profunda para projetos complexos
+- Leitura direita→esquerda (C.B.1.D.1)
+- Fluxograma de decisão
+- Exemplos completos
+
+---
+
 ### 3️⃣ **Fazer Perguntas e Mais Perguntas ao Programador**
 - **CRÍTICO**: Nunca assumir ou adivinhar requisitos
 - Fazer **todas as perguntas necessárias** até sanar **100% das dúvidas**
