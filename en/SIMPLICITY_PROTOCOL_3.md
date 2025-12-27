@@ -1311,7 +1311,135 @@ Priority = (Simplicity × 2) + Dependencies + (Impact × 1.5) + Clarity + Risk
 - ❌ Urgent bugfix (ignores score)
 - ❌ Blocking task (absolute priority)
 
-📘 **Full details**: See `PROTOCOLO_SIMPLICIDADE_2.md` - Step 2.5 (template, examples)
+📘 **Full details**: See `SIMPLICITY_PROTOCOL_2.md` - Step 2.5 (template, examples)
+
+---
+
+### 2️⃣.6️⃣ **Ordinal Task Organization** [RECOMMENDED FOR SOLO]
+
+> **For Solo Developer in Production**: Pragmatic system to maximize parallelization and efficiency.
+
+**When to Use** (Simplicity 3):
+- ✅ **Solo** projects with >10 interdependent tasks
+- ✅ Need to **switch contexts** (pause and resume)
+- ✅ Multiple **feature branches** simultaneously
+- ✅ **Asynchronous** work (non-linear)
+- ✅ **Production**: Need for incremental deployment
+
+#### 📊 Simplified System for Solo
+
+**Pragmatic Numbering**:
+```markdown
+## 🔴 MUST HAVE - Sprint v2.1.0
+
+1. 🔴🟢 [ ] Setup CI/CD (0.5h) - Independent
+2. 🔴🟢 [ ] Create User model (1h) - Independent
+3. 🔴🟡 [ ] Login API (2h) - Depends: #2
+4. 🔴🔴 [ ] 2FA (3h) - Depends: #3
+
+**Solo Analysis**:
+- Tasks #1 and #2: PARALLEL (can switch freely)
+- Tasks #3 and #4: SERIAL (#3 before #4)
+- Task #1: Can do anytime (zero dependencies)
+```
+
+**Hierarchy for Multiple Contexts**:
+```markdown
+A. Authentication Feature (Branch: feat/auth)
+   A.1. 🔴🟢 [ ] User model (1h)
+   A.2. 🔴🟡 [ ] JWT Login (2h) - Depends: A.1
+   A.3. 🔴🔴 [ ] 2FA (3h) - Depends: A.2
+
+B. API Feature (Branch: feat/api)
+   B.1. 🔴🟢 [ ] Basic endpoints (1.5h)
+   B.2. 🔴🟡 [ ] Validation (1h) - Depends: B.1
+
+**Solo Strategy**:
+1. Monday: A.1 (1h morning)
+2. Monday: B.1 (1.5h afternoon) ← Context switch
+3. Tuesday: A.2 (2h morning)
+4. Tuesday: B.2 (1h afternoon) ← Parallel
+5. Wednesday: A.3 (3h) ← Back to auth
+```
+
+#### ⚡ Benefits for Solo in Production
+
+**Productivity**:
+- ✅ **Switch contexts** when blocked/tired
+- ✅ **Incremental deployment**: Merge A.1, A.2 without waiting for A.3
+- ✅ **Granular rollback**: Revert A.3 without affecting A.1, A.2
+
+**Mental Organization**:
+- ✅ **Resume work**: Ordinal prefix shows where you stopped
+- ✅ **Clear prioritization**: Know which tasks to do first
+- ✅ **Pause/Resume**: Branch per group facilitates context
+
+**Real Example** (Solo Developer):
+```markdown
+Friday 5pm: Need to stop in the middle of A.2
+
+TASKS.md:
+A. Authentication Feature (Branch: feat/auth)
+   ✅ A.1. User model (DONE - commit abc123)
+   🟡 A.2. JWT Login (IN PROGRESS - 60% complete)
+      → Next: Implement refresh token
+   ⚪ A.3. 2FA (BLOCKED - waits for A.2)
+
+Monday 9am: Resume easily by looking at TASKS.md
+→ Know exactly where to continue (A.2, refresh token)
+→ Know that A.3 is blocked until finishing A.2
+```
+
+#### 🔙 Rollback Plans and Ordinal Organization
+
+For solo production, combine with Step 12.5 (Rollback Plans):
+
+```markdown
+A.2. JWT Login (2h) - CRITICAL for production
+
+Rollback Plan:
+- IF error rate > 5%: Revert ONLY A.2
+- Keep A.1 (model) in production
+- Feature flag: ENABLE_JWT_LOGIN=false
+- Fallback: Basic login (previous version)
+
+Ordinal prefix allows GRANULAR rollback:
+✅ Revert A.2 without touching A.1
+❌ Without prefix: Revert entire "authentication feature"
+```
+
+#### 🤖 AI as Solo Assistant
+
+AI can suggest ordinal organization:
+
+```markdown
+💡 **AI Suggestion**: I identified 8 tasks in your backlog
+
+Dependency analysis:
+- 3 INDEPENDENT tasks (1, 2, 5)
+- 2 PARALLEL groups (A.x, B.x)
+- 1 CROSS dependency (C waits for A.3)
+
+Recommendation to maximize productivity:
+1. This week: Groups A and B (parallel)
+   - Monday: A.1 (morning) + B.1 (afternoon)
+   - Tuesday: A.2 (morning) + B.2 (afternoon)
+2. Next week: A.3 → C.1 (serial)
+
+Prefer this organization or want adjustments?
+```
+
+#### ✅ When NOT to Use (Solo)
+
+- ❌ Project <5 tasks (unnecessary overhead)
+- ❌ 1-day sprint (linear is sufficient)
+- ❌ All tasks SERIAL (no parallelization possible)
+
+📘 **Complete Documentation**: See `ORDINAL_TASK_ORGANIZATION.md` for:
+- Deep hierarchy for complex projects
+- Right→left reading (C.B.1.D.1)
+- Decision flowchart
+- Complete examples
 
 ---
 

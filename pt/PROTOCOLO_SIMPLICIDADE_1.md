@@ -1043,6 +1043,106 @@ Lista de tasks complexas restantes:
 
 ---
 
+### 2️⃣.5️⃣ **Organização Ordinal de Tarefas** [OPCIONAL]
+
+> **NOVO**: Sistema de prefixos ordinais para identificar dependências e paralelização.
+
+**Quando Usar**: Projetos com >10 tarefas interdependentes ou equipes trabalhando em paralelo.
+
+#### 📊 Sistema de Prefixos
+
+**Nível 1: Numeração Simples** (tarefas independentes)
+```markdown
+1. Tarefa A - Configurar ambiente
+2. Tarefa B - Criar documentação
+3. Tarefa C - Definir arquitetura
+```
+→ Podem ser executadas em **qualquer ordem** ou **paralelamente**
+
+**Nível 2: Hierarquia com Letras** (grupos de tarefas)
+```markdown
+A. Infrastructure
+   A.1. Criar estrutura de diretórios
+   A.2. Configurar dependências
+   
+B. Core - Estruturas de Dados
+   B.1. Implementar classe Node
+   B.2. Implementar ExpressionTree
+```
+→ Grupos diferentes (A, B) são **PARALELOS**
+
+**Nível 3: Hierarquia Profunda** (dependências complexas)
+```markdown
+B.C.2. Implementar conversão árvore → RPN
+   B.C.2.1. Parser RPN (fazer PRIMEIRO - folha)
+   B.C.2.2. Serializer RPN (fazer PRIMEIRO - folha)
+   B.C.2. Conversão completa (fazer DEPOIS - pai)
+```
+
+**Leitura da hierarquia** (⭐ CRÍTICO): Ler da **DIREITA para ESQUERDA**
+```
+C.B.1.D.1
+   │  │ │ └─ 1: Executar por ÚLTIMO (raiz)
+   │  │ └─── D: Executar TERCEIRO
+   │  └───── 1: Executar SEGUNDO
+   └──────── B: Executar PRIMEIRO (folha)
+```
+
+#### 🔄 Paralelização vs Serialização
+
+✅ **PARALLEL** (podem ser simultâneos):
+- Tarefas de grupos diferentes (A.x, B.x, C.x)
+- Irmãos no mesmo nível (X.1, X.2, X.3)
+- Tarefas sem dependências explícitas
+
+❌ **SERIAL** (devem ser sequenciais):
+- Relação pai-filho (B.C.2.1, B.C.2.2 → B.C.2)
+- Dependências explícitas
+- Quando uma tarefa usa resultado de outra
+
+#### 📋 Exemplo Prático
+
+```markdown
+A. Autenticação
+   🔴🟡 [ ] A.1. Modelo User (1.5h)
+   🔴🟡 [ ] A.2. Login JWT (2h) - Depende: A.1
+   🔴🔴 [ ] A.3. 2FA (3h) - Depende: A.2
+
+B. Catálogo de Produtos
+   🔴🟢 [ ] B.1. Modelo Product (1h)
+   🔴🟡 [ ] B.2. CRUD Products (2h) - Depende: B.1
+
+**Análise**:
+- A.1 e B.1 são PARALELOS (grupos diferentes)
+- A.1 → A.2 → A.3 são SERIAIS (mesmo grupo)
+- B.1 → B.2 são SERIAIS (mesmo grupo)
+
+**Estratégia de Branches**:
+- Branch feat/auth: A.1 → A.2 → A.3
+- Branch feat/catalog: B.1 → B.2 (parallel com auth)
+```
+
+#### ✅ Benefícios
+
+Para **Desenvolvedores**:
+- ✅ Clareza sobre qual tarefa fazer primeiro
+- ✅ Identifica oportunidades de paralelização
+- ✅ Minimiza conflitos em controle de versão
+
+Para **IAs**:
+- ✅ Cálculo automático de ordem de execução
+- ✅ Sugestão de paralelização
+- ✅ Detecção de dependências circulares
+
+Para o **Projeto**:
+- ✅ Reduz tempo total (paralelização)
+- ✅ Evita retrabalho (ordem correta)
+- ✅ Timeline mais previsível
+
+📘 **Documentação Completa**: Ver `ORGANIZACAO_ORDINAL_TAREFAS.md` para detalhes completos, exemplos e fluxogramas.
+
+---
+
 ### 3️⃣ **Fazer Perguntas e Mais Perguntas ao Programador**
 - **CRÍTICO**: Nunca assumir ou adivinhar requisitos
 - Fazer **todas as perguntas necessárias** até sanar **100% das dúvidas**

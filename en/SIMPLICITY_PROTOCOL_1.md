@@ -1057,6 +1057,106 @@ List of remaining complex tasks:
 
 ---
 
+### 2️⃣.5️⃣ **Ordinal Task Organization** [OPTIONAL]
+
+> **NEW**: Ordinal prefix system to identify dependencies and parallelization.
+
+**When to Use**: Projects with >10 interdependent tasks or teams working in parallel.
+
+#### 📊 Prefix System
+
+**Level 1: Simple Numbering** (independent tasks)
+```markdown
+1. Task A - Set up environment
+2. Task B - Create documentation
+3. Task C - Define architecture
+```
+→ Can be executed in **any order** or **in parallel**
+
+**Level 2: Hierarchy with Letters** (task groups)
+```markdown
+A. Infrastructure
+   A.1. Create directory structure
+   A.2. Configure dependencies
+   
+B. Core - Data Structures
+   B.1. Implement Node class
+   B.2. Implement ExpressionTree
+```
+→ Different groups (A, B) are **PARALLEL**
+
+**Level 3: Deep Hierarchy** (complex dependencies)
+```markdown
+B.C.2. Implement tree → RPN conversion
+   B.C.2.1. RPN Parser (do FIRST - leaf)
+   B.C.2.2. RPN Serializer (do FIRST - leaf)
+   B.C.2. Complete conversion (do AFTER - parent)
+```
+
+**Reading the hierarchy** (⭐ CRITICAL): Read from **RIGHT to LEFT**
+```
+C.B.1.D.1
+   │  │ │ └─ 1: Execute LAST (root)
+   │  │ └─── D: Execute THIRD
+   │  └───── 1: Execute SECOND
+   └──────── B: Execute FIRST (leaf)
+```
+
+#### 🔄 Parallelization vs Serialization
+
+✅ **PARALLEL** (can be simultaneous):
+- Tasks from different groups (A.x, B.x, C.x)
+- Siblings at the same level (X.1, X.2, X.3)
+- Tasks without explicit dependencies
+
+❌ **SERIAL** (must be sequential):
+- Parent-child relationship (B.C.2.1, B.C.2.2 → B.C.2)
+- Explicit dependencies
+- When one task uses another's result
+
+#### 📋 Practical Example
+
+```markdown
+A. Authentication
+   🔴🟡 [ ] A.1. User model (1.5h)
+   🔴🟡 [ ] A.2. JWT Login (2h) - Depends: A.1
+   🔴🔴 [ ] A.3. 2FA (3h) - Depends: A.2
+
+B. Product Catalog
+   🔴🟢 [ ] B.1. Product model (1h)
+   🔴🟡 [ ] B.2. Products CRUD (2h) - Depends: B.1
+
+**Analysis**:
+- A.1 and B.1 are PARALLEL (different groups)
+- A.1 → A.2 → A.3 are SERIAL (same group)
+- B.1 → B.2 are SERIAL (same group)
+
+**Branch Strategy**:
+- Branch feat/auth: A.1 → A.2 → A.3
+- Branch feat/catalog: B.1 → B.2 (parallel with auth)
+```
+
+#### ✅ Benefits
+
+For **Developers**:
+- ✅ Clarity about which task to do first
+- ✅ Identifies parallelization opportunities
+- ✅ Minimizes version control conflicts
+
+For **AIs**:
+- ✅ Automatic calculation of execution order
+- ✅ Parallelization suggestions
+- ✅ Detection of circular dependencies
+
+For the **Project**:
+- ✅ Reduces total time (parallelization)
+- ✅ Avoids rework (correct order)
+- ✅ More predictable timeline
+
+📘 **Complete Documentation**: See `ORDINAL_TASK_ORGANIZATION.md` for complete details, examples, and flowcharts.
+
+---
+
 ### 3️⃣ **Ask More and More Questions to the Programmer**
 - **CRITICAL**: Never assume or guess requirements
 - Ask **all necessary questions** until **100% of doubts** are clarified

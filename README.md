@@ -566,6 +566,124 @@ Seu feedback nos ajuda a melhorar continuamente!
 
 ---
 
+## 📊 Organização Ordinal de Tarefas
+
+> **NOVO**: Sistema de prefixos ordinais para identificar dependências, prioridades e oportunidades de paralelização.
+
+### 🎯 O Que É
+
+A **Organização Ordinal de Tarefas** é um sistema de prefixos que permite:
+- ✅ **Ordem de execução** clara (do mais simples ao mais complexo)
+- ✅ **Dependências** explícitas (quais tarefas precisam ser feitas primeiro)
+- ✅ **Paralelização** inteligente (quais podem ser desenvolvidas simultaneamente)
+- ✅ **Organização hierárquica** (estrutura de árvore/grafo)
+
+### 📋 Sistema de 3 Níveis
+
+**Nível 1: Numeração Simples** (tarefas independentes)
+```markdown
+1. Configurar ambiente de desenvolvimento
+2. Criar documentação inicial
+3. Definir arquitetura do sistema
+```
+→ Podem ser executadas em **qualquer ordem** ou **paralelamente**
+
+**Nível 2: Hierarquia com Letras** (grupos de tarefas)
+```markdown
+A. Infrastructure
+   A.1. Criar estrutura de diretórios
+   A.2. Configurar dependências
+
+B. Core - Estruturas de Dados
+   B.1. Implementar classe Node
+   B.2. Implementar ExpressionTree
+```
+→ Grupos diferentes (A, B) são **PARALELOS**
+
+**Nível 3: Hierarquia Profunda** (dependências complexas)
+```markdown
+B.C.2. Implementar conversão árvore → RPN
+   B.C.2.1. Parser RPN (fazer PRIMEIRO - folha)
+   B.C.2.2. Serializer RPN (fazer PRIMEIRO - folha)
+   B.C.2. Conversão completa (fazer DEPOIS - pai)
+```
+
+### 🔄 Leitura da Hierarquia (⭐ CRÍTICO)
+
+A hierarquia deve ser lida da **DIREITA para ESQUERDA**:
+
+```
+C.B.1.D.1
+   │  │ │ └─ 1: Executar por ÚLTIMO (raiz da árvore)
+   │  │ └─── D: Executar TERCEIRO
+   │  └───── 1: Executar SEGUNDO
+   └──────── B: Executar PRIMEIRO (folha da árvore)
+
+Ordem de execução: B → 1 → D → 1 (da direita para esquerda)
+```
+
+### 🎨 Exemplo Prático
+
+```markdown
+## 🔴 MUST HAVE - Release v1.0.0
+
+A. Autenticação (Owner: Backend)
+   🔴🟡 [ ] A.1. Modelo User (1.5h)
+   🔴🟡 [ ] A.2. Login JWT (2h) - Depende: A.1
+   🔴🔴 [ ] A.3. 2FA (3h) - Depende: A.2
+
+B. Catálogo (Owner: Backend)
+   🔴🟢 [ ] B.1. Modelo Product (1h)
+   🔴🟡 [ ] B.2. CRUD Products (2h) - Depende: B.1
+
+**Análise de Paralelização**:
+- A.1 e B.1: PARALELOS (grupos diferentes) ✅
+- A.1 → A.2 → A.3: SERIAIS (dependências) ❌
+- B.1 → B.2: SERIAIS (dependências) ❌
+
+**Estratégia de Branches**:
+- Branch feat/auth: A.1 → A.2 → A.3
+- Branch feat/catalog: B.1 → B.2 (parallel com auth)
+```
+
+### ✅ Benefícios
+
+**Para Desenvolvedores**:
+- ✅ Clareza sobre ordem de execução
+- ✅ Autonomia para escolher tarefas paralelas
+- ✅ Menos conflitos em Git/GitHub
+
+**Para IAs**:
+- ✅ Cálculo automático de ordem de execução
+- ✅ Sugestão de paralelização
+- ✅ Detecção de dependências circulares
+
+**Para o Projeto**:
+- ✅ Redução de 40-60% no tempo total (paralelização)
+- ✅ Evita retrabalho (ordem correta)
+- ✅ Timeline mais previsível
+
+### 📚 Documentação Completa
+
+Este sistema está integrado aos três protocolos:
+
+- **📘 Protocolo 1**: Seção 2.5 - Sistema [OPCIONAL] para projetos simples
+- **📕 Protocolo 2**: Seção 2.6 - Sistema [ALTAMENTE RECOMENDADO] para coordenação de equipes
+- **📗 Protocolo 3**: Seção 2.6 - Sistema [RECOMENDADO] para solo developers em produção
+
+📖 **Documentação Detalhada**:
+- [`pt/ORGANIZACAO_ORDINAL_TAREFAS.md`](pt/ORGANIZACAO_ORDINAL_TAREFAS.md) - Guia completo em Português
+- [`en/ORDINAL_TASK_ORGANIZATION.md`](en/ORDINAL_TASK_ORGANIZATION.md) - Complete guide in English
+
+Inclui:
+- ✅ Fluxograma de decisão
+- ✅ 3 exemplos práticos (simples, médio, complexo)
+- ✅ Instruções para desenvolvedores e IAs
+- ✅ Integração com ferramentas de CI/CD
+- ✅ Estratégias de rollback granular
+
+---
+
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
