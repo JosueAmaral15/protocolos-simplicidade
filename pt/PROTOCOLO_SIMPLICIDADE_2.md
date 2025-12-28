@@ -491,6 +491,128 @@ A busca binária não se limita a linhas de código. Pode ser aplicada a:
 
 ---
 
+## 🧠 Fator de Memória Associativa
+
+> **IMPORTANTE PARA IAs**: Durante investigação e correção de erros, aplique o **Fator de Memória Associativa** para aprender com padrões passados e acelerar diagnósticos futuros.
+
+### 🎯 O Que é Memória Associativa?
+
+A **Memória Associativa** é a capacidade da IA de:
+- 🧠 **Reconhecer padrões** recorrentes em erros e defeitos
+- 🔗 **Associar causas e efeitos** em diferentes contextos
+- 📈 **Generalizar soluções** de casos específicos
+- 📉 **Deduzir problemas** do geral para o específico (top-down)
+- 📊 **Induzir regras** do específico para o geral (bottom-up)
+
+### 🐍 Conexão com Python Traceback
+
+O Traceback apresenta erros em estrutura **top-down**:
+```
+main.py (RAIZ/Orquestrador)
+  ↓
+processador.py (GALHO/Coordenador)
+  ↓
+validador.py (FOLHA/Executor) ← Erro aqui!
+```
+
+**Insight Associativo**:
+- Erros em **folhas** → pré-condições violadas
+- Erros em **galhos** → lógica de coordenação incorreta
+- Erros na **raiz** → integração problemática
+
+### 🔬 Abordagens Complementares
+
+**Dedutiva (Geral → Específico)**:
+- Aplicar regras gerais conhecidas para diagnosticar
+- Ex: "AttributeError geralmente indica objeto não inicializado"
+
+**Indutiva (Específico → Geral)**:
+- Observar casos repetidos para criar regra geral
+- Ex: "70% dos IndexError são por manipulação incorreta de índices"
+
+**Neuro-Simbólica (Combinação)**:
+- Une dedução (IA simbólica) com indução (IA neural)
+- Aprende continuamente enquanto aplica regras
+
+### 🐛 Taxonomia de Defeitos
+
+Cinco categorias de defeitos altamente indesejáveis:
+
+1. **Fato Incorreto**: Informação errada ou desatualizada
+2. **Informação Estranha**: Código/comentários que não pertencem ao contexto
+3. **Ambiguidade**: Código com múltiplas interpretações possíveis
+4. **Inconsistência**: Violação de padrões estabelecidos
+5. **Omissão**: Código ou lógica faltante (validações, tratamento de erros)
+
+### 🔄 Padrões de Erro
+
+**Erros Independentes de Entrada**:
+- Ocorrem sempre, independente dos dados
+- Problema na **lógica**, não nos **dados**
+
+**Erros em Escopo Específico**:
+- Um bug, múltiplos sintomas em diferentes partes
+- Procure **dependência compartilhada**
+
+**Erros por Importação Comum**:
+- Múltiplos módulos falham porque importam código bugado
+- Corrigir uma vez resolve todos os casos
+
+### 🤝 Aplicação em Code Review (Protocolo 2)
+
+Durante code reviews, além da revisão individual, aplicar memória associativa:
+
+**Checklist de Taxonomia de Defeitos**:
+- [ ] **Fato Incorreto**: Valores, constantes ou comentários desatualizados
+- [ ] **Informação Estranha**: Código comentado, TODOs obsoletos, imports não utilizados
+- [ ] **Ambiguidade**: Nomes vagos, documentação incompleta
+- [ ] **Inconsistência**: Violação de convenções de nomenclatura ou padrões
+- [ ] **Omissão**: Falta de validações, tratamento de exceções, ou edge cases
+
+**Base de Conhecimento da Equipe**:
+- Manter registro de padrões de erro comuns na equipe
+- Compartilhar soluções efetivas em documentação
+- Realizar retrospectivas sobre defeitos recorrentes
+- Criar guias de prevenção baseados em experiência acumulada
+
+### ✅ Checklist de Aplicação
+
+Ao investigar e corrigir erros:
+
+**Fase de Análise**:
+- [ ] Examinar Traceback de cima para baixo (raiz → folha)
+- [ ] Identificar nível do erro (orquestrador/coordenador/executor)
+- [ ] Consultar base de conhecimento para padrões similares
+- [ ] Aplicar dedução: regras gerais → hipótese específica
+- [ ] Buscar indução: múltiplos casos → padrão geral
+
+**Fase de Correção**:
+- [ ] Validar ausência de Fato Incorreto
+- [ ] Remover Informação Estranha
+- [ ] Eliminar Ambiguidades
+- [ ] Garantir Consistência com padrões do projeto
+- [ ] Corrigir Omissões (validações, tratamento de erros)
+
+**Fase de Aprendizado**:
+- [ ] Adicionar caso à base de conhecimento
+- [ ] Atualizar regras gerais se novo padrão identificado
+- [ ] Documentar solução para referência futura
+- [ ] Compartilhar aprendizado com a equipe
+- [ ] Reforçar associações de padrões confirmados
+
+### 📖 Documentação Completa
+
+Para detalhes completos sobre o Fator de Memória Associativa, incluindo:
+- Metodologia detalhada de investigação top-down
+- Ciclo neuro-simbólico de debugging
+- Exemplos práticos de cada tipo de defeito
+- Base de conhecimento de padrões de erro
+- Integração com HDC (Hyperdimensional Computing)
+
+**Consulte**: [pt/FATOR_MEMORIA_ASSOCIATIVA.md](FATOR_MEMORIA_ASSOCIATIVA.md)
+
+---
+
 ## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
 
 > **IMPORTANTE PARA IAs**: A escolha do idioma para nomes de variáveis e comentários deve ser definida logo no início do projeto, preferencialmente na primeira sessão de interação com o programador.
