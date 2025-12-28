@@ -915,6 +915,83 @@ Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de 
 
 ---
 
+## 🧠 Fator de Memória Associativa
+
+> **NOVO**: Conceito fundamental para permitir que IAs aprendam com padrões de erros e apliquem conhecimento acumulado.
+
+O **[Fator de Memória Associativa](pt/FATOR_MEMORIA_ASSOCIATIVA.md)** integra os Protocolos Simplicidade permitindo que a IA desenvolva uma "memória" de problemas e soluções.
+
+### 🎯 O Que é?
+
+Capacidade da IA de:
+- 🧠 **Reconhecer padrões** recorrentes em erros
+- 🔗 **Associar causas e efeitos** em diferentes contextos
+- 📈 **Generalizar soluções** de casos específicos para regras gerais
+- 📉 **Deduzir problemas** do geral para o específico (top-down)
+- 📊 **Induzir regras** do específico para o geral (bottom-up)
+
+### 🐍 Conexão com Python Traceback
+
+O Traceback do Python apresenta erros em estrutura **top-down** (de fora para dentro):
+- **Raiz** (orquestrador) → **Galhos** (coordenadores) → **Folhas** (executores)
+- A investigação segue o mesmo caminho dedutivo
+- Memória associativa ajuda a identificar nível e causa raiz rapidamente
+
+### 🔬 Abordagens Complementares
+
+**Dedutiva (Geral → Específico)**:
+- Aplicar regras gerais conhecidas para diagnosticar erro
+- Exemplo: "AttributeError geralmente indica objeto não inicializado"
+
+**Indutiva (Específico → Geral)**:
+- Observar casos específicos repetidos para criar regra geral
+- Exemplo: "70% dos IndexError são por manipulação incorreta de índices"
+
+**Neuro-Simbólica (Combinação)**:
+- Une dedução (IA simbólica) com indução (IA neural)
+- Aprende continuamente enquanto aplica regras estabelecidas
+
+### 🐛 Taxonomia de Defeitos
+
+Cinco categorias de defeitos altamente indesejáveis:
+
+1. **Fato Incorreto**: Informação errada ou desatualizada no código
+2. **Informação Estranha**: Código/comentários que não pertencem ao contexto
+3. **Ambiguidade**: Código que pode ser interpretado de múltiplas formas
+4. **Inconsistência**: Violação de padrões estabelecidos no projeto
+5. **Omissão**: Código ou lógica faltante (validações, tratamento de erros)
+
+### 🔄 Padrões de Erro
+
+**Erros Independentes de Entrada**:
+- Ocorrem sempre, independente dos dados
+- Indicam problema estrutural na lógica
+
+**Erros em Escopo Específico**:
+- Confinados a módulo/função específica
+- Um bug, múltiplos sintomas
+
+**Erros por Importação Comum**:
+- Múltiplos módulos falham porque importam código bugado
+- Corrigir uma vez resolve todos os casos
+
+### 📖 Acesse o Documento
+
+- **🇧🇷 Português**: [pt/FATOR_MEMORIA_ASSOCIATIVA.md](pt/FATOR_MEMORIA_ASSOCIATIVA.md)
+- **🇺🇸 English**: [en/ASSOCIATIVE_MEMORY_FACTOR.md](en/ASSOCIATIVE_MEMORY_FACTOR.md)
+
+### 🎯 Benefícios
+
+- ✅ Diagnóstico mais rápido de erros
+- ✅ Correções mais efetivas
+- ✅ Prevenção de problemas recorrentes
+- ✅ Base de conhecimento em crescimento contínuo
+- ✅ Melhor atendimento aos requisitos de desenvolvedores e clientes
+
+**Integração**: Este conceito está integrado em todos os três protocolos nas etapas de correção de erros e debugging.
+
+---
+
 ## 📝 Créditos e Versionamento
 
 - **Autor:** Josué Amaral
@@ -924,5 +1001,6 @@ Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de 
     - Simplicidade 2: `v2.2`
     - Simplicidade 3: `v3.1`
     - Analogia da Árvore de Importações: `v1.0`
+    - Fator de Memória Associativa: `v1.0`
 
 > *"Quero um trabalho completo e profissional!"*
