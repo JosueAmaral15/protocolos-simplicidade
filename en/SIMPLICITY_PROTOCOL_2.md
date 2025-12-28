@@ -494,6 +494,128 @@ Binary search is not limited to lines of code. It can be applied to:
 
 ---
 
+## 🧠 Associative Memory Factor
+
+> **IMPORTANT FOR AIs**: During error investigation and correction, apply the **Associative Memory Factor** to learn from past patterns and accelerate future diagnostics.
+
+### 🎯 What is Associative Memory?
+
+**Associative Memory** is AI's ability to:
+- 🧠 **Recognize patterns** recurring in errors and defects
+- 🔗 **Associate causes and effects** in different contexts
+- 📈 **Generalize solutions** from specific cases
+- 📉 **Deduce problems** from general to specific (top-down)
+- 📊 **Induce rules** from specific to general (bottom-up)
+
+### 🐍 Connection with Python Traceback
+
+Traceback presents errors in **top-down** structure:
+```
+main.py (ROOT/Orchestrator)
+  ↓
+processor.py (BRANCH/Coordinator)
+  ↓
+validator.py (LEAF/Executor) ← Error here!
+```
+
+**Associative Insight**:
+- Errors in **leaves** → violated preconditions
+- Errors in **branches** → incorrect coordination logic
+- Errors in **root** → problematic integration
+
+### 🔬 Complementary Approaches
+
+**Deductive (General → Specific)**:
+- Apply known general rules to diagnose
+- Ex: "AttributeError usually indicates uninitialized object"
+
+**Inductive (Specific → General)**:
+- Observe repeated cases to create general rule
+- Ex: "70% of IndexError are from incorrect index manipulation"
+
+**Neuro-Symbolic (Combination)**:
+- Unites deduction (symbolic AI) with induction (neural AI)
+- Learns continuously while applying rules
+
+### 🐛 Defect Taxonomy
+
+Five categories of highly undesirable defects:
+
+1. **Incorrect Fact**: Wrong or outdated information
+2. **Extraneous Information**: Code/comments that don't belong to context
+3. **Ambiguity**: Code with multiple possible interpretations
+4. **Inconsistency**: Violation of established patterns
+5. **Omission**: Missing code or logic (validations, error handling)
+
+### 🔄 Error Patterns
+
+**Input-Independent Errors**:
+- Always occur, regardless of data
+- Problem in **logic**, not in **data**
+
+**Specific Scope Errors**:
+- One bug, multiple symptoms in different parts
+- Look for **shared dependency**
+
+**Common Import Errors**:
+- Multiple modules fail because they import buggy code
+- Fix once resolves all cases
+
+### 🤝 Application in Code Review (Protocol 2)
+
+During code reviews, beyond individual review, apply associative memory:
+
+**Defect Taxonomy Checklist**:
+- [ ] **Incorrect Fact**: Outdated values, constants, or comments
+- [ ] **Extraneous Information**: Commented code, obsolete TODOs, unused imports
+- [ ] **Ambiguity**: Vague names, incomplete documentation
+- [ ] **Inconsistency**: Violation of naming conventions or patterns
+- [ ] **Omission**: Missing validations, exception handling, or edge cases
+
+**Team Knowledge Base**:
+- Maintain record of common error patterns in the team
+- Share effective solutions in documentation
+- Conduct retrospectives on recurring defects
+- Create prevention guides based on accumulated experience
+
+### ✅ Application Checklist
+
+When investigating and fixing errors:
+
+**Analysis Phase**:
+- [ ] Examine Traceback from top to bottom (root → leaf)
+- [ ] Identify error level (orchestrator/coordinator/executor)
+- [ ] Consult knowledge base for similar patterns
+- [ ] Apply deduction: general rules → specific hypothesis
+- [ ] Search induction: multiple cases → general pattern
+
+**Correction Phase**:
+- [ ] Validate absence of Incorrect Fact
+- [ ] Remove Extraneous Information
+- [ ] Eliminate Ambiguities
+- [ ] Ensure Consistency with project patterns
+- [ ] Fix Omissions (validations, error handling)
+
+**Learning Phase**:
+- [ ] Add case to knowledge base
+- [ ] Update general rules if new pattern identified
+- [ ] Document solution for future reference
+- [ ] Share learning with the team
+- [ ] Reinforce associations of confirmed patterns
+
+### 📖 Complete Documentation
+
+For complete details on the Associative Memory Factor, including:
+- Detailed top-down investigation methodology
+- Neuro-symbolic debugging cycle
+- Practical examples of each defect type
+- Error pattern knowledge base
+- Integration with HDC (Hyperdimensional Computing)
+
+**See**: [en/ASSOCIATIVE_MEMORY_FACTOR.md](ASSOCIATIVE_MEMORY_FACTOR.md)
+
+---
+
 ## 🌐 Code Language: Variable Naming and Comments
 
 > **IMPORTANT FOR AIs**: The choice of language for variable names and comments should be defined at the beginning of the project, preferably during the first session of interaction with the programmer.

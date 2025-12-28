@@ -648,6 +648,83 @@ Python, JavaScript, Java, C++, and any language that supports module importing.
 
 ---
 
+## 🧠 Associative Memory Factor
+
+> **NEW**: Fundamental concept to enable AI to learn from error patterns and apply accumulated knowledge.
+
+The **[Associative Memory Factor](ASSOCIATIVE_MEMORY_FACTOR.md)** integrates the Simplicity Protocols allowing AI to develop a "memory" of problems and solutions.
+
+### 🎯 What is it?
+
+AI's ability to:
+- 🧠 **Recognize patterns** recurring in errors
+- 🔗 **Associate causes and effects** in different contexts
+- 📈 **Generalize solutions** from specific cases to general rules
+- 📉 **Deduce problems** from general to specific (top-down)
+- 📊 **Induce rules** from specific to general (bottom-up)
+
+### 🐍 Connection with Python Traceback
+
+Python's Traceback presents errors in **top-down** structure (from outside to inside):
+- **Root** (orchestrator) → **Branches** (coordinators) → **Leaves** (executors)
+- Investigation follows the same deductive path
+- Associative memory helps identify level and root cause quickly
+
+### 🔬 Complementary Approaches
+
+**Deductive (General → Specific)**:
+- Apply known general rules to diagnose error
+- Example: "AttributeError usually indicates uninitialized object"
+
+**Inductive (Specific → General)**:
+- Observe repeated specific cases to create general rule
+- Example: "70% of IndexError are from incorrect index manipulation"
+
+**Neuro-Symbolic (Combination)**:
+- Unites deduction (symbolic AI) with induction (neural AI)
+- Learns continuously while applying established rules
+
+### 🐛 Defect Taxonomy
+
+Five categories of highly undesirable defects:
+
+1. **Incorrect Fact**: Wrong or outdated information in code
+2. **Extraneous Information**: Code/comments that don't belong to context
+3. **Ambiguity**: Code that can be interpreted in multiple ways
+4. **Inconsistency**: Violation of established project patterns
+5. **Omission**: Missing code or logic (validations, error handling)
+
+### 🔄 Error Patterns
+
+**Input-Independent Errors**:
+- Always occur, regardless of data
+- Indicate structural problem in logic
+
+**Specific Scope Errors**:
+- Confined to specific module/function
+- One bug, multiple symptoms
+
+**Common Import Errors**:
+- Multiple modules fail because they import buggy code
+- Fix once resolves all cases
+
+### 📖 Access the Document
+
+- **🇺🇸 English**: [ASSOCIATIVE_MEMORY_FACTOR.md](ASSOCIATIVE_MEMORY_FACTOR.md)
+- **🇧🇷 Português**: [../pt/FATOR_MEMORIA_ASSOCIATIVA.md](../pt/FATOR_MEMORIA_ASSOCIATIVA.md)
+
+### 🎯 Benefits
+
+- ✅ Faster error diagnosis
+- ✅ More effective corrections
+- ✅ Prevention of recurring problems
+- ✅ Continuously growing knowledge base
+- ✅ Better service to developer and client requirements
+
+**Integration**: This concept is integrated into all three protocols in the error correction and debugging steps.
+
+---
+
 ## 📝 Credits and Versioning
 
 - **Author:** Josué Amaral
@@ -657,5 +734,6 @@ Python, JavaScript, Java, C++, and any language that supports module importing.
     - Simplicity 2: `v2.2`
     - Simplicity 3: `v3.1`
     - Tree Imports Analogy: `v1.0`
+    - Associative Memory Factor: `v1.0`
 
 > *"I want complete and professional work!"*
