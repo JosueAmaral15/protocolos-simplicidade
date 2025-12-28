@@ -4834,6 +4834,565 @@ Simplicity 1 Protocol is an **iterative cycle**:
 
 ---
 
+## 📊 Ordinal Task Organization - Simplicity Protocols
+
+**Version**: 1.0  
+**Creation Date**: December 27, 2025  
+**Author**: Josué Amaral  
+**Status**: ACTIVE
+
+---
+
+### 🎯 Objective
+
+This document defines the **Ordinal Task Organization** system for the Simplicity Protocols, allowing human developers and artificial intelligences to quickly identify:
+
+- ✅ **Execution order** of tasks (from simplest to most complex)
+- ✅ **Dependencies** between tasks (which must be done first)
+- ✅ **Parallelization** (which can be executed simultaneously)
+- ✅ **Hierarchical organization** (tree/graph structure)
+
+---
+
+### 📊 Ordinal Prefix System
+
+#### Level 1: Simple Numbering (Independent Tasks)
+
+For **independent** tasks that have **no dependencies** between them:
+
+```markdown
+1. Task A - Set up development environment
+2. Task B - Create initial documentation
+3. Task C - Define system architecture
+```
+
+**Characteristics**:
+- ✅ Can be executed in **any order**
+- ✅ Can be done **in parallel** in separate branches
+- ✅ No dependency conflicts
+- ✅ Sequential ascending numbering (1, 2, 3...)
+
+---
+
+#### Level 2: Hierarchy with Letters (Task Groups)
+
+To organize tasks into **logical groups** with **subgroups**:
+
+```markdown
+🔴 MUST HAVE - Release v1.0.0
+
+A. Infrastructure and Configuration
+   A.1. Create directory structure
+   A.2. Configure project dependencies
+   
+B. Core - Data Structures
+   B.1. Implement Node class
+   B.2. Implement ExpressionTree
+   
+C. Core - Conversions
+   C.1. Implement number → tree conversion
+   C.2. Implement tree → RPN conversion
+```
+
+**Characteristics**:
+- ✅ **Capital letter** = Group/Category
+- ✅ **Number after letter** = Subtask within group
+- ✅ Tasks from **different groups** (A, B, C) are **parallel**
+- ✅ Tasks within the **same group** may have dependencies
+
+---
+
+#### Level 3: Deep Hierarchy (Complex Dependencies)
+
+For tasks with **explicit dependencies** in a **tree/graph** structure:
+
+```markdown
+A.C.1. Implement number → tree conversion
+   ├─ Must be done AFTER A.1, A.2, C.1
+   └─ Structure: A (root) → C (intermediate) → 1 (leaf)
+
+B.C.2. Implement tree → RPN conversion
+   B.C.2.1. RPN Parser (leaf - do FIRST)
+   B.C.2.2. RPN Serializer (leaf - do FIRST)
+   B.C.2. Implement conversion (parent - do AFTER 2.1 and 2.2)
+```
+
+**Reading the hierarchy** (⭐ CRITICAL):
+
+The hierarchy should be read from **RIGHT to LEFT** (reverse order):
+
+```
+C.B.1.D.1
+   │  │ │ └─ 1: Execute LAST (tree root)
+   │  │ └─── D: Execute THIRD
+   │  └───── 1: Execute SECOND
+   └──────── B: Execute FIRST (tree leaf)
+
+Execution order: B → 1 → D → 1 (right to left)
+```
+
+**Interpretation**:
+- ✅ **Rightmost** = Ancestors (execute LAST)
+- ✅ **Leftmost** = Descendants (execute FIRST)
+- ✅ **Bottom-up organization**: Base → Top
+
+**Practical Example**:
+
+```markdown
+C.B.1.D.1 - Integrate Dash with Cytoscape
+
+Execution order (right → left):
+1. FIRST:  Task D.1 (create basic Cytoscape component)
+2. SECOND: Task 1.D (configure layout)
+3. THIRD:  Task B.1 (implement data structure)
+4. FOURTH: Task C (final Dash + Cytoscape integration)
+```
+
+---
+
+### 🌳 Tree/Graph Structure
+
+#### Fundamental Concepts
+
+**1. Parent and Child Nodes**
+
+```
+B.C.2 (PARENT - execute AFTER)
+   ├── B.C.2.1 (CHILD - execute BEFORE)
+   └── B.C.2.2 (CHILD - execute BEFORE)
+```
+
+**Rule**: 
+- ✅ **Children must be completed BEFORE parent**
+- ✅ Children are **prerequisites** for parent
+- ✅ Parent **depends** on children
+
+**2. Siblings (Parallel)**
+
+```
+B.C.2.1 (sibling)
+B.C.2.2 (sibling)
+```
+
+**Rule**:
+- ✅ Siblings can be executed **in parallel**
+- ✅ No dependency between them
+- ✅ Can be in **separate branches**
+
+**3. Cousins, Uncles, Grandparents (Parallel vs Serial)**
+
+```
+A. Group A
+   A.1. Task A1
+   A.2. Task A2
+   
+B. Group B
+   B.1. Task B1
+   B.2. Task B2
+```
+
+**Rule**:
+- ✅ **Different groups** (A, B) = **PARALLEL** (execute simultaneously)
+- ✅ **Cousins** (A.1 and B.1) = **PARALLEL**
+- ✅ **Uncles/Nephews** (A and B.1) = **Evaluate explicit dependencies**
+
+---
+
+### 🔄 Parallelization vs Serialization
+
+#### PARALLEL Tasks (can be simultaneous)
+
+✅ **When to parallelize**:
+- Tasks from **different groups** (A.x, B.x, C.x)
+- **Siblings** at the same level (X.1, X.2, X.3)
+- **Cousins** (A.1 and B.1)
+- Tasks **without explicit dependencies**
+
+**Example**:
+```markdown
+✅ PARALLEL:
+   A.1 (Create User model)
+   B.1 (Create Product model)
+   C.1 (Create graphical interface)
+   
+→ Can be done in 3 simultaneous branches
+→ Zero conflicts
+```
+
+---
+
+#### SERIAL Tasks (must be sequential)
+
+❌ **When to serialize**:
+- Tasks with **parent-child relationship**
+- Tasks with **explicit dependencies**
+- When one task **uses the result** of another
+
+**Example**:
+```markdown
+❌ SERIAL:
+   B.C.2.1 (RPN Parser) ─┐
+   B.C.2.2 (Serializer)  ├─→ B.C.2 (Complete conversion)
+                         ┘
+   
+→ B.C.2.1 and B.C.2.2 MUST be completed BEFORE B.C.2
+→ B.C.2 depends on results from 2.1 and 2.2
+```
+
+---
+
+### 🎯 Integration with Existing Classification System
+
+The ordinal system **complements** (does not replace) existing classifications:
+
+```markdown
+🔴🟡 [ ] #3 B.1. Implement Node class (1h)
+ │  │  │  │ └─ Ordinal prefix (dependencies)
+ │  │  │  └─── Issue ID (#3)
+ │  │  └────── Hierarchy (B = Group, 1 = Subtask)
+ │  └───────── Complexity (🟡 Medium)
+ └──────────── Priority (🔴 Must Have)
+
+Reason: Base for all tree manipulation
+Features: Binary tree node with operator/value
+Tests: Unit tests for node creation
+```
+
+**Complete Legend**:
+- **MoSCoW Priority**: 🔴 Must | 🟡 Should | 🟢 Could | ⚪ Won't
+- **Complexity**: 🟢 Simple (0-1h) | 🟡 Medium (1-2h) | 🔴 Complex (>2h)
+- **Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Done | 🔵 Blocked
+- **Ordinal Prefix**: Identifies execution order and dependencies
+
+---
+
+### 🤖 Instructions for Artificial Intelligences
+
+**When to Suggest Ordinal Organization**
+
+AI should suggest ordinal organization when:
+
+✅ **Project has >10 tasks** with interdependencies
+✅ **Multiple developers** working simultaneously
+✅ **Blocking tasks** (one depends on another)
+✅ **Risk of conflicts** in version control
+✅ **Need for parallelization** to speed up development
+
+**How AI Should Apply**
+
+1. **Analyze dependencies**:
+   ```python
+   # Pseudo-code
+   tasks = read_tasks_md()
+   graph = build_dependency_graph(tasks)
+   order = topological_sort(graph)  # Bottom-up
+   ```
+
+2. **Identify parallel groups**:
+   ```python
+   parallel_groups = identify_independent_components(graph)
+   ```
+
+3. **Assign ordinal prefixes**:
+   ```python
+   for group in parallel_groups:
+       letter = next_letter()  # A, B, C...
+       for task in group:
+           task.prefix = f"{letter}.{task.index}"
+   ```
+
+4. **Suggest branch strategy**:
+   ```markdown
+   Branch recommendation:
+   - Branch feat/auth: A.1 → A.2 → A.3
+   - Branch feat/api: B.1 → B.2 (parallel with auth)
+   - Branch feat/ui: C.1 (wait for auth merge)
+   ```
+
+---
+
+## 🌳 Tree Imports Analogy
+
+**Author:** Josué Amaral  
+**Date:** December 24, 2025  
+**Context:** Phase 3.0 - Refactoring Architecture  
+**Applicable to:** All programming languages
+
+---
+
+### 📚 Overview
+
+This document describes the **Tree Imports Analogy**, a mental model for understanding and organizing the dependency architecture in software projects. This analogy is applicable to any programming language that supports module importing/inclusion.
+
+---
+
+### 🌳 The Imports Tree
+
+#### Fundamental Concept
+
+A project's import structure can be visualized as a **hierarchical tree**, where:
+
+```
+                    📦 A (Root)
+                   /           \
+              📦 B              📦 C
+             / | \               |
+        📦 D 📦 E 📦 F         📦 G
+         |    |    |            |
+      [libs] [libs] [libs]   [libs]
+```
+
+#### Tree Elements
+
+**🌲 Root**
+- **Main File** (e.g., `app.py`, `main.py`, `index.js`)
+- **Characteristics:**
+  - Most complex and encapsulated
+  - System orchestrator
+  - Imports multiple project modules
+  - Contains coordination logic between components
+  - Decides "what" to do, delegating "how" to do it
+
+**🌿 Branches**
+- **Intermediate Modules** (e.g., `gui/`, `core/`, `utils/`)
+- **Characteristics:**
+  - Medium complexity
+  - Import other project modules
+  - Provide specialized functionality
+  - Abstract implementation details
+
+**🍃 Leaves**
+- **Terminal Modules** (e.g., `button.py`, `validator.py`, `helpers.py`)
+- **Characteristics:**
+  - Simpler and more specific
+  - **DO NOT import** files from the project itself
+  - **DO import** external libraries (Numpy, Pandas, etc.)
+  - Provide atomic functionality
+  - Are reusable and independently testable
+
+---
+
+### 📊 Practical Example
+
+#### Hierarchical Structure
+
+```python
+# A.py (ROOT) - Main file
+from B import feature_x
+from C import feature_y
+
+def main():
+    """Orchestrator - coordinates B and C"""
+    result_x = feature_x.process()
+    result_y = feature_y.process()
+    combine(result_x, result_y)
+```
+
+```python
+# B.py (BRANCH) - Intermediate module
+from D import validator
+from E import transformer
+from F import calculator
+
+def feature_x():
+    """Specialist - coordinates D, E, F"""
+    data = validator.validate_input()
+    transformed = transformer.transform(data)
+    return calculator.compute(transformed)
+```
+
+```python
+# D.py (LEAF) - Terminal module
+import re  # Standard library
+import numpy as np  # External library
+
+def validate_input(data):
+    """Atomic function - doesn't import project files"""
+    pattern = re.compile(r'^\d+$')
+    return np.array([x for x in data if pattern.match(x)])
+```
+
+#### Characteristics by Level
+
+| Level | File | Imports Project | Imports External | Complexity | Role |
+|-------|------|-----------------|------------------|------------|------|
+| 0 (Root) | A | B, C | Rarely | High | Orchestrator |
+| 1 (Branch) | B, C | D, E, F, G | Sometimes | Medium | Coordinator |
+| 2 (Leaf) | D, E, F, G | ❌ Never | ✅ Always | Low | Executor |
+
+---
+
+### 🔄 Development Approaches
+
+#### 🔽 Top-Down (From Top to Bottom)
+
+**Starts from the root and descends to the leaves**
+
+```
+Process:
+1. Define A (what the system does)
+2. Identify needs (B, C)
+3. Decompose B into (D, E, F)
+4. Implement leaves (D, E, F, G)
+```
+
+**Advantages:**
+- ✅ Clear architecture from the start
+- ✅ Facilitates high-level planning
+- ✅ Identifies dependencies early
+
+**Disadvantages:**
+- ❌ May create interfaces without implementation
+- ❌ Makes initial testing difficult
+- ❌ Risk of over-engineering
+
+---
+
+#### 🔼 Bottom-Up (From Bottom to Top)
+
+**Starts from the leaves and rises to the root**
+
+```
+Process:
+1. Implement D, E, F, G (basic components)
+2. Combine into B, C (functionalities)
+3. Orchestrate in A (complete system)
+```
+
+**Advantages:**
+- ✅ Testable components from the start
+- ✅ Natural reusability
+- ✅ Less code waste
+
+**Disadvantages:**
+- ❌ Architecture emerges late
+- ❌ Risk of non-integrable components
+- ❌ Difficulty visualizing the whole
+
+---
+
+#### ↔️ Middle-Out (From Middle Outward)
+
+**Starts from the branches and expands in both directions**
+
+```
+Process:
+1. Identify central functionality (B)
+2. ↓ Implement necessary components (D, E, F)
+3. ↑ Create orchestrator (A)
+4. Repeat for other functionalities (C, G)
+```
+
+**Advantages:**
+- ✅ Balances overview and details
+- ✅ Iterative and adaptable
+- ✅ Reduces risk of both extreme approaches
+
+**Disadvantages:**
+- ❌ Requires experience to identify "the middle"
+- ❌ Can create inconsistencies
+- ❌ Requires frequent refactoring
+
+---
+
+### 🎯 Design Principles
+
+#### 1. **Depth Principle**
+
+> "The closer to the root, the more complex and orchestrating.  
+> The closer to the leaves, the simpler and executing."
+
+```
+Root (A):     if condition: B.do() else: C.do()  ← Decision
+Branch (B):   return D.compute(E.prepare(data))  ← Coordination
+Leaf (D):     return sum(numbers) / len(numbers) ← Execution
+```
+
+#### 2. **Independence Principle**
+
+> "Leaves don't depend on other project leaves.  
+> Leaves can only depend on external libraries."
+
+❌ **Wrong:**
+```python
+# D.py (leaf)
+from E import helper  # Dependency between leaves!
+```
+
+✅ **Correct:**
+```python
+# B.py (branch)
+from D import function_d
+from E import helper
+
+def feature():
+    return function_d(helper.prepare())  # Branch coordinates leaves
+```
+
+#### 3. **Single Responsibility Principle**
+
+> "Each level has its distinct role."
+
+| Level | Responsibility | Question it Answers |
+|-------|----------------|---------------------|
+| Root | Orchestration | "What does the system do?" |
+| Branch | Coordination | "How do the parts connect?" |
+| Leaf | Execution | "How to do X specifically?" |
+
+---
+
+### 📏 Quality Metrics
+
+#### Good Architecture Indicators
+
+✅ **Balanced Tree:**
+- Depth of 2-4 levels
+- Width proportional to complexity
+- No leaves importing other leaves
+
+✅ **Clear Separation:**
+```
+Root:  High complexity + Low execution
+Leaf:  Low complexity + High execution
+```
+
+✅ **Ease of Testing:**
+- Leaves testable in isolation
+- Branches testable with mocks
+- Root testable with integration
+
+#### Problem Indicators
+
+❌ **Degenerate Tree (Linear):**
+```
+A → B → C → D → E → F  # Too deep!
+```
+
+❌ **Fat Leaves:**
+```python
+# D.py - 500 lines, imports E, F, G  # It's a branch, not a leaf!
+```
+
+❌ **Thin Root:**
+```python
+# A.py - 10 lines  # Should orchestrate more!
+```
+
+---
+
+### 📖 Conclusion of Sections
+
+The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful mental models for:
+
+1. **Organizing** tasks from simplest to most complex
+2. **Understanding** existing architecture
+3. **Planning** new modules
+4. **Refactoring** code organically
+5. **Parallelizing** development to accelerate deliveries
+6. **Communicating** design decisions clearly
+
+---
+
 ## 💡 Programming Best Practices for AI
 
 > **This section contains specific recommendations to improve the quality of code generated by artificial intelligences.**
