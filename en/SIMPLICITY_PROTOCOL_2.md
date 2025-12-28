@@ -1093,18 +1093,20 @@ The `TASKS.md` file is the **default file** for managing project tasks, but you 
 
 **Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
 
-**📋 About Action Plans (ACTION_PLANS.md)**:
+**📋 About Action Plans**:
 
-In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file for **tasks requiring detailed step-by-step guidance**.
+In addition to `TASKS.md`, you can create **Action Plans** for tasks requiring detailed step-by-step guidance.
 
 **What are Action Plans?**
 - 🎯 **Practical roadmaps** with numbered intermediate steps for complex tasks
 - ⚡ **More urgent and detailed** than TASKS.md items
 - 🔧 **Applicable to**: Maintenance, Correction, Evolution, Adaptation
+- 📋 **Created BEFORE** starting implementation
+- 📖 **Consulted always** during development
 
-**Difference between TASKS.md and ACTION_PLANS.md:**
+**Difference between TASKS.md and Action Plans:**
 - **TASKS.md**: List of general tasks ("WHAT to do") - e.g., `[ ] Implement OAuth2 authentication`
-- **ACTION_PLANS.md**: Detailed execution guide ("HOW to do it") - e.g.:
+- **Action Plan**: Detailed execution guide ("HOW to do it") - e.g.:
   ```
   PLAN #01: Implement OAuth2
   ├─ Step 1: Install passport.js library
@@ -1125,22 +1127,46 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 - 👥 **Clear assignment**: Each plan step must have assigned responsible person
 - 📊 **Metrics**: Include measurable success metrics for each step
 
-**Default location**: `docs/ACTION_PLANS.md`
+**Organization of Action Plans:**
+
+**Option 1**: Consolidated file `docs/ACTION_PLANS.md`  
+**Option 2**: Individual plans directory `docs/plans/`
+```
+docs/
+├── TASKS.md
+├── ACTION_PLANS.md [optional - index]
+└── plans/
+    ├── plan-001-oauth2.md
+    ├── plan-002-migration.md
+    └── plan-003-refactoring.md
+```
+
+**Recommendation**: For enterprise projects with multiple complex tasks, use `docs/plans/`.
+
+**Required Fields for an Action Plan:**
+1. **📅 Date** (YYYY-MM-DD): Plan creation date
+2. **🕐 Time** (HH:MM): Plan creation time
+3. **🎯 Main Function**: Main objective of the plan
+4. **📋 Desired Requirement**: What needs to be achieved
+5. **✅ Expected Result**: Measurable success criteria
+6. **📌 Task ID**: Link to Task from TASKS.md (mandatory)
 
 **Template for Simplicity 2 (Enterprise):**
 ```markdown
 ## 🎯 ACTION PLAN #[ID]: [Title]
-**📅 Created on**: YYYY-MM-DD
+**📅 Date**: YYYY-MM-DD
+**🕐 Time**: HH:MM
 **⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal
 **🏷️ Type**: Maintenance | Correction | Evolution | Adaptation
+**📌 Task ID**: Task #X from TASKS.md
+**🎯 Main Function**: [Plan objective]
+**📋 Desired Requirement**: [What should be achieved]
+**✅ Expected Result**: [Success criteria]
 **👤 Lead**: [Lead name]
 **👥 Reviewers**: [Reviewer names]
 
 ### 📝 Context
 [Why was this plan created?]
-
-### 🎯 Final Objective
-[What will be achieved?]
 
 ### 📋 Intermediate Steps
 - [ ] **Step 1**: [Description]
@@ -1164,13 +1190,22 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 
 **Workflow with Action Plans (Enterprise):**
 1. Consult TASKS.md to see pending tasks
-2. If complex task → create detailed Action Plan
-3. **Team review**: Validate plan before starting execution
-4. **Assign responsible parties** for each step
-5. Execute step by step, with code review of each stage
-6. Upon completion → mark task in TASKS.md as complete
-7. **Retrospective**: Discuss lessons learned (Step 13.5)
-8. Move plan to history or separate file
+2. If complex task → **CREATE Action Plan BEFORE starting**
+3. Choose location: `docs/ACTION_PLANS.md` or `docs/plans/plan-[ID]-[name].md`
+4. **Team review**: Validate plan before starting execution
+5. **Assign responsible parties** for each step
+6. **BEFORE implementing**: Everyone reviews and approves the plan
+7. Execute step by step, **consulting the plan whenever needed**
+8. Code review of each stage as progress is made
+9. Upon completion → mark task in TASKS.md as complete
+10. **Retrospective**: Discuss lessons learned (Step 13.5)
+11. Archive plan in `docs/plans/archive/` or "History" section
+
+**Why create BEFORE and consult ALWAYS?**
+- ✅ **Team Alignment**: Everyone understands the plan before starting
+- ✅ **Avoids Rework**: Early review identifies design problems
+- ✅ **Coordination**: Responsible parties know their assignments from the start
+- ✅ **Stay Synchronized**: Consulting during work keeps everyone aligned
 
 **Benefits for teams:**
 - ✅ **Coordination**: Everyone knows who does what and when
@@ -1178,7 +1213,7 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 - ✅ **Shared knowledge**: Plan documents process for entire team
 - ✅ **Onboarding**: New members learn from previous plans
 
-📖 **Complete details on Action Plans**: See README.md in repository, section "Action Plans (ACTION_PLANS.md)"
+📖 **Complete details on Action Plans**: See README.md in repository, section "🎯 Action Plans"
 
 ---
 

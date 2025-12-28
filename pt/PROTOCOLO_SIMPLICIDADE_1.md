@@ -952,18 +952,20 @@ O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto,
 
 **Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
-**📋 Sobre Planos de Ação (ACTION_PLANS.md)**:
+**📋 Sobre Planos de Ação**:
 
-Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md` para **tarefas que requerem guia passo a passo detalhado**.
+Além do `TASKS.md`, você pode criar **Planos de Ação** para tarefas que requerem guia passo a passo detalhado.
 
 **O que são Planos de Ação?**
 - 🎯 **Roteiros práticos** com passos intermediários numerados para tarefas complexas
 - ⚡ **Mais urgente e detalhado** que items do TASKS.md
 - 🔧 **Aplicável a**: Manutenção, Correção, Evolução, Adaptação
+- 📋 **Criados ANTES** de iniciar a implementação
+- 📖 **Consultados sempre** durante o desenvolvimento
 
-**Diferença entre TASKS.md e ACTION_PLANS.md:**
+**Diferença entre TASKS.md e Planos de Ação:**
 - **TASKS.md**: Lista de tarefas gerais ("O QUE fazer") - ex: `[ ] Implementar autenticação OAuth2`
-- **ACTION_PLANS.md**: Guia detalhado de execução ("COMO fazer") - ex:
+- **Plano de Ação**: Guia detalhado de execução ("COMO fazer") - ex:
   ```
   PLANO #01: Implementar OAuth2
   ├─ Passo 1: Instalar biblioteca passport.js
@@ -978,20 +980,44 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 - ✅ Refatoração que afeta múltiplos módulos
 - ✅ Migração de tecnologia ou atualização de framework
 
-**Localização padrão**: `docs/ACTION_PLANS.md`
+**Organização dos Planos de Ação:**
+
+**Opção 1**: Arquivo consolidado `docs/ACTION_PLANS.md`  
+**Opção 2**: Diretório de planos individuais `docs/plans/`
+```
+docs/
+├── TASKS.md
+├── ACTION_PLANS.md [opcional - índice]
+└── plans/
+    ├── plan-001-oauth2.md
+    ├── plan-002-migration.md
+    └── plan-003-refactoring.md
+```
+
+**Recomendação**: Use `docs/plans/` para projetos com múltiplas tarefas complexas.
+
+**Campos Obrigatórios de um Plano de Ação:**
+1. **📅 Data** (YYYY-MM-DD): Data de criação do plano
+2. **🕐 Horário** (HH:MM): Horário de criação
+3. **🎯 Função Principal**: Objetivo principal do plano
+4. **📋 Requisito Desejado**: O que precisa ser alcançado
+5. **✅ Resultado Esperado**: Critérios de sucesso mensuráveis
+6. **📌 ID da Tarefa**: Vínculo com Task do TASKS.md (obrigatório)
 
 **Template básico:**
 ```markdown
 ## 🎯 PLANO DE AÇÃO #[ID]: [Título]
-**📅 Criado em**: YYYY-MM-DD
+**📅 Data**: YYYY-MM-DD
+**🕐 Horário**: HH:MM
 **⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal
 **🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação
+**📌 ID da Tarefa**: Task #X do TASKS.md
+**🎯 Função Principal**: [Objetivo do plano]
+**📋 Requisito Desejado**: [O que deve ser alcançado]
+**✅ Resultado Esperado**: [Critérios de sucesso]
 
 ### 📝 Contexto
 [Por que este plano foi criado?]
-
-### 🎯 Objetivo Final
-[O que será alcançado?]
 
 ### 📋 Passos Intermediários
 - [ ] **Passo 1**: [Descrição + critério de conclusão]
@@ -1006,18 +1032,22 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 
 **Fluxo de trabalho com Planos de Ação:**
 1. Consultar TASKS.md para ver tarefas pendentes
-2. Se tarefa complexa → criar Plano de Ação detalhado
-3. Executar passo a passo, marcando progresso
-4. Ao concluir → marcar task no TASKS.md como completa
-5. Mover plano para seção "Histórico" ou arquivo separado
+2. Se tarefa complexa → **CRIAR Plano de Ação ANTES de começar**
+3. Escolher localização: `docs/ACTION_PLANS.md` ou `docs/plans/plan-[ID]-[nome].md`
+4. **ANTES de implementar**: Revisar e validar o plano
+5. Executar passo a passo, **consultando o plano sempre que necessário**
+6. Marcar progresso no plano durante a implementação
+7. Ao concluir → marcar task no TASKS.md como completa
+8. Arquivar plano em `docs/plans/archive/` ou seção "Histórico"
 
-**Benefícios:**
-- ✅ Divide problemas complexos em passos gerenciáveis
-- ✅ Permite retomar trabalho facilmente se interrompido
-- ✅ Documenta processo de resolução para referência futura
-- ✅ Força revisão de cada etapa antes de prosseguir
+**Por quê criar ANTES e consultar SEMPRE?**
+- ✅ **Planejamento Antecipado**: Identifica problemas antes de codificar
+- ✅ **Evita Retrabalho**: Pensar antes de implementar economiza tempo
+- ✅ **Guia Confiável**: Serve como mapa durante toda a implementação
+- ✅ **Não se Perder**: Consultar durante o trabalho mantém foco nos passos
+- ✅ **Manutenibilidade**: Futuros desenvolvedores entendem o processo
 
-📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "Planos de Ação (ACTION_PLANS.md)"
+📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
 
 ---
 

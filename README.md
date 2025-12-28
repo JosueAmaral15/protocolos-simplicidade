@@ -313,9 +313,29 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
   └─ Passo 5: Adicionar testes de integração
   ```
 
-### 📂 Estrutura do Arquivo ACTION_PLANS.md
+### 📂 Estrutura de Organização dos Planos de Ação
 
-**Localização padrão**: `docs/ACTION_PLANS.md` (mesmo diretório do TASKS.md)
+Os planos de ação podem ser organizados de duas formas:
+
+#### **Opção 1: Arquivo Consolidado** `docs/ACTION_PLANS.md`
+**Localização**: `docs/ACTION_PLANS.md` (mesmo diretório do TASKS.md)  
+**Uso**: Todos os planos de ação em um único arquivo, separados por seções
+
+#### **Opção 2: Diretório de Planos Individuais** `docs/plans/`
+**Localização**: `docs/plans/` (diretório dedicado para planos individuais)  
+**Uso**: Cada plano de ação em seu próprio arquivo, facilitando organização e versionamento  
+**Estrutura recomendada**:
+```
+docs/
+├── TASKS.md                    # Lista de tarefas gerais
+├── ACTION_PLANS.md            # [OPCIONAL] Índice/resumo dos planos
+└── plans/                     # Diretório de planos individuais
+    ├── plan-001-oauth2.md     # Plano de ação #001
+    ├── plan-002-migration.md  # Plano de ação #002
+    └── plan-003-refactoring.md # Plano de ação #003
+```
+
+**Recomendação**: Para projetos com múltiplas tarefas complexas, use `docs/plans/` para melhor organização. Para projetos menores, `ACTION_PLANS.md` é suficiente.
 
 **Template de Plano de Ação:**
 
@@ -324,11 +344,15 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 
 ## 🎯 PLANO DE AÇÃO #[ID]: [Título do Objetivo]
 
-**📅 Criado em**: YYYY-MM-DD  
+**📅 Data**: YYYY-MM-DD  
+**🕐 Horário**: HH:MM  
 **⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal  
 **🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação  
 **⏱️ Estimativa**: [tempo total estimado]  
-**📌 Relacionado a**: Task #X do TASKS.md (se aplicável)
+**📌 ID da Tarefa**: Task #X do TASKS.md (vínculo obrigatório)  
+**🎯 Função Principal**: [Objetivo principal deste plano]  
+**📋 Requisito Desejado**: [O que precisa ser alcançado]  
+**✅ Resultado Esperado**: [Critérios de sucesso mensuráveis]
 
 ### 📝 Contexto
 [Por que este plano de ação foi criado? Qual problema resolve?]
@@ -363,6 +387,60 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 ---
 ```
 
+### 📝 Campos Obrigatórios do Plano de Ação
+
+Cada plano de ação **DEVE** conter os seguintes campos obrigatórios:
+
+1. **📅 Data** (YYYY-MM-DD): Data de criação do plano
+   - Permite rastrear quando o plano foi elaborado
+   - Facilita análise temporal de problemas recorrentes
+
+2. **🕐 Horário** (HH:MM): Horário de criação do plano
+   - Útil para sessões de trabalho e estimativas de duração
+   - Ajuda a identificar padrões de produtividade
+
+3. **🎯 Função Principal**: Objetivo principal do plano de ação
+   - Descreve de forma concisa o que o plano visa alcançar
+   - Ex: "Implementar autenticação OAuth2", "Corrigir memory leak", "Migrar para PostgreSQL"
+
+4. **📋 Requisito Desejado**: O que precisa ser alcançado
+   - Especifica os requisitos funcionais e não-funcionais
+   - Ex: "Autenticação via Google e GitHub com refresh tokens"
+
+5. **✅ Resultado Esperado**: Critérios de sucesso mensuráveis
+   - Define como medir o sucesso da implementação
+   - Ex: "Sistema autentica usuários em < 2s, tokens expiram em 24h"
+
+6. **📌 ID da Tarefa**: Vínculo com TASKS.md (obrigatório)
+   - Identifica a tarefa do TASKS.md relacionada
+   - Ex: "Task #42", "Bug #127", "Feature #15"
+   - **CRÍTICO**: Garante rastreabilidade entre planejamento e execução
+
+**Por quê estes campos são obrigatórios?**
+- ✅ **Rastreabilidade**: Vínculo claro entre TASKS.md e planos de ação
+- ✅ **Contexto Temporal**: Data/horário ajudam a entender urgência e histórico
+- ✅ **Clareza de Objetivo**: Função principal, requisito e resultado eliminam ambiguidades
+- ✅ **Manutenibilidade**: Futuros desenvolvedores entendem o "porquê" e "o que" foi feito
+- ✅ **Qualidade**: Critérios de sucesso forçam pensamento sobre validação
+
+### 📁 Convenção de Nomenclatura para docs/plans/
+
+Ao usar o diretório `docs/plans/`, siga esta convenção de nomenclatura:
+
+**Formato**: `plan-[ID]-[slug-descritivo].md`
+
+**Exemplos**:
+```
+docs/plans/plan-001-oauth2-authentication.md
+docs/plans/plan-042-memory-leak-fix.md
+docs/plans/plan-127-postgresql-migration.md
+```
+
+**Regras**:
+- **ID**: Número sequencial de 3 dígitos (001, 002, 003...)
+- **Slug**: Descrição curta em kebab-case (minúsculas, separado por hífens)
+- **Máximo 50 caracteres** no nome do arquivo para facilitar navegação
+
 ### 🤖 Como a IA Deve Usar Planos de Ação
 
 **Quando criar um Plano de Ação:**
@@ -381,11 +459,28 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 ```
 1. Consultar TASKS.md para ver tarefas pendentes
 2. Identificar tarefa complexa que precisa de Plano de Ação
-3. Criar Plano de Ação detalhado em ACTION_PLANS.md
-4. Executar passo a passo, marcando progresso
-5. Ao concluir, marcar tarefa no TASKS.md como completa
-6. Mover plano concluído para seção "Histórico" ou arquivo separado
+3. Criar Plano de Ação detalhado:
+   - Opção A: Adicionar em docs/ACTION_PLANS.md
+   - Opção B: Criar arquivo em docs/plans/plan-[ID]-[nome].md
+4. ANTES de começar a implementar: revisar e validar o plano
+5. Executar passo a passo, marcando progresso no plano
+6. Consultar o plano sempre que necessário durante implementação
+7. Ao concluir, marcar tarefa no TASKS.md como completa
+8. Arquivar plano concluído (mover para histórico ou docs/plans/archive/)
 ```
+
+**Importância de Criar o Plano ANTES**:
+- ✅ **Planejamento Antecipado**: Identifica problemas antes de codificar
+- ✅ **Estimativas Precisas**: Passos detalhados melhoram estimativas de tempo
+- ✅ **Evita Retrabalho**: Pensar antes de implementar economiza tempo
+- ✅ **Guia Confiável**: Serve como mapa durante toda a implementação
+- ✅ **Documentação Viva**: Útil para manutenção e atualizações futuras
+
+**Consultar o Plano Sempre Que Necessário**:
+- 📖 **Durante Implementação**: Para não se perder entre os passos
+- 🔄 **Ao Retomar Trabalho**: Saber exatamente onde parou
+- 🤝 **Em Reuniões**: Comunicar progresso com base em passos concretos
+- 🐛 **Durante Debug**: Revisar se todos os passos foram seguidos corretamente
 
 ### 🎯 Benefícios dos Planos de Ação
 
@@ -399,22 +494,33 @@ A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguind
 ### ⏱️ Quando Descartar um Plano de Ação
 
 Após conclusão, você pode:
-1. **Mover para seção "📚 Histórico de Planos Concluídos"** no mesmo arquivo
-2. **Arquivar em** `docs/action_plans_history/[ano]/plan-[id].md`
-3. **Deletar** (se não houver valor histórico)
+1. **Mover para seção "📚 Histórico de Planos Concluídos"** (se usando ACTION_PLANS.md)
+2. **Arquivar em diretório dedicado**: 
+   - `docs/plans/archive/[ano]/plan-[id].md`
+   - Ou `docs/action_plans_history/[ano]/plan-[id].md`
+3. **Manter em docs/plans/** (se o plano tem valor de referência)
+4. **Deletar** (apenas se não houver valor histórico - não recomendado)
 
-**Recomendação**: Manter histórico de planos complexos para consulta futura e análise de padrões de problemas.
+**Recomendação**: Manter histórico de planos complexos em `docs/plans/archive/` para:
+- ✅ Consulta futura quando implementar funcionalidades similares
+- ✅ Análise de padrões de problemas recorrentes
+- ✅ Onboarding de novos desenvolvedores (exemplos reais)
+- ✅ Documentação de decisões técnicas importantes
 
 ### 📊 Exemplo Real Completo
 
 ```markdown
-## 🎯 PLANO DE AÇÃO #03: Corrigir Memory Leak no Sistema de Cache
+## 🎯 PLANO DE AÇÃO #003: Corrigir Memory Leak no Sistema de Cache
 
-**📅 Criado em**: 2025-12-26  
+**📅 Data**: 2025-12-26  
+**🕐 Horário**: 14:30  
 **⚡ Prioridade**: 🔴 Crítica  
 **🏷️ Tipo**: Correção  
 **⏱️ Estimativa**: 4-6 horas  
-**📌 Relacionado a**: Bug #127 do TASKS.md
+**📌 ID da Tarefa**: Bug #127 do TASKS.md  
+**🎯 Função Principal**: Eliminar vazamento de memória no módulo de cache Redis  
+**📋 Requisito Desejado**: Consumo de memória estável sem crescimento ao longo do tempo  
+**✅ Resultado Esperado**: Memória estável < 300MB por 48h de operação contínua
 
 ### 📝 Contexto
 Aplicação apresentando consumo crescente de memória (de 200MB para 4GB em 48h).
@@ -459,6 +565,8 @@ Eliminar memory leak e garantir consumo estável de memória abaixo de 300MB.
 **Status**: 🟡 Em Progresso  
 **Última atualização**: 2025-12-26 15:30
 ```
+
+**Localização deste plano**: `docs/plans/plan-003-memory-leak-fix.md`
 
 ---
 

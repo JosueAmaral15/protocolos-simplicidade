@@ -1128,18 +1128,20 @@ The `TASKS.md` file is the **default file** for managing project tasks, but you 
 
 **Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
 
-**📋 About Action Plans (ACTION_PLANS.md)**:
+**📋 About Action Plans**:
 
-In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file for **tasks requiring detailed step-by-step guidance**.
+In addition to `TASKS.md`, you can create **Action Plans** for tasks requiring detailed step-by-step guidance.
 
 **What are Action Plans?**
 - 🎯 **Practical roadmaps** with numbered intermediate steps for complex tasks
 - ⚡ **More urgent and detailed** than TASKS.md items
 - 🔧 **Applicable to**: Maintenance, Correction, Evolution, Adaptation
+- 📋 **Created BEFORE** starting implementation
+- 📖 **Consulted always** during development
 
-**Difference between TASKS.md and ACTION_PLANS.md:**
+**Difference between TASKS.md and Action Plans:**
 - **TASKS.md**: List of general tasks ("WHAT to do") - e.g., `[ ] Implement OAuth2 authentication`
-- **ACTION_PLANS.md**: Detailed execution guide ("HOW to do it") - e.g.:
+- **Action Plan**: Detailed execution guide ("HOW to do it") - e.g.:
   ```
   PLAN #01: Implement OAuth2
   ├─ Step 1: Install passport.js library
@@ -1160,14 +1162,41 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 - ⚡ **Automation-first**: Prioritize steps that can be automated/tested
 - 📊 **Production metrics**: Include validation of metrics (performance, availability)
 
-**Default location**: `docs/ACTION_PLANS.md`
+**Organization of Action Plans:**
+
+**Option 1**: Consolidated file `docs/ACTION_PLANS.md`  
+**Option 2**: Individual plans directory `docs/plans/`
+```
+docs/
+├── TASKS.md
+├── ACTION_PLANS.md [optional - index]
+└── plans/
+    ├── plan-001-oauth2.md
+    ├── plan-002-migration.md
+    └── plan-003-refactoring.md
+```
+
+**Recommendation**: For solo developer in production with multiple critical tasks, use `docs/plans/` for better organization and traceability.
+
+**Required Fields for an Action Plan:**
+1. **📅 Date** (YYYY-MM-DD): Plan creation date
+2. **🕐 Time** (HH:MM): Plan creation time
+3. **🎯 Main Function**: Main objective of the plan
+4. **📋 Desired Requirement**: What needs to be achieved
+5. **✅ Expected Result**: Measurable success criteria
+6. **📌 Task ID**: Link to Task from TASKS.md (mandatory)
 
 **Template for Simplicity 3 (Solo in Production):**
 ```markdown
 ## 🎯 ACTION PLAN #[ID]: [Title]
-**📅 Created on**: YYYY-MM-DD
+**📅 Date**: YYYY-MM-DD
+**🕐 Time**: HH:MM
 **⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal
 **🏷️ Type**: Maintenance | Correction | Evolution | Adaptation
+**📌 Task ID**: Task #X from TASKS.md
+**🎯 Main Function**: [Plan objective]
+**📋 Desired Requirement**: [What should be achieved]
+**✅ Expected Result**: [Success criteria]
 **🔒 Security Impact**: Yes | No
 **💰 Production Impact**: Critical | Moderate | Low
 
@@ -1227,15 +1256,24 @@ In addition to `TASKS.md`, you may find (or create) an `ACTION_PLANS.md` file fo
 
 **Workflow with Action Plans (Solo in Production):**
 1. Consult TASKS.md to see pending tasks
-2. If complex/critical task → create detailed Action Plan
-3. **Security analysis**: Apply OWASP checklist (Step 6.5)
-4. **Create Rollback Plan**: Ensure ability to revert (Step 12.5)
-5. **Execute in staging first**: Validate for minimum 24h
-6. Execute step by step, with automated tests
-7. **Incremental deploy**: One step at a time, with monitoring
-8. **Validate metrics**: 48h stability before considering complete
-9. Upon completion → mark task in TASKS.md as complete
-10. Move plan to history with lessons learned
+2. If complex/critical task → **CREATE Action Plan BEFORE starting**
+3. Choose location: `docs/ACTION_PLANS.md` or `docs/plans/plan-[ID]-[name].md`
+4. **Security analysis**: Apply OWASP checklist (Step 6.5)
+5. **Create Rollback Plan**: Ensure ability to revert (Step 12.5)
+6. **BEFORE implementing**: Review and validate entire plan
+7. **Execute in staging first**: Validate for minimum 24h
+8. Execute step by step, **consulting the plan whenever needed**
+9. **Incremental deploy**: One step at a time, with monitoring
+10. **Validate metrics**: 48h stability before considering complete
+11. Upon completion → mark task in TASKS.md as complete
+12. Archive plan in `docs/plans/archive/` with lessons learned
+
+**Why create BEFORE and consult ALWAYS?**
+- ✅ **Security First**: OWASP analysis before prevents vulnerabilities
+- ✅ **Rollback Ready**: Have rollback strategy from the start
+- ✅ **Avoids Downtime**: Early planning identifies risks
+- ✅ **Stay on Track**: Consulting during work maintains security focus
+- ✅ **Continuous Validation**: Each step has clear success criteria
 
 **Benefits for Solo Developer:**
 - ✅ **Security**: Mandatory checklist prevents vulnerabilities

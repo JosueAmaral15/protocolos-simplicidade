@@ -1117,18 +1117,20 @@ O arquivo `TASKS.md` é o **arquivo padrão** para gerenciar tarefas do projeto,
 
 **Por quê?**: Evitar retrabalho e garantir coerência com o código existente. O arquivo de tarefas centraliza o planejamento e progresso do projeto.
 
-**📋 Sobre Planos de Ação (ACTION_PLANS.md)**:
+**📋 Sobre Planos de Ação**:
 
-Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md` para **tarefas que requerem guia passo a passo detalhado**.
+Além do `TASKS.md`, você pode criar **Planos de Ação** para tarefas que requerem guia passo a passo detalhado.
 
 **O que são Planos de Ação?**
 - 🎯 **Roteiros práticos** com passos intermediários numerados para tarefas complexas
 - ⚡ **Mais urgente e detalhado** que items do TASKS.md
 - 🔧 **Aplicável a**: Manutenção, Correção, Evolução, Adaptação
+- 📋 **Criados ANTES** de iniciar a implementação
+- 📖 **Consultados sempre** durante o desenvolvimento
 
-**Diferença entre TASKS.md e ACTION_PLANS.md:**
+**Diferença entre TASKS.md e Planos de Ação:**
 - **TASKS.md**: Lista de tarefas gerais ("O QUE fazer") - ex: `[ ] Implementar autenticação OAuth2`
-- **ACTION_PLANS.md**: Guia detalhado de execução ("COMO fazer") - ex:
+- **Plano de Ação**: Guia detalhado de execução ("COMO fazer") - ex:
   ```
   PLANO #01: Implementar OAuth2
   ├─ Passo 1: Instalar biblioteca passport.js
@@ -1149,22 +1151,46 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 - ⚡ **Automation-first**: Priorizar passos que podem ser automatizados/testados
 - 📊 **Métricas de produção**: Incluir validação de métricas (performance, disponibilidade)
 
-**Localização padrão**: `docs/ACTION_PLANS.md`
+**Organização dos Planos de Ação:**
+
+**Opção 1**: Arquivo consolidado `docs/ACTION_PLANS.md`  
+**Opção 2**: Diretório de planos individuais `docs/plans/`
+```
+docs/
+├── TASKS.md
+├── ACTION_PLANS.md [opcional - índice]
+└── plans/
+    ├── plan-001-oauth2.md
+    ├── plan-002-migration.md
+    └── plan-003-refactoring.md
+```
+
+**Recomendação**: Para solo developer em produção com múltiplas tarefas críticas, use `docs/plans/` para melhor organização e rastreabilidade.
+
+**Campos Obrigatórios de um Plano de Ação:**
+1. **📅 Data** (YYYY-MM-DD): Data de criação do plano
+2. **🕐 Horário** (HH:MM): Horário de criação
+3. **🎯 Função Principal**: Objetivo principal do plano
+4. **📋 Requisito Desejado**: O que precisa ser alcançado
+5. **✅ Resultado Esperado**: Critérios de sucesso mensuráveis
+6. **📌 ID da Tarefa**: Vínculo com Task do TASKS.md (obrigatório)
 
 **Template para Simplicidade 3 (Solo em Produção):**
 ```markdown
 ## 🎯 PLANO DE AÇÃO #[ID]: [Título]
-**📅 Criado em**: YYYY-MM-DD
+**📅 Data**: YYYY-MM-DD
+**🕐 Horário**: HH:MM
 **⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal
 **🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação
+**📌 ID da Tarefa**: Task #X do TASKS.md
+**🎯 Função Principal**: [Objetivo do plano]
+**📋 Requisito Desejado**: [O que deve ser alcançado]
+**✅ Resultado Esperado**: [Critérios de sucesso]
 **🔒 Impacto de Segurança**: Sim | Não
 **💰 Impacto em Produção**: Crítico | Moderado | Baixo
 
 ### 📝 Contexto
 [Por que este plano foi criado? Qual impacto no sistema em produção?]
-
-### 🎯 Objetivo Final
-[O que será alcançado? Qual métrica validará sucesso?]
 
 ### 🔙 Rollback Plan (OBRIGATÓRIO)
 **Se algo der errado durante a execução:**
@@ -1216,15 +1242,24 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 
 **Fluxo de trabalho com Planos de Ação (Solo em Produção):**
 1. Consultar TASKS.md para ver tarefas pendentes
-2. Se tarefa complexa/crítica → criar Plano de Ação detalhado
-3. **Análise de segurança**: Aplicar OWASP checklist (Etapa 6.5)
-4. **Criar Rollback Plan**: Garantir capacidade de reverter (Etapa 12.5)
-5. **Executar em staging primeiro**: Validar por 24h mínimo
-6. Executar passo a passo, com testes automatizados
-7. **Deploy incremental**: Um passo por vez, com monitoramento
-8. **Validar métricas**: 48h de estabilidade antes de considerar completo
-9. Ao concluir → marcar task no TASKS.md como completa
-10. Mover plano para histórico com lições aprendidas
+2. Se tarefa complexa/crítica → **CRIAR Plano de Ação ANTES de começar**
+3. Escolher localização: `docs/ACTION_PLANS.md` ou `docs/plans/plan-[ID]-[nome].md`
+4. **Análise de segurança**: Aplicar OWASP checklist (Etapa 6.5)
+5. **Criar Rollback Plan**: Garantir capacidade de reverter (Etapa 12.5)
+6. **ANTES de implementar**: Revisar e validar todo o plano
+7. **Executar em staging primeiro**: Validar por 24h mínimo
+8. Executar passo a passo, **consultando o plano sempre que necessário**
+9. **Deploy incremental**: Um passo por vez, com monitoramento
+10. **Validar métricas**: 48h de estabilidade antes de considerar completo
+11. Ao concluir → marcar task no TASKS.md como completa
+12. Arquivar plano em `docs/plans/archive/` com lições aprendidas
+
+**Por quê criar ANTES e consultar SEMPRE?**
+- ✅ **Segurança First**: Análise OWASP antes evita vulnerabilidades
+- ✅ **Rollback Preparado**: Ter estratégia de reversão desde o início
+- ✅ **Evita Downtime**: Planejamento antecipado identifica riscos
+- ✅ **Não se Perder**: Consultar durante o trabalho mantém foco na segurança
+- ✅ **Validação Contínua**: Cada passo tem critérios claros de sucesso
 
 **Benefícios para Solo Developer:**
 - ✅ **Segurança**: Checklist obrigatório evita vulnerabilidades
@@ -1240,7 +1275,7 @@ Além do `TASKS.md`, você pode encontrar (ou criar) um arquivo `ACTION_PLANS.md
 - 🔄 **Atualizações de dependências críticas** (frameworks, bibliotecas de segurança)
 - 🐛 **Bugs críticos** que afetam disponibilidade ou segurança
 
-📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "Planos de Ação (ACTION_PLANS.md)"
+📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
 
 ---
 
