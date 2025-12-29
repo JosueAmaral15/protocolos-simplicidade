@@ -650,9 +650,9 @@ Python, JavaScript, Java, C++, and any language that supports module importing.
 
 ## 🧠 Associative Memory Factor
 
-> **NEW**: Fundamental concept to enable AI to learn from error patterns and apply accumulated knowledge.
+> **INTEGRATED**: Fundamental concept to enable AI to learn from error patterns and apply accumulated knowledge.
 
-The **[Associative Memory Factor](ASSOCIATIVE_MEMORY_FACTOR.md)** integrates the Simplicity Protocols allowing AI to develop a "memory" of problems and solutions.
+The **Associative Memory Factor** is now **fully integrated** into all three Simplicity Protocols, allowing AI to develop a "memory" of problems and solutions.
 
 ### 🎯 What is it?
 
@@ -708,10 +708,21 @@ Five categories of highly undesirable defects:
 - Multiple modules fail because they import buggy code
 - Fix once resolves all cases
 
-### 📖 Access the Document
+### 📖 Where to Find
 
-- **🇺🇸 English**: [ASSOCIATIVE_MEMORY_FACTOR.md](ASSOCIATIVE_MEMORY_FACTOR.md)
-- **🇧🇷 Português**: [../pt/FATOR_MEMORIA_ASSOCIATIVA.md](../pt/FATOR_MEMORIA_ASSOCIATIVA.md)
+The **complete Associative Memory Factor documentation** is now integrated into each protocol:
+
+- **📘 Simplicity Protocol 1**: Section "Associative Memory Factor - Complete Documentation"
+- **📕 Simplicity Protocol 2**: Section "Associative Memory Factor - Complete Documentation"  
+- **📗 Simplicity Protocol 3**: Section "Associative Memory Factor - Complete Documentation"
+
+Each protocol contains the full documentation with:
+- ✅ Detailed top-down investigation methodology
+- ✅ Neuro-symbolic debugging cycle
+- ✅ Practical examples of each defect type
+- ✅ Error pattern knowledge base
+- ✅ Integration with HDC (Hyperdimensional Computing)
+- ✅ Complete usage checklist for AIs
 
 ### 🎯 Benefits
 

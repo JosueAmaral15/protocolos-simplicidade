@@ -917,9 +917,9 @@ Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de 
 
 ## 🧠 Fator de Memória Associativa
 
-> **NOVO**: Conceito fundamental para permitir que IAs aprendam com padrões de erros e apliquem conhecimento acumulado.
+> **INTEGRADO**: Conceito fundamental para permitir que IAs aprendam com padrões de erros e apliquem conhecimento acumulado.
 
-O **[Fator de Memória Associativa](pt/FATOR_MEMORIA_ASSOCIATIVA.md)** integra os Protocolos Simplicidade permitindo que a IA desenvolva uma "memória" de problemas e soluções.
+O **Fator de Memória Associativa** está agora **totalmente integrado** nos três Protocolos Simplicidade, permitindo que a IA desenvolva uma "memória" de problemas e soluções.
 
 ### 🎯 O Que é?
 
@@ -975,10 +975,25 @@ Cinco categorias de defeitos altamente indesejáveis:
 - Múltiplos módulos falham porque importam código bugado
 - Corrigir uma vez resolve todos os casos
 
-### 📖 Acesse o Documento
+### 📖 Onde Encontrar
 
-- **🇧🇷 Português**: [pt/FATOR_MEMORIA_ASSOCIATIVA.md](pt/FATOR_MEMORIA_ASSOCIATIVA.md)
-- **🇺🇸 English**: [en/ASSOCIATIVE_MEMORY_FACTOR.md](en/ASSOCIATIVE_MEMORY_FACTOR.md)
+A **documentação completa do Fator de Memória Associativa** está agora integrada em cada protocolo:
+
+- **📘 Protocolo Simplicidade 1** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
+- **📕 Protocolo Simplicidade 2** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
+- **📗 Protocolo Simplicidade 3** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
+
+- **📘 Simplicity Protocol 1** (in English): Section "Associative Memory Factor - Complete Documentation"
+- **📕 Simplicity Protocol 2** (in English): Section "Associative Memory Factor - Complete Documentation"
+- **📗 Simplicity Protocol 3** (in English): Section "Associative Memory Factor - Complete Documentation"
+
+Cada protocolo contém a documentação completa com:
+- ✅ Metodologia detalhada de investigação top-down
+- ✅ Ciclo de debugging neuro-simbólico
+- ✅ Exemplos práticos de cada tipo de defeito
+- ✅ Base de conhecimento de padrões de erro
+- ✅ Integração com HDC (Hyperdimensional Computing)
+- ✅ Checklist completo de uso para IAs
 
 ### 🎯 Benefícios
 
