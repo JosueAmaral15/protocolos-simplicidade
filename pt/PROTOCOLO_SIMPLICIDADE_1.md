@@ -194,6 +194,349 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas
+
+> **CRÍTICO PARA IAs**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer.
+
+### 🚫 Dúvidas São Bloqueantes
+
+**Regra Fundamental**:
+> **A dúvida sobre a tarefa é BLOQUEANTE.**
+>
+> A inteligência artificial **NÃO PODE CONTINUAR** até sanar **TODAS as suas dúvidas** sobre o que a mesma deve fazer.
+
+### 🤖 Esta Regra é Para Assistentes de IA
+
+**Se você é uma IA (Cursor, GitHub Copilot, etc.):**
+
+#### ✅ VOCÊ DEVE:
+- ✅ **PARAR imediatamente** ao identificar qualquer dúvida sobre a tarefa
+- ✅ **FORMULAR perguntas claras** sobre todos os pontos de incerteza
+- ✅ **AGUARDAR respostas** do programador antes de continuar
+- ✅ **VALIDAR seu entendimento** fazendo perguntas confirmatórias
+- ✅ **ESCLARECER requisitos ambíguos** antes de implementar
+- ✅ **QUESTIONAR premissas** que não foram explicitamente confirmadas
+- ✅ **PERGUNTAR sobre edge cases** e comportamentos esperados
+
+#### ❌ VOCÊ NÃO DEVE:
+- ❌ **Assumir ou adivinhar** o que o programador quer
+- ❌ **Prosseguir com incertezas** não resolvidas
+- ❌ **Implementar baseado em suposições** não confirmadas
+- ❌ **Ignorar ambiguidades** na especificação
+- ❌ **Tomar decisões críticas** sem consultar o programador
+- ❌ **Continuar silenciosamente** quando não entender algo
+
+### 🎯 Tipos de Dúvidas que São Bloqueantes
+
+#### 1. **Dúvidas sobre Requisitos**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual deve ser o comportamento quando o usuário inserir valor negativo?"
+- "A funcionalidade deve validar email em tempo real ou apenas ao submeter?"
+- "Qual a prioridade entre performance e precisão neste cálculo?"
+- "Devo implementar cache para esta operação?"
+```
+
+#### 2. **Dúvidas sobre Arquitetura**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Devo criar um novo módulo ou adicionar ao módulo X existente?"
+- "Esta lógica pertence ao CORE, CLI ou GUI?"
+- "Devo usar herança ou composição para esta funcionalidade?"
+- "Qual o padrão de design mais apropriado aqui?"
+```
+
+#### 3. **Dúvidas sobre Integração**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Esta funcionalidade deve se integrar com o módulo Y existente?"
+- "Devo modificar a API pública ou criar uma nova?"
+- "Como esta feature se relaciona com a funcionalidade X já implementada?"
+- "Preciso manter compatibilidade com versões anteriores?"
+```
+
+#### 4. **Dúvidas sobre Dados**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual o formato esperado dos dados de entrada?"
+- "Qual o range válido para este parâmetro?"
+- "Como devo lidar com dados ausentes ou inválidos?"
+- "Qual o encoding esperado para arquivos de texto?"
+```
+
+#### 5. **Dúvidas sobre Comportamento**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "O que deve acontecer se a operação falhar?"
+- "Devo fazer rollback ou logging em caso de erro?"
+- "Como notificar o usuário sobre erros?"
+- "Qual o timeout aceitável para esta operação?"
+```
+
+#### 6. **Dúvidas sobre Testes**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Quais edge cases específicos devo testar?"
+- "Qual o critério de aceitação para esta funcionalidade?"
+- "Devo mockar dependências externas nos testes?"
+- "Qual a cobertura de testes esperada?"
+```
+
+### 📋 Processo de Esclarecimento de Dúvidas
+
+#### Passo 1: Identificar Dúvidas
+```markdown
+Antes de iniciar qualquer tarefa:
+
+[ ] Ler especificação completa da tarefa
+[ ] Identificar TODOS os pontos de incerteza
+[ ] Listar TODAS as perguntas necessárias
+[ ] Classificar dúvidas por tipo (requisitos, arquitetura, etc.)
+```
+
+#### Passo 2: Formular Perguntas Claras
+```markdown
+Características de boas perguntas:
+
+✅ Específicas: "Qual o comportamento esperado quando X?"
+✅ Objetivas: Permitem resposta clara (sim/não ou descrição concreta)
+✅ Contextualizadas: Incluem informação relevante
+✅ Priorizadas: Mais críticas primeiro
+
+❌ Evitar perguntas vagas: "Como devo fazer isso?"
+❌ Evitar múltiplas perguntas em uma: Separar em perguntas individuais
+```
+
+**Exemplo de Perguntas Bem Formuladas**:
+```markdown
+Tenho as seguintes dúvidas sobre a tarefa "Implementar validação de CPF":
+
+1. **Validação de Formato**:
+   ❓ Devo aceitar CPF com pontuação (XXX.XXX.XXX-XX) ou apenas números?
+   💡 Sugestão: Aceitar ambos e normalizar internamente
+   
+2. **Validação de Dígitos Verificadores**:
+   ❓ Devo validar os dígitos verificadores ou apenas o formato?
+   💡 Sugestão: Validar dígitos para garantir CPF válido
+   
+3. **Tratamento de Erros**:
+   ❓ Como devo notificar o usuário de CPF inválido?
+   A) Retornar None
+   B) Levantar ValueError
+   C) Retornar tupla (bool, mensagem)
+   💡 Sugestão: Opção B (ValueError) seguindo padrão Python
+
+4. **Casos Especiais**:
+   ❓ CPFs com todos dígitos iguais (ex: 111.111.111-11) devem ser rejeitados?
+   💡 Sugestão: Sim, pois são inválidos na prática
+```
+
+#### Passo 3: Aguardar Confirmação
+```markdown
+Ação da IA:
+
+🛑 PARAR toda implementação
+📝 APRESENTAR lista de perguntas ao programador
+⏳ AGUARDAR respostas completas
+✅ CONFIRMAR entendimento antes de prosseguir
+```
+
+#### Passo 4: Validar Entendimento
+```markdown
+Após receber respostas:
+
+[ ] Repetir entendimento: "Então, devo fazer X e Y, correto?"
+[ ] Confirmar casos especiais: "No caso Z, devo fazer W?"
+[ ] Esclarecer ambiguidades restantes
+[ ] Obter aprovação explícita: "Posso prosseguir com este entendimento?"
+```
+
+### 🎯 Exemplos Práticos
+
+#### Exemplo 1: Tarefa com Requisitos Ambíguos
+
+**Tarefa Recebida**: "Implementar cálculo de desconto"
+
+**❌ ERRADO (IA assume e implementa)**:
+```python
+# IA assume 10% de desconto sem perguntar
+def calculate_discount(price):
+    return price * 0.9
+```
+
+**✅ CORRETO (IA faz perguntas primeiro)**:
+```markdown
+Antes de implementar "Cálculo de desconto", preciso esclarecer:
+
+1. **Porcentagem do Desconto**:
+   ❓ Qual a porcentagem de desconto a ser aplicada?
+   💡 Sugestão: 10% como padrão, mas configurável?
+
+2. **Regras de Aplicação**:
+   ❓ O desconto se aplica a todos os produtos ou há condições?
+   A) Todos os produtos
+   B) Apenas produtos em promoção
+   C) Baseado em valor mínimo do pedido
+   💡 Sugestão: Opção C (valor mínimo R$ 100)
+
+3. **Tipo de Desconto**:
+   ❓ Desconto percentual ou valor fixo?
+   💡 Sugestão: Percentual para flexibilidade
+
+4. **Acumulação**:
+   ❓ Descontos podem ser acumulados com outras promoções?
+   💡 Sugestão: Não, aplicar apenas o maior desconto
+
+Aguardo confirmação para prosseguir com a implementação.
+```
+
+#### Exemplo 2: Tarefa com Detalhes Técnicos Ausentes
+
+**Tarefa Recebida**: "Adicionar suporte a export de relatórios"
+
+**❌ ERRADO (IA assume formato)**:
+```python
+# IA assume PDF sem perguntar
+def export_report(data):
+    generate_pdf(data)
+```
+
+**✅ CORRETO (IA esclarece detalhes)**:
+```markdown
+Preciso de esclarecimentos sobre "Export de relatórios":
+
+1. **Formatos de Exportação**:
+   ❓ Quais formatos devo suportar?
+   A) PDF apenas
+   B) PDF + Excel
+   C) PDF + Excel + CSV
+   💡 Sugestão: Opção B (PDF para visualização, Excel para análise)
+
+2. **Template/Layout**:
+   ❓ Existe um template específico para os relatórios?
+   💡 Sugestão: Usar template da empresa se existir, senão criar padrão
+
+3. **Geração Assíncrona**:
+   ❓ Relatórios grandes devem ser gerados em background?
+   💡 Sugestão: Sim, com notificação quando concluído (>1000 registros)
+
+4. **Localização**:
+   ❓ Onde os arquivos gerados devem ser salvos?
+   A) Pasta temporária do sistema
+   B) Downloads do usuário
+   C) Configurável pelo usuário
+   💡 Sugestão: Opção C (configurável com default em Downloads)
+
+5. **Nome do Arquivo**:
+   ❓ Qual o padrão de nomenclatura?
+   💡 Sugestão: "relatorio_YYYY-MM-DD_HHmmss.ext"
+
+Aguardo definições para implementar corretamente.
+```
+
+### ✅ Checklist de Perguntas Obrigatórias
+
+**Antes de iniciar QUALQUER tarefa**:
+
+```markdown
+[ ] 1. Requisitos Funcionais Claros?
+   - [ ] Entendo o QUE deve ser feito?
+   - [ ] Entendo o PORQUÊ desta funcionalidade?
+   - [ ] Conheço os critérios de aceitação?
+
+[ ] 2. Requisitos Técnicos Definidos?
+   - [ ] Sei COMO implementar (arquitetura)?
+   - [ ] Conheço as tecnologias/bibliotecas a usar?
+   - [ ] Entendo as restrições técnicas?
+
+[ ] 3. Casos de Uso Cobertos?
+   - [ ] Sei o fluxo normal de uso?
+   - [ ] Conheço os edge cases?
+   - [ ] Sei como lidar com erros?
+
+[ ] 4. Integração Clara?
+   - [ ] Sei como integrar com código existente?
+   - [ ] Conheço as dependências?
+   - [ ] Entendo o impacto em outras partes?
+
+[ ] 5. Validação Definida?
+   - [ ] Sei como testar a funcionalidade?
+   - [ ] Conheço os cenários de teste?
+   - [ ] Entendo a cobertura esperada?
+
+Se QUALQUER item acima for ❌ NÃO: PARAR e fazer perguntas!
+```
+
+### 🚨 Consequências de NÃO Fazer Perguntas
+
+**O que acontece quando IA assume ao invés de perguntar**:
+
+1. **❌ Implementação Incorreta**
+   - Funcionalidade não atende requisitos reais
+   - Retrabalho necessário (perda de tempo)
+   - Frustração do programador
+
+2. **❌ Bugs Introduzidos**
+   - Comportamento inesperado
+   - Edge cases não tratados
+   - Problemas em produção
+
+3. **❌ Arquitetura Inadequada**
+   - Código difícil de manter
+   - Violação de padrões do projeto
+   - Dívida técnica acumulada
+
+4. **❌ Perda de Confiança**
+   - Programador deixa de confiar na IA
+   - Necessidade de revisão manual de tudo
+   - Redução de produtividade
+
+### 🎯 Benefícios de Fazer Perguntas
+
+**O que se ganha ao esclarecer dúvidas antes de implementar**:
+
+1. **✅ Implementação Correta na Primeira Tentativa**
+   - Zero retrabalho
+   - Economia de tempo
+   - Qualidade alta
+
+2. **✅ Alinhamento com Expectativas**
+   - Código atende exatamente o que foi pedido
+   - Programador satisfeito
+   - Confiança na IA aumenta
+
+3. **✅ Arquitetura Adequada**
+   - Código segue padrões do projeto
+   - Fácil de manter e evoluir
+   - Integração suave com código existente
+
+4. **✅ Prevenção de Bugs**
+   - Edge cases identificados e tratados
+   - Validações apropriadas implementadas
+   - Código robusto desde o início
+
+### 📊 Métricas de Sucesso
+
+**Indicadores de que a IA está fazendo perguntas corretamente**:
+
+- ✅ **Taxa de retrabalho < 10%**: Implementações corretas na primeira tentativa
+- ✅ **Tempo de esclarecimento < 20%**: Perguntas não atrasam significativamente
+- ✅ **Satisfação do programador alta**: Código atende expectativas
+- ✅ **Bugs pós-implementação baixos**: < 1 bug por 10 funcionalidades
+- ✅ **Commits limpos**: Menos commits de correção após inicial
+
+### 🎓 Conclusão
+
+> **"É melhor gastar 5 minutos esclarecendo dúvidas do que 2 horas corrigindo implementação incorreta."**
+
+**Mensagem para IAs**:
+> "NUNCA assuma. SEMPRE pergunte quando houver a menor dúvida. Sua função é implementar CORRETAMENTE, não rapidamente. Perguntas são um sinal de profissionalismo, não de incapacidade. O programador prefere responder 10 perguntas agora do que revisar 100 linhas de código errado depois."
+
+**Regra de Ouro para IAs**:
+> **"Quando em dúvida, PARE e PERGUNTE. Dúvida é BLOQUEANTE até ser resolvida."**
+
+---
+
 ## 🔍 Busca Binária para Localização de Defeitos
 
 > **IMPORTANTE PARA IAs**: Quando estiver lidando com correção de erros e eliminação de bugs, lembre-se de que existe a possibilidade de utilizar **busca binária** para localizar defeitos de maneira eficiente.
