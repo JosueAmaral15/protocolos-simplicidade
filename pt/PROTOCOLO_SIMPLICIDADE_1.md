@@ -194,6 +194,349 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas
+
+> **CRÍTICO PARA IAs**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer.
+
+### 🚫 Dúvidas São Bloqueantes
+
+**Regra Fundamental**:
+> **A dúvida sobre a tarefa é BLOQUEANTE.**
+>
+> A inteligência artificial **NÃO PODE CONTINUAR** até sanar **TODAS as suas dúvidas** sobre o que a mesma deve fazer.
+
+### 🤖 Esta Regra é Para Assistentes de IA
+
+**Se você é uma IA (Cursor, GitHub Copilot, etc.):**
+
+#### ✅ VOCÊ DEVE:
+- ✅ **PARAR imediatamente** ao identificar qualquer dúvida sobre a tarefa
+- ✅ **FORMULAR perguntas claras** sobre todos os pontos de incerteza
+- ✅ **AGUARDAR respostas** do programador antes de continuar
+- ✅ **VALIDAR seu entendimento** fazendo perguntas confirmatórias
+- ✅ **ESCLARECER requisitos ambíguos** antes de implementar
+- ✅ **QUESTIONAR premissas** que não foram explicitamente confirmadas
+- ✅ **PERGUNTAR sobre edge cases** e comportamentos esperados
+
+#### ❌ VOCÊ NÃO DEVE:
+- ❌ **Assumir ou adivinhar** o que o programador quer
+- ❌ **Prosseguir com incertezas** não resolvidas
+- ❌ **Implementar baseado em suposições** não confirmadas
+- ❌ **Ignorar ambiguidades** na especificação
+- ❌ **Tomar decisões críticas** sem consultar o programador
+- ❌ **Continuar silenciosamente** quando não entender algo
+
+### 🎯 Tipos de Dúvidas que São Bloqueantes
+
+#### 1. **Dúvidas sobre Requisitos**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual deve ser o comportamento quando o usuário inserir valor negativo?"
+- "A funcionalidade deve validar email em tempo real ou apenas ao submeter?"
+- "Qual a prioridade entre performance e precisão neste cálculo?"
+- "Devo implementar cache para esta operação?"
+```
+
+#### 2. **Dúvidas sobre Arquitetura**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Devo criar um novo módulo ou adicionar ao módulo X existente?"
+- "Esta lógica pertence ao CORE, CLI ou GUI?"
+- "Devo usar herança ou composição para esta funcionalidade?"
+- "Qual o padrão de design mais apropriado aqui?"
+```
+
+#### 3. **Dúvidas sobre Integração**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Esta funcionalidade deve se integrar com o módulo Y existente?"
+- "Devo modificar a API pública ou criar uma nova?"
+- "Como esta feature se relaciona com a funcionalidade X já implementada?"
+- "Preciso manter compatibilidade com versões anteriores?"
+```
+
+#### 4. **Dúvidas sobre Dados**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual o formato esperado dos dados de entrada?"
+- "Qual o range válido para este parâmetro?"
+- "Como devo lidar com dados ausentes ou inválidos?"
+- "Qual o encoding esperado para arquivos de texto?"
+```
+
+#### 5. **Dúvidas sobre Comportamento**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "O que deve acontecer se a operação falhar?"
+- "Devo fazer rollback ou logging em caso de erro?"
+- "Como notificar o usuário sobre erros?"
+- "Qual o timeout aceitável para esta operação?"
+```
+
+#### 6. **Dúvidas sobre Testes**
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Quais edge cases específicos devo testar?"
+- "Qual o critério de aceitação para esta funcionalidade?"
+- "Devo mockar dependências externas nos testes?"
+- "Qual a cobertura de testes esperada?"
+```
+
+### 📋 Processo de Esclarecimento de Dúvidas
+
+#### Passo 1: Identificar Dúvidas
+```markdown
+Antes de iniciar qualquer tarefa:
+
+[ ] Ler especificação completa da tarefa
+[ ] Identificar TODOS os pontos de incerteza
+[ ] Listar TODAS as perguntas necessárias
+[ ] Classificar dúvidas por tipo (requisitos, arquitetura, etc.)
+```
+
+#### Passo 2: Formular Perguntas Claras
+```markdown
+Características de boas perguntas:
+
+✅ Específicas: "Qual o comportamento esperado quando X?"
+✅ Objetivas: Permitem resposta clara (sim/não ou descrição concreta)
+✅ Contextualizadas: Incluem informação relevante
+✅ Priorizadas: Mais críticas primeiro
+
+❌ Evitar perguntas vagas: "Como devo fazer isso?"
+❌ Evitar múltiplas perguntas em uma: Separar em perguntas individuais
+```
+
+**Exemplo de Perguntas Bem Formuladas**:
+```markdown
+Tenho as seguintes dúvidas sobre a tarefa "Implementar validação de CPF":
+
+1. **Validação de Formato**:
+   ❓ Devo aceitar CPF com pontuação (XXX.XXX.XXX-XX) ou apenas números?
+   💡 Sugestão: Aceitar ambos e normalizar internamente
+   
+2. **Validação de Dígitos Verificadores**:
+   ❓ Devo validar os dígitos verificadores ou apenas o formato?
+   💡 Sugestão: Validar dígitos para garantir CPF válido
+   
+3. **Tratamento de Erros**:
+   ❓ Como devo notificar o usuário de CPF inválido?
+   A) Retornar None
+   B) Levantar ValueError
+   C) Retornar tupla (bool, mensagem)
+   💡 Sugestão: Opção B (ValueError) seguindo padrão Python
+
+4. **Casos Especiais**:
+   ❓ CPFs com todos dígitos iguais (ex: 111.111.111-11) devem ser rejeitados?
+   💡 Sugestão: Sim, pois são inválidos na prática
+```
+
+#### Passo 3: Aguardar Confirmação
+```markdown
+Ação da IA:
+
+🛑 PARAR toda implementação
+📝 APRESENTAR lista de perguntas ao programador
+⏳ AGUARDAR respostas completas
+✅ CONFIRMAR entendimento antes de prosseguir
+```
+
+#### Passo 4: Validar Entendimento
+```markdown
+Após receber respostas:
+
+[ ] Repetir entendimento: "Então, devo fazer X e Y, correto?"
+[ ] Confirmar casos especiais: "No caso Z, devo fazer W?"
+[ ] Esclarecer ambiguidades restantes
+[ ] Obter aprovação explícita: "Posso prosseguir com este entendimento?"
+```
+
+### 🎯 Exemplos Práticos
+
+#### Exemplo 1: Tarefa com Requisitos Ambíguos
+
+**Tarefa Recebida**: "Implementar cálculo de desconto"
+
+**❌ ERRADO (IA assume e implementa)**:
+```python
+# IA assume 10% de desconto sem perguntar
+def calculate_discount(price):
+    return price * 0.9
+```
+
+**✅ CORRETO (IA faz perguntas primeiro)**:
+```markdown
+Antes de implementar "Cálculo de desconto", preciso esclarecer:
+
+1. **Porcentagem do Desconto**:
+   ❓ Qual a porcentagem de desconto a ser aplicada?
+   💡 Sugestão: 10% como padrão, mas configurável?
+
+2. **Regras de Aplicação**:
+   ❓ O desconto se aplica a todos os produtos ou há condições?
+   A) Todos os produtos
+   B) Apenas produtos em promoção
+   C) Baseado em valor mínimo do pedido
+   💡 Sugestão: Opção C (valor mínimo R$ 100)
+
+3. **Tipo de Desconto**:
+   ❓ Desconto percentual ou valor fixo?
+   💡 Sugestão: Percentual para flexibilidade
+
+4. **Acumulação**:
+   ❓ Descontos podem ser acumulados com outras promoções?
+   💡 Sugestão: Não, aplicar apenas o maior desconto
+
+Aguardo confirmação para prosseguir com a implementação.
+```
+
+#### Exemplo 2: Tarefa com Detalhes Técnicos Ausentes
+
+**Tarefa Recebida**: "Adicionar suporte a export de relatórios"
+
+**❌ ERRADO (IA assume formato)**:
+```python
+# IA assume PDF sem perguntar
+def export_report(data):
+    generate_pdf(data)
+```
+
+**✅ CORRETO (IA esclarece detalhes)**:
+```markdown
+Preciso de esclarecimentos sobre "Export de relatórios":
+
+1. **Formatos de Exportação**:
+   ❓ Quais formatos devo suportar?
+   A) PDF apenas
+   B) PDF + Excel
+   C) PDF + Excel + CSV
+   💡 Sugestão: Opção B (PDF para visualização, Excel para análise)
+
+2. **Template/Layout**:
+   ❓ Existe um template específico para os relatórios?
+   💡 Sugestão: Usar template da empresa se existir, senão criar padrão
+
+3. **Geração Assíncrona**:
+   ❓ Relatórios grandes devem ser gerados em background?
+   💡 Sugestão: Sim, com notificação quando concluído (>1000 registros)
+
+4. **Localização**:
+   ❓ Onde os arquivos gerados devem ser salvos?
+   A) Pasta temporária do sistema
+   B) Downloads do usuário
+   C) Configurável pelo usuário
+   💡 Sugestão: Opção C (configurável com default em Downloads)
+
+5. **Nome do Arquivo**:
+   ❓ Qual o padrão de nomenclatura?
+   💡 Sugestão: "relatorio_YYYY-MM-DD_HHmmss.ext"
+
+Aguardo definições para implementar corretamente.
+```
+
+### ✅ Checklist de Perguntas Obrigatórias
+
+**Antes de iniciar QUALQUER tarefa**:
+
+```markdown
+[ ] 1. Requisitos Funcionais Claros?
+   - [ ] Entendo o QUE deve ser feito?
+   - [ ] Entendo o PORQUÊ desta funcionalidade?
+   - [ ] Conheço os critérios de aceitação?
+
+[ ] 2. Requisitos Técnicos Definidos?
+   - [ ] Sei COMO implementar (arquitetura)?
+   - [ ] Conheço as tecnologias/bibliotecas a usar?
+   - [ ] Entendo as restrições técnicas?
+
+[ ] 3. Casos de Uso Cobertos?
+   - [ ] Sei o fluxo normal de uso?
+   - [ ] Conheço os edge cases?
+   - [ ] Sei como lidar com erros?
+
+[ ] 4. Integração Clara?
+   - [ ] Sei como integrar com código existente?
+   - [ ] Conheço as dependências?
+   - [ ] Entendo o impacto em outras partes?
+
+[ ] 5. Validação Definida?
+   - [ ] Sei como testar a funcionalidade?
+   - [ ] Conheço os cenários de teste?
+   - [ ] Entendo a cobertura esperada?
+
+Se QUALQUER item acima for ❌ NÃO: PARAR e fazer perguntas!
+```
+
+### 🚨 Consequências de NÃO Fazer Perguntas
+
+**O que acontece quando IA assume ao invés de perguntar**:
+
+1. **❌ Implementação Incorreta**
+   - Funcionalidade não atende requisitos reais
+   - Retrabalho necessário (perda de tempo)
+   - Frustração do programador
+
+2. **❌ Bugs Introduzidos**
+   - Comportamento inesperado
+   - Edge cases não tratados
+   - Problemas em produção
+
+3. **❌ Arquitetura Inadequada**
+   - Código difícil de manter
+   - Violação de padrões do projeto
+   - Dívida técnica acumulada
+
+4. **❌ Perda de Confiança**
+   - Programador deixa de confiar na IA
+   - Necessidade de revisão manual de tudo
+   - Redução de produtividade
+
+### 🎯 Benefícios de Fazer Perguntas
+
+**O que se ganha ao esclarecer dúvidas antes de implementar**:
+
+1. **✅ Implementação Correta na Primeira Tentativa**
+   - Zero retrabalho
+   - Economia de tempo
+   - Qualidade alta
+
+2. **✅ Alinhamento com Expectativas**
+   - Código atende exatamente o que foi pedido
+   - Programador satisfeito
+   - Confiança na IA aumenta
+
+3. **✅ Arquitetura Adequada**
+   - Código segue padrões do projeto
+   - Fácil de manter e evoluir
+   - Integração suave com código existente
+
+4. **✅ Prevenção de Bugs**
+   - Edge cases identificados e tratados
+   - Validações apropriadas implementadas
+   - Código robusto desde o início
+
+### 📊 Métricas de Sucesso
+
+**Indicadores de que a IA está fazendo perguntas corretamente**:
+
+- ✅ **Taxa de retrabalho < 10%**: Implementações corretas na primeira tentativa
+- ✅ **Tempo de esclarecimento < 20%**: Perguntas não atrasam significativamente
+- ✅ **Satisfação do programador alta**: Código atende expectativas
+- ✅ **Bugs pós-implementação baixos**: < 1 bug por 10 funcionalidades
+- ✅ **Commits limpos**: Menos commits de correção após inicial
+
+### 🎓 Conclusão
+
+> **"É melhor gastar 5 minutos esclarecendo dúvidas do que 2 horas corrigindo implementação incorreta."**
+
+**Mensagem para IAs**:
+> "NUNCA assuma. SEMPRE pergunte quando houver a menor dúvida. Sua função é implementar CORRETAMENTE, não rapidamente. Perguntas são um sinal de profissionalismo, não de incapacidade. O programador prefere responder 10 perguntas agora do que revisar 100 linhas de código errado depois."
+
+**Regra de Ouro para IAs**:
+> **"Quando em dúvida, PARE e PERGUNTE. Dúvida é BLOQUEANTE até ser resolvida."**
+
+---
+
 ## 🔍 Busca Binária para Localização de Defeitos
 
 > **IMPORTANTE PARA IAs**: Quando estiver lidando com correção de erros e eliminação de bugs, lembre-se de que existe a possibilidade de utilizar **busca binária** para localizar defeitos de maneira eficiente.
@@ -1290,6 +1633,334 @@ Para projetos brasileiros/portugueses:
 - 🌍 Equipe multicultural
 - 🌍 Produto voltado para mercado global
 - 🌍 Biblioteca/framework para distribuição pública
+
+---
+
+## 🖥️ Importância da Interface de Linha de Comando (CLI)
+
+> **CRÍTICO PARA IAs**: Em muitos casos, senão em todos os casos, é importante implementar uma **CLI (Command-Line Interface)** que pode ser utilizada no terminal para acesso pelo usuário e principalmente para **testes por parte de quem estiver desenvolvendo o software**.
+
+### 🎯 Por Quê o CLI é Essencial?
+
+**Contexto**: Dentro de um determinado contexto relevante, a implementação de CLI é necessária até mesmo em casos de testes, em que a inteligência artificial que estiver auxiliando, **por não poder interagir diretamente com a interface gráfica do usuário**, terá que realizar testes no terminal.
+
+#### ✅ Benefícios do CLI para Desenvolvimento e Testes
+
+1. **🤖 Testabilidade pela IA**
+   - ✅ A IA pode executar testes via CLI sem precisar de GUI
+   - ✅ Comandos podem ser automatizados em scripts de teste
+   - ✅ Saída textual é facilmente validável programaticamente
+   - ✅ Não depende de eventos de mouse/teclado complexos
+
+2. **⚡ Velocidade de Desenvolvimento**
+   - ✅ Testar funcionalidades rapidamente sem abrir GUI
+   - ✅ Debug mais rápido com flags de verbose (`--debug`, `--verbose`)
+   - ✅ Iterações mais rápidas durante desenvolvimento
+   - ✅ Scripting e automação de tarefas repetitivas
+
+3. **🧪 Alvo Principal de Testes**
+   - ✅ **Lógica bem estruturada**: CLI força separação de lógica e apresentação
+   - ✅ **Fundamentação sólida**: Se CLI funciona, a lógica está correta
+   - ✅ **Cobertura de testes**: Mais fácil testar todas as funcionalidades via CLI
+   - ✅ **Módulos de teste independentes**: Podem focar na lógica via CLI
+   - ✅ **Validação de requisitos**: CLI demonstra que requisitos são atendidos
+
+4. **🔄 CI/CD e Automação**
+   - ✅ Integração contínua pode testar via CLI
+   - ✅ Scripts de deploy usam CLI para validar instalação
+   - ✅ Testes automatizados são mais confiáveis com CLI
+   - ✅ Pipelines podem executar comandos CLI sem ambiente gráfico
+
+5. **👥 Acesso Remoto e Servidores**
+   - ✅ Servidores headless (sem GUI) podem usar CLI
+   - ✅ SSH permite administração remota via CLI
+   - ✅ Scripts podem ser executados em batch jobs
+   - ✅ Ferramentas de monitoramento podem usar CLI
+
+### 📐 Arquitetura Recomendada
+
+**Separação Clara de Responsabilidades**:
+
+```
+┌─────────────────────────────────────────┐
+│          CLI (Interface)                │
+│  - Parsing de argumentos                │
+│  - Validação de entrada                 │
+│  - Formatação de saída                  │
+└──────────────┬──────────────────────────┘
+               │ chama
+               ↓
+┌─────────────────────────────────────────┐
+│          CORE (Lógica de Negócio)       │ ← TESTAR AQUI!
+│  - Algoritmos                           │
+│  - Processamento de dados               │
+│  - Regras de negócio                    │
+└──────────────┬──────────────────────────┘
+               │ usa
+               ↓
+┌─────────────────────────────────────────┐
+│          GUI (Interface Gráfica)        │
+│  - Widgets visuais                      │
+│  - Eventos de usuário                   │
+│  - Apresentação visual                  │
+└─────────────────────────────────────────┘
+```
+
+**Princípio Fundamental**:
+> **CLI e GUI devem usar a MESMA lógica de negócio (CORE).**
+> 
+> Se a lógica está bem estruturada no CORE, tanto CLI quanto GUI funcionarão corretamente.
+
+### 🛠️ Implementação Prática
+
+#### Exemplo em Python
+
+**Estrutura do Projeto**:
+```
+project/
+├── src/
+│   ├── core/              # Lógica de negócio
+│   │   ├── calculator.py  # Algoritmos puros
+│   │   └── validator.py   # Validações
+│   ├── cli/               # Interface CLI
+│   │   └── main.py        # Parsing + formatação
+│   └── gui/               # Interface GUI
+│       └── window.py      # Widgets + eventos
+└── tests/
+    ├── test_core.py       # ✅ Testes da lógica (PRINCIPAL)
+    ├── test_cli.py        # ✅ Testes da CLI
+    └── test_gui.py        # Testes da GUI (opcional)
+```
+
+**Exemplo de CLI**:
+```python
+# src/cli/main.py
+import argparse
+from src.core.calculator import Calculator
+
+def main():
+    """CLI principal - apenas parsing e formatação."""
+    parser = argparse.ArgumentParser(description='Calculadora')
+    parser.add_argument('operation', choices=['add', 'sub', 'mul', 'div'])
+    parser.add_argument('a', type=float, help='Primeiro número')
+    parser.add_argument('b', type=float, help='Segundo número')
+    parser.add_argument('--verbose', action='store_true', help='Modo verbose')
+    
+    args = parser.parse_args()
+    
+    # ✅ Lógica está no CORE, não no CLI
+    calc = Calculator()
+    result = calc.calculate(args.operation, args.a, args.b)
+    
+    # Apenas formatação de saída
+    if args.verbose:
+        print(f"Operação: {args.operation}")
+        print(f"Entrada: {args.a}, {args.b}")
+    print(f"Resultado: {result}")
+
+if __name__ == '__main__':
+    main()
+```
+
+**Exemplo de CORE (lógica testável)**:
+```python
+# src/core/calculator.py
+class Calculator:
+    """Lógica de negócio pura - facilmente testável."""
+    
+    def calculate(self, operation: str, a: float, b: float) -> float:
+        """
+        Realiza cálculo baseado na operação.
+        
+        Args:
+            operation: Tipo de operação ('add', 'sub', 'mul', 'div')
+            a: Primeiro número
+            b: Segundo número
+            
+        Returns:
+            Resultado da operação
+            
+        Raises:
+            ValueError: Se operação inválida ou divisão por zero
+        """
+        if operation == 'add':
+            return a + b
+        elif operation == 'sub':
+            return a - b
+        elif operation == 'mul':
+            return a * b
+        elif operation == 'div':
+            if b == 0:
+                raise ValueError("Divisão por zero")
+            return a / b
+        else:
+            raise ValueError(f"Operação inválida: {operation}")
+```
+
+**Exemplo de Teste (via CORE)**:
+```python
+# tests/test_core.py
+import pytest
+from src.core.calculator import Calculator
+
+def test_calculator_add():
+    calc = Calculator()
+    assert calc.calculate('add', 2, 3) == 5
+
+def test_calculator_division_by_zero():
+    calc = Calculator()
+    with pytest.raises(ValueError, match="Divisão por zero"):
+        calc.calculate('div', 10, 0)
+
+# ✅ Testa a lógica diretamente, sem CLI ou GUI
+```
+
+### 🧪 Estratégia de Testes com CLI
+
+#### 1. **Testes da Lógica (CORE) - PRIORIDADE MÁXIMA**
+```python
+# tests/test_core.py
+def test_business_logic():
+    """Testa CORE diretamente - mais importante."""
+    # Arrange
+    calc = Calculator()
+    
+    # Act
+    result = calc.calculate('add', 2, 3)
+    
+    # Assert
+    assert result == 5
+```
+
+#### 2. **Testes da CLI (Interface)**
+```python
+# tests/test_cli.py
+import subprocess
+import sys
+
+def test_cli_add():
+    """Testa CLI via subprocess - testa integração."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'add', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode == 0
+    assert 'Resultado: 5.0' in result.stdout
+
+def test_cli_invalid_operation():
+    """Testa tratamento de erros na CLI."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'invalid', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode != 0
+    assert 'error' in result.stderr.lower()
+```
+
+#### 3. **Testes da GUI (Opcional/Manual)**
+```python
+# tests/test_gui.py
+# Pode usar pytest-qt se necessário, mas não é prioridade
+# A GUI deve apenas apresentar o que o CORE já validou
+```
+
+### ✅ Checklist de Implementação CLI
+
+**Antes de implementar funcionalidade**:
+- [ ] 1. Implementar lógica no CORE (pura, sem I/O)
+- [ ] 2. Criar testes para o CORE (100% coverage)
+- [ ] 3. Implementar CLI que usa o CORE
+- [ ] 4. Testar CLI via subprocess (smoke tests)
+- [ ] 5. Implementar GUI que usa o CORE (se necessário)
+- [ ] 6. Validar que CLI e GUI usam mesma lógica
+
+**Durante desenvolvimento**:
+- [ ] IA deve testar via CLI quando GUI não está disponível
+- [ ] Priorizar testes do CORE sobre testes de CLI/GUI
+- [ ] Garantir que CLI tem todas as funcionalidades do CORE
+- [ ] Documentar comandos CLI em `README.md` ou `docs/CLI.md`
+
+**Estrutura de comando CLI recomendada**:
+```bash
+# Formato padrão
+python -m project.cli <comando> [argumentos] [opções]
+
+# Exemplos
+python -m project.cli calculate --operation add --a 2 --b 3
+python -m project.cli validate --input data.txt
+python -m project.cli process --file data.csv --output result.json --verbose
+```
+
+### 📝 Documentação CLI
+
+**Incluir no README.md**:
+```markdown
+## 🖥️ Command-Line Interface (CLI)
+
+### Instalação
+```bash
+pip install -e .
+```
+
+### Uso Básico
+```bash
+# Ajuda geral
+python -m project.cli --help
+
+# Comando específico
+python -m project.cli calculate add 2 3
+
+# Modo verbose
+python -m project.cli calculate add 2 3 --verbose
+```
+
+### Comandos Disponíveis
+- `calculate`: Realiza operações matemáticas
+- `validate`: Valida entrada de dados
+- `process`: Processa arquivos de dados
+
+### Exemplos
+```bash
+# Adição
+python -m project.cli calculate add 10 5
+# Saída: 15.0
+
+# Divisão com tratamento de erro
+python -m project.cli calculate div 10 0
+# Saída: Error: Divisão por zero
+```
+```
+
+### 🎯 Rationale
+
+**Por quê CLI é crítico para testes com IA?**
+
+1. **Limitação da IA**: 
+   - ❌ IA não pode clicar em botões da GUI
+   - ✅ IA pode executar comandos CLI no terminal
+   - ✅ IA pode validar saída textual de comandos
+
+2. **Arquitetura Limpa**:
+   - ✅ CLI força separação entre lógica e apresentação
+   - ✅ Lógica no CORE é testável isoladamente
+   - ✅ GUI e CLI compartilham mesma lógica validada
+
+3. **Desenvolvimento Iterativo**:
+   - ✅ Implementar CORE primeiro (com CLI)
+   - ✅ Testar exaustivamente via CLI
+   - ✅ Adicionar GUI depois (sabendo que lógica funciona)
+
+4. **Confiança nos Testes**:
+   - ✅ Se CLI funciona → lógica está correta
+   - ✅ Se lógica está correta → GUI também funcionará
+   - ✅ Testes de GUI podem ser mínimos (smoke tests)
+
+**Mensagem para IAs**:
+> "Sempre que implementar funcionalidade, crie CLI primeiro. Teste via CLI antes de criar GUI. Se CLI funciona, você validou que a lógica atende aos requisitos do usuário."
 
 ---
 
