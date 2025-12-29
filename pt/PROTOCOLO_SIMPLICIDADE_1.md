@@ -1293,6 +1293,334 @@ Para projetos brasileiros/portugueses:
 
 ---
 
+## 🖥️ Importância da Interface de Linha de Comando (CLI)
+
+> **CRÍTICO PARA IAs**: Em muitos casos, senão em todos os casos, é importante implementar uma **CLI (Command-Line Interface)** que pode ser utilizada no terminal para acesso pelo usuário e principalmente para **testes por parte de quem estiver desenvolvendo o software**.
+
+### 🎯 Por Quê o CLI é Essencial?
+
+**Contexto**: Dentro de um determinado contexto relevante, a implementação de CLI é necessária até mesmo em casos de testes, em que a inteligência artificial que estiver auxiliando, **por não poder interagir diretamente com a interface gráfica do usuário**, terá que realizar testes no terminal.
+
+#### ✅ Benefícios do CLI para Desenvolvimento e Testes
+
+1. **🤖 Testabilidade pela IA**
+   - ✅ A IA pode executar testes via CLI sem precisar de GUI
+   - ✅ Comandos podem ser automatizados em scripts de teste
+   - ✅ Saída textual é facilmente validável programaticamente
+   - ✅ Não depende de eventos de mouse/teclado complexos
+
+2. **⚡ Velocidade de Desenvolvimento**
+   - ✅ Testar funcionalidades rapidamente sem abrir GUI
+   - ✅ Debug mais rápido com flags de verbose (`--debug`, `--verbose`)
+   - ✅ Iterações mais rápidas durante desenvolvimento
+   - ✅ Scripting e automação de tarefas repetitivas
+
+3. **🧪 Alvo Principal de Testes**
+   - ✅ **Lógica bem estruturada**: CLI força separação de lógica e apresentação
+   - ✅ **Fundamentação sólida**: Se CLI funciona, a lógica está correta
+   - ✅ **Cobertura de testes**: Mais fácil testar todas as funcionalidades via CLI
+   - ✅ **Módulos de teste independentes**: Podem focar na lógica via CLI
+   - ✅ **Validação de requisitos**: CLI demonstra que requisitos são atendidos
+
+4. **🔄 CI/CD e Automação**
+   - ✅ Integração contínua pode testar via CLI
+   - ✅ Scripts de deploy usam CLI para validar instalação
+   - ✅ Testes automatizados são mais confiáveis com CLI
+   - ✅ Pipelines podem executar comandos CLI sem ambiente gráfico
+
+5. **👥 Acesso Remoto e Servidores**
+   - ✅ Servidores headless (sem GUI) podem usar CLI
+   - ✅ SSH permite administração remota via CLI
+   - ✅ Scripts podem ser executados em batch jobs
+   - ✅ Ferramentas de monitoramento podem usar CLI
+
+### 📐 Arquitetura Recomendada
+
+**Separação Clara de Responsabilidades**:
+
+```
+┌─────────────────────────────────────────┐
+│          CLI (Interface)                │
+│  - Parsing de argumentos                │
+│  - Validação de entrada                 │
+│  - Formatação de saída                  │
+└──────────────┬──────────────────────────┘
+               │ chama
+               ↓
+┌─────────────────────────────────────────┐
+│          CORE (Lógica de Negócio)       │ ← TESTAR AQUI!
+│  - Algoritmos                           │
+│  - Processamento de dados               │
+│  - Regras de negócio                    │
+└──────────────┬──────────────────────────┘
+               │ usa
+               ↓
+┌─────────────────────────────────────────┐
+│          GUI (Interface Gráfica)        │
+│  - Widgets visuais                      │
+│  - Eventos de usuário                   │
+│  - Apresentação visual                  │
+└─────────────────────────────────────────┘
+```
+
+**Princípio Fundamental**:
+> **CLI e GUI devem usar a MESMA lógica de negócio (CORE).**
+> 
+> Se a lógica está bem estruturada no CORE, tanto CLI quanto GUI funcionarão corretamente.
+
+### 🛠️ Implementação Prática
+
+#### Exemplo em Python
+
+**Estrutura do Projeto**:
+```
+project/
+├── src/
+│   ├── core/              # Lógica de negócio
+│   │   ├── calculator.py  # Algoritmos puros
+│   │   └── validator.py   # Validações
+│   ├── cli/               # Interface CLI
+│   │   └── main.py        # Parsing + formatação
+│   └── gui/               # Interface GUI
+│       └── window.py      # Widgets + eventos
+└── tests/
+    ├── test_core.py       # ✅ Testes da lógica (PRINCIPAL)
+    ├── test_cli.py        # ✅ Testes da CLI
+    └── test_gui.py        # Testes da GUI (opcional)
+```
+
+**Exemplo de CLI**:
+```python
+# src/cli/main.py
+import argparse
+from src.core.calculator import Calculator
+
+def main():
+    """CLI principal - apenas parsing e formatação."""
+    parser = argparse.ArgumentParser(description='Calculadora')
+    parser.add_argument('operation', choices=['add', 'sub', 'mul', 'div'])
+    parser.add_argument('a', type=float, help='Primeiro número')
+    parser.add_argument('b', type=float, help='Segundo número')
+    parser.add_argument('--verbose', action='store_true', help='Modo verbose')
+    
+    args = parser.parse_args()
+    
+    # ✅ Lógica está no CORE, não no CLI
+    calc = Calculator()
+    result = calc.calculate(args.operation, args.a, args.b)
+    
+    # Apenas formatação de saída
+    if args.verbose:
+        print(f"Operação: {args.operation}")
+        print(f"Entrada: {args.a}, {args.b}")
+    print(f"Resultado: {result}")
+
+if __name__ == '__main__':
+    main()
+```
+
+**Exemplo de CORE (lógica testável)**:
+```python
+# src/core/calculator.py
+class Calculator:
+    """Lógica de negócio pura - facilmente testável."""
+    
+    def calculate(self, operation: str, a: float, b: float) -> float:
+        """
+        Realiza cálculo baseado na operação.
+        
+        Args:
+            operation: Tipo de operação ('add', 'sub', 'mul', 'div')
+            a: Primeiro número
+            b: Segundo número
+            
+        Returns:
+            Resultado da operação
+            
+        Raises:
+            ValueError: Se operação inválida ou divisão por zero
+        """
+        if operation == 'add':
+            return a + b
+        elif operation == 'sub':
+            return a - b
+        elif operation == 'mul':
+            return a * b
+        elif operation == 'div':
+            if b == 0:
+                raise ValueError("Divisão por zero")
+            return a / b
+        else:
+            raise ValueError(f"Operação inválida: {operation}")
+```
+
+**Exemplo de Teste (via CORE)**:
+```python
+# tests/test_core.py
+import pytest
+from src.core.calculator import Calculator
+
+def test_calculator_add():
+    calc = Calculator()
+    assert calc.calculate('add', 2, 3) == 5
+
+def test_calculator_division_by_zero():
+    calc = Calculator()
+    with pytest.raises(ValueError, match="Divisão por zero"):
+        calc.calculate('div', 10, 0)
+
+# ✅ Testa a lógica diretamente, sem CLI ou GUI
+```
+
+### 🧪 Estratégia de Testes com CLI
+
+#### 1. **Testes da Lógica (CORE) - PRIORIDADE MÁXIMA**
+```python
+# tests/test_core.py
+def test_business_logic():
+    """Testa CORE diretamente - mais importante."""
+    # Arrange
+    calc = Calculator()
+    
+    # Act
+    result = calc.calculate('add', 2, 3)
+    
+    # Assert
+    assert result == 5
+```
+
+#### 2. **Testes da CLI (Interface)**
+```python
+# tests/test_cli.py
+import subprocess
+import sys
+
+def test_cli_add():
+    """Testa CLI via subprocess - testa integração."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'add', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode == 0
+    assert 'Resultado: 5.0' in result.stdout
+
+def test_cli_invalid_operation():
+    """Testa tratamento de erros na CLI."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'invalid', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode != 0
+    assert 'error' in result.stderr.lower()
+```
+
+#### 3. **Testes da GUI (Opcional/Manual)**
+```python
+# tests/test_gui.py
+# Pode usar pytest-qt se necessário, mas não é prioridade
+# A GUI deve apenas apresentar o que o CORE já validou
+```
+
+### ✅ Checklist de Implementação CLI
+
+**Antes de implementar funcionalidade**:
+- [ ] 1. Implementar lógica no CORE (pura, sem I/O)
+- [ ] 2. Criar testes para o CORE (100% coverage)
+- [ ] 3. Implementar CLI que usa o CORE
+- [ ] 4. Testar CLI via subprocess (smoke tests)
+- [ ] 5. Implementar GUI que usa o CORE (se necessário)
+- [ ] 6. Validar que CLI e GUI usam mesma lógica
+
+**Durante desenvolvimento**:
+- [ ] IA deve testar via CLI quando GUI não está disponível
+- [ ] Priorizar testes do CORE sobre testes de CLI/GUI
+- [ ] Garantir que CLI tem todas as funcionalidades do CORE
+- [ ] Documentar comandos CLI em `README.md` ou `docs/CLI.md`
+
+**Estrutura de comando CLI recomendada**:
+```bash
+# Formato padrão
+python -m project.cli <comando> [argumentos] [opções]
+
+# Exemplos
+python -m project.cli calculate --operation add --a 2 --b 3
+python -m project.cli validate --input data.txt
+python -m project.cli process --file data.csv --output result.json --verbose
+```
+
+### 📝 Documentação CLI
+
+**Incluir no README.md**:
+```markdown
+## 🖥️ Command-Line Interface (CLI)
+
+### Instalação
+```bash
+pip install -e .
+```
+
+### Uso Básico
+```bash
+# Ajuda geral
+python -m project.cli --help
+
+# Comando específico
+python -m project.cli calculate add 2 3
+
+# Modo verbose
+python -m project.cli calculate add 2 3 --verbose
+```
+
+### Comandos Disponíveis
+- `calculate`: Realiza operações matemáticas
+- `validate`: Valida entrada de dados
+- `process`: Processa arquivos de dados
+
+### Exemplos
+```bash
+# Adição
+python -m project.cli calculate add 10 5
+# Saída: 15.0
+
+# Divisão com tratamento de erro
+python -m project.cli calculate div 10 0
+# Saída: Error: Divisão por zero
+```
+```
+
+### 🎯 Rationale
+
+**Por quê CLI é crítico para testes com IA?**
+
+1. **Limitação da IA**: 
+   - ❌ IA não pode clicar em botões da GUI
+   - ✅ IA pode executar comandos CLI no terminal
+   - ✅ IA pode validar saída textual de comandos
+
+2. **Arquitetura Limpa**:
+   - ✅ CLI força separação entre lógica e apresentação
+   - ✅ Lógica no CORE é testável isoladamente
+   - ✅ GUI e CLI compartilham mesma lógica validada
+
+3. **Desenvolvimento Iterativo**:
+   - ✅ Implementar CORE primeiro (com CLI)
+   - ✅ Testar exaustivamente via CLI
+   - ✅ Adicionar GUI depois (sabendo que lógica funciona)
+
+4. **Confiança nos Testes**:
+   - ✅ Se CLI funciona → lógica está correta
+   - ✅ Se lógica está correta → GUI também funcionará
+   - ✅ Testes de GUI podem ser mínimos (smoke tests)
+
+**Mensagem para IAs**:
+> "Sempre que implementar funcionalidade, crie CLI primeiro. Teste via CLI antes de criar GUI. Se CLI funciona, você validou que a lógica atende aos requisitos do usuário."
+
+---
+
 ## 📧 Meios de Contato para Feedback do Usuário
 
 > **IMPORTANTE PARA IAs**: Durante a primeira sessão de interação com o programador, a inteligência artificial deve perguntar se o desenvolvedor gostaria de incluir meios de contato no projeto para que os usuários possam fornecer feedback aos responsáveis.
