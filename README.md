@@ -792,6 +792,161 @@ Inclui:
 
 ---
 
+## 🔍 Pesquisa de Tecnologias Adequadas ao Projeto (NOVO v2.1/2.3/3.2)
+
+> **CRÍTICO**: Todos os protocolos agora incluem **Etapa 1.5 obrigatória** para pesquisa e recomendação de tecnologias adequadas no início do projeto.
+
+### 📋 O Que Mudou
+
+A partir das versões mais recentes (v2.1, v2.3, v3.2), **todos os três protocolos** incluem agora a **Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto** como requisito **OBRIGATÓRIO no início**.
+
+### 🎯 Quando Aplicar
+
+**Momento ideal**: Logo após a primeira leitura do `TASKS.md` e `docs/REQUIREMENTS.md`, **antes de começar a implementação**.
+
+**Aplicável a**:
+- ✅ Projetos novos (sem código implementado ainda)
+- ✅ Projetos em refatoração completa (mudança de stack tecnológico)
+- ✅ Projetos em fase de planejamento (arquitetura ainda não definida)
+
+**NÃO aplicável a**:
+- ❌ Projetos com stack já definido e implementação em andamento
+- ❌ Manutenção de funcionalidades em código existente
+- ❌ Correção de bugs em código já produzido
+
+### 📦 Como Funciona
+
+**Passo 1: IA coleta requisitos do desenvolvedor**
+- Tarefas e funcionalidades desejadas (podem estar em `docs/TASKS.md`)
+- Requisitos funcionais e não-funcionais
+- Tipo de aplicação (web, desktop, mobile, CLI, API)
+- Público-alvo e escala esperada
+- Restrições técnicas
+
+**Passo 2: IA investiga tecnologias profissionais**
+
+A IA pesquisa (online se necessário) quais tecnologias são **amplamente utilizadas de forma profissional** para projetos similares:
+
+**Categorias cobertas**:
+1. **🎨 Frontend**: React, Vue, Angular, Next.js, MUI, Bootstrap, Tailwind CSS
+2. **⚙️ Backend**: Python (FastAPI, Django), Node.js (Express, NestJS), Java (Spring Boot)
+3. **🖥️ Desktop**: PyQt, Electron, Tauri, Qt, WPF
+4. **📊 Visualização de Dados**: Chart.js, D3.js, Plotly, pyqtgraph, Recharts
+5. **🤖 IA/ML**: TensorFlow, PyTorch, Transformers (Hugging Face), OpenAI API, Gemini API
+6. **💾 Banco de Dados**: PostgreSQL, MySQL, MongoDB, Redis, SQLite
+7. **🔐 Autenticação e Segurança**: OAuth, JWT, Auth0, Keycloak
+8. **🧪 Testes**: pytest, Jest, Cypress, Playwright
+
+**Passo 3: IA apresenta 2-3 stacks completos recomendados**
+
+Com justificativas detalhadas:
+- ✅ Por quê cada tecnologia é adequada
+- ✅ Casos de uso reais (empresas/projetos que usam)
+- ✅ Vantagens e desvantagens
+- ✅ Complexidade de aprendizado
+- ✅ Tempo estimado de setup
+
+**Passo 4: Validação e documentação**
+
+- ✅ Desenvolvedor escolhe stack final
+- ✅ IA documenta em `docs/ARCHITECTURE.md`
+- ✅ [Enterprise] Criar ADR (Architecture Decision Record)
+
+### 🌐 Pesquisas Online
+
+A IA **pode e deve fazer pesquisas online** quando necessário:
+
+**Fontes recomendadas**:
+- 📚 **GitHub**: Repositórios similares, análise de stars/forks
+- 📖 **Documentação oficial**: Sites oficiais das tecnologias
+- 💬 **Stack Overflow**: Discussões sobre comparações e melhores práticas
+- 📊 **Stack Share**: Empresas que usam cada tecnologia
+- 📰 **Blogs técnicos**: Medium, Dev.to, blogs de empresas
+
+**O que pesquisar**:
+- "Best [tipo de app] stack 2025"
+- "[Linguagem] frameworks for [tipo de app]"
+- "[Tecnologia X] vs [Tecnologia Y] comparison"
+- "Companies using [Tecnologia Z]"
+- "[Framework W] production readiness"
+
+### 📋 Diferenças por Protocolo
+
+#### 📘 **Simplicidade 1** (Protótipos/Aprendizado)
+- Foco em **produtividade** e **facilidade de aprendizado**
+- Recomenda tecnologias **modernas e populares**
+- Documentação básica em `docs/ARCHITECTURE.md`
+
+#### 📕 **Simplicidade 2** (Enterprise/Equipes)
+- Foco em **padrões corporativos** e **suporte empresarial**
+- Validação com **equipe** (reunião de decisão técnica)
+- **ADR obrigatório** (Architecture Decision Record)
+- Análise de **custo de licenciamento** e **compliance**
+- Aprovação de **stakeholders**
+
+#### 📗 **Simplicidade 3** (Solo em Produção)
+- Foco em **maturidade** e **facilidade de manutenção**
+- Prioriza **versões LTS** (Long Term Support)
+- Avalia **"boring technology"** (tecnologias estáveis e previsíveis)
+- Análise de **longevidade** (5+ anos)
+- **Plano de rollback obrigatório**
+- Pesquisas específicas para solo developers (Indie Hackers, Reddit r/solopreneur)
+
+### 🎯 Exemplos Práticos
+
+**Exemplo 1: Dashboard de Análise de Dados**
+- **Requisitos**: Dashboard web, gráficos dinâmicos, API REST
+- **Stack Recomendada**: React + Recharts + FastAPI + PostgreSQL
+- **Justificativa**: Stack moderna, produtiva, excelente para visualização
+
+**Exemplo 2: Aplicação Desktop de Processamento de Sinais**
+- **Requisitos**: Interface desktop nativa, gráficos em tempo real, offline
+- **Stack Recomendada**: PyQt6 + pyqtgraph + NumPy
+- **Justificativa**: Performance nativa, pyqtgraph otimizado para tempo real
+
+**Exemplo 3: API com IA Generativa**
+- **Requisitos**: API REST, processamento NLP, integração com modelos de IA
+- **Stack Recomendada**: NestJS + Transformers + Gemini API + MongoDB
+- **Justificativa**: NestJS escalável, suporte assíncrono para APIs de IA
+
+### ✅ Checklist para IAs
+
+Antes de começar a implementação:
+
+```markdown
+[ ] Requisitos do projeto coletados
+[ ] Investigação de tecnologias profissionais realizada
+[ ] 2-3 stacks completos recomendados com justificativas
+[ ] Vantagens e desvantagens apresentadas
+[ ] Casos de uso reais citados
+[ ] Complexidade de aprendizado avaliada
+[ ] Validação com desenvolvedor/equipe realizada
+[ ] Stack final escolhido e confirmado
+[ ] Stack documentado em docs/ARCHITECTURE.md
+[ ] Pesquisas online realizadas (se necessário)
+```
+
+### 🚀 Rationale
+
+**Por quê esta etapa é obrigatória no início?**
+
+1. ✅ **Evita Retrabalho**: Escolher stack errado exige reescrever todo o código
+2. ✅ **Qualidade Profissional**: Tecnologias adequadas garantem código production-ready
+3. ✅ **Produtividade**: Stack moderna e bem suportada acelera desenvolvimento
+4. ✅ **Manutenibilidade**: Tecnologias populares têm mais recursos e comunidade
+5. ✅ **Escalabilidade**: Stack adequada cresce com o projeto sem migração
+6. ✅ **Conhecimento Contextual**: IA pode recomendar tecnologias que o desenvolvedor não conhece
+
+**Mensagem para IAs**:
+> "Não assuma que o desenvolvedor já conhece todas as opções. Sua pesquisa e recomendação podem introduzir tecnologias modernas e mais adequadas. Investir 30 minutos nesta investigação pode economizar semanas de retrabalho."
+
+**Regra de Ouro**:
+> **"Stack tecnológico DEVE ser definido ANTES da primeira linha de código. Mudanças posteriores são custosas."**
+
+📖 **Detalhes completos**: Veja Etapa 1.5 de cada protocolo para templates detalhados, checklists e exemplos específicos.
+
+---
+
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
@@ -1012,9 +1167,9 @@ Cada protocolo contém a documentação completa com:
 - **Autor:** Josué Amaral
 - **Licença:** Uso interno e educacional.
 - **Status:**
-    - Simplicidade 1: `v2.0`
-    - Simplicidade 2: `v2.2`
-    - Simplicidade 3: `v3.1`
+    - Simplicidade 1: `v2.1`
+    - Simplicidade 2: `v2.3`
+    - Simplicidade 3: `v3.2`
     - Analogia da Árvore de Importações: `v1.0`
     - Fator de Memória Associativa: `v1.0`
 

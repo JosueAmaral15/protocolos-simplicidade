@@ -2,9 +2,23 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.1  
-**Última Atualização**: 09 de Dezembro de 2025  
+**Versão**: 3.2  
+**Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+
+**Changelog v3.2** (01/01/2026):
+- ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
+- ✅ Foco em **maturidade, documentação e comunidade ativa** (critérios solo)
+- ✅ Priorização de versões **LTS (Long Term Support)** e tecnologias "boring"
+- ✅ Avaliação de **facilidade de manutenção** (horas/semana estimadas)
+- ✅ Análise de **longevidade** (5+ anos de suporte)
+- ✅ **Plano de rollback obrigatório** (se stack não funcionar)
+- ✅ Pesquisas específicas para solo developers (Indie Hackers, Reddit r/solopreneur)
+- ✅ Template de documentação com histórico de atualizações
+- ✅ Checklist expandido (13 itens) incluindo recursos de aprendizado
+- ✅ Conceito "Choose Boring Technology" para projetos de longo prazo
+
+**Changelog v3.1** (09/12/2025):
 
 ---
 
@@ -1882,6 +1896,7 @@ Regra prática:
 
 **Resumo Executivo** (⭐ = NOVO vs Simplicidade 1):
 1. 📚 Ler a documentação
+   - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
 2. ✅ Escolher tarefas mais simples
    - 2.5 📊 [OPCIONAL] Matriz de Decisão (quando 10+ tasks)
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
@@ -2087,6 +2102,232 @@ docs/
 - 🐛 **Bugs críticos** que afetam disponibilidade ou segurança
 
 📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
+
+---
+
+### 1️⃣.5️⃣ **Pesquisa de Tecnologias Adequadas ao Projeto** [OBRIGATÓRIO NO INÍCIO]
+
+> **CRÍTICO PARA IAs**: No início do projeto (primeira sessão), a IA **DEVE** investigar e recomendar as tecnologias mais adequadas para o projeto com base nos requisitos fornecidos.
+
+**Nota para Simplicidade 3 (Solo em Produção)**: Esta etapa foca em tecnologias **maduras, bem documentadas e com comunidade ativa** para facilitar manutenção solo de longo prazo.
+
+#### 🎯 Quando Aplicar
+
+**Momento ideal**: Logo após a primeira leitura do `TASKS.md` e `docs/REQUIREMENTS.md`, **antes de começar a implementação**.
+
+**Aplicável a**:
+- ✅ Projetos novos (sem código implementado ainda)
+- ✅ Projetos em refatoração completa (mudança de stack tecnológico)
+- ✅ Projetos em fase de planejamento (arquitetura ainda não definida)
+
+**NÃO aplicável a**:
+- ❌ Projetos com stack já definido e implementação em andamento
+- ❌ Manutenção de funcionalidades em código existente
+- ❌ Correção de bugs em código já produzido
+
+#### 📋 Como Funciona (Solo Developer)
+
+**Passo 1: Coletar Requisitos**
+
+A IA deve solicitar:
+- 📌 **Tarefas e funcionalidades desejadas** (podem estar em `docs/TASKS.md`)
+- 📌 **Requisitos funcionais e não-funcionais** (podem estar em `docs/REQUIREMENTS.md`)
+- 📌 **Tipo de aplicação** (web, desktop, mobile, CLI, API, etc.)
+- 📌 **Público-alvo e escala esperada** (pequeno porte, médio porte, crescimento gradual)
+- 📌 **Restrições técnicas** (linguagens preferidas, ambiente de deploy)
+- 📌 **[Solo]** Experiência do desenvolvedor com tecnologias (evitar curva de aprendizado íngreme)
+- 📌 **[Solo]** Capacidade de manutenção (preferir tecnologias simples e bem documentadas)
+
+**Passo 2: Investigar Tecnologias Profissionais (Critérios Solo)**
+
+**Critérios CRÍTICOS para solo developer em produção**:
+
+1. **🛡️ Maturidade e Estabilidade**
+   - Tecnologias com **versões estáveis** (evitar bleeding edge)
+   - Histórico de **breaking changes mínimos**
+   - **LTS (Long Term Support)** disponível
+
+2. **📚 Documentação de Qualidade**
+   - Documentação **oficial completa** e atualizada
+   - **Exemplos práticos** abundantes
+   - **Tutoriais** para casos de uso comuns
+
+3. **👥 Comunidade Ativa**
+   - **Stack Overflow** com muitas perguntas/respostas
+   - **GitHub** com issues ativos e PRs regulares
+   - **Discord/Slack** ou fóruns ativos
+
+4. **🔧 Facilidade de Manutenção**
+   - **Setup simples** (evitar configurações complexas)
+   - **Debugging fácil** (ferramentas de dev maduras)
+   - **Atualização segura** (processo de upgrade bem documentado)
+
+5. **⚡ Performance Production-Ready**
+   - Comprovadamente **usado em produção** por empresas
+   - **Escalabilidade** adequada ao escopo do projeto
+   - **Monitoramento e logging** nativos ou fáceis de adicionar
+
+6. **🔐 Segurança**
+   - **CVEs** rapidamente corrigidos
+   - **Atualizações de segurança** regulares
+   - **Boas práticas** bem documentadas
+
+**Categorias de tecnologias** (mesmas, mas com foco em maturidade):
+1. **🎨 Frontend**: React (LTS), Vue 3, Next.js, MUI, Bootstrap
+2. **⚙️ Backend**: Django (LTS), FastAPI, Express, NestJS, Spring Boot
+3. **🖥️ Desktop**: PyQt6 (LTS), Electron (stable), Qt
+4. **📊 Visualização**: Chart.js, Recharts, Plotly
+5. **🤖 IA/ML**: scikit-learn (stable), Transformers, OpenAI API (stable)
+6. **💾 Banco de Dados**: PostgreSQL (LTS), MySQL (LTS), SQLite
+7. **🔐 Autenticação**: OAuth2 (padrão), JWT, bcrypt
+8. **🧪 Testes**: pytest, Jest (stable)
+
+**Passo 3: Apresentar Recomendações (Foco Solo)**
+
+Apresentar **2-3 stacks** priorizando:
+- ✅ **Maturidade** (versões LTS preferidas)
+- ✅ **Documentação** (qualidade e quantidade)
+- ✅ **Facilidade de deploy** (Heroku, Vercel, Docker simples)
+- ✅ **Comunidade ativa** (suporte rápido quando bloquear)
+- ✅ **Curva de aprendizado** (se desenvolvedor não conhece)
+- ✅ **Manutenção de longo prazo** (5+ anos)
+
+**Template de recomendação (Solo)**:
+```markdown
+## 🎯 Stack Recomendada: [Nome da Stack]
+
+### 📦 Tecnologias Principais
+[Lista de tecnologias]
+
+### ✅ Por Quê Esta Stack Para Solo Developer?
+- **Maturidade**: [Versão, LTS, anos de mercado]
+- **Documentação**: [Qualidade, exemplos, tutoriais]
+- **Comunidade**: [Stack Overflow, GitHub, Discord]
+- **Manutenção**: [Facilidade de atualização, debugging]
+- **Deploy**: [Plataformas compatíveis, facilidade]
+
+### 🏢 Casos de Uso Reais (Solo Devs)
+- [Projeto 1] - desenvolvido por [Dev Solo X]
+- [SaaS 2] - mantido por [Dev Solo Y]
+
+### ⏱️ Tempo de Manutenção Estimado
+- Atualizações de segurança: [X horas/mês]
+- Bug fixes: [Y horas/semana]
+- Monitoramento: [Z minutos/dia]
+
+### 🛡️ Longevidade
+- LTS até: [Data]
+- Expectativa de suporte comunitário: [Anos]
+```
+
+**Passo 4: Validar e Documentar**
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+- ✅ **Decisão rápida**: Solo developer decide sozinho (sem reuniões)
+- ✅ **Documentar em ARCHITECTURE.md**: Justificativa clara
+- ✅ **Criar Nota de Decisão**: Documentar **por quê** escolheu (para você no futuro)
+- ✅ **Rollback Plan**: Como migrar se stack não funcionar (ver Etapa 15.5)
+
+#### 🌐 Pesquisas Online (Se Necessário)
+
+**Fontes específicas para solo developers**:
+- 📚 **GitHub Awesome Lists**: "awesome-[tecnologia]" (curadoria da comunidade)
+- 📖 **"Best [tech] for solo developer"**: Pesquisas específicas
+- 💬 **Reddit r/solopreneur, r/webdev**: Experiências de outros solos
+- 📊 **Indie Hackers**: Stack de projetos solo bem-sucedidos
+- 📰 **Dev.to "solo developer"**: Tutoriais e experiências
+
+**O que pesquisar (Solo)**:
+- "Best [tipo de app] stack for solo developer 2025"
+- "[Tecnologia X] maintenance burden solo"
+- "[Framework Y] vs [Framework Z] for small team"
+- "Solo developer success stories [tecnologia]"
+- "[Stack W] long term maintenance"
+
+#### 📝 Documentar Stack Escolhido (Solo)
+
+**Onde documentar**: `docs/ARCHITECTURE.md` (obrigatório)
+
+**Template (Solo Developer)**:
+```markdown
+## 🛠️ Stack Tecnológico (Solo Developer em Produção)
+
+**Linguagem Principal**: [Python, JavaScript, etc.]
+
+**Stack**:
+- Frontend: [React, etc.] - Versão: [LTS/Stable]
+- Backend: [FastAPI, etc.] - Versão: [LTS/Stable]
+- Banco de Dados: [PostgreSQL, etc.] - Versão: [LTS]
+- Deploy: [Heroku, Vercel, Docker]
+[...]
+
+### 🎯 Justificativa da Escolha (Por Quê Escolhi)
+
+**Maturidade**: [Por quê esta versão é estável]
+**Documentação**: [Por quê é fácil encontrar soluções]
+**Comunidade**: [Por quê consigo suporte rápido]
+**Manutenção**: [Por quê consigo manter sozinho]
+**Longevidade**: [Por quê vai durar 5+ anos]
+
+### 🛡️ Plano de Rollback (Se Não Funcionar)
+
+Se este stack não atender expectativas após [X meses]:
+- **Alternativa 1**: Migrar para [Stack B]
+- **Alternativa 2**: Migrar para [Stack C]
+- **Esforço estimado**: [Y dias de migração]
+- **Gatilhos de rollback**:
+  - Performance inadequada (>5s response time)
+  - Bugs críticos não resolvidos pela comunidade em 48h
+  - Custos de infra >$XXX/mês
+  - Complexidade de manutenção >10h/semana
+
+### 📚 Recursos de Aprendizado
+- Documentação oficial: [Link]
+- Tutorial favorito: [Link]
+- Stack Overflow: [Link de tag]
+- Discord/Community: [Link]
+
+### 🔄 Histórico de Atualizações
+- [Data]: Setup inicial - Versão [X.Y.Z]
+- [Data]: Upgrade para [Nova versão] - Tempo gasto: [Horas]
+```
+
+#### ✅ Checklist de Pesquisa de Tecnologias (Solo)
+
+```markdown
+[ ] Requisitos coletados (funcionalidades, escala, capacidade de manutenção)
+[ ] Experiência do desenvolvedor com tecnologias avaliada
+[ ] Investigação focada em maturidade e documentação
+[ ] Pesquisas específicas para solo developers realizadas
+[ ] 2-3 stacks recomendados (priorizando LTS/stable)
+[ ] Maturidade e comunidade verificadas
+[ ] Facilidade de manutenção avaliada (horas/semana estimadas)
+[ ] Facilidade de deploy verificada
+[ ] Longevidade analisada (LTS, anos de suporte)
+[ ] Stack escolhido e decisão justificada
+[ ] Plano de rollback documentado
+[ ] Documentado em docs/ARCHITECTURE.md
+[ ] Recursos de aprendizado salvos (docs, tutoriais, comunidade)
+```
+
+#### 🎯 Rationale (Simplicidade 3 - Solo em Produção)
+
+**Por quê esta etapa é CRÍTICA para solo developers?**
+
+1. ✅ **Você é Único Ponto de Falha**: Stack complexo = risco de não conseguir manter
+2. ✅ **Sem Backup de Equipe**: Não tem quem perguntar se travar em bug obscuro
+3. ✅ **Tempo é Limitado**: Manutenção deve ser <10h/semana para ser sustentável
+4. ✅ **Longo Prazo**: Stack deve funcionar por 5+ anos sem grandes migrações
+5. ✅ **Conhecimento Específico**: Tecnologias devem ter documentação e comunidade fortes
+6. ✅ **Custo-Benefício**: Stack experimental pode custar meses de retrabalho
+
+**Mensagem para IAs (Solo Developer)**:
+> "Para solo developers em produção, PRIORIZE MATURIDADE sobre features. Um framework estável com comunidade ativa é 10x melhor que o mais novo framework com recursos avançados. Lembre-se: o desenvolvedor vai manter isso SOZINHO por ANOS."
+
+**Regra de Ouro (Solo)**:
+> **"Stack deve ser BORING (chato). Tecnologias maduras, previsíveis e bem documentadas. Inovação vem das funcionalidades, não do stack."**
+
+📖 **Conceito "Choose Boring Technology"**: Ver artigo clássico de Dan McKinley sobre por quê escolher tecnologias maduras é estratégia vencedora para times pequenos.
 
 ---
 

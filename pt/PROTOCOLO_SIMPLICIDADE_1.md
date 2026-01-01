@@ -2,9 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 30 de Novembro de 2025  
-**Versão**: 2.0  
-**Última Atualização**: 10 de Dezembro de 2025  
+**Versão**: 2.1  
+**Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
+
+**Changelog v2.1** (01/01/2026):
+- ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
+- ✅ IA deve investigar e recomendar stacks tecnológicos profissionais no início do projeto
+- ✅ Baseado em requisitos: tipo de app, funcionalidades, escala, preferências do desenvolvedor
+- ✅ 8 categorias cobertas: Frontend, Backend, Desktop, Visualização, IA/ML, BD, Auth, Testes
+- ✅ Apresentar 2-3 stacks completos com justificativas, vantagens, casos de uso reais
+- ✅ Pesquisas online permitidas (GitHub, docs oficiais, Stack Overflow, Stack Share)
+- ✅ Documentação obrigatória da stack escolhida em docs/ARCHITECTURE.md
+- ✅ Checklist de 10 itens para validação
+- ✅ Rationale: Evita retrabalho, garante qualidade profissional, aumenta produtividade
 
 **Changelog v2.0** (10/12/2025):
 - ✅ **[COMPLEMENTAÇÃO]** Adicionada seção "🎯 Quando Usar Simplicidade 1?"
@@ -2334,6 +2345,7 @@ Sprint 4 (2h):
 
 **Resumo Executivo**:
 1. 📚 Ler a documentação
+   - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
 2. ✅ Escolher tarefas mais simples
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
 4. 🔍 Analisar e estudar o projeto
@@ -2468,6 +2480,326 @@ docs/
 - ✅ **Manutenibilidade**: Futuros desenvolvedores entendem o processo
 
 📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
+
+---
+
+### 1️⃣.5️⃣ **Pesquisa de Tecnologias Adequadas ao Projeto** [OBRIGATÓRIO NO INÍCIO]
+
+> **CRÍTICO PARA IAs**: No início do projeto (primeira sessão), a IA **DEVE** investigar e recomendar as tecnologias mais adequadas para o projeto com base nos requisitos fornecidos.
+
+#### 🎯 Quando Aplicar
+
+**Momento ideal**: Logo após a primeira leitura do `TASKS.md` e `docs/REQUIREMENTS.md`, **antes de começar a implementação**.
+
+**Aplicável a**:
+- ✅ Projetos novos (sem código implementado ainda)
+- ✅ Projetos em refatoração completa (mudança de stack tecnológico)
+- ✅ Projetos em fase de planejamento (arquitetura ainda não definida)
+
+**NÃO aplicável a**:
+- ❌ Projetos com stack já definido e implementação em andamento
+- ❌ Manutenção de funcionalidades em código existente
+- ❌ Correção de bugs em código já produzido
+
+#### 📋 Como Funciona
+
+**Passo 1: Coletar Requisitos do Desenvolvedor**
+
+A IA deve solicitar ao desenvolvedor:
+- 📌 **Tarefas e funcionalidades desejadas** (podem estar em `docs/TASKS.md`)
+- 📌 **Requisitos funcionais e não-funcionais** (podem estar em `docs/REQUIREMENTS.md`)
+- 📌 **Tipo de aplicação** (web, desktop, mobile, CLI, API, etc.)
+- 📌 **Público-alvo e escala esperada** (MVP, pequeno porte, enterprise)
+- 📌 **Restrições técnicas** (linguagens preferidas, limitações de infraestrutura)
+
+**Exemplo de solicitação**:
+```markdown
+Para recomendar as tecnologias mais adequadas, preciso entender:
+
+❓ 1. Qual o tipo de aplicação? (Web, Desktop, Mobile, CLI, API, etc.)
+❓ 2. Quais são as funcionalidades principais? (ex: autenticação, CRUD, dashboards, etc.)
+❓ 3. Qual a escala esperada? (MVP/protótipo, pequeno porte, médio porte, enterprise)
+❓ 4. Há preferência por linguagens/frameworks específicos? (ex: Python, JavaScript, Java)
+❓ 5. Há restrições técnicas? (ex: deve rodar offline, baixo consumo de memória)
+
+💡 Sugestão: Se estiver começando, posso recomendar stacks modernas e produtivas.
+```
+
+**Passo 2: Investigar Tecnologias Profissionais**
+
+Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais tecnologias são **amplamente utilizadas de forma profissional** para projetos similares.
+
+**Categorias de tecnologias a investigar**:
+
+1. **🎨 Frontend** (se aplicável):
+   - Frameworks: React, Vue, Angular, Next.js, Svelte
+   - UI Libraries: Material-UI (MUI), Ant Design, Chakra UI, Bootstrap, Tailwind CSS
+   - Estado: Redux, Zustand, Jotai, React Query
+
+2. **⚙️ Backend** (se aplicável):
+   - Linguagens: Python, JavaScript/TypeScript (Node.js), Java, Go, C#
+   - Frameworks: Django, FastAPI, Express, NestJS, Spring Boot, ASP.NET Core
+   - APIs: REST, GraphQL, gRPC
+
+3. **🖥️ Desktop** (se aplicável):
+   - Python: PyQt, PySide, Tkinter, Kivy
+   - JavaScript: Electron, Tauri
+   - C++: Qt, wxWidgets
+   - C#: WPF, WinForms
+
+4. **📊 Visualização de Dados** (se aplicável):
+   - Web: Chart.js, D3.js, Recharts, Victory
+   - Python: Matplotlib, Plotly, Seaborn, pyqtgraph
+
+5. **🤖 Inteligência Artificial/ML** (se aplicável):
+   - Frameworks: TensorFlow, PyTorch, scikit-learn, Transformers (Hugging Face)
+   - APIs: OpenAI API, Gemini API, Anthropic API, Cohere
+   - Processamento de Linguagem Natural: spaCy, NLTK, Transformers
+
+6. **💾 Banco de Dados** (se aplicável):
+   - Relacional: PostgreSQL, MySQL, SQLite
+   - NoSQL: MongoDB, Redis, Cassandra
+   - ORMs: SQLAlchemy, Prisma, TypeORM, Sequelize
+
+7. **🔐 Autenticação e Segurança** (se aplicável):
+   - OAuth: Passport.js, Auth0, Keycloak
+   - JWT: jsonwebtoken, PyJWT
+   - Criptografia: bcrypt, Argon2
+
+8. **🧪 Testes** (se aplicável):
+   - Python: pytest, unittest
+   - JavaScript: Jest, Vitest, Mocha, Cypress
+   - Java: JUnit, TestNG
+
+**Exemplo de investigação**:
+```markdown
+Baseado em seus requisitos:
+- Aplicação Web com Dashboard e Gráficos
+- Autenticação de usuários
+- API REST
+- Escala média (até 10k usuários)
+
+Pesquisei projetos profissionais similares e identifiquei:
+
+**Stack Recomendada #1 (Python Full-Stack)**:
+- Backend: FastAPI (rápido, moderno, tipado)
+- Frontend: React + Material-UI (componentes prontos)
+- Gráficos: Recharts ou Plotly
+- Banco de Dados: PostgreSQL
+- Autenticação: JWT + OAuth2
+- Testes: pytest + Jest
+
+**Stack Recomendada #2 (JavaScript/TypeScript Full-Stack)**:
+- Backend: NestJS (arquitetura escalável)
+- Frontend: Next.js + Chakra UI
+- Gráficos: Chart.js
+- Banco de Dados: PostgreSQL + Prisma ORM
+- Autenticação: NextAuth.js
+- Testes: Jest + Playwright
+
+**Por quê estas recomendações?**
+- ✅ Amplamente utilizadas em produção
+- ✅ Grande comunidade e suporte
+- ✅ Documentação robusta
+- ✅ Performance comprovada
+- ✅ Ecossistema maduro de bibliotecas
+
+❓ Qual stack prefere? Ou tem alguma restrição adicional?
+```
+
+**Passo 3: Apresentar Recomendações com Justificativas**
+
+A IA deve apresentar **2-3 stacks tecnológicos completos** com:
+- ✅ Lista de tecnologias recomendadas
+- ✅ Justificativa para cada escolha (por quê é adequada)
+- ✅ Casos de uso reais (empresas/projetos que usam)
+- ✅ Vantagens e desvantagens
+- ✅ Complexidade de aprendizado (iniciante, intermediário, avançado)
+
+**Template de recomendação**:
+```markdown
+## 🎯 Stack Recomendada: [Nome da Stack]
+
+### 📦 Tecnologias Principais
+
+**Frontend**:
+- [Tecnologia X] - [Justificativa: por quê é adequada]
+- [Tecnologia Y] - [Justificativa]
+
+**Backend**:
+- [Tecnologia Z] - [Justificativa]
+
+**Banco de Dados**:
+- [Tecnologia W] - [Justificativa]
+
+### ✅ Vantagens
+- [Vantagem 1]
+- [Vantagem 2]
+
+### ⚠️ Desvantagens/Desafios
+- [Desvantagem 1]
+- [Desvantagem 2]
+
+### 🏢 Casos de Uso Reais
+- [Empresa/Projeto 1] usa [Tecnologia X] para [Propósito]
+- [Empresa/Projeto 2] usa [Tecnologia Y] para [Propósito]
+
+### 📚 Complexidade de Aprendizado
+- Iniciante: [Lista de tecnologias fáceis]
+- Intermediário: [Lista de tecnologias médias]
+- Avançado: [Lista de tecnologias complexas]
+
+### ⏱️ Tempo Estimado de Setup
+- Configuração inicial: [X horas]
+- Primeira funcionalidade: [Y horas]
+- MVP completo: [Z dias/semanas]
+```
+
+**Passo 4: Validar com o Desenvolvedor**
+
+Após apresentar as recomendações, a IA **DEVE**:
+- ✅ Perguntar ao desenvolvedor qual stack prefere
+- ✅ Permitir ajustes e substituições
+- ✅ Confirmar decisão final antes de começar
+- ✅ Documentar stack escolhido em `docs/REQUIREMENTS.md` ou `docs/ARCHITECTURE.md`
+
+#### 🌐 Pesquisas Online (Se Necessário)
+
+Se a IA tiver dúvidas ou precisar de informações atualizadas, **pode e deve fazer pesquisas online**:
+
+**Fontes recomendadas**:
+- 📚 **GitHub**: Repositórios similares, análise de stars/forks, issues
+- 📖 **Documentação oficial**: Sites oficiais das tecnologias
+- 💬 **Stack Overflow**: Discussões sobre comparações e melhores práticas
+- 📊 **Stack Share**: Empresas que usam cada tecnologia
+- 📰 **Blogs técnicos**: Medium, Dev.to, blogs de empresas (Netflix, Airbnb, etc.)
+
+**O que pesquisar**:
+- "Best [tipo de app] stack 2025"
+- "[Linguagem] frameworks for [tipo de app]"
+- "[Tecnologia X] vs [Tecnologia Y] comparison"
+- "Companies using [Tecnologia Z]"
+- "[Framework W] production readiness"
+
+#### 📝 Documentar Stack Tecnológico Escolhido
+
+**Onde documentar**: `docs/ARCHITECTURE.md` ou `docs/REQUIREMENTS.md`
+
+**O que documentar**:
+```markdown
+## 🛠️ Stack Tecnológico
+
+**Linguagem Principal**: [Python, JavaScript, etc.]
+
+**Frontend**:
+- Framework: [React, Vue, etc.]
+- UI Library: [MUI, Bootstrap, etc.]
+- Gráficos: [Chart.js, etc.]
+
+**Backend**:
+- Framework: [FastAPI, Express, etc.]
+- API: [REST, GraphQL]
+
+**Banco de Dados**:
+- Tipo: [PostgreSQL, MongoDB, etc.]
+- ORM: [SQLAlchemy, Prisma, etc.]
+
+**IA/ML** (se aplicável):
+- Framework: [TensorFlow, Transformers, etc.]
+- APIs: [Gemini API, OpenAI API, etc.]
+
+**Testes**:
+- Framework: [pytest, Jest, etc.]
+
+**Infraestrutura** (se relevante):
+- Deploy: [Docker, Vercel, AWS, etc.]
+- CI/CD: [GitHub Actions, GitLab CI, etc.]
+
+**Justificativa da Escolha**:
+[Breve explicação do por quê esta stack foi escolhida para este projeto]
+```
+
+#### ✅ Checklist de Pesquisa de Tecnologias
+
+Antes de começar a implementação, a IA deve confirmar:
+
+```markdown
+[ ] Requisitos do projeto coletados (funcionalidades, tipo de app, escala)
+[ ] Investigação de tecnologias profissionais realizada
+[ ] 2-3 stacks completos recomendados com justificativas
+[ ] Vantagens e desvantagens apresentadas
+[ ] Casos de uso reais citados
+[ ] Complexidade de aprendizado avaliada
+[ ] Validação com desenvolvedor realizada
+[ ] Stack final escolhido e confirmado
+[ ] Stack documentado em docs/ARCHITECTURE.md ou docs/REQUIREMENTS.md
+[ ] Pesquisas online realizadas (se necessário para dúvidas)
+```
+
+#### 🎯 Exemplos Práticos
+
+**Exemplo 1: Dashboard de Análise de Dados**
+
+**Requisitos**:
+- Dashboard web interativo
+- Gráficos dinâmicos
+- API REST para buscar dados
+- Autenticação básica
+
+**Stack Recomendada**:
+- Frontend: React + Recharts + MUI
+- Backend: FastAPI (Python)
+- Banco: PostgreSQL
+- Auth: JWT
+
+**Justificativa**: Stack moderna, produtiva, com excelente suporte para visualização de dados.
+
+**Exemplo 2: Aplicação Desktop para Processamento de Sinais**
+
+**Requisitos**:
+- Interface desktop nativa
+- Gráficos em tempo real
+- Processamento local (offline)
+- Performance crítica
+
+**Stack Recomendada**:
+- GUI: PyQt6 ou PySide6
+- Gráficos: pyqtgraph (otimizado para tempo real)
+- Backend: Python com NumPy/SciPy
+
+**Justificativa**: PyQt oferece performance nativa, pyqtgraph é especializado em plotagem em tempo real.
+
+**Exemplo 3: API com IA Generativa**
+
+**Requisitos**:
+- API REST para processamento de linguagem natural
+- Integração com modelos de IA (GPT, Gemini)
+- Escalabilidade para múltiplas requisições
+
+**Stack Recomendada**:
+- Backend: Node.js + NestJS
+- IA: Transformers (Hugging Face) + Gemini API
+- Banco: MongoDB (documentos não-estruturados)
+- Testes: Jest
+
+**Justificativa**: NestJS oferece arquitetura escalável, Node.js tem excelente suporte assíncrono para APIs de IA.
+
+#### 🚀 Rationale
+
+**Por quê esta etapa é obrigatória no início?**
+
+1. ✅ **Evita Retrabalho**: Escolher stack errado no início pode exigir reescrever todo o código
+2. ✅ **Qualidade Profissional**: Usar tecnologias adequadas garante código production-ready
+3. ✅ **Produtividade**: Stack moderna e bem suportada acelera desenvolvimento
+4. ✅ **Manutenibilidade**: Tecnologias populares têm mais recursos, documentação e comunidade
+5. ✅ **Escalabilidade**: Stack adequada cresce com o projeto sem necessidade de migração
+6. ✅ **Conhecimento Contextual**: IA pode pesquisar e recomendar tecnologias que o desenvolvedor não conhece
+
+**Mensagem para IAs**:
+> "Não assuma que o desenvolvedor já conhece todas as opções. Sua pesquisa e recomendação podem introduzir tecnologias modernas e mais adequadas. Investir 30 minutos nesta investigação pode economizar semanas de retrabalho."
+
+**Regra de Ouro**:
+> **"Stack tecnológico DEVE ser definido ANTES da primeira linha de código. Mudanças posteriores são custosas."**
 
 ---
 

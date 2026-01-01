@@ -2,10 +2,22 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Baseado em**: Protocolo Simplicidade 1 v2.0  
-**Versão**: 2.2  
-**Última Atualização**: 10 de Dezembro de 2025  
+**Baseado em**: Protocolo Simplicidade 1 v2.1  
+**Versão**: 2.3  
+**Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
+
+**Changelog v2.3** (01/01/2026):
+- ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
+- ✅ Validação adicional com equipe (reunião de decisão técnica)
+- ✅ Documentação formal via ADR (Architecture Decision Record) obrigatória
+- ✅ Análise de custo de licenciamento e suporte empresarial
+- ✅ Verificação de conformidade com padrões corporativos
+- ✅ Checklist expandido (13 itens) incluindo aprovação de stakeholders
+- ✅ Template de ADR específico para escolha de stack tecnológico
+- ✅ Alinhamento com Simplicidade 1 v2.1 (mesma funcionalidade core)
+
+**Changelog v2.2** (10/12/2025):
 
 **Diferenças do Simplicidade 1**:
 - ✅ **10 novas etapas opcionais** para projetos complexos e críticos
@@ -1814,6 +1826,7 @@ Use Matriz de Decisão (Etapa 2.5) quando há múltiplas formas de dividir:
 
 ### **Etapas Obrigatórias** (Protocolo Simplicidade 1):
 1. 📚 Ler a documentação
+   - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
 2. ✅ Escolher tarefas mais simples
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
 4. 🔍 Analisar e estudar o projeto
@@ -1985,6 +1998,175 @@ docs/
 - ✅ **Onboarding**: Novos membros aprendem com planos anteriores
 
 📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
+
+---
+
+### 1️⃣.5️⃣ **Pesquisa de Tecnologias Adequadas ao Projeto** [OBRIGATÓRIO NO INÍCIO]
+
+> **CRÍTICO PARA IAs**: No início do projeto (primeira sessão), a IA **DEVE** investigar e recomendar as tecnologias mais adequadas para o projeto com base nos requisitos fornecidos.
+
+**Nota para Simplicidade 2 (Enterprise)**: Esta etapa inclui validação adicional com a equipe e documentação formal via ADR (Architecture Decision Record).
+
+#### 🎯 Quando Aplicar
+
+**Momento ideal**: Logo após a primeira leitura do `TASKS.md` e `docs/REQUIREMENTS.md`, **antes de começar a implementação**.
+
+**Aplicável a**:
+- ✅ Projetos novos (sem código implementado ainda)
+- ✅ Projetos em refatoração completa (mudança de stack tecnológico)
+- ✅ Projetos em fase de planejamento (arquitetura ainda não definida)
+
+**NÃO aplicável a**:
+- ❌ Projetos com stack já definido e implementação em andamento
+- ❌ Manutenção de funcionalidades em código existente
+- ❌ Correção de bugs em código já produzido
+
+#### 📋 Como Funciona
+
+**Passo 1: Coletar Requisitos do Desenvolvedor/Equipe**
+
+A IA deve solicitar:
+- 📌 **Tarefas e funcionalidades desejadas** (podem estar em `docs/TASKS.md`)
+- 📌 **Requisitos funcionais e não-funcionais** (podem estar em `docs/REQUIREMENTS.md`)
+- 📌 **Tipo de aplicação** (web, desktop, mobile, CLI, API, etc.)
+- 📌 **Público-alvo e escala esperada** (MVP, pequeno porte, enterprise)
+- 📌 **Restrições técnicas** (linguagens preferidas, limitações de infraestrutura)
+- 📌 **[Enterprise]** Stack atual da empresa (se houver padrão corporativo)
+- 📌 **[Enterprise]** Requisitos de compliance e auditoria
+
+**Passo 2: Investigar Tecnologias Profissionais**
+
+Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais tecnologias são **amplamente utilizadas de forma profissional** para projetos similares.
+
+**Categorias de tecnologias** (mesmas do Simplicidade 1):
+1. **🎨 Frontend**: React, Vue, Angular, Next.js, Svelte, MUI, Tailwind CSS
+2. **⚙️ Backend**: Django, FastAPI, Express, NestJS, Spring Boot, ASP.NET Core
+3. **🖥️ Desktop**: PyQt, Electron, Tauri, Qt, WPF
+4. **📊 Visualização**: Chart.js, D3.js, Plotly, pyqtgraph
+5. **🤖 IA/ML**: TensorFlow, PyTorch, Transformers, OpenAI API, Gemini API
+6. **💾 Banco de Dados**: PostgreSQL, MySQL, MongoDB, Redis
+7. **🔐 Autenticação**: Auth0, Keycloak, OAuth, JWT
+8. **🧪 Testes**: pytest, Jest, Cypress
+
+**Passo 3: Apresentar Recomendações com Justificativas**
+
+Apresentar **2-3 stacks completos** com:
+- ✅ Lista de tecnologias recomendadas
+- ✅ Justificativa para cada escolha
+- ✅ Casos de uso reais (empresas que usam)
+- ✅ Vantagens e desvantagens
+- ✅ Complexidade de aprendizado
+- ✅ **[Enterprise]** Custo de licenciamento (se aplicável)
+- ✅ **[Enterprise]** Suporte empresarial disponível
+- ✅ **[Enterprise]** Conformidade com padrões corporativos
+
+**Passo 4: Validar com a Equipe**
+
+**[ESPECÍFICO PARA SIMPLICIDADE 2 - ENTERPRISE]**:
+- ✅ **Reunião de Decisão Técnica**: Apresentar recomendações para a equipe
+- ✅ **Votação/Consenso**: Decidir stack tecnológico em grupo
+- ✅ **Criar ADR**: Documentar decisão arquitetural formal (ver Etapa 11.5)
+- ✅ **Aprovação de Stakeholders**: Validar com líderes técnicos/arquitetos
+- ✅ **Documentar em ARCHITECTURE.md**: Formalizar decisão
+
+#### 🌐 Pesquisas Online (Se Necessário)
+
+**Fontes recomendadas**:
+- 📚 **GitHub**: Repositórios similares, análise de stars/forks
+- 📖 **Documentação oficial**: Sites oficiais das tecnologias
+- 💬 **Stack Overflow**: Discussões sobre comparações
+- 📊 **Stack Share**: Empresas que usam cada tecnologia
+- 📰 **Blogs técnicos**: Medium, Dev.to, blogs de empresas
+
+#### 📝 Documentar Stack Tecnológico Escolhido
+
+**[ESPECÍFICO PARA SIMPLICIDADE 2]**:
+
+**Onde documentar**:
+1. `docs/ARCHITECTURE.md` (obrigatório)
+2. `docs/ADR/adr-001-tech-stack-selection.md` (obrigatório - ver Etapa 11.5)
+
+**Template de ADR para Escolha de Stack**:
+```markdown
+# ADR-001: Escolha do Stack Tecnológico
+
+**Status**: Aceito  
+**Data**: YYYY-MM-DD  
+**Decisão de**: [Nome do Lead/Equipe]  
+**Contexto**: [Requisitos do projeto]
+
+## Decisão
+
+Adotaremos o seguinte stack tecnológico:
+- Frontend: [Tecnologia X]
+- Backend: [Tecnologia Y]
+- Banco de Dados: [Tecnologia Z]
+[...]
+
+## Alternativas Consideradas
+
+1. **Stack A**: [Tecnologias] - Rejeitada porque [razão]
+2. **Stack B**: [Tecnologias] - Rejeitada porque [razão]
+
+## Consequências
+
+**Positivas**:
+- [Benefício 1]
+- [Benefício 2]
+
+**Negativas**:
+- [Trade-off 1]
+- [Trade-off 2]
+
+## Validação
+
+- ✅ Aprovado por: [Nomes dos aprovadores]
+- ✅ Data da reunião: [YYYY-MM-DD]
+- ✅ Votação: [X votos a favor, Y contra, Z abstenções]
+
+## Referências
+
+- [Link para documentação oficial]
+- [Link para casos de uso similares]
+- [Link para comparações técnicas]
+```
+
+#### ✅ Checklist de Pesquisa de Tecnologias (Simplicidade 2)
+
+```markdown
+[ ] Requisitos coletados (funcionalidades, tipo, escala, compliance)
+[ ] Stack atual da empresa verificado (se aplicável)
+[ ] Investigação de tecnologias profissionais realizada
+[ ] Pesquisas online realizadas (se necessário)
+[ ] 2-3 stacks completos recomendados com justificativas
+[ ] Vantagens, desvantagens e casos de uso apresentados
+[ ] Complexidade de aprendizado avaliada
+[ ] Custo de licenciamento analisado (se aplicável)
+[ ] Reunião de decisão técnica realizada (Enterprise)
+[ ] Consenso da equipe obtido
+[ ] ADR criado e aprovado (Etapa 11.5)
+[ ] Stack documentado em docs/ARCHITECTURE.md
+[ ] Stakeholders informados da decisão
+```
+
+#### 🎯 Rationale (Simplicidade 2 - Enterprise)
+
+**Por quê esta etapa é ainda mais crítica em ambientes enterprise?**
+
+1. ✅ **Custo de Mudança Maior**: Equipes grandes = retrabalho exponencial
+2. ✅ **Padrões Corporativos**: Deve se alinhar com stack existente da empresa
+3. ✅ **Auditoria e Compliance**: Stack deve atender requisitos legais/corporativos
+4. ✅ **Suporte Empresarial**: Tecnologias devem ter SLA e suporte 24/7
+5. ✅ **Onboarding**: Tecnologias conhecidas facilitam contratação
+6. ✅ **Longevidade**: Stack deve ser mantido por 5-10 anos
+
+**Mensagem para IAs (Enterprise)**:
+> "Em ambientes enterprise, a escolha de stack tem impacto organizacional. Não recomende tecnologias experimentais. Priorize maturidade, suporte comercial e conformidade com padrões corporativos. A decisão deve ser coletiva e documentada formalmente via ADR."
+
+**Regra de Ouro (Enterprise)**:
+> **"Stack tecnológico é decisão ARQUITETURAL. Requer ADR, aprovação formal e alinhamento com padrões corporativos."**
+
+📖 **Detalhes sobre ADR**: Ver Etapa 11.5 deste protocolo para template completo de Architecture Decision Records.
 
 ---
 
