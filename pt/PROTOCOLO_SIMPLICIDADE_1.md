@@ -226,6 +226,183 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+## 🚫 Hierarquia de Prioridades Bloqueantes
+
+> **CRÍTICO**: Entenda a ordem de prioridades que **BLOQUEIAM** o desenvolvimento até serem resolvidas.
+
+### 📊 Ordem de Prioridade (Do Mais ao Menos Crítico)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1️⃣ MAIS CRÍTICO: ❓ Dúvidas da IA (veja seção abaixo)  │
+│    ↓ DEVE ser resolvido ANTES de continuar              │
+├─────────────────────────────────────────────────────────┤
+│ 2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária)     │
+│    ↓ DEVE ser escrita/atualizada ANTES de implementar   │
+├─────────────────────────────────────────────────────────┤
+│ 3️⃣ BLOQUEANTE: ❌ Correção de Bugs/Erros               │
+│    ↓ DEVE ser corrigido ANTES de novas features         │
+├─────────────────────────────────────────────────────────┤
+│ 4️⃣ NORMAL: ✨ Implementação de Novas Features          │
+│    Somente após 1, 2 e 3 estarem resolvidos             │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 🎯 Significado de "Bloqueante"
+
+**Bloqueante** significa que:
+- 🚫 **IMPEDE** continuar com outras tarefas
+- 🚫 **OBRIGA** a parar e resolver IMEDIATAMENTE
+- 🚫 **NÃO PERMITE** pular ou adiar
+- 🚫 **EXIGE** resolução completa antes de prosseguir
+
+### 1️⃣ Prioridade Máxima: ❓ Dúvidas da IA
+
+**Quando**: Sempre que a IA tiver qualquer dúvida sobre requisitos, arquitetura, decisões técnicas
+
+**Ação Obrigatória**:
+- ✅ **PARAR** imediatamente
+- ✅ **FORMULAR** perguntas claras
+- ✅ **AGUARDAR** respostas do desenvolvedor
+- ❌ **NÃO ASSUMIR** nada sem confirmar
+
+**Rationale**: Implementar com dúvidas = garantia de retrabalho
+
+### 2️⃣ Bloqueante: 📚 Documentação (Quando Necessária)
+
+> **NOVO REQUISITO CRÍTICO**: Documentação é **BLOQUEANTE** quando há necessidade de documentar.
+
+**Quando é necessário documentar** (bloqueante):
+
+1. **🆕 Antes de implementar feature nova**:
+   - Se a feature altera comportamento existente → Documentar ANTES
+   - Se adiciona nova API/interface pública → Documentar ANTES
+   - Se muda fluxo do usuário → Documentar ANTES
+
+2. **🔄 Durante alterações arquiteturais**:
+   - Mudanças em estrutura de pastas → Atualizar docs ANTES
+   - Novos módulos/componentes → Documentar ANTES
+   - Alterações em dependências → Atualizar docs ANTES
+
+3. **🐛 Após correção de bugs críticos**:
+   - Se bug afetou comportamento documentado → Atualizar docs IMEDIATAMENTE
+   - Se workaround foi documentado → Remover workaround da doc
+
+4. **📝 Quando documentação está desatualizada**:
+   - Se README não reflete estado atual → Atualizar BLOQUEANTE
+   - Se API docs estão incorretas → Corrigir BLOQUEANTE
+   - Se guias de instalação falharam → Atualizar BLOQUEANTE
+
+**O que documentar** (bloqueante):
+
+| Item | Onde | Quando é Bloqueante |
+|------|------|---------------------|
+| **API pública** | docs/API.md | ✅ ANTES de implementar |
+| **Arquitetura** | docs/ARCHITECTURE.md | ✅ ANTES de mudar estrutura |
+| **Requisitos** | docs/REQUIREMENTS.md | ✅ ANTES de implementar features |
+| **Instalação** | README.md | ✅ ANTES de adicionar dependências |
+| **Uso básico** | README.md | ✅ ANTES de release |
+| **Changelog** | CHANGELOG.md | ✅ ANTES de commit |
+| **Breaking changes** | CHANGELOG.md | ✅ IMEDIATAMENTE |
+
+**Ação Obrigatória**:
+- ✅ **PARAR** implementação se documentação está pendente
+- ✅ **ESCREVER/ATUALIZAR** documentação necessária
+- ✅ **VALIDAR** que documentação está correta e completa
+- ✅ **COMMITAR** documentação junto com código (ou antes)
+- ❌ **NÃO IMPLEMENTAR** sem documentar primeiro
+
+**Exemplo de fluxo bloqueante**:
+```
+Desenvolvedor pede: "Adicionar endpoint /api/users"
+
+❌ ERRADO:
+1. Implementar endpoint
+2. Testar endpoint
+3. (Esquecer de documentar)
+4. Commit
+
+✅ CORRETO:
+1. 📚 Documentar API em docs/API.md (BLOQUEANTE)
+   - Endpoint: POST /api/users
+   - Body: { name, email }
+   - Response: { id, name, email, created_at }
+   - Errors: 400, 409, 500
+2. Implementar endpoint conforme documentação
+3. Testar endpoint
+4. Atualizar CHANGELOG.md
+5. Commit (código + docs juntos)
+```
+
+**Quando documentação NÃO é bloqueante** (pode vir depois):
+- ⚠️ Comentários internos no código (escrever junto, mas não bloqueia)
+- ⚠️ Docs de desenvolvimento (guides, tutorials) - pode vir depois
+- ⚠️ Refinamentos de exemplos - pode melhorar depois
+- ⚠️ Tradução de docs - pode vir depois
+
+**Rationale**:
+1. **Documentação desatualizada = mentira**: Pior que não ter docs
+2. **Previne confusão**: Implementar sem docs = outros não entendem
+3. **Design thinking**: Documentar ANTES força pensar na interface
+4. **Qualidade**: Se não consegue documentar, design está ruim
+5. **Manutenibilidade**: Docs atualizados = código mais fácil de manter
+
+**Mensagem para IAs**:
+> "Se há necessidade de documentar algo (API, arquitetura, breaking change, requisitos), a documentação é **BLOQUEANTE**. Você NÃO PODE implementar até documentar. Documente ANTES de codificar. Documentação desatualizada é pior que código ruim."
+
+### 3️⃣ Bloqueante: ❌ Correção de Bugs/Erros
+
+**Quando**: Existem erros no workspace, builds falhando, testes falhando
+
+**Ação Obrigatória**:
+- ✅ **CORRIGIR** todos os erros ANTES de novas features
+- ✅ **LIMPAR** workspace (0 erros)
+- ✅ **VALIDAR** que builds e testes passam
+- ❌ **NÃO ADICIONAR** código novo em cima de código quebrado
+
+**Rationale**: Código quebrado + código novo = mais código quebrado
+
+### 4️⃣ Normal: ✨ Novas Features
+
+**Quando**: Após 1, 2 e 3 estarem 100% resolvidos
+
+**Ação**:
+- ✅ Implementar features incrementalmente
+- ✅ Seguir protocolo do simples ao complexo
+- ✅ Testar cada parte antes de avançar
+
+### 🔄 Fluxo Completo
+
+```
+Tarefa solicitada
+    ↓
+1. Tenho dúvidas? → SIM → ❓ PERGUNTAR (BLOQUEANTE) → Aguardar resposta
+    ↓ NÃO
+2. Precisa documentar? → SIM → 📚 DOCUMENTAR (BLOQUEANTE) → Escrever/atualizar
+    ↓ NÃO
+3. Há erros no workspace? → SIM → ❌ CORRIGIR (BLOQUEANTE) → Limpar tudo
+    ↓ NÃO
+4. ✨ IMPLEMENTAR FEATURE (NORMAL) → Codificar → Testar → Commit
+```
+
+### 📋 Checklist de Desbloqueio
+
+Antes de implementar qualquer feature, confirme:
+
+```markdown
+[ ] 1️⃣ Zero dúvidas sobre a tarefa (perguntas respondidas)
+[ ] 2️⃣ Documentação necessária está escrita/atualizada
+[ ] 3️⃣ Zero erros no workspace (0 problemas)
+[ ] 3️⃣ Builds passando (sem compilation errors)
+[ ] 3️⃣ Testes passando (se existentes)
+[ ] ✅ DESBLOQUEADO: Pode implementar feature
+```
+
+**Regra de Ouro**:
+> "Dúvidas → Documentação → Bugs → Features. Nesta ordem. Sempre."
+
+---
+
 ## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas
 
 > **CRÍTICO PARA IAs**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer.

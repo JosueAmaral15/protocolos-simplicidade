@@ -232,6 +232,44 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 ---
 
+## 🚫 Hierarquia de Prioridades Bloqueantes
+
+> **CRÍTICO**: Ordem de prioridades que **BLOQUEIAM** desenvolvimento até serem resolvidas.
+
+### 📊 Ordem (Do Mais ao Menos Crítico)
+
+```
+1️⃣ MAIS CRÍTICO: ❓ Dúvidas da IA → RESOLVER ANTES de continuar
+2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar  
+3️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
+4️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3 resolvidos
+```
+
+### 2️⃣ Documentação é BLOQUEANTE
+
+**Quando documentação bloqueia implementação**:
+- ✅ API pública nova → Documentar ANTES
+- ✅ Mudança arquitetural → Atualizar docs ANTES
+- ✅ Breaking changes → Atualizar CHANGELOG IMEDIATAMENTE
+- ✅ Nova dependência → Atualizar README ANTES
+
+**[ESPECÍFICO SOLO]**:
+> "Para solo developers, documentação é sua 'memória externa futura'. Você esquecerá por quê fez algo em 3 meses. Documente ANTES de implementar para validar seu design. Se não consegue documentar, o design está ruim. Documentação bloqueante previne retrabalho futuro."
+
+**Análise custo-benefício (Solo)**:
+- ⏱️ Tempo para documentar API: ~5-10 min
+- ⏱️ Tempo economizado (evitando confusão futura): ~30-60 min
+- 💰 ROI: 3x-6x (vale MUITO a pena)
+
+**Fluxo MVP (Solo)**:
+```
+Tarefa → Dúvidas? (perguntar) → Documentar ANTES (5-10min) → Implementar → Testar
+```
+
+**Regra de Ouro Solo**: "Se levou mais tempo implementar que documentar, seu design está complexo demais. Simplifique."
+
+---
+
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
 > **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.

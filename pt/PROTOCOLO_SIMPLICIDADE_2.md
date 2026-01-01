@@ -219,6 +219,48 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 
 ---
 
+## 🚫 Hierarquia de Prioridades Bloqueantes
+
+> **CRÍTICO**: Ordem de prioridades que **BLOQUEIAM** desenvolvimento até serem resolvidas.
+
+### 📊 Ordem (Do Mais ao Menos Crítico)
+
+```
+1️⃣ MAIS CRÍTICO: ❓ Dúvidas da IA → RESOLVER ANTES de continuar
+2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar  
+3️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
+4️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3 resolvidos
+```
+
+### 2️⃣ Documentação é BLOQUEANTE
+
+**Quando documentação bloqueia implementação**:
+- ✅ API pública nova → Documentar em docs/API.md ANTES
+- ✅ Mudança arquitetural → Atualizar docs/ARCHITECTURE.md ANTES
+- ✅ Breaking changes → Atualizar CHANGELOG.md IMEDIATAMENTE
+- ✅ Nova dependência → Atualizar README.md ANTES
+- ✅ Requisitos alterados → Atualizar docs/REQUIREMENTS.md ANTES
+
+**[ESPECÍFICO ENTERPRISE]**:
+> "Em ambientes enterprise, documentação desatualizada causa incidentes em produção. ADRs (Architecture Decision Records) são OBRIGATÓRIOS antes de mudanças arquiteturais. Compliance e auditoria exigem docs atualizados. Documentação bloqueante é ainda mais crítica em enterprise."
+
+**Fluxo correto**:
+```
+Tarefa → Dúvidas? (perguntar) → Documentar ANTES → Corrigir erros → Implementar
+```
+
+**Checklist de Desbloqueio**:
+```markdown
+[ ] 1️⃣ Zero dúvidas (perguntas respondidas)
+[ ] 2️⃣ Documentação necessária escrita/atualizada
+[ ] 3️⃣ Zero erros no workspace
+[ ] ✅ DESBLOQUEADO: Pode implementar
+```
+
+**Regra de Ouro**: "Dúvidas → Documentação → Bugs → Features. Nesta ordem."
+
+---
+
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
 > **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.
