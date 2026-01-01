@@ -1873,30 +1873,254 @@ Use Decision Matrix (Step 2.5) when there are multiple ways to divide:
 **13.5** 🔄 Sprint Retrospective
 
 ### 1️⃣ **Read the Documentation**
-- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
-- Consult `docs/REQUIREMENTS.md` to understand the project context
-- Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
-- Understand dependencies and existing architecture
-- Check examples in `tests/files/` when applicable
 
-**📋 About the Task File**:
+> **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
 
-The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+#### 📖 **Step 1.0: Complete Documentation Search and Reading** [PRIORITY]
 
-**Task File Requirements**:
-- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
-- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
-- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
-- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+**Core functionality**: Same as Simplicity Protocol 1 Step 1.0, with the following **enterprise additions**:
 
-**If no task file exists**:
-1. AI should ask the user: "Which file do you use to manage tasks?"
-2. If none exists, suggest creating the default `TASKS.md`
-3. Confirm file location and name with the user
+**Additional files to read (Enterprise)**:
+- ✅ `docs/ADR/*.md` - **Architecture Decision Records (CRITICAL)**
+- ✅ `docs/api/*.md` - API documentation
+- ✅ `docs/security/*.md` - Security checklists (OWASP)
+- ✅ Corporate standards documentation
 
-**Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
+**[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
+- ✅ **ADRs are critical**: Formal architectural decisions must be read FIRST
+- ✅ **Corporate standards**: Read documentation about company patterns
+- ✅ **Compliance**: Documentation about regulatory requirements
 
-**📋 About Action Plans**:
+**Enterprise Minimum Structure** (if creating from scratch):
+```
+📁 Project Root
+├── README.md
+├── TASKS.md
+└── 📁 docs/
+    ├── REQUIREMENTS.md
+    ├── ARCHITECTURE.md
+    ├── v0.1.0-SPECIFICATIONS.md
+    ├── 📁 ADR/                  # MANDATORY
+    │   └── template-adr.md
+    ├── 📁 security/             # MANDATORY
+    │   └── OWASP-checklist.md
+    └── 📁 api/
+        └── api-reference.md
+```
+
+**Enterprise README template** includes:
+- Stakeholders (Product Owner, Tech Lead, Dev Team, QA, Security)
+- Formal ADR references
+- Security and compliance policies
+
+**Enterprise ADR template**:
+```markdown
+# ADR-XXX: [Decision Title]
+
+**Status**: Proposed | Accepted | Superseded | Rejected
+**Date**: YYYY-MM-DD
+**Decision by**: [Tech Lead/Architect name]
+**Approvers**: [Names of approvers]
+
+## Context
+[Problem or need leading to this decision]
+
+## Decision
+[Clear and objective description of decision made]
+
+## Alternatives Considered
+1. **Alternative A**: [Description] - Rejected because [reason]
+2. **Alternative B**: [Description] - Rejected because [reason]
+
+## Consequences
+**Positive**:
+- [Benefit 1]
+- [Benefit 2]
+
+**Negative** (trade-offs):
+- [Trade-off 1]
+- [Trade-off 2]
+
+## Validation
+- ✅ Approved by: [Approver names]
+- ✅ Meeting date: [YYYY-MM-DD]
+- ✅ Vote: [X in favor, Y against, Z abstentions]
+
+## References
+- [Link to technical documentation]
+- [Link to similar use cases]
+- [Link to benchmarks]
+
+## Future Review
+- Review date: [YYYY-MM-DD + 6 months]
+- Success criteria: [How to measure if decision was correct]
+```
+
+**Enterprise Checklist** (12 items):
+```markdown
+[ ] 🔍 Recursively searched all .md files
+[ ] 📖 Read 100% of ALL files found
+[ ] 📋 Read ALL existing ADRs (formal architectural decisions)
+[ ] 🔐 Read security and compliance documentation
+[ ] 📝 If no documentation, asked user/team
+[ ] 📚 If doesn't exist, created enterprise structure (including ADR template)
+[ ] 🎯 Understood goal, stakeholders and organizational structure
+[ ] 📋 Know pending tasks and who are responsible
+[ ] 🛠️ Know tech stack and its ADR choice
+[ ] 🏗️ Understood architectural decisions and rationale
+[ ] 👥 Know who are approvers for future decisions
+[ ] ✅ Ready to work with complete enterprise context
+```
+
+**Rationale (Enterprise)**:
+- ✅ **Formal Decisions**: ADRs document why choices were made
+- ✅ **Compliance**: Not following corporate standards can block deploy
+- ✅ **Team Coordination**: Multiple devs need shared context
+- ✅ **Auditing**: Documentation is evidence for audits
+- ✅ **Onboarding**: New team members depend on complete documentation
+- ✅ **Rework Cost**: In large teams, rework is exponentially more expensive
+
+**Message for AIs (Enterprise)**:
+> "In enterprise environments, documentation is not optional - it's MANDATORY and FORMAL. Reading 100% of ADRs, security checklists and compliance documentation BEFORE coding is a critical requirement. Decisions without ADR can be rejected in code review."
+
+**Golden Rule (Enterprise)**:
+> **"In enterprise, documentation is evidence. There is no work done without formal documentation."**
+
+📖 **See Simplicity Protocol 1 Step 1.0** for complete templates and detailed examples. Enterprise additions are noted above.
+
+---
+
+### 1️⃣.5️⃣ **Research Suitable Technologies for the Project** [MANDATORY AT START]
+
+**Core functionality**: Same as Simplicity Protocol 1 Step 1.5, with the following **enterprise additions**:
+
+**Additional requirements to collect (Enterprise)**:
+- 📌 **Current company stack** (if there's a standard corporate stack)
+- 📌 **Compliance and audit requirements**
+- 📌 **Organizational structure**: Who are responsible (Product Owner, Tech Lead, Devs)
+- 📌 **Approval processes**: What's the code review flow
+
+**[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
+
+**Default Web Stack - Enterprise Considerations**:
+
+When recommending Next.js 15 + React 19 + TypeScript stack (see Protocol 1 for full details):
+
+**Additional Enterprise Validations**:
+- ✅ **TypeScript Mandatory**: Type safety for large teams
+- ✅ **ESLint + Husky**: Automated code quality
+- ✅ **Monorepo-ready**: Turbo supports multiple packages
+- ✅ **Market Standard**: Next.js used by Netflix, TikTok, Uber
+- ✅ **Commercial Support**: Vercel offers enterprise plans
+- ✅ **Compliance**: HTTPS, WCAG, GDPR-compliant
+
+**⚠️ Mandatory Enterprise Validation**:
+1. **Technical Decision Meeting**: Present stack to team/architects
+2. **Stakeholder Approval**: Tech Lead + CTO validate choice
+3. **Create Formal ADR**: Document decision in `docs/ADR/adr-001-web-stack.md`
+4. **Corporate Compliance**: Verify alignment with company standards
+5. **Cost Analysis**: Estimate Vercel Pro/Enterprise cost (if applicable)
+
+**When NOT to use Default Stack (Enterprise specific)**:
+- ❌ Company has mandatory corporate stack (e.g., Java + Spring)
+- ❌ Compliance restrictions prevent CDN usage (Vercel, Cloudinary)
+- ❌ Existing enterprise architecture requires different tech
+
+**ADR Template for Tech Stack Choice**:
+```markdown
+# ADR-001: Web Technology Stack Selection
+
+**Status**: Accepted
+**Date**: YYYY-MM-DD
+**Decision by**: [Tech Lead name]
+**Approvers**: [CTO, Tech Lead, Architect]
+
+## Context
+Project requires modern web application with [requirements].
+Team size: [X developers].
+Expected scale: [Y users].
+
+## Decision
+We will adopt Next.js 15 + React 19 + TypeScript stack:
+- Frontend: Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2
+- Styling: Tailwind CSS 3.4.17
+- State: Zustand 4.5.7
+- Deploy: Vercel
+[Complete stack list - see Protocol 1 Step 1.5]
+
+## Alternatives Considered
+1. **Vue 3 + Nuxt**: Rejected due to smaller talent pool in company
+2. **Angular**: Rejected due to steeper learning curve
+3. **Create React App**: Rejected due to lack of SSR (SEO requirement)
+
+## Consequences
+**Positive**:
+- TypeScript provides type safety for large team
+- Next.js SSR optimizes SEO
+- Vercel deploy simplifies CI/CD
+- Market standard facilitates hiring
+
+**Negative**:
+- Vercel cost at scale (estimated $X/month at 100k users)
+- Team needs Next.js 15 training (1 week)
+
+## Validation
+- ✅ Approved by: [CTO name], [Tech Lead name], [Architect name]
+- ✅ Meeting date: YYYY-MM-DD
+- ✅ Vote: 5 in favor, 0 against, 0 abstentions
+
+## Cost Analysis
+- Development: Vercel free tier sufficient
+- Production: Estimated $500/month (Pro plan)
+- Training: 40h × $100/h = $4,000
+
+## Compliance
+- ✅ HTTPS: Vercel provides automatic SSL
+- ✅ WCAG 2.1: Tailwind + proper HTML supports accessibility
+- ✅ GDPR: Data processing compliant (no PII in frontend)
+- ✅ Corporate policy: Aligns with "modern stack" guideline
+
+## References
+- Next.js docs: https://nextjs.org/docs
+- Vercel enterprise: https://vercel.com/enterprise
+- Similar projects: [Internal project X] uses same stack
+
+## Future Review
+- Review date: 2026-07-01 (6 months)
+- Success criteria: 
+  - Deploy time < 5min
+  - Team productivity +30%
+  - Zero major blockers related to stack choice
+```
+
+**Enterprise Checklist** (13 items):
+```markdown
+[ ] Requirements collected (features, scale, compliance)
+[ ] Company's current stack verified (if applicable)
+[ ] Investigation of professional technologies performed
+[ ] Online research performed (if necessary)
+[ ] 2-3 complete stacks recommended with justifications
+[ ] Advantages, disadvantages and real use cases presented
+[ ] Learning complexity evaluated
+[ ] Licensing cost analyzed (if applicable)
+[ ] Technical decision meeting held (Enterprise)
+[ ] Team consensus obtained
+[ ] ADR created and approved (Step 11.5)
+[ ] Stack documented in docs/ARCHITECTURE.md
+[ ] Stakeholders informed of decision
+```
+
+📖 **See Simplicity Protocol 1 Step 1.5** for complete technology categories, default web stack details (80+ dependencies with versions), and detailed templates. Enterprise-specific additions are documented above.
+
+**Rationale (Enterprise)**:
+> "In enterprise environments, tech stack choice has organizational impact. Don't recommend experimental technologies. Prioritize maturity, commercial support and compliance with corporate standards. Decision must be collective and formally documented via ADR."
+
+**Golden Rule (Enterprise)**:
+> **"Tech stack is an ARCHITECTURAL decision. Requires ADR, formal approval and alignment with corporate standards."**
+
+---
+
+### 2️⃣ **Choose the Simplest Tasks**
 
 In addition to `TASKS.md`, you can create **Action Plans** for tasks requiring detailed step-by-step guidance.
 
