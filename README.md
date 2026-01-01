@@ -1125,6 +1125,104 @@ Antes de começar a implementação:
 
 ---
 
+## 🌐 Stack Padrão Recomendado para Sites/Aplicações Web (NOVO v2.3/2.5/3.4)
+
+> **IMPORTANTE**: Quando se tratar da implementação de um **site ou aplicação web**, e o usuário **NÃO especificar** quais tecnologias deseja, a IA **PODE RECOMENDAR** o seguinte stack padrão moderno e completo.
+
+### 📦 Stack Completo
+
+**Frontend Framework & Runtime**:
+- Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2
+- Node.js 18+ (LTS)
+
+**Build & Styling**:
+- Turbopack (bundler 700x mais rápido)
+- Tailwind CSS 3.4.17
+- Zustand 4.5.7 (state management)
+
+**Integrações Opcionais**:
+- Cloudinary (mídia)
+- Stripe (pagamentos)
+- OpenAI/ElevenLabs (IA)
+- Puppeteer (PDFs)
+
+**Testing & Quality**:
+- Jest + @testing-library
+- ESLint + Husky
+
+**Deploy**:
+- Vercel (frontend gratuito)
+- Heroku (backend)
+
+### ✅ Por Quê Este Stack?
+
+- ✅ **Next.js 15**: Framework maduro, SSR/SSG, SEO otimizado
+- ✅ **React 19**: Comunidade massiva, Server Components
+- ✅ **TypeScript**: Segurança de tipos, menos bugs em produção
+- ✅ **Turbopack**: Build 700x mais rápido que Webpack
+- ✅ **Tailwind**: Produtividade alta, design consistente
+- ✅ **Vercel**: Deploy gratuito, otimizado para Next.js
+- ✅ **Ecossistema Completo**: Cobre 90% dos casos de uso web
+
+### 📋 Diferenças por Protocolo
+
+**Simplicidade 1** (Protótipos):
+- Stack recomendado como sugestão inicial
+- Foco em produtividade e aprendizado
+- Documentação básica em `docs/ARCHITECTURE.md`
+
+**Simplicidade 2** (Enterprise):
+- **Validação obrigatória**: Reunião técnica + ADR formal
+- Análise de custo e compliance corporativa
+- TypeScript obrigatório para equipes
+- Casos de uso: Netflix, TikTok, Uber usam Next.js
+- Suporte comercial Vercel disponível
+
+**Simplicidade 3** (Solo em Produção):
+- Foco em **baixa manutenção**: ~15h/mês sustentável
+- Deploy gratuito escalável
+- Documentação excepcional e comunidade massiva
+- **Plano de rollback obrigatório** (3 alternativas)
+- Tempo de manutenção estimado
+
+### ⚠️ Quando NÃO Usar Este Stack
+
+- ❌ Usuário/equipe especifica explicitamente outras tecnologias
+- ❌ Projeto requer Vue/Angular ao invés de React
+- ❌ Necessita Python/Django backend
+- ❌ Aplicação desktop ou mobile nativa
+- ❌ Site estático super simples (HTML/CSS/JS puro suficiente)
+- ❌ **[Enterprise]** Stack corporativo mandatório
+- ❌ **[Solo]** Desenvolvedor prefere "boring technology" (PHP, Rails)
+
+### 🎯 Exemplo de Apresentação
+
+```markdown
+❓ Você não especificou tecnologias para o site. Posso recomendar um stack moderno?
+
+**Stack Padrão Recomendado (Next.js 15 + React 19 + TypeScript)**:
+- Next.js 15.5.2 (SSR/SSG otimizado)
+- React 19.1.1 + TypeScript 5.9.2
+- Tailwind CSS 3.4.17
+- Deploy gratuito em Vercel
+
+**Por quê?**
+✅ Performance excepcional (Turbopack 700x mais rápido)
+✅ SEO otimizado
+✅ TypeScript garante qualidade
+✅ Deploy gratuito e simples
+
+**Você concorda ou prefere outro stack?**
+```
+
+### 📊 Versões Completas com Stack Detalhado
+
+Para ver a lista completa de versões de cada pacote (80+ dependências), consulte a **Etapa 1.5** de cada protocolo, seção "Stack Padrão Recomendado para Sites/Aplicações Web".
+
+📖 **Detalhes completos**: Veja seção específica na Etapa 1.5 de cada protocolo (após categorias de tecnologias).
+
+---
+
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
@@ -1345,9 +1443,9 @@ Cada protocolo contém a documentação completa com:
 - **Autor:** Josué Amaral
 - **Licença:** Uso interno e educacional.
 - **Status:**
-    - Simplicidade 1: `v2.2`
-    - Simplicidade 2: `v2.4`
-    - Simplicidade 3: `v3.3`
+    - Simplicidade 1: `v2.3`
+    - Simplicidade 2: `v2.5`
+    - Simplicidade 3: `v3.4`
     - Analogia da Árvore de Importações: `v1.0`
     - Fator de Memória Associativa: `v1.0`
 

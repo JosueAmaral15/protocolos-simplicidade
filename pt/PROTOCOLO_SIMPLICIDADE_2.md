@@ -2,10 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Baseado em**: Protocolo Simplicidade 1 v2.2  
-**Versão**: 2.4  
+**Baseado em**: Protocolo Simplicidade 1 v2.3  
+**Versão**: 2.5  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
+
+**Changelog v2.5** (01/01/2026):
+- ✅ **[NOVO]** Stack Padrão Recomendado para Sites/Aplicações Web (Enterprise)
+- ✅ Mesma base: Next.js 15 + React 19 + TypeScript + Tailwind
+- ✅ Validação enterprise obrigatória: Reunião técnica + ADR formal
+- ✅ Análise adicional: Custo, compliance corporativa, suporte comercial
+- ✅ TypeScript obrigatório para equipes grandes
+- ✅ Monorepo-ready com Turbo
+- ✅ Casos de uso enterprise: Netflix, TikTok, Uber usam Next.js
+- ✅ Quando NÃO usar: Stack corporativo mandatório, restrições compliance
 
 **Changelog v2.4** (01/01/2026):
 - ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
@@ -2325,6 +2335,120 @@ Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais t
 6. **💾 Banco de Dados**: PostgreSQL, MySQL, MongoDB, Redis
 7. **🔐 Autenticação**: Auth0, Keycloak, OAuth, JWT
 8. **🧪 Testes**: pytest, Jest, Cypress
+
+#### 🌐 **Stack Padrão Recomendado para Sites/Aplicações Web** [NOVO]
+
+> **IMPORTANTE**: Quando se tratar da implementação de um **site ou aplicação web**, e o usuário/equipe **NÃO especificar** quais tecnologias deseja, a IA **PODE RECOMENDAR** o seguinte stack padrão moderno e completo:
+
+**📦 Frontend Framework & Runtime**
+- **Next.js 15.5.2** - Framework React com App Router e Server Components
+- **React 19.1.1** - Biblioteca de UI
+- **React DOM 19.1.1** - Renderização do React no navegador
+- **TypeScript 5.9.2** - Superset JavaScript com tipagem estática
+- **Node.js 18+** - Runtime JavaScript
+
+**🔧 Bundlers & Build Tools**
+- **Turbopack** - Bundler de nova geração do Next.js (700x mais rápido)
+- **Turbo (turborepo)** - Sistema de build para monorepos
+- **PostCSS 8.5.6** - Processamento de CSS
+- **Autoprefixer 10.4.21** - Adiciona prefixos CSS automaticamente
+
+**📊 State Management**
+- **Zustand 4.5.7** - Gerenciamento de estado minimalista e eficiente
+- **Immer 10.1.3** - Manipulação imutável de estado
+
+**🎨 Styling**
+- **Tailwind CSS 3.4.17** - Framework CSS utility-first
+- **CSS Modules** - Modularização de CSS
+- **clsx 2.1.1** - Utilitário para classes CSS condicionais
+- **class-variance-authority 0.7.1** - Gerenciamento de variantes de componentes
+- **tailwind-merge 3.3.1** - Merge inteligente de classes Tailwind
+- **Lucide React 0.542.0** - Biblioteca de ícones
+
+**🎵 Audio & Media** (se aplicável)
+- **Cloudinary 1.41.3** - Processamento e armazenamento de mídia
+- **@cloudinary/react 1.14.3** - Componentes React do Cloudinary
+- **@cloudinary/url-gen 1.22.0** - Geração de URLs do Cloudinary
+- **Web Audio API** - API nativa do navegador para gravação de áudio
+
+**💳 Payments & Subscriptions** (se aplicável)
+- **Stripe 14.25.0** - Processamento de pagamentos (backend)
+- **@stripe/stripe-js 2.4.0** - SDK JavaScript do Stripe (frontend)
+
+**🌐 HTTP & API**
+- **Axios 1.11.0** - Cliente HTTP para requisições à API
+
+**📄 PDF & Screenshots** (se aplicável)
+- **jsPDF 3.0.3** - Geração de PDFs
+- **html2canvas 1.4.1** - Conversão de HTML para canvas/imagem
+- **Puppeteer 24.29.1** - Automação de browser headless
+
+**🧪 Testing**
+- **Jest** - Framework de testes
+- **jsdom** - Ambiente DOM para testes
+- **@testing-library** - Utilitários para testes de componentes React
+
+**✅ Code Quality & Linting**
+- **ESLint 8.57.1** - Linter JavaScript/TypeScript
+- **eslint-config-next 15.5.2** - Configuração ESLint do Next.js
+- **Husky 9.1.7** - Git hooks para qualidade de código
+
+**🛠️ Development Tools**
+- **npm 10.9.2** - Gerenciador de pacotes
+- **Git** - Controle de versão
+- **VS Code** - Editor recomendado
+
+**⚙️ Backend** (Repositório Separado)
+- **Node.js** - Runtime backend
+- **Express** - Framework web
+- **MongoDB** - Banco de dados NoSQL
+- **JWT** - Autenticação com tokens
+- **Heroku** - Hospedagem do backend
+
+**🚀 Infraestrutura & Deploy**
+- **Vercel** - Hospedagem frontend (recomendado para Next.js)
+- **Cloudinary CDN** - Entrega de conteúdo de áudio/mídia
+- **HTTPS** - Protocolo seguro (requerido para gravação de áudio)
+
+**🤖 APIs de IA** (Opcionais)
+- **OpenAI API** - IA para feedback e avaliação
+- **ElevenLabs API** - Síntese de voz
+
+**✅ Por Quê Este Stack Padrão?**
+- ✅ **Next.js 15** com App Router: SSR, SSG, performance otimizada
+- ✅ **React 19**: Versão mais recente com Server Components
+- ✅ **TypeScript**: Segurança de tipos e melhor DX
+- ✅ **Tailwind CSS**: Produtividade e design consistente
+- ✅ **Zustand**: State management simples e eficiente
+- ✅ **Turbopack**: Build extremamente rápido (700x vs Webpack)
+- ✅ **Vercel**: Deploy otimizado para Next.js (mesmo criador)
+- ✅ **Ecossistema Completo**: Cobre 90% dos casos de uso web
+
+**[ESPECÍFICO PARA SIMPLICIDADE 2 - ENTERPRISE]**:
+- ✅ **TypeScript Obrigatório**: Segurança de tipos para equipes grandes
+- ✅ **ESLint + Husky**: Qualidade de código automatizada
+- ✅ **Monorepo-ready**: Turbo suporta múltiplos pacotes
+- ✅ **Padrão de Mercado**: Next.js usado por Netflix, TikTok, Uber
+- ✅ **Suporte Comercial**: Vercel oferece planos enterprise
+- ✅ **Conformidade**: HTTPS, WCAG, GDPR-compliant
+
+**⚠️ Validação Enterprise Obrigatória**:
+1. **Reunião de Decisão Técnica**: Apresentar stack para equipe/arquitetos
+2. **Aprovação de Stakeholders**: Tech Lead + CTO validam escolha
+3. **Criar ADR Formal**: Documentar decisão em `docs/ADR/adr-001-web-stack.md`
+4. **Conformidade Corporativa**: Verificar se alinha com padrões da empresa
+5. **Análise de Custo**: Estimar custo de Vercel Pro/Enterprise (se aplicável)
+
+**⚠️ Quando NÃO Usar Este Stack Padrão**:
+- ❌ Empresa tem stack corporativo mandatório (ex: Java + Spring)
+- ❌ Equipe especifica **explicitamente** outras tecnologias
+- ❌ Projeto requer **Vue/Angular** ao invés de React
+- ❌ Necessita de **Python/Django** backend
+- ❌ Aplicação **desktop** ou **mobile nativa**
+- ❌ Site **estático simples** (HTML/CSS/JS puro suficiente)
+- ❌ Restrições de compliance que impedem uso de CDNs (Vercel, Cloudinary)
+
+---
 
 **Passo 3: Apresentar Recomendações com Justificativas**
 

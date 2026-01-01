@@ -2,9 +2,19 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 30 de Novembro de 2025  
-**Versão**: 2.2  
+**Versão**: 2.3  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
+
+**Changelog v2.3** (01/01/2026):
+- ✅ **[NOVO]** Stack Padrão Recomendado para Sites/Aplicações Web
+- ✅ Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2 como padrão
+- ✅ Stack completo: Turbopack, Tailwind CSS, Zustand, Jest, ESLint
+- ✅ Inclui integrações: Cloudinary, Stripe, APIs de IA (opcional)
+- ✅ Deploy em Vercel (gratuito), backend em Heroku
+- ✅ Aplicável quando usuário NÃO especificar tecnologias
+- ✅ Justificativa: Cobre 90% dos casos de uso web modernos
+- ✅ Quando NÃO usar: Vue/Angular, Python backend, desktop/mobile
 
 **Changelog v2.2** (01/01/2026):
 - ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
@@ -2868,6 +2878,139 @@ Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais t
    - Python: pytest, unittest
    - JavaScript: Jest, Vitest, Mocha, Cypress
    - Java: JUnit, TestNG
+
+#### 🌐 **Stack Padrão Recomendado para Sites/Aplicações Web** [NOVO]
+
+> **IMPORTANTE**: Quando se tratar da implementação de um **site ou aplicação web**, e o usuário **NÃO especificar** quais tecnologias deseja, a IA **PODE RECOMENDAR** o seguinte stack padrão moderno e completo:
+
+**📦 Frontend Framework & Runtime**
+- **Next.js 15.5.2** - Framework React com App Router e Server Components
+- **React 19.1.1** - Biblioteca de UI
+- **React DOM 19.1.1** - Renderização do React no navegador
+- **TypeScript 5.9.2** - Superset JavaScript com tipagem estática
+- **Node.js 18+** - Runtime JavaScript
+
+**🔧 Bundlers & Build Tools**
+- **Turbopack** - Bundler de nova geração do Next.js (700x mais rápido)
+- **Turbo (turborepo)** - Sistema de build para monorepos
+- **PostCSS 8.5.6** - Processamento de CSS
+- **Autoprefixer 10.4.21** - Adiciona prefixos CSS automaticamente
+
+**📊 State Management**
+- **Zustand 4.5.7** - Gerenciamento de estado minimalista e eficiente
+- **Immer 10.1.3** - Manipulação imutável de estado
+
+**🎨 Styling**
+- **Tailwind CSS 3.4.17** - Framework CSS utility-first
+- **CSS Modules** - Modularização de CSS
+- **clsx 2.1.1** - Utilitário para classes CSS condicionais
+- **class-variance-authority 0.7.1** - Gerenciamento de variantes de componentes
+- **tailwind-merge 3.3.1** - Merge inteligente de classes Tailwind
+- **Lucide React 0.542.0** - Biblioteca de ícones
+
+**🎵 Audio & Media** (se aplicável)
+- **Cloudinary 1.41.3** - Processamento e armazenamento de mídia
+- **@cloudinary/react 1.14.3** - Componentes React do Cloudinary
+- **@cloudinary/url-gen 1.22.0** - Geração de URLs do Cloudinary
+- **Web Audio API** - API nativa do navegador para gravação de áudio
+
+**💳 Payments & Subscriptions** (se aplicável)
+- **Stripe 14.25.0** - Processamento de pagamentos (backend)
+- **@stripe/stripe-js 2.4.0** - SDK JavaScript do Stripe (frontend)
+
+**🌐 HTTP & API**
+- **Axios 1.11.0** - Cliente HTTP para requisições à API
+
+**📄 PDF & Screenshots** (se aplicável)
+- **jsPDF 3.0.3** - Geração de PDFs
+- **html2canvas 1.4.1** - Conversão de HTML para canvas/imagem
+- **Puppeteer 24.29.1** - Automação de browser headless
+
+**🧪 Testing**
+- **Jest** - Framework de testes
+- **jsdom** - Ambiente DOM para testes
+- **@testing-library** - Utilitários para testes de componentes React
+
+**✅ Code Quality & Linting**
+- **ESLint 8.57.1** - Linter JavaScript/TypeScript
+- **eslint-config-next 15.5.2** - Configuração ESLint do Next.js
+- **Husky 9.1.7** - Git hooks para qualidade de código
+
+**🛠️ Development Tools**
+- **npm 10.9.2** - Gerenciador de pacotes
+- **Git** - Controle de versão
+- **VS Code** - Editor recomendado
+
+**⚙️ Backend** (Repositório Separado)
+- **Node.js** - Runtime backend
+- **Express** - Framework web
+- **MongoDB** - Banco de dados NoSQL
+- **JWT** - Autenticação com tokens
+- **Heroku** - Hospedagem do backend
+
+**🚀 Infraestrutura & Deploy**
+- **Vercel** - Hospedagem frontend (recomendado para Next.js)
+- **Cloudinary CDN** - Entrega de conteúdo de áudio/mídia
+- **HTTPS** - Protocolo seguro (requerido para gravação de áudio)
+
+**🤖 APIs de IA** (Opcionais)
+- **OpenAI API** - IA para feedback e avaliação
+- **ElevenLabs API** - Síntese de voz
+
+**✅ Por Quê Este Stack Padrão?**
+- ✅ **Next.js 15** com App Router: SSR, SSG, performance otimizada
+- ✅ **React 19**: Versão mais recente com Server Components
+- ✅ **TypeScript**: Segurança de tipos e melhor DX
+- ✅ **Tailwind CSS**: Produtividade e design consistente
+- ✅ **Zustand**: State management simples e eficiente
+- ✅ **Turbopack**: Build extremamente rápido (700x vs Webpack)
+- ✅ **Vercel**: Deploy otimizado para Next.js (mesmo criador)
+- ✅ **Ecossistema Completo**: Cobre 90% dos casos de uso web
+
+**⚠️ Quando NÃO Usar Este Stack Padrão**:
+- ❌ Usuário especifica **explicitamente** outras tecnologias
+- ❌ Projeto requer **Vue/Angular** ao invés de React
+- ❌ Necessita de **Python/Django** backend (use FastAPI + React)
+- ❌ Aplicação **desktop** ou **mobile nativa** (não é web)
+- ❌ Site **estático simples** (HTML/CSS/JS puro pode ser suficiente)
+
+**📋 Exemplo de Apresentação ao Usuário**:
+```markdown
+❓ Você não especificou tecnologias para o site. Posso recomendar um stack moderno?
+
+**Stack Padrão Recomendado (Next.js 15 + React 19 + TypeScript)**:
+
+**Frontend**:
+- Next.js 15.5.2 (framework React SSR/SSG)
+- React 19.1.1 + TypeScript 5.9.2
+- Tailwind CSS 3.4.17 (styling)
+- Zustand 4.5.7 (state management)
+
+**Build & Deploy**:
+- Turbopack (bundler 700x mais rápido)
+- Vercel (hospedagem otimizada)
+
+**Backend** (opcional):
+- Node.js + Express + MongoDB
+- Deploy em Heroku
+
+**Por quê?**
+- ✅ Stack moderno e profissional
+- ✅ Performance excepcional (SSR + Turbopack)
+- ✅ SEO otimizado (Next.js App Router)
+- ✅ TypeScript garante qualidade
+- ✅ Deploy gratuito em Vercel
+
+**Você concorda ou prefere outro stack?** (Vue, Angular, etc.)
+```
+
+**🎯 Quando Oferecer Este Stack**:
+1. Usuário pediu "criar um site" ou "aplicação web"
+2. Usuário NÃO especificou tecnologias específicas
+3. Não há restrições técnicas óbvias
+4. Projeto é novo (não é manutenção de código existente)
+
+---
 
 **Exemplo de investigação**:
 ```markdown

@@ -2,9 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.3  
+**Versão**: 3.4  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+
+**Changelog v3.4** (01/01/2026):
+- ✅ **[NOVO]** Stack Padrão Recomendado para Sites (Solo Developer)
+- ✅ Mesma base moderna: Next.js 15 + React 19 + TypeScript
+- ✅ Foco em baixa manutenção: ~15h/mês sustentável
+- ✅ Deploy gratuito em Vercel (escalável conforme crescer)
+- ✅ Documentação excepcional e comunidade massiva
+- ✅ LTS Node.js 18+ (suporte até 2025)
+- ✅ Plano de rollback obrigatório (3 alternativas)
+- ✅ Tempo de manutenção estimado e gatilhos de rollback
+- ✅ Quando NÃO usar: Desenvolvedor experiente Vue/Angular, prefere "boring tech"
 
 **Changelog v3.3** (01/01/2026):
 - ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
@@ -2401,6 +2412,132 @@ A IA deve solicitar:
 6. **💾 Banco de Dados**: PostgreSQL (LTS), MySQL (LTS), SQLite
 7. **🔐 Autenticação**: OAuth2 (padrão), JWT, bcrypt
 8. **🧪 Testes**: pytest, Jest (stable)
+
+#### 🌐 **Stack Padrão Recomendado para Sites/Aplicações Web** [NOVO]
+
+> **IMPORTANTE**: Quando se tratar da implementação de um **site ou aplicação web**, e o desenvolvedor **NÃO especificar** quais tecnologias deseja, a IA **PODE RECOMENDAR** o seguinte stack padrão moderno, maduro e fácil de manter:
+
+**📦 Frontend Framework & Runtime**
+- **Next.js 15.5.2** - Framework React com App Router e Server Components
+- **React 19.1.1** - Biblioteca de UI
+- **React DOM 19.1.1** - Renderização do React no navegador
+- **TypeScript 5.9.2** - Superset JavaScript com tipagem estática
+- **Node.js 18+ (LTS)** - Runtime JavaScript
+
+**🔧 Bundlers & Build Tools**
+- **Turbopack** - Bundler de nova geração do Next.js (700x mais rápido)
+- **Turbo (turborepo)** - Sistema de build para monorepos
+- **PostCSS 8.5.6** - Processamento de CSS
+- **Autoprefixer 10.4.21** - Adiciona prefixos CSS automaticamente
+
+**📊 State Management**
+- **Zustand 4.5.7** - Gerenciamento de estado minimalista e eficiente
+- **Immer 10.1.3** - Manipulação imutável de estado
+
+**🎨 Styling**
+- **Tailwind CSS 3.4.17** - Framework CSS utility-first
+- **CSS Modules** - Modularização de CSS
+- **clsx 2.1.1** - Utilitário para classes CSS condicionais
+- **class-variance-authority 0.7.1** - Gerenciamento de variantes de componentes
+- **tailwind-merge 3.3.1** - Merge inteligente de classes Tailwind
+- **Lucide React 0.542.0** - Biblioteca de ícones
+
+**🎵 Audio & Media** (se aplicável)
+- **Cloudinary 1.41.3** - Processamento e armazenamento de mídia
+- **@cloudinary/react 1.14.3** - Componentes React do Cloudinary
+- **@cloudinary/url-gen 1.22.0** - Geração de URLs do Cloudinary
+- **Web Audio API** - API nativa do navegador para gravação de áudio
+
+**💳 Payments & Subscriptions** (se aplicável)
+- **Stripe 14.25.0** - Processamento de pagamentos (backend)
+- **@stripe/stripe-js 2.4.0** - SDK JavaScript do Stripe (frontend)
+
+**🌐 HTTP & API**
+- **Axios 1.11.0** - Cliente HTTP para requisições à API
+
+**📄 PDF & Screenshots** (se aplicável)
+- **jsPDF 3.0.3** - Geração de PDFs
+- **html2canvas 1.4.1** - Conversão de HTML para canvas/imagem
+- **Puppeteer 24.29.1** - Automação de browser headless
+
+**🧪 Testing**
+- **Jest** - Framework de testes
+- **jsdom** - Ambiente DOM para testes
+- **@testing-library** - Utilitários para testes de componentes React
+
+**✅ Code Quality & Linting**
+- **ESLint 8.57.1** - Linter JavaScript/TypeScript
+- **eslint-config-next 15.5.2** - Configuração ESLint do Next.js
+- **Husky 9.1.7** - Git hooks para qualidade de código
+
+**🛠️ Development Tools**
+- **npm 10.9.2** - Gerenciador de pacotes
+- **Git** - Controle de versão
+- **VS Code** - Editor recomendado
+
+**⚙️ Backend** (Repositório Separado)
+- **Node.js** - Runtime backend
+- **Express** - Framework web
+- **MongoDB** - Banco de dados NoSQL
+- **JWT** - Autenticação com tokens
+- **Heroku** - Hospedagem do backend
+
+**🚀 Infraestrutura & Deploy**
+- **Vercel** - Hospedagem frontend (recomendado para Next.js)
+- **Cloudinary CDN** - Entrega de conteúdo de áudio/mídia
+- **HTTPS** - Protocolo seguro (requerido para gravação de áudio)
+
+**🤖 APIs de IA** (Opcionais)
+- **OpenAI API** - IA para feedback e avaliação
+- **ElevenLabs API** - Síntese de voz
+
+**✅ Por Quê Este Stack Para Solo Developer?**
+- ✅ **Next.js 15**: Framework maduro, documentação excepcional
+- ✅ **React 19**: Comunidade massiva, fácil encontrar soluções
+- ✅ **TypeScript**: Previne bugs antes de ir para produção
+- ✅ **Tailwind CSS**: Produtividade alta, menos CSS manual
+- ✅ **Zustand**: Simples de entender e debugar sozinho
+- ✅ **Turbopack**: Builds rápidos = menos espera
+- ✅ **Vercel Deploy Gratuito**: Hospedagem simples e confiável
+- ✅ **Ecossistema Completo**: Uma stack para 90% dos casos
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+- ✅ **Baixa Manutenção**: Next.js + Vercel = atualizações automáticas
+- ✅ **Documentação Excelente**: Menos tempo procurando soluções
+- ✅ **Comunidade Massiva**: Stack Overflow tem 100k+ questões React
+- ✅ **Deploy Fácil**: `git push` e Vercel faz o resto
+- ✅ **Escalável**: Começa grátis, escala conforme crescer
+- ✅ **TypeScript Salva Vidas**: Erros de tipo antes de deploy
+- ✅ **LTS Node.js 18+**: Suporte de longo prazo (até 2025)
+
+**⏱️ Tempo de Manutenção Estimado (Solo)**:
+- Atualizações de dependências: **~2h/mês** (automatizável)
+- Monitoramento Vercel: **~10min/dia** (dashboards automáticos)
+- Correção de bugs típicos: **~3h/semana** (comunidade ajuda)
+- Total: **~15h/mês** de manutenção (sustentável para solo)
+
+**🛡️ Plano de Rollback (Se Não Funcionar)**:
+Se após **3 meses** este stack não atender expectativas:
+- **Alternativa 1**: Migrar frontend para **Vue 3 + Nuxt** (similar)
+- **Alternativa 2**: Simplificar para **React sem Next.js** (menos features)
+- **Alternativa 3**: Migrar para **Python + Flask + React** (se prefere Python)
+- **Esforço estimado**: 5-10 dias de migração
+
+**Gatilhos de rollback**:
+- Performance inadequada (<80 Lighthouse score)
+- Complexidade insustentável (>20h/semana manutenção)
+- Custos acima de $50/mês (escala não prevista)
+- Bugs críticos não resolvidos pela comunidade em 72h
+
+**⚠️ Quando NÃO Usar Este Stack Padrão**:
+- ❌ Desenvolvedor especifica **explicitamente** outras tecnologias
+- ❌ Desenvolvedor tem **experiência sólida** com Vue/Angular
+- ❌ Projeto requer **Python/Django** backend
+- ❌ Aplicação **desktop** ou **mobile nativa**
+- ❌ Site **estático super simples** (HTML/CSS/JS puro suficiente)
+- ❌ Desenvolvedor prefere **"boring technology"** (PHP, Ruby on Rails)
+
+---
 
 **Passo 3: Apresentar Recomendações (Foco Solo)**
 
