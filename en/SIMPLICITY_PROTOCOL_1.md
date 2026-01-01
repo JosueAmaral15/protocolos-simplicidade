@@ -3,11 +3,43 @@ Here's the English translation of the provided document:
 ```markdown
 # Simplicity Protocol 1
 
-**Author**: Josué Amaral
-**Creation Date**: November 30, 2025
-**Version**: 2.0
-**Last Update**: December 10, 2025
+**Author**: Josué Amaral  
+**Creation Date**: November 30, 2025  
+**Version**: 2.3  
+**Last Update**: January 1, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.3** (01/01/2026):
+- ✅ **[NEW]** Default Recommended Stack for Websites/Web Applications
+- ✅ Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2 as default
+- ✅ Complete stack: Turbopack, Tailwind CSS, Zustand, Jest, ESLint
+- ✅ Includes integrations: Cloudinary, Stripe, AI APIs (optional)
+- ✅ Deploy on Vercel (free), backend on Heroku
+- ✅ Applicable when user does NOT specify technologies
+- ✅ Rationale: Covers 90% of modern web use cases
+- ✅ When NOT to use: Vue/Angular, Python backend, desktop/mobile
+
+**Changelog v2.2** (01/01/2026):
+- ✅ **[CRITICAL]** Added Step 1.0: Complete Documentation Search and Reading (PRIORITY)
+- ✅ AI MUST search and read 100% of markdown documentation BEFORE any task
+- ✅ Recursive search for all .md files in workspace (find + grep)
+- ✅ If no documentation found, AI must ask user
+- ✅ If doesn't exist, AI must create minimum structure (README, REQUIREMENTS, TASKS)
+- ✅ Complete templates for initial documentation creation
+- ✅ Checklist of 9 mandatory items before proceeding
+- ✅ Guidelines on code comments (why, not just what)
+- ✅ Rationale: Context is everything, avoids duplication and rework
+
+**Changelog v2.1** (01/01/2026):
+- ✅ **[MANDATORY]** Added Step 1.5: Technology Stack Research for the Project
+- ✅ AI must investigate and recommend professional technology stacks
+- ✅ Based on requirements: app type, features, scale, developer preferences
+- ✅ 8 categories covered: Frontend, Backend, Desktop, Visualization, AI/ML, DB, Auth, Testing
+- ✅ Present 2-3 complete stacks with justifications, advantages, real use cases
+- ✅ Online searches allowed (GitHub, official docs, Stack Overflow, Stack Share)
+- ✅ Mandatory stack documentation in docs/ARCHITECTURE.md
+- ✅ Checklist of 10 items for validation
+- ✅ Rationale: Avoids rework, ensures professional quality, increases productivity
 
 **Changelog v2.0** (10/12/2025):
 - ✅ **[COMPLEMENTATION]** Added section "🎯 When to Use Simplicity 1?"
@@ -1680,6 +1712,7 @@ Sprint 4 (2h):
 
 **Executive Summary**:
 1. 📚 Read the documentation
+   - 1.5 🔍 **Research suitable technologies for the project** (MANDATORY AT START)
 2. ✅ Choose the simplest tasks
 3. ❓ Ask questions until 100% of doubts are clarified
 4. 🔍 Analyze and study the project
@@ -1695,6 +1728,165 @@ Sprint 4 (2h):
 1️⃣3️⃣ 🚀 Commit and push
 
 ### 1️⃣ **Read the Documentation**
+
+> **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
+
+#### 📖 **Step 1.0: Complete Documentation Search and Reading** [PRIORITY]
+
+**BEFORE starting any task**, AI must:
+
+**Step 1: Search for all markdown documentation in the project**
+
+Search recursively for all `.md` files in the workspace:
+- 📂 **Project root**: `README.md`, `TASKS.md`, `TODO.md`, `CHANGELOG.md`, etc.
+- 📂 **`docs/` folder**: All existing documentation
+- 📂 **Subfolders**: `docs/plans/`, `docs/ADR/`, `docs/api/`, etc.
+- 📂 **Any other location**: `.md` files in any directory
+
+**Suggested command** (for AI with terminal access):
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+```
+
+**Step 2: Read 100% of the content of all markdown files found**
+
+AI **MUST READ COMPLETELY**:
+- ✅ `README.md` - Project overview
+- ✅ `TASKS.md` - Pending and completed tasks
+- ✅ `docs/REQUIREMENTS.md` - Functional and non-functional requirements
+- ✅ `docs/ARCHITECTURE.md` - Architectural decisions and tech stack
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Previous version specifications
+- ✅ `docs/CHANGELOG.md` - Change history
+- ✅ `docs/plans/*.md` - Existing action plans
+- ✅ `docs/ADR/*.md` - Architecture Decision Records (if any)
+- ✅ **Any other `.md` file** found
+
+**Why read 100%?**
+- ✅ **Complete Context**: Understand all history and project decisions
+- ✅ **Avoid Rework**: Don't reimplement existing functionality
+- ✅ **Consistency**: Follow already established patterns
+- ✅ **Previous Decisions**: Understand why certain choices were made
+- ✅ **Pending Tasks**: Know what's done and what's missing
+
+**Step 3: If NO documentation found, ask the user**
+
+If AI **does not find** markdown documentation:
+
+```markdown
+❓ **Project Documentation**
+
+I searched for markdown documentation in the project but found no .md files.
+
+**Do you have project documentation?**
+A) Yes, it's in [specific location]
+B) Yes, but in different format (.txt, .docx, etc.)
+C) No, documentation doesn't exist yet
+
+**If C (no documentation):**
+I'll create the initial documentation structure. For this, I need:
+
+1. **Project Requirements**:
+   - What is the main goal of this project?
+   - What features should be implemented?
+   - Who are the users/clients?
+
+2. **Current Tasks**:
+   - What tasks do you need me to perform?
+   - Is there any specific priority?
+
+3. **Technical Context**:
+   - Tech stack already defined? (languages, frameworks)
+   - Is there existing code? If yes, where?
+   - Are there technical restrictions?
+
+With this information, I'll create the initial documentation structure:
+- `README.md` (overview)
+- `docs/REQUIREMENTS.md` (detailed requirements)
+- `docs/TASKS.md` (tasks and progress)
+- `docs/ARCHITECTURE.md` (technical decisions)
+```
+
+**Step 4: If documentation doesn't exist, create from scratch**
+
+**AI must create mandatory initial documentation**:
+
+**Mandatory Minimum Structure**:
+```
+📁 Project Root
+├── README.md                    # Project overview
+├── TASKS.md                     # Task list (or docs/TASKS.md)
+└── 📁 docs/
+    ├── REQUIREMENTS.md          # Functional and non-functional requirements
+    ├── ARCHITECTURE.md          # Tech stack and decisions
+    └── v0.1.0-SPECIFICATIONS.md # First specification
+```
+
+[Templates included - same as Portuguese version with English labels]
+
+**Step 5: Document evolution continuously**
+
+**During development**, AI must:
+- ✅ **Update TASKS.md**: Mark tasks as completed
+- ✅ **Create SPECIFICATIONS.md**: Document each implemented version
+- ✅ **Update ARCHITECTURE.md**: Document technical decisions
+- ✅ **Comment code**: Add explanatory comments for understanding
+
+**Code comments** should explain:
+- **Why** the code was written that way (not just "what" it does)
+- **Non-obvious decisions**: Why chose approach X instead of Y
+- **Edge cases**: Why certain special cases are handled
+- **TODOs**: What's missing to implement or can be improved
+
+**Example of useful comments**:
+```python
+# DECISION: Using in-memory cache instead of Redis because:
+# 1. Project scale doesn't justify Redis complexity
+# 2. Data is small (<10MB) and doesn't need persistence
+# 3. Fast startup is priority (Redis would add latency)
+cache = {}
+
+# TODO: If scale exceeds 100k records, migrate to Redis
+# Estimate: ~2h work, document in ADR
+```
+
+#### 📋 Documentation Reading Checklist (For AIs)
+
+**Before starting ANY task**:
+
+```markdown
+[ ] 🔍 Recursively searched for all .md files in project
+[ ] 📖 Read 100% of content of ALL found files
+[ ] 📝 If didn't find documentation, asked user if it exists
+[ ] 📚 If doesn't exist, created minimum structure (README, REQUIREMENTS, TASKS)
+[ ] 🎯 Understood goal and complete project context
+[ ] 📋 Know which tasks are pending and completed
+[ ] 🛠️ Know the defined tech stack (if applicable)
+[ ] 🏗️ Understood previous architectural decisions
+[ ] ✅ Ready to work with complete context
+```
+
+**Only after completing this checklist, proceed to next steps.**
+
+#### 🚀 Rationale
+
+**Why reading 100% of documentation is FIRST mandatory action?**
+
+1. ✅ **Context is Everything**: Code without context is impossible to maintain
+2. ✅ **Avoids Duplication**: Don't reimplement what exists
+3. ✅ **Previous Decisions**: Understand why choices were made
+4. ✅ **Consistency**: Follow already established patterns
+5. ✅ **Productivity**: 10 minutes reading saves hours of rework
+6. ✅ **Quality**: Well-documented code from the start
+
+**Message for AIs**:
+> "NEVER start coding without reading all available documentation. It's like trying to continue a book without reading previous chapters - you'll introduce inconsistencies, rework and bugs. Invest 10-30 minutes reading EVERYTHING before writing the first line of code."
+
+**Golden Rule**:
+> **"Read documentation FIRST, code AFTER. Always."**
+
+---
+
+**After completing documentation reading**, proceed to:
 - Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
 - Consult `docs/REQUIREMENTS.md` to understand the project context
 - Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
@@ -1814,6 +2006,216 @@ docs/
 - ✅ **Maintainability**: Future developers understand the process
 
 📖 **Complete details on Action Plans**: See README.md in repository, section "🎯 Action Plans"
+
+---
+
+### 1️⃣.5️⃣ **Research Suitable Technologies for the Project** [MANDATORY AT START]
+
+> **CRITICAL FOR AIs**: At the beginning of the project (first session), AI **MUST** investigate and recommend the most suitable technologies for the project based on provided requirements.
+
+#### 🎯 When to Apply
+
+**Ideal moment**: Right after first reading of `TASKS.md` and `docs/REQUIREMENTS.md`, **before starting implementation**.
+
+**Applicable to**:
+- ✅ New projects (no code implemented yet)
+- ✅ Projects in complete refactoring (tech stack change)
+- ✅ Projects in planning phase (architecture not yet defined)
+
+**NOT applicable to**:
+- ❌ Projects with defined stack and ongoing implementation
+- ❌ Maintenance of features in existing code
+- ❌ Bug fixes in already produced code
+
+#### 📋 How It Works
+
+**Step 1: Collect Developer Requirements**
+
+AI must request from developer:
+- 📌 **Desired tasks and features** (may be in `docs/TASKS.md`)
+- 📌 **Functional and non-functional requirements** (may be in `docs/REQUIREMENTS.md`)
+- 📌 **Application type** (web, desktop, mobile, CLI, API, etc.)
+- 📌 **Target audience and expected scale** (MVP, small, enterprise)
+- 📌 **Technical restrictions** (preferred languages, infrastructure limitations)
+
+**Step 2: Investigate Professional Technologies**
+
+AI must **research** (online if necessary) which technologies are **widely used professionally** for similar projects.
+
+**Technology categories to investigate**:
+
+1. **🎨 Frontend** (if applicable):
+   - Frameworks: React, Vue, Angular, Next.js, Svelte
+   - UI Libraries: Material-UI (MUI), Ant Design, Chakra UI, Bootstrap, Tailwind CSS
+   - State: Redux, Zustand, Jotai, React Query
+
+2. **⚙️ Backend** (if applicable):
+   - Languages: Python, JavaScript/TypeScript (Node.js), Java, Go, C#
+   - Frameworks: Django, FastAPI, Express, NestJS, Spring Boot, ASP.NET Core
+   - APIs: REST, GraphQL, gRPC
+
+3. **🖥️ Desktop** (if applicable):
+   - Python: PyQt, PySide, Tkinter, Kivy
+   - JavaScript: Electron, Tauri
+   - C++: Qt, wxWidgets
+   - C#: WPF, WinForms
+
+4. **📊 Data Visualization** (if applicable):
+   - Web: Chart.js, D3.js, Recharts, Victory
+   - Python: Matplotlib, Plotly, Seaborn, pyqtgraph
+
+5. **🤖 Artificial Intelligence/ML** (if applicable):
+   - Frameworks: TensorFlow, PyTorch, scikit-learn, Transformers (Hugging Face)
+   - APIs: OpenAI API, Gemini API, Anthropic API, Cohere
+   - Natural Language Processing: spaCy, NLTK, Transformers
+
+6. **💾 Database** (if applicable):
+   - Relational: PostgreSQL, MySQL, SQLite
+   - NoSQL: MongoDB, Redis, Cassandra
+   - ORMs: SQLAlchemy, Prisma, TypeORM, Sequelize
+
+7. **🔐 Authentication and Security** (if applicable):
+   - OAuth: Passport.js, Auth0, Keycloak
+   - JWT: jsonwebtoken, PyJWT
+   - Cryptography: bcrypt, Argon2
+
+8. **🧪 Testing** (if applicable):
+   - Python: pytest, unittest
+   - JavaScript: Jest, Vitest, Mocha, Cypress
+   - Java: JUnit, TestNG
+
+#### 🌐 **Default Recommended Stack for Websites/Web Applications** [NEW]
+
+> **IMPORTANT**: When implementing a **website or web application**, and the user **does NOT specify** which technologies to use, AI **CAN RECOMMEND** the following modern and complete default stack:
+
+**📦 Frontend Framework & Runtime**
+- **Next.js 15.5.2** - React framework with App Router and Server Components
+- **React 19.1.1** - UI library
+- **React DOM 19.1.1** - React rendering in browser
+- **TypeScript 5.9.2** - JavaScript superset with static typing
+- **Node.js 18+** - JavaScript runtime
+
+**🔧 Bundlers & Build Tools**
+- **Turbopack** - Next.js next-generation bundler (700x faster)
+- **Turbo (turborepo)** - Build system for monorepos
+- **PostCSS 8.5.6** - CSS processing
+- **Autoprefixer 10.4.21** - Automatically adds CSS prefixes
+
+**📊 State Management**
+- **Zustand 4.5.7** - Minimalist and efficient state management
+- **Immer 10.1.3** - Immutable state manipulation
+
+**🎨 Styling**
+- **Tailwind CSS 3.4.17** - Utility-first CSS framework
+- **CSS Modules** - CSS modularization
+- **clsx 2.1.1** - Conditional CSS classes utility
+- **class-variance-authority 0.7.1** - Component variants management
+- **tailwind-merge 3.3.1** - Smart Tailwind classes merge
+- **Lucide React 0.542.0** - Icon library
+
+**🎵 Audio & Media** (if applicable)
+- **Cloudinary 1.41.3** - Media processing and storage
+- **@cloudinary/react 1.14.3** - Cloudinary React components
+- **@cloudinary/url-gen 1.22.0** - Cloudinary URL generation
+- **Web Audio API** - Native browser API for audio recording
+
+**💳 Payments & Subscriptions** (if applicable)
+- **Stripe 14.25.0** - Payment processing (backend)
+- **@stripe/stripe-js 2.4.0** - Stripe JavaScript SDK (frontend)
+
+**🌐 HTTP & API**
+- **Axios 1.11.0** - HTTP client for API requests
+
+**📄 PDF & Screenshots** (if applicable)
+- **jsPDF 3.0.3** - PDF generation
+- **html2canvas 1.4.1** - HTML to canvas/image conversion
+- **Puppeteer 24.29.1** - Headless browser automation
+
+**🧪 Testing**
+- **Jest** - Testing framework
+- **jsdom** - DOM environment for testing
+- **@testing-library** - React component testing utilities
+
+**✅ Code Quality & Linting**
+- **ESLint 8.57.1** - JavaScript/TypeScript linter
+- **eslint-config-next 15.5.2** - Next.js ESLint configuration
+- **Husky 9.1.7** - Git hooks for code quality
+
+**🛠️ Development Tools**
+- **npm 10.9.2** - Package manager
+- **Git** - Version control
+- **VS Code** - Recommended editor
+
+**⚙️ Backend** (Separate Repository)
+- **Node.js** - Backend runtime
+- **Express** - Web framework
+- **MongoDB** - NoSQL database
+- **JWT** - Token authentication
+- **Heroku** - Backend hosting
+
+**🚀 Infrastructure & Deploy**
+- **Vercel** - Frontend hosting (recommended)
+- **Cloudinary CDN** - Audio/media content delivery
+- **HTTPS** - Secure protocol (required for audio recording)
+
+**🤖 AI APIs** (Optional)
+- **OpenAI API** - AI for feedback and evaluation
+- **ElevenLabs API** - Voice synthesis
+
+**✅ Why This Default Stack?**
+- ✅ **Next.js 15** with App Router: SSR, SSG, optimized performance
+- ✅ **React 19**: Latest version with Server Components
+- ✅ **TypeScript**: Type safety and better DX
+- ✅ **Tailwind CSS**: High productivity and consistent design
+- ✅ **Zustand**: Simple and efficient state management
+- ✅ **Turbopack**: Extremely fast build (700x vs Webpack)
+- ✅ **Vercel**: Optimized deploy for Next.js (same creator)
+- ✅ **Complete Ecosystem**: Covers 90% of web use cases
+
+**⚠️ When NOT to Use This Default Stack**:
+- ❌ User **explicitly** specifies other technologies
+- ❌ Project requires **Vue/Angular** instead of React
+- ❌ Needs **Python/Django** backend (use FastAPI + React)
+- ❌ **Desktop** or **native mobile** application (not web)
+- ❌ Simple **static site** (pure HTML/CSS/JS may suffice)
+
+**📋 Example Presentation to User**:
+```markdown
+❓ You didn't specify technologies for the website. Can I recommend a modern stack?
+
+**Recommended Default Stack (Next.js 15 + React 19 + TypeScript)**:
+
+**Frontend**:
+- Next.js 15.5.2 (React SSR/SSG framework)
+- React 19.1.1 + TypeScript 5.9.2
+- Tailwind CSS 3.4.17 (styling)
+- Zustand 4.5.7 (state management)
+
+**Build & Deploy**:
+- Turbopack (700x faster bundler)
+- Vercel (optimized hosting)
+
+**Backend** (optional):
+- Node.js + Express + MongoDB
+- Deploy on Heroku
+
+**Why?**
+- ✅ Modern and professional stack
+- ✅ Exceptional performance (SSR + Turbopack)
+- ✅ SEO optimized (Next.js App Router)
+- ✅ TypeScript ensures quality
+- ✅ Free deploy on Vercel
+
+**Do you agree or prefer another stack?** (Vue, Angular, etc.)
+```
+
+**🎯 When to Offer This Stack**:
+1. User asked to "create a website" or "web application"
+2. User did NOT specify specific technologies
+3. No obvious technical restrictions
+4. Project is new (not maintenance of existing code)
+
+📖 **Complete details**: See README.md in repository for full documentation.
 
 ---
 
