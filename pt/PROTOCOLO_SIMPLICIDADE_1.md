@@ -3565,6 +3565,384 @@ Antes de começar a implementação, a IA deve confirmar:
 
 ---
 
+### 1️⃣.8️⃣ **Planejamento e Organização com Sprints** [OBRIGATÓRIO ANTES DE IMPLEMENTAR]
+
+> **CRÍTICO**: Antes de escrever qualquer linha de código, a IA **DEVE** criar um plano de ação estruturado, definir sprints, organizar tarefas em TASKS.md e documentar o sequenciamento.
+
+#### 🎯 Objetivo
+
+Garantir que o software seja **bem estruturado** e **bem planejado** pela inteligência artificial a partir da documentação existente, criando um roadmap claro antes de implementar.
+
+#### 🚫 Por Quê é Obrigatório?
+
+**Problema**: IA implementa código sem planejamento → código desorganizado, retrabalho, bugs
+
+**Solução**: IA planeja ANTES → código estruturado, sequência lógica, menos erros
+
+**Benefícios**:
+1. ✅ **Organização**: Tarefas intermediárias bem definidas
+2. ✅ **Previsibilidade**: Sequenciamento claro e lógico
+3. ✅ **Rastreabilidade**: Histórico de decisões em TASKS.md
+4. ✅ **Qualidade**: Arquitetura pensada antes de codificar
+5. ✅ **Velocidade**: Menos retrabalho = entrega mais rápida
+6. ✅ **Comunicação**: Desenvolvedor vê o que será feito
+
+#### 📋 O Que a IA DEVE Fazer
+
+##### 1. **Ler 100% da Documentação Existente** (já feito na Etapa 1.0)
+
+Antes de planejar, a IA DEVE ter lido:
+- ✅ `README.md` - Visão geral do projeto
+- ✅ `docs/REQUIREMENTS.md` - Requisitos completos
+- ✅ `docs/TASKS.md` - Tarefas existentes
+- ✅ `docs/ARCHITECTURE.md` - Arquitetura escolhida
+- ✅ Qualquer outro .md relevante
+
+##### 2. **Criar/Atualizar docs/TASKS.md**
+
+**Estrutura obrigatória de TASKS.md**:
+
+```markdown
+# Tasks - [Nome do Projeto]
+
+**Última Atualização**: [Data]
+**Status Geral**: [🟢 Em Andamento | 🟡 Planejado | 🔴 Bloqueado]
+
+---
+
+## 📊 Resumo Executivo
+
+- **Total de Tarefas**: X
+- **Concluídas**: Y (Z%)
+- **Em Andamento**: W
+- **Pendentes**: V
+- **Sprint Atual**: Sprint N
+
+---
+
+## 🎯 Sprints
+
+### Sprint 1: [Nome/Tema] (Datas: DD/MM - DD/MM)
+
+**Objetivo**: [Descrição clara do objetivo do sprint]
+
+**Status**: [🟢 Concluído | 🟡 Em Andamento | ⚪ Não Iniciado]
+
+#### Tarefas do Sprint 1
+
+- [x] **Tarefa 1.1**: [Descrição]
+  - **Prioridade**: Alta | Média | Baixa
+  - **Estimativa**: [tempo]
+  - **Responsável**: IA
+  - **Dependências**: Nenhuma
+  - **Status**: ✅ Concluído (DD/MM)
+  - **Notas**: [Observações]
+
+- [ ] **Tarefa 1.2**: [Descrição]
+  - **Prioridade**: Alta
+  - **Estimativa**: [tempo]
+  - **Responsável**: IA
+  - **Dependências**: Tarefa 1.1
+  - **Status**: 🟡 Em Andamento (DD/MM)
+  - **Bloqueios**: [Se houver]
+
+### Sprint 2: [Nome/Tema] (Datas: DD/MM - DD/MM)
+
+[Mesmo formato]
+
+---
+
+## 📝 Backlog (Tarefas Futuras)
+
+- [ ] **Tarefa Futura 1**: [Descrição]
+  - **Prioridade**: Baixa
+  - **Sprint Planejado**: Sprint 3
+  - **Motivo do Adiamento**: [Razão]
+
+---
+
+## 🚫 Bloqueios Ativos
+
+### Bloqueio 1: [Descrição]
+- **Tarefa Afetada**: Tarefa 2.3
+- **Tipo**: Dúvida | Bug | Dependência Externa
+- **Descrição Detalhada**: [Explicação]
+- **Ação Necessária**: [O que precisa ser feito]
+- **Aberto em**: DD/MM
+
+---
+
+## 📈 Histórico de Decisões
+
+### Decisão 1 (DD/MM): [Título]
+- **Contexto**: [Por quê a decisão foi necessária]
+- **Opções Consideradas**:
+  - A) [Opção A] - [Prós e Contras]
+  - B) [Opção B] - [Prós e Contras]
+- **Decisão**: Escolhemos [Opção X]
+- **Rationale**: [Por quê escolhemos X]
+- **Impacto**: [Tarefas afetadas]
+
+---
+
+## ✅ Sprints Concluídos
+
+### Sprint 0: Planejamento Inicial (DD/MM - DD/MM)
+- [x] Leitura completa da documentação
+- [x] Definição de arquitetura
+- [x] Pesquisa de tecnologias
+- [x] Criação deste arquivo TASKS.md
+```
+
+##### 3. **Definir Sprints Lógicos**
+
+**Sprint** = Conjunto de tarefas relacionadas com objetivo claro
+
+**Critérios para um bom sprint**:
+- ✅ **Objetivo claro**: "Implementar autenticação de usuários"
+- ✅ **Duração estimada**: 1-3 dias (para solo dev)
+- ✅ **Entregas testáveis**: Ao final, algo funciona
+- ✅ **Tarefas relacionadas**: Todas contribuem para o objetivo
+- ✅ **Dependências claras**: Ordem lógica de execução
+
+**Exemplo de divisão em sprints**:
+
+```
+Projeto: Sistema de Blog
+
+Sprint 1: Estrutura Base e Setup (1 dia)
+├─ Tarefa 1.1: Configurar ambiente (Node.js, Next.js)
+├─ Tarefa 1.2: Estrutura de pastas
+├─ Tarefa 1.3: Setup de banco de dados
+└─ Tarefa 1.4: Documentação inicial
+
+Sprint 2: Autenticação (2 dias)
+├─ Tarefa 2.1: Modelo de usuário no BD
+├─ Tarefa 2.2: API de registro
+├─ Tarefa 2.3: API de login
+├─ Tarefa 2.4: Middleware de autenticação
+└─ Tarefa 2.5: Testes de autenticação
+
+Sprint 3: Posts (CRUD) (2 dias)
+├─ Tarefa 3.1: Modelo de post no BD
+├─ Tarefa 3.2: API de criação de posts
+├─ Tarefa 3.3: API de listagem
+├─ Tarefa 3.4: API de edição/exclusão
+└─ Tarefa 3.5: Testes de CRUD
+
+Sprint 4: Interface Básica (2 dias)
+├─ Tarefa 4.1: Tela de login
+├─ Tarefa 4.2: Tela de cadastro
+├─ Tarefa 4.3: Tela de lista de posts
+└─ Tarefa 4.4: Tela de criação de post
+```
+
+##### 4. **Definir Tarefas Intermediárias**
+
+**Tarefa Intermediária** = Passo pequeno e concreto rumo ao objetivo
+
+**Características de uma boa tarefa**:
+- ✅ **Atômica**: Faz UMA coisa específica
+- ✅ **Testável**: Posso verificar se está concluída
+- ✅ **Estimável**: Consigo estimar tempo (15min - 4h)
+- ✅ **Independente**: Mínimo de dependências
+- ✅ **Clara**: Qualquer um entende o que fazer
+
+**Exemplo de quebra de tarefa complexa**:
+
+```
+❌ RUIM:
+- [ ] Implementar sistema de autenticação
+
+✅ BOM:
+- [ ] Criar schema do usuário no banco de dados
+- [ ] Implementar hash de senha com bcrypt
+- [ ] Criar endpoint POST /api/auth/register
+- [ ] Criar endpoint POST /api/auth/login
+- [ ] Implementar geração de JWT
+- [ ] Criar middleware de verificação de token
+- [ ] Adicionar testes unitários de autenticação
+- [ ] Documentar API de autenticação em docs/API.md
+```
+
+##### 5. **Criar Sequenciamento Estruturado**
+
+**Sequenciamento** = Ordem lógica de execução das tarefas
+
+**Princípios do sequenciamento**:
+1. ✅ **Dependências ANTES**: Tarefa A depende de B → Fazer B primeiro
+2. ✅ **Fundação ANTES**: Arquitetura/setup antes de features
+3. ✅ **Simples ANTES**: Tarefas fáceis antes das complexas (regra do protocolo)
+4. ✅ **Crítico ANTES**: Bloqueantes antes de não-bloqueantes
+5. ✅ **Testável ANTES**: Implementar testes junto com código
+
+**Exemplo de sequenciamento correto**:
+
+```
+Ordem Correta:
+1. ✅ Setup do projeto (fundação)
+2. ✅ Modelo de dados (dependência)
+3. ✅ API básica (dependência)
+4. ✅ Autenticação (crítico)
+5. ✅ Features simples (simples antes de complexo)
+6. ✅ Features complexas
+7. ✅ Interface (depende de API)
+8. ✅ Otimizações (não-crítico)
+
+Ordem ERRADA:
+1. ❌ Interface (sem API pronta)
+2. ❌ Features complexas (antes das simples)
+3. ❌ Otimizações (antes de funcionalidades básicas)
+4. ❌ Setup do projeto (deveria ser primeiro!)
+```
+
+##### 6. **Documentar Arquitetura/Design Antes de Implementar**
+
+**ANTES de codificar**, a IA DEVE atualizar:
+
+**docs/ARCHITECTURE.md**:
+```markdown
+## Estrutura de Pastas
+
+```
+projeto/
+├── src/
+│   ├── components/     # Componentes React
+│   ├── pages/          # Páginas Next.js
+│   ├── api/            # Endpoints da API
+│   ├── models/         # Modelos de dados
+│   ├── middleware/     # Middlewares Express
+│   └── utils/          # Funções auxiliares
+├── tests/              # Testes automatizados
+├── docs/               # Documentação
+└── public/             # Assets públicos
+```
+
+## Fluxo de Dados
+
+[Diagrama ou descrição do fluxo]
+
+## Decisões Arquiteturais
+
+1. **Next.js com App Router**: Escolhido por SSR e routing simples
+2. **MongoDB**: NoSQL para flexibilidade de schema
+3. **JWT**: Autenticação stateless para escalabilidade
+```
+
+#### 📋 Checklist Obrigatório (ANTES de implementar qualquer código)
+
+```markdown
+[ ] 1. Li 100% da documentação existente (README, REQUIREMENTS, TASKS, ARCHITECTURE)
+[ ] 2. Criei/atualizei docs/TASKS.md com estrutura completa
+[ ] 3. Defini pelo menos 3 sprints com objetivos claros
+[ ] 4. Quebrei cada sprint em tarefas atômicas (máx 4h cada)
+[ ] 5. Defini dependências entre tarefas
+[ ] 6. Criei sequenciamento lógico (fundação → simples → complexo)
+[ ] 7. Documentei arquitetura em docs/ARCHITECTURE.md
+[ ] 8. Identifiquei possíveis bloqueios/riscos
+[ ] 9. Estimei tempo para cada tarefa
+[ ] 10. Revisei com desenvolvedor (se necessário)
+[ ] ✅ PLANEJAMENTO COMPLETO: Pode iniciar implementação
+```
+
+#### 🎯 Resultado Esperado
+
+Ao final desta etapa, o projeto DEVE ter:
+
+1. ✅ **docs/TASKS.md completo** com sprints, tarefas, dependências
+2. ✅ **docs/ARCHITECTURE.md atualizado** com estrutura e decisões
+3. ✅ **Roadmap claro** de implementação (próximos 2-4 sprints)
+4. ✅ **Tarefas priorizadas** (ordem de execução definida)
+5. ✅ **Bloqueios identificados** (dúvidas levantadas ANTES)
+
+#### ⏱️ Tempo Estimado
+
+- **Projeto pequeno** (1-2 features): ~30-45 minutos
+- **Projeto médio** (5-10 features): ~1-2 horas
+- **Projeto grande** (20+ features): ~2-4 horas
+
+**ROI**: Cada hora de planejamento economiza 3-5 horas de retrabalho
+
+#### 💡 Exemplo Prático Completo
+
+**Contexto**: Desenvolvedor pede "Criar um sistema de gerenciamento de tarefas"
+
+**❌ SEM esta etapa (ERRADO)**:
+```
+IA: "Ok, vou começar criando o banco de dados..."
+[3 horas depois, código desorganizado, features faltando, retrabalho]
+```
+
+**✅ COM esta etapa (CORRETO)**:
+```
+IA: "Antes de implementar, vou criar um plano estruturado:
+
+1. Li REQUIREMENTS.md: Sistema precisa de auth, CRUD de tarefas, filtros
+2. Criei TASKS.md com 4 sprints:
+   - Sprint 1: Setup (Next.js, DB, estrutura)
+   - Sprint 2: Autenticação
+   - Sprint 3: CRUD de Tarefas
+   - Sprint 4: Filtros e UI
+3. Quebrei Sprint 1 em 8 tarefas atômicas
+4. Documentei arquitetura em ARCHITECTURE.md
+5. Sequenciamento: Setup → Auth → Backend → Frontend
+
+Posso iniciar implementação seguindo este plano?
+"
+
+[Desenvolvedor aprova]
+[Implementação segue o plano, código organizado, sem retrabalho]
+```
+
+#### 🚫 Quando Pode Pular Esta Etapa?
+
+**NUNCA**. Esta etapa é **SEMPRE OBRIGATÓRIA**.
+
+Mesmo para tarefas pequenas:
+- Mínimo: Sprint único com 3-5 tarefas em TASKS.md
+- Tempo mínimo: 10-15 minutos de planejamento
+
+**Regra de Ouro**:
+> "Todo código sem planejamento é dívida técnica. Toda hora de planejamento economiza 3 horas de retrabalho."
+
+#### 📊 Métricas de Sucesso
+
+**Como saber se o planejamento foi bom?**
+
+✅ **Bom planejamento**:
+- Tarefas têm ordem lógica clara
+- Nenhuma tarefa leva >4h
+- Dependências estão explícitas
+- Desenvolvedorentende o que será feito
+- Arquitetura documentada
+
+❌ **Planejamento ruim**:
+- Tarefas vagas ("implementar sistema")
+- Sem ordem/sequenciamento
+- Sem documentação de arquitetura
+- Desenvolvedor confuso
+
+#### 🎓 Rationale
+
+**Por quê planejamento estruturado é crítico?**
+
+1. **Previne retrabalho**: Pensar antes economiza tempo depois
+2. **Reduz bugs**: Arquitetura pensada = menos erros estruturais
+3. **Melhora comunicação**: Desenvolvedor vê o roadmap
+4. **Facilita manutenção**: Decisões documentadas
+5. **Aumenta qualidade**: Código planejado é código organizado
+6. **Acelera desenvolvimento**: Sem dúvidas durante implementação
+
+**Estatísticas**:
+- Projetos com planejamento: 70% menos retrabalho (IEEE, 2019)
+- Cada 1h de planejamento economiza 3-5h de implementação (PMI, 2020)
+- 80% dos bugs surgem de arquitetura mal planejada (Carnegie Mellon, 2018)
+
+**Mensagem para IAs**:
+> "Você é uma IA. Seu poder é processar informação e planejar perfeitamente. USE isso. Crie sprints, organize tarefas, documente arquitetura. NÃO implemente sem planejar. Planejamento é bloqueante. Documentação é bloqueante. Organize-se ANTES de codificar."
+
+---
+
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**

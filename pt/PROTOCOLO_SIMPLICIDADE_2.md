@@ -2614,6 +2614,92 @@ Adotaremos o seguinte stack tecnológico:
 
 ---
 
+### 1️⃣.8️⃣ **Planejamento e Organização com Sprints** [OBRIGATÓRIO ANTES DE IMPLEMENTAR]
+
+> **CRÍTICO**: Antes de escrever código, a IA **DEVE** criar plano estruturado, definir sprints, organizar tarefas em TASKS.md e documentar sequenciamento.
+
+#### 🎯 Obrigatório para IA
+
+A IA DEVE:
+1. ✅ Criar/atualizar **docs/TASKS.md** com sprints e tarefas atômicas
+2. ✅ Definir **sequenciamento lógico** (fundação → simples → complexo)
+3. ✅ Documentar **arquitetura em docs/ARCHITECTURE.md** ANTES de codificar
+4. ✅ Identificar **dependências** e **bloqueios** antecipadamente
+5. ✅ Estimar tempo para cada tarefa (máx 4h por tarefa)
+
+#### 📋 Estrutura Mínima de TASKS.md
+
+```markdown
+# Tasks - [Projeto]
+
+## Sprints
+
+### Sprint 1: [Objetivo] (DD/MM - DD/MM)
+- [x] Tarefa 1.1: [Descrição] (Prioridade: Alta, Estimativa: 2h, Status: ✅)
+- [ ] Tarefa 1.2: [Descrição] (Prioridade: Média, Estimativa: 3h, Status: 🟡)
+  - Dependências: Tarefa 1.1
+  - Bloqueios: [Se houver]
+
+### Sprint 2: [Objetivo]
+[Mesmo formato]
+
+## Backlog
+[Tarefas futuras]
+
+## Bloqueios Ativos
+[Dúvidas, bugs, dependências externas]
+```
+
+#### 🏢 Específico para Enterprise (Simplicidade 2)
+
+**Planejamento em equipe**:
+- ✅ **Product Owner** define prioridades → IA organiza em sprints
+- ✅ **Tech Lead** revisa arquitetura → IA documenta decisões em ADR
+- ✅ **Time** estima tarefas → IA atualiza TASKS.md com consenso
+- ✅ **Stakeholders** acompanham progresso → TASKS.md como fonte única
+
+**ADR obrigatório** (ver Etapa 11.5):
+- Toda decisão arquitetural DEVE ser documentada em ADR
+- ADR criado ANTES de implementar mudança
+- Exemplo: "ADR-003: Escolha de Message Broker (RabbitMQ vs Kafka)"
+
+**Integração com ferramentas enterprise**:
+- ✅ TASKS.md sincronizado com Jira/Azure DevOps (se aplicável)
+- ✅ CI/CD valida que ADRs existem antes de merge
+- ✅ Code review verifica conformidade com arquitetura documentada
+
+**Cerimônias obrigatórias**:
+1. **Planning**: IA prepara TASKS.md → Time revisa e estima
+2. **Daily**: IA atualiza status em TASKS.md
+3. **Review**: IA documenta entregas do sprint
+4. **Retro**: IA registra melhorias em "Histórico de Decisões"
+
+#### ⏱️ Tempo Estimado
+
+- **Projeto pequeno**: ~1-2 horas (com revisão de equipe)
+- **Projeto médio**: ~3-4 horas (incluindo ADRs)
+- **Projeto grande**: ~1-2 dias (arquitetura complexa, múltiplos times)
+
+**ROI Enterprise**: Cada hora de planejamento economiza 5-10 horas de retrabalho em equipe
+
+#### 📊 Checklist Obrigatório (Enterprise)
+
+```markdown
+[ ] 1. Li 100% da documentação (README, REQUIREMENTS, ADRs existentes)
+[ ] 2. Criei/atualizei TASKS.md com sprints aprovados pelo PO
+[ ] 3. Documentei arquitetura e criei ADRs necessários
+[ ] 4. Time estimou e aprovou tarefas
+[ ] 5. Identifiquei dependências entre equipes
+[ ] 6. CI/CD configurado para validar conformidade
+[ ] 7. Stakeholders informados do roadmap
+[ ] ✅ PLANEJAMENTO APROVADO: Pode iniciar implementação
+```
+
+**Regra de Ouro Enterprise**:
+> "Código sem planejamento em equipe gera débito técnico exponencial. Em enterprise, planejamento estruturado NÃO é opcional."
+
+---
+
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**

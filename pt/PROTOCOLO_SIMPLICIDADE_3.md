@@ -2726,6 +2726,114 @@ Se este stack não atender expectativas após [X meses]:
 
 ---
 
+### 1️⃣.8️⃣ **Planejamento e Organização com Sprints** [OBRIGATÓRIO ANTES DE IMPLEMENTAR]
+
+> **CRÍTICO**: Antes de escrever código, a IA **DEVE** criar plano estruturado, definir sprints curtos, organizar tarefas em TASKS.md.
+
+#### 🎯 Obrigatório para IA (Solo Developer)
+
+A IA DEVE:
+1. ✅ Criar/atualizar **docs/TASKS.md** com sprints de 1-3 dias
+2. ✅ Quebrar funcionalidades em **tarefas de 1-4h** (máximo)
+3. ✅ Documentar **arquitetura simples** em docs/ARCHITECTURE.md
+4. ✅ Identificar **bloqueios** antes de começar
+5. ✅ Priorizar tarefas por **valor/esforço** (quick wins primeiro)
+
+#### 📋 Estrutura Mínima de TASKS.md (Solo)
+
+```markdown
+# Tasks - [Projeto]
+
+**Status**: [Feature atual]
+**Sprint Atual**: Sprint N (DD/MM - DD/MM)
+
+## Sprint N: [Objetivo] 
+
+**Meta**: [Entregável testável]
+
+- [ ] Tarefa N.1: [Descrição clara] (Estimativa: 2h, Prioridade: Alta)
+- [ ] Tarefa N.2: [Descrição clara] (Estimativa: 1h, Dependência: N.1)
+
+## Backlog
+
+- [ ] Feature futura 1 (Sprint N+1)
+- [ ] Feature futura 2 (Sprint N+2)
+
+## Bloqueios
+
+- [ ] Dúvida: [Descrição] - Precisa resposta do desenvolvedor
+```
+
+#### 🚀 Específico para Solo (Simplicidade 3)
+
+**Planejamento ágil solo**:
+- ✅ **Sprints curtos**: 1-3 dias (não mais que isso)
+- ✅ **Tarefas pequenas**: 1-4h por tarefa (foco e progresso visível)
+- ✅ **MVP mindset**: Funcionalidade mínima testável por sprint
+- ✅ **Documentação JIT** (Just-In-Time): Documentar só o necessário
+- ✅ **Sem cerimônias**: Apenas atualizar TASKS.md diariamente
+
+**Análise custo-benefício (Solo)**:
+- ⏱️ Tempo para planejar sprint (3 dias): ~30-45 min
+- ⏱️ Tempo economizado (evitando retrabalho): ~2-4 horas
+- 💰 ROI: 3x-5x (vale MUITO a pena)
+
+**Quick wins primeiro**:
+```
+Matriz Valor/Esforço:
+
+Alto Valor, Baixo Esforço → SPRINT 1 (Quick Wins) ⭐
+Alto Valor, Alto Esforço → SPRINT 2-3 (Planeje bem)
+Baixo Valor, Baixo Esforço → BACKLOG (Se sobrar tempo)
+Baixo Valor, Alto Esforço → NEVER (Não faça)
+```
+
+**Arquitetura simplificada**:
+```markdown
+## docs/ARCHITECTURE.md (Solo - Mínimo)
+
+### Estrutura
+- src/ - Código principal
+- tests/ - Testes (quando houver)
+- docs/ - Documentação
+
+### Stack
+- [Framework principal]: [Por quê escolhido - 1 linha]
+- [Banco de dados]: [Por quê escolhido - 1 linha]
+
+### Fluxo Principal
+[Diagrama ASCII ou 3-5 passos]
+
+DONE. Não complique.
+```
+
+#### ⏱️ Tempo Estimado (Solo)
+
+- **Feature pequena**: ~15-30 min de planejamento
+- **Feature média**: ~30-60 min de planejamento
+- **Projeto novo**: ~1-2 horas de setup inicial
+
+**ROI Solo**: Cada 30 min de planejamento economiza 2-3 horas de código mal estruturado
+
+#### 📊 Checklist Obrigatório (Solo)
+
+```markdown
+[ ] 1. Li documentação existente (README, REQUIREMENTS, TASKS)
+[ ] 2. Criei sprint atual (1-3 dias) com objetivo claro
+[ ] 3. Quebrei em tarefas de 1-4h
+[ ] 4. Identifiquei bloqueios/dúvidas
+[ ] 5. Documentei arquitetura mínima (se projeto novo)
+[ ] ✅ PLANEJAMENTO COMPLETO: Pode codificar
+```
+
+**Regra de Ouro Solo**:
+> "Se você não consegue explicar seu plano em 5 minutos, ele está complexo demais. Simplifique."
+
+**Mensagem para IAs (Solo Dev)**:
+> "Solo developer não tem tempo para planning meetings. Mas PRECISA de organização. Crie sprints curtos (1-3 dias), tarefas pequenas (1-4h), documentação mínima. 30 minutos de planejamento economizam 3 horas de retrabalho. Organize-se, mas não se perca em cerimônias desnecessárias."
+
+---
+
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**
