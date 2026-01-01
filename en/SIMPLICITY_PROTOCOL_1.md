@@ -2493,6 +2493,104 @@ Options: A) [option A] | B) [option B] | C) [option C]
 → Result: Faster and more consistent implementation (60% savings)
 ```
 
+#### 🔀 **Parallel Options Principle (Multi-Choice)**
+
+> **IMPORTANT**: When there are multiple valid **non-mutually exclusive** options, consider implementing **BOTH** instead of choosing just one, allowing the user to decide which to use.
+
+**Concept**:
+Often during analysis we identify that there are **two or more valid ways** to present/process/visualize something. Instead of arbitrarily choosing one option, implement both and let the user choose.
+
+**Examples of Parallel Options**:
+
+1. **Data Visualization**:
+   - ❌ **Bad**: Choose between table OR tree
+   - ✅ **Good**: Implement table AND tree (user toggles with flag/button)
+   
+   ```python
+   # Implement both visualizations
+   def display_files(files, mode='table'):
+       """
+       Display files in different formats.
+       
+       Args:
+           mode: 'table' or 'tree' (default: 'table')
+       """
+       if mode == 'table':
+           display_as_table(files)
+       elif mode == 'tree':
+           display_as_tree(files)
+       else:
+           raise ValueError(f"Mode '{mode}' invalid. Use 'table' or 'tree'")
+   
+   # CLI: program --display=table or --display=tree
+   # GUI: Buttons "View as Table" | "View as Tree"
+   ```
+
+2. **Output Format**:
+   - ❌ **Bad**: Choose between JSON OR CSV
+   - ✅ **Good**: Export to JSON AND CSV (flag `--format`)
+
+3. **Sorting**:
+   - ❌ **Bad**: Choose between sort by name OR date
+   - ✅ **Good**: Allow sorting by name AND date AND size
+
+**When to Apply Parallel Options**:
+
+✅ **YES - Implement both when**:
+- Both options are **equally valid**
+- Different users have **different preferences**
+- Implementation cost is **reasonable** (doesn't significantly duplicate effort)
+- There's no **logical contradiction** between options
+- Significantly improves **user experience**
+
+❌ **NO - Choose one when**:
+- Options are **mutually exclusive** (impossible to have both)
+- Implementing both **doubles the work** without proportional benefit
+- One option is **clearly superior** in 90% of cases
+- There are **technical restrictions** that prevent both
+- Adds **excessive complexity** to interface
+
+**⚠️ CRITICAL: Notify User/Developer BEFORE**
+
+> **MANDATORY**: Before implementing parallel options, **ask the user** to avoid being treated as "feature creep" or unsolicited scope increase.
+
+**Notification Template**:
+```markdown
+❓ **Parallel Options Suggestion**
+
+During analysis, I identified **two valid ways** to [functionality]:
+
+**Option A**: [Description - e.g., Display as table]
+- Advantage: [e.g., Compact, easy comparison]
+- Disadvantage: [e.g., Hard to see hierarchy]
+
+**Option B**: [Description - e.g., Display as tree]
+- Advantage: [e.g., Shows hierarchy clearly]
+- Disadvantage: [e.g., Takes more vertical space]
+
+**Proposal**: Implement **BOTH** and allow user to choose via:
+- CLI: Flag `--display=table|tree` (default: table)
+- GUI: Toggle button "Table ⇄ Tree"
+
+**Additional effort estimated**: ~30 minutes (implement second view + control)
+
+**Benefit**: User chooses preferred format without losing functionality.
+
+**Do you authorize implementing both options?**
+A) ✅ Yes, implement both
+B) ❌ No, choose only [Option A | Option B]
+```
+
+**Benefits**:
+1. ✅ **Flexibility**: User chooses what they prefer
+2. ✅ **Accessibility**: Different users have different needs
+3. ✅ **Professionalism**: More complete and mature software
+4. ✅ **Avoids debates**: Don't need to "choose the best", offer both
+5. ✅ **Natural evolution**: Easy to add more options later
+
+**Message for AIs**:
+> "When identifying multiple valid ways to implement something, always ASK the user if they want to implement parallel options before choosing arbitrarily. Present pros/cons of each option and additional effort. Let the user decide if it's worth it. This demonstrates deep analysis and avoids surprises."
+
 **Why?**: Avoid refactoring, save time, ensure code consistent with the existing base.
 
 ---

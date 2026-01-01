@@ -2730,6 +2730,13 @@ Options: A) [option A] | B) [option B] | C) [option C]
 → Result: Implementation in 2h instead of 5h (60% savings)
 ```
 
+#### 🔀 **Parallel Options Principle (Multi-Choice)**
+
+[Content: Same as Protocol 1 EN core]
+
+**[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
+> "In enterprise environments, offering parallel options must be formally documented via ADR (Architecture Decision Record). Justify the additional implementation cost vs user benefit. Parallel options increase future maintenance (2x tests, 2x docs), so ensure stakeholder approval. Document in `docs/ADR/adr-NNN-multiple-options.md`."
+
 **Why?**: Avoids refactoring, saves time, ensures consistent code with the existing codebase.
 
 ---

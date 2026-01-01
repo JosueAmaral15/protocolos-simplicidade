@@ -2714,6 +2714,22 @@ Options: A) [option A] | B) [option B] | C) [option C]
 → Result: Implementation in 2h instead of 5h (60% saving)
 ```
 
+#### 🔀 **Parallel Options Principle (Multi-Choice)**
+
+[Content: Same core as Protocol 1 EN]
+
+**[SPECIFIC FOR SIMPLICITY 3 - SOLO]**:
+> "For solo developers, parallel options are a time investment that may be worth it LONG TERM. Ask yourself: 'Will I want to switch between these views frequently?' If yes, implement both. If not, choose one for now and add the second LATER if needed. Prioritize features you'll actually use. Don't spend 2h implementing an option you'll use once a year."
+
+**Cost-Benefit Analysis (Solo)**:
+Before implementing parallel options, answer:
+1. **Usage frequency**: Will I alternate between options regularly?
+2. **Implementation cost**: How much additional time? (<30min=do it, >60min=evaluate)
+3. **Future maintenance**: Will I have to test/document 2x more?
+4. **User feedback**: Have users requested multiple options?
+
+**Solo "MVP First" Strategy**: Implement main option FIRST, launch, collect feedback, add alternative LATER if requested.
+
 **Why?**: Avoids refactorings, saves time, ensures consistent code with the existing base.
 
 ---
