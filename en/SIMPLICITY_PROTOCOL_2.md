@@ -2226,6 +2226,48 @@ We will adopt Next.js 15 + React 19 + TypeScript stack:
 
 ---
 
+### 1️⃣.8️⃣ **Planning and Organization with Sprints** [MANDATORY BEFORE IMPLEMENTING]
+
+> **CRITICAL**: Before writing code, AI **MUST** create structured plan, define sprints, organize tasks in TASKS.md and document sequencing.
+
+#### 🎯 Mandatory for AI
+
+AI MUST:
+1. ✅ Create/update **docs/TASKS.md** with sprints and atomic tasks
+2. ✅ Define **logical sequencing** (foundation → simple → complex)
+3. ✅ Document **architecture in docs/ARCHITECTURE.md** BEFORE coding
+4. ✅ Identify **dependencies** and **blockers** upfront
+5. ✅ Estimate time for each task (max 4h per task)
+
+#### 🏢 Specific for Enterprise (Simplicity 2)
+
+**Team planning**:
+- ✅ **Product Owner** defines priorities → AI organizes into sprints
+- ✅ **Tech Lead** reviews architecture → AI documents decisions in ADR
+- ✅ **Team** estimates tasks → AI updates TASKS.md with consensus
+- ✅ **Stakeholders** track progress → TASKS.md as single source of truth
+
+**ADR mandatory** (see Step 11.5):
+- Every architectural decision MUST be documented in ADR
+- ADR created BEFORE implementing change
+- Example: "ADR-003: Message Broker Choice (RabbitMQ vs Kafka)"
+
+**Integration with enterprise tools**:
+- ✅ TASKS.md synced with Jira/Azure DevOps (if applicable)
+- ✅ CI/CD validates ADRs exist before merge
+- ✅ Code review verifies conformance with documented architecture
+
+**Mandatory ceremonies**:
+1. **Planning**: AI prepares TASKS.md → Team reviews and estimates
+2. **Daily**: AI updates status in TASKS.md
+3. **Review**: AI documents sprint deliverables
+4. **Retro**: AI records improvements in "Decision History"
+
+**Golden Rule Enterprise**:
+> "Code without team planning generates exponential technical debt. In enterprise, structured planning is NOT optional."
+
+---
+
 ### 2️⃣ **Choose the Simplest Tasks**
 
 In addition to `TASKS.md`, you can create **Action Plans** for tasks requiring detailed step-by-step guidance.

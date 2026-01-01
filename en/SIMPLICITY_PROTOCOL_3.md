@@ -2234,6 +2234,70 @@ If after **3 months** this stack doesn't meet expectations:
 
 ---
 
+### 1️⃣.8️⃣ **Planning and Organization with Sprints** [MANDATORY BEFORE IMPLEMENTING]
+
+> **CRITICAL**: Before writing code, AI **MUST** create structured plan, define short sprints, organize tasks in TASKS.md.
+
+#### 🎯 Mandatory for AI (Solo Developer)
+
+AI MUST:
+1. ✅ Create/update **docs/TASKS.md** with 1-3 day sprints
+2. ✅ Break features into **1-4h tasks** (maximum)
+3. ✅ Document **simple architecture** in docs/ARCHITECTURE.md
+4. ✅ Identify **blockers** before starting
+5. ✅ Prioritize tasks by **value/effort** (quick wins first)
+
+#### 🚀 Specific for Solo (Simplicity 3)
+
+**Agile solo planning**:
+- ✅ **Short sprints**: 1-3 days (no more)
+- ✅ **Small tasks**: 1-4h per task (focus and visible progress)
+- ✅ **MVP mindset**: Minimum testable feature per sprint
+- ✅ **JIT documentation** (Just-In-Time): Document only necessary
+- ✅ **No ceremonies**: Just update TASKS.md daily
+
+**Cost-benefit (Solo)**:
+- ⏱️ Time to plan sprint (3 days): ~30-45 min
+- ⏱️ Time saved (avoiding rework): ~2-4 hours
+- 💰 ROI: 3x-5x (VERY worth it)
+
+**Quick wins first**:
+```
+Value/Effort Matrix:
+
+High Value, Low Effort → SPRINT 1 (Quick Wins) ⭐
+High Value, High Effort → SPRINT 2-3 (Plan well)
+Low Value, Low Effort → BACKLOG (If time left)
+Low Value, High Effort → NEVER (Don't do it)
+```
+
+**Simplified architecture**:
+```markdown
+## docs/ARCHITECTURE.md (Solo - Minimum)
+
+### Structure
+- src/ - Main code
+- tests/ - Tests (when available)
+- docs/ - Documentation
+
+### Stack
+- [Main framework]: [Why chosen - 1 line]
+- [Database]: [Why chosen - 1 line]
+
+### Main Flow
+[ASCII diagram or 3-5 steps]
+
+DONE. Don't overcomplicate.
+```
+
+**Golden Rule Solo**:
+> "If you can't explain your plan in 5 minutes, it's too complex. Simplify."
+
+**Message for AIs (Solo Dev)**:
+> "Solo developer doesn't have time for planning meetings. But NEEDS organization. Create short sprints (1-3 days), small tasks (1-4h), minimum documentation. 30 minutes of planning saves 3 hours of rework. Organize yourself, but don't get lost in unnecessary ceremonies."
+
+---
+
 ### 2️⃣ **Choose the Simplest Tasks**
 
 **📋 About Action Plans**:

@@ -2292,6 +2292,137 @@ AI must **research** (online if necessary) which technologies are **widely used 
 
 ---
 
+### 1️⃣.8️⃣ **Planning and Organization with Sprints** [MANDATORY BEFORE IMPLEMENTING]
+
+> **CRITICAL**: Before writing any line of code, AI **MUST** create structured action plan, define sprints, organize tasks in TASKS.md and document sequencing.
+
+#### 🎯 Objective
+
+Ensure software is **well-structured** and **well-planned** by AI from existing documentation, creating clear roadmap before implementing.
+
+#### 📋 What AI MUST Do
+
+1. **Create/Update docs/TASKS.md** with complete structure
+2. **Define Logical Sprints** (1-3 days for solo dev)
+3. **Define Intermediate Tasks** (atomic, <4h each)
+4. **Create Structured Sequencing** (dependencies → foundation → simple → complex)
+5. **Document Architecture** in docs/ARCHITECTURE.md BEFORE coding
+
+#### 📝 Mandatory TASKS.md Structure
+
+```markdown
+# Tasks - [Project Name]
+
+## Sprints
+
+### Sprint 1: [Theme] (MM/DD - MM/DD)
+
+**Objective**: [Clear description]
+**Status**: [🟢 Done | 🟡 In Progress | ⚪ Not Started]
+
+- [x] **Task 1.1**: [Description]
+  - Priority: High | Medium | Low
+  - Estimate: [time]
+  - Dependencies: None
+  - Status: ✅ Done (MM/DD)
+
+- [ ] **Task 1.2**: [Description]
+  - Priority: High
+  - Estimate: [time]
+  - Dependencies: Task 1.1
+  - Status: 🟡 In Progress
+
+### Sprint 2: [Theme]
+[Same format]
+
+## Backlog
+[Future tasks]
+
+## Active Blockers
+[Questions, bugs, external dependencies]
+
+## Decision History
+[Architectural decisions with rationale]
+```
+
+#### 🔄 Sequencing Principles
+
+1. ✅ **Dependencies BEFORE**: Task A depends on B → Do B first
+2. ✅ **Foundation BEFORE**: Setup/architecture before features
+3. ✅ **Simple BEFORE**: Easy tasks before complex
+4. ✅ **Critical BEFORE**: Blockers before non-blockers
+5. ✅ **Testable BEFORE**: Implement tests with code
+
+#### 📋 Mandatory Checklist (BEFORE implementing any code)
+
+```markdown
+[ ] 1. Read 100% existing documentation (README, REQUIREMENTS, TASKS, ARCHITECTURE)
+[ ] 2. Created/updated docs/TASKS.md with complete structure
+[ ] 3. Defined at least 3 sprints with clear objectives
+[ ] 4. Broke each sprint into atomic tasks (max 4h each)
+[ ] 5. Defined dependencies between tasks
+[ ] 6. Created logical sequencing (foundation → simple → complex)
+[ ] 7. Documented architecture in docs/ARCHITECTURE.md
+[ ] 8. Identified possible blockers/risks
+[ ] 9. Estimated time for each task
+[ ] 10. Reviewed with developer (if necessary)
+[ ] ✅ PLANNING COMPLETE: Can start implementation
+```
+
+#### ⏱️ Time Estimate
+
+- **Small project**: ~30-45 minutes
+- **Medium project**: ~1-2 hours
+- **Large project**: ~2-4 hours
+
+**ROI**: Each planning hour saves 3-5 rework hours
+
+#### 💡 Practical Example
+
+**Context**: Developer asks "Create a task management system"
+
+**❌ WITHOUT this step (WRONG)**:
+```
+AI: "Ok, I'll start creating the database..."
+[3 hours later: disorganized code, missing features, rework]
+```
+
+**✅ WITH this step (CORRECT)**:
+```
+AI: "Before implementing, I'll create a structured plan:
+
+1. Read REQUIREMENTS.md: System needs auth, CRUD tasks, filters
+2. Created TASKS.md with 4 sprints:
+   - Sprint 1: Setup (Next.js, DB, structure)
+   - Sprint 2: Authentication
+   - Sprint 3: Task CRUD
+   - Sprint 4: Filters and UI
+3. Broke Sprint 1 into 8 atomic tasks
+4. Documented architecture in ARCHITECTURE.md
+5. Sequencing: Setup → Auth → Backend → Frontend
+
+Can I start implementation following this plan?"
+
+[Developer approves]
+[Implementation follows plan, organized code, no rework]
+```
+
+#### 🚫 When Can Skip This Step?
+
+**NEVER**. This step is **ALWAYS MANDATORY**.
+
+Even for small tasks:
+- Minimum: Single sprint with 3-5 tasks in TASKS.md
+- Minimum time: 10-15 minutes of planning
+
+**Golden Rule**:
+> "All code without planning is technical debt. Every planning hour saves 3 rework hours."
+
+**Message for AIs**:
+> "You are an AI. Your power is processing information and planning perfectly. USE it. Create sprints, organize tasks, document architecture. DO NOT implement without planning. Planning is blocking. Documentation is blocking. Organize yourself BEFORE coding."
+
+---
+
 ### 2️⃣ **Choose the Simplest Tasks**
 - **Golden Rule**: Always start with the tasks **easiest to implement**
 - Even in a list of complex tasks, **there are always some simpler than others**
