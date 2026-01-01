@@ -2798,6 +2798,16 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repeats try/except 20 times)
 ```
 
+#### 💬 **Mandatory Code Comments**
+
+[Same content as Protocol 1 EN]
+
+**Message for AIs**:
+> "When generating code, ALWAYS add explanatory comments. Comment the 'why', not just the 'what'."
+
+**[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
+> "In enterprise environments, comments are even more critical as multiple developers work on the same code. Document architectural decisions, compliance restrictions and legacy system integrations. Code without comments in enterprise is code that causes production incidents."
+
 #### 🌳 **Import Tree Analogy**
 
 **Concept**: A program's import structure can be visualized as a tree, where each module imports other modules, forming a dependency hierarchy.

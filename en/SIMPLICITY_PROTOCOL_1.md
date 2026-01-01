@@ -2561,6 +2561,171 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repeats try/except 20 times)
 ```
 
+#### 💬 **Mandatory Code Comments**
+
+> **CRITICAL**: All implemented code **MUST** be commented when the programming language supports comments.
+
+**Golden Rule**:
+> **"Code without comments is code nobody maintains. ALWAYS comment."**
+
+**When to comment** (ALWAYS):
+- ✅ **Functions and methods**: What they do, parameters, return
+- ✅ **Important logic blocks**: Why that approach
+- ✅ **Non-obvious variables**: What they represent
+- ✅ **Complex algorithms**: How they work
+- ✅ **Technical decisions**: Why it was done this way
+- ✅ **TODOs and FIXMEs**: What needs to be done
+- ✅ **Edge cases**: Why they are handled
+- ✅ **Constants and configurations**: Meaning and usage
+
+**WHAT to comment** (Priority):
+1. **"Why" > "What"**: Explain the reason, not just what the code does
+2. **Context**: Information that's not obvious in the code
+3. **Consequences**: What happens if something changes
+4. **Restrictions**: Limitations and precautions
+
+**Comment standards by language**:
+
+**Python**:
+```python
+# Single line comment
+"""
+Multi-line comment (docstring)
+for documenting functions, classes and modules
+"""
+
+def calculate_area(width: float, height: float) -> float:
+    """
+    Calculates the area of a rectangle.
+    
+    Args:
+        width: Rectangle width in meters
+        height: Rectangle height in meters
+    
+    Returns:
+        Area in square meters
+    
+    Example:
+        >>> calculate_area(5.0, 3.0)
+        15.0
+    """
+    return width * height
+
+# DECISION: Using direct multiplication instead of loop
+# because it's O(1) instead of O(n). Performance critical here.
+result = width * height
+
+# TODO: Add validation for negative values
+# FIXME: Bug when width=0, division by zero at line 150
+```
+
+**JavaScript/TypeScript**:
+```javascript
+// Single line comment
+/* Multi-line comment */
+/**
+ * JSDoc to document functions
+ * @param {number} width - Rectangle width
+ * @param {number} height - Rectangle height
+ * @returns {number} Area in square meters
+ */
+function calculateArea(width, height) {
+    // DECISION: Inline validation instead of separate function
+    // Reason: Performance (avoid function call overhead)
+    if (width <= 0 || height <= 0) {
+        throw new Error('Dimensions must be positive');
+    }
+    
+    return width * height; // Direct multiplication: O(1)
+}
+
+// TODO: Implement calculation for circles
+// @ts-ignore - Ignore temporary error (remove after refactoring)
+```
+
+**Complete Real Example** (Python):
+```python
+def execute_virtual_graph(config: dict) -> None:
+    """
+    Executes the graphical environment to display Cartesian planes.
+    
+    This method initializes the virtualGraph.py module and renders
+    configured graphics. Uses matplotlib for rendering.
+    
+    Args:
+        config: Dictionary with graph configurations
+               {'title': str, 'x_range': tuple, 'y_range': tuple}
+    
+    Raises:
+        ValueError: If config doesn't contain required keys
+        RuntimeError: If matplotlib is not available
+    
+    Example:
+        >>> config = {'title': 'Linear Function', 'x_range': (-10, 10)}
+        >>> execute_virtual_graph(config)
+        # Displays window with graph
+    """
+    # VALIDATION: Check required keys
+    # Reason: Avoid generic error later (fail-fast principle)
+    required_keys = ['title', 'x_range', 'y_range']
+    for key in required_keys:
+        if key not in config:
+            raise ValueError(f"Config missing required key: {key}")
+    
+    # DECISION: Import matplotlib here instead of at top
+    # Reason: Heavy import (~200ms), only load if actually used
+    import matplotlib.pyplot as plt
+    
+    # Create figure with size optimized for FullHD screen
+    # NOTE: (12, 8) is ideal size tested with users
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Configure title
+    # FIXME: Title with special characters causes error in PDF export
+    ax.set_title(config['title'])
+    
+    # Configure axis ranges
+    ax.set_xlim(config['x_range'])  # X axis
+    ax.set_ylim(config['y_range'])  # Y axis
+    
+    # DECISION: Grid enabled by default
+    # Context: 95% of users enable grid manually
+    ax.grid(True, alpha=0.3)
+    
+    # Display graph
+    # NOTE: Blocking - waits for user to close window
+    plt.show()
+    
+    # TODO: Add automatic PNG export option
+    # TODO: Implement interactive zoom (use mpl_toolkits)
+
+# Execute graphical environment
+VirtualGraph.execute()  # This command executes graphical environment features to display Cartesian planes from virtualGraph.py module
+```
+
+**Additional Guidelines**:
+
+✅ **ALWAYS comment**:
+- Any non-obvious code
+- Decisions that aren't evident
+- Temporary workarounds and hacks
+- Code you wouldn't understand yourself in 6 months
+
+❌ **DON'T comment**:
+- Self-explanatory code (e.g., `x = 5  # assigns 5 to x`)
+- Information already in variable/function name
+- Auto-generated code that's obvious
+
+**Benefits**:
+1. ✅ Facilitates future maintenance (by you or others)
+2. ✅ Reduces onboarding time for new developers
+3. ✅ Documents important technical decisions
+4. ✅ Prevents reintroduction of already fixed bugs
+5. ✅ Code becomes self-documented
+
+**Message for AIs**:
+> "When generating code, ALWAYS add explanatory comments. Comment the 'why', not just the 'what'. Well-commented code is worth 10x more than clean code without comments. Prioritize comments on technical decisions, complex algorithms and special cases."
+
 #### 🌳 **Import Tree Analogy**
 
 **Concept**: A program's import structure can be visualized as a tree, where each module imports other modules, forming a dependency hierarchy.
