@@ -2,10 +2,21 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Baseado em**: Protocolo Simplicidade 1 v2.1  
-**Versão**: 2.3  
+**Baseado em**: Protocolo Simplicidade 1 v2.2  
+**Versão**: 2.4  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
+
+**Changelog v2.4** (01/01/2026):
+- ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
+- ✅ Foco enterprise: Leitura obrigatória de ADRs, segurança e compliance
+- ✅ Estrutura mínima enterprise: ADR template, security/, api/
+- ✅ Template de README com stakeholders e aprovadores
+- ✅ Template completo de ADR (Architecture Decision Record)
+- ✅ Checklist expandido (12 itens) incluindo validação de compliance
+- ✅ Documentação formal obrigatória para toda decisão arquitetural
+- ✅ Coordenação de equipe via documentação compartilhada
+- ✅ Rationale: Documentação é evidência para auditoria
 
 **Changelog v2.3** (01/01/2026):
 - ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
@@ -1854,6 +1865,273 @@ Use Matriz de Decisão (Etapa 2.5) quando há múltiplas formas de dividir:
 **13.5** 🔄 Retrospectiva de Sprint
 
 ### 1️⃣ **Ler a Documentação**
+
+> **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+
+#### 📖 **Etapa 1.0: Busca e Leitura Completa de Documentação** [PRIORITÁRIO]
+
+**ANTES de começar qualquer tarefa**, a IA deve:
+
+**Passo 1: Procurar por toda documentação markdown no projeto**
+
+Buscar recursivamente por todos os arquivos `.md` no workspace:
+- 📂 **Raiz do projeto**: `README.md`, `TASKS.md`, `TODO.md`, `CHANGELOG.md`, etc.
+- 📂 **Pasta `docs/`**: Toda documentação existente
+- 📂 **Subpastas**: `docs/plans/`, `docs/ADR/`, `docs/api/`, etc.
+- 📂 **Qualquer outro local**: Arquivos `.md` em qualquer diretório
+
+**Comando sugerido** (para IA com acesso a terminal):
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+```
+
+**Passo 2: Ler 100% do conteúdo de todos os arquivos markdown encontrados**
+
+A IA **DEVE LER COMPLETAMENTE**:
+- ✅ `README.md` - Visão geral do projeto
+- ✅ `TASKS.md` ou equivalente - Tarefas pendentes e concluídas
+- ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
+- ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack tecnológico
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões anteriores
+- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
+- ✅ `docs/plans/*.md` - Planos de ação existentes
+- ✅ `docs/ADR/*.md` - **Architecture Decision Records** (crítico para enterprise)
+- ✅ `docs/api/*.md` - Documentação de API (se houver)
+- ✅ `docs/security/*.md` - Checklists de segurança (OWASP)
+- ✅ **Qualquer outro arquivo `.md`** encontrado
+
+**[ESPECÍFICO PARA SIMPLICIDADE 2 - ENTERPRISE]**:
+- ✅ **ADRs são críticos**: Decisões arquiteturais formais devem ser lidas primeiro
+- ✅ **Padrões corporativos**: Ler documentação sobre padrões da empresa
+- ✅ **Compliance**: Documentação sobre requisitos regulatórios
+
+**Passo 3: Se NÃO encontrar documentação, perguntar ao usuário/equipe**
+
+Se a IA **não encontrar** documentação markdown:
+
+```markdown
+❓ **Documentação do Projeto**
+
+Procurei por documentação markdown no projeto mas não encontrei arquivos `.md`.
+
+**Você/A equipe tem documentação do projeto?**
+A) Sim, está em [localização específica]
+B) Sim, mas em formato diferente (.txt, .docx, Confluence, etc.)
+C) Não, ainda não existe documentação
+
+**Se C (não existe documentação):**
+Preciso criar a documentação inicial do zero conforme padrões enterprise. Para isso, preciso:
+
+1. **Requisitos do Projeto**:
+   - Qual o objetivo principal deste projeto?
+   - Quais funcionalidades devem ser implementadas?
+   - Quem são os stakeholders?
+   - Há requisitos de compliance/auditoria?
+
+2. **Estrutura Organizacional**:
+   - Quem são os responsáveis (Product Owner, Tech Lead, Devs)?
+   - Há processos de aprovação estabelecidos?
+   - Qual o fluxo de code review?
+
+3. **Padrões Corporativos**:
+   - A empresa tem stack tecnológico padrão?
+   - Há templates de documentação obrigatórios?
+   - Existem políticas de segurança/privacidade?
+
+Com essas informações, vou criar a estrutura de documentação enterprise:
+- `README.md` (visão geral)
+- `docs/REQUIREMENTS.md` (requisitos com stakeholders)
+- `docs/TASKS.md` (backlog e sprint planning)
+- `docs/ARCHITECTURE.md` (decisões técnicas formais)
+- `docs/ADR/` (Architecture Decision Records)
+```
+
+**Passo 4: Se documentação não existir, criar estrutura enterprise**
+
+**A IA deve criar documentação inicial obrigatória (Enterprise)**:
+
+**Estrutura Mínima Obrigatória (Enterprise)**:
+```
+📁 Raiz do Projeto
+├── README.md                    # Visão geral do projeto
+├── TASKS.md                     # Backlog (ou docs/TASKS.md)
+└── 📁 docs/
+    ├── REQUIREMENTS.md          # Requisitos com stakeholders
+    ├── ARCHITECTURE.md          # Stack e decisões formais
+    ├── v0.1.0-SPECIFICATIONS.md # Primeira especificação
+    ├── 📁 ADR/                  # Architecture Decision Records
+    │   └── template-adr.md      # Template para novos ADRs
+    ├── 📁 security/             # Checklists de segurança
+    │   └── OWASP-checklist.md   # Checklist OWASP Top 10
+    └── 📁 api/                  # Documentação de API (se aplicável)
+        └── api-reference.md
+```
+
+**Template de README.md inicial (Enterprise)**:
+```markdown
+# [Nome do Projeto]
+
+**Versão**: 0.1.0  
+**Status**: Em desenvolvimento  
+**Última Atualização**: [Data]  
+**Product Owner**: [Nome]  
+**Tech Lead**: [Nome]  
+**Equipe**: [Nomes dos desenvolvedores]
+
+## 📋 Descrição
+
+[Breve descrição do objetivo do projeto e valor de negócio]
+
+## 🎯 Funcionalidades Principais
+
+- [ ] [Funcionalidade 1]
+- [ ] [Funcionalidade 2]
+- [ ] [Funcionalidade 3]
+
+## 👥 Stakeholders
+
+- **Product Owner**: [Nome] - [email]
+- **Tech Lead**: [Nome] - [email]
+- **Dev Team**: [Nomes]
+- **QA**: [Nome] - [email]
+- **Security**: [Nome] - [email]
+
+## 🛠️ Stack Tecnológico
+
+**Linguagem**: [Linguagem principal]  
+**Framework**: [Framework utilizado]  
+**Banco de Dados**: [Tecnologia]  
+**Infraestrutura**: [Cloud provider, CI/CD]
+
+**Decisão Formal**: Ver [ADR-001](docs/ADR/adr-001-tech-stack.md)
+
+## 📚 Documentação
+
+- [REQUIREMENTS.md](docs/REQUIREMENTS.md) - Requisitos detalhados
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Decisões arquiteturais
+- [TASKS.md](TASKS.md) - Gerenciamento de tarefas (Scrum/Kanban)
+- [ADRs](docs/ADR/) - Architecture Decision Records
+
+## 🔐 Segurança e Compliance
+
+- [OWASP Checklist](docs/security/OWASP-checklist.md)
+- Política de segurança: [Link para política corporativa]
+
+## 🚀 Como Executar
+
+[Instruções de instalação, desenvolvimento, deploy]
+
+## 📝 Licença
+
+[Licença do projeto]
+```
+
+**Template de docs/ADR/template-adr.md**:
+```markdown
+# ADR-XXX: [Título da Decisão]
+
+**Status**: Proposto | Aceito | Substituído | Rejeitado  
+**Data**: YYYY-MM-DD  
+**Decisão de**: [Nome do Tech Lead/Arquiteto]  
+**Aprovadores**: [Nomes dos aprovadores]
+
+## Contexto
+
+[Descrever o problema ou necessidade que levou a esta decisão]
+
+## Decisão
+
+[Descrever a decisão tomada de forma clara e objetiva]
+
+## Alternativas Consideradas
+
+1. **Alternativa A**: [Descrição] - Rejeitada porque [razão]
+2. **Alternativa B**: [Descrição] - Rejeitada porque [razão]
+
+## Consequências
+
+**Positivas**:
+- [Benefício 1]
+- [Benefício 2]
+
+**Negativas** (trade-offs):
+- [Trade-off 1]
+- [Trade-off 2]
+
+## Validação
+
+- ✅ Aprovado por: [Nomes dos aprovadores]
+- ✅ Data da reunião: [YYYY-MM-DD]
+- ✅ Votação: [X votos a favor, Y contra, Z abstenções]
+
+## Referências
+
+- [Link para documentação técnica]
+- [Link para casos de uso similares]
+- [Link para benchmarks]
+
+## Revisão Futura
+
+- Data de revisão: [YYYY-MM-DD + 6 meses]
+- Critérios de sucesso: [Como medir se decisão foi acertada]
+```
+
+**Passo 5: Documentar evolução com rigor enterprise**
+
+**Durante o desenvolvimento**, a IA deve:
+- ✅ **Atualizar TASKS.md**: Marcar tarefas, atribuir responsáveis
+- ✅ **Criar SPECIFICATIONS.md**: Documentar cada versão com aprovações formais
+- ✅ **Criar ADRs**: Para TODA decisão arquitetural significativa
+- ✅ **Atualizar ARCHITECTURE.md**: Refletir mudanças arquiteturais
+- ✅ **Comentar código**: Explicar "por quê", não apenas "o que"
+- ✅ **Documentar APIs**: Manter documentação de API atualizada
+
+**[ESPECÍFICO PARA ENTERPRISE]**:
+- ✅ **Code Review Documentation**: Documentar feedback e decisões de code review
+- ✅ **Security Documentation**: Atualizar checklists de segurança
+- ✅ **Compliance Documentation**: Manter registros de auditoria
+
+#### 📋 Checklist de Leitura de Documentação (Para IAs - Enterprise)
+
+**Antes de iniciar QUALQUER tarefa**:
+
+```markdown
+[ ] 🔍 Busquei recursivamente por todos arquivos .md no projeto
+[ ] 📖 Li 100% do conteúdo de TODOS os arquivos .md encontrados
+[ ] 📋 Li TODOS os ADRs existentes (decisões arquiteturais formais)
+[ ] 🔐 Li documentação de segurança e compliance
+[ ] 📝 Se não encontrei documentação, perguntei ao usuário/equipe
+[ ] 📚 Se não existe, criei estrutura enterprise (incluindo ADR template)
+[ ] 🎯 Entendi o objetivo, stakeholders e estrutura organizacional
+[ ] 📋 Sei quais tarefas estão pendentes e quem são os responsáveis
+[ ] 🛠️ Conheço o stack tecnológico e ADR de sua escolha
+[ ] 🏗️ Entendi as decisões arquiteturais e seu rationale
+[ ] 👥 Sei quem são os aprovadores para decisões futuras
+[ ] ✅ Estou pronto para trabalhar com contexto completo enterprise
+```
+
+**Somente após completar este checklist, prosseguir para as etapas seguintes.**
+
+#### 🚀 Rationale (Enterprise)
+
+**Por quê leitura completa é CRÍTICA em ambientes enterprise?**
+
+1. ✅ **Decisões Formais**: ADRs documentam por quê escolhas foram feitas
+2. ✅ **Compliance**: Não cumprir padrões corporativos pode bloquear deploy
+3. ✅ **Coordenação de Equipe**: Múltiplos devs precisam de contexto compartilhado
+4. ✅ **Auditoria**: Documentação é evidência para auditorias
+5. ✅ **Onboarding**: Novos membros da equipe dependem de documentação completa
+6. ✅ **Custo de Retrabalho**: Em equipes grandes, retrabalho é exponencialmente mais caro
+
+**Mensagem para IAs (Enterprise)**:
+> "Em ambientes enterprise, documentação não é opcional - é OBRIGATÓRIA e FORMAL. Ler 100% dos ADRs, checklists de segurança e documentação de compliance ANTES de codificar é requisito crítico. Decisões sem ADR podem ser rejeitadas em code review."
+
+**Regra de Ouro (Enterprise)**:
+> **"Em enterprise, documentação é evidência. Não existe trabalho feito sem documentação formal."**
+
+---
+
+**Após completar a leitura da documentação**, prosseguir para:
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)

@@ -168,6 +168,184 @@ Cada protocolo contém uma seção completa "🔍 Busca Binária para Localizaç
 
 ---
 
+## 📖 Leitura de Documentação: Primeira Ação Obrigatória (NOVO v2.2/2.4/3.3)
+
+> **🚨 CRÍTICO PARA IAs**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+
+### 🎯 O Que Mudou
+
+A partir das versões mais recentes (v2.2, v2.4, v3.3), **todos os três protocolos** incluem agora a **Etapa 1.0: Busca e Leitura Completa de Documentação** como **PRIMEIRA AÇÃO PRIORITÁRIA** antes de qualquer tarefa.
+
+### 📋 Como Funciona
+
+**Passo 1: Busca Recursiva**
+
+A IA deve procurar **TODOS** os arquivos `.md` no workspace:
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+```
+
+**Locais a buscar**:
+- 📂 Raiz: `README.md`, `TASKS.md`, `CHANGELOG.md`
+- 📂 `docs/`: Toda documentação estruturada
+- 📂 `docs/plans/`: Planos de ação
+- 📂 `docs/ADR/`: Architecture Decision Records (Simplicidade 2)
+- 📂 `docs/security/`: Checklists de segurança (Simplicidade 3)
+- 📂 `docs/rollback/`: Planos de rollback (Simplicidade 3)
+- 📂 Qualquer outro diretório com `.md`
+
+**Passo 2: Leitura Completa (100%)**
+
+A IA deve ler **COMPLETAMENTE** todos os arquivos encontrados:
+- ✅ `README.md` - Visão geral do projeto
+- ✅ `TASKS.md` - Tarefas pendentes e concluídas
+- ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
+- ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões
+- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
+- ✅ `docs/plans/*.md` - Planos de ação
+- ✅ `docs/ADR/*.md` - Decisões formais (Enterprise)
+- ✅ `docs/security/*.md` - Checklists OWASP (Produção)
+- ✅ Qualquer outro arquivo `.md`
+
+**Passo 3: Se Não Encontrar Documentação**
+
+A IA **DEVE** perguntar ao usuário:
+```markdown
+❓ Procurei por documentação markdown mas não encontrei arquivos .md.
+
+Você tem documentação do projeto?
+A) Sim, está em [localização específica]
+B) Sim, mas em formato diferente
+C) Não, ainda não existe
+
+Se C: Vou criar a estrutura inicial de documentação.
+```
+
+**Passo 4: Criar Documentação Inicial (Se Não Existir)**
+
+A IA deve criar estrutura mínima obrigatória:
+
+**Simplicidade 1** (Protótipos):
+```
+README.md
+TASKS.md
+docs/
+├── REQUIREMENTS.md
+├── ARCHITECTURE.md
+└── v0.1.0-SPECIFICATIONS.md
+```
+
+**Simplicidade 2** (Enterprise):
+```
+README.md
+TASKS.md
+docs/
+├── REQUIREMENTS.md
+├── ARCHITECTURE.md
+├── v0.1.0-SPECIFICATIONS.md
+├── ADR/
+│   └── template-adr.md
+├── security/
+│   └── OWASP-checklist.md
+└── api/
+    └── api-reference.md
+```
+
+**Simplicidade 3** (Solo em Produção):
+```
+README.md
+TASKS.md
+docs/
+├── REQUIREMENTS.md
+├── ARCHITECTURE.md
+├── v0.1.0-SPECIFICATIONS.md
+├── security/
+│   └── OWASP-checklist.md
+└── rollback/
+    └── rollback-template.md
+```
+
+### ✅ Checklist Obrigatório (Para IAs)
+
+Antes de iniciar qualquer tarefa:
+
+```markdown
+[ ] 🔍 Busquei recursivamente por todos arquivos .md
+[ ] 📖 Li 100% do conteúdo de TODOS os arquivos encontrados
+[ ] 📝 Se não encontrei, perguntei ao usuário
+[ ] 📚 Se não existe, criei estrutura mínima
+[ ] 🎯 Entendi objetivo e contexto completo
+[ ] 📋 Sei quais tarefas estão pendentes
+[ ] 🛠️ Conheço o stack tecnológico
+[ ] 🏗️ Entendi decisões arquiteturais
+[ ] ✅ Pronto para trabalhar com contexto completo
+```
+
+### 🚀 Rationale: Por Quê Isso é CRÍTICO?
+
+**Para TODOS os Protocolos**:
+1. ✅ **Contexto é Tudo**: Código sem contexto é impossível de manter
+2. ✅ **Evita Duplicação**: Não reimplementar funcionalidades existentes
+3. ✅ **Decisões Anteriores**: Entender por quê escolhas foram feitas
+4. ✅ **Consistência**: Seguir padrões já estabelecidos
+5. ✅ **Produtividade**: 10 minutos de leitura economizam horas de retrabalho
+
+**Simplicidade 1** (Protótipos):
+- ✅ Evita reintroduzir bugs já corrigidos
+- ✅ Mantém consistência de estilo e padrões
+
+**Simplicidade 2** (Enterprise):
+- ✅ **ADRs são críticos**: Decisões formais não podem ser ignoradas
+- ✅ **Compliance**: Não seguir padrões corporativos bloqueia deploy
+- ✅ **Coordenação**: Múltiplos devs precisam de contexto compartilhado
+
+**Simplicidade 3** (Solo em Produção):
+- ✅ **Memória Externa**: Documentação é seu "colega de equipe virtual"
+- ✅ **Sem Backup**: Não há quem perguntar se travar
+- ✅ **Futuro Você**: Documentar para "você do futuro" (você esquece decisões)
+- ✅ **Continuidade**: Se ficar doente/férias, alguém precisa assumir
+
+### 💬 Mensagens para IAs
+
+**Regra de Ouro Universal**:
+> **"Ler documentação PRIMEIRO, codificar DEPOIS. Sempre. Sem exceções."**
+
+**Simplicidade 1**:
+> "10 minutos de leitura economizam horas de retrabalho."
+
+**Simplicidade 2**:
+> "Em enterprise, documentação não é opcional - é OBRIGATÓRIA e FORMAL. Ler 100% dos ADRs ANTES de codificar."
+
+**Simplicidade 3**:
+> "Para solo developers, documentação é CRÍTICA. Você não tem equipe. Documente como se fosse ser atropelado por um ônibus amanhã."
+
+### 📊 Comentários no Código
+
+Além de documentação markdown, a IA deve adicionar **comentários úteis** no código:
+
+**O QUE documentar nos comentários**:
+- ✅ **Por quê** o código foi escrito assim (não apenas "o que" faz)
+- ✅ **Decisões não-óbvias**: Por quê escolheu abordagem X ao invés de Y
+- ✅ **Edge cases**: Por quê certos casos especiais são tratados
+- ✅ **TODOs**: O que falta implementar ou pode ser melhorado
+
+**Exemplo de comentário útil**:
+```python
+# DECISÃO: Usamos cache em memória ao invés de Redis porque:
+# 1. Escala do projeto não justifica complexidade
+# 2. Dados pequenos (<10MB) não precisam persistir
+# 3. Startup rápido é prioridade
+cache = {}
+
+# TODO: Se escala ultrapassar 100k registros, migrar para Redis
+# Estimativa: ~2h de trabalho, criar rollback plan antes
+```
+
+📖 **Detalhes completos**: Veja Etapa 1.0 de cada protocolo para templates, comandos e exemplos específicos.
+
+---
+
 ## 📝 Documentação Obrigatória na Pasta `docs/`
 
 > **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
@@ -1167,9 +1345,9 @@ Cada protocolo contém a documentação completa com:
 - **Autor:** Josué Amaral
 - **Licença:** Uso interno e educacional.
 - **Status:**
-    - Simplicidade 1: `v2.1`
-    - Simplicidade 2: `v2.3`
-    - Simplicidade 3: `v3.2`
+    - Simplicidade 1: `v2.2`
+    - Simplicidade 2: `v2.4`
+    - Simplicidade 3: `v3.3`
     - Analogia da Árvore de Importações: `v1.0`
     - Fator de Memória Associativa: `v1.0`
 

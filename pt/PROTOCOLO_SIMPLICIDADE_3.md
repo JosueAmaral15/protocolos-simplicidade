@@ -2,9 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.2  
+**Versão**: 3.3  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+
+**Changelog v3.3** (01/01/2026):
+- ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
+- ✅ Foco solo: Documentação como "memória externa" do desenvolvedor
+- ✅ Leitura obrigatória de OWASP checklist e rollback plans (críticos)
+- ✅ Estrutura mínima solo: security/ e rollback/ obrigatórios
+- ✅ Template de README com info de produção (deploy, uptime, contato)
+- ✅ Template de OWASP-checklist.md (verificar ANTES de cada deploy)
+- ✅ Checklist de 10 itens focado em solo developer
+- ✅ Comentários no código: Documentar para "você do futuro"
+- ✅ Rationale: Sem equipe, documentação é seu colega virtual
 
 **Changelog v3.2** (01/01/2026):
 - ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
@@ -1920,6 +1931,215 @@ Regra prática:
 **Total**: 14 base + 3 obrigatórias novas ⭐ + 3 opcionais = **17-20 etapas**
 
 ### 1️⃣ **Ler a Documentação**
+
+> **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+
+#### 📖 **Etapa 1.0: Busca e Leitura Completa de Documentação** [PRIORITÁRIO]
+
+**ANTES de começar qualquer tarefa**, a IA deve:
+
+**Passo 1: Procurar por toda documentação markdown**
+
+Buscar recursivamente por todos os arquivos `.md` no workspace:
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+```
+
+**Passo 2: Ler 100% do conteúdo encontrado**
+
+A IA **DEVE LER COMPLETAMENTE**:
+- ✅ `README.md` - Visão geral
+- ✅ `TASKS.md` - Tarefas pendentes e concluídas
+- ✅ `docs/REQUIREMENTS.md` - Requisitos
+- ✅ `docs/ARCHITECTURE.md` - Stack e decisões técnicas
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões
+- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
+- ✅ `docs/plans/*.md` - Planos de ação
+- ✅ `docs/security/OWASP-checklist.md` - **Checklist de segurança (crítico)**
+- ✅ `docs/rollback/*.md` - **Planos de rollback (crítico)**
+- ✅ **Qualquer outro arquivo `.md`**
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+- ✅ **Notas de Decisão**: Entender por quê você (desenvolvedor) escolheu X ao invés de Y
+- ✅ **Planos de Rollback**: Como reverter mudanças se algo der errado
+- ✅ **Security Checklist**: OWASP é obrigatório - ler antes de qualquer implementação
+
+**Passo 3: Se NÃO encontrar documentação, perguntar**
+
+```markdown
+❓ **Documentação do Projeto**
+
+Procurei por documentação markdown mas não encontrei arquivos `.md`.
+
+**Você tem documentação do projeto?**
+A) Sim, está em [localização específica]
+B) Sim, mas em formato diferente (.txt, etc.)
+C) Não, ainda não existe
+
+**Se C (não existe):**
+Vou criar estrutura mínima para solo developer em produção:
+
+1. **Requisitos**:
+   - Objetivo do projeto?
+   - Funcionalidades principais?
+   - Usuários/clientes?
+
+2. **Contexto Técnico**:
+   - Stack já definido?
+   - Código existente?
+   - Escala esperada?
+
+Com essas informações, criarei:
+- `README.md` (visão geral)
+- `docs/REQUIREMENTS.md` (requisitos)
+- `docs/TASKS.md` (tarefas)
+- `docs/ARCHITECTURE.md` (decisões técnicas)
+- `docs/security/OWASP-checklist.md` (segurança obrigatória)
+```
+
+**Passo 4: Criar estrutura solo em produção**
+
+**Estrutura Mínima Obrigatória (Solo em Produção)**:
+```
+📁 Raiz do Projeto
+├── README.md                    # Visão geral
+├── TASKS.md                     # Tarefas
+└── 📁 docs/
+    ├── REQUIREMENTS.md          # Requisitos
+    ├── ARCHITECTURE.md          # Stack e decisões
+    ├── v0.1.0-SPECIFICATIONS.md # Primeira spec
+    ├── 📁 security/             # OBRIGATÓRIO
+    │   └── OWASP-checklist.md   # Checklist OWASP Top 10
+    └── 📁 rollback/             # OBRIGATÓRIO
+        └── rollback-template.md # Template de plano
+```
+
+**Template de README.md (Solo em Produção)**:
+```markdown
+# [Nome do Projeto]
+
+**Versão**: 0.1.0  
+**Status**: Em desenvolvimento  
+**Developer**: [Seu nome]  
+**Início**: [Data]
+
+## 📋 Descrição
+
+[Objetivo do projeto]
+
+## 🚀 Produção
+
+**Deploy**: [Onde está deployado]  
+**Usuários**: [Quantos usuários ativos]  
+**Uptime**: [SLA esperado]
+
+## 🛠️ Stack Tecnológico
+
+**Linguagem**: [Linguagem + versão LTS]  
+**Framework**: [Framework + versão]  
+**BD**: [Banco de dados]  
+**Deploy**: [Plataforma]
+
+**Por quê esta stack?** Ver [ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
+## 🔐 Segurança
+
+- Checklist OWASP: [Ver](docs/security/OWASP-checklist.md)
+- CI/CD Quality Gates: [Status]
+
+## 🔄 Rollback
+
+Em caso de problema, ver [planos de rollback](docs/rollback/)
+
+## 📚 Documentação
+
+- [REQUIREMENTS.md](docs/REQUIREMENTS.md)
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- [TASKS.md](TASKS.md)
+
+## 🚨 Contato de Emergência
+
+**Email**: [seu email]  
+**Tempo de resposta**: [ex: 24h]
+```
+
+**Template de docs/security/OWASP-checklist.md**:
+```markdown
+# Checklist OWASP Top 10 - [Projeto]
+
+**OBRIGATÓRIO**: Verificar ANTES de cada deploy.
+
+## A01:2021 – Broken Access Control
+- [ ] Autenticação implementada em todas as rotas sensíveis
+- [ ] Autorização validada (usuário só acessa seus dados)
+- [ ] CORS configurado corretamente
+
+## A02:2021 – Cryptographic Failures
+- [ ] Senhas hasheadas (bcrypt, Argon2)
+- [ ] HTTPS em produção
+- [ ] Tokens seguros (JWT com expiração)
+
+## A03:2021 – Injection
+- [ ] SQL: Queries parametrizadas (sem concatenação)
+- [ ] Input sanitizado
+- [ ] XSS prevenido (escape de HTML)
+
+[... restante do OWASP Top 10 ...]
+```
+
+**Passo 5: Documentar continuamente (Solo)**
+
+**Durante desenvolvimento**:
+- ✅ **Atualizar TASKS.md**: Progresso diário
+- ✅ **Criar SPECIFICATIONS.md**: Cada versão deployada
+- ✅ **Atualizar OWASP-checklist.md**: ANTES de cada deploy
+- ✅ **Criar Rollback Plans**: Para cada feature crítica
+- ✅ **Comentar código**: Explicar "por quê" suas decisões
+
+**Comentários úteis (Solo)**:
+```python
+# DECISÃO SOLO: Cache em memória ao invés de Redis
+# Razão: Não preciso complexidade de Redis neste momento
+# TODO: Migrar para Redis se escala passar de 10k usuários
+# Tempo estimado: 2h, criar rollback plan antes
+cache = {}
+```
+
+#### 📋 Checklist (Para IAs - Solo)
+
+```markdown
+[ ] 🔍 Busquei todos arquivos .md
+[ ] 📖 Li 100% do conteúdo encontrado
+[ ] 🔐 Li checklist OWASP (se existe)
+[ ] 🔄 Li planos de rollback existentes
+[ ] 📝 Se não há docs, perguntei e criei estrutura
+[ ] 🎯 Entendi objetivo e contexto completo
+[ ] 📋 Sei tarefas pendentes e concluídas
+[ ] 🛠️ Conheço stack e por quê foi escolhido
+[ ] 🏗️ Entendi decisões técnicas anteriores
+[ ] ✅ Pronto para trabalhar com contexto completo
+```
+
+#### 🚀 Rationale (Solo em Produção)
+
+**Por quê ler 100% é CRÍTICO para solo developer?**
+
+1. ✅ **Você é Único Mantenedor**: Contexto é sua memória externa
+2. ✅ **Sem Equipe para Perguntar**: Documentação é seu colega de equipe
+3. ✅ **Produção Crítica**: Bugs afetam usuários reais - contexto evita erros
+4. ✅ **Decisões Futuras**: Entender por quê você escolheu X meses atrás
+5. ✅ **Onboarding Futuro**: Se contratar alguém, documentação é essencial
+6. ✅ **Continuidade**: Se ficar doente/férias, alguém pode assumir
+
+**Mensagem para IAs (Solo)**:
+> "Para solo developers, documentação é CRÍTICA. Você não tem equipe para consultar. Ler 100% da documentação existente ANTES de codificar evita reintroduzir bugs já corrigidos ou quebrar decisões arquiteturais que você mesmo fez meses atrás. Documente para o 'você do futuro'."
+
+**Regra de Ouro (Solo)**:
+> **"Documente como se você fosse ser atropelado por um ônibus amanhã. Alguém precisa conseguir manter seu código."**
+
+---
+
+**Após completar a leitura**, prosseguir para:
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)

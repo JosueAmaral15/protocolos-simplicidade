@@ -2,9 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 30 de Novembro de 2025  
-**Versão**: 2.1  
+**Versão**: 2.2  
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
+
+**Changelog v2.2** (01/01/2026):
+- ✅ **[CRÍTICO]** Adicionada Etapa 1.0: Busca e Leitura Completa de Documentação (PRIORITÁRIO)
+- ✅ IA DEVE procurar e ler 100% da documentação markdown ANTES de qualquer tarefa
+- ✅ Busca recursiva por todos arquivos .md no workspace (find + grep)
+- ✅ Se não encontrar documentação, IA deve perguntar ao usuário
+- ✅ Se não existir, IA deve criar estrutura mínima (README, REQUIREMENTS, TASKS)
+- ✅ Templates completos para criação de documentação inicial
+- ✅ Checklist de 9 itens obrigatórios antes de prosseguir
+- ✅ Orientações sobre comentários no código (por quê, não apenas o que)
+- ✅ Rationale: Contexto é tudo, evita duplicação e retrabalho
 
 **Changelog v2.1** (01/01/2026):
 - ✅ **[OBRIGATÓRIO]** Adicionada Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto
@@ -2361,6 +2372,293 @@ Sprint 4 (2h):
 1️⃣3️⃣ 🚀 Fazer commit e push
 
 ### 1️⃣ **Ler a Documentação**
+
+> **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+
+#### 📖 **Etapa 1.0: Busca e Leitura Completa de Documentação** [PRIORITÁRIO]
+
+**ANTES de começar qualquer tarefa**, a IA deve:
+
+**Passo 1: Procurar por toda documentação markdown no projeto**
+
+Buscar recursivamente por todos os arquivos `.md` no workspace:
+- 📂 **Raiz do projeto**: `README.md`, `TASKS.md`, `TODO.md`, `CHANGELOG.md`, etc.
+- 📂 **Pasta `docs/`**: Toda documentação existente
+- 📂 **Subpastas**: `docs/plans/`, `docs/ADR/`, `docs/api/`, etc.
+- 📂 **Qualquer outro local**: Arquivos `.md` em qualquer diretório
+
+**Comando sugerido** (para IA com acesso a terminal):
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+```
+
+**Passo 2: Ler 100% do conteúdo de todos os arquivos markdown encontrados**
+
+A IA **DEVE LER COMPLETAMENTE**:
+- ✅ `README.md` - Visão geral do projeto
+- ✅ `TASKS.md` ou equivalente - Tarefas pendentes e concluídas
+- ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
+- ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack tecnológico
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões anteriores
+- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
+- ✅ `docs/plans/*.md` - Planos de ação existentes
+- ✅ `docs/ADR/*.md` - Architecture Decision Records (se houver)
+- ✅ **Qualquer outro arquivo `.md`** encontrado
+
+**Por quê ler 100%?**
+- ✅ **Contexto Completo**: Entender todo o histórico e decisões do projeto
+- ✅ **Evitar Retrabalho**: Não reimplementar funcionalidades já existentes
+- ✅ **Consistência**: Seguir padrões já estabelecidos
+- ✅ **Decisões Anteriores**: Entender por quê certas escolhas foram feitas
+- ✅ **Tarefas Pendentes**: Saber o que já foi feito e o que falta
+
+**Passo 3: Se NÃO encontrar documentação, perguntar ao usuário**
+
+Se a IA **não encontrar** documentação markdown:
+
+```markdown
+❓ **Documentação do Projeto**
+
+Procurei por documentação markdown no projeto mas não encontrei arquivos `.md`.
+
+**Você tem documentação do projeto?**
+A) Sim, está em [localização específica]
+B) Sim, mas em formato diferente (.txt, .docx, etc.)
+C) Não, ainda não existe documentação
+
+**Se C (não existe documentação):**
+Preciso criar a documentação inicial do zero. Para isso, preciso:
+
+1. **Requisitos do Projeto**:
+   - Qual o objetivo principal deste projeto?
+   - Quais funcionalidades devem ser implementadas?
+   - Quem são os usuários/clientes?
+
+2. **Tarefas Atuais**:
+   - Quais tarefas você precisa que eu realize?
+   - Há alguma prioridade específica?
+
+3. **Contexto Técnico**:
+   - Stack tecnológico já definido? (linguagens, frameworks)
+   - Há código existente? Se sim, onde?
+   - Há restrições técnicas?
+
+Com essas informações, vou criar a estrutura de documentação inicial:
+- `README.md` (visão geral)
+- `docs/REQUIREMENTS.md` (requisitos detalhados)
+- `docs/TASKS.md` (tarefas e progresso)
+- `docs/ARCHITECTURE.md` (decisões técnicas)
+```
+
+**Passo 4: Se documentação não existir, criar do zero**
+
+**A IA deve criar documentação inicial obrigatória**:
+
+**Estrutura Mínima Obrigatória**:
+```
+📁 Raiz do Projeto
+├── README.md                    # Visão geral do projeto
+├── TASKS.md                     # Lista de tarefas (ou docs/TASKS.md)
+└── 📁 docs/
+    ├── REQUIREMENTS.md          # Requisitos funcionais e não-funcionais
+    ├── ARCHITECTURE.md          # Stack tecnológico e decisões
+    └── v0.1.0-SPECIFICATIONS.md # Primeira especificação
+```
+
+**Template de README.md inicial**:
+```markdown
+# [Nome do Projeto]
+
+**Versão**: 0.1.0  
+**Status**: Em desenvolvimento  
+**Última Atualização**: [Data]
+
+## 📋 Descrição
+
+[Breve descrição do objetivo do projeto]
+
+## 🎯 Funcionalidades Principais
+
+- [ ] [Funcionalidade 1]
+- [ ] [Funcionalidade 2]
+- [ ] [Funcionalidade 3]
+
+## 🛠️ Stack Tecnológico
+
+**Linguagem**: [Linguagem principal]  
+**Framework**: [Framework utilizado]  
+**Banco de Dados**: [Se aplicável]
+
+## 📚 Documentação
+
+- [REQUIREMENTS.md](docs/REQUIREMENTS.md) - Requisitos detalhados
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) - Decisões arquiteturais
+- [TASKS.md](TASKS.md) - Gerenciamento de tarefas
+
+## 🚀 Como Executar
+
+[Instruções básicas de instalação e execução]
+
+## 📝 Licença
+
+[Licença do projeto]
+```
+
+**Template de docs/REQUIREMENTS.md inicial**:
+```markdown
+# Requisitos do Projeto - [Nome do Projeto]
+
+**Versão**: 0.1.0  
+**Data**: [Data de criação]  
+**Autor**: [Nome do desenvolvedor]
+
+## 🎯 Objetivo do Projeto
+
+[Descrição detalhada do que o projeto deve alcançar]
+
+## 👥 Usuários/Clientes
+
+[Quem vai usar este sistema? Qual o perfil?]
+
+## 📋 Requisitos Funcionais
+
+### RF01 - [Nome do Requisito]
+**Descrição**: [O que deve fazer]  
+**Prioridade**: 🔴 Alta | 🟡 Média | 🟢 Baixa  
+**Critérios de Aceitação**:
+- [ ] [Critério 1]
+- [ ] [Critério 2]
+
+### RF02 - [Outro Requisito]
+[...]
+
+## ⚙️ Requisitos Não-Funcionais
+
+### RNF01 - Performance
+[Requisitos de performance esperados]
+
+### RNF02 - Segurança
+[Requisitos de segurança]
+
+### RNF03 - Usabilidade
+[Requisitos de usabilidade]
+
+## 🚫 Restrições Técnicas
+
+- [Restrição 1]
+- [Restrição 2]
+
+## 📊 Escopo
+
+**Dentro do Escopo**:
+- [Item 1]
+- [Item 2]
+
+**Fora do Escopo** (versões futuras):
+- [Item 1]
+- [Item 2]
+```
+
+**Template de TASKS.md inicial**:
+```markdown
+# Tarefas - [Nome do Projeto]
+
+**Última Atualização**: [Data]
+
+## 🔴 MUST HAVE - v0.1.0
+
+### Infraestrutura
+- [ ] Configurar ambiente de desenvolvimento
+- [ ] Criar estrutura de diretórios
+- [ ] Configurar controle de versão (Git)
+
+### Documentação
+- [x] Criar README.md
+- [x] Criar REQUIREMENTS.md
+- [x] Criar TASKS.md
+- [ ] Criar ARCHITECTURE.md
+
+### Desenvolvimento
+- [ ] [Primeira funcionalidade a implementar]
+- [ ] [Segunda funcionalidade a implementar]
+
+## 🟡 SHOULD HAVE - v0.2.0
+[Funcionalidades importantes mas não urgentes]
+
+## 🟢 COULD HAVE - Futuro
+[Funcionalidades desejáveis]
+
+## 📊 Progresso
+- **Concluídas**: 3 tarefas
+- **Em Progresso**: 0 tarefas
+- **Pendentes**: X tarefas
+- **Total**: X tarefas
+```
+
+**Passo 5: Documentar evolução continuamente**
+
+**Durante o desenvolvimento**, a IA deve:
+- ✅ **Atualizar TASKS.md**: Marcar tarefas como concluídas
+- ✅ **Criar SPECIFICATIONS.md**: Documentar cada versão implementada
+- ✅ **Atualizar ARCHITECTURE.md**: Documentar decisões técnicas
+- ✅ **Comentar código**: Adicionar comentários explicativos para compreensão
+
+**Comentários no código** devem explicar:
+- **Por quê** o código foi escrito daquela forma (não apenas "o que" faz)
+- **Decisões não-óbvias**: Por quê escolheu abordagem X ao invés de Y
+- **Edge cases**: Por quê certos casos especiais são tratados
+- **TODOs**: O que falta implementar ou pode ser melhorado
+
+**Exemplo de comentários úteis**:
+```python
+# DECISÃO: Usamos cache em memória ao invés de Redis porque:
+# 1. Escala do projeto não justifica complexidade de Redis
+# 2. Dados são pequenos (<10MB) e não precisam persistir
+# 3. Startup rápido é prioridade (Redis adicionaria latência)
+cache = {}
+
+# TODO: Se escala ultrapassar 100k registros, migrar para Redis
+# Estimativa: ~2h de trabalho, documentar em ADR
+```
+
+#### 📋 Checklist de Leitura de Documentação (Para IAs)
+
+**Antes de iniciar QUALQUER tarefa**:
+
+```markdown
+[ ] 🔍 Busquei recursivamente por todos arquivos .md no projeto
+[ ] 📖 Li 100% do conteúdo de TODOS os arquivos .md encontrados
+[ ] 📝 Se não encontrei documentação, perguntei ao usuário se existe
+[ ] 📚 Se não existe, criei estrutura mínima (README, REQUIREMENTS, TASKS)
+[ ] 🎯 Entendi o objetivo e contexto completo do projeto
+[ ] 📋 Sei quais tarefas estão pendentes e quais já foram concluídas
+[ ] 🛠️ Conheço o stack tecnológico definido (se aplicável)
+[ ] 🏗️ Entendi as decisões arquiteturais anteriores
+[ ] ✅ Estou pronto para começar a trabalhar com contexto completo
+```
+
+**Somente após completar este checklist, prosseguir para as etapas seguintes.**
+
+#### 🚀 Rationale
+
+**Por quê ler 100% da documentação é PRIMEIRA ação obrigatória?**
+
+1. ✅ **Contexto é Tudo**: Código sem contexto é impossível de manter
+2. ✅ **Evita Duplicação**: Não reimplementar o que já existe
+3. ✅ **Decisões Anteriores**: Entender por quê escolhas foram feitas
+4. ✅ **Consistência**: Seguir padrões já estabelecidos no projeto
+5. ✅ **Produtividade**: 10 minutos de leitura economizam horas de retrabalho
+6. ✅ **Qualidade**: Código bem documentado desde o início
+
+**Mensagem para IAs**:
+> "NUNCA comece a codificar sem ler toda a documentação disponível. É como tentar continuar um livro sem ler os capítulos anteriores - você vai introduzir inconsistências, retrabalho e bugs. Invista 10-30 minutos lendo TUDO antes de escrever a primeira linha de código."
+
+**Regra de Ouro**:
+> **"Ler documentação PRIMEIRO, codificar DEPOIS. Sempre."**
+
+---
+
+**Após completar a leitura da documentação**, prosseguir para:
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
