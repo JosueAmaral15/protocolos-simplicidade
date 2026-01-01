@@ -139,6 +139,14 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 ---
 
+**Changelog v3.2** (01/01/2026):
+- ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
+- ✅ Formato solo: Documento simples e direto, sem burocracia
+- ✅ IA deve fornecer opções "boring tech" e análise de manutenção (horas/mês)
+- ✅ Após preenchimento, IA lê documento e implementa rapidamente
+- ✅ Rationale: Solo dev precisa documentar decisões sem perder tempo
+- ✅ Classificação: **RECOMENDADO para decisões complexas (stack, arquitetura)**
+
 **Changelog v3.1** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -377,6 +385,399 @@ Antes de iniciar qualquer tarefa nova:
 
 **Mensagem para IAs**: 
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
+
+---
+
+## 📝 Padrão de Questionários Editáveis para Solo Developers
+
+> **RECOMENDADO para decisões complexas**: Solo developers precisam documentar decisões importantes sem burocracia excessiva.
+
+### 🎯 Quando Usar Questionários Editáveis (Solo)
+
+**✅ Use questionários editáveis quando:**
+- Decisão sobre **stack tecnológico** (escolha que afeta todo o projeto)
+- Decisão sobre **arquitetura** (estrutura de pastas, padrões, etc.)
+- Escolha de **bibliotecas críticas** (state management, routing, etc.)
+- Planejamento de **features complexas** (múltiplas opções de implementação)
+- Decisões com **impacto de longo prazo** (> 3 meses de projeto)
+- Você quer **documentar para "você do futuro"** (por quê escolheu X e não Y)
+
+**❌ NÃO use quando:**
+- Decisão é trivial (qual cor de botão, nome de variável)
+- Implementação é óbvia (só uma maneira razoável de fazer)
+- Decisão pode ser revertida facilmente (< 1h de trabalho)
+
+### 📋 Formato Solo-Friendly do Questionário
+
+A IA deve criar um documento **simples e direto** (`.md`) sem burocracia:
+
+```markdown
+# Decisão: [Título] - [YYYY-MM-DD]
+
+**Por quê este doc?** [Explicação breve do problema]
+
+**O que você precisa decidir:** [Decisão principal em 1 linha]
+
+---
+
+### 🎯 OPÇÃO A: [Nome da Opção]
+
+💡 **Recomendação da IA**: ✅ **Recomendada** (ou ⚙️ Condicional / ❌ Não recomendada)
+
+**Resumo**: [1 frase sobre a opção]
+
+**Vantagens**:
+- ✅ [Vantagem 1]
+- ✅ [Vantagem 2]
+
+**Desvantagens**:
+- ❌ [Desvantagem 1]
+- ❌ [Desvantagem 2]
+
+**Manutenção Estimada**: [~Xh/mês]
+
+**Curva de Aprendizado**: 🟢 Fácil / 🟡 Moderada / 🔴 Íngreme
+
+**Boring Tech?**: ✅ Sim (estável há 5+ anos) / ❌ Não (tecnologia nova/hype)
+
+**Comunidade**: [Tamanho da comunidade: Pequena/Média/Grande]
+
+**Exemplo de Projeto**: [Link para projeto real usando essa opção]
+
+---
+
+### 🎯 OPÇÃO B: [Nome]
+
+[... mesmo formato ...]
+
+---
+
+### 🎯 OPÇÃO C (se houver)
+
+[... mesmo formato ...]
+
+---
+
+## 📊 Comparação Rápida
+
+| Critério | Opção A | Opção B | Opção C |
+|----------|---------|---------|---------|
+| **Manutenção/mês** | ~2h | ~5h | ~1h |
+| **Curva Aprend.** | 🟢 Fácil | 🔴 Íngreme | 🟢 Fácil |
+| **Boring Tech** | ✅ Sim | ❌ Não | ✅ Sim |
+| **Comunidade** | Grande | Pequena | Média |
+| **Deploy Grátis?** | ✅ Sim | ❌ Não | ✅ Sim |
+
+**⭐ Melhor para Solo Dev**: Opção A (menor manutenção + comunidade grande)
+
+---
+
+## ✅ Sua Decisão
+
+**Escolho:** _______ (A / B / C)
+
+**Por quê:** _______
+
+**Plano B (se não funcionar):** _______
+
+**Tempo estimado para testar:** _______ (horas/dias)
+
+**Gatilhos de Rollback** (quando desistir e mudar):
+- [ ] Se levar >Xh para implementar feature simples
+- [ ] Se bugs forem frequentes (>5 por semana)
+- [ ] Se manutenção exceder Xh/semana
+- [ ] Se não houver solução para problema Y na comunidade
+
+---
+
+## 🗓️ Registro para "Você do Futuro"
+
+**Data da Decisão**: _______  
+**Versão da Stack**: _______ (ex: Next.js 15.5.2)  
+**Estado do Projeto**: _______ (ex: início / refatoração / produção)  
+**Tempo de Projeto até Agora**: _______  
+**O que estava tentando resolver**: _______
+
+**Links Úteis**:
+- Documentação oficial: _______
+- Tutorial que ajudou: _______
+- Thread no Stack Overflow: _______
+- Discussão no Reddit: _______
+
+---
+
+**Status**: ⚙️ PENDENTE → ✅ DECIDIDO → 🚀 IMPLEMENTADO → 📈 VALIDADO
+
+```
+
+### 🔄 Fluxo Solo
+
+**Passo 1: IA Cria Documento Simples**
+```
+IA identifica decisão complexa (ex: escolher state management)
+     ↓
+IA pesquisa opções (Zustand, Redux, Context API, etc.)
+     ↓
+IA cria DECISAO_STATE_MANAGEMENT_20260101.md
+     ↓
+IA preenche análise de cada opção (manutenção, curva aprend., etc.)
+     ↓
+IA marca recomendação (✅ Zustand - mais simples para solo)
+     ↓
+IA notifica: "Criei doc com 3 opções analisadas. Preencha sua decisão."
+```
+
+**Passo 2: Solo Dev Analisa e Decide (Sem Pressa)**
+```
+Você abre o doc, lê as 3 opções
+     ↓
+Você compara: manutenção, curva de aprendizado, comunidade
+     ↓
+Você vê que Opção A = 2h/mês vs Opção B = 5h/mês
+     ↓
+Você escolhe Opção A (menor manutenção)
+     ↓
+Você preenche "Por quê" e "Plano B"
+     ↓
+Você define gatilhos de rollback claros
+     ↓
+Você salva o arquivo
+```
+
+**Passo 3: IA Implementa Baseado na Sua Escolha**
+```
+Você notifica: "Decidi por Opção A (Zustand)"
+     ↓
+IA lê DECISAO_STATE_MANAGEMENT_20260101.md
+     ↓
+IA vê escolha + plano B + gatilhos de rollback
+     ↓
+IA instala Zustand e implementa
+     ↓
+IA mantém doc como referência futura ("por quê Zustand e não Redux?")
+```
+
+### 🎯 Diferencial Solo vs Enterprise
+
+| Aspecto | Simplicity 3 (Solo) | Simplicity 2 (Enterprise) |
+|---------|---------------------|---------------------------|
+| **Formalidade** | Casual, direto | Formal com aprovações |
+| **Foco** | Manutenção (h/mês) | ROI ($), Compliance |
+| **Stakeholders** | Só você | Múltiplos com roles |
+| **Decisão** | Imediata | 1-5 dias (aprovações) |
+| **Boring Tech** | ✅ Prioridade | Não considerado |
+| **Plano B** | Simples (1 alternativa) | Formal com análise de risco |
+| **Rollback Triggers** | Pragmáticos (horas) | Corporativos (impacto) |
+| **Tempo Preenchimento** | 5-10 min | 30-60 min (análises formais) |
+
+### 💡 Dicas para Solo Developers
+
+**✅ Priorize "Boring Technology":**
+```
+Boring Tech = Tecnologia madura (5+ anos) com:
+- ✅ Grande comunidade
+- ✅ Documentação excelente
+- ✅ Poucos breaking changes
+- ✅ Empregado por empresas grandes
+
+Exemplo: React (boring ✅) vs Solid.js (hype ❌)
+```
+
+**✅ Calcule Manutenção em Horas/Mês:**
+```
+Stack com muita configuração = alta manutenção
+Stack com defaults sensatos = baixa manutenção
+
+Ex: Create React App (alta manutenção) vs Next.js (baixa manutenção)
+```
+
+**✅ Sempre Defina Plano B:**
+```
+Se escolher Opção A, sempre tenha Opção B como fallback
+
+Ex: 
+- Plano A: Next.js (se funcionar bem)
+- Plano B: Vite + React (se Next.js for overkill)
+```
+
+**✅ Gatilhos de Rollback Pragmáticos:**
+```
+Não seja dogmático. Defina quando desistir:
+
+"Se levar >20h para implementar auth básico → mudar para solução pronta"
+"Se bugs de build ocorrerem >2x/semana → considerar stack mais estável"
+```
+
+### 📊 Exemplo Real: Escolher State Management
+
+```markdown
+# Decisão: State Management para App de Tarefas - 2026-01-01
+
+**Por quê este doc?** Preciso escolher como gerenciar estado (tasks, filters, user)
+
+**O que você precisa decidir:** Qual biblioteca de state management usar
+
+---
+
+### 🎯 OPÇÃO A: Zustand
+
+💡 **Recomendação da IA**: ✅ **Recomendada para solo dev**
+
+**Resumo**: State management minimalista baseado em hooks
+
+**Vantagens**:
+- ✅ API super simples (~50 linhas de código total)
+- ✅ Zero boilerplate
+- ✅ Bom para apps pequenos-médios
+
+**Desvantagens**:
+- ❌ Sem DevTools oficial (mas tem extensão)
+- ❌ Comunidade menor que Redux
+
+**Manutenção Estimada**: ~1h/mês
+
+**Curva de Aprendizado**: 🟢 Fácil (30min para dominar básico)
+
+**Boring Tech?**: ⚙️ Moderada (3 anos de existência, crescendo)
+
+**Comunidade**: Média (15k stars GitHub)
+
+**Exemplo de Projeto**: Vercel Dashboard usa Zustand
+
+---
+
+### 🎯 OPÇÃO B: Redux Toolkit
+
+💡 **Recomendação da IA**: ⚙️ **Só se você já conhece Redux**
+
+**Resumo**: State management com padrão Flux
+
+**Vantagens**:
+- ✅ Comunidade gigante (respostas fáceis no Stack Overflow)
+- ✅ DevTools excelente
+
+**Desvantagens**:
+- ❌ Muito boilerplate (slices, actions, reducers...)
+- ❌ Overkill para apps pequenos
+
+**Manutenção Estimada**: ~5h/mês (refatorar slices)
+
+**Curva de Aprendizado**: 🔴 Íngreme (1-2 semanas para dominar)
+
+**Boring Tech?**: ✅ Sim (10+ anos de existência)
+
+**Comunidade**: Grande (60k stars GitHub)
+
+**Exemplo de Projeto**: Muitas empresas grandes (Uber, etc.)
+
+---
+
+### 🎯 OPÇÃO C: Context API (Built-in React)
+
+💡 **Recomendação da IA**: ⚙️ **Só para estado super simples**
+
+**Resumo**: Contexto nativo do React
+
+**Vantagens**:
+- ✅ Zero dependências externas
+- ✅ Já conhece se conhece React
+
+**Desvantagens**:
+- ❌ Re-renders desnecessários em apps grandes
+- ❌ Sem DevTools
+- ❌ Difícil de escalar
+
+**Manutenção Estimada**: ~0h/mês (nativo)
+
+**Curva de Aprendizado**: 🟢 Fácil
+
+**Boring Tech?**: ✅ Sim (parte do React)
+
+**Comunidade**: Gigante (React)
+
+---
+
+## 📊 Comparação Rápida
+
+| Critério | Zustand | Redux Toolkit | Context API |
+|----------|---------|---------------|-------------|
+| **Manutenção/mês** | ~1h | ~5h | ~0h |
+| **Curva Aprend.** | 🟢 Fácil | 🔴 Íngreme | 🟢 Fácil |
+| **Boring Tech** | ⚙️ Moderada | ✅ Sim | ✅ Sim |
+| **Comunidade** | Média | Grande | Gigante |
+| **Boilerplate** | Mínimo | Alto | Mínimo |
+
+**⭐ Melhor para Solo Dev**: Zustand (menor manutenção + API simples)
+
+---
+
+## ✅ Sua Decisão
+
+**Escolho:** A (Zustand)
+
+**Por quê:** App é médio porte, quero baixa manutenção, API simples é prioridade
+
+**Plano B (se não funcionar):** Context API (se app ficar muito simples)
+
+**Tempo estimado para testar:** 2 dias (implementar 2-3 features)
+
+**Gatilhos de Rollback**:
+- [ ] Se levar >4h para implementar state de tasks → considerar Context API
+- [ ] Se bugs de sincronização ocorrerem >3x → considerar Redux (mais previsível)
+- [ ] Se precisar de time-travel debug frequente → Redux DevTools melhor
+
+---
+
+## 🗓️ Registro para "Você do Futuro"
+
+**Data da Decisão**: 2026-01-01  
+**Versão da Stack**: React 19, Zustand 4.5  
+**Estado do Projeto**: Início (primeira semana)  
+**Tempo de Projeto até Agora**: 3 dias  
+**O que estava tentando resolver**: Gerenciar tasks, filters, user info
+
+**Links Úteis**:
+- Documentação oficial: https://github.com/pmndrs/zustand
+- Tutorial que ajudou: https://youtu.be/ABC123
+- Comparação Zustand vs Redux: https://example.com
+
+---
+
+**Status**: ✅ DECIDIDO (2026-01-01) → 🚀 IMPLEMENTADO (a fazer)
+```
+
+---
+
+### ✅ Checklist Solo para IAs
+
+Ao criar questionário para solo dev, a IA deve:
+
+```markdown
+[ ] Título com data (para "você do futuro")
+[ ] Problema explicado em 1-2 linhas (contexto rápido)
+[ ] Análise de manutenção (h/mês) para cada opção
+[ ] Análise de curva de aprendizado (🟢🟡🔴)
+[ ] Indicar se é "Boring Tech" ou "Hype"
+[ ] Tamanho da comunidade (buscar respostas quando travar)
+[ ] Comparação visual (tabela) para decisão rápida
+[ ] Recomendação clara (qual a IA sugere para solo)
+[ ] Espaço para Plano B (sempre ter fallback)
+[ ] Gatilhos de rollback pragmáticos (quando desistir)
+[ ] Seção "Para você do futuro" (por quê decidiu isso)
+[ ] Links úteis (docs, tutorials, discussões)
+```
+
+### 🎓 Conclusão Solo
+
+O padrão de questionários editáveis para solo developers:
+- ✅ **Documenta** decisões importantes sem burocracia
+- ✅ **Prioriza** manutenção e simplicidade (você está sozinho)
+- ✅ **"Boring Tech"** como critério de escolha (estabilidade > hype)
+- ✅ **Plano B sempre** (decisões reversíveis)
+- ✅ **Registro histórico** ("por quê escolhi X em 2026")
+
+**Regra Solo**: 
+> "Se a decisão afeta >3 meses de projeto, documente em questionário editável. Você do futuro vai agradecer."
 
 ---
 
@@ -2527,7 +2928,52 @@ A IA deve solicitar:
 
 **🤖 APIs de IA** (Opcionais)
 - **OpenAI API** - IA para feedback e avaliação
+- **GPT-4o-mini** - Modelo específico da OpenAI
 - **ElevenLabs API** - Síntese de voz
+
+**🏗️ Build & Development** (Detalhes Adicionais)
+- **Webpack** - Bundler alternativo (fallback do Turbopack)
+- **JavaScript ES2017+** - Linguagem base
+- **Chrome DevTools** - Debug de navegador
+
+**🎨 CSS & Styling Core** (Detalhes Adicionais)
+- **CSS Modules** - Sistema de modularização (já mencionado)
+
+**📊 State Management Details** (Detalhes Adicionais)
+- **Zustand DevTools** - Ferramentas de debug
+- **Zustand Persist Middleware** - Middleware de persistência
+
+**🌐 Browser APIs Nativas**
+- **Web Audio API** - API de áudio (gravação e reprodução)
+- **MediaRecorder API** - Gravação de áudio
+- **Fetch API** - Requisições HTTP nativas
+- **Cookies API** - Gerenciamento de cookies
+- **LocalStorage API** - Armazenamento local
+- **SessionStorage API** - Armazenamento de sessão
+- **Navigator API** - Acesso a dispositivos
+- **Permissions API** - Gerenciamento de permissões
+- **Geolocation API** - Localização do usuário
+- **Service Worker API** - Cache e offline (código legacy)
+
+**🔐 Authentication & Security Details**
+- **JWT (JSON Web Tokens)** - Especificação do sistema de autenticação
+- **bcrypt** - Hash de senhas
+- **HTTPS** - Protocolo seguro obrigatório
+
+**🚀 Infrastructure Details**
+- **Cloudinary CDN** - Sistema de delivery de mídia
+- **GitHub** - Controle de versão
+- **Git** - Sistema de versionamento
+
+**⚙️ Backend Details**
+- **Express** - Framework web backend
+- **Heroku** - Hospedagem do backend
+- **MongoDB** - Banco de dados NoSQL
+
+**🧪 Testing Details**
+- **@testing-library/jest-dom** - Matchers específicos do Jest
+- **@testing-library/react** - Testes de componentes React
+- **@testing-library/user-event** - Simulação de eventos de usuário
 
 **✅ Por Quê Este Stack Para Solo Developer?**
 - ✅ **Next.js 15**: Framework maduro, documentação excepcional

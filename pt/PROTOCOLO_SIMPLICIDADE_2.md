@@ -129,6 +129,14 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 - ✅ Comparação: Simplicidade 2 vs 3 (equipe vs solo) com 12 aspectos analisados
 - ✅ Inspiração: Conceitos adaptados do Simplicidade 3 v3.1 (tabelas, critérios, rationale)
 
+**Changelog v2.2** (01/01/2026):
+- ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
+- ✅ Formato enterprise: Documento formal com aprovações e stakeholders
+- ✅ IA deve fornecer análise de impacto e custo-benefício para cada opção
+- ✅ Após preenchimento e aprovação, IA lê documento e prossegue
+- ✅ Rationale: Coleta estruturada com rastreabilidade e governança corporativa
+- ✅ Classificação: **OBRIGATÓRIO para decisões que afetam >3 pessoas**
+
 **Changelog v2.1** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -368,6 +376,241 @@ Antes de iniciar qualquer tarefa nova:
 
 **Mensagem para IAs**: 
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
+
+---
+
+## 📝 Padrão de Questionários Editáveis para Coleta de Informações (Enterprise)
+
+> **OBRIGATÓRIO para decisões que afetam >3 pessoas**: Quando houver necessidade de coletar múltiplas informações de stakeholders, utilize o padrão de questionários editáveis com governança corporativa.
+
+### 🎯 Quando Usar Questionários Editáveis (Enterprise)
+
+**✅ Use questionários editáveis quando:**
+- Decisão afeta **3 ou mais pessoas** (equipe, stakeholders, usuários)
+- Precisa de **aprovação formal** de múltiplos stakeholders
+- Há necessidade de **rastreabilidade** para auditoria/compliance
+- As perguntas envolvem **análise de custo-benefício** ou **ROI**
+- Decisões têm **impacto de longo prazo** (> 6 meses)
+- Requer **documentação formal** (ADR, RFP, Change Request)
+
+**❌ NÃO use quando:**
+- Decisão afeta apenas 1-2 pessoas
+- Não requer aprovação formal
+- Resposta é urgente (< 1 dia)
+
+### 📋 Formato Enterprise do Questionário Editável
+
+A IA deve criar um documento **formal** (`.md`) com governança corporativa:
+
+```markdown
+# [Empresa] - Decision Request: [Título]
+
+**Document Type**: Technology Stack Decision / Architecture Change / etc.  
+**Created By**: AI Assistant  
+**Created Date**: YYYY-MM-DD  
+**Decision Deadline**: YYYY-MM-DD  
+**Status**: DRAFT → UNDER_REVIEW → APPROVED/REJECTED  
+
+---
+
+## 📋 Executive Summary
+
+**Problem Statement**: [Resumo do problema em 2-3 linhas]  
+**Proposed Solution**: [Solução proposta em 2-3 linhas]  
+**Impact**: [Quem/o que será afetado]  
+**Timeline**: [Quanto tempo levará]  
+**Budget**: [Custo estimado, se aplicável]
+
+---
+
+## 👥 Stakeholders & Approvers
+
+| Role | Name | Email | Status |
+|------|------|-------|--------|
+| **Tech Lead** | _______ | _______ | ⚙️ Pending |
+| **Product Owner** | _______ | _______ | ⚙️ Pending |
+| **Security Officer** | _______ | _______ | ⚙️ Pending |
+| **CTO/Architect** | _______ | _______ | ⚙️ Pending |
+
+**Approval Rule**: Minimum [N] approvals required to proceed.
+
+---
+
+### 🎯 QUESTION 1: [Título]
+
+**❓ [Pergunta]**
+
+💡 **AI Recommendation**: [Análise técnica + recomendação]
+
+**Options:**
+- **A)** ✅ [Option recommended]
+  - **Impact**: [Pessoas/sistemas afetados]
+  - **Cost**: [$ ou horas estimadas]
+  - **Risk**: 🟢 Low / 🟡 Medium / 🔴 High
+  - **Pros**: [Vantagens]
+  - **Cons**: [Desvantagens]
+  
+- **B)** ❌ [Option not recommended]
+  - **Impact**: [...]
+  - **Cost**: [...]
+  - **Risk**: [...]
+  - **Pros**: [...]
+  - **Cons**: [...]
+
+**Decision:** _______ (To be filled by stakeholders)
+
+**Rationale:** _______ (Why this decision?)
+
+**Alternative Plan (if chosen option fails):** _______
+
+---
+
+[... mais questões ...]
+
+---
+
+## 📊 Cost-Benefit Analysis
+
+| Item | Option A | Option B | Option C |
+|------|----------|----------|----------|
+| **Initial Cost** | $X | $Y | $Z |
+| **Maintenance/Year** | $A | $B | $C |
+| **ROI (1 year)** | X% | Y% | Z% |
+| **Risk Level** | Low | Medium | High |
+
+**Recommended**: Option A (lowest TCO over 3 years)
+
+---
+
+## 🔒 Compliance & Security Review
+
+- [ ] LGPD/GDPR compliance checked
+- [ ] Security team review required? ✅ Yes / ❌ No
+- [ ] Data privacy impact assessment done
+- [ ] Third-party vendor assessment (if applicable)
+- [ ] License compliance verified
+
+---
+
+## ✅ Approval Section
+
+**Tech Lead Approval:**
+- Name: _______
+- Date: _______
+- Signature: _______ (or ✅ Approved / ❌ Rejected)
+- Comments: _______
+
+**Product Owner Approval:**
+- Name: _______
+- Date: _______
+- Signature: _______
+- Comments: _______
+
+[... outros aprovadores ...]
+
+---
+
+## 📎 Attachments & References
+
+- [Link para ADR relacionado]
+- [Link para documentação técnica]
+- [Link para análise de risco]
+
+---
+
+**Final Decision**: ⚙️ PENDING / ✅ APPROVED / ❌ REJECTED  
+**Approved Date**: _______  
+**Implementation Start Date**: _______  
+**Responsible Team**: _______
+```
+
+### 🔄 Fluxo Enterprise
+
+**Passo 1: IA Cria Documento Formal**
+```
+IA identifica decisão que requer aprovação formal
+     ↓
+IA cria DECISION_REQUEST_YYYYMMDD.md com template enterprise
+     ↓
+IA notifica: "Documento de decisão criado. Compartilhe com stakeholders 
+para preenchimento e aprovação formal."
+```
+
+**Passo 2: Stakeholders Revisam e Aprovam**
+```
+Stakeholder 1 revisa, preenche sua parte, marca status
+     ↓
+Stakeholder 2 revisa, adiciona comentários, aprova/rejeita
+     ↓
+[... todos stakeholders necessários ...]
+     ↓
+Documento atinge aprovações mínimas requeridas
+```
+
+**Passo 3: IA Implementa com Base em Decisões Aprovadas**
+```
+Usuário notifica: "Documento aprovado por todos stakeholders"
+     ↓
+IA lê DECISION_REQUEST_YYYYMMDD.md
+     ↓
+IA verifica aprovações (mínimo requerido)
+     ↓
+IA prossegue com implementação baseada em decisões formais
+     ↓
+IA cria/atualiza ADR formal com referência ao documento de decisão
+```
+
+### 🎯 Diferencial Enterprise vs Simplicity 1
+
+| Aspecto | Simplicity 1 (Básico) | Simplicity 2 (Enterprise) |
+|---------|----------------------|---------------------------|
+| **Formalidade** | Casual | Formal com aprovações |
+| **Stakeholders** | Não especificado | Múltiplos com roles claros |
+| **Custo-Benefício** | Opcional | Obrigatório com ROI |
+| **Compliance** | Não requerido | Checklist obrigatório |
+| **Rastreabilidade** | Básica | Completa com assinaturas |
+| **Tempo de Resposta** | Imediato | 1-5 dias (aprovações) |
+| **Documentação Gerada** | QUESTIONNAIRE.md | DECISION_REQUEST + ADR |
+
+### 📊 Métricas de Governança
+
+**A IA deve rastrear**:
+- **Time to Decision**: Tempo entre criação do documento e aprovação final
+- **Approval Rate**: % de decisões aprovadas vs rejeitadas
+- **Stakeholder Participation**: Quantos stakeholders preencheram vs quantos deveriam
+- **Decision Complexity**: Número de opções analisadas
+- **Cost Impact**: Somatório de custos estimados em decisões
+
+### ✅ Checklist Enterprise para IAs
+
+Ao criar questionário enterprise, a IA deve:
+
+```markdown
+[ ] Executive Summary com problem statement claro
+[ ] Lista de stakeholders com roles e status
+[ ] Regra de aprovação (mínimo N aprovações)
+[ ] Análise de impacto para cada opção
+[ ] Análise de custo ($ ou horas estimadas)
+[ ] Análise de risco (Low/Medium/High)
+[ ] Pros e Cons de cada opção
+[ ] Cost-Benefit Analysis comparativa
+[ ] Seção de Compliance & Security Review
+[ ] Espaço para aprovações formais de cada stakeholder
+[ ] Seção de attachments (ADR, docs técnicos)
+[ ] Status tracking (DRAFT → UNDER_REVIEW → APPROVED/REJECTED)
+```
+
+### 🎓 Conclusão Enterprise
+
+O padrão de questionários editáveis em ambiente enterprise adiciona:
+- ✅ **Governança**: Aprovações formais rastreáveis
+- ✅ **Compliance**: Checklist de conformidade obrigatório
+- ✅ **ROI**: Análise de custo-benefício para justificar decisões
+- ✅ **Rastreabilidade**: Histórico completo de quem decidiu o quê
+- ✅ **Auditoria**: Documentação formal para evidências em auditorias
+
+**Regra Enterprise**: 
+> "Toda decisão que afeta >3 pessoas ou tem custo >R$10k ou impacto >6 meses DEVE ter questionário formal com aprovações de stakeholders."
 
 ---
 
@@ -2454,7 +2697,52 @@ Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais t
 
 **🤖 APIs de IA** (Opcionais)
 - **OpenAI API** - IA para feedback e avaliação
+- **GPT-4o-mini** - Modelo específico da OpenAI
 - **ElevenLabs API** - Síntese de voz
+
+**🏗️ Build & Development** (Detalhes Adicionais)
+- **Webpack** - Bundler alternativo (fallback do Turbopack)
+- **JavaScript ES2017+** - Linguagem base
+- **Chrome DevTools** - Debug de navegador
+
+**🎨 CSS & Styling Core** (Detalhes Adicionais)
+- **CSS Modules** - Sistema de modularização (já mencionado)
+
+**📊 State Management Details** (Detalhes Adicionais)
+- **Zustand DevTools** - Ferramentas de debug
+- **Zustand Persist Middleware** - Middleware de persistência
+
+**🌐 Browser APIs Nativas**
+- **Web Audio API** - API de áudio (gravação e reprodução)
+- **MediaRecorder API** - Gravação de áudio
+- **Fetch API** - Requisições HTTP nativas
+- **Cookies API** - Gerenciamento de cookies
+- **LocalStorage API** - Armazenamento local
+- **SessionStorage API** - Armazenamento de sessão
+- **Navigator API** - Acesso a dispositivos
+- **Permissions API** - Gerenciamento de permissões
+- **Geolocation API** - Localização do usuário
+- **Service Worker API** - Cache e offline (código legacy)
+
+**🔐 Authentication & Security Details**
+- **JWT (JSON Web Tokens)** - Especificação do sistema de autenticação
+- **bcrypt** - Hash de senhas
+- **HTTPS** - Protocolo seguro obrigatório
+
+**🚀 Infrastructure Details**
+- **Cloudinary CDN** - Sistema de delivery de mídia
+- **GitHub** - Controle de versão
+- **Git** - Sistema de versionamento
+
+**⚙️ Backend Details**
+- **Express** - Framework web backend
+- **Heroku** - Hospedagem do backend
+- **MongoDB** - Banco de dados NoSQL
+
+**🧪 Testing Details**
+- **@testing-library/jest-dom** - Matchers específicos do Jest
+- **@testing-library/react** - Testes de componentes React
+- **@testing-library/user-event** - Simulação de eventos de usuário
 
 **✅ Por Quê Este Stack Padrão?**
 - ✅ **Next.js 15** com App Router: SSR, SSG, performance otimizada

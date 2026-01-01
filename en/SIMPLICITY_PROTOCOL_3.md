@@ -6,6 +6,15 @@
 **Last Update**: January 1, 2026  
 **Objective**: Hybrid methodology for **solo developers** with application in **production**
 
+**Changelog v3.5** (01/01/2026):
+- ✅ **[STEP 3]** Added editable questionnaire pattern for information gathering
+- ✅ Solo focus: Simple .md format without bureaucracy
+- ✅ AI provides pre-checked options based on solo developer best practices
+- ✅ After manual filling, AI reads and validates choices
+- ✅ Example format: "### 🎯 QUESTION 3: OBJECTIVE AND SCOPE | ❓ What is the main goal? | 💡 AI Suggestion (low-maintenance focus) | Options: A) ✅ Portfolio (2h/week) B) ✅ E-commerce (5h/week) | Your choice: _____ | Maintenance estimate: _____"
+- ✅ Rationale: Helps solo developer make informed decisions considering time/maintenance trade-offs
+- ✅ Classification: **HIGHLY RECOMMENDED for architectural decisions with long-term impact**
+
 **Changelog v3.4** (01/01/2026):
 - ✅ **[NEW]** Default Recommended Stack for Websites (Solo Developer Focus)
 - ✅ Same modern base: Next.js 15 + React 19 + TypeScript
@@ -2175,7 +2184,52 @@ Rule of thumb:
 
 **🤖 AI APIs** (Optional)
 - **OpenAI API** - AI for feedback and evaluation
+- **GPT-4o-mini** - Specific OpenAI model
 - **ElevenLabs API** - Voice synthesis
+
+**🏗️ Build & Development** (Additional Details)
+- **Webpack** - Alternative bundler (Turbopack fallback)
+- **JavaScript ES2017+** - Base language
+- **Chrome DevTools** - Browser debugging
+
+**🎨 CSS & Styling Core** (Additional Details)
+- **CSS Modules** - Modularization system (already mentioned)
+
+**📊 State Management Details** (Additional Details)
+- **Zustand DevTools** - Debugging tools
+- **Zustand Persist Middleware** - Persistence middleware
+
+**🌐 Native Browser APIs**
+- **Web Audio API** - Audio API (recording and playback)
+- **MediaRecorder API** - Audio recording
+- **Fetch API** - Native HTTP requests
+- **Cookies API** - Cookie management
+- **LocalStorage API** - Local storage
+- **SessionStorage API** - Session storage
+- **Navigator API** - Device access
+- **Permissions API** - Permission management
+- **Geolocation API** - User location
+- **Service Worker API** - Cache and offline (legacy code)
+
+**🔐 Authentication & Security Details**
+- **JWT (JSON Web Tokens)** - Authentication system specification
+- **bcrypt** - Password hashing
+- **HTTPS** - Mandatory secure protocol
+
+**🚀 Infrastructure Details**
+- **Cloudinary CDN** - Media delivery system
+- **GitHub** - Version control
+- **Git** - Versioning system
+
+**⚙️ Backend Details**
+- **Express** - Backend web framework
+- **Heroku** - Backend hosting
+- **MongoDB** - NoSQL database
+
+**🧪 Testing Details**
+- **@testing-library/jest-dom** - Jest-specific matchers
+- **@testing-library/react** - React component testing
+- **@testing-library/user-event** - User event simulation
 
 **✅ Why This Default Stack?**
 - ✅ **Next.js 15** with App Router: SSR, SSG, optimized performance

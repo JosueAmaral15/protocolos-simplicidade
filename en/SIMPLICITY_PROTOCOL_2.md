@@ -10,6 +10,15 @@ Aqui está a tradução do seu arquivo Markdown do português para o inglês:
 **Last Update**: January 1, 2026  
 **Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
 
+**Changelog v2.6** (01/01/2026):
+- ✅ **[STEP 3]** Added editable questionnaire pattern for information gathering
+- ✅ Enterprise format: Formal .md document with stakeholder approval section
+- ✅ AI provides pre-checked options based on corporate standards and existing architecture
+- ✅ Mandatory review by tech lead before AI reads filled document
+- ✅ Example format: "### 🎯 QUESTION 3: OBJECTIVE AND SCOPE | ❓ What is the main goal? | 💡 AI Suggestion (based on corporate standards) | Options with compliance notes | Approvers: _____ | Date: _____"
+- ✅ Rationale: Ensures alignment with enterprise governance and documented stakeholder buy-in
+- ✅ Classification: **MANDATORY for architectural/security decisions with 3+ stakeholders**
+
 **Changelog v2.5** (01/01/2026):
 - ✅ **[NEW]** Default Recommended Stack for Websites (Enterprise Focus)
 - ✅ Same base: Next.js 15 + React 19 + TypeScript + Tailwind
@@ -2098,7 +2107,52 @@ Use Decision Matrix (Step 2.5) when there are multiple ways to divide:
 
 **🤖 AI APIs** (Optional)
 - **OpenAI API** - AI for feedback and evaluation
+- **GPT-4o-mini** - Specific OpenAI model
 - **ElevenLabs API** - Voice synthesis
+
+**🏗️ Build & Development** (Additional Details)
+- **Webpack** - Alternative bundler (Turbopack fallback)
+- **JavaScript ES2017+** - Base language
+- **Chrome DevTools** - Browser debugging
+
+**🎨 CSS & Styling Core** (Additional Details)
+- **CSS Modules** - Modularization system (already mentioned)
+
+**📊 State Management Details** (Additional Details)
+- **Zustand DevTools** - Debugging tools
+- **Zustand Persist Middleware** - Persistence middleware
+
+**🌐 Native Browser APIs**
+- **Web Audio API** - Audio API (recording and playback)
+- **MediaRecorder API** - Audio recording
+- **Fetch API** - Native HTTP requests
+- **Cookies API** - Cookie management
+- **LocalStorage API** - Local storage
+- **SessionStorage API** - Session storage
+- **Navigator API** - Device access
+- **Permissions API** - Permission management
+- **Geolocation API** - User location
+- **Service Worker API** - Cache and offline (legacy code)
+
+**🔐 Authentication & Security Details**
+- **JWT (JSON Web Tokens)** - Authentication system specification
+- **bcrypt** - Password hashing
+- **HTTPS** - Mandatory secure protocol
+
+**🚀 Infrastructure Details**
+- **Cloudinary CDN** - Media delivery system
+- **GitHub** - Version control
+- **Git** - Versioning system
+
+**⚙️ Backend Details**
+- **Express** - Backend web framework
+- **Heroku** - Backend hosting
+- **MongoDB** - NoSQL database
+
+**🧪 Testing Details**
+- **@testing-library/jest-dom** - Jest-specific matchers
+- **@testing-library/react** - React component testing
+- **@testing-library/user-event** - User event simulation
 
 **✅ Why This Default Stack?**
 - ✅ **Next.js 15** with App Router: SSR, SSG, optimized performance

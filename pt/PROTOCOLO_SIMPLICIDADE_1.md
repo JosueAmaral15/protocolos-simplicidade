@@ -45,6 +45,14 @@
 - ✅ Rationale detalhado: Por quê Simplicidade 1 é ágil mas insuficiente para produção
 - ✅ Inspiração: Conceitos adaptados do Simplicidade 3 v3.1 (tabelas comparativas, critérios)
 
+**Changelog v1.10** (01/01/2026):
+- ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
+- ✅ Formato: Documento .md ou .txt com perguntas formatadas para o usuário preencher manualmente
+- ✅ IA deve fornecer opções pré-marcadas (✅/⚙️) e sugestões para facilitar preenchimento
+- ✅ Após preenchimento manual, IA lê documento e prossegue com informações coletadas
+- ✅ Rationale: Coleta estruturada de informações complexas sem conversação extensa
+- ✅ Classificação: **ALTAMENTE RECOMENDADO para questionários com 5+ perguntas**
+
 **Changelog v1.9** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -743,6 +751,261 @@ Se QUALQUER item acima for ❌ NÃO: PARAR e fazer perguntas!
 
 **Regra de Ouro para IAs**:
 > **"Quando em dúvida, PARE e PERGUNTE. Dúvida é BLOQUEANTE até ser resolvida."**
+
+---
+
+## 📝 Padrão de Questionários Editáveis para Coleta de Informações
+
+> **ALTAMENTE RECOMENDADO**: Quando houver necessidade de coletar múltiplas informações do usuário, utilize o padrão de questionários editáveis.
+
+### 🎯 Quando Usar Questionários Editáveis
+
+**✅ Use questionários editáveis quando:**
+- Precisa fazer **5 ou mais perguntas** ao usuário
+- As perguntas são **estruturadas** (múltipla escolha, sim/não, lista de opções)
+- O usuário precisa **pensar e analisar** antes de responder (não é resposta imediata)
+- Há necessidade de **documentar** as respostas para referência futura
+- As perguntas têm **contexto e explicações** que ajudam na escolha
+
+**❌ NÃO use quando:**
+- São apenas 1-2 perguntas simples → Pergunte diretamente no chat
+- Perguntas exigem **resposta imediata** e curta
+- Não há necessidade de **registro** das respostas
+
+### 📋 Formato do Questionário Editável
+
+A IA deve criar um documento (`.md` ou `.txt`) com o seguinte formato:
+
+```markdown
+# Questionário: [Título Descritivo]
+
+**Instruções**: Preencha este questionário marcando as opções desejadas e/ou respondendo as perguntas. Após preencher, salve o arquivo e notifique a IA para que ela possa ler suas respostas.
+
+---
+
+### 🎯 QUESTÃO 1: [Título da Pergunta]
+
+**❓ [Pergunta principal]**
+
+💡 **Sugestão da IA**: [Recomendação baseada no contexto do projeto]
+
+**Opções (marque todas que se aplicam):**
+- **A)** ✅ [Opção A - pré-marcada se recomendada]
+- **B)** ⚙️ [Opção B - símbolo indica "configurável/condicional"]
+- **C)** ❌ [Opção C - não marcada]
+- **D)** ❌ [Opção D]
+- **E)** ⚙️ Outro: _____
+
+**Suas escolhas:** _______ (deixe em branco ou descreva)
+
+**Observações adicionais (opcional):**
+_____
+
+---
+
+### 🎯 QUESTÃO 2: [Título da Outra Pergunta]
+
+**❓ [Outra pergunta]**
+
+💡 **Sugestão da IA**: [Recomendação]
+
+**Opções:**
+- **A)** ❌ [Opção]
+- **B)** ✅ [Opção recomendada]
+
+**Sua resposta:** _______
+
+---
+
+[... mais questões ...]
+
+---
+
+## ✅ Revisão Final
+
+Antes de notificar a IA, verifique:
+- [ ] Todas as perguntas foram respondidas
+- [ ] Opções foram marcadas claramente
+- [ ] Observações adicionais foram adicionadas onde necessário
+- [ ] Arquivo foi salvo
+
+**Notifique a IA quando pronto!**
+```
+
+### 🔄 Fluxo de Uso
+
+**Passo 1: IA Cria o Questionário**
+```
+IA detecta que precisa fazer múltiplas perguntas
+     ↓
+IA cria arquivo `QUESTIONNAIRE.md` com formato acima
+     ↓
+IA envia mensagem: "Criei o arquivo QUESTIONNAIRE.md com [N] perguntas 
+sobre [tema]. Por favor, preencha manualmente e avise quando terminar."
+```
+
+**Passo 2: Usuário Preenche Manualmente**
+```
+Usuário abre QUESTIONNAIRE.md no editor de texto
+     ↓
+Usuário marca opções (substitui ❌ por ✅, preenche campos ___)
+     ↓
+Usuário adiciona observações onde necessário
+     ↓
+Usuário salva o arquivo
+```
+
+**Passo 3: IA Lê as Respostas**
+```
+Usuário notifica: "Questionário preenchido!"
+     ↓
+IA lê arquivo QUESTIONNAIRE.md
+     ↓
+IA processa respostas e prossegue com as informações coletadas
+```
+
+### 💡 Exemplo Prático
+
+#### Exemplo de Questionário Criado pela IA:
+
+```markdown
+# Questionário: Definição de Stack Tecnológico para Site Full-Stack
+
+**Instruções**: Este questionário ajudará a definir a melhor stack tecnológica para seu projeto. Preencha marcando as opções e adicionando observações.
+
+---
+
+### 🎯 QUESTÃO 1: TIPO DE APLICAÇÃO
+
+**❓ Qual tipo de aplicação você deseja construir?**
+
+💡 **Sugestão da IA**: Para sites com SEO e performance, recomendo SSR/SSG (Next.js)
+
+**Opções (marque todas que se aplicam):**
+- **A)** ✅ Site institucional/landing page (SEO importante)
+- **B)** ⚙️ Blog/CMS (conteúdo dinâmico)
+- **C)** ❌ Dashboard administrativo (SPA sem SEO)
+- **D)** ⚙️ E-commerce
+- **E)** ❌ API REST pura (sem frontend)
+
+**Suas escolhas:** A, B (site + blog)
+
+**Observações adicionais (opcional):**
+Preciso de ótimo SEO pois o site será encontrado via Google
+
+---
+
+### 🎯 QUESTÃO 2: EXPERIÊNCIA COM TECNOLOGIAS
+
+**❓ Qual sua experiência atual com frameworks frontend?**
+
+💡 **Sugestão da IA**: Se você já conhece React, Next.js será mais fácil
+
+**Opções:**
+- **A)** ✅ Conheço React bem
+- **B)** ❌ Conheço Vue.js
+- **C)** ❌ Conheço Angular
+- **D)** ❌ Iniciante em frontend
+
+**Sua resposta:** A (3 anos de React)
+
+---
+
+### 🎯 QUESTÃO 3: REQUISITOS DE BACKEND
+
+**❓ Quais funcionalidades de backend você precisa?**
+
+💡 **Sugestão da IA**: API Routes do Next.js cobre 80% dos casos
+
+**Opções (marque todas que se aplicam):**
+- **A)** ✅ Autenticação de usuários
+- **B)** ✅ Banco de dados (PostgreSQL/MongoDB)
+- **C)** ⚙️ Upload de arquivos
+- **D)** ❌ Processamento pesado/ML
+- **E)** ❌ WebSockets/Real-time
+
+**Suas escolhas:** A, B, C
+
+---
+
+## ✅ Revisão Final
+
+Antes de notificar a IA, verifique:
+- [X] Todas as perguntas foram respondidas
+- [X] Opções foram marcadas claramente
+- [X] Observações adicionais foram adicionadas onde necessário
+- [X] Arquivo foi salvo
+
+**Notifique a IA quando pronto!**
+```
+
+#### Após Leitura pela IA:
+
+```
+IA lê: Usuário quer site+blog com SEO, conhece React, precisa auth+DB+upload
+     ↓
+IA recomenda: Next.js 15 + PostgreSQL + Cloudinary + NextAuth
+     ↓
+IA prossegue com implementação baseada nas respostas
+```
+
+### 🎯 Vantagens do Padrão de Questionários Editáveis
+
+**✅ Para o Usuário:**
+- **Tempo para pensar**: Pode analisar opções com calma
+- **Contexto claro**: Todas as perguntas e opções visíveis simultaneamente
+- **Documentado**: Arquivo fica salvo para referência futura
+- **Flexível**: Pode voltar e ajustar respostas antes de notificar
+
+**✅ Para a IA:**
+- **Coleta estruturada**: Informações organizadas e fáceis de processar
+- **Menos idas e vindas**: Evita múltiplas rodadas de perguntas no chat
+- **Sugestões claras**: Pode pré-marcar opções recomendadas
+- **Contexto rico**: Pode fornecer explicações detalhadas para cada opção
+
+**✅ Para o Projeto:**
+- **Rastreabilidade**: Decisões documentadas desde o início
+- **Onboarding**: Novo dev pode ver decisões históricas
+- **Auditoria**: Registro do "por quê" de cada escolha
+
+### 📊 Símbolos Recomendados para Marcação
+
+| Símbolo | Significado | Uso |
+|---------|-------------|-----|
+| ✅ | Selecionado/Recomendado | Opções que IA recomenda ou usuário escolheu |
+| ❌ | Não selecionado | Opções não escolhidas |
+| ⚙️ | Configurável/Condicional | Opções que dependem de outro fator |
+| 💡 | Sugestão | Recomendação da IA |
+| ❓ | Pergunta | Identifica a pergunta principal |
+| 🎯 | Objetivo/Foco | Marca seções importantes |
+
+### ✅ Checklist para IAs ao Criar Questionários
+
+Ao criar um questionário editável, a IA deve:
+
+```markdown
+[ ] Título claro e descritivo do questionário
+[ ] Instruções de preenchimento no topo
+[ ] Cada questão numerada e com título descritivo
+[ ] Pergunta principal marcada com ❓
+[ ] Sugestão da IA (💡) para cada questão
+[ ] Opções pré-marcadas (✅) quando há recomendação
+[ ] Campo "Suas escolhas" ou "Sua resposta" para cada questão
+[ ] Espaço para observações adicionais (opcional)
+[ ] Checklist de revisão final no fim do documento
+[ ] Mensagem clara para notificar quando pronto
+```
+
+### 🎓 Conclusão
+
+O padrão de questionários editáveis é uma ferramenta poderosa para:
+- ✅ Coletar informações estruturadas de forma eficiente
+- ✅ Documentar decisões importantes desde o início
+- ✅ Reduzir tempo de conversa no chat para decisões complexas
+- ✅ Fornecer contexto rico e sugestões sem pressionar resposta imediata
+
+**Regra Prática**: 
+> "Se você precisa fazer mais de 4-5 perguntas com múltiplas opções, crie um questionário editável ao invés de perguntar uma por uma no chat."
 
 ---
 
@@ -3276,7 +3539,52 @@ Com base nos requisitos, a IA deve **pesquisar** (online se necessário) quais t
 
 **🤖 APIs de IA** (Opcionais)
 - **OpenAI API** - IA para feedback e avaliação
+- **GPT-4o-mini** - Modelo específico da OpenAI
 - **ElevenLabs API** - Síntese de voz
+
+**🏗️ Build & Development** (Detalhes Adicionais)
+- **Webpack** - Bundler alternativo (fallback do Turbopack)
+- **JavaScript ES2017+** - Linguagem base
+- **Chrome DevTools** - Debug de navegador
+
+**🎨 CSS & Styling Core** (Detalhes Adicionais)
+- **CSS Modules** - Sistema de modularização (já mencionado)
+
+**📊 State Management Details** (Detalhes Adicionais)
+- **Zustand DevTools** - Ferramentas de debug
+- **Zustand Persist Middleware** - Middleware de persistência
+
+**🌐 Browser APIs Nativas**
+- **Web Audio API** - API de áudio (gravação e reprodução)
+- **MediaRecorder API** - Gravação de áudio
+- **Fetch API** - Requisições HTTP nativas
+- **Cookies API** - Gerenciamento de cookies
+- **LocalStorage API** - Armazenamento local
+- **SessionStorage API** - Armazenamento de sessão
+- **Navigator API** - Acesso a dispositivos
+- **Permissions API** - Gerenciamento de permissões
+- **Geolocation API** - Localização do usuário
+- **Service Worker API** - Cache e offline (código legacy)
+
+**🔐 Authentication & Security Details**
+- **JWT (JSON Web Tokens)** - Especificação do sistema de autenticação
+- **bcrypt** - Hash de senhas
+- **HTTPS** - Protocolo seguro obrigatório
+
+**🚀 Infrastructure Details**
+- **Cloudinary CDN** - Sistema de delivery de mídia
+- **GitHub** - Controle de versão
+- **Git** - Sistema de versionamento
+
+**⚙️ Backend Details**
+- **Express** - Framework web backend
+- **Heroku** - Hospedagem do backend
+- **MongoDB** - Banco de dados NoSQL
+
+**🧪 Testing Details**
+- **@testing-library/jest-dom** - Matchers específicos do Jest
+- **@testing-library/react** - Testes de componentes React
+- **@testing-library/user-event** - Simulação de eventos de usuário
 
 **✅ Por Quê Este Stack Padrão?**
 - ✅ **Next.js 15** com App Router: SSR, SSG, performance otimizada
