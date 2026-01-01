@@ -3,14 +3,45 @@ Aqui está a tradução do seu arquivo Markdown do português para o inglês:
 ```markdown
 # Simplicity Protocol 2
 
-**Author**: Josué Amaral
-**Creation Date**: December 02, 2025
-**Based on**: Simplicity Protocol 1 v2.0
-**Version**: 2.2
-**Last Update**: December 10, 2025
+**Author**: Josué Amaral  
+**Creation Date**: December 02, 2025  
+**Based on**: Simplicity Protocol 1 v2.3  
+**Version**: 2.5  
+**Last Update**: January 1, 2026  
 **Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
 
-**Differences from Simplicity 1**:
+**Changelog v2.5** (01/01/2026):
+- ✅ **[NEW]** Default Recommended Stack for Websites (Enterprise Focus)
+- ✅ Same base: Next.js 15 + React 19 + TypeScript + Tailwind
+- ✅ Mandatory enterprise validation: Technical meeting + formal ADR
+- ✅ Additional analysis: Cost, corporate compliance, commercial support
+- ✅ TypeScript mandatory for large teams
+- ✅ Monorepo-ready with Turbo
+- ✅ Enterprise use cases: Netflix, TikTok, Uber use Next.js
+- ✅ When NOT to use: Mandatory corporate stack, compliance restrictions
+
+**Changelog v2.4** (01/01/2026):
+- ✅ **[CRITICAL]** Added Step 1.0: Complete Documentation Reading (PRIORITY)
+- ✅ Enterprise focus: Mandatory reading of ADRs, security and compliance
+- ✅ Minimum enterprise structure: ADR template, security/, api/
+- ✅ README template with stakeholders and approvers
+- ✅ Complete ADR (Architecture Decision Record) template
+- ✅ Expanded checklist (12 items) including compliance validation
+- ✅ Formal documentation mandatory for every architectural decision
+- ✅ Team coordination via shared documentation
+- ✅ Rationale: Documentation is evidence for auditing
+
+**Changelog v2.3** (01/01/2026):
+- ✅ **[MANDATORY]** Added Step 1.5: Technology Stack Research
+- ✅ Additional enterprise validation: Technical meeting + stakeholders
+- ✅ Formal ADR mandatory for tech stack decision
+- ✅ Licensing cost and corporate compliance analysis
+- ✅ Corporate standards verification
+- ✅ Expanded checklist (13 items) including stakeholder approval
+- ✅ Specific ADR template for tech stack choice
+- ✅ Alignment with Simplicity 1 v2.1 (same core functionality)
+
+**Changelog v2.2** (10/12/2025):
 - ✅ **10 new optional steps** for complex and critical projects
 - ✅ Objective **Decision Matrix** for task selection
 - ✅ **Security Checklist** (OWASP Top 10)
