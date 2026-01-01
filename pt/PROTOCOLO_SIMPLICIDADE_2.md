@@ -2972,6 +2972,40 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 → Resultado: Implementação em 2h ao invés de 5h (economia de 60%)
 ```
 
+#### 🔀 **Princípio de Opções Paralelas (Multi-Choice)**
+
+[Content: Same as Protocol 1 PT with enterprise-specific adaptations]
+
+**[ESPECÍFICO PARA SIMPLICIDADE 2 - ENTERPRISE]**:
+> "Em ambientes enterprise, oferecer opções paralelas deve ser documentado formalmente via ADR (Architecture Decision Record). Justifique o custo adicional de implementação vs benefício para usuários. Opções paralelas aumentam manutenção futura (testes 2x, docs 2x), então garanta aprovação de stakeholders. Documente em `docs/ADR/adr-NNN-multiple-options.md`."
+
+**Template ADR para Opções Paralelas**:
+```markdown
+# ADR-NNN: Implementação de Múltiplas Opções para [Funcionalidade]
+
+**Status**: Proposto | Aceito | Rejeitado
+**Contexto**: Usuários têm necessidades diferentes para [funcionalidade]
+
+**Opções Identificadas**:
+1. Opção A: [descrição] - Casos de uso: [...]
+2. Opção B: [descrição] - Casos de uso: [...]
+
+**Decisão**: Implementar ambas, permitindo usuário escolher
+
+**Custos**:
+- Desenvolvimento: +X horas
+- Testes: +Y horas (2x cobertura)
+- Documentação: +Z horas
+- Manutenção contínua: +W% overhead
+
+**Benefícios**:
+- Atende 100% dos casos de uso (vs 60% com apenas uma opção)
+- Reduz tickets de suporte pedindo "modo alternativo"
+- Melhora satisfação de usuário (NPS estimado +15 pontos)
+
+**Aprovadores**: [Tech Lead], [Product Owner]
+```
+
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
 
 ---

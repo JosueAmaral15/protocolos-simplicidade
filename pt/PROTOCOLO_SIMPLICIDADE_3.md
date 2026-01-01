@@ -3026,6 +3026,41 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 → Resultado: Implementação em 2h ao invés de 5h (economia de 60%)
 ```
 
+#### 🔀 **Princípio de Opções Paralelas (Multi-Choice)**
+
+[Content: Same core as Protocol 1 PT with solo-specific adaptations]
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+> "Para solo developers, opções paralelas são um investimento de tempo que pode valer a pena A LONGO PRAZO. Pergunte-se: 'Vou querer trocar entre essas visualizações com frequência?' Se sim, implemente ambas. Se não, escolha uma por agora e adicione a segunda DEPOIS se necessário. Priorize features que você realmente usará. Não gaste 2h implementando opção que usará 1x por ano."
+
+**Análise Custo-Benefício (Solo)**:
+```markdown
+**Antes de implementar opções paralelas, responda**:
+
+1. **Frequência de uso**: Vou alternar entre opções regularmente?
+   - ✅ Sim, diariamente/semanalmente → Vale a pena
+   - ❌ Não, raramente → Escolher uma por agora
+
+2. **Custo de implementação**: Quanto tempo adicional?
+   - ✅ <30 min → Baixo custo, faça
+   - ⚠️  30-60 min → Médio, avaliar benefício
+   - ❌ >60 min → Alto custo, priorizar feature principal
+
+3. **Manutenção futura**: Vou ter que testar/documentar 2x mais?
+   - ✅ Sim → Certifique-se que vale a pena
+   - ❌ Opções são independentes → Menos overhead
+
+4. **Feedback de usuários**: Usuários pediram opções múltiplas?
+   - ✅ Sim → Implementar ambas agora
+   - ❌ Não → Esperar feedback, adicionar depois
+```
+
+**Estratégia Solo "MVP First"**:
+1. Implementar opção principal (mais comum) PRIMEIRO
+2. Lançar e coletar feedback
+3. Se usuários pedirem opção alternativa, adicionar DEPOIS
+4. Evita trabalho especulativo (pode nunca ser necessário)
+
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
 
 ---
