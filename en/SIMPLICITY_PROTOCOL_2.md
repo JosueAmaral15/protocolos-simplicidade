@@ -2002,9 +2002,95 @@ Use Decision Matrix (Step 2.5) when there are multiple ways to divide:
 
 **[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
 
-**Default Web Stack - Enterprise Considerations**:
+#### 🌐 **Default Recommended Stack for Websites/Web Applications** [NEW]
 
-When recommending Next.js 15 + React 19 + TypeScript stack (see Protocol 1 for full details):
+> **IMPORTANT**: When implementing a **website or web application**, and the user/team **does NOT specify** which technologies to use, AI **CAN RECOMMEND** the following modern and complete default stack:
+
+**📦 Frontend Framework & Runtime**
+- **Next.js 15.5.2** - React framework with App Router and Server Components
+- **React 19.1.1** - UI library
+- **React DOM 19.1.1** - React rendering in browser
+- **TypeScript 5.9.2** - JavaScript superset with static typing
+- **Node.js 18+** - JavaScript runtime
+
+**🔧 Bundlers & Build Tools**
+- **Turbopack** - Next.js next-generation bundler (700x faster)
+- **Turbo (turborepo)** - Build system for monorepos
+- **PostCSS 8.5.6** - CSS processing
+- **Autoprefixer 10.4.21** - Automatically adds CSS prefixes
+
+**📊 State Management**
+- **Zustand 4.5.7** - Minimalist and efficient state management
+- **Immer 10.1.3** - Immutable state manipulation
+
+**🎨 Styling**
+- **Tailwind CSS 3.4.17** - Utility-first CSS framework
+- **CSS Modules** - CSS modularization
+- **clsx 2.1.1** - Conditional CSS classes utility
+- **class-variance-authority 0.7.1** - Component variants management
+- **tailwind-merge 3.3.1** - Smart Tailwind classes merge
+- **Lucide React 0.542.0** - Icon library
+
+**🎵 Audio & Media** (if applicable)
+- **Cloudinary 1.41.3** - Media processing and storage
+- **@cloudinary/react 1.14.3** - Cloudinary React components
+- **@cloudinary/url-gen 1.22.0** - Cloudinary URL generation
+- **Web Audio API** - Native browser API for audio recording
+
+**💳 Payments & Subscriptions** (if applicable)
+- **Stripe 14.25.0** - Payment processing (backend)
+- **@stripe/stripe-js 2.4.0** - Stripe JavaScript SDK (frontend)
+
+**🌐 HTTP & API**
+- **Axios 1.11.0** - HTTP client for API requests
+
+**📄 PDF & Screenshots** (if applicable)
+- **jsPDF 3.0.3** - PDF generation
+- **html2canvas 1.4.1** - HTML to canvas/image conversion
+- **Puppeteer 24.29.1** - Headless browser automation
+
+**🧪 Testing**
+- **Jest** - Testing framework
+- **jsdom** - DOM environment for testing
+- **@testing-library** - React component testing utilities
+
+**✅ Code Quality & Linting**
+- **ESLint 8.57.1** - JavaScript/TypeScript linter
+- **eslint-config-next 15.5.2** - Next.js ESLint configuration
+- **Husky 9.1.7** - Git hooks for code quality
+
+**🛠️ Development Tools**
+- **npm 10.9.2** - Package manager
+- **Git** - Version control
+- **VS Code** - Recommended editor
+
+**⚙️ Backend** (Separate Repository)
+- **Node.js** - Backend runtime
+- **Express** - Web framework
+- **MongoDB** - NoSQL database
+- **JWT** - Token authentication
+- **Heroku** - Backend hosting
+
+**🚀 Infrastructure & Deploy**
+- **Vercel** - Frontend hosting (recommended)
+- **Cloudinary CDN** - Audio/media content delivery
+- **HTTPS** - Secure protocol (required for audio recording)
+
+**🤖 AI APIs** (Optional)
+- **OpenAI API** - AI for feedback and evaluation
+- **ElevenLabs API** - Voice synthesis
+
+**✅ Why This Default Stack?**
+- ✅ **Next.js 15** with App Router: SSR, SSG, optimized performance
+- ✅ **React 19**: Latest version with Server Components
+- ✅ **TypeScript**: Type safety and better DX
+- ✅ **Tailwind CSS**: High productivity and consistent design
+- ✅ **Zustand**: Simple and efficient state management
+- ✅ **Turbopack**: Extremely fast build (700x vs Webpack)
+- ✅ **Vercel**: Optimized deploy for Next.js (same creator)
+- ✅ **Complete Ecosystem**: Covers 90% of web use cases
+
+**[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
 
 **Additional Enterprise Validations**:
 - ✅ **TypeScript Mandatory**: Type safety for large teams
