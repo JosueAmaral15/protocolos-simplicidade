@@ -220,6 +220,26 @@ However, this rigor comes with a **cost**: ~4-6h per task vs ~2-3h in Simplicity
 
 ---
 
+## 🚫 Blocking Priorities Hierarchy
+
+> **CRITICAL**: Priority order that **BLOCKS** development until resolved.
+
+```
+1️⃣ MOST CRITICAL: ❓ AI Questions → RESOLVE BEFORE continuing
+2️⃣ BLOCKING: 📚 Documentation (when needed) → WRITE BEFORE implementing
+3️⃣ BLOCKING: ❌ Bugs/Errors → FIX BEFORE new features
+4️⃣ NORMAL: ✨ New Features → After 1, 2, 3 resolved
+```
+
+### 2️⃣ Documentation is BLOCKING
+
+**[SPECIFIC FOR ENTERPRISE]**:
+> "In enterprise, outdated documentation causes production incidents. ADRs (Architecture Decision Records) are MANDATORY before architectural changes. Compliance and auditing require updated docs. Blocking documentation is even more critical in enterprise."
+
+**Golden Rule**: "Questions → Documentation → Bugs → Features. In this order."
+
+---
+
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.

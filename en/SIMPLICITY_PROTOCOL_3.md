@@ -232,6 +232,31 @@ Simplicity 3 = Simplicity 1 Base (13 steps)
 
 ---
 
+## 🚫 Blocking Priorities Hierarchy
+
+> **CRITICAL**: Priority order that **BLOCKS** development until resolved.
+
+```
+1️⃣ MOST CRITICAL: ❓ AI Questions → RESOLVE BEFORE continuing
+2️⃣ BLOCKING: 📚 Documentation (when needed) → WRITE BEFORE implementing
+3️⃣ BLOCKING: ❌ Bugs/Errors → FIX BEFORE new features
+4️⃣ NORMAL: ✨ New Features → After 1, 2, 3 resolved
+```
+
+### 2️⃣ Documentation is BLOCKING
+
+**[SPECIFIC FOR SOLO]**:
+> "For solo developers, documentation is your 'future external memory'. You'll forget why you did something in 3 months. Document BEFORE implementing to validate your design. If you can't document it, the design is bad. Blocking documentation prevents future rework."
+
+**Cost-benefit (Solo)**:
+- ⏱️ Time to document API: ~5-10 min
+- ⏱️ Time saved (avoiding future confusion): ~30-60 min
+- 💰 ROI: 3x-6x (VERY worth it)
+
+**Golden Rule Solo**: "If it took longer to implement than document, your design is too complex. Simplify."
+
+---
+
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.

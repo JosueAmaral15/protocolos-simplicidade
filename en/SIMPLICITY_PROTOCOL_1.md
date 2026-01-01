@@ -119,6 +119,65 @@ Here's the English translation of the provided document:
 
 ---
 
+## 🚫 Blocking Priorities Hierarchy
+
+> **CRITICAL**: Understand the priority order that **BLOCKS** development until resolved.
+
+### 📊 Priority Order (Most to Least Critical)
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ 1️⃣ MOST CRITICAL: ❓ AI Questions (see section below)   │
+│    ↓ MUST be resolved BEFORE continuing                  │
+├──────────────────────────────────────────────────────────┤
+│ 2️⃣ BLOCKING: 📚 Documentation (when necessary)          │
+│    ↓ MUST be written/updated BEFORE implementing         │
+├──────────────────────────────────────────────────────────┤
+│ 3️⃣ BLOCKING: ❌ Bug/Error Fixing                        │
+│    ↓ MUST be fixed BEFORE new features                   │
+├──────────────────────────────────────────────────────────┤
+│ 4️⃣ NORMAL: ✨ New Feature Implementation                │
+│    Only after 1, 2, and 3 are resolved                   │
+└──────────────────────────────────────────────────────────┘
+```
+
+### 2️⃣ Documentation is BLOCKING (When Necessary)
+
+> **NEW CRITICAL REQUIREMENT**: Documentation is **BLOCKING** when there's a need to document.
+
+**When documentation blocks implementation**:
+- ✅ New public API → Document in docs/API.md BEFORE
+- ✅ Architectural changes → Update docs/ARCHITECTURE.md BEFORE
+- ✅ Breaking changes → Update CHANGELOG.md IMMEDIATELY
+- ✅ New dependencies → Update README.md BEFORE
+- ✅ Changed requirements → Update docs/REQUIREMENTS.md BEFORE
+
+**Correct flow**:
+```
+Task → Questions? (ask) → Document BEFORE → Fix errors → Implement
+```
+
+**Unblocking Checklist**:
+```markdown
+[ ] 1️⃣ Zero questions (answered)
+[ ] 2️⃣ Necessary documentation written/updated
+[ ] 3️⃣ Zero workspace errors
+[ ] ✅ UNBLOCKED: Can implement
+```
+
+**Golden Rule**: "Questions → Documentation → Bugs → Features. In this order. Always."
+
+**Rationale**:
+- Outdated documentation = lies (worse than no docs)
+- Documenting BEFORE forces design thinking
+- If can't document, design is bad
+- Prevents confusion and rework
+
+**Message for AIs**:
+> "If there's a need to document something (API, architecture, breaking change, requirements), documentation is **BLOCKING**. You CANNOT implement until you document. Document BEFORE coding. Outdated documentation is worse than bad code."
+
+---
+
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.
