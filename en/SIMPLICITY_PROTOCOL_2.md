@@ -1486,7 +1486,7 @@ compliments, and opinions)?
 
 Options:
 A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
-B) ✅ Yes, include GitHub Issues (for open-source projects)
+B) ✅ Yes, include email for feedback (alternative or complement)
 C) ✅ Yes, include contact form in the application
 D) ✅ Yes, include multiple channels (email + issues + form)
 E) ❌ No, do not include contact methods

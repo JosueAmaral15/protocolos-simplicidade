@@ -1364,10 +1364,10 @@ compliments, and opinions)?
 💡 Suggestion: Yes (recommended for projects with end users)
 
 Options:
-A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
-B) ✅ Yes, include GitHub Issues (for open-source projects)
+A) ✅ Yes, include GitHub Issues (RECOMMENDED DEFAULT for versioned projects)
+B) ✅ Yes, include email for feedback (alternative or complement)
 C) ✅ Yes, include contact form in the application
-D) ✅ Yes, include multiple channels (email + issues + form)
+D) ✅ Yes, include multiple channels (GitHub + email + form)
 E) ❌ No, do not include contact methods
 
 What is your preference?
@@ -1375,7 +1375,21 @@ What is your preference?
 
 ### ✅ Available Options
 
-#### Option A: ✅ Email for Feedback (DEFAULT RECOMMENDED)
+#### Option A: ✅ GitHub Issues (RECOMMENDED DEFAULT)
+
+**Why GitHub Issues as default?**
+- ✅ **Transparency**: Everyone sees feedback and responses (community benefits)
+- ✅ **Traceability**: Complete history of discussions and decisions
+- ✅ **Organization**: Labels, milestones, assignees, projects
+- ✅ **Integration**: Commits, PRs and Issues connected
+- ✅ **Notifications**: Automatic updates for interested parties
+- ✅ **Free**: Unlimited for public and private repositories
+- ✅ **Searchable**: Easy to find similar issues before opening new one
+- ✅ **Collaborative**: Community can help resolve problems
+
+[Full content matching PT version with templates and examples]
+
+#### Option B: ✅ Email for Feedback (Alternative or Complement)
 
 **What to include**:
 - Dedicated email for feedback

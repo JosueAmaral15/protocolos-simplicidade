@@ -10,6 +10,16 @@ Este repositório contém a suíte "Simplicidade", um conjunto de protocolos cri
 
 Observação importante para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos.
 
+Para começar a programar, alguns passos devem ser dados:
+
+1. Faça a inteligência artificial ler 100% da documentação. Este é o primeiro passo;
+2. Depois que a documentação do projeto estiver 100% lida, escolher um dos protocolos simplicidade, por exemplo, o protocolo simplicidade 3, e fazer a inteligência artificial ler 100% do protocolo;
+3. Caso docs/TASKS.md não existir, Pedir para a inteligência artificial documentar as tarefas que você fornecer em docs/TASKS.md para dividir as tarefas de forma mais organizada. Assim, a inteligência artificial poderá se organizar melhor para implementar os requisitos e as funcionalidades que você quer. Se você mesmo tem esses requisitos, coloque-os em docs/TASKS.md, do contrário, se não tem, converse com a inteligência artificial do que você precisa implementar. Documentar as funcionalidades é a peça-chave para que o protocolo tenha mais eficácia, e para que os requisitos sejam documentados e lembrados, posteriormente;
+4. Com a documentação lida e as tarefas definidas, peça para a inteligência artificial cumprir as tarefas, uma a uma, conforme o protocolo simplicidade. Você não precisa escolher qual, pois a regra central do protocolo é resolver as tarefas mais simples e aquelas cujas outras tarefas dependem para serem executadas, então a escolha da tarefa, da sprint, da funcionalidade ou do requisito é automático;
+5. Responda às perguntas que a inteligência artificial fizer para você a cada sessão, para que você possa refinar os requisitos e possibilitar maior entendimento da inteligência artificial do que ela deve fazer. Observe o protocolo entrar em ação nesta etapa, e o seu software sendo desenvolvido;
+6. A inteligência artificial poderá fazer testes, mas você precisa realizar a experiência de usuário. Até a experiência de usuário não ser satisfatória, dê detalhes da sua experiência e do que você deseja fazer, até a inteligência acertar, conforme protocolo simplicidade;
+7. Se todos os requisitos forem implementados, não haver bugs e os testes de experiência de usuário forem um sucesso, parabéns, seu software está finalizado!
+
 ---
 
 ## 🚦 Guia Rápido: Qual Protocolo Usar?

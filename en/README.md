@@ -7,6 +7,17 @@ This repository contains the "Simplicity" suite, a set of protocols created by *
 
 Important note to programmers and software developers: you can read the protocols if you want, but you DO NOT NEED to apply anything to the protocol or even read the protocols, as this is only for artificial intelligence to read for you and program for you based on the protocol (for example, with advanced AI-powered automatic programming tools like Github Copilot Pro+). It is the artificial intelligence that needs to read the entire protocol and program based on those protocols, providing more productivity and technical capacity for the artificial intelligence to develop code as if it were real programmers, such as a mid-level or senior programmer, for example, which is the goal of the protocols.
 
+To begin programming, some steps must be taken:
+
+1. Have the artificial intelligence read 100% of the documentation. This is the first step;
+2. After the project documentation has been 100% read, choose one of the simplicity protocols, for example, simplicity protocol 3, and have the artificial intelligence read 100% of the protocol;
+3. If docs/TASKS.md does not exist, ask the artificial intelligence to document the tasks you provide in docs/TASKS.md to divide the tasks in a more organized way. This way, the artificial intelligence can better organize itself to implement the requirements and functionalities you want. If you have these requirements yourself, put them in docs/TASKS.md; otherwise, if you don't have them, discuss with the artificial intelligence what you need to implement. Documenting the functionalities is key to making the protocol more effective and ensuring that the requirements are documented and remembered later;
+
+4. With the documentation read and the tasks defined, ask the artificial intelligence to complete the tasks, one by one, according to the simplicity protocol. You don't need to choose which one, as the central rule of the protocol is to solve the simplest tasks and those on which other tasks depend to be executed, so the choice of task, sprint, functionality, or requirement is automatic;
+5. Answer the questions that the artificial intelligence asks you in each session, so that you can refine the requirements and allow the artificial intelligence to better understand what it should do. Observe the protocol in action at this stage, and your software being developed;
+6. The artificial intelligence can perform tests, but you need to conduct the user experience. Until the user experience is satisfactory, provide details of your experience and what you want to do, until the intelligence gets it right, according to the simplicity protocol;
+7. If all requirements are implemented, there are no bugs, and the user experience tests are a success, congratulations, your software is finished!
+
 ---
 
 ## 🚦 Quick Guide: Which Protocol to Use?
