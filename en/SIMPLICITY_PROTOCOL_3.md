@@ -1,10 +1,46 @@
 # Simplicity 3 Protocol - Solo Developer in Production
 
-**Author**: Josué Amaral
-**Creation Date**: December 02, 2025
-**Version**: 3.1
-**Last Update**: December 09, 2025
+**Author**: Josué Amaral  
+**Creation Date**: December 02, 2025  
+**Version**: 3.4  
+**Last Update**: January 1, 2026  
 **Objective**: Hybrid methodology for **solo developers** with application in **production**
+
+**Changelog v3.4** (01/01/2026):
+- ✅ **[NEW]** Default Recommended Stack for Websites (Solo Developer Focus)
+- ✅ Same modern base: Next.js 15 + React 19 + TypeScript
+- ✅ Focus on low maintenance: ~15h/month sustainable
+- ✅ Free deploy on Vercel (scalable as you grow)
+- ✅ Exceptional documentation and massive community
+- ✅ LTS Node.js 18+ (support until 2025)
+- ✅ Mandatory rollback plan (3 alternatives)
+- ✅ Estimated maintenance time and rollback triggers
+- ✅ When NOT to use: Experienced Vue/Angular dev, prefers "boring tech"
+
+**Changelog v3.3** (01/01/2026):
+- ✅ **[CRITICAL]** Added Step 1.0: Complete Documentation Reading (PRIORITY)
+- ✅ Solo focus: Documentation as "external memory" of developer
+- ✅ Mandatory reading of OWASP checklist and rollback plans (critical)
+- ✅ Minimum solo structure: security/ and rollback/ mandatory
+- ✅ README template with production info (deploy, uptime, contact)
+- ✅ OWASP-checklist.md template (check BEFORE each deploy)
+- ✅ Checklist of 10 items focused on solo developer
+- ✅ Code comments: Document for "future you"
+- ✅ Rationale: Without team, documentation is your virtual colleague
+
+**Changelog v3.2** (01/01/2026):
+- ✅ **[MANDATORY]** Added Step 1.5: Technology Stack Research
+- ✅ Focus on **maturity, documentation and active community** (solo criteria)
+- ✅ Prioritize **LTS (Long Term Support)** versions and "boring technology"
+- ✅ Evaluate **ease of maintenance** (estimated hours/week)
+- ✅ **Longevity** analysis (5+ years support)
+- ✅ **Mandatory rollback plan** (if stack doesn't work)
+- ✅ Specific searches for solo developers (Indie Hackers, Reddit r/solopreneur)
+- ✅ Documentation template with update history
+- ✅ Expanded checklist (13 items) including learning resources
+- ✅ "Choose Boring Technology" concept for long-term projects
+
+**Changelog v3.1** (09/12/2025):
 
 ---
 
@@ -1899,28 +1935,193 @@ Rule of thumb:
 **Total**: 14 base + 3 new mandatory ⭐ + 3 optional = **17-20 steps**
 
 ### 1️⃣ **Read the Documentation**
-- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
-- Consult `docs/REQUIREMENTS.md` to understand the project context
-- Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
-- Understand dependencies and existing architecture
-- Check examples in `tests/files/` when applicable
 
-**📋 About the Task File**:
+> **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
 
-The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+#### 📖 **Step 1.0: Complete Documentation Search and Reading** [PRIORITY]
 
-**Task File Requirements**:
-- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
-- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
-- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
-- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+**Core functionality**: Same as Simplicity Protocol 1 Step 1.0, with the following **solo developer additions**:
 
-**If no task file exists**:
-1. AI should ask the user: "Which file do you use to manage tasks?"
-2. If none exists, suggest creating the default `TASKS.md`
-3. Confirm file location and name with the user
+**Additional critical files to read (Solo)**:
+- ✅ `docs/security/OWASP-checklist.md` - **Security checklist (CRITICAL)**
+- ✅ `docs/rollback/*.md` - **Rollback plans (CRITICAL)**
+- ✅ Decision notes - Understand why YOU chose X instead of Y
 
-**Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
+**[SPECIFIC FOR SIMPLICITY 3 - SOLO]**:
+- ✅ **Decision Notes**: Understand why you (developer) chose X instead of Y
+- ✅ **Rollback Plans**: How to revert changes if something goes wrong
+- ✅ **Security Checklist**: OWASP is mandatory - read before any implementation
+
+**Solo in Production Minimum Structure** (if creating from scratch):
+```
+📁 Project Root
+├── README.md
+├── TASKS.md
+└── 📁 docs/
+    ├── REQUIREMENTS.md
+    ├── ARCHITECTURE.md
+    ├── v0.1.0-SPECIFICATIONS.md
+    ├── 📁 security/             # MANDATORY
+    │   └── OWASP-checklist.md
+    └── 📁 rollback/             # MANDATORY
+        └── rollback-template.md
+```
+
+**Solo README template** includes:
+- Production info (deploy, active users, uptime)
+- Emergency contact (your email, response time)
+- OWASP checklist status
+- Rollback procedures
+
+**Solo OWASP-checklist.md template**:
+```markdown
+# OWASP Top 10 Checklist - [Project]
+
+**MANDATORY**: Check BEFORE each deploy.
+
+## A01:2021 – Broken Access Control
+- [ ] Authentication implemented in all sensitive routes
+- [ ] Authorization validated (user only accesses their data)
+- [ ] CORS configured correctly
+
+## A02:2021 – Cryptographic Failures
+- [ ] Passwords hashed (bcrypt, Argon2)
+- [ ] HTTPS in production
+- [ ] Secure tokens (JWT with expiration)
+
+## A03:2021 – Injection
+- [ ] SQL: Parameterized queries (no concatenation)
+- [ ] Input sanitized
+- [ ] XSS prevented (HTML escaping)
+
+[... rest of OWASP Top 10 ...]
+```
+
+**Solo Developer Checklist** (10 items):
+```markdown
+[ ] 🔍 Searched all .md files
+[ ] 📖 Read 100% of found content
+[ ] 🔐 Read OWASP checklist (if exists)
+[ ] 🔄 Read existing rollback plans
+[ ] 📝 If no docs, asked and created structure
+[ ] 🎯 Understood goal and complete context
+[ ] 📋 Know pending and completed tasks
+[ ] 🛠️ Know stack and why it was chosen
+[ ] 🏗️ Understood previous technical decisions
+[ ] ✅ Ready to work with complete context
+```
+
+**Rationale (Solo in Production)**:
+- ✅ **You're the Only Maintainer**: Context is your external memory
+- ✅ **No Team to Ask**: Documentation is your team colleague
+- ✅ **Critical Production**: Bugs affect real users - context prevents errors
+- ✅ **Future Decisions**: Understand why YOU chose X months ago
+- ✅ **Future Onboarding**: If you hire someone, documentation is essential
+- ✅ **Continuity**: If you get sick/vacation, someone can take over
+
+**Message for AIs (Solo)**:
+> "For solo developers, documentation is CRITICAL. You have no team to consult. Reading 100% of existing documentation BEFORE coding prevents reintroducing already fixed bugs or breaking architectural decisions YOU made months ago. Document for 'future you'."
+
+**Golden Rule (Solo)**:
+> **"Document as if you'll be hit by a bus tomorrow. Someone needs to be able to maintain your code."**
+
+📖 **See Simplicity Protocol 1 Step 1.0** for complete templates. Solo-specific additions are documented above.
+
+---
+
+### 1️⃣.5️⃣ **Research Suitable Technologies for the Project** [MANDATORY AT START]
+
+**Core functionality**: Same as Simplicity Protocol 1 Step 1.5, with the following **solo developer focus**:
+
+**Additional requirements to collect (Solo)**:
+- 📌 **Developer experience** with technologies (avoid steep learning curve)
+- 📌 **Maintenance capacity** (prefer simple and well-documented technologies)
+- 📌 **Long-term solo maintenance** (5+ years)
+
+**[SPECIFIC FOR SIMPLICITY 3 - SOLO]**:
+
+**Critical Criteria for Solo Developer in Production**:
+
+1. **🛡️ Maturity and Stability**
+   - Technologies with **stable versions** (avoid bleeding edge)
+   - History of **minimal breaking changes**
+   - **LTS (Long Term Support)** available
+
+2. **📚 Quality Documentation**
+   - **Official complete** and updated documentation
+   - **Abundant practical examples**
+   - **Tutorials** for common use cases
+
+3. **👥 Active Community**
+   - **Stack Overflow** with many questions/answers
+   - **GitHub** with active issues and regular PRs
+   - **Discord/Slack** or active forums
+
+4. **🔧 Ease of Maintenance**
+   - **Simple setup** (avoid complex configurations)
+   - **Easy debugging** (mature dev tools)
+   - **Safe updates** (well-documented upgrade process)
+
+5. **⚡ Production-Ready Performance**
+   - Proven **use in production** by companies
+   - **Scalability** adequate to project scope
+   - **Monitoring and logging** native or easy to add
+
+6. **🔐 Security**
+   - **CVEs** quickly fixed
+   - Regular **security updates**
+   - Well-documented **best practices**
+
+**Default Web Stack - Solo Developer Considerations**:
+
+When recommending Next.js 15 + React 19 + TypeScript (see Protocol 1 for complete 80+ dependencies):
+
+**[SOLO DEVELOPER BENEFITS]**:
+- ✅ **Low Maintenance**: Next.js + Vercel = automatic updates
+- ✅ **Excellent Documentation**: Less time searching for solutions
+- ✅ **Massive Community**: Stack Overflow has 100k+ React questions
+- ✅ **Easy Deploy**: `git push` and Vercel does the rest
+- ✅ **Scalable**: Starts free, scales as you grow
+- ✅ **TypeScript Saves Lives**: Type errors before deploy
+- ✅ **LTS Node.js 18+**: Long-term support (until 2025)
+
+**⏱️ Estimated Maintenance Time (Solo)**:
+- Dependency updates: **~2h/month** (automatable)
+- Vercel monitoring: **~10min/day** (automatic dashboards)
+- Typical bug fixes: **~3h/week** (community helps)
+- Total: **~15h/month** maintenance (sustainable for solo)
+
+**🛡️ Rollback Plan (If Doesn't Work)**:
+If after **3 months** this stack doesn't meet expectations:
+- **Alternative 1**: Migrate frontend to **Vue 3 + Nuxt** (similar)
+- **Alternative 2**: Simplify to **React without Next.js** (less features)
+- **Alternative 3**: Migrate to **Python + Flask + React** (if prefer Python)
+- **Estimated effort**: 5-10 days migration
+
+**Rollback triggers**:
+- Inadequate performance (<80 Lighthouse score)
+- Unsustainable complexity (>20h/week maintenance)
+- Costs above $50/month (unexpected scale)
+- Critical bugs not resolved by community in 72h
+
+**When NOT to use Default Stack (Solo specific)**:
+- ❌ Developer has **solid experience** with Vue/Angular
+- ❌ Developer prefers **"boring technology"** (PHP, Ruby on Rails)
+- ❌ Project requires **Python/Django** backend
+
+📖 **See Simplicity Protocol 1 Step 1.5** for complete technology categories, full default web stack (all 80+ dependencies with versions), and detailed templates. Solo-specific additions are documented above.
+
+**Rationale (Solo in Production)**:
+> "For solo developers in production, PRIORITIZE MATURITY over features. A stable framework with active community is 10x better than the newest framework with advanced resources. Remember: you'll maintain this ALONE for YEARS."
+
+**Golden Rule (Solo)**:
+> **"Stack should be BORING. Mature, predictable and well-documented technologies. Innovation comes from features, not from stack."**
+
+📖 **Concept "Choose Boring Technology"**: See Dan McKinley's classic article on why choosing mature technologies is a winning strategy for small teams.
+
+---
+
+### 2️⃣ **Choose the Simplest Tasks**
 
 **📋 About Action Plans**:
 
