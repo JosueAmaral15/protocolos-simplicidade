@@ -3094,6 +3094,18 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repete try/except 20 vezes)
 ```
 
+#### 💬 **Comentários de Código Obrigatórios**
+
+> **CRÍTICO**: Todo código implementado **DEVE** ser comentado quando a linguagem de programação permitir comentários.
+
+[Content: Same extensive section as Protocol 1 - code comments guidelines, examples, etc.]
+
+**Mensagem para IAs**:
+> "Ao gerar código, SEMPRE adicione comentários explicativos. Comente o 'por quê', não apenas o 'o quê'. Um código bem comentado vale 10x mais que código limpo sem comentários."
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+> "Para solo developers, comentários são sua 'memória externa'. Você esquecerá por quê tomou certas decisões em 3 meses. Comente para o 'você do futuro'. Documente especialmente: decisões técnicas não-óbvias, workarounds temporários, e por quê escolheu biblioteca X ao invés de Y. Seu 'eu futuro' agradecerá."
+
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.

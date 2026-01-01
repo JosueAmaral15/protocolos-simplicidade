@@ -3586,6 +3586,211 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repete try/except 20 vezes)
 ```
 
+#### 💬 **Comentários de Código Obrigatórios**
+
+> **CRÍTICO**: Todo código implementado **DEVE** ser comentado quando a linguagem de programação permitir comentários.
+
+**Regra de Ouro**:
+> **"Código sem comentário é código que ninguém mantém. Comente SEMPRE."**
+
+**Quando comentar** (SEMPRE):
+- ✅ **Funções e métodos**: O que fazem, parâmetros, retorno
+- ✅ **Blocos lógicos importantes**: Por quê aquela abordagem
+- ✅ **Variáveis não-óbvias**: O que representam
+- ✅ **Algoritmos complexos**: Como funcionam
+- ✅ **Decisões técnicas**: Por quê foi feito assim
+- ✅ **TODOs e FIXMEs**: O que falta fazer
+- ✅ **Casos especiais (edge cases)**: Por quê são tratados
+- ✅ **Constantes e configurações**: Significado e uso
+
+**O QUE comentar** (Prioridade):
+1. **"Por quê" > "O quê"**: Explique a razão, não apenas o que o código faz
+2. **Contexto**: Informação que não está óbvia no código
+3. **Consequências**: O que acontece se algo mudar
+4. **Restrições**: Limitações e cuidados
+
+**Padrão de comentários por linguagem**:
+
+**Python**:
+```python
+# Comentário de linha única
+"""
+Comentário de múltiplas linhas (docstring)
+para documentar funções, classes e módulos
+"""
+
+def calculate_area(width: float, height: float) -> float:
+    """
+    Calcula a área de um retângulo.
+    
+    Args:
+        width: Largura do retângulo em metros
+        height: Altura do retângulo em metros
+    
+    Returns:
+        Área em metros quadrados
+    
+    Exemplo:
+        >>> calculate_area(5.0, 3.0)
+        15.0
+    """
+    return width * height
+
+# DECISÃO: Usamos multiplicação direta ao invés de loop
+# porque é O(1) ao invés de O(n). Performance crítica aqui.
+result = width * height
+
+# TODO: Adicionar validação para valores negativos
+# FIXME: Bug quando width=0, divisão por zero na linha 150
+```
+
+**JavaScript/TypeScript**:
+```javascript
+// Comentário de linha única
+/* Comentário de múltiplas linhas */
+/**
+ * JSDoc para documentar funções
+ * @param {number} width - Largura do retângulo
+ * @param {number} height - Altura do retângulo
+ * @returns {number} Área em metros quadrados
+ */
+function calculateArea(width, height) {
+    // DECISÃO: Validação inline ao invés de função separada
+    // Razão: Performance (evita overhead de chamada de função)
+    if (width <= 0 || height <= 0) {
+        throw new Error('Dimensões devem ser positivas');
+    }
+    
+    return width * height; // Multiplicação direta: O(1)
+}
+
+// TODO: Implementar cálculo para círculos
+// @ts-ignore - Ignorar erro temporário (remover após refatoração)
+```
+
+**Java**:
+```java
+// Comentário de linha única
+/* Comentário de múltiplas linhas */
+/**
+ * JavaDoc para documentar classes e métodos
+ * @param width Largura do retângulo
+ * @param height Altura do retângulo
+ * @return Área em metros quadrados
+ */
+public double calculateArea(double width, double height) {
+    // DECISÃO: Usar double ao invés de float para maior precisão
+    // Contexto: Cálculos de engenharia requerem precisão de 15 dígitos
+    return width * height;
+}
+
+// TODO: Adicionar sobrecarga para int
+// FIXME: NullPointerException quando dimensions é null (linha 45)
+```
+
+**C/C++**:
+```cpp
+// Comentário de linha única
+/* Comentário de múltiplas linhas */
+/**
+ * Doxygen para documentar funções
+ * @param width Largura do retângulo
+ * @param height Altura do retângulo
+ * @return Área em metros quadrados
+ */
+double calculateArea(double width, double height) {
+    // DECISÃO: Usar double ao invés de float
+    // Razão: Precisão crítica para cálculos científicos
+    return width * height;
+}
+
+// NOTA: Esta função é thread-safe (não usa estado global)
+// WARNING: Não chamar com valores negativos (comportamento indefinido)
+```
+
+**Exemplo Real Completo** (Python):
+```python
+def execute_virtual_graph(config: dict) -> None:
+    """
+    Executa o ambiente gráfico para exibir planos cartesianos.
+    
+    Este método inicializa o módulo virtualGraph.py e renderiza
+    os gráficos configurados. Usa matplotlib para renderização.
+    
+    Args:
+        config: Dicionário com configurações do gráfico
+               {'title': str, 'x_range': tuple, 'y_range': tuple}
+    
+    Raises:
+        ValueError: Se config não contém chaves obrigatórias
+        RuntimeError: Se matplotlib não está disponível
+    
+    Exemplo:
+        >>> config = {'title': 'Função Linear', 'x_range': (-10, 10)}
+        >>> execute_virtual_graph(config)
+        # Exibe janela com gráfico
+    """
+    # VALIDAÇÃO: Verificar chaves obrigatórias
+    # Razão: Evitar erro genérico mais tarde (fail-fast principle)
+    required_keys = ['title', 'x_range', 'y_range']
+    for key in required_keys:
+        if key not in config:
+            raise ValueError(f"Config faltando chave obrigatória: {key}")
+    
+    # DECISÃO: Importar matplotlib aqui ao invés de no topo
+    # Razão: Import pesado (~200ms), só carregar se realmente usar
+    import matplotlib.pyplot as plt
+    
+    # Criar figura com tamanho otimizado para tela FullHD
+    # NOTA: (12, 8) é o tamanho ideal testado com usuários
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Configurar título
+    # FIXME: Título com caracteres especiais causa erro em PDF export
+    ax.set_title(config['title'])
+    
+    # Configurar ranges dos eixos
+    ax.set_xlim(config['x_range'])  # Eixo X
+    ax.set_ylim(config['y_range'])  # Eixo Y
+    
+    # DECISÃO: Grid habilitado por padrão
+    # Contexto: 95% dos usuários habilitam grid manualmente
+    ax.grid(True, alpha=0.3)
+    
+    # Exibir gráfico
+    # NOTA: Bloqueante - aguarda usuário fechar janela
+    plt.show()
+    
+    # TODO: Adicionar opção de export automático para PNG
+    # TODO: Implementar zoom interativo (usar mpl_toolkits)
+
+# Executar ambiente gráfico
+VirtualGraph.execute()  # Este comando executa funcionalidades do ambiente gráfico para exibir os planos cartesianos do módulo virtualGraph.py
+```
+
+**Diretrizes Adicionais**:
+
+✅ **SEMPRE comente**:
+- Qualquer código não-óbvio
+- Decisões que não são evidentes
+- Workarounds e hacks temporários
+- Código que você mesmo não entenderia em 6 meses
+
+❌ **NÃO comente**:
+- Código auto-explicativo (ex: `x = 5  # atribui 5 a x`)
+- Informação já no nome da variável/função
+- Código gerado automaticamente que é óbvio
+
+**Benefícios**:
+1. ✅ Facilita manutenção futura (por você ou outros)
+2. ✅ Reduz tempo de onboarding de novos desenvolvedores
+3. ✅ Documenta decisões técnicas importantes
+4. ✅ Previne reintrodução de bugs já corrigidos
+5. ✅ Código se torna auto-documentado
+
+**Mensagem para IAs**:
+> "Ao gerar código, SEMPRE adicione comentários explicativos. Comente o 'por quê', não apenas o 'o quê'. Um código bem comentado vale 10x mais que código limpo sem comentários. Priorize comentários em decisões técnicas, algoritmos complexos e casos especiais."
+
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.
