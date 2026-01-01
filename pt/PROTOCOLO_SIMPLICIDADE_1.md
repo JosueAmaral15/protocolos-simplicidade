@@ -2018,10 +2018,10 @@ elogios e opiniões)?
 💡 Sugestão: Sim (recomendado para projetos com usuários finais)
 
 Opções:
-A) ✅ Sim, incluir email para feedback (PADRÃO RECOMENDADO)
-B) ✅ Sim, incluir GitHub Issues (para projetos open-source)
+A) ✅ Sim, incluir GitHub Issues (PADRÃO RECOMENDADO para projetos versionados)
+B) ✅ Sim, incluir email para feedback (alternativa ou complemento)
 C) ✅ Sim, incluir formulário de contato na aplicação
-D) ✅ Sim, incluir múltiplos canais (email + issues + formulário)
+D) ✅ Sim, incluir múltiplos canais (GitHub + email + formulário)
 E) ❌ Não, não incluir meios de contato
 
 Qual sua preferência?
@@ -2029,7 +2029,161 @@ Qual sua preferência?
 
 ### ✅ Opções Disponíveis
 
-#### Opção A: ✅ Email para Feedback (PADRÃO RECOMENDADO)
+#### Opção A: ✅ GitHub Issues (PADRÃO RECOMENDADO)
+
+**Por quê GitHub Issues como padrão?**
+- ✅ **Transparência**: Todos veem feedback e respostas (comunidade se beneficia)
+- ✅ **Rastreabilidade**: Histórico completo de discussões e decisões
+- ✅ **Organização**: Labels, milestones, assignees, projetos
+- ✅ **Integração**: Commits, PRs e Issues conectados
+- ✅ **Notificações**: Atualizações automáticas para interessados
+- ✅ **Gratuito**: Ilimitado para repositórios públicos e privados
+- ✅ **Pesquisável**: Fácil encontrar issues similares antes de abrir nova
+- ✅ **Colaborativo**: Comunidade pode ajudar a resolver problemas
+
+**Para projetos com repositório Git (GitHub, GitLab, Bitbucket)**:
+```markdown
+## 🐛 Reportar Problemas ou Dar Feedback
+
+Use as [GitHub Issues](https://github.com/seu-usuario/seu-projeto/issues) para:
+
+- 🐛 Reportar bugs e problemas
+- 💡 Sugerir novas funcionalidades
+- 💬 Compartilhar feedback geral
+- 🎉 Elogios e reconhecimento
+- ❓ Fazer perguntas sobre o projeto
+- 📝 Discutir melhorias e mudanças
+
+**Como reportar**:
+1. Verifique se já existe issue similar (evita duplicatas)
+2. Use os templates disponíveis (Bug Report, Feature Request, Feedback)
+3. Seja claro e específico na descrição
+4. Inclua prints/logs quando relevante
+
+**Templates disponíveis**:
+- 🐛 Bug Report
+- 💡 Feature Request  
+- 💬 Feedback Geral
+- 🎉 Elogios e Reconhecimento
+
+**Tempo de resposta**: Normalmente respondemos em até 48-72 horas.
+
+Valorizamos muito sua contribuição! 🙏
+```
+
+**Exemplo completo no README.md**:
+```markdown
+## 📬 Feedback e Contribuições
+
+### 💬 Reportar Bugs ou Sugerir Melhorias
+
+A melhor forma de contribuir é através das **[GitHub Issues](https://github.com/usuario/projeto/issues)**:
+
+**Reportar Bug** 🐛
+- Use o template "Bug Report"
+- Descreva o comportamento esperado vs observado
+- Inclua passos para reproduzir o problema
+- Adicione prints, logs ou vídeos se possível
+
+**Sugerir Funcionalidade** 💡
+- Use o template "Feature Request"
+- Explique o problema que a feature resolveria
+- Descreva a solução proposta
+- Considere alternativas já existentes
+
+**Feedback Geral** 💬
+- Elogios, sugestões, opiniões sobre UX/UI
+- Dúvidas sobre funcionamento
+- Compartilhar casos de uso interessantes
+
+### 📧 Contato Alternativo
+
+Prefere email? Também aceitamos feedback em: **contato@projeto.com**
+
+> **Nota**: Para bugs e features, preferimos GitHub Issues pois mantém histórico
+> público e permite que outros usuários com problemas similares encontrem soluções.
+```
+
+**Issue Templates (criar em `.github/ISSUE_TEMPLATE/`)**:
+
+**1. Bug Report** (`.github/ISSUE_TEMPLATE/bug_report.md`):
+```markdown
+---
+name: Bug Report 🐛
+about: Reportar um problema ou comportamento inesperado
+title: '[BUG] '
+labels: bug
+assignees: ''
+---
+
+## 🐛 Descrição do Bug
+<!-- Descrição clara e concisa do problema -->
+
+## 🔄 Passos para Reproduzir
+1. 
+2. 
+3. 
+
+## ✅ Comportamento Esperado
+<!-- O que você esperava que acontecesse -->
+
+## ❌ Comportamento Observado
+<!-- O que realmente aconteceu -->
+
+## 📸 Screenshots/Logs
+<!-- Se aplicável, adicione prints ou logs -->
+
+## 💻 Ambiente
+- OS: [e.g. Windows 11, macOS 14, Ubuntu 22.04]
+- Versão do Projeto: [e.g. v1.2.3]
+- Navegador (se web): [e.g. Chrome 120, Firefox 121]
+```
+
+**2. Feature Request** (`.github/ISSUE_TEMPLATE/feature_request.md`):
+```markdown
+---
+name: Feature Request 💡
+about: Sugerir uma nova funcionalidade
+title: '[FEATURE] '
+labels: enhancement
+assignees: ''
+---
+
+## 💡 Resumo da Feature
+<!-- Breve descrição da funcionalidade proposta -->
+
+## 🎯 Problema que Resolve
+<!-- Que problema ou necessidade essa feature atende? -->
+
+## 🔧 Solução Proposta
+<!-- Como você imagina que essa feature funcionaria? -->
+
+## 🔀 Alternativas Consideradas
+<!-- Outras formas de resolver o mesmo problema -->
+
+## 📊 Benefícios Esperados
+<!-- Por que essa feature seria útil para o projeto? -->
+```
+
+**3. Feedback Geral** (`.github/ISSUE_TEMPLATE/feedback.md`):
+```markdown
+---
+name: Feedback Geral 💬
+about: Compartilhar opinião, elogio, sugestão ou dúvida
+title: '[FEEDBACK] '
+labels: feedback
+assignees: ''
+---
+
+## 💬 Seu Feedback
+
+<!-- Compartilhe suas opiniões, sugestões, elogios, dúvidas ou qualquer outro comentário! -->
+
+## 📝 Contexto (Opcional)
+<!-- Se relevante, adicione contexto sobre como você usa o projeto -->
+```
+
+#### Opção B: ✅ Email para Feedback (Alternativa ou Complemento)
 
 **O que incluir**:
 - Email de contato dedicado para feedback
@@ -2066,24 +2220,14 @@ críticas, reclamações, elogios e opiniões para:
 Seu feedback nos ajuda a melhorar continuamente!
 ```
 
-#### Opção B: ✅ GitHub Issues
+**Quando usar email**:
+- Feedback confidencial ou sensível
+- Projetos sem repositório público
+- Usuários não-técnicos que preferem email
+- Como canal complementar ao GitHub Issues
 
-**Para projetos open-source**:
-```markdown
-## 🐛 Reportar Problemas ou Dar Feedback
-
-Use as [GitHub Issues](https://github.com/seu-usuario/seu-projeto/issues) para:
-
-- 🐛 Reportar bugs
-- 💡 Sugerir novas funcionalidades
-- 💬 Compartilhar feedback geral
-- ❓ Fazer perguntas
-
-**Templates disponíveis**:
-- Bug Report
-- Feature Request  
-- Feedback Geral
-```
+> **Nota**: Se o projeto tem repositório Git, preferimos GitHub Issues para manter
+> histórico público e permitir que a comunidade se beneficie das discussões.
 
 #### Opção C: ✅ Formulário de Contato na Aplicação
 

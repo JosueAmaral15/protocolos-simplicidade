@@ -1525,8 +1525,8 @@ elogios e opiniões)?
 💡 Sugestão: Sim (recomendado para projetos com usuários finais)
 
 Opções:
-A) ✅ Sim, incluir email para feedback (PADRÃO RECOMENDADO)
-B) ✅ Sim, incluir GitHub Issues (para projetos open-source)
+A) ✅ Sim, incluir GitHub Issues (PADRÃO RECOMENDADO para projetos versionados)
+B) ✅ Sim, incluir email para feedback (alternativa ou complemento)
 C) ✅ Sim, incluir formulário de contato na aplicação
 D) ✅ Sim, incluir múltiplos canais (email + issues + formulário)
 E) ❌ Não, não incluir meios de contato
