@@ -5,9 +5,20 @@ Here's the English translation of the provided document:
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.3  
-**Last Update**: January 1, 2026  
+**Version**: 2.4  
+**Last Update**: January 5, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.4** (01/05/2026):
+- ✅ **[BLOCKING]** Added Step 1.8: Execution Planning Document (MANDATORY)
+- ✅ AI MUST create execution plan in docs/ BEFORE coding
+- ✅ Planning is BLOCKING: code only after plan approved
+- ✅ Study of current code mandatory (after refactoring for better reading)
+- ✅ Questions to user must be answered BEFORE planning
+- ✅ Adapted waterfall model: planning per task/requirement
+- ✅ Detailed step-by-step problem resolution
+- ✅ Essential for large and complex projects
+- ✅ Rationale: Reduces rework, increases quality, decreases bugs
 
 **Changelog v2.3** (01/01/2026):
 - ✅ **[NEW]** Default Recommended Stack for Websites/Web Applications
@@ -142,11 +153,14 @@ Here's the English translation of the provided document:
 │ 2️⃣ BLOCKING: 📚 Documentation (when necessary)          │
 │    ↓ MUST be written/updated BEFORE implementing         │
 ├──────────────────────────────────────────────────────────┤
-│ 3️⃣ BLOCKING: ❌ Bug/Error Fixing                        │
+│ 3️⃣ BLOCKING: 📋 Execution Planning                      │
+│    ↓ MUST be created BEFORE coding                       │
+├──────────────────────────────────────────────────────────┤
+│ 4️⃣ BLOCKING: ❌ Bug/Error Fixing                        │
 │    ↓ MUST be fixed BEFORE new features                   │
 ├──────────────────────────────────────────────────────────┤
-│ 4️⃣ NORMAL: ✨ New Feature Implementation                │
-│    Only after 1, 2, and 3 are resolved                   │
+│ 5️⃣ NORMAL: ✨ New Feature Implementation                │
+│    Only after 1, 2, 3, and 4 are resolved                │
 └──────────────────────────────────────────────────────────┘
 ```
 

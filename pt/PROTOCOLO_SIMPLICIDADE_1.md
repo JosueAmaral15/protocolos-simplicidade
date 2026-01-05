@@ -6,6 +6,17 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
 
+**Changelog v2.4** (05/01/2026):
+- ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
+- ✅ IA DEVE criar plano de execução em docs/ ANTES de codificar
+- ✅ Planejamento é BLOQUEANTE: código só após plano aprovado
+- ✅ Estudo do código atual obrigatório (após refatorações para melhor leitura)
+- ✅ Perguntas ao usuário devem ser sanadas ANTES do planejamento
+- ✅ Modelo cascata adaptado: planejamento por tarefa/requisito
+- ✅ Passo a passo detalhado de resolução do problema
+- ✅ Essencial para projetos grandes e complexos
+- ✅ Rationale: Reduz retrabalho, aumenta qualidade, diminui bugs
+
 **Changelog v2.3** (01/01/2026):
 - ✅ **[NOVO]** Stack Padrão Recomendado para Sites/Aplicações Web
 - ✅ Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2 como padrão
@@ -248,11 +259,14 @@ Antes de iniciar qualquer tarefa nova:
 │ 2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária)     │
 │    ↓ DEVE ser escrita/atualizada ANTES de implementar   │
 ├─────────────────────────────────────────────────────────┤
-│ 3️⃣ BLOQUEANTE: ❌ Correção de Bugs/Erros               │
+│ 3️⃣ BLOQUEANTE: 📋 Planejamento de Execução             │
+│    ↓ DEVE ser criado ANTES de codificar                 │
+├─────────────────────────────────────────────────────────┤
+│ 4️⃣ BLOQUEANTE: ❌ Correção de Bugs/Erros               │
 │    ↓ DEVE ser corrigido ANTES de novas features         │
 ├─────────────────────────────────────────────────────────┤
-│ 4️⃣ NORMAL: ✨ Implementação de Novas Features          │
-│    Somente após 1, 2 e 3 estarem resolvidos             │
+│ 5️⃣ NORMAL: ✨ Implementação de Novas Features          │
+│    Somente após 1, 2, 3 e 4 estarem resolvidos          │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -348,6 +362,336 @@ Desenvolvedor pede: "Adicionar endpoint /api/users"
 - ⚠️ Refinamentos de exemplos - pode melhorar depois
 - ⚠️ Tradução de docs - pode vir depois
 
+### 📋 3️⃣ Bloqueante: Documento de Planejamento de Execução (CRÍTICO)
+
+> **NOVO REQUISITO OBRIGATÓRIO**: Antes de implementar qualquer tarefa/requisito, a IA **DEVE** criar um documento de planejamento detalhado em `docs/planning/`.
+
+**Filosofia**: Inspirado no **modelo em cascata**, onde o planejamento é **bloqueante** antes da codificação.
+
+#### 🎯 Quando Criar Documento de Planejamento (Obrigatório)
+
+**SEMPRE criar para**:
+- ✅ **Toda nova tarefa** (requisitos, funcionalidades, bugs complexos)
+- ✅ **Projetos grandes** (>500 linhas de código estimadas)
+- ✅ **Features que afetam múltiplos módulos** (3+ arquivos)
+- ✅ **Mudanças arquiteturais** (refatorações, novos padrões)
+- ✅ **Integrações com APIs externas** (Stripe, OpenAI, etc.)
+
+**Pode pular para** (planejamento mental é suficiente):
+- ⚠️ Correções triviais (<10 linhas de código)
+- ⚠️ Ajustes de CSS/styling simples
+- ⚠️ Correções de typos na documentação
+
+#### 📝 Estrutura do Documento de Planejamento
+
+**Nome do arquivo**: `docs/planning/TASK-{número}-{nome-curto}.md`
+
+**Exemplo**: `docs/planning/TASK-003-user-authentication.md`
+
+**Template obrigatório**:
+
+```markdown
+# 📋 Planejamento: [Nome da Tarefa]
+
+**Data**: YYYY-MM-DD
+**Autor**: IA (+ nome do desenvolvedor se aplicável)
+**Requisito Original**: Link ou descrição do que foi solicitado
+**Tempo Estimado**: X horas
+
+---
+
+## 1️⃣ Compreensão do Problema
+
+**O que precisa ser feito?**
+- Descrever em 2-3 frases claras
+
+**Por quê é necessário?**
+- Justificativa de negócio/técnica
+
+**Critérios de Aceitação** (Como saber que está pronto?):
+- [ ] Critério 1
+- [ ] Critério 2
+- [ ] Critério 3
+
+---
+
+## 2️⃣ Análise do Código Existente
+
+**Arquivos/Módulos Afetados**:
+- `path/to/file1.py` - Descrição do que será alterado
+- `path/to/file2.js` - Descrição do que será alterado
+
+**Dependências Identificadas**:
+- Biblioteca X (já instalada / precisa instalar)
+- API Y (configuração necessária?)
+
+**Pontos de Integração**:
+- Onde o novo código se conecta com código existente?
+- Quais funções/classes precisam ser modificadas?
+
+**Possíveis Conflitos**:
+- Esta mudança pode quebrar algo? Se sim, o quê?
+
+---
+
+## 3️⃣ Solução Proposta
+
+**Abordagem Técnica**:
+- Descrever COMO será implementado (algoritmo, padrões, etc.)
+
+**Pseudo-código** (se aplicável):
+```
+função principal():
+    1. Fazer X
+    2. Se condição Y:
+       - Executar Z
+    3. Retornar resultado
+```
+
+**Alternativas Consideradas** (por quê esta é melhor?):
+- Alternativa 1: [Razão por quê foi descartada]
+- Alternativa 2: [Razão por quê foi descartada]
+
+---
+
+## 4️⃣ Passo a Passo de Implementação
+
+**Ordem de Execução** (do mais simples ao mais complexo):
+
+1. **Passo 1**: [Descrição]
+   - Arquivo: `path/to/file`
+   - Ação: O que será feito
+   - Tempo estimado: X min
+
+2. **Passo 2**: [Descrição]
+   - Arquivo: `path/to/file`
+   - Ação: O que será feito
+   - Tempo estimado: X min
+
+3. **Passo 3**: [Descrição]
+   - ...
+
+**Checkpoints de Validação** (testar incrementalmente):
+- [ ] Após Passo 2: Verificar X
+- [ ] Após Passo 4: Testar Y
+- [ ] Após Passo 6: Validar Z
+
+---
+
+## 5️⃣ Testes Planejados
+
+**Testes Unitários** (se aplicável):
+- [ ] Testar função X com input Y
+- [ ] Testar edge case Z
+
+**Testes de Integração**:
+- [ ] Verificar que módulo A comunica com módulo B
+- [ ] Validar fluxo completo de usuário
+
+**Testes Manuais** (se GUI):
+- [ ] Clicar em botão X → Verificar resultado Y
+- [ ] Testar em browser diferente (Chrome, Firefox)
+
+---
+
+## 6️⃣ Documentação a Atualizar
+
+**BLOQUEANTE** (atualizar ANTES de implementar):
+- [ ] `README.md` - Seção de instalação
+- [ ] `docs/API.md` - Novo endpoint
+- [ ] `docs/REQUIREMENTS.md` - Novo requisito
+
+**Não-bloqueante** (atualizar DEPOIS):
+- [ ] Comentários no código
+- [ ] Changelog (após commit)
+
+---
+
+## 7️⃣ Dúvidas Pendentes (BLOQUEANTES)
+
+**Perguntas para o Desenvolvedor**:
+1. ❓ [Dúvida 1] - Aguardando resposta
+2. ❓ [Dúvida 2] - Aguardando resposta
+
+**Respostas Recebidas** (documentar aqui após sanadas):
+- ✅ Dúvida 1: [Resposta do desenvolvedor]
+- ✅ Dúvida 2: [Resposta do desenvolvedor]
+
+---
+
+## 8️⃣ Riscos Identificados
+
+**Riscos Técnicos**:
+- ⚠️ Risco 1: [Descrição] - Mitigação: [Como evitar]
+- ⚠️ Risco 2: [Descrição] - Mitigação: [Como evitar]
+
+**Riscos de Prazo**:
+- ⚠️ Se funcionalidade X demorar muito → Plano B: [Simplificar como?]
+
+---
+
+## 9️⃣ Checklist Pré-Implementação
+
+**Antes de começar a codificar**:
+- [ ] Todas as dúvidas foram sanadas?
+- [ ] Documentação bloqueante foi atualizada?
+- [ ] Código existente foi estudado e entendido?
+- [ ] Abordagem técnica foi validada?
+- [ ] Passo a passo está claro e completo?
+- [ ] Testes foram planejados?
+- [ ] Riscos foram identificados e mitigados?
+
+**Se TODOS os itens acima estão ✅, pode iniciar a codificação!**
+
+---
+
+## 🔄 Histórico de Atualizações
+
+- **YYYY-MM-DD**: Planejamento inicial criado
+- **YYYY-MM-DD**: Ajustado após feedback do desenvolvedor
+- **YYYY-MM-DD**: Implementação concluída
+```
+
+#### ⚙️ Fluxo de Trabalho Obrigatório
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 1️⃣ Receber Tarefa/Requisito do Desenvolvedor           │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 2️⃣ Estudar Código Existente (após refatoração se possível) │
+│    - Ler arquivos relevantes                            │
+│    - Entender arquitetura atual                         │
+│    - Identificar pontos de integração                   │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 3️⃣ Criar Documento de Planejamento (BLOQUEANTE)        │
+│    - Usar template acima                                │
+│    - Salvar em docs/planning/TASK-{N}-{nome}.md        │
+│    - Preencher TODAS as seções obrigatórias             │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 4️⃣ Identificar Dúvidas (Se houver → BLOQUEANTE)        │
+│    - Listar dúvidas na seção 7                          │
+│    - PARAR e aguardar respostas                         │
+│    - Documentar respostas recebidas                     │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 5️⃣ Revisar Planejamento com Desenvolvedor (Opcional)   │
+│    - Desenvolvedor pode validar antes de codificar      │
+│    - Ajustar planejamento se necessário                 │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 6️⃣ Atualizar Documentação Bloqueante (Se necessário)   │
+│    - API.md, REQUIREMENTS.md, etc.                      │
+│    - ANTES de começar a codificar                       │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 7️⃣ Implementar Código (Seguir passo a passo do plano)  │
+│    - Executar cada passo em ordem                       │
+│    - Validar checkpoints incrementalmente               │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 8️⃣ Testar (Conforme testes planejados)                 │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 9️⃣ Atualizar Planejamento com Status Final             │
+│    - Marcar como "Implementação concluída"              │
+│    - Documentar desvios do plano (se houve)             │
+│    ↓                                                     │
+├─────────────────────────────────────────────────────────┤
+│ 🔟 Commit (Código + Documentação + Planejamento)       │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### 🎯 Benefícios do Planejamento Bloqueante
+
+**Para a IA**:
+- ✅ **Clareza**: Sabe exatamente o que fazer antes de começar
+- ✅ **Organização**: Não pula etapas ou esquece validações
+- ✅ **Debugging mais fácil**: Se falhar, sabe onde parou no plano
+- ✅ **Menos retrabalho**: Dúvidas são sanadas ANTES de codificar
+
+**Para o Desenvolvedor**:
+- ✅ **Visibilidade**: Pode revisar plano antes da IA começar
+- ✅ **Controle**: Pode ajustar abordagem antes do trabalho pesado
+- ✅ **Documentação automática**: Cada tarefa tem histórico de decisões
+- ✅ **Aprendizado**: Entende como IA está pensando/planejando
+
+**Para o Projeto**:
+- ✅ **Qualidade**: Código bem pensado antes de escrito
+- ✅ **Manutenibilidade**: Planejamentos servem como docs de arquitetura
+- ✅ **Rastreabilidade**: Cada feature tem origem documentada
+- ✅ **Onboarding**: Novos devs entendem decisões passadas
+
+#### 📊 Quando Planejamento é ESPECIALMENTE Crítico
+
+**Projetos muito grandes** (>1000 linhas de código):
+- Planejamento pode levar 30-60min, mas economiza 4-8h de retrabalho
+
+**Features que afetam múltiplos módulos**:
+- Sem planejamento → Alta chance de quebrar integrações
+
+**Quando há refatoração recente**:
+- Estudar código refatorado ANTES é essencial para não quebrar melhorias
+
+**Integrações com APIs externas**:
+- Planejar tratamento de erros, timeouts, rate limits ANTES
+
+#### ⚠️ Rationale: Por Quê Isto É Obrigatório?
+
+**Problema Real Sem Planejamento**:
+```
+Desenvolvedor pede: "Adicionar sistema de login com JWT"
+
+❌ SEM PLANEJAMENTO:
+IA começa a codificar → Não sabe onde integrar → Pergunta no meio
+→ Reescreve 3 vezes → Esquece de atualizar docs → Bug em produção
+→ Total: 6 horas + 2h de debugging
+
+✅ COM PLANEJAMENTO (30min):
+IA estuda código → Cria plano detalhado → Tira dúvidas ANTES
+→ Codifica em 2h seguindo plano → Testa → Documenta → Funciona
+→ Total: 2.5h + 0 bugs
+```
+
+**Economia Real**: 
+- Tempo: **50-70% menos tempo total**
+- Qualidade: **90% menos bugs**
+- Manutenibilidade: **100% rastreável**
+
+#### 📚 Integração com Documentação
+
+**Planejamentos NÃO substituem documentação**:
+- Planejamentos são **temporários** (para tarefa específica)
+- Documentação é **permanente** (para uso contínuo)
+
+**Após conclusão da tarefa**:
+- Mover informações relevantes do planejamento para docs permanentes
+- Manter planejamento em `docs/planning/` como histórico
+- Referenciar planejamento em commits: `Closes #123 (see docs/planning/TASK-003)`
+
+#### ✅ Checklist de Validação do Planejamento
+
+Antes de considerar planejamento completo:
+
+```markdown
+[ ] Todas as 9 seções do template foram preenchidas?
+[ ] Passo a passo está claro e executável?
+[ ] Todas as dúvidas foram identificadas e documentadas?
+[ ] Riscos foram identificados e mitigados?
+[ ] Testes foram planejados (unitários + integração)?
+[ ] Documentação bloqueante foi identificada?
+[ ] Tempo estimado foi calculado?
+[ ] Critérios de aceitação estão claros?
+[ ] Código existente foi estudado?
+[ ] Pseudo-código/algoritmo está definido (se aplicável)?
+```
+
+**Se TODOS os itens acima estão ✅, planejamento está completo!**
+
+---
+
 **Rationale**:
 1. **Documentação desatualizada = mentira**: Pior que não ter docs
 2. **Previne confusão**: Implementar sem docs = outros não entendem
@@ -358,7 +702,7 @@ Desenvolvedor pede: "Adicionar endpoint /api/users"
 **Mensagem para IAs**:
 > "Se há necessidade de documentar algo (API, arquitetura, breaking change, requisitos), a documentação é **BLOQUEANTE**. Você NÃO PODE implementar até documentar. Documente ANTES de codificar. Documentação desatualizada é pior que código ruim."
 
-### 3️⃣ Bloqueante: ❌ Correção de Bugs/Erros
+### 4️⃣ Bloqueante: ❌ Correção de Bugs/Erros
 
 **Quando**: Existem erros no workspace, builds falhando, testes falhando
 

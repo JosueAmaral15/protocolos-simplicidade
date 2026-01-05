@@ -6,6 +6,17 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
 
+**Changelog v3.5** (05/01/2026):
+- ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
+- ✅ IA DEVE criar plano pragmático em docs/ ANTES de codificar
+- ✅ Planejamento é BLOQUEANTE mas simplificado para solo dev
+- ✅ Foco em decisões críticas e pontos de risco
+- ✅ Plano inclui tempo estimado e checkpoints de validação
+- ✅ Documentação como "memória externa" para você do futuro
+- ✅ Modelo cascata leve: planejamento essencial por tarefa
+- ✅ Priorização clara: o que fazer agora vs depois
+- ✅ Rationale: Solo dev não pode se dar ao luxo de retrabalho
+
 **Changelog v3.4** (01/01/2026):
 - ✅ **[NOVO]** Stack Padrão Recomendado para Sites (Solo Developer)
 - ✅ Mesma base moderna: Next.js 15 + React 19 + TypeScript
@@ -248,9 +259,10 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 ```
 1️⃣ MAIS CRÍTICO: ❓ Dúvidas da IA → RESOLVER ANTES de continuar
-2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar  
-3️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
-4️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3 resolvidos
+2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar
+3️⃣ BLOQUEANTE: 📋 Planejamento de Execução → CRIAR ANTES de codificar
+4️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
+5️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3, 4 resolvidos
 ```
 
 ### 2️⃣ Documentação é BLOQUEANTE
@@ -275,6 +287,390 @@ Tarefa → Dúvidas? (perguntar) → Documentar ANTES (5-10min) → Implementar 
 ```
 
 **Regra de Ouro Solo**: "Se levou mais tempo implementar que documentar, seu design está complexo demais. Simplifique."
+
+---
+
+### 3️⃣ Planejamento de Execução é BLOQUEANTE (Solo Critical)
+
+> **NOVO REQUISITO OBRIGATÓRIO**: Antes de implementar qualquer tarefa/requisito complexo, a IA **DEVE** criar um documento de planejamento em `docs/planning/`.
+
+**Filosofia Solo**: Inspirado no **modelo em cascata**, mas adaptado para **solo developer**. Planejamento é sua "memória externa" e previne que você se perca em features grandes.
+
+#### 🎯 Quando Criar Documento de Planejamento (Solo)
+
+**SEMPRE criar para**:
+- ✅ **Features complexas** (>200 linhas de código estimadas)
+- ✅ **Mudanças arquiteturais** (refatorações, novos padrões)
+- ✅ **Integrações com APIs externas** (Stripe, OpenAI, etc.)
+- ✅ **Features que você não domina** (nova biblioteca, novo conceito)
+- ✅ **Quando você se sentir "perdido"** (planejamento organiza pensamento)
+
+**Pode pular para** (planejamento mental é suficiente):
+- ⚠️ Correções triviais (<50 linhas de código)
+- ⚠️ Ajustes de CSS/styling simples
+- ⚠️ Correções que você já fez 10x (know-how consolidado)
+
+#### 📝 Estrutura do Documento de Planejamento (Solo Simplificado)
+
+**Nome do arquivo**: `docs/planning/TASK-{número}-{nome-curto}.md`
+
+**Exemplo**: `docs/planning/TASK-007-stripe-integration.md`
+
+**Template Solo** (mais enxuto que Enterprise):
+
+```markdown
+# 📋 Planejamento Solo: [Nome da Tarefa]
+
+**Data**: YYYY-MM-DD
+**Tempo Estimado**: X horas (seja realista!)
+**Prioridade**: [Alta/Média/Baixa]
+
+---
+
+## 1️⃣ O Que Precisa Ser Feito?
+
+**Descrição clara em 2-3 frases**:
+- [Escreva como se estivesse explicando para "você do futuro" daqui 6 meses]
+
+**Por quê isso é necessário?**
+- [Justificativa: resolve qual problema? Agrega qual valor?]
+
+**Como saberei que está pronto?** (Critérios de aceitação):
+- [ ] Critério 1 (testável)
+- [ ] Critério 2 (testável)
+- [ ] Critério 3 (testável)
+
+---
+
+## 2️⃣ Análise Rápida do Código Existente
+
+**Arquivos que vou mexer**:
+- `path/to/file1.py` - O que vou mudar aqui
+- `path/to/file2.js` - O que vou mudar aqui
+
+**Bibliotecas/APIs que vou usar**:
+- Biblioteca X (já sei usar? Se não, tempo extra: +2h para aprender)
+- API Y (precisa de chave? Documentação: link)
+
+**Possíveis armadilhas** (baseado na experiência):
+- ⚠️ Armadilha 1: [Como evitar]
+- ⚠️ Armadilha 2: [Como evitar]
+
+---
+
+## 3️⃣ Como Vou Implementar?
+
+**Abordagem técnica em pseudocódigo**:
+```
+função principal():
+    1. Fazer X
+    2. Se condição Y:
+       - Executar Z
+    3. Retornar resultado
+```
+
+**Por quê essa abordagem?** (vs alternativas):
+- Alternativa A: [Por quê descartei]
+- Alternativa B: [Por quê descartei]
+- Minha escolha: [Por quê é melhor para solo dev]
+
+**Tempo estimado realista**:
+- Implementação: X h
+- Testes: Y h
+- Documentação: Z h
+- **Buffer (imprevistos)**: +30% = TOTAL: W h
+
+---
+
+## 4️⃣ Passo a Passo (Do Simples ao Complexo)
+
+**Ordem de execução** (incremental!):
+
+1. **[15min]** Passo 1: [Descrição]
+   - Arquivo: `path/to/file`
+   - Checkpoint: Testar X
+
+2. **[30min]** Passo 2: [Descrição]
+   - Arquivo: `path/to/file`
+   - Checkpoint: Validar Y
+
+3. **[45min]** Passo 3: [Descrição]
+   - ...
+
+**⚠️ Regra Solo**: Se um passo >1h, subdivida em passos menores!
+
+---
+
+## 5️⃣ Como Vou Testar?
+
+**Testes rápidos** (solo pragmático):
+- [ ] Teste manual 1: [Ação → Resultado esperado]
+- [ ] Teste manual 2: [Ação → Resultado esperado]
+- [ ] Teste edge case: [Input anormal → Como deve se comportar?]
+
+**Testes automatizados** (se valer a pena):
+- [ ] Teste unitário para função X (5min para escrever)
+- [ ] Teste de integração para fluxo Y (10min para escrever)
+
+**Decisão Solo**: 
+- ✅ Escrever testes SE: Feature crítica + difícil de testar manualmente
+- ⚠️ Pular testes SE: Feature simples + fácil de testar manualmente (pragmatismo)
+
+---
+
+## 6️⃣ Documentação a Atualizar (Bloqueante)
+
+**ANTES de implementar** (rápido, 5-10min):
+- [ ] `README.md` - Se adicionar dependência ou mudar instalação
+- [ ] `docs/API.md` - Se criar/alterar endpoint
+- [ ] `docs/ARCHITECTURE.md` - Se mudar estrutura de pastas
+
+**DEPOIS de implementar** (não-bloqueante):
+- [ ] Comentários no código (enquanto escrevo)
+- [ ] `CHANGELOG.md` (antes do commit)
+
+---
+
+## 7️⃣ Dúvidas que Preciso Resolver ANTES (Bloqueantes)
+
+**Perguntas para mim mesmo ou para comunidade**:
+1. ❓ [Dúvida técnica] - Onde buscar resposta: [Stack Overflow / Docs oficiais / YouTube]
+2. ❓ [Dúvida de design] - Posso perguntar em: [Reddit r/webdev / Discord da comunidade]
+
+**Respostas encontradas** (documentar para referência futura):
+- ✅ Dúvida 1: [Resposta encontrada em: link]
+- ✅ Dúvida 2: [Solução: descrição]
+
+---
+
+## 8️⃣ Riscos e Plano B (Solo Pragmático)
+
+**O que pode dar errado?**
+- ⚠️ Risco 1: [Descrição] 
+  - **Plano B**: [Solução alternativa mais simples]
+  - **Tempo extra**: +X h
+
+- ⚠️ Risco 2: [Descrição]
+  - **Plano B**: [Solução alternativa]
+  - **Tempo extra**: +Y h
+
+**Gatilho de "desistir e simplificar"**:
+- Se depois de Z horas não funcionar → Usar Plano B (não fique travado!)
+
+---
+
+## 9️⃣ Checklist Pré-Implementação (Solo)
+
+**Antes de começar a codificar**:
+- [ ] Entendi 100% o problema?
+- [ ] Tenho clareza de COMO vou implementar?
+- [ ] Identifiquei possíveis armadilhas?
+- [ ] Documentação bloqueante atualizada?
+- [ ] Sei como vou testar?
+- [ ] Tempo estimado é realista (incluí buffer)?
+- [ ] Tenho Plano B se travar?
+
+**Se TODOS estão ✅ → Pode codificar! 🚀**
+
+---
+
+## 🔄 Notas Durante Implementação (Atualizar enquanto codifico)
+
+**O que funcionou diferente do plano**:
+- ⚠️ [Desvio 1]: Por quê mudei de ideia
+- ⚠️ [Desvio 2]: O que aprendi
+
+**Tempo real gasto**:
+- Planejamento: X min
+- Implementação: Y h Z min
+- Testes: W min
+- **Comparação**: Estimei A h, levou B h (fator: B/A)
+
+**Lições aprendidas** (para próximos planejamentos):
+- 💡 Lição 1: [Insight]
+- 💡 Lição 2: [Insight]
+
+**Status Final**: ✅ Implementado em DD/MM/YYYY
+```
+
+#### ⚙️ Fluxo Solo Pragmático
+
+```
+┌────────────────────────────────────────────────────────────┐
+│ 1️⃣ Receber Tarefa ou Definir Feature                      │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 2️⃣ Avaliar Complexidade                                   │
+│    - Complexa (>200 linhas)? → Planejamento OBRIGATÓRIO  │
+│    - Simples (<50 linhas)? → Pode pular planejamento     │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 3️⃣ Estudar Código Existente (15-30min)                    │
+│    - Ler arquivos relevantes                               │
+│    - Entender como se integra                              │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 4️⃣ Criar Planejamento (30-45min para tarefas complexas)   │
+│    - Usar template solo (mais enxuto)                      │
+│    - Focar em passo a passo executável                     │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 5️⃣ Resolver Dúvidas (Se houver → Pesquisar online)        │
+│    - Stack Overflow, docs oficiais, comunidades           │
+│    - Documentar respostas no planejamento                  │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 6️⃣ Atualizar Docs Bloqueantes (5-10min)                   │
+│    - README, API docs, etc.                                │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 7️⃣ Implementar Incrementalmente (Seguir passo a passo)    │
+│    - Testar após cada passo (checkpoints)                  │
+│    - Se travar >2h → Acionar Plano B                       │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 8️⃣ Testar (Manual + Automatizado se valer a pena)         │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 9️⃣ Atualizar Planejamento com Lições Aprendidas           │
+│    - Tempo real vs estimado                                │
+│    - O que funcionou diferente                             │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 🔟 Commit (Código + Docs + Planejamento)                  │
+└────────────────────────────────────────────────────────────┘
+```
+
+#### 🎯 Benefícios para Solo Developer
+
+**Organização Mental**:
+- ✅ **Clareza**: Você sabe exatamente onde está no processo
+- ✅ **Foco**: Não se perde em "rabbit holes" (armadilhas de complexidade)
+- ✅ **Progresso visível**: Cada passo concluído = sensação de avanço
+
+**Economia de Tempo**:
+- ✅ **50-70% menos retrabalho** (pensa ANTES de codificar)
+- ✅ **Debugging mais rápido** (você sabe o que cada parte faz)
+- ✅ **Retomada fácil** (se parar por dias, o plano te atualiza em 5min)
+
+**Qualidade**:
+- ✅ **Menos bugs** (você pensa em edge cases ANTES)
+- ✅ **Código mais limpo** (você já sabe a estrutura antes de escrever)
+- ✅ **Documentação automática** (planejamento vira doc de arquitetura)
+
+**Manutenibilidade Futura**:
+- ✅ **"Você do futuro" te agradece** (lembra por quê fez algo)
+- ✅ **Onboarding de colaboradores** (se projeto crescer, planejamentos ajudam)
+- ✅ **Portfolio profissional** (mostra que você planeja, não só "hackeia")
+
+#### 📊 Análise Custo-Benefício (Solo)
+
+**Cenário Real: Integração com Stripe**
+
+```
+❌ SEM PLANEJAMENTO:
+- 30min: Começa a codificar
+- 1h: Percebe que não sabe lidar com webhooks
+- 30min: Pesquisa na internet (várias abas abertas, confusão)
+- 2h: Implementa solução "hackeada"
+- 1h: Debugging de bug crítico (esqueceu de validar signature)
+- 30min: Refatora código bagunçado
+TOTAL: 5.5h + código sujo + 1 bug em produção
+
+✅ COM PLANEJAMENTO (30min):
+- 30min: Cria plano detalhado (estuda docs Stripe, pseudocódigo, identifica armadilhas)
+- 1.5h: Implementa seguindo plano (sem surpresas)
+- 30min: Testa (cobriu edge cases do plano)
+- 10min: Commit com docs atualizadas
+TOTAL: 2.5h + código limpo + 0 bugs
+
+ECONOMIA: 3h (55%) + qualidade muito maior
+```
+
+**Regra Prática Solo**:
+- Planejamento leva ~15-20% do tempo total da tarefa
+- Economiza ~50-70% do tempo de implementação (evita retrabalho)
+- **ROI**: 3x-5x (vale MUITO a pena!)
+
+#### ⚠️ Quando Planejamento é ESPECIALMENTE Crítico (Solo)
+
+**Features que você não domina**:
+- Planejar força você a pesquisar ANTES (evita código "tentativa e erro")
+
+**Projetos que você retoma após semanas**:
+- Planejamento = sua memória externa (você esquece detalhes)
+
+**Quando você está cansado/distraído**:
+- Planejamento mantém você "nos trilhos" (evita divagações)
+
+**Features com múltiplas integrações**:
+- Sem planejamento = alta chance de quebrar algo
+
+#### 💡 Dicas Práticas Solo
+
+**1. Planeje no papel/whiteboard primeiro** (antes do computador):
+   - Desenhe fluxogramas, diagramas, pseudocódigo
+   - Computador distrai (emails, notificações)
+   - Papel = foco 100%
+
+**2. Use Pomodoro durante planejamento**:
+   - 25min: Planejamento focado
+   - 5min: Break (deixar ideias sedimentarem)
+   - Volta: Revisar plano com mente fresca
+
+**3. "Explique para o pato de borracha"**:
+   - Leia plano em voz alta como se explicando para alguém
+   - Se não faz sentido falado = não faz sentido escrito
+
+**4. Planejamento iterativo**:
+   - Primeira versão: 70% completa (15min)
+   - Revisar após pesquisas: +20% (10min)
+   - Validar antes de codificar: +10% (5min)
+   - Total: 30min, mas incremental
+
+#### ✅ Checklist de Validação (Solo)
+
+Antes de considerar planejamento completo:
+
+```markdown
+**Essencial (Não pode pular)**:
+[ ] Entendi 100% o problema que vou resolver?
+[ ] Passo a passo está executável (não abstrato)?
+[ ] Identifiquei possíveis armadilhas técnicas?
+[ ] Sei como vou testar (critérios claros)?
+[ ] Tempo estimado incluiu buffer de 30%?
+[ ] Tenho Plano B se a abordagem falhar?
+
+**Desejável (Se tiver tempo)**:
+[ ] Pesquisei soluções similares (GitHub, Stack Overflow)?
+[ ] Desenhei diagrama/fluxograma?
+[ ] Validei escolha de bibliotecas (reviews, última atualização)?
+
+**Gatilho de "bom o suficiente"**:
+Se gastar >1h planejando → Está procrastinando, comece a codificar!
+Planejamento perfeito não existe, planejamento "bom o suficiente" sim.
+```
+
+**Se TODOS os itens essenciais estão ✅ → Pode codificar! 🚀**
+
+---
+
+#### 📚 Integração com Workflow Solo
+
+**Planejamentos como "Segunda Memória"**:
+- Após 6 meses, você esquece 80% dos detalhes técnicos
+- Planejamentos servem como "diário técnico"
+- Quando retomar projeto parado: Ler últimos 3 planejamentos = contexto completo
+
+**Planejamentos como Portfolio**:
+- Se for procurar emprego/clientes: Planejamentos mostram profissionalismo
+- Recrutadores veem que você não é "cowboy coder"
+- Planejamentos = evidência de pensamento estruturado
+
+**Planejamentos como Ferramenta de Aprendizado**:
+- Compare "Estimado" vs "Real" a cada tarefa
+- Após 10 planejamentos: Você melhora MUITO em estimar
+- Identifique padrões: "Sempre subestimo integração de APIs em 2x"
 
 ---
 

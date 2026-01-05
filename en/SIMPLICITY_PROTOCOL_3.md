@@ -2,18 +2,20 @@
 
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
-**Version**: 3.4  
-**Last Update**: January 1, 2026  
+**Version**: 3.5  
+**Last Update**: January 5, 2026  
 **Objective**: Hybrid methodology for **solo developers** with application in **production**
 
-**Changelog v3.5** (01/01/2026):
-- ✅ **[STEP 3]** Added editable questionnaire pattern for information gathering
-- ✅ Solo focus: Simple .md format without bureaucracy
-- ✅ AI provides pre-checked options based on solo developer best practices
-- ✅ After manual filling, AI reads and validates choices
-- ✅ Example format: "### 🎯 QUESTION 3: OBJECTIVE AND SCOPE | ❓ What is the main goal? | 💡 AI Suggestion (low-maintenance focus) | Options: A) ✅ Portfolio (2h/week) B) ✅ E-commerce (5h/week) | Your choice: _____ | Maintenance estimate: _____"
-- ✅ Rationale: Helps solo developer make informed decisions considering time/maintenance trade-offs
-- ✅ Classification: **HIGHLY RECOMMENDED for architectural decisions with long-term impact**
+**Changelog v3.5** (01/05/2026):
+- ✅ **[BLOCKING]** Added Step 1.8: Execution Planning Document (MANDATORY)
+- ✅ AI MUST create pragmatic plan in docs/ BEFORE coding
+- ✅ Planning is BLOCKING but simplified for solo dev
+- ✅ Focus on critical decisions and risk points
+- ✅ Plan includes estimated time and validation checkpoints
+- ✅ Documentation as "external memory" for future you
+- ✅ Light waterfall model: essential planning per task
+- ✅ Clear prioritization: what to do now vs later
+- ✅ Rationale: Solo dev can't afford rework
 
 **Changelog v3.4** (01/01/2026):
 - ✅ **[NEW]** Default Recommended Stack for Websites (Solo Developer Focus)

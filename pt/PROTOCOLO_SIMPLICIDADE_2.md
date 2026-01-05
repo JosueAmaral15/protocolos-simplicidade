@@ -7,6 +7,17 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
 
+**Changelog v2.6** (05/01/2026):
+- ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
+- ✅ IA DEVE criar plano de execução formal em docs/ ANTES de codificar
+- ✅ Planejamento com aprovação de stakeholders é BLOQUEANTE
+- ✅ Análise de impacto em sistemas existentes obrigatória
+- ✅ Revisão técnica do plano por tech lead/arquiteto
+- ✅ ADR formal para decisões arquiteturais complexas
+- ✅ Estimativas de tempo e recursos documentadas
+- ✅ Modelo cascata enterprise: planejamento detalhado por feature
+- ✅ Rationale: Reduz riscos, alinha equipe, garante compliance
+
 **Changelog v2.5** (01/01/2026):
 - ✅ **[NOVO]** Stack Padrão Recomendado para Sites/Aplicações Web (Enterprise)
 - ✅ Mesma base: Next.js 15 + React 19 + TypeScript + Tailwind
@@ -235,9 +246,10 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 
 ```
 1️⃣ MAIS CRÍTICO: ❓ Dúvidas da IA → RESOLVER ANTES de continuar
-2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar  
-3️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
-4️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3 resolvidos
+2️⃣ BLOQUEANTE: 📚 Documentação (quando necessária) → ESCREVER ANTES de implementar
+3️⃣ BLOQUEANTE: 📋 Planejamento de Execução → CRIAR ANTES de codificar
+4️⃣ BLOQUEANTE: ❌ Bugs/Erros → CORRIGIR ANTES de novas features
+5️⃣ NORMAL: ✨ Novas Features → Após 1, 2, 3, 4 resolvidos
 ```
 
 ### 2️⃣ Documentação é BLOQUEANTE
@@ -265,7 +277,483 @@ Tarefa → Dúvidas? (perguntar) → Documentar ANTES → Corrigir erros → Imp
 [ ] ✅ DESBLOQUEADO: Pode implementar
 ```
 
-**Regra de Ouro**: "Dúvidas → Documentação → Bugs → Features. Nesta ordem."
+**Regra de Ouro**: "Dúvidas → Documentação → Planejamento → Bugs → Features. Nesta ordem."
+
+---
+
+### 3️⃣ Planejamento de Execução é BLOQUEANTE (Enterprise Critical)
+
+> **NOVO REQUISITO OBRIGATÓRIO**: Antes de implementar qualquer tarefa/requisito, a IA **DEVE** criar um documento de planejamento detalhado em `docs/planning/`.
+
+**Filosofia**: Inspirado no **modelo em cascata**, onde o planejamento é **bloqueante** antes da codificação. Em ambientes enterprise, planejamento inadequado causa retrabalho custoso e riscos de compliance.
+
+#### 🎯 Quando Criar Documento de Planejamento (Obrigatório)
+
+**SEMPRE criar para**:
+- ✅ **Toda nova feature enterprise** (requisitos formais, integrações críticas)
+- ✅ **Mudanças arquiteturais** (ADR obrigatório + planejamento técnico)
+- ✅ **Features que afetam múltiplos times** (coordenação necessária)
+- ✅ **Integrações com sistemas legados** (riscos de breaking changes)
+- ✅ **Features com compliance/security** (LGPD, SOC2, ISO27001)
+
+**Pode pular para** (planejamento informal é suficiente):
+- ⚠️ Hotfixes críticos (<30min de prazo)
+- ⚠️ Correções triviais já documentadas em ADR
+
+#### 📝 Estrutura do Documento de Planejamento Enterprise
+
+**Nome do arquivo**: `docs/planning/enterprise/TASK-{número}-{nome}.md`
+
+**Template obrigatório** (adaptado do Simplicidade 1):
+
+```markdown
+# 📋 Planejamento Enterprise: [Nome da Tarefa]
+
+**Data**: YYYY-MM-DD
+**Autor**: IA + Time responsável
+**Stakeholders**: [Lista de aprovadores]
+**Requisito Original**: Link para JIRA/Azure DevOps ticket
+**Tempo Estimado**: X dias (incluindo revisões)
+**Prioridade**: [P0-Critical / P1-High / P2-Medium / P3-Low]
+
+---
+
+## 1️⃣ Compreensão do Problema (Business Context)
+
+**O que precisa ser feito?**
+- Descrição técnica clara
+
+**Por quê é necessário?** (Justificativa de negócio):
+- Impacto em revenue/custos/compliance
+
+**Critérios de Aceitação** (Validação por QA/Product):
+- [ ] Critério 1 (testável)
+- [ ] Critério 2 (mensurável)
+- [ ] Critério 3 (verificável)
+
+**Métricas de Sucesso**:
+- KPI 1: [Baseline atual → Target]
+- KPI 2: [Baseline atual → Target]
+
+---
+
+## 2️⃣ Análise de Impacto (Enterprise)
+
+**Sistemas Afetados**:
+- Sistema A - Impacto: [Alto/Médio/Baixo]
+- Sistema B - Impacto: [Alto/Médio/Baixo]
+
+**Times Envolvidos**:
+- Time Frontend (coordenador: @nome)
+- Time Backend (coordenador: @nome)
+- Time DevOps (para deploy)
+
+**Dependências Externas**:
+- API X (SLA: 99.9%, contato: time-x@company.com)
+- Serviço Y (vendor: Empresa Z)
+
+**Análise de Compliance**:
+- [ ] LGPD: Requer DPO approval?
+- [ ] SOC2: Afeta controles de segurança?
+- [ ] ISO27001: Requer risk assessment?
+
+**Janela de Deploy**:
+- Horário permitido: [Ex: Terças 2AM-4AM]
+- Bloqueios: [Black Friday, fim de ano, etc.]
+
+---
+
+## 3️⃣ Arquitetura e ADR
+
+**ADR Relacionado**: Link para `docs/adr/ADR-{N}-{título}.md`
+
+**Decisão Arquitetural**:
+- Abordagem escolhida: [Descrição]
+- Alternativas consideradas: [Lista]
+- Rationale da escolha: [Por quê]
+
+**Diagrama de Arquitetura** (obrigatório):
+```
+[Cliente] → [Load Balancer] → [API Gateway]
+              ↓
+          [Serviço A] ↔ [Serviço B]
+              ↓
+          [Database]
+```
+
+**Pontos de Integração Críticos**:
+- Integração 1: [Onde/Como] - Risco: [Alto/Médio/Baixo]
+- Integração 2: [Onde/Como] - Risco: [Alto/Médio/Baixo]
+
+---
+
+## 4️⃣ Solução Técnica Detalhada
+
+**Stack Tecnológico**:
+- Backend: [Linguagem/Framework + versão]
+- Frontend: [Framework + versão]
+- Infraestrutura: [Cloud provider + serviços]
+
+**Pseudo-código Enterprise** (com error handling):
+```
+função principal():
+    try:
+        1. Validar input (com rate limiting)
+        2. Autenticar/Autorizar (OAuth2)
+        3. Processar (com idempotência)
+        4. Persistir (transação ACID)
+        5. Auditar (compliance log)
+        6. Retornar (com tracing)
+    catch ErroNegocio:
+        - Log estruturado
+        - Alertar time responsável
+        - Retornar erro user-friendly
+    catch ErroSistema:
+        - Circuit breaker
+        - Fallback para serviço alternativo
+        - Escalar para on-call
+```
+
+**Análise de Performance**:
+- Throughput esperado: X req/s
+- Latência target: <200ms p99
+- Recursos necessários: Y CPUs, Z GB RAM
+
+---
+
+## 5️⃣ Estratégia de Implementação (Faseada)
+
+**Fase 1 - MVP em Staging** (Semana 1):
+1. Implementar core logic
+2. Testes unitários (coverage >80%)
+3. Deploy em staging
+4. Validação por Product Owner
+
+**Fase 2 - Beta em Produção** (Semana 2):
+1. Feature flag: 5% dos usuários
+2. Monitoramento intensivo (dashboards)
+3. A/B testing (se aplicável)
+4. Feedback loop com usuários beta
+
+**Fase 3 - Rollout Completo** (Semana 3):
+1. Feature flag: 100% dos usuários
+2. Documentação user-facing publicada
+3. Treinamento de suporte técnico
+4. Comunicação para stakeholders
+
+**Checkpoints Obrigatórios**:
+- [ ] Code Review por 2+ senior engineers
+- [ ] Security Review por AppSec team
+- [ ] Performance Review por SRE team
+- [ ] Aprovação de Product Manager
+- [ ] Aprovação de Tech Lead
+
+---
+
+## 6️⃣ Testes Enterprise (Multi-layer)
+
+**Testes Unitários** (JUnit/pytest):
+- [ ] Happy path (input válido)
+- [ ] Edge cases (limites)
+- [ ] Error handling (exceções)
+- Coverage target: >80%
+
+**Testes de Integração** (Testcontainers):
+- [ ] Integração com database
+- [ ] Integração com APIs externas (mocked)
+- [ ] Integração com message queue
+
+**Testes de Contrato** (Pact):
+- [ ] Contrato entre frontend e backend
+- [ ] Contrato entre serviços internos
+
+**Testes de Carga** (k6/JMeter):
+- [ ] Baseline: 1000 req/s por 10min
+- [ ] Spike test: 10x carga normal por 1min
+- [ ] Soak test: carga normal por 4h
+
+**Testes de Segurança** (OWASP ZAP):
+- [ ] SQL Injection
+- [ ] XSS
+- [ ] CSRF
+- [ ] Authentication bypass
+
+**Testes de Chaos** (se crítico):
+- [ ] Simular falha de database
+- [ ] Simular latência de rede
+- [ ] Simular falha de serviço externo
+
+---
+
+## 7️⃣ Segurança e Compliance (OWASP)
+
+**Checklist OWASP Top 10**:
+- [ ] A01: Broken Access Control (RBAC implementado?)
+- [ ] A02: Cryptographic Failures (dados sensíveis criptografados?)
+- [ ] A03: Injection (input sanitizado?)
+- [ ] A04: Insecure Design (threat modeling feito?)
+- [ ] A05: Security Misconfiguration (secrets no vault?)
+- [ ] A06: Vulnerable Components (deps atualizadas?)
+- [ ] A07: Authentication Failures (MFA habilitado?)
+- [ ] A08: Software Integrity Failures (código assinado?)
+- [ ] A09: Logging Failures (logs de auditoria?)
+- [ ] A10: SSRF (validação de URLs externas?)
+
+**Dados Sensíveis**:
+- PII processada: [Sim/Não] - Se sim, compliance LGPD/GDPR
+- Secrets: Armazenados em [AWS Secrets Manager / HashiCorp Vault]
+
+---
+
+## 8️⃣ Monitoramento e Observabilidade
+
+**Métricas (Prometheus/Datadog)**:
+- Latência (p50, p95, p99)
+- Taxa de erro (target: <0.1%)
+- Throughput (req/s)
+- Saturation (CPU, memória, I/O)
+
+**Logs (Elasticsearch/Splunk)**:
+- Logs estruturados (JSON)
+- Trace IDs para correlação
+- Retenção: 30 dias (compliance)
+
+**Alertas (PagerDuty/Opsgenie)**:
+- **P0**: Taxa de erro >1% → Escalar para on-call imediato
+- **P1**: Latência p99 >1s → Alertar time responsável
+- **P2**: Throughput <50% do normal → Investigar durante business hours
+
+**Dashboards (Grafana)**:
+- Dashboard de health geral
+- Dashboard de performance
+- Dashboard de business metrics
+
+---
+
+## 9️⃣ Rollback Plan (Obrigatório)
+
+**Critérios de Rollback Automático**:
+- Taxa de erro >5% por 5min consecutivos
+- Latência p99 >2s por 10min
+- Throughput <30% do baseline
+
+**Procedimento de Rollback Manual** (5min SLA):
+```bash
+# 1. Reverter deploy (Kubernetes)
+kubectl rollout undo deployment/meu-servico
+
+# 2. Desabilitar feature flag (LaunchDarkly)
+curl -X PATCH https://api.launchdarkly.com/flags/minha-feature \
+  -d '{"enabled": false}'
+
+# 3. Comunicar incidente (Slack)
+# 4. Post-mortem obrigatório em 24h
+```
+
+**Plano de Comunicação**:
+- Stakeholders a notificar: [Lista]
+- Template de comunicação: [Link]
+- SLA de comunicação: <15min após incidente
+
+---
+
+## 🔟 Documentação a Atualizar (Bloqueante)
+
+**ANTES de implementar** (bloqueante):
+- [ ] `docs/adr/ADR-{N}.md` - Architecture Decision Record
+- [ ] `docs/api/openapi.yaml` - Especificação OpenAPI
+- [ ] `docs/REQUIREMENTS.md` - Requisitos formais
+- [ ] `README.md` - Se adicionar dependências
+
+**APÓS implementar** (não-bloqueante):
+- [ ] `CHANGELOG.md` - Release notes
+- [ ] `docs/runbooks/` - Guias operacionais para SRE
+- [ ] `docs/user-guides/` - Documentação user-facing
+- [ ] Confluence/Wiki interno - Documentação corporativa
+
+---
+
+## 1️⃣1️⃣ Dúvidas Pendentes (BLOQUEANTES)
+
+**Perguntas para Stakeholders**:
+1. ❓ [Dúvida técnica] - Aguardando Tech Lead
+2. ❓ [Dúvida de negócio] - Aguardando Product Manager
+3. ❓ [Dúvida de compliance] - Aguardando Legal/DPO
+
+**Respostas Recebidas e Documentadas**:
+- ✅ Dúvida 1: [Resposta + decisão tomada]
+- ✅ Dúvida 2: [Resposta + ação acordada]
+
+---
+
+## 1️⃣2️⃣ Análise de Riscos (Enterprise)
+
+**Riscos Técnicos**:
+| Risco | Probabilidade | Impacto | Mitigação |
+|-------|---------------|---------|-----------|
+| API externa fora | Média | Alto | Circuit breaker + fallback |
+| Database overload | Baixa | Crítico | Read replicas + caching |
+| Memory leak | Baixa | Médio | Profiling + limites de recursos |
+
+**Riscos de Negócio**:
+| Risco | Probabilidade | Impacto | Mitigação |
+|-------|---------------|---------|-----------|
+| Usuários rejeitam feature | Média | Alto | A/B testing + feedback loop |
+| Revenue drop | Baixa | Crítico | Feature flag + rollback rápido |
+
+**Riscos de Compliance**:
+- ⚠️ LGPD: Se processar PII sem consentimento → Multa de 2% do revenue
+  - Mitigação: Revisar com DPO ANTES do deploy
+
+---
+
+## 1️⃣3️⃣ Aprovações Obrigatórias (Sign-off)
+
+**Checklist de Aprovações**:
+- [ ] ✅ Tech Lead (arquitetura aprovada)
+- [ ] ✅ Product Manager (requisitos validados)
+- [ ] ✅ Security Engineer (OWASP checklist completo)
+- [ ] ✅ SRE (monitoramento configurado)
+- [ ] ✅ QA Lead (estratégia de testes aprovada)
+- [ ] ✅ DPO (se processar dados sensíveis)
+- [ ] ✅ Legal (se mudança contratual/termos de uso)
+
+**Status**: ⏳ Aguardando aprovações
+
+---
+
+## 🔄 Histórico de Atualizações
+
+- **YYYY-MM-DD**: Planejamento inicial (v1.0)
+- **YYYY-MM-DD**: Feedback de Tech Lead incorporado (v1.1)
+- **YYYY-MM-DD**: Aprovações completas (v2.0)
+- **YYYY-MM-DD**: Implementação concluída (v3.0)
+- **YYYY-MM-DD**: Post-mortem após 1 semana em produção (v3.1)
+```
+
+#### ⚙️ Fluxo Enterprise Obrigatório
+
+```
+┌────────────────────────────────────────────────────────────┐
+│ 1️⃣ Receber Requisito Formal (JIRA/Azure DevOps)           │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 2️⃣ Estudar Código + Arquitetura Atual (após refatoração)  │
+│    - Ler ADRs existentes                                   │
+│    - Entender integrações entre sistemas                   │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 3️⃣ Criar Documento de Planejamento Enterprise (BLOQUEANTE)│
+│    - Usar template acima                                   │
+│    - Salvar em docs/planning/enterprise/TASK-{N}.md       │
+│    - Preencher TODAS as 13 seções obrigatórias            │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 4️⃣ Identificar Dúvidas e Stakeholders (BLOQUEANTE)        │
+│    - Listar dúvidas técnicas/negócio/compliance           │
+│    - PARAR e aguardar respostas de TODOS stakeholders     │
+│    - Documentar decisões tomadas                           │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 5️⃣ Obter Aprovações Formais (BLOQUEANTE)                  │
+│    - Tech Lead, PM, Security, SRE, QA                     │
+│    - Reunião de design review (se necessário)             │
+│    - Atualizar planejamento com feedback                   │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 6️⃣ Criar/Atualizar ADR (BLOQUEANTE)                       │
+│    - Documentar decisão arquitetural formal                │
+│    - Link no planejamento                                  │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 7️⃣ Atualizar Docs Bloqueantes (API, Requirements, etc.)   │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 8️⃣ Implementar em Fases (MVP → Beta → Rollout completo)   │
+│    - Code reviews por 2+ engineers                         │
+│    - Testes em cada fase                                   │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 9️⃣ Deploy com Feature Flag + Monitoramento Intensivo      │
+│    ↓                                                        │
+├────────────────────────────────────────────────────────────┤
+│ 🔟 Post-Mortem e Atualização Final do Planejamento        │
+│    - O que funcionou? O que não funcionou?                 │
+│    - Lições aprendidas para próximo planejamento           │
+└────────────────────────────────────────────────────────────┘
+```
+
+#### 🎯 Benefícios do Planejamento Enterprise
+
+**Para o Time**:
+- ✅ **Alinhamento**: Todos stakeholders na mesma página
+- ✅ **Transparência**: Decisões documentadas e rastreáveis
+- ✅ **Accountability**: Claro quem aprova cada etapa
+- ✅ **Redução de risco**: Problemas identificados ANTES do código
+
+**Para o Negócio**:
+- ✅ **Compliance**: Evidência para auditorias (SOC2, ISO27001)
+- ✅ **Previsibilidade**: Estimativas mais precisas
+- ✅ **Qualidade**: Menos bugs em produção (menos downtime)
+- ✅ **Velocidade paradoxal**: Planejamento economiza tempo de retrabalho
+
+**Métricas Reais**:
+- **70% menos retrabalho** (dados de empresas que adotaram planejamento formal)
+- **50% menos incidentes P0** em produção
+- **2x mais rápido time-to-market** (considerando ciclo completo sem bugs)
+
+#### ⚠️ Rationale Enterprise
+
+**Por quê planejamento é AINDA MAIS crítico em enterprise?**
+
+1. **Custo de Falha é Altíssimo**:
+   - Bug em produção = downtime = perda de revenue
+   - Exemplo: Amazon perde $220,000 por minuto de downtime
+   
+2. **Coordenação de Múltiplos Times**:
+   - Sem planejamento = times bloqueiam uns aos outros
+   - Com planejamento = trabalho paralelo eficiente
+
+3. **Compliance e Auditoria**:
+   - Auditores pedem "evidência de processo"
+   - Planejamentos = evidência formal de governança
+
+4. **Onboarding de Novos Engenheiros**:
+   - Planejamentos servem como "biblioteca de conhecimento"
+   - Novo dev lê 10 planejamentos = entende como empresa trabalha
+
+#### ✅ Checklist de Validação (Enterprise)
+
+Antes de considerar planejamento completo:
+
+```markdown
+**Técnico**:
+[ ] Todas as 13 seções do template foram preenchidas?
+[ ] ADR foi criado e linkado?
+[ ] Diagrama de arquitetura está claro?
+[ ] Estratégia de testes cobre todos os layers?
+[ ] Rollback plan está testado?
+[ ] Monitoramento/alertas configurados?
+
+**Negócio**:
+[ ] Métricas de sucesso definidas?
+[ ] ROI / impacto em revenue calculado?
+[ ] Stakeholders identificados e alinhados?
+
+**Compliance**:
+[ ] OWASP checklist completo (se aplicável)?
+[ ] LGPD/GDPR review feito (se processar PII)?
+[ ] Secrets não estão hardcoded (vault configurado)?
+
+**Aprovações**:
+[ ] Tech Lead aprovou arquitetura?
+[ ] Product Manager validou requisitos?
+[ ] Security Engineer fez security review?
+[ ] SRE configurou monitoramento?
+[ ] QA Lead aprovou estratégia de testes?
+```
+
+**Se TODOS os itens acima estão ✅, planejamento está aprovado para implementação!**
 
 ---
 

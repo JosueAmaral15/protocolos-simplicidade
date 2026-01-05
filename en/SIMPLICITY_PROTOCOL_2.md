@@ -5,19 +5,21 @@ Aqui está a tradução do seu arquivo Markdown do português para o inglês:
 
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
-**Based on**: Simplicity Protocol 1 v2.3  
-**Version**: 2.5  
-**Last Update**: January 1, 2026  
+**Based on**: Simplicity Protocol 1 v2.4  
+**Version**: 2.6  
+**Last Update**: January 5, 2026  
 **Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
 
-**Changelog v2.6** (01/01/2026):
-- ✅ **[STEP 3]** Added editable questionnaire pattern for information gathering
-- ✅ Enterprise format: Formal .md document with stakeholder approval section
-- ✅ AI provides pre-checked options based on corporate standards and existing architecture
-- ✅ Mandatory review by tech lead before AI reads filled document
-- ✅ Example format: "### 🎯 QUESTION 3: OBJECTIVE AND SCOPE | ❓ What is the main goal? | 💡 AI Suggestion (based on corporate standards) | Options with compliance notes | Approvers: _____ | Date: _____"
-- ✅ Rationale: Ensures alignment with enterprise governance and documented stakeholder buy-in
-- ✅ Classification: **MANDATORY for architectural/security decisions with 3+ stakeholders**
+**Changelog v2.6** (01/05/2026):
+- ✅ **[BLOCKING]** Added Step 1.8: Execution Planning Document (MANDATORY)
+- ✅ AI MUST create formal execution plan in docs/ BEFORE coding
+- ✅ Planning with stakeholder approval is BLOCKING
+- ✅ Impact analysis on existing systems mandatory
+- ✅ Technical review of plan by tech lead/architect
+- ✅ Formal ADR for complex architectural decisions
+- ✅ Time and resource estimates documented
+- ✅ Enterprise waterfall model: detailed planning per feature
+- ✅ Rationale: Reduces risks, aligns team, ensures compliance
 
 **Changelog v2.5** (01/01/2026):
 - ✅ **[NEW]** Default Recommended Stack for Websites (Enterprise Focus)
