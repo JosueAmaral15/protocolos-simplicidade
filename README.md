@@ -1466,3 +1466,15 @@ Cada protocolo contém a documentação completa com:
     - Fator de Memória Associativa: `v1.0`
 
 > *"Quero um trabalho completo e profissional!"*
+
+## Atualização 2026-01-05: Documentação de Respostas
+
+Todos os protocolos Simplicidade (1, 2 e 3) agora incluem **seção obrigatória sobre documentação de respostas do usuário**. 
+
+**Resumo da nova regra**:
+- ✅ Após fazer perguntas e receber respostas, a IA **DEVE documentar** essas respostas
+- ✅ Documentação deve incluir: pergunta, resposta literal, interpretação da IA com suas próprias palavras
+- ✅ Local: docs/DECISIONS.md, docs/REQUIREMENTS.md ou comentários no código
+- ✅ Objetivo: Criar compreensão profunda, rastreabilidade e referência futura
+
+Esta regra está detalhada na seção "📝 Documentar Respostas do Usuário às Perguntas" de todos os protocolos.
