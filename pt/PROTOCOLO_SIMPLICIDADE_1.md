@@ -754,6 +754,293 @@ Se QUALQUER item acima for ❌ NÃO: PARAR e fazer perguntas!
 
 ---
 
+## 📝 Documentar Respostas do Usuário às Perguntas
+
+> **CRÍTICO PARA IAs**: Após receber respostas do usuário às suas perguntas, você **DEVE DOCUMENTAR** essas respostas com suas próprias palavras para criar uma compreensão mais profunda do software.
+
+### 🎯 Por Quê Documentar Respostas?
+
+**Rationale**:
+1. **Memória Externa**: Documentação serve como registro permanente das decisões
+2. **Compreensão Mais Profunda**: Reescrever com suas palavras força entendimento real
+3. **Referência Futura**: Consultas rápidas quando necessário
+4. **Evolução do Projeto**: Rastrear como requisitos mudaram ao longo do tempo
+5. **Onboarding**: Novos devs (ou você do futuro) entendem "por quê" das decisões
+
+### 📋 Processo de Documentação de Respostas
+
+#### Passo 1: Receber Respostas do Usuário
+```markdown
+Usuário responde suas perguntas:
+- "CPF deve aceitar formato com pontuação (XXX.XXX.XXX-XX)"
+- "Validar dígitos verificadores"
+- "Retornar ValueError se inválido"
+- "Rejeitar CPFs com dígitos iguais (111.111.111-11)"
+```
+
+#### Passo 2: Documentar em docs/DECISIONS.md ou docs/REQUIREMENTS.md
+```markdown
+# Decisões de Implementação
+
+## Validação de CPF (2026-01-05)
+
+**Contexto**: Necessidade de validar CPF em formulário de cadastro
+
+**Perguntas Feitas**:
+1. Formato aceito para CPF
+2. Validação de dígitos verificadores
+3. Tratamento de erro para CPF inválido
+4. CPFs com dígitos iguais
+
+**Respostas do Usuário e Interpretação**:
+
+### 1. Formato do CPF
+- **Resposta**: "Aceitar formato com pontuação (XXX.XXX.XXX-XX)"
+- **Interpretação**: A função deve aceitar CPF tanto com pontuação quanto sem (apenas números).
+  Internamente, normalizar para apenas números antes de validar.
+  Exemplo aceito: "123.456.789-09" ou "12345678909"
+  
+**Implementação Planejada**:
+```python
+def normalizar_cpf(cpf):
+    """Remove pontuação do CPF."""
+    return re.sub(r'[.\-]', '', cpf)
+```
+
+### 2. Validação de Dígitos Verificadores
+- **Resposta**: "Validar os dígitos verificadores"
+- **Interpretação**: Não basta validar formato, deve calcular os 2 dígitos verificadores
+  usando o algoritmo padrão de validação de CPF e comparar com os dígitos fornecidos.
+  Garante que o CPF é matematicamente válido.
+  
+**Referência**: Algoritmo em https://www.geradorcpf.com/algoritmo_do_cpf.htm
+
+### 3. Tratamento de Erro
+- **Resposta**: "Retornar ValueError se inválido"
+- **Interpretação**: A função `validar_cpf()` deve levantar `ValueError` com mensagem
+  descritiva do motivo da invalidação. Não retornar None ou False.
+  Segue convenção Python de usar exceções para erros de validação.
+  
+**Exemplos de Mensagens**:
+- `ValueError("CPF deve ter 11 dígitos")`
+- `ValueError("Dígitos verificadores inválidos")`
+- `ValueError("CPF com todos dígitos iguais é inválido")`
+
+### 4. CPFs com Dígitos Iguais
+- **Resposta**: "Rejeitar CPFs com dígitos iguais (111.111.111-11)"
+- **Interpretação**: CPFs como 000.000.000-00, 111.111.111-11, 222.222.222-22, etc.
+  devem ser rejeitados mesmo que passem na validação matemática dos dígitos verificadores,
+  pois são considerados inválidos pela Receita Federal.
+  
+**Implementação Planejada**:
+```python
+if len(set(cpf_numeros)) == 1:  # Todos dígitos iguais
+    raise ValueError("CPF com todos dígitos iguais é inválido")
+```
+
+**Decisão Final**: Implementar função `validar_cpf(cpf: str) -> str` que:
+1. Normaliza formato (remove pontuação)
+2. Valida tamanho (11 dígitos)
+3. Valida se não tem todos dígitos iguais
+4. Valida dígitos verificadores
+5. Retorna CPF normalizado se válido ou levanta ValueError se inválido
+
+**Impacto**: Cadastro de usuários terá validação robusta de CPF
+**Testes**: Criar testes para todos os casos (formato, dígitos iguais, verificadores inválidos)
+```
+
+#### Passo 3: Atualizar Documentação Conforme Implementação
+```markdown
+Após implementar, adicionar:
+
+**Status**: ✅ IMPLEMENTADO (2026-01-05)
+**Arquivo**: `src/validators/cpf_validator.py`
+**Testes**: `tests/test_cpf_validator.py` (15 casos de teste)
+**Cobertura**: 100%
+```
+
+### 🎯 Onde Documentar
+
+**Documentos Recomendados**:
+
+1. **docs/DECISIONS.md**:
+   - Decisões de design
+   - Escolhas arquiteturais
+   - Trade-offs considerados
+   
+2. **docs/REQUIREMENTS.md**:
+   - Requisitos funcionais detalhados
+   - Casos de uso específicos
+   - Regras de negócio
+   
+3. **docs/FAQ.md**:
+   - Perguntas frequentes
+   - Esclarecimentos sobre funcionalidades
+   
+4. **Comentários no Código**:
+   - Decisões específicas de implementação
+   - Por quê escolheu abordagem X ao invés de Y
+
+### ✅ Checklist de Documentação de Respostas
+
+```markdown
+Após receber respostas do usuário:
+
+[ ] Criar/atualizar documento apropriado (DECISIONS.md, REQUIREMENTS.md)
+[ ] Incluir contexto (por quê a pergunta foi feita)
+[ ] Transcrever respostas originais do usuário
+[ ] Adicionar sua interpretação com suas próprias palavras
+[ ] Incluir exemplos concretos quando aplicável
+[ ] Detalhar impacto da decisão no projeto
+[ ] Especificar plano de implementação
+[ ] Adicionar referências externas se relevante
+[ ] Marcar status (PLANEJADO → IMPLEMENTADO → VALIDADO)
+[ ] Commit da documentação ANTES de implementar
+```
+
+### 🎯 Exemplo Completo: Do Início ao Fim
+
+**Situação**: Usuário pede "Implementar busca de produtos"
+
+**Etapa 1 - IA Faz Perguntas**:
+```markdown
+Tenho dúvidas sobre "Busca de produtos":
+
+1. Campos de busca:
+   ❓ Busca deve funcionar em quais campos? (nome, descrição, categoria, SKU?)
+   
+2. Tipo de busca:
+   ❓ Busca exata ou parcial? Case-sensitive?
+   
+3. Performance:
+   ❓ Quantos produtos esperados no banco? (afeta escolha de algoritmo)
+   
+4. Filtros:
+   ❓ Usuário pode combinar busca com filtros (preço, marca, etc.)?
+```
+
+**Etapa 2 - Usuário Responde**:
+```markdown
+1. Buscar em: nome e descrição
+2. Busca parcial, case-insensitive
+3. ~1000 produtos inicialmente, pode crescer para 10k
+4. Sim, filtros de preço e marca
+```
+
+**Etapa 3 - IA Documenta**:
+```markdown
+# docs/REQUIREMENTS.md
+
+## Busca de Produtos (2026-01-05)
+
+**Contexto**: Sistema de e-commerce precisa de funcionalidade de busca para usuários
+encontrarem produtos rapidamente.
+
+**Requisitos Definidos**:
+
+### 1. Campos de Busca
+- **Resposta**: "Buscar em nome e descrição"
+- **Interpretação**: Query deve procurar termo em `products.name` E `products.description`.
+  Usar OR lógico (encontrou em qualquer um dos dois = resultado válido).
+  Não buscar em outros campos (SKU, categoria, tags) nesta primeira versão.
+
+**SQL**:
+```sql
+WHERE LOWER(name) LIKE LOWER('%termo%') 
+   OR LOWER(description) LIKE LOWER('%termo%')
+```
+
+### 2. Tipo de Busca
+- **Resposta**: "Busca parcial, case-insensitive"
+- **Interpretação**: 
+  - Parcial: "camisa" deve encontrar "Camisa Polo", "Camisa Social", etc.
+  - Case-insensitive: "CAMISA", "camisa", "Camisa" = mesmos resultados
+  - Usar LIKE com wildcards `%termo%`
+  - Converter tudo para lowercase antes de comparar
+
+**Implicação**: Não usar busca exata (=), usar padrão fuzzy
+
+### 3. Performance e Escala
+- **Resposta**: "~1000 produtos, pode crescer para 10k"
+- **Interpretação**: 
+  - Volume inicial pequeno: LIKE simples é aceitável
+  - Planejamento futuro: Quando atingir 5k produtos, considerar:
+    - Full-text search (PostgreSQL) ou
+    - Elasticsearch para busca mais rápida
+  - **Ação Agora**: Adicionar índice em `name` e `description`
+  
+**Índices**:
+```sql
+CREATE INDEX idx_products_name ON products(name);
+CREATE INDEX idx_products_description ON products(description);
+```
+
+**Métrica de Performance**: Busca deve responder < 200ms com 10k produtos
+
+### 4. Filtros Combinados
+- **Resposta**: "Sim, filtros de preço e marca"
+- **Interpretação**: Usuário pode buscar "camisa" E filtrar por:
+  - Preço: entre R$50-R$100
+  - Marca: "Nike" ou "Adidas"
+  
+Busca textual + filtros são **cumulativos** (AND lógico):
+```sql
+WHERE (LOWER(name) LIKE '%camisa%' OR LOWER(description) LIKE '%camisa%')
+  AND price BETWEEN 50 AND 100
+  AND brand IN ('Nike', 'Adidas')
+```
+
+**UI**: Barra de busca + sidebar com filtros
+
+**Decisão de Implementação**:
+- Endpoint: `GET /api/products/search?q=termo&min_price=50&max_price=100&brands=Nike,Adidas`
+- ORM: SQLAlchemy com query builder
+- Cache: Redis para queries frequentes (TTL 5min)
+- Paginação: 20 resultados por página
+
+**Status**: 📝 DOCUMENTADO → ⏳ PRÓXIMO: Implementar
+**Responsável**: IA
+**Prazo Estimado**: 2-3 horas
+```
+
+**Etapa 4 - IA Implementa Conforme Documentado**
+
+**Etapa 5 - IA Atualiza Status Após Implementação**:
+```markdown
+**Status**: ✅ IMPLEMENTADO (2026-01-05 15:30)
+**Arquivo**: `src/api/products.py`
+**Testes**: `tests/test_product_search.py` (12 casos)
+**Performance Medida**: 85ms média com 1000 produtos
+```
+
+### 🎯 Benefícios Desta Prática
+
+1. **Zero Ambiguidade**: Interpretação clara e documentada
+2. **Rastreabilidade**: Sabe exatamente quando e por quê decisão foi tomada
+3. **Alinhamento**: Desenvolvedor e IA têm mesmo entendimento
+4. **Manutenção Fácil**: Documentação explica o "por quê", não apenas o "o quê"
+5. **Evolução Segura**: Mudanças futuras consideram contexto original
+
+### 📊 Métricas de Qualidade da Documentação
+
+**Indicadores de boa documentação de respostas**:
+
+- ✅ **Completude**: Todas as respostas documentadas
+- ✅ **Clareza**: Interpretação não ambígua
+- ✅ **Exemplos**: Código/SQL concreto quando aplicável
+- ✅ **Rastreabilidade**: Data, contexto, status
+- ✅ **Atualização**: Status reflete realidade (implementado/pendente)
+
+### 🎓 Conclusão
+
+**Regra de Ouro**:
+> "Pergunte com clareza, documente com profundidade, implemente com precisão."
+
+**Mensagem para IAs**:
+> "Suas perguntas e as respostas do usuário são ouro. Não as perca. Documente-as com suas próprias palavras para garantir compreensão real. Documentação atualizada é a base de um software bem compreendido e bem mantido."
+
+---
+
 ## 📝 Padrão de Questionários Editáveis para Coleta de Informações
 
 > **ALTAMENTE RECOMENDADO**: Quando houver necessidade de coletar múltiplas informações do usuário, utilize o padrão de questionários editáveis.
