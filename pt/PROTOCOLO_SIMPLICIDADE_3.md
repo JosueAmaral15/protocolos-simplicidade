@@ -2,9 +2,19 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.6  
+**Versão**: 3.7  
 **Última Atualização**: 06 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+
+**Changelog v3.7** (06/01/2026):
+- ✅ **[CRÍTICO SOLO]** Adicionada Etapa 1.2: Compreensão Profunda da Base de Código (OBRIGATÓRIO)
+- ✅ IA DEVE conhecer código existente antes de implementar
+- ✅ Checklist pragmático de 6 itens (não precisa estudar 100% do código)
+- ✅ Foco em: código que vai mexer + código relacionado + padrões do projeto
+- ✅ Tempo máximo: 2h estudo inicial + incremental conforme necessário
+- ✅ Identificar código crítico "não mexer" e oportunidades de reuso
+- ✅ Criar docs/NOTES.md simples com descobertas
+- ✅ Rationale solo: Único bombeiro, memória limitada, tempo escasso, produção ativa
 
 **Changelog v3.6** (06/01/2026):
 - ✅ **[OBRIGATÓRIO PRAGMÁTICO]** Adicionada Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Solo Pragmático)
@@ -3614,6 +3624,242 @@ docs/
 - 🐛 **Bugs críticos** que afetam disponibilidade ou segurança
 
 📖 **Detalhes completos sobre Planos de Ação**: Ver README.md do repositório, seção "🎯 Planos de Ação"
+
+---
+
+### 1️⃣.2️⃣ **Compreensão Profunda da Base de Código Existente** [OBRIGATÓRIO]
+
+> **CRÍTICO PARA SOLO DEVS**: Após ler a documentação, a IA **DEVE** estudar e compreender o código existente. **Você é o único desenvolvedor - não pode se dar ao luxo de quebrar coisas por não conhecer o código.**
+
+#### 🎯 Objetivo (Foco Solo Pragmático)
+
+A IA deve ter **conhecimento prático** da base de código:
+- ✅ **O Quê**: Saber quais arquivos existem e o que cada um faz
+- ✅ **Onde**: Encontrar rapidamente onde implementar novas features
+- ✅ **Como**: Entender padrões e convenções para manter consistência
+- ✅ **Por Quê**: Compreender decisões passadas para não repetir erros
+- ✅ **Impacto**: Prever o que vai quebrar se modificar algo
+- ✅ **Reuso**: Identificar código reutilizável para não reinventar a roda
+
+**Por quê isso é crítico para solo developer?**
+- ✅ **Você é o único bombeiro**: Bugs são responsabilidade sua
+- ✅ **Memória limitada**: Você vai esquecer detalhes em 3 meses
+- ✅ **Tempo escasso**: Retrabalho desperdiça seu tempo precioso
+- ✅ **Sem equipe**: Ninguém para revisar ou pegar erros
+- ✅ **Produção ativa**: Quebras afetam seus usuários imediatamente
+
+#### 📋 Checklist Pragmático (Solo Developer)
+
+**ANTES de implementar**, faça o mínimo essencial:
+
+```markdown
+[ ] **1. Inventário Rápido**
+    - Listar arquivos principais (não precisa de TODOS)
+    - Foco em: código que vou mexer + código relacionado
+    - Estrutura de pastas básica (src/, tests/, config/)
+
+[ ] **2. Mapa Mental Simples**
+    - Qual arquivo chama qual? (principais imports)
+    - Onde fica a lógica de negócio crítica?
+    - Onde fica código de infraestrutura (DB, APIs)?
+
+[ ] **3. Identificar "Não Mexer"**
+    - Código crítico que funciona (não quebrar!)
+    - Código legado complexo (evitar se possível)
+    - Arquivos com avisos "DO NOT MODIFY"
+
+[ ] **4. Encontrar Padrões**
+    - Como outros arquivos estão estruturados?
+    - Qual naming convention está sendo usado?
+    - Onde vão testes? Onde vão novos arquivos?
+
+[ ] **5. Ler Comentários Importantes**
+    - TODOs, FIXMEs, WARNINGs no código
+    - Comentários que explicam "por quê" (não "o quê")
+    - Notas sobre decisões técnicas ou limitações
+
+[ ] **6. Testar Mentalmente**
+    - Se eu modificar arquivo X, o que quebra?
+    - Onde preciso adicionar testes?
+    - Há código duplicado que posso reusar?
+```
+
+**Não se estresse com 100% - foque no essencial para a tarefa atual!**
+
+#### 🔍 Metodologia Prática (Solo)
+
+**Passo 1: Visão Geral Rápida (15-30 minutos)**
+
+```bash
+# Listar estrutura de pastas
+tree -L 2 -I 'node_modules|venv|__pycache__'
+
+# Contar arquivos por tipo
+find . -name "*.py" | wc -l
+find . -name "*.js" | wc -l
+
+# Identificar arquivos grandes/importantes (provável código crítico)
+find src/ -name "*.py" -exec wc -l {} + | sort -rn | head -10
+```
+
+**Passo 2: Mapa Mental de Dependências (15 minutos)**
+
+Focar apenas nos principais:
+```
+src/
+├── main.py            # Ponto de entrada → importa routes
+├── routes/            
+│   └── api.py         # → importa services
+├── services/
+│   └── payment.py     # CRÍTICO → importa models
+├── models/
+│   └── user.py        # Dados → não importa nada
+└── utils/
+    └── helpers.py     # Utilitários → usado por todos
+```
+
+**NÃO precisa mapear tudo! Apenas fluxo principal.**
+
+**Passo 3: Ler Código Crítico (30-60 minutos)**
+
+Focar em:
+1. **Ponto de entrada** (`main.py`, `app.js`, `index.ts`)
+2. **Código que vou modificar** (obrigatório!)
+3. **Código relacionado** (importado ou que importa o que vou modificar)
+4. **Testes existentes** (se houver - mostra como usar o código)
+
+**Pular**:
+- Código de configuração (config.py, settings.js)
+- Scripts auxiliares (deploy, build, migrations)
+- Código de terceiros (libs externas)
+
+**Passo 4: Anotar Descobertas (10 minutos)**
+
+Criar `docs/NOTES.md` simples:
+```markdown
+# Notas da Base de Código
+
+## 🗂️ Estrutura
+- `src/main.py` = ponto de entrada
+- `src/services/payment.py` = lógica de pagamento (CRÍTICO!)
+- `src/models/` = modelos de dados
+- `tests/` = testes (rodar com `pytest`)
+
+## ⚠️ Não Mexer
+- `payment.py` - complexo, funciona, tem testes
+- `legacy_handler.py` - código antigo mas usado
+
+## 💡 Padrões
+- Classes com `Manager` suffix = services
+- Funções que retornam `Result[T]` = podem falhar
+- Tests em `tests/test_*.py`
+
+## 🐛 TODOs Importantes
+- [ ] payment.py:89 - TODO: adicionar suporte a PIX
+- [ ] user.py:45 - FIXME: validação de CPF incompleta
+
+## 🤔 Dúvidas
+- `obscure_util.py` - não entendi, perguntar usuário
+```
+
+#### ⏱️ Tempo Dedicado (Pragmático)
+
+**Regra solo**: **Máximo 2 horas** no estudo inicial, depois incremental conforme necessário.
+
+| Tamanho | Arquivos | Tempo | Quando fazer mais |
+|---------|----------|-------|-------------------|
+| Pequeno | <30 | 15-30min | Conforme necessário |
+| Médio | 30-100 | 1-2h | Antes de features grandes |
+| Grande | >100 | 2h inicial + incremental | Estudo contínuo |
+
+**Estratégia incremental**:
+- Dia 1: Estudar apenas o necessário para tarefa atual
+- Depois: Estudar mais conforme toca novos módulos
+- Não precisa conhecer 100% logo no início!
+
+#### 🚨 Quando Re-estudar
+
+**Re-estudo rápido** (15-30min):
+- ✅ Antes de mexer em arquivo que não lembra bem
+- ✅ Depois de pausa longa (>2 semanas sem ver código)
+- ✅ Ao encontrar bug em área desconhecida
+
+**Não precisa re-estudar tudo sempre - apenas o que vai tocar!**
+
+#### 💬 Perguntar ao Usuário (Quando em Dúvida)
+
+```markdown
+❓ **Dúvidas sobre Código Existente**
+
+Estudei o código e tenho algumas dúvidas antes de implementar:
+
+1. **Arquivo `legacy_processor.py`**:
+   - Parece código antigo mas é importado em 3 lugares
+   - Ainda é necessário ou posso ignorar?
+   - Se eu quebrar, tem rollback fácil?
+
+2. **Função `calculate_discount()` em pricing.py**:
+   - Tem lógica complexa sem testes
+   - Devo adicionar testes antes de modificar?
+   - Ou criar função nova e depreciar a antiga?
+
+Posso prosseguir assumindo:
+- legacy_processor.py não mexer (usar como está)
+- calculate_discount() criar versão 2 ao invés de modificar
+
+Correto?
+```
+
+#### 🎯 Rationale (Solo Developer)
+
+**Por quê conhecer o código é crítico mesmo com pouco tempo?**
+
+1. **Evita Retrabalho**
+   ```python
+   # ❌ Sem conhecer: reimplementar função existente (2 horas perdidas)
+   def validate_cpf(cpf):  # Já existe em utils/validators.py!
+       # ... 50 linhas ...
+   
+   # ✅ Conhecendo: reusar em 2 minutos
+   from utils.validators import validate_cpf
+   ```
+
+2. **Previne Quebras**
+   ```python
+   # ❌ Sem conhecer: modificar e quebrar 5 lugares
+   def get_price(item):
+       return item.price  # Mudou retorno, quebrou quem dependia
+   
+   # ✅ Conhecendo: verificar dependentes primeiro
+   # Ver quem usa get_price() antes de modificar
+   ```
+
+3. **Mantém Consistência**
+   - Seguir padrões existentes = código mais legível
+   - Não misturar estilos diferentes
+   - Facilita manutenção futura (você mesmo!)
+
+4. **Economiza Tempo Debugging**
+   - Conhecer fluxo = debug mais rápido
+   - Saber onde procurar quando algo quebra
+   - Menos "caça aos bugs"
+
+#### ✅ Resultado Mínimo Esperado
+
+Após estudo, a IA deve responder:
+
+```markdown
+✅ Onde fica código crítico que NÃO devo quebrar?
+✅ Onde implementar nova feature X?
+✅ Há código reutilizável para tarefa?
+✅ Quais arquivos vou precisar modificar?
+✅ Onde adicionar testes?
+✅ Qual padrão/convenção seguir?
+```
+
+**Se não sabe responder, estudar mais 15-30 minutos focado na área relevante!**
+
+**Lembre-se**: Você não precisa ser expert em toda base de código, mas **DEVE conhecer o que vai mexer + impacto das mudanças**.
 
 ---
 
