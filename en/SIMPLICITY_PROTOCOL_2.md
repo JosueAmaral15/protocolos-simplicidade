@@ -6,9 +6,19 @@ Aqui está a tradução do seu arquivo Markdown do português para o inglês:
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
 **Based on**: Simplicity Protocol 1 v2.4  
-**Version**: 2.6  
-**Last Update**: January 5, 2026  
+**Version**: 2.7  
+**Last Update**: January 6, 2026  
 **Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
+
+**Changelog v2.7** (01/06/2026):
+- ✅ **[MANDATORY ENTERPRISE]** Added Mandatory Rule: Unit Tests for Complex Tools (Enterprise)
+- ✅ MANDATORY: 80%+ code coverage for production code
+- ✅ Strict criteria: All complex logic, critical paths, security/compliance code
+- ✅ CI/CD quality gates: Build fails if coverage drops below threshold
+- ✅ Payment processing example with mocking and audit logging tests
+- ✅ Enterprise checklist: audit logging, security, performance, idempotency
+- ✅ SOC2/ISO compliance: Tests serve as evidence for audits
+- ✅ Integration with Step 13: Formal code review includes test review
 
 **Changelog v2.6** (01/05/2026):
 - ✅ **[BLOCKING]** Added Step 1.8: Execution Planning Document (MANDATORY)
@@ -358,6 +368,721 @@ Before starting any new task:
 
 **Message for AIs**: 
 > "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue with implementation."
+
+---
+
+## 🧪 Mandatory Rule: Unit Tests for Complex Tools (Enterprise)
+
+> **CRITICAL ENTERPRISE**: When tools (classes, modules, components, functions) are **complex or critical for business**, it is **MANDATORY** to create comprehensive unit test files with **80%+ coverage** for each tool in a `tests/` folder.
+
+### 🎯 Objective (Enterprise Focus)
+
+Ensure that complex and critical code is **rigorously tested** to:
+- ✅ Meet compliance requirements (SOC2, ISO 27001, HIPAA)
+- ✅ Prevent production incidents and customer impact
+- ✅ Enable safe continuous deployment
+- ✅ Provide evidence for security audits
+- ✅ Support team collaboration and knowledge transfer
+
+### 📏 When to Create Unit Tests (Enterprise Criteria)
+
+Create unit tests when the tool meets **ANY** of these criteria:
+
+1. **📊 Size**: More than **30 lines** of code (stricter than Protocol 1)
+2. **🧠 Complexity**: Contains **any conditional logic** (if/else, switch, loops)
+3. **🔄 Logic**: Performs **any business logic** or data transformation
+4. **💾 Critical Data**: Handles **any sensitive data** (PII, financial, health)
+5. **🔌 Dependencies**: Integrates with **any external service** (APIs, databases, queues)
+6. **🎯 Business Logic**: Implements **any business rule** (pricing, validation, workflows)
+7. **🔒 Security**: Authentication, authorization, encryption, audit logging
+8. **💰 Financial Impact**: Payment processing, billing, refunds, commissions
+9. **📜 Compliance**: GDPR, PCI-DSS, HIPAA, SOX requirements
+10. **🚨 Customer-Facing**: Any code that directly impacts customer experience
+
+**Enterprise Rule**: If code goes to production, it **MUST** have tests.
+
+### 📁 Test Organization (Enterprise Standards)
+
+```
+project/
+├── src/
+│   ├── domain/
+│   │   ├── payment/
+│   │   │   ├── processor.ts        # Source code
+│   │   │   └── validator.ts
+│   │   └── user/
+│   │       └── authentication.ts
+│   └── infrastructure/
+│       └── database/
+│           └── repository.ts
+├── tests/
+│   ├── unit/                        # Unit tests (mirrors src/)
+│   │   ├── domain/
+│   │   │   ├── payment/
+│   │   │   │   ├── processor.test.ts
+│   │   │   │   └── validator.test.ts
+│   │   │   └── user/
+│   │   │       └── authentication.test.ts
+│   │   └── infrastructure/
+│   │       └── database/
+│   │           └── repository.test.ts
+│   ├── integration/                 # Integration tests
+│   └── e2e/                         # End-to-end tests
+└── coverage/                        # Coverage reports
+    └── lcov-report/
+```
+
+**Enterprise Rules**:
+- ✅ Strict folder structure: `tests/unit/`, `tests/integration/`, `tests/e2e/`
+- ✅ Test files: `<filename>.test.ts` or `<filename>.spec.ts`
+- ✅ Coverage reports generated on every CI/CD build
+- ✅ Tests reviewed in code review (mandatory approval)
+
+### 🔍 Example: Payment Processor (Enterprise TypeScript)
+
+#### Source Code (`src/domain/payment/processor.ts`)
+
+```typescript
+import { PaymentGateway } from '../../infrastructure/gateway';
+import { AuditLogger } from '../../infrastructure/logging';
+import { NotificationService } from '../../infrastructure/notifications';
+
+export interface PaymentRequest {
+  amount: number;
+  currency: string;
+  customerId: string;
+  orderId: string;
+  paymentMethod: 'credit_card' | 'debit_card' | 'pix';
+  metadata?: Record<string, string>;
+}
+
+export interface PaymentResult {
+  success: boolean;
+  transactionId?: string;
+  errorCode?: string;
+  errorMessage?: string;
+  timestamp: Date;
+}
+
+export class PaymentProcessor {
+  constructor(
+    private gateway: PaymentGateway,
+    private auditLogger: AuditLogger,
+    private notificationService: NotificationService
+  ) {}
+
+  async processPayment(request: PaymentRequest): Promise<PaymentResult> {
+    const startTime = Date.now();
+    
+    try {
+      // Validation
+      this.validatePaymentRequest(request);
+      
+      // Log audit trail (compliance requirement)
+      await this.auditLogger.logPaymentAttempt({
+        customerId: request.customerId,
+        orderId: request.orderId,
+        amount: request.amount,
+        currency: request.currency,
+        timestamp: new Date()
+      });
+      
+      // Process payment through gateway
+      const gatewayResult = await this.gateway.charge({
+        amount: request.amount,
+        currency: request.currency,
+        customerId: request.customerId,
+        paymentMethod: request.paymentMethod
+      });
+      
+      // Log result
+      await this.auditLogger.logPaymentResult({
+        customerId: request.customerId,
+        orderId: request.orderId,
+        transactionId: gatewayResult.transactionId,
+        success: gatewayResult.success,
+        timestamp: new Date(),
+        processingTimeMs: Date.now() - startTime
+      });
+      
+      // Send notification (async, fire-and-forget)
+      if (gatewayResult.success) {
+        this.notificationService.notifyPaymentSuccess(
+          request.customerId,
+          request.orderId,
+          gatewayResult.transactionId
+        ).catch(err => {
+          // Don't fail payment if notification fails
+          console.error('Notification failed:', err);
+        });
+      }
+      
+      return {
+        success: gatewayResult.success,
+        transactionId: gatewayResult.transactionId,
+        errorCode: gatewayResult.errorCode,
+        errorMessage: gatewayResult.errorMessage,
+        timestamp: new Date()
+      };
+      
+    } catch (error) {
+      // Log error for compliance
+      await this.auditLogger.logPaymentError({
+        customerId: request.customerId,
+        orderId: request.orderId,
+        error: error instanceof Error ? error.message : String(error),
+        timestamp: new Date()
+      });
+      
+      return {
+        success: false,
+        errorCode: 'PROCESSING_ERROR',
+        errorMessage: 'Payment processing failed',
+        timestamp: new Date()
+      };
+    }
+  }
+  
+  private validatePaymentRequest(request: PaymentRequest): void {
+    if (request.amount <= 0) {
+      throw new Error('Amount must be greater than zero');
+    }
+    
+    if (request.amount > 1000000) {
+      throw new Error('Amount exceeds maximum limit');
+    }
+    
+    if (!['USD', 'BRL', 'EUR'].includes(request.currency)) {
+      throw new Error('Unsupported currency');
+    }
+    
+    if (!request.customerId || !request.orderId) {
+      throw new Error('Customer ID and Order ID are required');
+    }
+  }
+}
+```
+
+#### Unit Tests (`tests/unit/domain/payment/processor.test.ts`)
+
+```typescript
+import { PaymentProcessor } from '../../../../src/domain/payment/processor';
+import { PaymentGateway } from '../../../../src/infrastructure/gateway';
+import { AuditLogger } from '../../../../src/infrastructure/logging';
+import { NotificationService } from '../../../../src/infrastructure/notifications';
+
+// Mock dependencies
+jest.mock('../../../../src/infrastructure/gateway');
+jest.mock('../../../../src/infrastructure/logging');
+jest.mock('../../../../src/infrastructure/notifications');
+
+describe('PaymentProcessor (Enterprise)', () => {
+  let processor: PaymentProcessor;
+  let mockGateway: jest.Mocked<PaymentGateway>;
+  let mockAuditLogger: jest.Mocked<AuditLogger>;
+  let mockNotificationService: jest.Mocked<NotificationService>;
+
+  beforeEach(() => {
+    // Setup mocks
+    mockGateway = new PaymentGateway() as jest.Mocked<PaymentGateway>;
+    mockAuditLogger = new AuditLogger() as jest.Mocked<AuditLogger>;
+    mockNotificationService = new NotificationService() as jest.Mocked<NotificationService>;
+    
+    // Reset all mocks
+    jest.clearAllMocks();
+    
+    // Default mock behaviors
+    mockAuditLogger.logPaymentAttempt.mockResolvedValue(undefined);
+    mockAuditLogger.logPaymentResult.mockResolvedValue(undefined);
+    mockAuditLogger.logPaymentError.mockResolvedValue(undefined);
+    mockNotificationService.notifyPaymentSuccess.mockResolvedValue(undefined);
+    
+    processor = new PaymentProcessor(
+      mockGateway,
+      mockAuditLogger,
+      mockNotificationService
+    );
+  });
+
+  // ✅ Happy Path - Successful Payment
+  describe('Successful Payment Processing', () => {
+    it('should process valid payment successfully', async () => {
+      // Arrange
+      const request = {
+        amount: 100.00,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: true,
+        transactionId: 'txn_789'
+      });
+      
+      // Act
+      const result = await processor.processPayment(request);
+      
+      // Assert
+      expect(result.success).toBe(true);
+      expect(result.transactionId).toBe('txn_789');
+      expect(mockGateway.charge).toHaveBeenCalledTimes(1);
+    });
+    
+    it('should log audit trail for successful payment', async () => {
+      // Arrange
+      const request = {
+        amount: 100.00,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: true,
+        transactionId: 'txn_789'
+      });
+      
+      // Act
+      await processor.processPayment(request);
+      
+      // Assert - Compliance requirement
+      expect(mockAuditLogger.logPaymentAttempt).toHaveBeenCalledWith(
+        expect.objectContaining({
+          customerId: 'cust_123',
+          orderId: 'order_456',
+          amount: 100.00,
+          currency: 'USD'
+        })
+      );
+      
+      expect(mockAuditLogger.logPaymentResult).toHaveBeenCalledWith(
+        expect.objectContaining({
+          customerId: 'cust_123',
+          orderId: 'order_456',
+          transactionId: 'txn_789',
+          success: true
+        })
+      );
+    });
+    
+    it('should send notification for successful payment', async () => {
+      // Arrange
+      const request = {
+        amount: 100.00,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: true,
+        transactionId: 'txn_789'
+      });
+      
+      // Act
+      await processor.processPayment(request);
+      
+      // Assert
+      expect(mockNotificationService.notifyPaymentSuccess).toHaveBeenCalledWith(
+        'cust_123',
+        'order_456',
+        'txn_789'
+      );
+    });
+  });
+  
+  // ❌ Validation - Invalid Inputs
+  describe('Payment Validation', () => {
+    it('should reject payment with zero amount', async () => {
+      const request = {
+        amount: 0,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+      expect(result.errorCode).toBe('PROCESSING_ERROR');
+      expect(mockGateway.charge).not.toHaveBeenCalled();
+    });
+    
+    it('should reject payment exceeding maximum limit', async () => {
+      const request = {
+        amount: 1500000,  // Exceeds 1M limit
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+      expect(mockGateway.charge).not.toHaveBeenCalled();
+    });
+    
+    it('should reject unsupported currency', async () => {
+      const request = {
+        amount: 100,
+        currency: 'JPY',  // Not supported
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+    });
+    
+    it('should reject payment without customer ID', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: '',  // Empty
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+    });
+  });
+  
+  // 🔌 External Dependencies - Gateway Failures
+  describe('Gateway Error Handling', () => {
+    it('should handle gateway timeout gracefully', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockRejectedValue(new Error('Gateway timeout'));
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+      expect(result.errorCode).toBe('PROCESSING_ERROR');
+      expect(mockAuditLogger.logPaymentError).toHaveBeenCalled();
+    });
+    
+    it('should handle gateway decline', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: false,
+        errorCode: 'DECLINED',
+        errorMessage: 'Insufficient funds'
+      });
+      
+      const result = await processor.processPayment(request);
+      
+      expect(result.success).toBe(false);
+      expect(result.errorCode).toBe('DECLINED');
+    });
+  });
+  
+  // 📊 Performance - Processing Time
+  describe('Performance Monitoring', () => {
+    it('should track processing time in audit log', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: true,
+        transactionId: 'txn_789'
+      });
+      
+      await processor.processPayment(request);
+      
+      expect(mockAuditLogger.logPaymentResult).toHaveBeenCalledWith(
+        expect.objectContaining({
+          processingTimeMs: expect.any(Number)
+        })
+      );
+    });
+  });
+  
+  // 🔔 Resilience - Notification Failures
+  describe('Notification Resilience', () => {
+    it('should not fail payment if notification fails', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge.mockResolvedValue({
+        success: true,
+        transactionId: 'txn_789'
+      });
+      
+      mockNotificationService.notifyPaymentSuccess.mockRejectedValue(
+        new Error('Email service down')
+      );
+      
+      const result = await processor.processPayment(request);
+      
+      // Payment should still succeed
+      expect(result.success).toBe(true);
+      expect(result.transactionId).toBe('txn_789');
+    });
+  });
+  
+  // 🔁 Idempotency - Duplicate Requests
+  describe('Idempotency', () => {
+    it('should handle duplicate order IDs safely', async () => {
+      const request = {
+        amount: 100,
+        currency: 'USD',
+        customerId: 'cust_123',
+        orderId: 'order_456',
+        paymentMethod: 'credit_card' as const
+      };
+      
+      mockGateway.charge
+        .mockResolvedValueOnce({
+          success: true,
+          transactionId: 'txn_789'
+        })
+        .mockResolvedValueOnce({
+          success: false,
+          errorCode: 'DUPLICATE_ORDER',
+          errorMessage: 'Order already processed'
+        });
+      
+      // First request
+      const result1 = await processor.processPayment(request);
+      expect(result1.success).toBe(true);
+      
+      // Duplicate request
+      const result2 = await processor.processPayment(request);
+      expect(result2.success).toBe(false);
+      expect(result2.errorCode).toBe('DUPLICATE_ORDER');
+    });
+  });
+});
+```
+
+### ✅ Enterprise Unit Test Checklist
+
+When creating enterprise unit tests, ensure you cover:
+
+```markdown
+**Mandatory**:
+[ ] **Happy Path**: All valid scenarios with expected inputs
+[ ] **Validation**: All business rule validations
+[ ] **Error Handling**: All exception paths handled correctly
+[ ] **Audit Logging**: All compliance-required logs written (SOC2, ISO)
+[ ] **Security**: Authentication, authorization, data sanitization
+[ ] **External Dependencies**: All APIs/databases mocked properly
+[ ] **Idempotency**: Duplicate requests handled safely
+[ ] **Performance**: Processing time tracked and within SLA
+
+**Recommended**:
+[ ] **Edge Cases**: Boundary values, null/undefined, empty collections
+[ ] **Concurrency**: Race conditions, deadlocks (if applicable)
+[ ] **Resilience**: Timeout handling, circuit breakers, retries
+[ ] **Data Privacy**: PII masking, GDPR compliance
+[ ] **Financial Accuracy**: Rounding, currency conversion precision
+[ ] **Notifications**: Async operations don't block critical path
+
+**Quality Gates**:
+[ ] **Coverage**: 80%+ line coverage, 70%+ branch coverage
+[ ] **Performance**: Tests complete in <5 seconds total
+[ ] **Isolation**: No shared state between tests
+[ ] **Deterministic**: Tests pass consistently (no flaky tests)
+[ ] **Documentation**: Complex test scenarios explained
+```
+
+### 🎯 Rationale (Enterprise Context)
+
+**Why are comprehensive unit tests mandatory in enterprise environments?**
+
+1. **📜 Compliance & Auditing**
+   - SOC2/ISO 27001 require evidence of testing
+   - Tests serve as documentation for auditors
+   - Audit logs validated through tests
+   - Security controls verified automatically
+
+2. **💰 Financial Risk Mitigation**
+   - Payment bugs can cost millions
+   - Tests catch calculation errors before production
+   - Protects against fraud and data loss
+   - Reduces customer compensation costs
+
+3. **🚀 Safe Continuous Deployment**
+   - Tests enable automated deployments
+   - Confidence to deploy multiple times per day
+   - Rollback decisions based on test results
+   - Feature flags tested in isolation
+
+4. **👥 Team Collaboration**
+   - Large teams need test contracts
+   - Tests document expected behavior
+   - Code review includes test review
+   - New team members understand through tests
+
+5. **📊 Quality Metrics & SLAs**
+   - Coverage enforced in CI/CD
+   - Quality gates prevent bad code merging
+   - Performance SLAs validated in tests
+   - Defect rate tracked and reduced
+
+6. **🔍 Regulatory Requirements**
+   - GDPR: Data handling validated
+   - PCI-DSS: Payment security verified
+   - HIPAA: Patient data protection tested
+   - SOX: Financial controls audited
+
+### 🔗 Integration with Step 13 (Code Review)
+
+This mandatory rule **integrates** with Step 13 (Formal Code Review):
+
+**Before Code Review**:
+1. ✅ All tests pass in CI/CD
+2. ✅ Coverage meets 80%+ threshold
+3. ✅ No flaky tests (run 10x successfully)
+4. ✅ Performance benchmarks within SLA
+
+**During Code Review**:
+1. 🔍 Reviewer validates test coverage
+2. 🔍 Reviewer checks test quality (not just quantity)
+3. 🔍 Reviewer verifies audit logging tests
+4. 🔍 Reviewer confirms security tests present
+
+**Code Review Rejection Criteria**:
+- ❌ Coverage below 80%
+- ❌ Critical paths not tested
+- ❌ Mocks not used for external dependencies
+- ❌ No audit logging tests for compliance code
+- ❌ Flaky or slow tests (>5s total)
+
+### 🛠️ CI/CD Quality Gates
+
+**Automated Enforcement** (in `.github/workflows/ci.yml` or similar):
+
+```yaml
+name: CI Pipeline with Quality Gates
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
+      
+      - name: Enforce coverage threshold
+        run: |
+          COVERAGE=$(npm run test:coverage:json | jq '.total.lines.pct')
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "❌ Coverage $COVERAGE% is below 80% threshold"
+            exit 1
+          fi
+          echo "✅ Coverage $COVERAGE% meets threshold"
+      
+      - name: Check for flaky tests
+        run: npm run test:repeat:10
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
+```
+
+**Quality Gates**:
+1. ✅ **Coverage**: Build fails if <80% line coverage
+2. ✅ **Performance**: Build fails if tests take >5 seconds
+3. ✅ **Flakiness**: Build fails if tests fail on retry
+4. ✅ **Security**: Build fails if security tests fail
+5. ✅ **Audit**: Build fails if compliance tests fail
+
+### ⚙️ Enterprise Testing Stack
+
+**TypeScript/Node.js**:
+- `Jest` + `ts-jest`: Testing framework with TypeScript support
+- `@testing-library/react`: React component testing
+- `supertest`: API endpoint testing
+- `nock`: HTTP mocking
+- `jest-mock-extended`: Advanced mocking
+- `codecov`: Coverage reporting and enforcement
+
+**Java/Spring Boot**:
+- `JUnit 5` + `Mockito`: Standard enterprise stack
+- `Spring Boot Test`: Integration testing
+- `AssertJ`: Fluent assertions
+- `WireMock`: HTTP API mocking
+- `JaCoCo`: Coverage reporting
+
+**Python/Django**:
+- `pytest` + `pytest-django`: Modern testing framework
+- `factory_boy`: Test data generation
+- `responses`: HTTP mocking
+- `freezegun`: Time mocking for tests
+- `coverage.py`: Coverage measurement
+
+**Go**:
+- `testing` (stdlib): Built-in testing
+- `testify`: Enhanced assertions and mocking
+- `gomock`: Mock generation
+- `go-sqlmock`: Database mocking
+
+### 📝 Summary (Enterprise)
+
+**When**:
+- ALL production code (>30 lines or any business logic)
+- Stricter criteria than Protocol 1/3
+
+**Coverage**:
+- 80%+ line coverage **MANDATORY**
+- 70%+ branch coverage recommended
+- Enforced in CI/CD pipelines
+
+**What**:
+- Happy path, validation, errors, audit logs, security, performance, idempotency
+
+**Why**:
+- Compliance (SOC2, ISO, HIPAA)
+- Financial risk mitigation
+- Safe continuous deployment
+- Team collaboration at scale
+
+**Integration**:
+- Tests mandatory in Step 13 code review
+- CI/CD quality gates block bad code
+- Coverage reports in pull requests
 
 ---
 

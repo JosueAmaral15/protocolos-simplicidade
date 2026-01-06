@@ -6,6 +6,14 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
 
+**Changelog v3.6** (06/01/2026):
+- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
+- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
+- ✅ Pragmatismo solo: Testar o crítico, pular o trivial
+- ✅ Cobertura mínima 60-70% (vs 80% enterprise) - sustentável para solo
+- ✅ Foco em testes que economizam tempo de debugging
+- ✅ Rationale: Solo dev não pode se dar ao luxo de bugs em produção
+
 **Changelog v3.5** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
 - ✅ IA DEVE criar plano pragmático em docs/ ANTES de codificar

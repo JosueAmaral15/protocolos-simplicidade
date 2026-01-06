@@ -7,6 +7,14 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
 
+**Changelog v2.7** (06/01/2026):
+- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
+- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
+- ✅ Classes, módulos, componentes complexos DEVEM ter testes unitários
+- ✅ Cobertura de testes >80% para código crítico (enterprise)
+- ✅ Integração com CI/CD para execução automática de testes
+- ✅ Rationale: Em ambiente enterprise, código sem testes = risco inaceitável
+
 **Changelog v2.6** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
 - ✅ IA DEVE criar plano de execução formal em docs/ ANTES de codificar
@@ -864,6 +872,241 @@ Antes de iniciar qualquer tarefa nova:
 
 **Mensagem para IAs**: 
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
+
+---
+
+## 📋 Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Enterprise)
+
+> **CRÍTICO PARA IAs EM AMBIENTE ENTERPRISE**: Quando qualquer ferramenta (classe, módulo, componente, função) demonstra ser **complexa** e **difícil de compreender**, é **OBRIGATÓRIO** criar arquivos de testes unitários com cobertura >80%.
+
+### 🎯 Quando Criar Testes Unitários (Enterprise)
+
+**✅ OBRIGATÓRIO criar testes quando:**
+- Ferramenta tem **lógica complexa** (múltiplos caminhos, condições aninhadas)
+- Ferramenta é **difícil de entender** à primeira leitura
+- Ferramenta tem **>50 linhas** de código
+- Ferramenta processa **dados críticos** (validações, cálculos, transformações)
+- Ferramenta é **reutilizada** em múltiplos serviços/módulos
+- Ferramenta tem **edge cases** não óbvios
+- **[ENTERPRISE]** Ferramenta afeta compliance/segurança/finanças
+- **[ENTERPRISE]** Ferramenta é parte de API pública/contrato
+- **[ENTERPRISE]** Ferramenta processa PII (dados sensíveis)
+
+**❌ Pode pular testes APENAS quando:**
+- Código é trivial E não-crítico (<10 linhas, lógica óbvia)
+- **IMPORTANTE**: Em ambiente enterprise, quase tudo é crítico. Quando em dúvida, teste.
+
+### 📁 Organização dos Testes (Enterprise)
+
+**Estrutura obrigatória:**
+```
+projeto/
+├── src/              # Código fonte
+│   ├── services/
+│   │   └── payment_processor.py
+│   └── models/
+│       └── transaction.py
+└── tests/            # ⭐ Pasta de testes (obrigatória)
+    ├── unit/         # Testes unitários
+    │   ├── test_payment_processor.py
+    │   └── test_transaction.py
+    ├── integration/  # Testes de integração
+    │   └── test_payment_flow.py
+    └── fixtures/     # Dados de teste
+        └── payment_samples.json
+```
+
+**Convenções enterprise:**
+- Arquivo de teste: `test_<nome_do_módulo>.py`
+- Cobertura mínima: 80% (verificada por CI/CD)
+- Testes devem rodar em <5min (limite do pipeline)
+
+### 🧪 Exemplo de Testes Unitários (Enterprise)
+
+**Código complexo (src/services/payment_processor.py):**
+```python
+def process_payment(transaction_data):
+    """
+    Processa pagamento com Stripe.
+    Complexidade: alta (validação, API externa, tratamento de erros, logging)
+    Crítico: sim (movimentação financeira)
+    """
+    # Valida dados
+    validate_payment_data(transaction_data)
+    
+    # Log de auditoria (compliance)
+    audit_log.record("payment_attempt", transaction_data)
+    
+    try:
+        # Chama Stripe API
+        stripe_response = stripe.Payment.create(
+            amount=transaction_data['amount'],
+            currency='brl',
+            source=transaction_data['card_token']
+        )
+        
+        # Registra sucesso
+        audit_log.record("payment_success", stripe_response)
+        return {'status': 'success', 'transaction_id': stripe_response.id}
+        
+    except stripe.CardError as e:
+        # Tratamento de erros de cartão
+        audit_log.record("payment_failed", {'error': str(e)})
+        raise PaymentDeclinedError(str(e))
+    except Exception as e:
+        # Erro inesperado
+        alert_team("payment_error", e)
+        raise PaymentSystemError("Internal error")
+```
+
+**Testes obrigatórios (tests/unit/test_payment_processor.py):**
+```python
+import pytest
+from unittest.mock import Mock, patch
+from src.services.payment_processor import process_payment
+
+def test_process_payment_success():
+    """Testa pagamento bem-sucedido"""
+    with patch('stripe.Payment.create') as mock_stripe:
+        mock_stripe.return_value = Mock(id='txn_123')
+        
+        result = process_payment({
+            'amount': 10000,  # R$ 100,00
+            'card_token': 'tok_visa'
+        })
+        
+        assert result['status'] == 'success'
+        assert result['transaction_id'] == 'txn_123'
+
+def test_process_payment_invalid_data():
+    """Testa dados inválidos"""
+    with pytest.raises(ValidationError):
+        process_payment({'amount': -100})  # Valor negativo
+
+def test_process_payment_card_declined():
+    """Testa cartão recusado"""
+    with patch('stripe.Payment.create') as mock_stripe:
+        mock_stripe.side_effect = stripe.CardError("card_declined", "param", "code")
+        
+        with pytest.raises(PaymentDeclinedError):
+            process_payment({'amount': 10000, 'card_token': 'tok_visa'})
+
+def test_process_payment_logs_audit():
+    """Testa se log de auditoria é registrado (compliance)"""
+    with patch('stripe.Payment.create'), \
+         patch('audit_log.record') as mock_audit:
+        
+        process_payment({'amount': 10000, 'card_token': 'tok_visa'})
+        
+        # Verifica que tentativa foi registrada
+        mock_audit.assert_any_call("payment_attempt", {'amount': 10000, 'card_token': 'tok_visa'})
+
+def test_process_payment_system_error_alerts_team():
+    """Testa que erros inesperados alertam equipe"""
+    with patch('stripe.Payment.create') as mock_stripe, \
+         patch('alert_team') as mock_alert:
+        mock_stripe.side_effect = Exception("Unexpected error")
+        
+        with pytest.raises(PaymentSystemError):
+            process_payment({'amount': 10000, 'card_token': 'tok_visa'})
+        
+        # Verifica que equipe foi alertada
+        mock_alert.assert_called_once()
+```
+
+### ✅ Checklist de Testes (Enterprise)
+
+```markdown
+Para cada ferramenta complexa/crítica, criar testes que cobrem:
+
+[ ] **Happy path**: Caso de uso normal/esperado (obrigatório)
+[ ] **Edge cases**: Limites, valores extremos (obrigatório)
+[ ] **Error handling**: Todas as exceções possíveis (obrigatório)
+[ ] **Null/Empty**: Valores nulos, vazios, None (obrigatório)
+[ ] **Tipos incorretos**: Validação de tipos (obrigatório)
+[ ] **[ENTERPRISE]** Audit logging: Verificar que logs de compliance são gerados
+[ ] **[ENTERPRISE]** Security: Testar que dados sensíveis não vazam em logs
+[ ] **[ENTERPRISE]** Performance: Validar que operações críticas são rápidas
+[ ] **[ENTERPRISE]** Idempotência: Requisições duplicadas não causam problemas
+[ ] **[ENTERPRISE]** Alertas: Erros críticos disparam alertas para equipe
+```
+
+### 🎯 Rationale Enterprise
+
+**Por quê testes são AINDA MAIS críticos em enterprise?**
+
+1. **Compliance e Auditoria**:
+   - SOC2/ISO27001 exigem evidência de testes
+   - Auditores checam cobertura de código crítico
+   
+2. **Custo de Falha Altíssimo**:
+   - Bug financeiro = perda de dinheiro real
+   - Bug de segurança = multas de LGPD/GDPR
+   - Downtime = SLA violado = penalidades contratuais
+   
+3. **Múltiplos Times**:
+   - Testes permitem que times trabalhem paralelamente sem quebrar código uns dos outros
+   
+4. **Onboarding em Escala**:
+   - Empresas grandes têm alta rotatividade
+   - Testes servem como documentação para novos engenheiros
+
+### 📊 Exemplo Real Enterprise
+
+**Cenário: API de processamento de pagamentos (200 linhas)**
+
+```
+❌ SEM TESTES ADEQUADOS:
+- Bug em produção: transações duplicadas (R$ 50k de prejuízo)
+- Auditoria SOC2: falha por falta de evidência de testes
+- Tempo de correção: 8h (prod down)
+- Custo total: R$ 50k + multa auditoria + reputação
+
+✅ COM TESTES (cobertura 85%):
+- Testes pegam bug de duplicação ANTES de produção
+- Auditoria SOC2: aprovada (evidência de qualidade)
+- Deploy confiante: rollout gradual sem surpresas
+- Custo: 0 bugs, 0 prejuízo, aprovação em auditoria
+```
+
+### 🚀 Integração com CI/CD (Enterprise Mandatory)
+
+**Pipeline automático obrigatório:**
+
+```yaml
+# .github/workflows/tests.yml
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Unit Tests
+        run: pytest tests/unit --cov=src --cov-report=xml
+      
+      - name: Check Coverage
+        run: |
+          coverage report --fail-under=80
+          # Falha se cobertura < 80%
+      
+      - name: Upload to CodeCov
+        uses: codecov/codecov-action@v3
+```
+
+**Quality Gates (bloqueantes):**
+- ✅ Cobertura >80% (unit tests)
+- ✅ Todos os testes passam
+- ✅ Sem código com complexidade ciclomática >10
+- ✅ Sem vulnerabilidades conhecidas (Snyk scan)
+
+### 💡 Mensagem para IAs (Enterprise)
+
+> "Em ambiente enterprise, código sem testes não passa em code review. Código crítico (financeiro, segurança, compliance) DEVE ter cobertura >90%. Se você implementa algo complexo sem testes, será rejeitado pelo CI/CD e pelo tech lead. Teste SEMPRE, especialmente em enterprise."
+
+**Regra de Ouro Enterprise**:
+> "Complexidade sem testes = Incidente de produção garantido. Enterprise não aceita código não testado."
 
 ---
 

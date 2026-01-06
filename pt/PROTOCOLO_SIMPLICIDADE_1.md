@@ -6,6 +6,14 @@
 **Última Atualização**: 01 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
 
+**Changelog v2.5** (06/01/2026):
+- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
+- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
+- ✅ Classes, módulos, componentes complexos DEVEM ter testes unitários
+- ✅ Testes validam comportamento e previnem regressões
+- ✅ Facilita refatoração e manutenção de código complexo
+- ✅ Rationale: Código complexo sem testes = dívida técnica garantida
+
 **Changelog v2.4** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
 - ✅ IA DEVE criar plano de execução em docs/ ANTES de codificar
@@ -242,6 +250,175 @@ Antes de iniciar qualquer tarefa nova:
 
 **Mensagem para IAs**: 
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
+
+---
+
+## 📋 Regra Obrigatória: Testes Unitários para Ferramentas Complexas
+
+> **CRÍTICO PARA IAs**: Quando qualquer ferramenta (classe, módulo, componente, função) demonstra ser **complexa** e **difícil de compreender**, é **OBRIGATÓRIO** criar arquivos de testes unitários.
+
+### 🎯 Quando Criar Testes Unitários
+
+**✅ OBRIGATÓRIO criar testes quando:**
+- Ferramenta tem **lógica complexa** (múltiplos caminhos, condições aninhadas)
+- Ferramenta é **difícil de entender** à primeira leitura
+- Ferramenta tem **>50 linhas** de código
+- Ferramenta processa **dados críticos** (validações, cálculos, transformações)
+- Ferramenta tem **múltiplas responsabilidades** (deveria ser refatorada, mas testes ajudam)
+- Ferramenta é **reutilizada** em múltiplos lugares
+- Ferramenta tem **edge cases** não óbvios
+
+**❌ Pode pular testes quando:**
+- Ferramenta é trivial (<10 linhas, lógica óbvia)
+- Ferramenta é apenas getter/setter simples
+- Ferramenta é código de setup/configuração básico
+
+### 📁 Organização dos Testes
+
+**Estrutura obrigatória:**
+```
+projeto/
+├── src/              # Código fonte
+│   ├── utils/
+│   │   └── validator.py
+│   └── models/
+│       └── user.py
+└── tests/            # ⭐ Pasta de testes (obrigatória)
+    ├── test_validator.py
+    └── test_user.py
+```
+
+**Convenção de nomenclatura:**
+- Arquivo de teste: `test_<nome_do_módulo>.py` ou `<nome_do_módulo>.test.js`
+- Função de teste: `test_<nome_da_funcionalidade>()`
+
+### 🧪 Exemplo de Testes Unitários
+
+**Código complexo (src/utils/validator.py):**
+```python
+def validate_cpf(cpf):
+    """
+    Valida CPF brasileiro.
+    Complexidade: média-alta (múltiplas validações, edge cases)
+    """
+    # Remove pontuação
+    cpf_limpo = re.sub(r'[.\-]', '', cpf)
+    
+    # Valida tamanho
+    if len(cpf_limpo) != 11:
+        raise ValueError("CPF deve ter 11 dígitos")
+    
+    # Rejeita CPFs com todos dígitos iguais
+    if len(set(cpf_limpo)) == 1:
+        raise ValueError("CPF com todos dígitos iguais é inválido")
+    
+    # Valida dígitos verificadores
+    # ... lógica complexa aqui ...
+    
+    return cpf_limpo
+```
+
+**Testes obrigatórios (tests/test_validator.py):**
+```python
+import pytest
+from src.utils.validator import validate_cpf
+
+def test_validate_cpf_formato_com_pontuacao():
+    """Testa CPF com pontuação"""
+    resultado = validate_cpf("123.456.789-09")
+    assert resultado == "12345678909"
+
+def test_validate_cpf_formato_sem_pontuacao():
+    """Testa CPF sem pontuação"""
+    resultado = validate_cpf("12345678909")
+    assert resultado == "12345678909"
+
+def test_validate_cpf_tamanho_invalido():
+    """Testa CPF com tamanho errado"""
+    with pytest.raises(ValueError, match="CPF deve ter 11 dígitos"):
+        validate_cpf("123456789")
+
+def test_validate_cpf_digitos_iguais():
+    """Testa CPF com todos dígitos iguais (inválido)"""
+    with pytest.raises(ValueError, match="todos dígitos iguais"):
+        validate_cpf("111.111.111-11")
+
+def test_validate_cpf_digitos_verificadores_invalidos():
+    """Testa CPF com dígitos verificadores errados"""
+    with pytest.raises(ValueError):
+        validate_cpf("123.456.789-00")  # Dígitos verificadores errados
+```
+
+### ✅ Checklist de Testes para Ferramentas Complexas
+
+```markdown
+Para cada ferramenta complexa, criar testes que cobrem:
+
+[ ] **Happy path**: Caso de uso normal/esperado
+[ ] **Edge cases**: Limites, valores extremos
+[ ] **Error handling**: Entradas inválidas devem levantar exceções
+[ ] **Null/Empty**: Valores nulos, vazios, None
+[ ] **Tipos incorretos**: String quando espera número, etc.
+[ ] **Limites de tamanho**: Muito pequeno, muito grande
+[ ] **Formato incorreto**: Quando entrada tem formato esperado
+```
+
+### 🎯 Rationale: Por Quê Isto É Crítico
+
+**Sem testes unitários em código complexo:**
+1. ❌ **Medo de refatorar**: Ninguém mexe porque pode quebrar
+2. ❌ **Regressões**: Mudanças quebram funcionalidades antigas sem perceber
+3. ❌ **Debugging difícil**: Quando quebra, difícil saber onde
+4. ❌ **Dívida técnica**: Código complexo vira "caixa preta" intocável
+5. ❌ **Onboarding lento**: Novos devs não entendem o código
+
+**Com testes unitários:**
+1. ✅ **Refatoração segura**: Testes garantem que comportamento não mudou
+2. ✅ **Documentação viva**: Testes mostram como usar a ferramenta
+3. ✅ **Debugging rápido**: Testes isolam onde está o bug
+4. ✅ **Confiança**: Código testado = código confiável
+5. ✅ **Onboarding**: Novos devs leem testes para entender comportamento
+
+### 📊 Exemplo Real de Economia
+
+**Cenário: Função complexa de cálculo de desconto (50 linhas)**
+
+```
+❌ SEM TESTES:
+- Tempo de implementação inicial: 2h
+- Bug em produção após 1 semana: 4h de debugging + hotfix
+- Medo de refatorar: Código fica ruim por meses
+- Total: 6h + código ruim permanente
+
+✅ COM TESTES (30min para escrever):
+- Tempo de implementação: 2h
+- Tempo para escrever testes: 30min
+- Bug detectado ANTES de produção: 0h (teste pegou)
+- Refatoração segura após 1 mês: 1h (testes garantem)
+- Total: 3.5h + código limpo
+```
+
+**Economia**: 2.5h + código de qualidade superior
+
+### 🚀 Integração com Etapa 9: Testes
+
+Os testes unitários de ferramentas complexas devem ser criados **durante ou logo após a implementação da ferramenta**, não apenas na Etapa 9 (que testa o sistema integrado).
+
+**Fluxo correto:**
+```
+1. Implementar ferramenta complexa
+2. ⭐ Criar testes unitários imediatamente (em tests/)
+3. Validar que testes passam
+4. Integrar ferramenta no sistema
+5. [Etapa 9] Testar sistema integrado
+```
+
+### 💡 Mensagem para IAs
+
+> "Se você está implementando uma ferramenta e percebe que está ficando complexa (>50 linhas, múltiplos ifs, lógica não trivial), PARE e crie testes unitários ANTES de continuar. Ferramentas complexas sem testes são bombas-relógio esperando para explodir em produção."
+
+**Regra de Ouro**:
+> "Complexidade sem testes = Dívida técnica. Sempre que complexo, sempre testar."
 
 ---
 

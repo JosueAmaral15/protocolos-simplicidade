@@ -5,9 +5,19 @@ Here's the English translation of the provided document:
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.4  
-**Last Update**: January 5, 2026  
+**Version**: 2.5  
+**Last Update**: January 6, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.5** (01/06/2026):
+- ✅ **[MANDATORY]** Added Mandatory Rule: Unit Tests for Complex Tools
+- ✅ MANDATORY: Create unit tests for complex tools (classes, modules, functions)
+- ✅ When to test: >50 lines, complex logic, critical data, external dependencies
+- ✅ Organization: tests/ folder with structure mirroring source code
+- ✅ Python example: CPF validation with comprehensive test suite
+- ✅ Test checklist: happy path, edge cases, error handling, mocks
+- ✅ Rationale: Prevents technical debt, enables safe refactoring
+- ✅ Integration with Step 9: Use existing test infrastructure
 
 **Changelog v2.4** (01/05/2026):
 - ✅ **[BLOCKING]** Added Step 1.8: Execution Planning Document (MANDATORY)
@@ -308,6 +318,273 @@ Before starting any new task:
 
 **Message for AIs**: 
 > "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue with implementation."
+
+---
+
+## 🧪 Mandatory Rule: Unit Tests for Complex Tools
+
+> **CRITICAL**: When tools (classes, modules, components, functions) are **complex and difficult to understand**, it is **MANDATORY** to create unit test files for each tool in a `tests/` folder.
+
+### 🎯 Objective
+
+Ensure that complex code is **properly tested** to:
+- ✅ Prevent technical debt
+- ✅ Facilitate maintenance and refactoring
+- ✅ Document expected behavior through tests
+- ✅ Catch regression bugs early
+
+### 📏 When to Create Unit Tests
+
+Create unit tests when the tool meets **ANY** of these criteria:
+
+1. **📊 Size**: More than **50 lines** of code
+2. **🧠 Complexity**: Contains **multiple conditions** (if/else, switch, loops)
+3. **🔄 Logic**: Performs **complex transformations** or calculations
+4. **💾 Critical Data**: Handles **sensitive data** (authentication, payments, personal data)
+5. **🔌 Dependencies**: Integrates with **external services** (APIs, databases)
+6. **🎯 Business Logic**: Implements **critical business rules**
+7. **🐛 Bug History**: Has had **multiple bugs** in the past
+
+### 📁 Test Organization
+
+```
+project/
+├── src/
+│   ├── utils/
+│   │   ├── validators.py      # Source code
+│   │   └── formatters.py
+│   └── services/
+│       └── payment.py
+└── tests/                      # Test folder (mirrors src/)
+    ├── utils/
+    │   ├── test_validators.py  # Tests for validators.py
+    │   └── test_formatters.py
+    └── services/
+        └── test_payment.py
+```
+
+**Rules**:
+- ✅ Tests mirror the source code structure
+- ✅ Test file names: `test_<filename>.py` or `<filename>.test.js`
+- ✅ One test file per source file
+- ✅ Tests stay in `tests/` folder, never mixed with source code
+
+### 🔍 Example: CPF Validator (Python)
+
+#### Source Code (`src/utils/validators.py`)
+
+```python
+def validate_cpf(cpf: str) -> bool:
+    """
+    Validates a Brazilian CPF (Individual Taxpayer Number).
+    
+    Args:
+        cpf: CPF string (can include dots and dashes)
+    
+    Returns:
+        True if valid, False otherwise
+    
+    Examples:
+        >>> validate_cpf("123.456.789-09")
+        True
+        >>> validate_cpf("000.000.000-00")
+        False
+    """
+    # Remove formatting
+    cpf = ''.join(filter(str.isdigit, cpf))
+    
+    # Check length
+    if len(cpf) != 11:
+        return False
+    
+    # Check for known invalid CPFs
+    if cpf == cpf[0] * 11:
+        return False
+    
+    # Validate check digits
+    def calculate_digit(cpf_partial: str) -> str:
+        sum_val = sum(int(cpf_partial[i]) * (len(cpf_partial) + 1 - i) 
+                     for i in range(len(cpf_partial)))
+        remainder = sum_val % 11
+        return '0' if remainder < 2 else str(11 - remainder)
+    
+    # Verify first digit
+    if cpf[9] != calculate_digit(cpf[:9]):
+        return False
+    
+    # Verify second digit
+    if cpf[10] != calculate_digit(cpf[:10]):
+        return False
+    
+    return True
+```
+
+#### Unit Tests (`tests/utils/test_validators.py`)
+
+```python
+import pytest
+from src.utils.validators import validate_cpf
+
+class TestValidateCPF:
+    """Test suite for CPF validation"""
+    
+    # ✅ Happy Path - Valid CPFs
+    def test_valid_cpf_with_formatting(self):
+        """Should accept valid CPF with dots and dashes"""
+        assert validate_cpf("123.456.789-09") == True
+    
+    def test_valid_cpf_without_formatting(self):
+        """Should accept valid CPF without formatting"""
+        assert validate_cpf("12345678909") == True
+    
+    # ❌ Edge Cases - Invalid CPFs
+    def test_cpf_too_short(self):
+        """Should reject CPF with less than 11 digits"""
+        assert validate_cpf("123456789") == False
+    
+    def test_cpf_too_long(self):
+        """Should reject CPF with more than 11 digits"""
+        assert validate_cpf("123456789012") == False
+    
+    def test_cpf_all_same_digits(self):
+        """Should reject CPF with all identical digits"""
+        assert validate_cpf("111.111.111-11") == False
+        assert validate_cpf("000.000.000-00") == False
+    
+    def test_cpf_invalid_check_digit(self):
+        """Should reject CPF with invalid check digits"""
+        assert validate_cpf("123.456.789-00") == False
+    
+    # 🔤 Input Variations
+    def test_cpf_with_spaces(self):
+        """Should handle CPF with spaces"""
+        assert validate_cpf("123 456 789 09") == True
+    
+    def test_empty_cpf(self):
+        """Should reject empty string"""
+        assert validate_cpf("") == False
+    
+    def test_cpf_with_letters(self):
+        """Should reject CPF with letters"""
+        assert validate_cpf("ABC.456.789-09") == False
+    
+    # 🎯 Real Valid CPFs (for comprehensive testing)
+    @pytest.mark.parametrize("cpf", [
+        "111.444.777-35",
+        "123.456.789-09",
+        "000.000.001-91"
+    ])
+    def test_known_valid_cpfs(self, cpf):
+        """Should accept known valid CPFs"""
+        assert validate_cpf(cpf) == True
+```
+
+### ✅ Unit Test Checklist
+
+When creating unit tests, ensure you cover:
+
+```markdown
+[ ] **Happy Path**: Test with valid, expected inputs
+[ ] **Edge Cases**: Empty values, null, undefined, zero
+[ ] **Boundaries**: Minimum/maximum values, size limits
+[ ] **Invalid Inputs**: Wrong types, invalid formats
+[ ] **Error Handling**: Exceptions are thrown/handled correctly
+[ ] **External Dependencies**: Mocked (databases, APIs, file system)
+[ ] **Performance**: Tests run in <100ms (fast)
+[ ] **Isolation**: Each test is independent (no shared state)
+[ ] **Clarity**: Test names describe what they test
+[ ] **Documentation**: Comments explain WHY, not just WHAT
+```
+
+### 🎯 Rationale
+
+**Why are unit tests mandatory for complex code?**
+
+1. **🛡️ Prevents Technical Debt**
+   - Complex code without tests = guaranteed technical debt
+   - Tests document expected behavior
+   - Makes refactoring safe and confident
+
+2. **🔍 Catches Bugs Early**
+   - Bugs found in tests are 10x cheaper to fix than in production
+   - Prevents regression when code changes
+   - Validates business logic before deployment
+
+3. **📚 Living Documentation**
+   - Tests show how the code should be used
+   - Examples of valid and invalid inputs
+   - Clarifies edge cases and error handling
+
+4. **🚀 Enables Safe Refactoring**
+   - Can change implementation without fear
+   - Tests ensure behavior remains correct
+   - Encourages continuous improvement
+
+5. **🧠 Reduces Cognitive Load**
+   - Don't need to remember all edge cases
+   - Tests serve as safety net
+   - Easier for new developers to understand code
+
+### 🔗 Integration with Step 9 (Testing Phase)
+
+This mandatory rule **complements** Step 9 (Test Before Deploy):
+
+- **Step 9**: Integration and E2E tests (full application flow)
+- **This Rule**: Unit tests for individual complex tools
+
+**In Practice**:
+1. Create unit tests for complex tools **during development** (Step 2-7)
+2. Run unit tests **before each commit** (fast feedback)
+3. Run full test suite in **Step 9** (integration + unit tests)
+
+**Testing pyramid**:
+```
+        /\
+       /E2E\         ← Step 9: Few E2E tests (slow, expensive)
+      /------\
+     /  API  \       ← Step 9: Some integration tests
+    /----------\
+   /   Unit     \    ← This Rule: Many unit tests (fast, cheap)
+  /--------------\
+```
+
+### ⚙️ Recommended Testing Tools
+
+**Python**:
+- `pytest`: Modern, powerful test framework
+- `unittest.mock`: Mocking for external dependencies
+- `coverage.py`: Measure test coverage
+
+**JavaScript/TypeScript**:
+- `Jest`: All-in-one testing framework
+- `Vitest`: Fast Vite-native testing
+- `@testing-library`: React/Vue component testing
+
+**Java**:
+- `JUnit 5`: Standard testing framework
+- `Mockito`: Mocking framework
+- `AssertJ`: Fluent assertions
+
+**Go**:
+- `testing` (standard library): Built-in testing
+- `testify`: Enhanced assertions and mocking
+
+### 📝 Summary
+
+**When**:
+- Complex tools (>50 lines, complex logic, critical data)
+
+**Where**:
+- `tests/` folder mirroring source structure
+
+**What**:
+- Happy path, edge cases, error handling, mocks
+
+**Why**:
+- Prevents tech debt, enables refactoring, documents behavior
+
+**Integration**:
+- Unit tests during development + Step 9 integration tests
 
 ---
 
