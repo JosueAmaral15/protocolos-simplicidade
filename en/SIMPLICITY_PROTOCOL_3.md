@@ -2,9 +2,19 @@
 
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
-**Version**: 3.6  
+**Version**: 3.7  
 **Last Update**: January 6, 2026  
 **Objective**: Hybrid methodology for **solo developers** with application in **production**
+
+**Changelog v3.7** (01/06/2026):
+- ✅ **[CRITICAL SOLO]** Added Step 1.2: Deep Comprehension of Existing Codebase (MANDATORY)
+- ✅ AI MUST know existing code before implementing
+- ✅ Pragmatic 6-item checklist (don't need to study 100% of code)
+- ✅ Focus on: code you'll touch + related code + project patterns
+- ✅ Maximum time: 2h initial study + incremental as needed
+- ✅ Identify critical "don't touch" code and reuse opportunities
+- ✅ Create simple docs/NOTES.md with findings
+- ✅ Solo rationale: Only firefighter, limited memory, scarce time, active production
 
 **Changelog v3.6** (01/06/2026):
 - ✅ **[MANDATORY PRAGMATIC]** Added Mandatory Rule: Unit Tests for Complex Tools (Solo Pragmatic)
@@ -2508,6 +2518,242 @@ Rule of thumb:
 > **"Document as if you'll be hit by a bus tomorrow. Someone needs to be able to maintain your code."**
 
 📖 **See Simplicity Protocol 1 Step 1.0** for complete templates. Solo-specific additions are documented above.
+
+---
+
+### 1️⃣.2️⃣ **Deep Comprehension of Existing Codebase** [MANDATORY]
+
+> **CRITICAL FOR SOLO DEVS**: After reading documentation, AI **MUST** study and understand existing code. **You're the only developer - you can't afford to break things by not knowing the code.**
+
+#### 🎯 Objective (Solo Pragmatic Focus)
+
+AI must have **practical knowledge** of the codebase:
+- ✅ **What**: Know which files exist and what each one does
+- ✅ **Where**: Quickly find where to implement new features
+- ✅ **How**: Understand patterns and conventions to maintain consistency
+- ✅ **Why**: Comprehend past decisions to avoid repeating mistakes
+- ✅ **Impact**: Predict what will break if something is modified
+- ✅ **Reuse**: Identify reusable code to avoid reinventing the wheel
+
+**Why is this critical for solo developers?**
+- ✅ **You're the only firefighter**: Bugs are your responsibility
+- ✅ **Limited memory**: You'll forget details in 3 months
+- ✅ **Scarce time**: Rework wastes your precious time
+- ✅ **No team**: Nobody to review or catch errors
+- ✅ **Active production**: Breakages affect your users immediately
+
+#### 📋 Pragmatic Checklist (Solo Developer)
+
+**BEFORE implementing**, do the essential minimum:
+
+```markdown
+[ ] **1. Quick Inventory**
+    - List main files (don't need ALL of them)
+    - Focus on: code you'll touch + related code
+    - Basic folder structure (src/, tests/, config/)
+
+[ ] **2. Simple Mental Map**
+    - Which file calls which? (main imports)
+    - Where's the critical business logic?
+    - Where's infrastructure code (DB, APIs)?
+
+[ ] **3. Identify "Don't Touch"**
+    - Critical code that works (don't break it!)
+    - Complex legacy code (avoid if possible)
+    - Files with "DO NOT MODIFY" warnings
+
+[ ] **4. Find Patterns**
+    - How are other files structured?
+    - What naming convention is being used?
+    - Where do tests go? Where do new files go?
+
+[ ] **5. Read Important Comments**
+    - TODOs, FIXMEs, WARNINGs in code
+    - Comments explaining "why" (not "what")
+    - Notes about technical decisions or limitations
+
+[ ] **6. Test Mentally**
+    - If I modify file X, what breaks?
+    - Where do I need to add tests?
+    - Is there duplicate code I can reuse?
+```
+
+**Don't stress about 100% - focus on essentials for current task!**
+
+#### 🔍 Practical Methodology (Solo)
+
+**Step 1: Quick Overview (15-30 minutes)**
+
+```bash
+# List folder structure
+tree -L 2 -I 'node_modules|venv|__pycache__'
+
+# Count files by type
+find . -name "*.py" | wc -l
+find . -name "*.js" | wc -l
+
+# Identify large/important files (probably critical code)
+find src/ -name "*.py" -exec wc -l {} + | sort -rn | head -10
+```
+
+**Step 2: Mental Dependency Map (15 minutes)**
+
+Focus only on main ones:
+```
+src/
+├── main.py            # Entry point → imports routes
+├── routes/            
+│   └── api.py         # → imports services
+├── services/
+│   └── payment.py     # CRITICAL → imports models
+├── models/
+│   └── user.py        # Data → imports nothing
+└── utils/
+    └── helpers.py     # Utilities → used by all
+```
+
+**DON'T need to map everything! Just main flow.**
+
+**Step 3: Read Critical Code (30-60 minutes)**
+
+Focus on:
+1. **Entry point** (`main.py`, `app.js`, `index.ts`)
+2. **Code you'll modify** (mandatory!)
+3. **Related code** (imported or imports what you'll modify)
+4. **Existing tests** (if any - shows how to use code)
+
+**Skip**:
+- Configuration code (config.py, settings.js)
+- Helper scripts (deploy, build, migrations)
+- Third-party code (external libs)
+
+**Step 4: Note Findings (10 minutes)**
+
+Create simple `docs/NOTES.md`:
+```markdown
+# Codebase Notes
+
+## 🗂️ Structure
+- `src/main.py` = entry point
+- `src/services/payment.py` = payment logic (CRITICAL!)
+- `src/models/` = data models
+- `tests/` = tests (run with `pytest`)
+
+## ⚠️ Don't Touch
+- `payment.py` - complex, works, has tests
+- `legacy_handler.py` - old code but used
+
+## 💡 Patterns
+- Classes with `Manager` suffix = services
+- Functions returning `Result[T]` = can fail
+- Tests in `tests/test_*.py`
+
+## 🐛 Important TODOs
+- [ ] payment.py:89 - TODO: add PIX support
+- [ ] user.py:45 - FIXME: incomplete CPF validation
+
+## 🤔 Questions
+- `obscure_util.py` - didn't understand, ask user
+```
+
+#### ⏱️ Time Dedicated (Pragmatic)
+
+**Solo rule**: **Maximum 2 hours** on initial study, then incremental as needed.
+
+| Size | Files | Time | When to do more |
+|------|-------|------|-----------------|
+| Small | <30 | 15-30min | As needed |
+| Medium | 30-100 | 1-2h | Before large features |
+| Large | >100 | 2h initial + incremental | Continuous study |
+
+**Incremental strategy**:
+- Day 1: Study only what's needed for current task
+- Later: Study more as you touch new modules
+- Don't need to know 100% at the start!
+
+#### 🚨 When to Re-study
+
+**Quick re-study** (15-30min):
+- ✅ Before touching file you don't remember well
+- ✅ After long pause (>2 weeks without seeing code)
+- ✅ When finding bug in unknown area
+
+**Don't need to re-study everything always - just what you'll touch!**
+
+#### 💬 Ask User (When in Doubt)
+
+```markdown
+❓ **Questions About Existing Code**
+
+Studied the code and have some questions before implementing:
+
+1. **File `legacy_processor.py`**:
+   - Looks like old code but imported in 3 places
+   - Still necessary or can I ignore?
+   - If I break it, is there easy rollback?
+
+2. **Function `calculate_discount()` in pricing.py**:
+   - Has complex logic without tests
+   - Should I add tests before modifying?
+   - Or create new function and deprecate old one?
+
+Can I proceed assuming:
+- legacy_processor.py don't touch (use as is)
+- calculate_discount() create version 2 instead of modifying
+
+Correct?
+```
+
+#### 🎯 Rationale (Solo Developer)
+
+**Why knowing code is critical even with little time?**
+
+1. **Avoids Rework**
+   ```python
+   # ❌ Without knowing: reimplement existing function (2 hours wasted)
+   def validate_cpf(cpf):  # Already exists in utils/validators.py!
+       # ... 50 lines ...
+   
+   # ✅ Knowing: reuse in 2 minutes
+   from utils.validators import validate_cpf
+   ```
+
+2. **Prevents Breakage**
+   ```python
+   # ❌ Without knowing: modify and break 5 places
+   def get_price(item):
+       return item.price  # Changed return, broke dependents
+   
+   # ✅ Knowing: check dependents first
+   # See who uses get_price() before modifying
+   ```
+
+3. **Maintains Consistency**
+   - Follow existing patterns = more readable code
+   - Don't mix different styles
+   - Facilitates future maintenance (by yourself!)
+
+4. **Saves Debugging Time**
+   - Know flow = faster debugging
+   - Know where to look when something breaks
+   - Less "bug hunting"
+
+#### ✅ Minimum Expected Result
+
+After study, AI must answer:
+
+```markdown
+✅ Where's critical code I should NOT break?
+✅ Where to implement new feature X?
+✅ Is there reusable code for task?
+✅ Which files will I need to modify?
+✅ Where to add tests?
+✅ Which pattern/convention to follow?
+```
+
+**If can't answer, study 15-30 more minutes focused on relevant area!**
+
+**Remember**: You don't need to be expert in entire codebase, but **MUST know what you'll touch + impact of changes**.
 
 ---
 
