@@ -2,17 +2,19 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 30 de Novembro de 2025  
-**Versão**: 2.3  
-**Última Atualização**: 01 de Janeiro de 2026  
+**Versão**: 2.5  
+**Última Atualização**: 06 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
 
 **Changelog v2.5** (06/01/2026):
-- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
-- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
-- ✅ Classes, módulos, componentes complexos DEVEM ter testes unitários
-- ✅ Testes validam comportamento e previnem regressões
-- ✅ Facilita refatoração e manutenção de código complexo
-- ✅ Rationale: Código complexo sem testes = dívida técnica garantida
+- ✅ **[OBRIGATÓRIO]** Adicionada Regra Obrigatória: Testes Unitários para Ferramentas Complexas
+- ✅ OBRIGATÓRIO: Criar testes unitários para ferramentas complexas (classes, módulos, funções)
+- ✅ Quando testar: >50 linhas, lógica complexa, dados críticos, dependências externas
+- ✅ Organização: pasta tests/ com estrutura espelhando código-fonte
+- ✅ Exemplo Python: Validação de CPF com suite de testes abrangente
+- ✅ Checklist de testes: happy path, edge cases, tratamento de erros, mocks
+- ✅ Rationale: Previne dívida técnica, permite refatoração segura
+- ✅ Integração com Etapa 9: Usar infraestrutura de testes existente
 
 **Changelog v2.4** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)

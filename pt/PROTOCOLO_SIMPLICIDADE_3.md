@@ -2,17 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 3.4  
-**Última Atualização**: 01 de Janeiro de 2026  
+**Versão**: 3.6  
+**Última Atualização**: 06 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
 
 **Changelog v3.6** (06/01/2026):
-- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
-- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
-- ✅ Pragmatismo solo: Testar o crítico, pular o trivial
-- ✅ Cobertura mínima 60-70% (vs 80% enterprise) - sustentável para solo
-- ✅ Foco em testes que economizam tempo de debugging
-- ✅ Rationale: Solo dev não pode se dar ao luxo de bugs em produção
+- ✅ **[OBRIGATÓRIO PRAGMÁTICO]** Adicionada Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Solo Pragmático)
+- ✅ OBRIGATÓRIO: Testar código crítico que causa sessões de debug às 3h da manhã
+- ✅ Cobertura pragmática: 60-70% apenas para caminhos críticos
+- ✅ Quando testar: Lógica complexa, manipulação de dados, bugs que te acordariam
+- ✅ Quando PULAR: Getters/setters triviais, código temporário, CRUD boilerplate
+- ✅ Exemplo de cálculo de descontos mostrando prioridades de teste
+- ✅ Rationale específico para solo: Memória limitada, você é o único bombeiro
+- ✅ CI/CD simplificado sem requisitos de cobertura bloqueantes
+- ✅ Integração com Etapa 9: Foco em smoke tests + testes unitários críticos
 
 **Changelog v3.5** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
@@ -789,6 +792,441 @@ Antes de iniciar qualquer tarefa nova:
 
 **Mensagem para IAs**: 
 > "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue com a implementação."
+
+---
+
+## 🧪 Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Solo Pragmático)
+
+> **CRÍTICO PARA SOLO DEVS**: Quando ferramentas (funções, classes, módulos) são **complexas o suficiente para causar sessões de debug às 3h da manhã**, é **OBRIGATÓRIO** criar testes unitários pragmáticos em uma pasta `tests/`. **Teste o que te acordaria à noite, pule o resto.**
+
+### 🎯 Objetivo (Foco Solo Developer)
+
+Garantir que código **crítico e complexo** seja **testado seletivamente** para:
+- ✅ Prevenir bugs de produção que exigem correção urgente
+- ✅ Servir como "memória externa" para seu eu do futuro
+- ✅ Permitir refatoração segura sem quebrar funcionalidades
+- ✅ Documentar lógica complicada que é fácil esquecer
+- ✅ Economizar tempo debugando às 3h da manhã
+
+**Filosofia Solo Dev**: Seu tempo é precioso. Teste com inteligência, não teste tudo.
+
+### 📏 Quando Criar Testes Unitários (Critérios Pragmáticos Solo)
+
+Crie testes unitários quando a ferramenta atender **QUALQUER** destes critérios "te-acordaria-à-noite":
+
+1. **🐛 Teste das 3h**: Um bug aqui te acordaria às 3h com clientes furiosos?
+2. **🧠 Complexidade**: Contém **condições aninhadas** ou **lógica não-óbvia**
+3. **💰 Impacto em Receita**: Afeta diretamente cobrança, pagamentos ou valor central do produto
+4. **💾 Risco de Perda de Dados**: Pode corromper ou perder dados de usuários
+5. **🔢 Matemática/Cálculos**: Fórmulas complexas, cálculos financeiros, algoritmos
+6. **🔌 APIs Externas**: Integração com gateways de pagamento, SMS, email
+7. **🔒 Segurança**: Autenticação, autorização, hashing de senhas
+8. **📊 Performance**: Código que precisa ser rápido (queries, processamento de dados)
+9. **🔄 Lógica com Estado**: Código que mantém estado ou tem side effects
+10. **🐞 Histórico de Bugs**: Este código já quebrou antes (não caia duas vezes na mesma armadilha...)
+
+### 🚫 Quando PULAR Testes Unitários (Pragmatismo Solo Developer)
+
+**Não perca tempo testando** se o código:
+
+1. ✅ **CRUD Simples**: Queries básicas de banco (SELECT, INSERT, UPDATE, DELETE)
+2. ✅ **Getters/Setters**: Acesso trivial a propriedades sem lógica
+3. ✅ **Pass-through**: Funções que apenas chamam outra função
+4. ✅ **Componentes UI**: Componentes básicos de exibição (teste manualmente)
+5. ✅ **Configuração**: Arquivos de config estáticos ou constantes
+6. ✅ **Código Temporário**: Proof-of-concept ou experimentos descartáveis
+7. ✅ **Utils de Uma Linha**: Formatação simples de strings, utilitários de data
+8. ✅ **Boilerplate de Framework**: Código gerado por Rails/Django/Next.js
+
+**Regra Prática**: Se você consegue entender em 10 segundos e não é crítico, pule os testes.
+
+### 📁 Organização de Testes (Simplificado para Solo)
+
+```
+projeto/
+├── src/
+│   ├── lib/
+│   │   ├── precificacao.ts        # Lógica de preços complexa → TESTE ISSO
+│   │   └── formatadores.ts        # Formatação simples → PULE
+│   ├── services/
+│   │   └── pagamento.ts           # Processamento de pagamento → TESTE ISSO
+│   └── utils/
+│       └── string-helpers.ts      # Helpers triviais → PULE
+└── tests/
+    ├── precificacao.test.ts       # Apenas teste código crítico
+    └── pagamento.test.ts
+```
+
+**Regras Solo**:
+- ✅ Estrutura plana: Apenas pasta `tests/` (sem pastas aninhadas necessárias)
+- ✅ Arquivos de teste: `<filename>.test.ts` ou `test_<filename>.py`
+- ✅ Meta de cobertura: **60-70% do código crítico** (não 100%!)
+- ✅ Testes rápidos: Suite completa roda em <10 segundos
+
+### 🔍 Exemplo: Calculadora de Descontos (Solo TypeScript)
+
+#### Código Fonte (`src/lib/precificacao.ts`)
+
+```typescript
+export interface RegraDesconto {
+  valorMinimo: number;
+  porcentagem: number;
+}
+
+export interface ResultadoPrecificacao {
+  subtotal: number;
+  desconto: number;
+  total: number;
+  descontoAplicado?: string;
+}
+
+/**
+ * Calcula preço final com descontos por volume
+ * 
+ * CRÍTICO: Isso afeta diretamente a receita
+ * Bugs aqui = dinheiro perdido ou clientes irritados
+ */
+export function calcularPreco(
+  precoItem: number,
+  quantidade: number,
+  regrasDesconto: RegraDesconto[] = []
+): ResultadoPrecificacao {
+  // Validação (crítico: previne preços negativos)
+  if (precoItem < 0 || quantidade < 0) {
+    throw new Error('Preço e quantidade devem ser não-negativos');
+  }
+  
+  const subtotal = precoItem * quantidade;
+  
+  // Encontrar desconto aplicável (lógica complexa: precisa de testes)
+  const regraAplicavel = regrasDesconto
+    .filter(regra => subtotal >= regra.valorMinimo)
+    .sort((a, b) => b.porcentagem - a.porcentagem)[0];
+  
+  let desconto = 0;
+  let descontoAplicado: string | undefined;
+  
+  if (regraAplicavel) {
+    // Cálculo crítico: erros de arredondamento = perda de dinheiro
+    desconto = Math.round(subtotal * regraAplicavel.porcentagem) / 100;
+    descontoAplicado = `${regraAplicavel.porcentagem}% de desconto`;
+  }
+  
+  const total = subtotal - desconto;
+  
+  return { subtotal, desconto, total, descontoAplicado };
+}
+
+/**
+ * Helper simples: formata preço com moeda
+ * 
+ * NÃO É CRÍTICO: Apenas formatação de exibição
+ * → PULE TESTES (teste manualmente)
+ */
+export function formatarPreco(valor: number, moeda: string = 'BRL'): string {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: moeda
+  }).format(valor);
+}
+```
+
+#### Testes Unitários (`tests/precificacao.test.ts`)
+
+**Apenas teste a função crítica `calcularPreco`, pule `formatarPreco`**:
+
+```typescript
+import { calcularPreco, RegraDesconto } from '../src/lib/precificacao';
+
+describe('calcularPreco (Lógica Crítica de Receita)', () => {
+  
+  // ✅ Happy Path - Cálculo Básico
+  it('calcula preço sem desconto', () => {
+    const resultado = calcularPreco(10.00, 3);
+    
+    expect(resultado.subtotal).toBe(30.00);
+    expect(resultado.desconto).toBe(0);
+    expect(resultado.total).toBe(30.00);
+    expect(resultado.descontoAplicado).toBeUndefined();
+  });
+  
+  // ✅ Lógica de Negócio Principal - Desconto Único
+  it('aplica 10% de desconto para pedidos acima de R$100', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 100, porcentagem: 10 }
+    ];
+    
+    const resultado = calcularPreco(25.00, 5, regras); // R$125 subtotal
+    
+    expect(resultado.subtotal).toBe(125.00);
+    expect(resultado.desconto).toBe(12.50);  // 10% de R$125
+    expect(resultado.total).toBe(112.50);
+    expect(resultado.descontoAplicado).toBe('10% de desconto');
+  });
+  
+  // ✅ Lógica Complexa - Múltiplas Faixas de Desconto
+  it('aplica maior desconto quando múltiplas regras se aplicam', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 100, porcentagem: 10 },
+      { valorMinimo: 200, porcentagem: 15 },
+      { valorMinimo: 500, porcentagem: 20 }
+    ];
+    
+    const resultado = calcularPreco(100.00, 6, regras); // R$600 subtotal
+    
+    expect(resultado.desconto).toBe(120.00);  // 20% de desconto (maior)
+    expect(resultado.total).toBe(480.00);
+    expect(resultado.descontoAplicado).toBe('20% de desconto');
+  });
+  
+  // ❌ Edge Case - Logo Abaixo do Limite
+  it('não aplica desconto se abaixo do valor mínimo', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 100, porcentagem: 10 }
+    ];
+    
+    const resultado = calcularPreco(9.99, 10, regras); // R$99.90 subtotal
+    
+    expect(resultado.desconto).toBe(0);
+    expect(resultado.total).toBe(99.90);
+  });
+  
+  // ❌ Edge Case - Exatamente no Limite
+  it('aplica desconto quando exatamente no valor mínimo', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 100, porcentagem: 10 }
+    ];
+    
+    const resultado = calcularPreco(10.00, 10, regras); // Exatamente R$100
+    
+    expect(resultado.desconto).toBe(10.00);
+    expect(resultado.total).toBe(90.00);
+  });
+  
+  // 🐛 Prevenção de Bugs - Valores Negativos
+  it('lança erro para preço negativo', () => {
+    expect(() => calcularPreco(-10, 5)).toThrow('não-negativos');
+  });
+  
+  it('lança erro para quantidade negativa', () => {
+    expect(() => calcularPreco(10, -5)).toThrow('não-negativos');
+  });
+  
+  // 💰 Precisão Financeira - Arredondamento
+  it('arredonda desconto corretamente para evitar perda de centavos', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 10, porcentagem: 15 }
+    ];
+    
+    const resultado = calcularPreco(3.33, 3, regras); // R$9.99, 15% = R$1.4985
+    
+    // Deve arredondar para R$1.50, não R$1.49 ou R$1.51
+    expect(resultado.desconto).toBe(1.50);
+    expect(resultado.total).toBe(8.49);
+  });
+  
+  // 🔄 Lógica com Estado - Array Vazio
+  it('lida com array vazio de regras de desconto', () => {
+    const resultado = calcularPreco(20, 5, []);
+    
+    expect(resultado.desconto).toBe(0);
+    expect(resultado.total).toBe(100.00);
+  });
+  
+  // 📊 Performance - Números Grandes
+  it('lida com quantidades grandes de forma eficiente', () => {
+    const regras: RegraDesconto[] = [
+      { valorMinimo: 10000, porcentagem: 25 }
+    ];
+    
+    const resultado = calcularPreco(100, 200, regras); // R$20.000
+    
+    expect(resultado.desconto).toBe(5000.00);
+    expect(resultado.total).toBe(15000.00);
+  });
+});
+
+// ⚠️ NOTA: NÃO estamos testando formatarPreco() porque:
+// - É apenas formatação de exibição (não crítico para negócio)
+// - Usa Intl.NumberFormat nativo (já testado pela engine JS)
+// - Fácil de verificar manualmente na UI
+// - Um bug aqui não me acordaria às 3h da manhã
+```
+
+### ✅ Checklist de Testes Solo Developer
+
+**Foque no que importa**:
+
+```markdown
+**DEVE TESTAR** (Caminho Crítico):
+[ ] Happy path com inputs válidos
+[ ] Lógica de negócio complexa (descontos, cálculos)
+[ ] Edge cases que causam bugs (valores limítrofes)
+[ ] Tratamento de erros para inputs inválidos
+[ ] Cálculos financeiros (arredondamento, precisão)
+[ ] Validação de dados (previne corrupção)
+
+**PULE TESTES** (Baixa Prioridade):
+[x] Formatadores simples e helpers de exibição
+[x] Getters/setters triviais
+[x] Código boilerplate de framework
+[x] Código temporário ou protótipo
+[x] Código que você pode testar manualmente em 10 segundos
+
+**VERIFICAÇÕES DE QUALIDADE**:
+[ ] Testes rodam em <10 segundos no total
+[ ] Cada teste é independente (sem estado compartilhado)
+[ ] Nomes de teste explicam o cenário
+[ ] Comentários explicam POR QUE você está testando isso
+```
+
+### 🎯 Rationale (Contexto Solo Developer)
+
+**Por quê testes pragmáticos são obrigatórios para solo developers?**
+
+1. **🧠 Memória Limitada**
+   - Você vai esquecer edge cases em 3 meses
+   - Testes são seu "cérebro externo"
+   - Você do futuro agradecerá você do passado
+
+2. **🚨 Você é o Único Bombeiro**
+   - Sem equipe para pegar seus bugs
+   - Bugs de produção = VOCÊ conserta AGORA
+   - Testes pegam bugs antes do deploy
+
+3. **⏰ Tempo é Seu Recurso Mais Escasso**
+   - Não teste tudo (cobertura de 60-70% está OK)
+   - Foque em código que causa emergências às 3h
+   - Pule código trivial que você verifica em segundos
+
+4. **💰 Bugs Te Custam Dinheiro**
+   - Bugs de produção = clientes perdidos
+   - Bugs de pagamento = receita perdida
+   - Bugs de dados = responsabilidade legal
+   - Testes são mais baratos que negócio perdido
+
+5. **🔄 Refatoração Segura**
+   - Quer reescrever a precificação? Testes te protegem
+   - Pode mudar código com confiança
+   - Sem medo de quebrar coisas
+
+6. **📚 Auto-Documentação**
+   - Testes mostram como código complexo funciona
+   - Exemplos de inputs válidos/inválidos
+   - Mais fácil manter seu próprio código
+
+**Mantra do Solo Developer**:
+> "Teste o código que me faria entrar em pânico se quebrasse em produção. Pule o resto."
+
+### 🔗 Integração com Etapa 9 (Fase de Testes)
+
+Esta regra **complementa** a Etapa 9 (Testar Antes de Deploy):
+
+**Estratégia de Testes Solo Developer**:
+
+1. **Testes Unitários** (Esta Regra): Apenas lógica de negócio crítica
+   - Cálculos de pagamento, descontos, validação de dados
+   - Rodar antes de cada git commit (feedback rápido)
+   - Meta: 60-70% de cobertura do código crítico
+
+2. **Smoke Tests** (Etapa 9): Fluxos principais de usuário funcionam
+   - Usuários conseguem se cadastrar?
+   - Usuários conseguem comprar?
+   - Usuários conseguem acessar funcionalidades principais?
+   - Teste manualmente ou com Playwright/Cypress
+
+3. **Monitoramento de Produção** (Etapa 9): Alertas em tempo real
+   - Rastreamento de erros (Sentry, Rollbar)
+   - Monitoramento de performance (Vercel Analytics)
+   - Feedback de usuários (tickets de suporte, reviews)
+
+**Pirâmide de Testes para Solo Devs**:
+```
+        /\
+       /E2E\         ← 2-3 fluxos críticos de usuário (manual OK)
+      /------\
+     / Smoke \       ← 5-10 smoke tests (pode fazer login, pode comprar)
+    /----------\
+   /   Unit     \    ← 10-30 testes unitários para lógica crítica
+  /--------------\
+```
+
+**Orçamento de Tempo**:
+- Testes unitários: ~5-10 minutos por função crítica
+- Smoke tests: ~30 minutos de testes manuais antes do deploy
+- Total: <2 horas por semana em testes (sustentável para solo dev)
+
+### ⚙️ Ferramentas de Teste Solo Developer
+
+**Mantenha simples, gratuito e rápido**:
+
+**JavaScript/TypeScript**:
+- `Vitest`: Super rápido, zero config (recomendado para solo devs)
+- `Jest`: Padrão da indústria, muitos exemplos
+- `Node.js native test runner`: Zero dependências (Node 18+)
+
+**Python**:
+- `pytest`: Moderno, boilerplate mínimo
+- `unittest` (stdlib): Sem instalação necessária
+
+**Go**:
+- `testing` (stdlib): Built-in, simples, rápido
+
+**Ruby**:
+- `minitest` (stdlib): Leve, rápido
+- `RSpec`: Mais funcionalidades se necessário
+
+**CI/CD (Opcional mas Recomendado)**:
+- GitHub Actions: Gratuito para repos públicos
+- Apenas rode testes no push (sem enforcement de cobertura)
+
+```yaml
+# .github/workflows/test.yml (Simples, sem bloqueio)
+name: Tests
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npm test
+      # ❌ Não falhe por cobertura (muito rigoroso para solo dev)
+      # ✅ Apenas rode testes e reporte
+```
+
+### 📝 Resumo (Solo Pragmático)
+
+**Quando**:
+- Lógica complexa que causaria debug às 3h
+- Código que afeta diretamente receita ou integridade de dados
+- Pule código trivial (formatadores, getters, CRUD)
+
+**Cobertura**:
+- **60-70% do código crítico** (não 100%!)
+- Teste com inteligência, não teste tudo
+- Sem enforcement de cobertura em CI/CD
+
+**O Quê**:
+- Happy path, edge cases, cálculos financeiros
+- Pule formatadores simples e boilerplate
+- Foque em bugs "te-acordariam-à-noite"
+
+**Por Quê**:
+- Memória limitada (testes como cérebro externo)
+- Você é o único bombeiro
+- Tempo é o recurso mais escasso
+- Bugs de produção custam dinheiro
+
+**Integração**:
+- Testes unitários para lógica crítica (diário)
+- Smoke tests antes do deploy (semanal)
+- Monitoramento de produção sempre ligado
+
+**Orçamento de Tempo**:
+- <10 segundos para rodar todos os testes
+- ~2 horas por semana em testes
+- Sustentável para solo developer
 
 ---
 

@@ -2,18 +2,20 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Baseado em**: Protocolo Simplicidade 1 v2.3  
-**Versão**: 2.5  
-**Última Atualização**: 01 de Janeiro de 2026  
+**Baseado em**: Protocolo Simplicidade 1 v2.5  
+**Versão**: 2.7  
+**Última Atualização**: 06 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
 
 **Changelog v2.7** (06/01/2026):
-- ✅ **[OBRIGATÓRIO]** Testes unitários obrigatórios quando ferramentas são complexas
-- ✅ IA DEVE criar arquivos de teste em pasta tests/ para cada ferramenta complexa
-- ✅ Classes, módulos, componentes complexos DEVEM ter testes unitários
-- ✅ Cobertura de testes >80% para código crítico (enterprise)
-- ✅ Integração com CI/CD para execução automática de testes
-- ✅ Rationale: Em ambiente enterprise, código sem testes = risco inaceitável
+- ✅ **[OBRIGATÓRIO ENTERPRISE]** Adicionada Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Enterprise)
+- ✅ OBRIGATÓRIO: Cobertura de código 80%+ para código de produção
+- ✅ Critérios rigorosos: Toda lógica complexa, caminhos críticos, código de segurança/compliance
+- ✅ Quality gates de CI/CD: Build falha se cobertura cair abaixo do limite
+- ✅ Exemplo de processamento de pagamento com mocking e testes de auditoria
+- ✅ Checklist enterprise: auditoria, segurança, performance, idempotência
+- ✅ Compliance SOC2/ISO: Testes servem como evidência para auditorias
+- ✅ Integração com Etapa 13: Revisão formal de código inclui revisão de testes
 
 **Changelog v2.6** (05/01/2026):
 - ✅ **[BLOQUEANTE]** Adicionada Etapa 1.8: Documento de Planejamento de Execução (OBRIGATÓRIO)
