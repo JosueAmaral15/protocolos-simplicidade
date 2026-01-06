@@ -5,9 +5,20 @@ Here's the English translation of the provided document:
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.5  
+**Version**: 2.6  
 **Last Update**: January 6, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.6** (01/06/2026):
+- ✅ **[CRITICAL]** Added Step 1.2: Deep Comprehension of Existing Codebase (MANDATORY)
+- ✅ AI MUST know ALL project files, not just documentation
+- ✅ Complete mapping of dependencies and imports (who imports whom)
+- ✅ Comprehension of purpose, relationships, and coupling between files
+- ✅ Cause-and-effect analysis of each command, instruction, function, class, and method
+- ✅ Study of code comments to understand intentions and decisions
+- ✅ Time dedicated to study according to project size (15min to 2 days)
+- ✅ 8-item mandatory checklist to ensure complete comprehension
+- ✅ Rationale: Prevents duplication, avoids breakage, maintains architectural consistency
 
 **Changelog v2.5** (01/06/2026):
 - ✅ **[MANDATORY]** Added Mandatory Rule: Unit Tests for Complex Tools
@@ -2379,6 +2390,316 @@ docs/
 - ✅ **Maintainability**: Future developers understand the process
 
 📖 **Complete details on Action Plans**: See README.md in repository, section "🎯 Action Plans"
+
+---
+
+### 1️⃣.2️⃣ **Deep Comprehension of Existing Codebase** [MANDATORY]
+
+> **CRITICAL FOR AIs**: After reading documentation, AI **MUST** study and understand ALL code files in the project, their relationships, dependencies, and purpose. **Knowing documentation is not enough - knowing the actual code is mandatory.**
+
+#### 🎯 Objective
+
+AI must have **complete knowledge** of the existing codebase:
+- ✅ **Existence**: Know which files exist in the project
+- ✅ **Purpose**: Understand what each file does and why it exists
+- ✅ **Relationships**: Comprehend coupling between files (who imports whom)
+- ✅ **Structure**: Map import architecture and dependencies
+- ✅ **Functionality**: Understand cause and effect of each command, instruction, function, class, method, and component
+- ✅ **Comments**: Study code comments to understand intentions
+- ✅ **Flow**: Comprehend system execution flow
+
+**Why is this critical?**
+- ✅ **Avoids Duplication**: Don't reimplement existing functionality
+- ✅ **Prevents Breakage**: Understand impact of changes before implementing
+- ✅ **Maintains Consistency**: Follow established patterns and conventions
+- ✅ **Informed Decisions**: Know where and how to implement new features
+- ✅ **Efficient Debugging**: Knowing code facilitates problem diagnosis
+
+#### 📋 Mandatory Comprehension Checklist
+
+**BEFORE implementing any functionality**, AI MUST:
+
+```markdown
+[ ] **1. Complete File Inventory**
+    - List ALL code files (.py, .js, .ts, .java, .go, .cpp, etc.)
+    - Map directory structure and organization
+    - Identify config files, tests, documentation
+
+[ ] **2. Dependency and Import Mapping**
+    - Analyze imports/includes of each file
+    - Build dependency graph (who imports whom)
+    - Identify central and peripheral modules
+    - Detect circular dependencies (if any)
+
+[ ] **3. Purpose and Responsibility Analysis**
+    - For EACH file: understand what problem it solves
+    - Identify separation of responsibilities (SRP)
+    - Understand architecture layers (UI, logic, data, infrastructure)
+
+[ ] **4. Study of Functions, Classes, and Methods**
+    - Read signatures: parameters, return types, exceptions
+    - Understand algorithms and business logic
+    - Identify entry points (main, handlers, controllers)
+    - Map main execution flows
+
+[ ] **5. Comprehension of Comments and Docstrings**
+    - Read ALL code comments
+    - Understand WHY (why it was done this way)
+    - Identify TODOs, FIXMEs, WARNINGs
+    - Recognize technical decisions documented in comments
+
+[ ] **6. Pattern and Convention Identification**
+    - Code style (naming conventions)
+    - Design patterns used (Factory, Strategy, Observer, etc.)
+    - Test structure (if exists)
+    - File organization conventions
+
+[ ] **7. Cause and Effect Analysis**
+    - For critical code: understand impact of each instruction
+    - Map side effects (state changes, I/O, mutations)
+    - Identify code with side effects vs pure code
+    - Understand error and exception propagation
+
+[ ] **8. Unknown File Detection**
+    - If files found that aren't understood: STUDY before modifying
+    - Ask user about purpose of obscure files
+    - Never assume - always confirm understanding
+```
+
+#### 🔍 Study Methodology
+
+**Step 1: File Inventory**
+
+```bash
+# List all code files (example for Python)
+find . -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.java" \) \
+  | grep -v node_modules | grep -v venv | grep -v __pycache__ | sort
+```
+
+**Step 2: Directory Structure Analysis**
+
+Understand organization:
+```
+src/
+├── core/           # Central business logic
+├── api/            # Endpoints and routes
+├── models/         # Data models
+├── services/       # Application services
+├── utils/          # Shared utilities
+└── config/         # Configuration
+```
+
+**Step 3: Dependency Mapping**
+
+For each file, analyze:
+```python
+# Example: analyzing imports in Python
+import requests              # External dependency
+from .models import User     # Local module (same package)
+from src.utils import log    # Project module
+```
+
+**Build mental map**:
+```
+api/routes.py
+  ├─ imports → services/auth.py
+  │            ├─ imports → models/user.py
+  │            └─ imports → utils/crypto.py
+  └─ imports → utils/validators.py
+```
+
+**Step 4: Critical Code Study**
+
+For critical files (identified by frequent use or important comments):
+
+1. **Read line by line**
+2. **Understand each function/method**:
+   - What does it receive as input?
+   - What does it return as output?
+   - What side effects does it produce?
+   - What exceptions can it throw?
+3. **Map execution flow**:
+   - What is the order of calls?
+   - What conditions affect the flow?
+   - Where is state modified?
+
+**Step 5: Document Findings**
+
+Create `docs/CODE_COMPREHENSION.md` with:
+```markdown
+# Codebase Comprehension
+
+**Study Date**: YYYY-MM-DD
+**Files Analyzed**: X files
+
+## 📁 General Structure
+[Description of code organization]
+
+## 🔗 Main Modules
+- **src/core/**: Business logic [details]
+- **src/api/**: REST endpoints [details]
+[...]
+
+## 🔄 Main Flows
+### Authentication Flow
+1. Client → POST /auth/login
+2. api/routes.py receives request
+3. Calls services/auth.py:validate_credentials()
+4. Queries models/user.py:User.find_by_email()
+[...]
+
+## ⚠️ Points of Attention
+- File X has complex logic for Y
+- Module Z is coupled to A, B, and C
+- TODO in file W needs to be resolved
+[...]
+
+## 🤔 Pending Questions
+- [ ] obscure.py file - what's the purpose? [ask user]
+- [ ] Why does legacy_handler.py still exist?
+[...]
+```
+
+#### ⏱️ Time Dedicated to Study
+
+**Estimated time needed** (depends on project size):
+
+| Project Size | Files | Estimated Time | Priority |
+|-------------|-------|----------------|----------|
+| Small       | <20 files | 15-30 minutes | 🔴 Critical |
+| Medium      | 20-100 files | 1-2 hours | 🔴 Critical |
+| Large       | 100-500 files | 3-6 hours | 🔴 Critical |
+| Very Large  | >500 files | 1-2 days | 🔴 Critical |
+
+**Strategy for large projects**:
+1. **Day 1**: Study main modules and entry points
+2. **Day 2**: Study modules related to current task
+3. **Ongoing**: Study other modules as needed
+
+**DON'T skip this study claiming lack of time!**
+- ✅ Time invested in comprehension **saves** implementation time
+- ✅ Prevents rework due to lack of knowledge
+- ✅ Reduces bugs caused by code ignorance
+
+#### 🚨 When to Study/Re-study
+
+**Initial study** (MANDATORY):
+- ✅ First time working on the project
+- ✅ After prolonged absence (>1 week without seeing code)
+- ✅ When taking over project from another developer
+
+**Incremental re-study** (as needed):
+- ✅ Before implementing feature touching multiple modules
+- ✅ When encountering unknown file during implementation
+- ✅ When debugging bug in unfamiliar code
+- ✅ After major refactorings (architecture may have changed)
+
+#### 💬 Communication with User
+
+**If code is found that isn't understood**, AI MUST ask:
+
+```markdown
+❓ **Existing Code Comprehension**
+
+I'm studying the codebase and found some files/sections 
+that need clarification:
+
+1. **File `legacy_handler.py`**:
+   - Appears to handle legacy data processing
+   - Questions:
+     * Is this module still used?
+     * Can it be removed or should it be maintained?
+     * Are there migration plans?
+
+2. **Function `obscure_algorithm()` in `utils/math.py`**:
+   - Implements complex algorithm without comments
+   - Questions:
+     * What's the purpose of this algorithm?
+     * Is it business-critical?
+     * Can it be simplified or is there a reason for complexity?
+
+**May I proceed assuming:**
+- legacy_handler.py should not be modified (just used)
+- obscure_algorithm() is critical and should not be altered
+
+**Or would you prefer that I:**
+- Refactor/simplify these components?
+- Add documentation?
+```
+
+#### 🎯 Rationale
+
+**Why must AI know all the code?**
+
+1. **Duplication Prevention**
+   ```python
+   # ❌ Without knowledge: reimplement existing function (waste time)
+   def validate_email(email):  # Already exists in utils/validators.py!
+       return '@' in email
+   
+   # ✅ With knowledge: reuse existing code
+   from utils.validators import validate_email
+   ```
+
+2. **Avoid Breakage**
+   ```python
+   # ❌ Without knowledge: modify function without knowing who uses it
+   def calculate_price(amount):
+       return amount * 1.1  # Changed calc logic
+   # Broke 15 places that depended on old calculation!
+   
+   # ✅ With knowledge: create new function or refactor carefully
+   def calculate_price_with_tax(amount, tax_rate=0.1):
+       return amount * (1 + tax_rate)
+   ```
+
+3. **Maintain Consistency**
+   ```python
+   # ❌ Without knowledge: use different pattern
+   class NewService:  # Rest of project uses Service Layer pattern
+       pass
+   
+   # ✅ With knowledge: follow established pattern
+   class NewService(BaseService):  # Inherits from BaseService like others
+       pass
+   ```
+
+4. **Efficient Implementation**
+   - Know existing code → know where to implement new feature
+   - Know structure → choose correct location for new file
+   - Know patterns → implement consistently
+
+#### ✅ Expected Result
+
+After this step, AI must be able to answer:
+
+```markdown
+✅ What files exist in the project?
+   → Know all X code files
+
+✅ What does each file do?
+   → Understand responsibility of each module
+
+✅ How do files relate?
+   → Mapped dependency graph
+
+✅ Where to implement new functionality X?
+   → Know which module to modify and which to create
+
+✅ What's the impact of modifying file Y?
+   → Know who depends on Y
+
+✅ Is there reusable code for task Z?
+   → Know that utils/helpers.py has needed function
+
+✅ Which parts of code are critical?
+   → Identified core/ and services/ as critical
+
+✅ Are there TODOs or pending improvements?
+   → Listed 5 TODOs found in comments
+```
+
+**If AI cannot answer these questions, it has NOT studied the code sufficiently yet!**
 
 ---
 
