@@ -5,9 +5,20 @@ Here's the English translation of the provided document:
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.7  
+**Version**: 2.8  
 **Last Update**: January 6, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.8** (01/06/2026):
+- ✅ **[BLOCKING REFACTORING]** Mandatory Rule: Study Code BEFORE Refactoring
+- ✅ AI MUST have studied ALL documentation and ALL code before any refactoring
+- ✅ Mandatory checklist of 8 items before refactoring (documentation, code, dependencies, edge cases)
+- ✅ PROHIBITED situations: 4 examples of what to NEVER do (refactor without understanding)
+- ✅ Correct process in 5 steps: Study → Plan → Ask → Refactor → Validate
+- ✅ Complete example: WRONG vs CORRECT refactoring (discount calculation)
+- ✅ Mantra: "Refactoring is surgery, not demolition. Study the patient before operating!"
+- ✅ Rationale: 4h studying → safe refactoring | 0h studying → 20h debugging
+- ✅ Study time: 1-4 hours depending on code complexity
 
 **Changelog v2.7** (01/06/2026):
 - ✅ **[FUNDAMENTAL PARADIGM]** Added: Total Clarity Before Implementation (MANDATORY)
@@ -8061,6 +8072,336 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 **Why it matters**: Code that isn't regularly refactored tends to deteriorate over time, becoming difficult to maintain, understand, and evolve.
 
 > **CRITICAL FOR AIs**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
+
+---
+
+### ⚠️ **MANDATORY RULE: Study Code BEFORE Refactoring**
+
+> **BLOCKING FOR REFACTORING**: The AI **MUST** have studied **ALL** documentation and **ESPECIALLY ALL CODE** before performing any refactoring. **It makes no sense to refactor without understanding how the code works down to the smallest detail!**
+
+#### 🚨 Why This is Critical?
+
+**Refactoring without understanding code = DISASTER GUARANTEED**
+
+```markdown
+❌ Refactoring without studying:
+   → Breaks functionalities you didn't know existed
+   → Removes code that looks "useless" but is critical
+   → Changes logic that depends on subtle behavior
+   → Creates bugs that only appear in specific cases
+   → Wastes hours debugging self-inflicted problems
+
+✅ Refactoring after deep study:
+   → Understands each line and its purpose
+   → Identifies dependencies and side effects
+   → Preserves existing behavior
+   → Improves code safely
+   → Tests validate nothing broke
+```
+
+#### 📋 MANDATORY Checklist Before Refactoring
+
+**DO NOT start refactoring until ALL these items are completed:**
+
+```markdown
+[ ] **1. Studied 100% of related documentation**
+    - Read README, ARCHITECTURE.md, relevant ADRs
+    - Understood existing architectural decisions
+    - Identified documented constraints and trade-offs
+
+[ ] **2. Analyzed ALL code that will be refactored**
+    - Read line by line the target code
+    - Understood what each function/method does
+    - Mapped complete execution flow
+    - Identified side effects (I/O, state, mutations)
+
+[ ] **3. Mapped ALL dependencies**
+    - Who CALLS this code? (upstream dependents)
+    - What does this code CALL? (downstream dependencies)
+    - Built mental/visual dependency graph
+    - Identified strong vs weak coupling
+
+[ ] **4. Studied use cases and edge cases**
+    - Analyzed existing tests (show real usage)
+    - Identified special cases in code (special if/else)
+    - Understood error handling
+    - Mapped validations and invariants
+
+[ ] **5. Understood the "Why" of the code**
+    - Read ALL comments (explain decisions)
+    - Understood why it was implemented this way
+    - Identified possible hacks or workarounds
+    - Understood technical or business constraints
+
+[ ] **6. Identified refactoring risks**
+    - Listed what can break
+    - Assessed impact on other modules
+    - Planned rollback strategy
+    - Defined how to validate nothing broke
+
+[ ] **7. Reviewed code history (if possible)**
+    - Viewed git log of file (understand evolution)
+    - Read related commit messages
+    - Identified fixed bugs (to avoid reintroduction)
+    - Understood historical context
+
+[ ] **8. Executed existing tests**
+    - Ran ALL tests before refactoring
+    - Ensured everything is green (baseline)
+    - Understood what tests validate
+    - Identified coverage gaps
+```
+
+**If ANY item is ❌, DO NOT refactor yet!**
+
+#### 🛑 PROHIBITED Situations (Don't Refactor Without Studying)
+
+**NEVER do this:**
+
+1. **❌ "This code looks bad, I'll refactor it"**
+   ```python
+   # ❌ DANGER - Refactoring without understanding
+   # Code found:
+   if user.role == "admin" or (user.role == "moderator" and user.verified):
+       allow_access()
+   
+   # AI thinks: "This can be simplified!"
+   # AI refactors to:
+   if user.role in ["admin", "moderator"]:
+       allow_access()
+   
+   # 💥 BROKE! Unverified moderators now have unauthorized access!
+   # The original logic had a reason (additional verification)
+   ```
+
+2. **❌ "This loop is complex, I'll simplify it"**
+   ```python
+   # ❌ DANGER - Simplifying without understanding edge cases
+   # Original code:
+   for item in items:
+       if item.price > 0 and item.stock > 0:
+           if item.category != "discontinued":
+               process_item(item)
+   
+   # AI thinks: "I can use list comprehension!"
+   # AI refactors to:
+   [process_item(item) for item in items if item.price > 0]
+   
+   # 💥 BROKE! Lost validations for stock and discontinued category
+   # May process items without stock or discontinued items!
+   ```
+
+3. **❌ "This variable isn't used, I'll remove it"**
+   ```python
+   # ❌ DANGER - Removing code without understanding side effects
+   # Original code:
+   db_connection = connect_database()  # AI thinks: "Not seeing use, will remove"
+   initialize_cache()
+   process_data()
+   
+   # 💥 BROKE! initialize_cache() and process_data() depend on
+   # connection being open (implicit side effect)
+   ```
+
+4. **❌ "I'll rename this function for clarity"**
+   ```python
+   # ❌ DANGER - Renaming without checking external usage
+   # File utils.py:
+   def calc_price(amount):  # AI thinks: "Bad name, will improve"
+       return amount * 1.1
+   
+   # AI renames to:
+   def calculate_final_price_with_tax(amount):
+       return amount * 1.1
+   
+   # 💥 BROKE! 15 other files import calc_price()
+   # All broken now!
+   ```
+
+#### ✅ CORRECT Refactoring Process
+
+**Follow this order ALWAYS:**
+
+```markdown
+1️⃣ **STUDY** (1-4 hours depending on code)
+   ├─ Read 100% related documentation
+   ├─ Analyze ALL code line by line
+   ├─ Map complete dependencies
+   ├─ Understand "why" it was done this way
+   └─ Execute existing tests (baseline)
+
+2️⃣ **PLAN** (30min - 2 hours)
+   ├─ List what will be changed
+   ├─ Identify risks
+   ├─ Define validation strategy
+   └─ Create rollback plan
+
+3️⃣ **ASK** (if there are doubts)
+   ├─ "Why was this code implemented this way?"
+   ├─ "Is this behavior intentional or a bug?"
+   ├─ "Can I change X without breaking Y?"
+   └─ WAIT for answers
+
+4️⃣ **REFACTOR** (after 1, 2, 3 completed)
+   ├─ Make small incremental changes
+   ├─ Test after EACH change
+   ├─ Maintain identical behavior
+   └─ Commit frequently
+
+5️⃣ **VALIDATE** (mandatory)
+   ├─ All tests pass
+   ├─ Behavior maintained (smoke test)
+   ├─ Performance didn't degrade
+   └─ Code review if necessary
+```
+
+#### 📖 Example: CORRECT Refactoring
+
+**Scenario**: Refactor discount calculation function
+
+**❌ WRONG - Refactor without studying:**
+```python
+# AI sees code and refactors immediately
+def calc_disc(amt, type):
+    if type == 1: return amt * 0.9
+    elif type == 2: return amt * 0.8
+    elif type == 3: return amt * 0.7
+    else: return amt
+
+# AI "improves" to:
+DISCOUNT_RATES = {1: 0.1, 2: 0.2, 3: 0.3}
+def calculate_discount(amount, discount_type):
+    rate = DISCOUNT_RATES.get(discount_type, 0)
+    return amount * (1 - rate)
+
+# 💥 May have broken if there was intentional type=0 or other edge cases
+```
+
+**✅ CORRECT - Study first, then refactor:**
+
+```markdown
+**STEP 1: STUDY**
+
+1. Analyzed the code:
+   - Function applies discounts based on type
+   - type=1 → 10% discount (returns 90% of value)
+   - type=2 → 20% discount  
+   - type=3 → 30% discount
+   - type=other → no discount (returns original value)
+
+2. Searched for function usage:
+   - Used in 8 places in code
+   - Always with type between 0-3
+   - type=0 explicitly used in checkout.py (no discount)
+
+3. Analyzed tests:
+   - test_discount.py has 12 test cases
+   - Validates types 0, 1, 2, 3
+   - Validates edge case: negative type (should return original value)
+   - Validates edge case: type=None (should return original value)
+
+4. Read comments:
+   # IMPORTANT: type=0 means "no discount" (regular customer)
+   # type=1: bronze customer (10%)
+   # type=2: silver customer (20%)  
+   # type=3: gold customer (30%)
+   # Any other type: no discount (safe fallback)
+
+5. Identified risks:
+   ⚠️ RISK: If changing fallback logic, may break behavior
+   ⚠️ RISK: If using dict without .get(), None causes KeyError
+   ⚠️ RISK: Tests expect specific behavior for invalid types
+
+**STEP 2: PLAN**
+
+Proposed refactoring:
+- Use dict for rates (more readable)
+- Maintain identical behavior
+- Add enum for types (type safety)
+- Maintain safe fallback (return original amount)
+
+Validation:
+- All 12 tests must pass
+- Behavior for type=0, None, negative maintained
+- Smoke test: run complete checkout
+
+**STEP 3: ASK** (if necessary)
+
+❓ Found that type=0 is used for "regular customer".
+   Is this expected behavior or should it be type=None?
+   
+[WAIT for client response]
+
+**STEP 4: REFACTOR** (after approval)
+
+from enum import Enum
+
+class CustomerTier(Enum):
+    NORMAL = 0   # No discount
+    BRONZE = 1   # 10% discount
+    SILVER = 2   # 20% discount  
+    GOLD = 3     # 30% discount
+
+DISCOUNT_RATES = {
+    CustomerTier.NORMAL.value: 0.0,   # Explicit: 0% discount
+    CustomerTier.BRONZE.value: 0.1,   # 10% discount
+    CustomerTier.SILVER.value: 0.2,   # 20% discount
+    CustomerTier.GOLD.value: 0.3,     # 30% discount
+}
+
+def calculate_discount(amount: float, customer_tier: int) -> float:
+    """
+    Calculate discount based on customer tier.
+    
+    Args:
+        amount: Original value
+        customer_tier: Tier (0=Normal, 1=Bronze, 2=Silver, 3=Gold)
+    
+    Returns:
+        Value with discount applied
+    
+    Behavior:
+        - Invalid tier (None, negative, >3): returns original value (safe fallback)
+        - Tier 0: returns original value (regular customer, no discount)
+    """
+    # Safe fallback: any invalid tier → no discount
+    discount_rate = DISCOUNT_RATES.get(customer_tier, 0.0)
+    return amount * (1 - discount_rate)
+
+**STEP 5: VALIDATE**
+
+✅ All 12 tests pass
+✅ type=0 returns original value (behavior maintained)
+✅ type=None returns original value (behavior maintained)  
+✅ negative type returns original value (behavior maintained)
+✅ Smoke test checkout: working
+✅ Code review: approved
+
+✅ SAFE REFACTORING COMPLETED!
+```
+
+#### 🎯 Rule Summary
+
+**Mandatory mantra before refactoring:**
+
+> "Did I study ALL documentation? ✅
+> Did I analyze ALL code? ✅
+> Did I map ALL dependencies? ✅  
+> Did I understand the 'Why'? ✅
+> Did I identify ALL risks? ✅
+> Did I execute existing tests? ✅
+> Do I have a rollback plan? ✅
+> 
+> **NOW I can refactor safely!**"
+
+**Time invested in study = Time saved in debugging**
+
+- 4 hours studying code → Safe refactoring
+- 0 hours studying code → 20 hours debugging introduced bugs
+
+**Refactoring is surgery, not demolition. Study the patient before operating!**
+
+---
 
 **Mandatory practices**:
 
