@@ -1,15 +1,12 @@
-Here's the English translation of the provided document:
-
-```markdown
 # Simplicity Protocol 1
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 3.0  
+**Version**: 2.9  
 **Last Update**: January 7, 2026  
 **Objective**: Professional methodology for incremental quality development
 
-**Changelog v3.0** (01/07/2026):
+**Changelog v2.9** (01/07/2026):
 - ✅ **[ABSOLUTE PROHIBITIONS]** Added critical section: Prohibitions for AIs
 - ✅ Prohibition 1: AI CANNOT interrupt work without valid reason (5 valid reasons defined)
 - ✅ Prohibition 2: AI CANNOT lie about task completion
@@ -10253,4 +10250,3 @@ Before generating/committing code, verify:
 **Last update**: December 16, 2025
 **Maintained by**: Josué Amaral
 **Status**: ACTIVE - Official project protocol
-```

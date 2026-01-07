@@ -2,11 +2,11 @@
 
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
-**Version**: 4.1  
+**Version**: 4.0  
 **Last Update**: January 7, 2026  
 **Objective**: Hybrid methodology for **solo developers** with application in **production**
 
-**Changelog v4.1** (01/07/2026):
+**Changelog v4.0** (01/07/2026):
 - ✅ **[ABSOLUTE SOLO PROHIBITIONS]** Added critical section: Prohibitions for AIs assisting solo developers
 - ✅ Prohibition 1: AI CANNOT leave work half-done (solo dev has no one to finish for you)
 - ✅ Prohibition 2: AI CANNOT lie (AI's lie = you debugging alone at 2AM)
