@@ -5,9 +5,25 @@ Here's the English translation of the provided document:
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.8  
-**Last Update**: January 6, 2026  
+**Version**: 2.9  
+**Last Update**: January 7, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v2.9** (01/07/2026):
+- ✅ **[COMPLETE TRANSLATION]** Translated ALL missing Portuguese content to English (~2,520 lines)
+- ✅ Added complete section: "❓ Mandatory Rule: Blocking Questions for Doubts" (~340 lines)
+- ✅ Comprehensive guide on when AI must ask questions before implementing
+- ✅ Examples of WRONG vs CORRECT approaches to handling doubts
+- ✅ Mandatory questions checklist (5 categories: Requirements, Architecture, Integration, Data, Behavior, Tests)
+- ✅ Added complete section: "📝 Document User Responses to Questions" (~300 lines)
+- ✅ How to document responses in docs/DECISIONS.md and docs/REQUIREMENTS.md
+- ✅ Complete examples from question to implementation with interpretation
+- ✅ Added complete section: "🖥️ Importance of Command-Line Interface (CLI)" (~327 lines)
+- ✅ Why CLI is essential for AI testing (cannot interact with GUI)
+- ✅ Recommended architecture: CLI → CORE ← GUI (shared business logic)
+- ✅ Complete testing strategy with code examples (Python)
+- ✅ Benefits: Testability by AI, development speed, CI/CD automation
+- ✅ Rationale: If CLI works → logic is correct → GUI will work
 
 **Changelog v2.8** (01/06/2026):
 - ✅ **[BLOCKING REFACTORING]** Mandatory Rule: Study Code BEFORE Refactoring
@@ -913,6 +929,349 @@ This mandatory rule **complements** Step 9 (Test Before Deploy):
 
 ---
 
+## ❓ Mandatory Rule: Blocking Questions for Doubts
+
+> **CRITICAL FOR AIs**: Whenever the artificial intelligence has any question or doubt about a task that it must perform, it is **MANDATORY** that this AI asks questions about the corresponding task to be performed.
+
+### 🚫 Doubts Are Blocking
+
+**Fundamental Rule**:
+> **Doubt about the task is BLOCKING.**
+>
+> The artificial intelligence **CANNOT CONTINUE** until it resolves **ALL its doubts** about what it must do.
+
+### 🤖 This Rule is For AI Assistants
+
+**If you are an AI (Cursor, GitHub Copilot, etc.):**
+
+#### ✅ YOU MUST:
+- ✅ **STOP immediately** when identifying any doubt about the task
+- ✅ **FORMULATE clear questions** about all points of uncertainty
+- ✅ **WAIT for responses** from the programmer before continuing
+- ✅ **VALIDATE your understanding** by asking confirmatory questions
+- ✅ **CLARIFY ambiguous requirements** before implementing
+- ✅ **QUESTION assumptions** that haven't been explicitly confirmed
+- ✅ **ASK about edge cases** and expected behaviors
+
+#### ❌ YOU MUST NOT:
+- ❌ **Assume or guess** what the programmer wants
+- ❌ **Proceed with unresolved uncertainties**
+- ❌ **Implement based on unconfirmed assumptions**
+- ❌ **Ignore ambiguities** in the specification
+- ❌ **Make critical decisions** without consulting the programmer
+- ❌ **Continue silently** when you don't understand something
+
+### 🎯 Types of Doubts That Are Blocking
+
+#### 1. **Doubts About Requirements**
+```markdown
+❓ Examples of mandatory questions:
+- "What should be the behavior when the user enters a negative value?"
+- "Should the functionality validate email in real-time or only on submit?"
+- "What's the priority between performance and accuracy in this calculation?"
+- "Should I implement caching for this operation?"
+```
+
+#### 2. **Doubts About Architecture**
+```markdown
+❓ Examples of mandatory questions:
+- "Should I create a new module or add to existing module X?"
+- "Does this logic belong in CORE, CLI, or GUI?"
+- "Should I use inheritance or composition for this functionality?"
+- "What's the most appropriate design pattern here?"
+```
+
+#### 3. **Doubts About Integration**
+```markdown
+❓ Examples of mandatory questions:
+- "Should this functionality integrate with existing module Y?"
+- "Should I modify the public API or create a new one?"
+- "How does this feature relate to functionality X already implemented?"
+- "Do I need to maintain backward compatibility?"
+```
+
+#### 4. **Doubts About Data**
+```markdown
+❓ Examples of mandatory questions:
+- "What's the expected format of the input data?"
+- "What's the valid range for this parameter?"
+- "How should I handle missing or invalid data?"
+- "What's the expected encoding for text files?"
+```
+
+#### 5. **Doubts About Behavior**
+```markdown
+❓ Examples of mandatory questions:
+- "What should happen if the operation fails?"
+- "Should I do rollback or logging in case of error?"
+- "How should I notify the user about errors?"
+- "What's the acceptable timeout for this operation?"
+```
+
+#### 6. **Doubts About Tests**
+```markdown
+❓ Examples of mandatory questions:
+- "Which specific edge cases should I test?"
+- "What's the acceptance criteria for this functionality?"
+- "Should I mock external dependencies in tests?"
+- "What's the expected test coverage?"
+```
+
+### 📋 Doubt Clarification Process
+
+#### Step 1: Identify Doubts
+```markdown
+Before starting any task:
+
+[ ] Read complete task specification
+[ ] Identify ALL points of uncertainty
+[ ] List ALL necessary questions
+[ ] Classify doubts by type (requirements, architecture, etc.)
+```
+
+#### Step 2: Formulate Clear Questions
+```markdown
+Characteristics of good questions:
+
+✅ Specific: "What's the expected behavior when X?"
+✅ Objective: Allow clear answer (yes/no or concrete description)
+✅ Contextualized: Include relevant information
+✅ Prioritized: Most critical first
+
+❌ Avoid vague questions: "How should I do this?"
+❌ Avoid multiple questions in one: Separate into individual questions
+```
+
+**Example of Well-Formulated Questions**:
+```markdown
+I have the following doubts about the task "Implement CPF validation":
+
+1. **Format Validation**:
+   ❓ Should I accept CPF with punctuation (XXX.XXX.XXX-XX) or numbers only?
+   💡 Suggestion: Accept both and normalize internally
+   
+2. **Check Digit Validation**:
+   ❓ Should I validate check digits or just the format?
+   💡 Suggestion: Validate digits to ensure valid CPF
+   
+3. **Error Handling**:
+   ❓ How should I notify the user of invalid CPF?
+   A) Return None
+   B) Raise ValueError
+   C) Return tuple (bool, message)
+   💡 Suggestion: Option B (ValueError) following Python standard
+
+4. **Special Cases**:
+   ❓ Should CPFs with all equal digits (e.g., 111.111.111-11) be rejected?
+   💡 Suggestion: Yes, as they are invalid in practice
+```
+
+#### Step 3: Wait for Confirmation
+```markdown
+AI Action:
+
+🛑 STOP all implementation
+📝 PRESENT list of questions to programmer
+⏳ WAIT for complete responses
+✅ CONFIRM understanding before proceeding
+```
+
+#### Step 4: Validate Understanding
+```markdown
+After receiving responses:
+
+[ ] Repeat understanding: "So, I should do X and Y, correct?"
+[ ] Confirm special cases: "In case Z, should I do W?"
+[ ] Clarify remaining ambiguities
+[ ] Get explicit approval: "Can I proceed with this understanding?"
+```
+
+### 🎯 Practical Examples
+
+#### Example 1: Task with Ambiguous Requirements
+
+**Task Received**: "Implement discount calculation"
+
+**❌ WRONG (AI assumes and implements)**:
+```python
+# AI assumes 10% discount without asking
+def calculate_discount(price):
+    return price * 0.9
+```
+
+**✅ CORRECT (AI asks questions first)**:
+```markdown
+Before implementing "Discount calculation", I need to clarify:
+
+1. **Discount Percentage**:
+   ❓ What's the discount percentage to apply?
+   💡 Suggestion: 10% as default, but configurable?
+
+2. **Application Rules**:
+   ❓ Does the discount apply to all products or are there conditions?
+   A) All products
+   B) Only products on promotion
+   C) Based on minimum order value
+   💡 Suggestion: Option C (minimum value R$ 100)
+
+3. **Discount Type**:
+   ❓ Percentage discount or fixed amount?
+   💡 Suggestion: Percentage for flexibility
+
+4. **Accumulation**:
+   ❓ Can discounts accumulate with other promotions?
+   💡 Suggestion: No, apply only the highest discount
+
+Awaiting confirmation to proceed with implementation.
+```
+
+#### Example 2: Task with Missing Technical Details
+
+**Task Received**: "Add report export support"
+
+**❌ WRONG (AI assumes format)**:
+```python
+# AI assumes PDF without asking
+def export_report(data):
+    generate_pdf(data)
+```
+
+**✅ CORRECT (AI clarifies details)**:
+```markdown
+I need clarifications about "Report export":
+
+1. **Export Formats**:
+   ❓ Which formats should I support?
+   A) PDF only
+   B) PDF + Excel
+   C) PDF + Excel + CSV
+   💡 Suggestion: Option B (PDF for viewing, Excel for analysis)
+
+2. **Template/Layout**:
+   ❓ Is there a specific template for reports?
+   💡 Suggestion: Use company template if exists, otherwise create standard
+
+3. **Asynchronous Generation**:
+   ❓ Should large reports be generated in background?
+   💡 Suggestion: Yes, with notification when completed (>1000 records)
+
+4. **Location**:
+   ❓ Where should generated files be saved?
+   A) System temporary folder
+   B) User's Downloads
+   C) User-configurable
+   💡 Suggestion: Option C (configurable with default in Downloads)
+
+5. **File Name**:
+   ❓ What's the naming pattern?
+   💡 Suggestion: "report_YYYY-MM-DD_HHmmss.ext"
+
+Awaiting definitions to implement correctly.
+```
+
+### ✅ Mandatory Questions Checklist
+
+**Before starting ANY task**:
+
+```markdown
+[ ] 1. Clear Functional Requirements?
+   - [ ] Do I understand WHAT should be done?
+   - [ ] Do I understand WHY this functionality?
+   - [ ] Do I know the acceptance criteria?
+
+[ ] 2. Defined Technical Requirements?
+   - [ ] Do I know HOW to implement (architecture)?
+   - [ ] Do I know the technologies/libraries to use?
+   - [ ] Do I understand the technical constraints?
+
+[ ] 3. Covered Use Cases?
+   - [ ] Do I know the normal usage flow?
+   - [ ] Do I know the edge cases?
+   - [ ] Do I know how to handle errors?
+
+[ ] 4. Clear Integration?
+   - [ ] Do I know how to integrate with existing code?
+   - [ ] Do I know the dependencies?
+   - [ ] Do I understand the impact on other parts?
+
+[ ] 5. Defined Validation?
+   - [ ] Do I know how to test the functionality?
+   - [ ] Do I know the test scenarios?
+   - [ ] Do I understand the expected coverage?
+
+If ANY item above is ❌ NO: STOP and ask questions!
+```
+
+### 🚨 Consequences of NOT Asking Questions
+
+**What happens when AI assumes instead of asking**:
+
+1. **❌ Incorrect Implementation**
+   - Functionality doesn't meet real requirements
+   - Rework necessary (time waste)
+   - Programmer frustration
+
+2. **❌ Introduced Bugs**
+   - Unexpected behavior
+   - Untreated edge cases
+   - Production problems
+
+3. **❌ Inadequate Architecture**
+   - Hard to maintain code
+   - Violation of project patterns
+   - Accumulated technical debt
+
+4. **❌ Loss of Trust**
+   - Programmer stops trusting the AI
+   - Need for manual review of everything
+   - Reduced productivity
+
+### 🎯 Benefits of Asking Questions
+
+**What is gained by clarifying doubts before implementing**:
+
+1. **✅ Correct Implementation on First Try**
+   - Zero rework
+   - Time savings
+   - High quality
+
+2. **✅ Alignment with Expectations**
+   - Code meets exactly what was requested
+   - Satisfied programmer
+   - Increased trust in AI
+
+3. **✅ Adequate Architecture**
+   - Code follows project patterns
+   - Easy to maintain and evolve
+   - Smooth integration with existing code
+
+4. **✅ Bug Prevention**
+   - Edge cases identified and treated
+   - Appropriate validations implemented
+   - Robust code from the start
+
+### 📊 Success Metrics
+
+**Indicators that AI is asking questions correctly**:
+
+- ✅ **Rework rate < 10%**: Correct implementations on first try
+- ✅ **Clarification time < 20%**: Questions don't delay significantly
+- ✅ **High programmer satisfaction**: Code meets expectations
+- ✅ **Low post-implementation bugs**: < 1 bug per 10 functionalities
+- ✅ **Clean commits**: Fewer correction commits after initial
+
+### 🎓 Conclusion
+
+> **"It's better to spend 5 minutes clarifying doubts than 2 hours correcting incorrect implementation."**
+
+**Message for AIs**:
+> "NEVER assume. ALWAYS ask when there's the slightest doubt. Your function is to implement CORRECTLY, not quickly. Questions are a sign of professionalism, not incapacity. The programmer prefers to answer 10 questions now than review 100 lines of wrong code later."
+
+**Golden Rule for AIs**:
+> **"When in doubt, STOP and ASK. Doubt is BLOCKING until resolved."**
+
+---
+
 ## 🔍 Binary Search for Bug Localization
 
 > **IMPORTANT FOR AIs**: When dealing with error correction and bug elimination, remember that you can use **binary search** to locate defects efficiently.
@@ -1105,6 +1464,589 @@ Binary search is not limited to lines of code. It can be applied to:
 
 **Message for AIs**:
 > "Creativity in using binary search has no limits. Always consider whether a debugging problem can be reduced to a binary search - you'll save time and find bugs faster."
+
+---
+
+## 📝 Document User Responses to Questions
+
+> **CRITICAL FOR AIs**: After receiving responses from the user to your questions, you **MUST DOCUMENT** these responses in your own words to create a deeper understanding of the software.
+
+### 🎯 Why Document Responses?
+
+**Rationale**:
+1. **External Memory**: Documentation serves as a permanent record of decisions
+2. **Deeper Understanding**: Rewriting in your own words forces real understanding
+3. **Future Reference**: Quick lookups when needed
+4. **Project Evolution**: Track how requirements changed over time
+5. **Onboarding**: New devs (or your future self) understand the "why" behind decisions
+
+### 📋 Response Documentation Process
+
+#### Step 1: Receive User Responses
+```markdown
+User answers your questions:
+- "CPF should accept format with punctuation (XXX.XXX.XXX-XX)"
+- "Validate check digits"
+- "Return ValueError if invalid"
+- "Reject CPFs with equal digits (111.111.111-11)"
+```
+
+#### Step 2: Document in docs/DECISIONS.md or docs/REQUIREMENTS.md
+```markdown
+# Implementation Decisions
+
+## CPF Validation (2026-01-05)
+
+**Context**: Need to validate CPF in registration form
+
+**Questions Asked**:
+1. Accepted format for CPF
+2. Check digit validation
+3. Error handling for invalid CPF
+4. CPFs with equal digits
+
+**User Responses and Interpretation**:
+
+### 1. CPF Format
+- **Response**: "Accept format with punctuation (XXX.XXX.XXX-XX)"
+- **Interpretation**: The function should accept CPF both with and without punctuation (numbers only).
+  Internally, normalize to numbers only before validating.
+  Accepted example: "123.456.789-09" or "12345678909"
+  
+**Planned Implementation**:
+```python
+def normalize_cpf(cpf):
+    """Remove punctuation from CPF."""
+    return re.sub(r'[.\-]', '', cpf)
+```
+
+### 2. Check Digit Validation
+- **Response**: "Validate check digits"
+- **Interpretation**: Not enough to validate format, must calculate the 2 check digits
+  using the standard CPF validation algorithm and compare with provided digits.
+  Ensures CPF is mathematically valid.
+  
+**Reference**: Algorithm at https://www.geradorcpf.com/algoritmo_do_cpf.htm
+
+### 3. Error Handling
+- **Response**: "Return ValueError if invalid"
+- **Interpretation**: The `validate_cpf()` function should raise `ValueError` with descriptive
+  message about reason for invalidation. Don't return None or False.
+  Follows Python convention of using exceptions for validation errors.
+  
+**Example Messages**:
+- `ValueError("CPF must have 11 digits")`
+- `ValueError("Invalid check digits")`
+- `ValueError("CPF with all equal digits is invalid")`
+
+### 4. CPFs with Equal Digits
+- **Response**: "Reject CPFs with equal digits (111.111.111-11)"
+- **Interpretation**: CPFs like 000.000.000-00, 111.111.111-11, 222.222.222-22, etc.
+  should be rejected even if they pass mathematical check digit validation,
+  as they are considered invalid by Brazilian IRS.
+  
+**Planned Implementation**:
+```python
+if len(set(cpf_numbers)) == 1:  # All equal digits
+    raise ValueError("CPF with all equal digits is invalid")
+```
+
+**Final Decision**: Implement function `validate_cpf(cpf: str) -> str` that:
+1. Normalizes format (removes punctuation)
+2. Validates size (11 digits)
+3. Validates no all-equal digits
+4. Validates check digits
+5. Returns normalized CPF if valid or raises ValueError if invalid
+
+**Impact**: User registration will have robust CPF validation
+**Tests**: Create tests for all cases (format, equal digits, invalid check digits)
+```
+
+#### Step 3: Update Documentation as Implementation Proceeds
+```markdown
+After implementing, add:
+
+**Status**: ✅ IMPLEMENTED (2026-01-05)
+**File**: `src/validators/cpf_validator.py`
+**Tests**: `tests/test_cpf_validator.py` (15 test cases)
+**Coverage**: 100%
+```
+
+### 🎯 Where to Document
+
+**Recommended Documents**:
+
+1. **docs/DECISIONS.md**:
+   - Design decisions
+   - Architectural choices
+   - Trade-offs considered
+   
+2. **docs/REQUIREMENTS.md**:
+   - Detailed functional requirements
+   - Specific use cases
+   - Business rules
+   
+3. **docs/FAQ.md**:
+   - Frequently asked questions
+   - Clarifications about functionalities
+   
+4. **Code Comments**:
+   - Specific implementation decisions
+   - Why you chose approach X instead of Y
+
+### ✅ Response Documentation Checklist
+
+```markdown
+After receiving user responses:
+
+[ ] Create/update appropriate document (DECISIONS.md, REQUIREMENTS.md)
+[ ] Include context (why the question was asked)
+[ ] Transcribe original user responses
+[ ] Add your interpretation in your own words
+[ ] Include concrete examples when applicable
+[ ] Detail impact of decision on project
+[ ] Specify implementation plan
+[ ] Add external references if relevant
+[ ] Mark status (PLANNED → IMPLEMENTED → VALIDATED)
+[ ] Commit documentation BEFORE implementing
+```
+
+### 🎯 Complete Example: From Start to Finish
+
+**Situation**: User asks "Implement product search"
+
+**Stage 1 - AI Asks Questions**:
+```markdown
+I have doubts about "Product search":
+
+1. Search fields:
+   ❓ Should search work on which fields? (name, description, category, SKU?)
+   
+2. Search type:
+   ❓ Exact or partial search? Case-sensitive?
+   
+3. Performance:
+   ❓ How many products expected in database? (affects algorithm choice)
+   
+4. Filters:
+   ❓ Can user combine search with filters (price, brand, etc.)?
+```
+
+**Stage 2 - User Responds**:
+```markdown
+1. Search in: name and description
+2. Partial search, case-insensitive
+3. ~1000 products initially, may grow to 10k
+4. Yes, price and brand filters
+```
+
+**Stage 3 - AI Documents**:
+```markdown
+# docs/REQUIREMENTS.md
+
+## Product Search (2026-01-05)
+
+**Context**: E-commerce system needs search functionality for users to
+find products quickly.
+
+**Defined Requirements**:
+
+### 1. Search Fields
+- **Response**: "Search in name and description"
+- **Interpretation**: Query should look for term in `products.name` AND `products.description`.
+  Use logical OR (found in either = valid result).
+  Don't search in other fields (SKU, category, tags) in this first version.
+
+**SQL**:
+```sql
+WHERE LOWER(name) LIKE LOWER('%term%') 
+   OR LOWER(description) LIKE LOWER('%term%')
+```
+
+### 2. Search Type
+- **Response**: "Partial search, case-insensitive"
+- **Interpretation**: Use LIKE with wildcards ('%term%') and convert to lowercase
+  for case-insensitive comparison. User can type partial word and find results.
+  Example: "blue" finds "Light Blue Shirt" and "Navy Blue Pants"
+
+**Implementation**:
+- Convert search term and fields to lowercase
+- Use LIKE '%term%' pattern
+- Consider PostgreSQL: Use `ILIKE` instead of `LOWER() + LIKE`
+
+### 3. Performance/Scale
+- **Response**: "~1000 products initially, may grow to 10k"
+- **Interpretation**: Medium volume. Need to consider:
+  - Add indexes on `name` and `description` columns
+  - For 10k products, LIKE is acceptable
+  - If grows to >100k, consider full-text search (PostgreSQL FTS, Elasticsearch)
+
+**Planned Optimization**:
+```sql
+-- Create indexes for better performance
+CREATE INDEX idx_products_name ON products USING gin(to_tsvector('portuguese', name));
+CREATE INDEX idx_products_desc ON products USING gin(to_tsvector('portuguese', description));
+```
+
+### 4. Filters
+- **Response**: "Yes, price and brand filters"
+- **Interpretation**: User can combine text search with price range and brand selection.
+  Filters applied with AND logic (all conditions must be met).
+
+**Query Example**:
+```sql
+SELECT * FROM products
+WHERE (LOWER(name) LIKE '%shirt%' OR LOWER(description) LIKE '%shirt%')
+  AND price BETWEEN 50 AND 100
+  AND brand_id = 5
+```
+
+**API Design**:
+```python
+def search_products(
+    query: str,
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None,
+    brand_ids: Optional[List[int]] = None
+) -> List[Product]:
+    """
+    Search products with optional filters.
+    
+    Args:
+        query: Text to search in name/description
+        min_price: Minimum price filter (optional)
+        max_price: Maximum price filter (optional)
+        brand_ids: List of brand IDs to filter (optional)
+    
+    Returns:
+        List of products matching criteria
+    """
+```
+
+**Implementation Plan**:
+1. Create SQL query with dynamic WHERE clauses
+2. Add indexes for performance
+3. Implement pagination (20 results per page)
+4. Add sorting options (relevance, price, name)
+5. Return count of total results
+
+**Tests Planned**:
+- [ ] Search by name only
+- [ ] Search by description only
+- [ ] Search with no results
+- [ ] Search with price filter
+- [ ] Search with brand filter
+- [ ] Search with multiple filters
+- [ ] Case-insensitive validation
+- [ ] Partial match validation
+- [ ] Performance test (10k products)
+
+**Status**: 📝 PLANNED
+**Priority**: HIGH
+**Estimated Time**: 4-6 hours
+```
+
+#### Step 4: Update After Implementation
+```markdown
+**Status**: ✅ IMPLEMENTED (2026-01-06)
+**File**: `src/services/product_search.py`
+**Tests**: `tests/test_product_search.py` (12 test cases)
+**Coverage**: 95%
+**Performance**: < 100ms for 10k products
+
+**Learnings**:
+- PostgreSQL GIN indexes reduced query time from 500ms to 50ms
+- Added caching for frequent searches (Redis, 5min TTL)
+- Implemented pagination with cursor-based approach
+```
+
+### 🎯 Rationale: Why This Is Essential
+
+**Benefits of Documenting Responses**:
+
+1. **📚 Knowledge Base**
+   - Creates project memory that persists beyond conversations
+   - New team members understand decisions without asking
+
+2. **🧠 Deep Understanding**
+   - Rewriting in own words = processing information deeply
+   - Forces AI to truly understand, not just copy
+
+3. **🔄 Consistency**
+   - Ensures implementation matches what was discussed
+   - Reduces misunderstandings and rework
+
+4. **⏱️ Time Savings**
+   - No need to re-ask same questions later
+   - Quick reference when similar issues arise
+
+5. **✅ Validation**
+   - User can review documented interpretation before implementation
+   - Catch misunderstandings before they become bugs
+
+**Message for AIs**:
+> "Document every clarification in detail. Your documentation is the bridge between discussion and implementation. Invest 10 minutes documenting to save 2 hours of rework."
+
+**Best Practice**:
+> Always commit documentation BEFORE implementing. This ensures:
+> 1. User can review your understanding
+> 2. You have clear roadmap for implementation
+> 3. Future you remembers the context
+
+---
+
+## 📝 Editable Questionnaire Pattern for Information Collection
+
+> **HIGHLY RECOMMENDED**: When there's a need to collect multiple pieces of information from the user, use the editable questionnaire pattern.
+
+### 🎯 When to Use Editable Questionnaires
+
+**✅ Use editable questionnaires when:**
+- You need to ask **5 or more questions** to the user
+- Questions are **structured** (multiple choice, yes/no, list of options)
+- User needs to **think and analyze** before answering (not immediate response)
+- There's a need to **document** responses for future reference
+- Questions have **context and explanations** that help with choice
+
+**❌ DON'T use when:**
+- Only 1-2 simple questions → Ask directly in chat
+- Questions require **immediate** and short response
+- No need for **recording** responses
+
+### 📋 Editable Questionnaire Format
+
+AI should create a document (`.md` or `.txt`) with the following format:
+
+```markdown
+# Questionnaire: [Descriptive Title]
+
+**Instructions**: Fill out this questionnaire by marking desired options and/or answering questions. After completing, save the file and notify AI so it can read your responses.
+
+---
+
+### 🎯 QUESTION 1: [Question Title]
+
+**❓ [Main question]**
+
+💡 **AI Suggestion**: [Recommendation based on project context]
+
+**Options (mark all that apply):**
+- **A)** ✅ [Option A - pre-marked if recommended]
+- **B)** ⚙️ [Option B - symbol indicates "configurable/conditional"]
+- **C)** ❌ [Option C - not marked]
+- **D)** ❌ [Option D]
+- **E)** ⚙️ Other: _____
+
+**Your choices:** _______ (leave blank or describe)
+
+**Additional observations (optional):**
+_____
+
+---
+
+### 🎯 QUESTION 2: [Another Question Title]
+
+**❓ [Another question]**
+
+💡 **AI Suggestion**: [Recommendation]
+
+**Options:**
+- **A)** ❌ [Option]
+- **B)** ✅ [Recommended option]
+
+**Your answer:** _______
+
+---
+
+[... more questions ...]
+
+---
+
+## ✅ Final Review
+
+Before notifying AI, verify:
+- [ ] All questions have been answered
+- [ ] Options are clearly marked
+- [ ] Additional observations added where needed
+- [ ] File has been saved
+
+**Notify AI when ready!**
+```
+
+### 🔄 Usage Flow
+
+**Step 1: AI Creates the Questionnaire**
+```
+AI detects it needs to ask multiple questions
+     ↓
+AI creates file `QUESTIONNAIRE.md` with format above
+     ↓
+AI sends message: "I created the file QUESTIONNAIRE.md with [N] questions 
+about [topic]. Please fill it manually and notify when done."
+```
+
+**Step 2: User Fills Manually**
+```
+User opens QUESTIONNAIRE.md in text editor
+     ↓
+User marks options (replaces ❌ with ✅, fills ___ fields)
+     ↓
+User adds observations where needed
+     ↓
+User saves the file
+```
+
+**Step 3: AI Reads the Responses**
+```
+User notifies: "Questionnaire completed!"
+     ↓
+AI reads QUESTIONNAIRE.md file
+     ↓
+AI processes responses and proceeds with collected information
+```
+
+### 💡 Practical Example
+
+#### Example Questionnaire Created by AI:
+
+```markdown
+# Questionnaire: Technology Stack Definition for Full-Stack Website
+
+**Instructions**: This questionnaire will help define the best technology stack for your project. Fill by marking options and adding observations.
+
+---
+
+### 🎯 QUESTION 1: APPLICATION TYPE
+
+**❓ What type of application do you want to build?**
+
+💡 **AI Suggestion**: For sites with SEO and performance, I recommend SSR/SSG (Next.js)
+
+**Options (mark all that apply):**
+- **A)** ✅ Institutional website/landing page (SEO important)
+- **B)** ⚙️ Blog/CMS (dynamic content)
+- **C)** ❌ Administrative dashboard (SPA without SEO)
+- **D)** ⚙️ E-commerce
+- **E)** ❌ Pure REST API (without frontend)
+
+**Your choices:** A, B (website + blog)
+
+**Additional observations (optional):**
+Need great SEO as the site will be found via Google
+
+---
+
+### 🎯 QUESTION 2: TECHNOLOGY EXPERIENCE
+
+**❓ What's your current experience with frontend frameworks?**
+
+💡 **AI Suggestion**: If you already know React, Next.js will be easier
+
+**Options:**
+- **A)** ✅ Know React well
+- **B)** ❌ Know Vue.js
+- **C)** ❌ Know Angular
+- **D)** ❌ Frontend beginner
+
+**Your answer:** A (3 years of React)
+
+---
+
+### 🎯 QUESTION 3: BACKEND REQUIREMENTS
+
+**❓ What backend functionalities do you need?**
+
+💡 **AI Suggestion**: Next.js API Routes cover 80% of cases
+
+**Options (mark all that apply):**
+- **A)** ✅ User authentication
+- **B)** ✅ Database (PostgreSQL/MongoDB)
+- **C)** ⚙️ File upload
+- **D)** ❌ Heavy processing/ML
+- **E)** ❌ WebSockets/Real-time
+
+**Your choices:** A, B, C
+
+---
+
+## ✅ Final Review
+
+Before notifying AI, verify:
+- [X] All questions have been answered
+- [X] Options are clearly marked
+- [X] Additional observations added where needed
+- [X] File has been saved
+
+**Notify AI when ready!**
+```
+
+#### After Reading by AI:
+
+```
+AI reads: User wants website+blog with SEO, knows React, needs auth+DB+upload
+     ↓
+AI recommends: Next.js 15 + PostgreSQL + Cloudinary + NextAuth
+     ↓
+AI proceeds with implementation based on responses
+```
+
+### 🎯 Advantages of Editable Questionnaire Pattern
+
+**✅ For the User:**
+- **Time to think**: Can analyze options calmly
+- **Clear context**: All questions and options visible simultaneously
+- **Documented**: File remains saved for future reference
+- **Flexible**: Can go back and adjust responses before notifying
+
+**✅ For the AI:**
+- **Structured collection**: Organized information easy to process
+- **Fewer back-and-forths**: Avoids multiple rounds of questions in chat
+- **Clear suggestions**: Can pre-mark recommended options
+- **Rich context**: Can provide detailed explanations for each option
+
+**✅ For the Project:**
+- **Traceability**: Decisions documented from the start
+- **Onboarding**: New dev can see historical decisions
+- **Audit**: Record of the "why" behind each choice
+
+### 📊 Recommended Marking Symbols
+
+| Symbol | Meaning | Usage |
+|--------|---------|-------|
+| ✅ | Selected/Recommended | Options AI recommends or user chose |
+| ❌ | Not selected | Unchosen options |
+| ⚙️ | Configurable/Conditional | Options that depend on another factor |
+| 💡 | Suggestion | AI recommendation |
+| ❓ | Question | Identifies main question |
+| 🎯 | Goal/Focus | Marks important sections |
+
+### ✅ Checklist for AIs When Creating Questionnaires
+
+When creating an editable questionnaire, AI should:
+
+```markdown
+[ ] Clear and descriptive questionnaire title
+[ ] Completion instructions at the top
+[ ] Each question numbered with descriptive title
+[ ] Main question marked with ❓
+[ ] AI suggestion (💡) for each question
+[ ] Pre-marked options (✅) when there's a recommendation
+[ ] "Your choices" or "Your answer" field for each question
+[ ] Space for additional observations (optional)
+[ ] Final review checklist at end of document
+[ ] Clear message to notify when ready
+```
+
+### 🎓 Conclusion
+
+The editable questionnaire pattern is a powerful tool for:
+- ✅ Efficiently collecting structured information
+- ✅ Documenting important decisions from the start
+- ✅ Reducing chat conversation time for complex decisions
+- ✅ Providing rich context and suggestions without pressuring immediate response
+
+**Practical Rule**: 
+> "If you need to ask more than 4-5 questions with multiple options, create an editable questionnaire instead of asking one by one in chat."
 
 ---
 
@@ -2023,6 +2965,334 @@ For national/regional projects (e.g., Portuguese for Brazil/Portugal):
 - 🌍 Multicultural team
 - 🌍 Product aimed at global market
 - 🌍 Library/framework for public distribution
+
+---
+
+## 🖥️ Importance of Command-Line Interface (CLI)
+
+> **CRITICAL FOR AIs**: In many cases, if not all cases, it's important to implement a **CLI (Command-Line Interface)** that can be used in the terminal for user access and especially for **testing by whoever is developing the software**.
+
+### 🎯 Why is CLI Essential?
+
+**Context**: Within a relevant context, CLI implementation is necessary even for testing purposes, where the artificial intelligence assisting, **because it cannot interact directly with the graphical user interface**, will have to perform tests in the terminal.
+
+#### ✅ CLI Benefits for Development and Testing
+
+1. **🤖 Testability by AI**
+   - ✅ AI can execute tests via CLI without needing GUI
+   - ✅ Commands can be automated in test scripts
+   - ✅ Text output is easily validatable programmatically
+   - ✅ Doesn't depend on complex mouse/keyboard events
+
+2. **⚡ Development Speed**
+   - ✅ Test functionalities quickly without opening GUI
+   - ✅ Faster debugging with verbose flags (`--debug`, `--verbose`)
+   - ✅ Faster iterations during development
+   - ✅ Scripting and automation of repetitive tasks
+
+3. **🧪 Primary Testing Target**
+   - ✅ **Well-structured logic**: CLI forces separation of logic and presentation
+   - ✅ **Solid foundation**: If CLI works, the logic is correct
+   - ✅ **Test coverage**: Easier to test all functionalities via CLI
+   - ✅ **Independent test modules**: Can focus on logic via CLI
+   - ✅ **Requirements validation**: CLI demonstrates requirements are met
+
+4. **🔄 CI/CD and Automation**
+   - ✅ Continuous integration can test via CLI
+   - ✅ Deploy scripts use CLI to validate installation
+   - ✅ Automated tests are more reliable with CLI
+   - ✅ Pipelines can execute CLI commands without graphical environment
+
+5. **👥 Remote Access and Servers**
+   - ✅ Headless servers (without GUI) can use CLI
+   - ✅ SSH allows remote administration via CLI
+   - ✅ Scripts can be executed in batch jobs
+   - ✅ Monitoring tools can use CLI
+
+### 📐 Recommended Architecture
+
+**Clear Separation of Responsibilities**:
+
+```
+┌─────────────────────────────────────────┐
+│          CLI (Interface)                │
+│  - Argument parsing                     │
+│  - Input validation                     │
+│  - Output formatting                    │
+└──────────────┬──────────────────────────┘
+               │ calls
+               ↓
+┌─────────────────────────────────────────┐
+│          CORE (Business Logic)          │ ← TEST HERE!
+│  - Algorithms                           │
+│  - Data processing                      │
+│  - Business rules                       │
+└──────────────┬──────────────────────────┘
+               │ uses
+               ↓
+┌─────────────────────────────────────────┐
+│          GUI (Graphical Interface)      │
+│  - Visual widgets                       │
+│  - User events                          │
+│  - Visual presentation                  │
+└─────────────────────────────────────────┘
+```
+
+**Fundamental Principle**:
+> **CLI and GUI should use the SAME business logic (CORE).**
+> 
+> If the logic is well-structured in CORE, both CLI and GUI will work correctly.
+
+### 🛠️ Practical Implementation
+
+#### Example in Python
+
+**Project Structure**:
+```
+project/
+├── src/
+│   ├── core/              # Business logic
+│   │   ├── calculator.py  # Pure algorithms
+│   │   └── validator.py   # Validations
+│   ├── cli/               # CLI interface
+│   │   └── main.py        # Parsing + formatting
+│   └── gui/               # GUI interface
+│       └── window.py      # Widgets + events
+└── tests/
+    ├── test_core.py       # ✅ Logic tests (MAIN)
+    ├── test_cli.py        # ✅ CLI tests
+    └── test_gui.py        # GUI tests (optional)
+```
+
+**CLI Example**:
+```python
+# src/cli/main.py
+import argparse
+from src.core.calculator import Calculator
+
+def main():
+    """Main CLI - only parsing and formatting."""
+    parser = argparse.ArgumentParser(description='Calculator')
+    parser.add_argument('operation', choices=['add', 'sub', 'mul', 'div'])
+    parser.add_argument('a', type=float, help='First number')
+    parser.add_argument('b', type=float, help='Second number')
+    parser.add_argument('--verbose', action='store_true', help='Verbose mode')
+    
+    args = parser.parse_args()
+    
+    # ✅ Logic is in CORE, not in CLI
+    calc = Calculator()
+    result = calc.calculate(args.operation, args.a, args.b)
+    
+    # Only output formatting
+    if args.verbose:
+        print(f"Operation: {args.operation}")
+        print(f"Input: {args.a}, {args.b}")
+    print(f"Result: {result}")
+
+if __name__ == '__main__':
+    main()
+```
+
+**CORE Example (testable logic)**:
+```python
+# src/core/calculator.py
+class Calculator:
+    """Pure business logic - easily testable."""
+    
+    def calculate(self, operation: str, a: float, b: float) -> float:
+        """
+        Perform calculation based on operation.
+        
+        Args:
+            operation: Operation type ('add', 'sub', 'mul', 'div')
+            a: First number
+            b: Second number
+            
+        Returns:
+            Operation result
+            
+        Raises:
+            ValueError: If invalid operation or division by zero
+        """
+        if operation == 'add':
+            return a + b
+        elif operation == 'sub':
+            return a - b
+        elif operation == 'mul':
+            return a * b
+        elif operation == 'div':
+            if b == 0:
+                raise ValueError("Division by zero")
+            return a / b
+        else:
+            raise ValueError(f"Invalid operation: {operation}")
+```
+
+**Test Example (via CORE)**:
+```python
+# tests/test_core.py
+import pytest
+from src.core.calculator import Calculator
+
+def test_calculator_add():
+    calc = Calculator()
+    assert calc.calculate('add', 2, 3) == 5
+
+def test_calculator_division_by_zero():
+    calc = Calculator()
+    with pytest.raises(ValueError, match="Division by zero"):
+        calc.calculate('div', 10, 0)
+
+# ✅ Tests logic directly, without CLI or GUI
+```
+
+### 🧪 Testing Strategy with CLI
+
+#### 1. **Logic Tests (CORE) - MAXIMUM PRIORITY**
+```python
+# tests/test_core.py
+def test_business_logic():
+    """Tests CORE directly - most important."""
+    # Arrange
+    calc = Calculator()
+    
+    # Act
+    result = calc.calculate('add', 2, 3)
+    
+    # Assert
+    assert result == 5
+```
+
+#### 2. **CLI Tests (Interface)**
+```python
+# tests/test_cli.py
+import subprocess
+import sys
+
+def test_cli_add():
+    """Tests CLI via subprocess - tests integration."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'add', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode == 0
+    assert 'Result: 5.0' in result.stdout
+
+def test_cli_invalid_operation():
+    """Tests error handling in CLI."""
+    result = subprocess.run(
+        [sys.executable, 'src/cli/main.py', 'invalid', '2', '3'],
+        capture_output=True,
+        text=True
+    )
+    
+    assert result.returncode != 0
+    assert 'error' in result.stderr.lower()
+```
+
+#### 3. **GUI Tests (Optional/Manual)**
+```python
+# tests/test_gui.py
+# Can use pytest-qt if needed, but not priority
+# GUI should only present what CORE has already validated
+```
+
+### ✅ CLI Implementation Checklist
+
+**Before implementing functionality**:
+- [ ] 1. Implement logic in CORE (pure, without I/O)
+- [ ] 2. Create tests for CORE (100% coverage)
+- [ ] 3. Implement CLI that uses CORE
+- [ ] 4. Test CLI via subprocess (smoke tests)
+- [ ] 5. Implement GUI that uses CORE (if needed)
+- [ ] 6. Validate that CLI and GUI use same logic
+
+**During development**:
+- [ ] AI should test via CLI when GUI isn't available
+- [ ] Prioritize CORE tests over CLI/GUI tests
+- [ ] Ensure CLI has all CORE functionalities
+- [ ] Document CLI commands in `README.md` or `docs/CLI.md`
+
+**Recommended CLI command structure**:
+```bash
+# Standard format
+python -m project.cli <command> [arguments] [options]
+
+# Examples
+python -m project.cli calculate --operation add --a 2 --b 3
+python -m project.cli validate --input data.txt
+python -m project.cli process --file data.csv --output result.json --verbose
+```
+
+### 📝 CLI Documentation
+
+**Include in README.md**:
+```markdown
+## 🖥️ Command-Line Interface (CLI)
+
+### Installation
+```bash
+pip install -e .
+```
+
+### Basic Usage
+```bash
+# General help
+python -m project.cli --help
+
+# Specific command
+python -m project.cli calculate add 2 3
+
+# Verbose mode
+python -m project.cli calculate add 2 3 --verbose
+```
+
+### Available Commands
+- `calculate`: Perform mathematical operations
+- `validate`: Validate data input
+- `process`: Process data files
+
+### Examples
+```bash
+# Addition
+python -m project.cli calculate add 10 5
+# Output: 15.0
+
+# Division with error handling
+python -m project.cli calculate div 10 0
+# Output: Error: Division by zero
+```
+```
+
+### 🎯 Rationale
+
+**Why is CLI critical for testing with AI?**
+
+1. **AI Limitation**: 
+   - ❌ AI cannot click GUI buttons
+   - ✅ AI can execute CLI commands in terminal
+   - ✅ AI can validate text output from commands
+
+2. **Clean Architecture**:
+   - ✅ CLI forces separation between logic and presentation
+   - ✅ Logic in CORE is independently testable
+   - ✅ GUI and CLI share same validated logic
+
+3. **Iterative Development**:
+   - ✅ Implement CORE first (with CLI)
+   - ✅ Test exhaustively via CLI
+   - ✅ Add GUI later (knowing logic works)
+
+4. **Test Confidence**:
+   - ✅ If CLI works → logic is correct
+   - ✅ If logic is correct → GUI will also work
+   - ✅ GUI tests can be minimal (smoke tests)
+
+**Message for AIs**:
+> "Always implement CLI first when creating functionality. Test via CLI before creating GUI. If CLI works, you've validated that the logic meets user requirements."
 
 ---
 
