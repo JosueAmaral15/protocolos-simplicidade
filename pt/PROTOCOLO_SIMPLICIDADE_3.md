@@ -2,11 +2,25 @@
 
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
-**Versão**: 4.1  
+**Versão**: 4.2  
 **Última Atualização**: 08 de Janeiro de 2026  
 **Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
 
 **Changelog v4.1** (08/01/2026):
+**Changelog v4.2** (08/01/2026):
+- ✅ **[PERGUNTAS BLOQUEANTES SOLO DEV]** Adicionada seção obrigatória: Perguntas Bloqueantes para Dúvidas (Solo Dev)
+- ✅ Dúvidas são BLOQUEANTES: clarificar agora ou debugar sozinho às 2h da manhã depois
+- ✅ IA DEVE avisar riscos claros (assumir errado = você debugando sozinho de madrugada, sem time pra salvar)
+- ✅ Processo pragmático solo: Perguntas diretas → Opções práticas → Documentar em DECISIONS.md simples (sem burocracia)
+- ✅ 6 tipos de dúvidas bloqueantes: Requisitos (você é o PO), Arquitetura (KISS vs patterns), Integração (você mantém tudo), Dados (corrupção é pesadelo), Comportamento (bugs produção), Testes (você é o QA)
+- ✅ Trade-off solo explícito: 5min perguntando vs 4h corrigindo sozinho + testes + deploy + rollback
+- ✅ Exemplos pragmáticos completos: CPF validation, Cache system (análise custo-benefício solo, sem overengineering)
+- ✅ Checklist solo rápido (2min): Clareza total? Edge cases? YAGNI check? Future-you check? Sleep-at-night check?
+- ✅ Consequências realistas: Debug solitário madrugada, retrabalho caro (6h vs 2h), bugs silenciosos, dívida técnica solo, perda momentum
+- ✅ Métricas sucesso solo: Dorme 8h/noite, retrabalho <10%, commits limpos, bugs <1/mês, velocidade constante
+- ✅ Regra de ouro solo: "5min perguntando agora vs 4h debugando sozinho às 2AM. Escolha sabiamente."
+- ✅ Pragmatismo: Começar simples (MVP), abstrair na 3ª vez, preferir composição, cache só se performance for problema REAL
+
 - ✅ **[INTERNACIONALIZAÇÃO SOLO]** Adicionada seção obrigatória: i18n pragmático para solo devs
 - ✅ IA DEVE perguntar pragmaticamente antes de criar interface
 - ✅ Filosofia solo: "Ship fast, translate later" - MVP mono-idioma, i18n depois se validar
@@ -873,6 +887,641 @@ Posso corrigir agora?
 
 **Resultado esperado**:
 > Implementação que corresponde ao que você quer, feita com **clareza total**, **tempo eficiente**, e **risco minimizado**, porque você é solo dev em produção e não pode se dar ao luxo de retrabalho ou bugs às 3h da manhã.
+
+---
+
+## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas (Solo Dev)
+
+> **CRÍTICO PARA IAs EM AMBIENTE SOLO**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer. **Você é solo: clarificar agora ou debugar às 2h da manhã depois. Escolha sabiamente.**
+
+### 🚫 Dúvidas São Bloqueantes (e Vão Te Custar Sono)
+
+**Regra Fundamental Solo Dev**:
+> **A dúvida sobre a tarefa é BLOQUEANTE.**
+>
+> A inteligência artificial **NÃO PODE CONTINUAR** até sanar **TODAS as suas dúvidas** sobre o que a mesma deve fazer.
+>
+> **REALIDADE SOLO**: Assumir errado = você debugando sozinho às 2h da manhã. Não tem time pra te salvar.
+
+### 🎯 Pragmatismo Solo: Por Que Perguntas Importam
+
+**Diferencial Solo**:
+- ❌ **Sem time de backup**: Erro é seu problema, sozinho
+- ❌ **Sem code review**: Ninguém vai pegar suas suposições erradas
+- ❌ **Sem QA**: Você é dev, tester, e usuário
+- ❌ **Tempo é seu recurso mais escasso**: Retrabalho dói 10x mais
+- ✅ **Perguntar agora = economizar horas/dias depois**
+
+**Trade-off Solo**:
+```
+Opção A: 5 minutos fazendo perguntas
+Opção B: 4 horas corrigindo implementação errada + testes + deploy + rollback
+
+Escolha óbvia, certo? Então por que você não pergunta?
+```
+
+### 🤖 Esta Regra é Para Assistentes de IA (Solo Context)
+
+**Se você é uma IA (Cursor, GitHub Copilot, etc.) ajudando dev solo:**
+
+#### ✅ VOCÊ DEVE:
+- ✅ **PARAR imediatamente** ao identificar qualquer dúvida sobre a tarefa
+- ✅ **FORMULAR perguntas diretas** sem burocracia desnecessária
+- ✅ **AVISAR riscos claros** do que pode dar errado se assumir
+- ✅ **SUGERIR opções práticas** baseadas em experiência
+- ✅ **DOCUMENTAR decisões** em DECISIONS.md simples (não precisa ADR formal)
+- ✅ **PERGUNTAR sobre edge cases** que vão te acordar de madrugada
+- ✅ **QUESTIONAR premissas** que podem virar bugs silenciosos
+
+#### ❌ VOCÊ NÃO DEVE:
+- ❌ **Assumir** porque "deve ser assim" (spoiler: não é)
+- ❌ **Prosseguir com incertezas** (você vai pagar o preço depois)
+- ❌ **Implementar "quick and dirty"** sem perguntar (não existe quick, só dirty)
+- ❌ **Ignorar edge cases** (eles SEMPRE aparecem em produção)
+- ❌ **Tomar decisões críticas** sem confirmar (você é assistente, não dono)
+- ❌ **Criar complexidade** sem questionar se precisa mesmo
+
+### 🎯 Tipos de Dúvidas que São Bloqueantes (Solo Dev)
+
+#### 1. **Dúvidas sobre Requisitos** (Você é o PO também)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual deve ser o comportamento quando usuário inserir valor negativo?"
+  ⚠️ RISCO: Assumir = pode quebrar fluxo principal
+  💡 Sugestão: Rejeitar com erro claro? Aceitar como 0? Valor absoluto?
+  
+- "A validação deve ser em tempo real ou apenas ao submeter?"
+  ⚠️ RISCO: Tempo real = mais código + complexidade
+  💡 Sugestão: Começar simples (submit), adicionar real-time depois se precisar
+  
+- "Devo implementar cache para esta operação?"
+  ⚠️ RISCO: Cache = complexidade + bugs de invalidação
+  💡 Sugestão: Fazer sem cache primeiro. Adicionar só se performance for problema REAL
+  
+- "Esta feature é MVP ou nice-to-have?"
+  ⚠️ RISCO: Perder tempo em feature que ninguém vai usar
+  💡 Sugestão: MVP primeiro. Sempre.
+```
+
+#### 2. **Dúvidas sobre Arquitetura** (Simplicidade vs Flexibilidade)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Devo criar novo módulo ou adicionar ao existente?"
+  ⚠️ RISCO: Novo módulo = overhead. Adicionar ao existente = acoplamento
+  💡 Análise: Quantas linhas? Se < 200, adicionar. Se > 500, novo módulo.
+  
+- "Devo usar herança ou composição?"
+  ⚠️ RISCO: Herança = difícil de mudar depois
+  💡 Sugestão: Preferir composição. Você está solo, simplicidade > elegância
+  
+- "Qual padrão de design usar aqui?"
+  ⚠️ RISCO: Pattern overengineering = código difícil de manter sozinho
+  💡 Sugestão: KISS primeiro. Pattern só se complexidade justificar
+  
+- "Devo abstrair isso agora ou depois que precisar?"
+  ⚠️ RISCO: Abstrair cedo = YAGNI. Abstrair tarde = refactor doloroso
+  💡 Regra: Abstrair quando usar 3ª vez, não antes
+```
+
+#### 3. **Dúvidas sobre Integração** (Você Mantém Tudo)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Devo modificar função existente ou criar nova?"
+  ⚠️ RISCO: Modificar = pode quebrar uso existente (sem testes = não vai saber)
+  💡 Sugestão: Criar nova se mudar contrato. Testar AMBAS.
+  
+- "Esta feature depende de módulo X estar pronto?"
+  ⚠️ RISCO: Dependência = bloqueio
+  💡 Sugestão: Pode mockar temporariamente?
+  
+- "API deve ser versioned desde já?"
+  ⚠️ RISCO: Versioning agora = overhead. Sem versioning = breaking changes doem
+  💡 Sugestão: Se API pública (usada por outros), versionar. Se interna, YAGNI.
+```
+
+#### 4. **Dúvidas sobre Dados** (Corrupção é Seu Pesadelo)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Qual o formato esperado dos dados?"
+  ⚠️ RISCO: Formato errado = corrupção silenciosa
+  💡 Sugestão: Validar SEMPRE input. Parsers falham.
+  
+- "Como lidar com dados ausentes?"
+  ⚠️ RISCO: None/null propagando = bugs aleatórios
+  💡 Opções: Default value? Erro explícito? Optional type?
+  
+- "Preciso migração para dados existentes?"
+  ⚠️ RISCO CRÍTICO: Esquecer migração = dados antigos quebrados
+  💡 Sugestão: Sempre assumir que dados existem. Planejar migração.
+  
+- "Dados precisam ser persistidos ou cache é OK?"
+  ⚠️ RISCO: Perder dados = perder trabalho
+  💡 Sugestão: Se usuário espera dados persistirem, persista. Óbvio mas esquecido.
+```
+
+#### 5. **Dúvidas sobre Comportamento** (Bugs de Produção)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "O que acontece se operação falhar?"
+  ⚠️ RISCO CRÍTICO: Falha sem tratamento = app quebrado
+  💡 Opções: Retry? Rollback? Mostrar erro? Logar e continuar?
+  
+- "Timeout: quanto tempo é aceitável?"
+  ⚠️ RISCO: Timeout muito longo = UX ruim. Muito curto = falhas desnecessárias
+  💡 Sugestão: 5s para operações rápidas, 30s para lentas, configurável
+  
+- "Precisa ser transacional (all-or-nothing)?"
+  ⚠️ RISCO: Transação parcial = estado inconsistente
+  💡 Sugestão: Se múltiplas operações relacionadas, SIM
+  
+- "Como usuário sabe que operação terminou?"
+  ⚠️ RISCO: Operação assíncrona sem feedback = usuário perdido
+  💡 Sugestão: Sempre dar feedback (spinner, mensagem, callback)
+```
+
+#### 6. **Dúvidas sobre Testes** (Você é o QA)
+```markdown
+❓ Exemplos de perguntas obrigatórias:
+- "Quais edge cases devo testar?"
+  ⚠️ RISCO: Edge case não testado = bug em produção garantido
+  💡 Checklist: Vazio, null, muito grande, negativo, duplicado, concorrente
+  
+- "Preciso mockar dependências externas?"
+  ⚠️ RISCO: Teste que depende de API externa = flaky test = frustração
+  💡 Sugestão: SEMPRE mockar APIs externas. Sempre.
+  
+- "Quanto de cobertura é suficiente?"
+  ⚠️ RISCO: 100% = perder tempo. 0% = bugs garantidos
+  💡 Sugestão Solo: 70% é bom. Focar em lógica crítica e edge cases.
+  
+- "Como testar isso sem quebrar produção?"
+  ⚠️ RISCO: Testar em produção = usuários são beta testers involuntários
+  💡 Sugestão: Feature flags, ambiente staging, testes locais rigorosos
+```
+
+### 📋 Processo de Esclarecimento de Dúvidas (Solo Pragmático)
+
+#### Passo 1: Identificar Dúvidas (Checklist Rápido)
+```markdown
+Antes de codar:
+
+[ ] Sei EXATAMENTE o que implementar?
+[ ] Sei como testar que funciona?
+[ ] Sei o que fazer quando der errado (vai dar)?
+[ ] Considerei edge cases óbvios?
+[ ] Isso vai me acordar de madrugada? (Se sim: PERGUNTAR)
+
+Se QUALQUER resposta for "acho que sim": você TEM dúvida. PARE.
+```
+
+#### Passo 2: Formular Perguntas (Direto ao Ponto)
+```markdown
+Características de boas perguntas (solo):
+
+✅ Diretas: "Fazer X ou Y?"
+✅ Práticas: Focam em implementação real
+✅ Risk-aware: Mencionam o que pode dar errado
+✅ Opções claras: A, B ou C? Não perguntas abertas demais
+✅ Trade-offs: Prós/contras de cada opção
+
+❌ Evitar: Perguntas filosóficas sobre "melhor approach"
+❌ Evitar: Perguntas que você pode responder testando
+```
+
+**Exemplo de Perguntas Bem Formuladas (Solo)**:
+```markdown
+❓ **DÚVIDAS: Implementar Validação de CPF**
+
+**Contexto**: Cadastro de usuário precisa validar CPF.
+
+**1. FORMATO** [2min pra decidir, 2h pra corrigir depois]
+   ❓ Aceitar com pontos/traços (XXX.XXX.XXX-XX) ou só números?
+   
+   **Opções**:
+   A) Só números → Usuário tem que limpar (UX ruim)
+   B) Aceitar ambos → Normalizar internamente (+ 10 linhas código)
+   
+   ⚠️ **Risco de assumir**:
+   - Opção A: Usuários vão copiar/colar com formatação e vai dar erro
+   - Opção B: Pode ter edge case em formatação que você não previu
+   
+   💡 **Minha recomendação**: B (aceitar ambos)
+   - Trade-off: 10 linhas a mais vs UX muito melhor
+   - Custo: 5min implementar vs economizar suporte futuro
+   
+   ✅ **Confirma opção B?**
+
+**2. VALIDAÇÃO** [CRÍTICO: Pode virar bug de segurança]
+   ❓ Validar dígitos verificadores ou só formato?
+   
+   **Opções**:
+   A) Só formato → Rápido mas aceita CPF inválido
+   B) Validar dígitos → + 20 linhas mas garante CPF real
+   
+   ⚠️ **Risco de assumir**:
+   - Opção A: Alguém vai cadastrar 111.111.111-11 e vai passar
+   - Opção B: Algoritmo de validação errado = rejeitar CPF válido
+   
+   💡 **Minha recomendação**: B (validar)
+   - Trade-off: 10min implementar vs prevenir dados inválidos
+   - Tem lib pronta pra isso (não reinventar roda)
+   
+   ✅ **Confirma opção B? Posso usar lib X?**
+
+**3. ERRO** [Vai impactar UX direto]
+   ❓ Como notificar usuário de CPF inválido?
+   
+   **Opções**:
+   A) Return None → Frontend precisa checar
+   B) Raise Exception → Frontend precisa try/catch
+   C) Return (bool, message) → Frontend mostra mensagem
+   
+   ⚠️ **Risco de assumir**:
+   - Opção A/B: Frontend pode não tratar bem
+   - Opção C: + código mas experiência melhor
+   
+   💡 **Minha recomendação**: C
+   - Mensagem clara: "CPF inválido. Verifique os números."
+   - Frontend mostra direto pro usuário
+   
+   ✅ **Confirma opção C?**
+
+**4. EDGE CASES** [Os que vão aparecer em produção]
+   ❓ CPFs sequenciais (111.111.111-11) rejeitar?
+   ❓ CPF vazio/null: erro ou silencioso?
+   
+   ⚠️ **Risco**: Esses SEMPRE aparecem em produção
+   
+   💡 **Minha sugestão**:
+   - Sequenciais: REJEITAR (inválidos)
+   - Vazio: ERRO explícito (não silencioso)
+   
+   ✅ **Confirma?**
+
+---
+
+**DECISÃO DEPOIS DE APROVADO**:
+- Vou documentar em DECISIONS.md: "CPF: Valida dígitos, aceita formatação, rejeita sequenciais"
+- Isso vai me salvar quando esquecer daqui 6 meses
+
+**PRÓXIMOS PASSOS**:
+1. Você confirma opções acima (30 segundos)
+2. Eu implemento (30 minutos)
+3. Testo edge cases (10 minutos)
+4. Commit + push
+5. Durmo tranquilo sabendo que funciona
+
+**Se você NÃO confirmar**: Vou assumir e vou estar debugando às 2AM. Sua escolha.
+```
+
+#### Passo 3: Aguardar Confirmação (Mas Sem Travar Tudo)
+```markdown
+Ação da IA (Solo):
+
+🛑 PARAR implementação da parte com dúvida
+📝 PERGUNTAR claramente com opções práticas
+💡 SUGERIR o que faria (com justificativa)
+⚠️ AVISAR riscos de assumir errado
+⏳ AGUARDAR confirmação
+
+💡 **Pragmatismo Solo**: 
+- Se dúvida bloqueia tudo: ESPERAR
+- Se dúvida é em feature secundária: Pode trabalhar em outra parte
+- Se dúvida é minor: Pode implementar com TODO marcado
+```
+
+#### Passo 4: Documentar Decisão (Simples e Prático)
+```markdown
+Após confirmação:
+
+[ ] Anotar decisão em DECISIONS.md (não precisa ADR formal)
+[ ] Formato simples:
+    - Data: 08/01/2026
+    - Decisão: "CPF validado com dígitos, aceita formatação"
+    - Por quê: "Prevenir dados inválidos, melhor UX"
+    - Trade-off: "+ 30 linhas código vs qualidade dados"
+[ ] Commit decisão JUNTO com código
+[ ] Future-you vai agradecer
+
+Formato DECISIONS.md:
+```markdown
+## 2026-01-08: Validação de CPF
+
+**Decisão**: Validar dígitos verificadores, aceitar formatação, rejeitar sequenciais
+
+**Contexto**: 
+- Usuários podem copiar CPF com ou sem formatação
+- Precisamos garantir CPF real (não 111.111.111-11)
+
+**Opções consideradas**:
+1. Só formato: Rápido mas inseguro
+2. Validar dígitos: + código mas dados confiáveis ✅
+
+**Trade-offs**:
+- ✅ Dados confiáveis, menos bugs futuros
+- ❌ + 30 linhas código (aceitável)
+
+**Consequências**:
+- Usuários não conseguem cadastrar CPF inválido
+- Menos suporte para dados errados
+- Código mais robusto
+
+**Referências**:
+- Lib usada: `validate-br` (não reinventar)
+- Commit: abc123
+```
+```
+
+### 🎯 Exemplo Prático Solo
+
+#### Exemplo: Implementar Sistema de Cache
+
+**Tarefa Recebida**: "Adicionar cache para melhorar performance"
+
+**❌ ERRADO (IA assume)**:
+```python
+# IA assume Redis e adiciona dependência pesada
+import redis
+cache = redis.Redis(host='localhost')
+
+def get_data(key):
+    cached = cache.get(key)
+    if cached:
+        return cached
+    # ... buscar dados ...
+# Resultado: Dev solo agora tem que manter Redis localmente
+# + complexidade deployment + bugs de invalidação
+```
+
+**✅ CORRETO (IA pergunta pragmaticamente)**:
+```markdown
+❓ **DÚVIDAS: Sistema de Cache**
+
+**Contexto**: Você pediu cache pra melhorar performance.
+
+⚠️ **PARE**: Antes de adicionar cache (que é complexidade), preciso entender:
+
+**1. PROBLEMA REAL?** [CRÍTICO: Não otimizar prematuramente]
+   ❓ Qual operação está lenta?
+   ❓ Mediu quanto tempo está demorando?
+   ❓ Performance é problema REAL ou premature optimization?
+   
+   ⚠️ **Risco de assumir**:
+   - Adicionar cache sem medir = complexidade desnecessária
+   - Cache adiciona: bugs de invalidação, memória, deployment
+   
+   💡 **Sugestão**: MEDIR PRIMEIRO
+   - Adicionar simples `print(f"Took {elapsed}s")` 
+   - Se < 100ms: Não precisa cache (seriously)
+   - Se > 1s: OK, vamos falar de cache
+   
+   ✅ **Você mediu? Quanto tempo está demorando?**
+
+**2. TIPO DE CACHE** [Simplicidade vs Performance]
+   
+   Se REALMENTE precisa cache:
+   
+   **Opções** (da mais simples pra mais complexa):
+   
+   A) **Dict in-memory** (mais simples)
+      - ✅ Zero dependências, 10 linhas código
+      - ❌ Perde cache ao reiniciar app
+      - ❌ Não compartilha entre instâncias
+      - 💡 Bom para: Dev solo, single instance, dados não críticos
+   
+   B) **Diskcache** (meio-termo)
+      - ✅ Persiste cache no disco
+      - ✅ Fácil de usar (`pip install diskcache`)
+      - ❌ Mais lento que memória
+      - 💡 Bom para: Dados que mudam pouco, persistência importante
+   
+   C) **Redis** (mais robusto)
+      - ✅ Rápido, robusto, features avançadas
+      - ❌ Dependência externa (rodar Redis localmente + produção)
+      - ❌ Mais complexidade (connection pool, error handling)
+      - 💡 Bom para: Múltiplas instâncias, escala, cache distribuído
+   
+   ⚠️ **Risco de assumir**:
+   - Opção C (Redis): Você vai gastar 2h configurando Redis em vez de 10min com Dict
+   - Opção A (Dict): Se precisar múltiplas instâncias depois, vai ter que refatorar
+   
+   💡 **Minha recomendação solo**: B (Diskcache)
+   - Trade-off perfeito pra solo dev
+   - `pip install diskcache` → 5 linhas código
+   - Persiste cache, sem dependência externa rodando
+   - Upgrade pra Redis depois é fácil se precisar escalar
+   
+   ✅ **Qual opção faz mais sentido pro seu caso?**
+
+**3. INVALIDAÇÃO** [O HARD PROBLEM do cache]
+   ❓ Quando invalidar cache?
+   
+   **Opções**:
+   A) Time-based: Cache expira após X minutos
+   B) Event-based: Invalida quando dados mudam
+   C) Manual: Endpoint pra limpar cache
+   D) Never: Cache vive pra sempre (perigoso!)
+   
+   ⚠️ **Risco CRÍTICO**:
+   - Cache inválido = usuário vê dados velhos/errados
+   - Phil Karlton: "There are only two hard things in Computer Science: cache invalidation and naming things."
+   
+   💡 **Minha recomendação**:
+   - Começar com A (time-based): 5 minutos TTL
+   - Motivo: Simples, não falha
+   - Ajustar TTL baseado em quão "fresco" dados precisam ser
+   
+   ✅ **Quanto tempo dados podem ficar cached?**
+
+**4. TESTE** [Cache bugs são sutis]
+   ❓ Como vou testar cache?
+   
+   **Cenários obrigatórios**:
+   - [ ] Cache hit (dados cached retornam rápido)
+   - [ ] Cache miss (busca dados, cacheia, próxima vez é hit)
+   - [ ] Cache expiration (dados velhos são renovados)
+   - [ ] Cache error (se cache falhar, app continua funcionando)
+   
+   ⚠️ **Risco**: Cache quebrado = app 100% mais lento (pior que sem cache!)
+   
+   💡 **Sugestão**: 
+   - Implementar cache como decorator @cached
+   - Fácil de adicionar/remover
+   - Fácil de testar
+   
+   ✅ **Testes parecem suficientes?**
+
+---
+
+**RESUMO DA RECOMENDAÇÃO**:
+
+Se performance É problema real (medido > 500ms):
+1. Usar **Diskcache** (melhor custo-benefício solo dev)
+2. TTL: **5 minutos** (ajustar depois se precisar)
+3. Decorator pattern (fácil adicionar/remover)
+4. Testes: cache hit/miss/expiration/error
+
+**Código**:
+```python
+from diskcache import Cache
+cache = Cache('./cache_dir')
+
+def cached(ttl=300):  # 5min default
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            key = f"{func.__name__}:{args}:{kwargs}"
+            result = cache.get(key)
+            if result is None:
+                result = func(*args, **kwargs)
+                cache.set(key, result, expire=ttl)
+            return result
+        return wrapper
+    return decorator
+
+@cached(ttl=300)
+def expensive_operation():
+    # ... operação lenta ...
+```
+
+**Trade-offs**:
+- ✅ 20 linhas código, 1 dependência leve
+- ✅ Funciona offline (sem Redis rodando)
+- ✅ Fácil de testar e debugar
+- ❌ Não compartilha entre instâncias (ok pra solo)
+
+**Se eu assumir Redis sem perguntar**:
+- Você vai gastar 2h instalando/configurando Redis
+- Mais 1h debugando connection issues
+- Mais complexidade no deploy
+- Overkill pra 90% dos casos solo dev
+
+**DECISÃO**: Qual caminho seguir? Ou ainda não mediu performance?
+```
+
+### ✅ Checklist de Perguntas Obrigatórias (Solo Pragmático)
+
+**Antes de implementar (checklist 2 minutos)**:
+
+```markdown
+[ ] **Clareza Total**
+   - [ ] Sei exatamente o QUE fazer?
+   - [ ] Sei COMO testar que funciona?
+   - [ ] Sei o que fazer quando FALHAR?
+   
+[ ] **Edge Cases** (sempre aparecem)
+   - [ ] E se input for vazio/null/muito grande?
+   - [ ] E se operação demorar demais/falhar?
+   - [ ] E se usuário fizer algo inesperado?
+   
+[ ] **Simplicidade** (YAGNI check)
+   - [ ] Isso é realmente necessário AGORA?
+   - [ ] Posso fazer versão mais simples primeiro?
+   - [ ] Estou overengineering?
+   
+[ ] **Manutenibilidade** (future-you check)
+   - [ ] Vou entender esse código daqui 6 meses?
+   - [ ] Isso vai ser fácil de debugar sozinho?
+   - [ ] Documentei decisões importantes?
+   
+[ ] **Risco** (sleep-at-night check)
+   - [ ] Isso pode quebrar algo existente?
+   - [ ] Isso pode corromper dados?
+   - [ ] Isso pode criar security issue?
+
+Se ALGUM item for ❌ ou "talvez": VOCÊ TEM DÚVIDA. Perguntar agora ou debugar depois.
+```
+
+### 🚨 Consequências de NÃO Fazer Perguntas (Solo Reality Check)
+
+**O que acontece quando você assume ao invés de perguntar (experiência real)**:
+
+1. **❌ Debug Solitário de Madrugada**
+   - 2AM: Bug em produção
+   - 2:15AM: Você tentando lembrar por que implementou daquele jeito
+   - 3AM: Descobrindo que assumiu errado
+   - 4AM: Corrigindo + testando + deploy de emergência
+   - 6AM: Finalmente dormindo
+   - **Custo**: 4h sono + stress + código de qualidade duvidosa
+
+2. **❌ Retrabalho Caro**
+   - "Fazer certo" levaria 2h com perguntas
+   - "Corrigir" depois leva 6h (entender o que fez + refatorar + re-testar + re-deploy)
+   - **Custo**: 4h desperdiçadas + frustração
+
+3. **❌ Bugs Silenciosos**
+   - Assumiu que input sempre é válido → crash aleatório depois
+   - Assumiu que API sempre responde → timeout não tratado
+   - Assumiu edge case não acontece → acontece na primeira semana
+   - **Custo**: Credibilidade + usuários frustrados
+
+4. **❌ Dívida Técnica Solo**
+   - Código confuso que só você entende (e mal)
+   - Decisões não documentadas
+   - Refatorar vira cada vez mais caro
+   - **Custo**: Velocidade de desenvolvimento desacelera
+
+5. **❌ Perda de Momentum**
+   - Animado pra desenvolver feature nova
+   - Mas preso corrigindo bug de semana passada
+   - Porque assumiu ao invés de perguntar
+   - **Custo**: Motivação + tempo
+
+### 🎯 Benefícios de Fazer Perguntas (Solo Pragmático)
+
+**O que você GANHA ao perguntar antes (experiência real)**:
+
+1. **✅ Dorme Tranquilo**
+   - Código funciona porque foi pensado
+   - Edge cases tratados
+   - Decisões documentadas
+   - **Ganho**: Saúde mental + qualidade de vida
+
+2. **✅ Economia de Tempo Brutal**
+   - 5min perguntando vs 4h corrigindo
+   - Implementa certo na primeira tentativa
+   - Zero retrabalho
+   - **Ganho**: 4h pra fazer features úteis
+
+3. **✅ Código Manutenível**
+   - Future-you entende o código
+   - Decisões estão documentadas
+   - Debugging é rápido
+   - **Ganho**: Velocidade constante de desenvolvimento
+
+4. **✅ Menos Stress**
+   - Bugs em produção são raros
+   - Quando acontecem, são rápidos de corrigir
+   - Você tem confiança no código
+   - **Ganho**: Trabalho mais prazeroso
+
+5. **✅ Momentum Mantido**
+   - Não fica preso corrigindo bugs velhos
+   - Pode focar em features novas
+   - Progresso visível constante
+   - **Ganho**: Motivação + produtividade
+
+### 📊 Métricas de Sucesso (Solo Dev)
+
+**Indicadores que você está fazendo perguntas certas**:
+
+- ✅ **Dorme 8h por noite**: Sem bugs de madrugada acordando você
+- ✅ **Taxa retrabalho < 10%**: Implementa certo na primeira vez
+- ✅ **Commits limpos**: Poucos commits de "fix" logo após feature
+- ✅ **Bugs em produção raros**: < 1 por mês
+- ✅ **Velocidade constante**: Não desacelera por dívida técnica
+- ✅ **Código compreensível**: Você entende o que escreveu 6 meses atrás
+- ✅ **Confiança alta**: Deploys sem medo
+- ✅ **Trabalho prazeroso**: Desenvolver é divertido, não estressante
+
+### 🎓 Conclusão (Solo Dev)
+
+> **"É melhor gastar 5 minutos perguntando agora do que 4 horas debugando sozinho às 2AM depois. Escolha sabiamente."**
+
+**Mensagem para IAs Assistindo Solo Devs**:
+> "NUNCA deixe dev solo assumir sem perguntar. SEMPRE questione quando houver dúvida. MOSTRE os riscos claros do que pode dar errado. SUGIRA opções práticas. O dev solo não tem time pra corrigir erros dele - ele vai corrigir sozinho, provavelmente de madrugada, provavelmente estressado. Perguntas são sua forma de proteger o sono e sanidade mental dele. Use esse poder."
+
+**Regra de Ouro para IAs (Solo Context)**:
+> **"Quando em dúvida, PARE e PERGUNTE. Mostre os riscos. Sugira opções. Documente decisões simples. Proteja o sono do dev solo - assumir errado = ele debugando às 2AM sozinho. Dúvida é BLOQUEANTE até confirmar."**
 
 ---
 

@@ -3,11 +3,25 @@
 **Autor**: Josué Amaral  
 **Data de Criação**: 02 de Dezembro de 2025  
 **Baseado em**: Protocolo Simplicidade 1 v2.7  
-**Versão**: 3.2  
+**Versão**: 3.3  
 **Última Atualização**: 08 de Janeiro de 2026  
 **Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
 
 **Changelog v3.2** (08/01/2026):
+**Changelog v3.3** (08/01/2026):
+- ✅ **[PERGUNTAS BLOQUEANTES ENTERPRISE]** Adicionada seção obrigatória: Perguntas Bloqueantes para Dúvidas (Enterprise)
+- ✅ Dúvidas são BLOQUEANTES em ambiente enterprise até validação formal com stakeholders
+- ✅ IA DEVE documentar perguntas formalmente (Confluence, Jira, ADR)
+- ✅ Processo enterprise: Identificar stakeholders → Formular perguntas estruturadas → Aguardar aprovações formais → Documentar decisões
+- ✅ 6 tipos de dúvidas bloqueantes: Requisitos de Negócio, Arquitetura, Integração/Impacto, Dados/Compliance, Comportamento/Erros, Testes/Qualidade
+- ✅ Validação multilateral obrigatória: PO (negócio) + Tech Lead (técnico) + Arquiteto (arquitetura) + Security (compliance)
+- ✅ Exemplos enterprise completos: CPF validation, Discount calculation, Cache system (com análise de impacto e riscos)
+- ✅ Checklist enterprise de 8 categorias antes de implementar (incluindo compliance e aprovações formais)
+- ✅ Consequências de não perguntar: Impacto financeiro, violação compliance, impacto em múltiplos times, perda confiança
+- ✅ Métricas de sucesso: Retrabalho <5%, zero incidentes por má interpretação, 100% decisões documentadas, compliance 100%
+- ✅ Regra de ouro enterprise: "Quando em dúvida, PARE, DOCUMENTE, CONSULTE stakeholders, AGUARDE aprovação formal"
+- ✅ Documentação ADR obrigatória para decisões arquiteturais resultantes de esclarecimentos
+
 - ✅ **[INTERNACIONALIZAÇÃO ENTERPRISE]** Adicionada seção obrigatória: i18n - Tradução (Enterprise)
 - ✅ IA DEVE perguntar formalmente aos stakeholders (PO + Tech Lead + Arquiteto)
 - ✅ Decisão documentada em ADR obrigatório
@@ -869,6 +883,685 @@ Preciso esclarecer requisitos antes de implementar:
 
 **Resultado esperado enterprise**:
 > Implementação que atende **exatamente** requisitos de negócio e técnicos, **validada formalmente** por stakeholders, **conforme com arquitetura**, executada com **profissionalismo enterprise**, e **rastreável para auditorias**.
+
+---
+
+## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas (Enterprise)
+
+> **CRÍTICO PARA IAs EM AMBIENTE ENTERPRISE**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer. Em ambiente enterprise, todas as dúvidas devem ser **documentadas formalmente** e **validadas com stakeholders apropriados**.
+
+### 🚫 Dúvidas São Bloqueantes
+
+**Regra Fundamental Enterprise**:
+> **A dúvida sobre a tarefa é BLOQUEANTE.**
+>
+> A inteligência artificial **NÃO PODE CONTINUAR** até sanar **TODAS as suas dúvidas** sobre o que a mesma deve fazer E obter **validação formal dos stakeholders apropriados**.
+
+### 🏢 Processo Enterprise de Esclarecimento
+
+**Diferencial Enterprise**:
+- ✅ Perguntas devem ser **documentadas formalmente** (Confluence, Jira, ADR)
+- ✅ Respostas devem ter **aprovação registrada** de stakeholders
+- ✅ Decisões críticas requerem **validação de múltiplos stakeholders** (PO + Tech Lead + Arquiteto)
+- ✅ Impacto em outros times deve ser **analisado e comunicado**
+- ✅ Compliance e segurança devem ser **sempre considerados**
+
+### 🤖 Esta Regra é Para Assistentes de IA (Enterprise Context)
+
+**Se você é uma IA (Cursor, GitHub Copilot, etc.) em ambiente enterprise:**
+
+#### ✅ VOCÊ DEVE:
+- ✅ **PARAR imediatamente** ao identificar qualquer dúvida sobre a tarefa
+- ✅ **FORMULAR perguntas estruturadas** com contexto formal completo
+- ✅ **DOCUMENTAR perguntas** em ferramenta apropriada (Jira, Confluence)
+- ✅ **IDENTIFICAR stakeholders** apropriados para cada tipo de dúvida
+- ✅ **AGUARDAR respostas formais** e aprovações registradas
+- ✅ **VALIDAR impacto** em outros módulos/times antes de prosseguir
+- ✅ **QUESTIONAR requisitos de compliance** quando aplicável
+- ✅ **CRIAR ADR** para decisões arquiteturais resultantes
+
+#### ❌ VOCÊ NÃO DEVE:
+- ❌ **Assumir ou adivinhar** o que stakeholders querem
+- ❌ **Prosseguir sem aprovação formal** registrada
+- ❌ **Implementar decisões críticas** sem validação de múltiplos stakeholders
+- ❌ **Ignorar impacto** em outros times ou módulos
+- ❌ **Tomar decisões de arquitetura** sem consultar arquiteto
+- ❌ **Violar compliance** por assumir que algo está OK
+
+### 🎯 Tipos de Dúvidas que São Bloqueantes (Enterprise)
+
+#### 1. **Dúvidas sobre Requisitos de Negócio**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "Qual deve ser o comportamento quando usuário inserir valor negativo?"
+  → Stakeholder: Product Owner
+  → Documentar em: User Story / Jira
+  
+- "A funcionalidade deve validar email em tempo real ou apenas ao submeter?"
+  → Stakeholder: Product Owner + UX Lead
+  → Impacto: Performance, experiência do usuário
+  
+- "Qual a prioridade entre performance e precisão neste cálculo?"
+  → Stakeholder: Product Owner + Tech Lead
+  → Documentar em: ADR se decisão arquitetural
+  
+- "Devo implementar cache para esta operação?"
+  → Stakeholder: Tech Lead + Arquiteto
+  → Análise: Trade-off complexidade vs performance
+```
+
+#### 2. **Dúvidas sobre Arquitetura**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "Devo criar um novo módulo ou adicionar ao módulo X existente?"
+  → Stakeholder: Arquiteto + Tech Lead
+  → Documentar em: ADR obrigatório
+  → Impacto: Estrutura do sistema
+  
+- "Esta lógica pertence ao CORE, CLI ou GUI?"
+  → Stakeholder: Arquiteto
+  → Validar: Princípios de separação de responsabilidades
+  
+- "Devo usar herança ou composição para esta funcionalidade?"
+  → Stakeholder: Tech Lead + Arquiteto
+  → Documentar em: Code review comments
+  
+- "Qual o padrão de design mais apropriado aqui?"
+  → Stakeholder: Arquiteto
+  → Considerar: Padrões já estabelecidos no projeto
+```
+
+#### 3. **Dúvidas sobre Integração e Impacto**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "Esta funcionalidade deve se integrar com o módulo Y do time Z?"
+  → Stakeholder: Tech Lead + Tech Lead do time Z
+  → Ação: Reunião de alinhamento entre times
+  → Documentar em: Confluence + notificar times afetados
+  
+- "Devo modificar a API pública ou criar uma nova?"
+  → Stakeholder: Arquiteto + Product Manager
+  → Impacto: Breaking change? Versioning necessário?
+  → Documentar em: ADR + API changelog
+  
+- "Como esta feature se relaciona com funcionalidade X já implementada?"
+  → Stakeholder: Tech Lead + desenvolvedor original
+  → Análise: Reuso vs duplicação
+  
+- "Preciso manter compatibilidade com versões anteriores?"
+  → Stakeholder: Product Manager + Tech Lead
+  → Impacto: Estratégia de rollout, comunicação com clientes
+```
+
+#### 4. **Dúvidas sobre Dados e Compliance**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "Qual o formato esperado dos dados de entrada?"
+  → Stakeholder: Product Owner + Tech Lead
+  → Validar: Schema existente, backward compatibility
+  
+- "Estes dados contêm PII (informação pessoal identificável)?"
+  → Stakeholder: Security Officer + Legal
+  → Compliance: LGPD, GDPR
+  → Documentar em: Privacy Impact Assessment
+  
+- "Como devo lidar com dados ausentes ou inválidos?"
+  → Stakeholder: Product Owner + Tech Lead
+  → Documentar: Error handling strategy
+  
+- "Qual o período de retenção destes dados?"
+  → Stakeholder: Legal + DBA
+  → Compliance: Data retention policies
+```
+
+#### 5. **Dúvidas sobre Comportamento e Erros**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "O que deve acontecer se a operação falhar?"
+  → Stakeholder: Product Owner + SRE
+  → Definir: Retry policy, circuit breaker, fallback
+  → Documentar em: Runbook
+  
+- "Devo fazer rollback ou logging em caso de erro?"
+  → Stakeholder: Tech Lead + SRE
+  → Considerar: Idempotência, compensating transactions
+  
+- "Como notificar usuário sobre erros?"
+  → Stakeholder: Product Owner + UX Lead
+  → Considerar: Mensagens user-friendly, suporte
+  
+- "Qual o SLA para esta operação?"
+  → Stakeholder: Product Manager + SRE
+  → Documentar em: SLA agreement + monitoring
+```
+
+#### 6. **Dúvidas sobre Testes e Qualidade**
+```markdown
+❓ Exemplos de perguntas obrigatórias (Enterprise):
+- "Quais edge cases específicos devo testar?"
+  → Stakeholder: QA Lead + Product Owner
+  → Documentar em: Test plan
+  
+- "Qual o critério de aceitação para esta funcionalidade?"
+  → Stakeholder: Product Owner
+  → Fonte: Definition of Done + acceptance criteria
+  
+- "Qual a estratégia de teste para integração com sistema X?"
+  → Stakeholder: QA Lead + Tech Lead
+  → Considerar: Mocks vs environment de teste
+  
+- "Qual a cobertura de testes esperada?"
+  → Stakeholder: Tech Lead
+  → Padrão: Geralmente 80%+ em enterprise
+```
+
+### 📋 Processo de Esclarecimento de Dúvidas (Enterprise)
+
+#### Passo 1: Identificar Dúvidas e Stakeholders
+```markdown
+Antes de iniciar qualquer tarefa:
+
+[ ] Ler especificação completa da tarefa
+[ ] Revisar ADRs relacionados
+[ ] Identificar TODOS os pontos de incerteza
+[ ] Listar TODAS as perguntas necessárias
+[ ] Classificar dúvidas por tipo e criticidade
+[ ] IDENTIFICAR stakeholders apropriados para cada dúvida
+[ ] ANALISAR impacto em outros times/módulos
+```
+
+#### Passo 2: Formular Perguntas Estruturadas (Enterprise Format)
+```markdown
+Características de boas perguntas enterprise:
+
+✅ Específicas: "Qual o comportamento esperado quando X?"
+✅ Contextualizadas: Incluem informação de negócio e técnica
+✅ Stakeholder-aware: Indicam quem deve responder
+✅ Impact-aware: Mencionam impacto potencial
+✅ Formais: Linguagem profissional adequada
+✅ Documentáveis: Podem ser registradas formalmente
+✅ Priorizadas: Críticas (bloqueantes) primeiro
+
+❌ Evitar perguntas vagas: "Como devo fazer isso?"
+❌ Evitar perguntas informais demais
+❌ Evitar perguntas sem contexto suficiente
+```
+
+**Exemplo de Perguntas Bem Formuladas (Enterprise)**:
+```markdown
+📋 **DÚVIDAS BLOQUEANTES: Implementar Validação de CPF**
+**Issue**: PROJ-1234
+**Solicitante**: IA Assistant
+**Data**: 08/01/2026
+**Prioridade**: 🔴 Alta (bloqueia implementação)
+
+---
+
+**CONTEXTO**:
+Implementação de validação de CPF no módulo de cadastro de usuários. 
+Esta funcionalidade impacta: módulo de autenticação, compliance LGPD, integração com sistema de pagamentos.
+
+**STAKEHOLDERS A CONSULTAR**:
+- Product Owner: Requisitos de negócio
+- Tech Lead: Decisões técnicas
+- Security Officer: Compliance LGPD
+- Legal: Tratamento de dados sensíveis
+
+---
+
+**1. VALIDAÇÃO DE FORMATO** [Product Owner + Tech Lead]
+   ❓ Devo aceitar CPF com pontuação (XXX.XXX.XXX-XX) ou apenas números?
+   
+   💡 **Minha análise**:
+   - Aceitar ambos formatos (usabilidade)
+   - Normalizar internamente para apenas números
+   - Armazenar sem formatação (padrão internacional)
+   
+   🎯 **Impacto**: 
+   - UX: Usuários podem copiar/colar com ou sem formatação
+   - Integração: API deve aceitar ambos formatos
+   - Banco: Sempre armazenar normalizado
+   
+   ✅ **Aguardo aprovação para prosseguir**
+
+**2. VALIDAÇÃO DE DÍGITOS VERIFICADORES** [Tech Lead + Security]
+   ❓ Devo validar os dígitos verificadores ou apenas o formato?
+   
+   💡 **Minha recomendação**: 
+   - SIM, validar dígitos verificadores
+   - Motivo: Prevenir cadastros com CPF inválido (typos, fraude)
+   
+   🎯 **Impacto**: 
+   - Segurança: Reduz risco de fraude
+   - UX: Usuário recebe feedback imediato de erro
+   - Compliance: Dados mais confiáveis
+   
+   ✅ **Aguardo aprovação para prosseguir**
+
+**3. TRATAMENTO DE ERROS** [Product Owner + Tech Lead]
+   ❓ Como devo notificar o usuário de CPF inválido?
+   
+   **Opções**:
+   A) Retornar None/null
+   B) Levantar ValueError/Exception
+   C) Retornar objeto Result com (bool, mensagem)
+   
+   💡 **Minha recomendação**: Opção C
+   - Motivo: Permite UI mostrar mensagem específica
+   - Consistente com padrão do projeto (verificar!)
+   
+   🎯 **Impacto**: 
+   - Frontend deve tratar resposta apropriadamente
+   - Mensagens devem ser i18n (PT/EN)
+   
+   ✅ **Qual opção aprovar?**
+
+**4. CASOS ESPECIAIS E COMPLIANCE** [Security + Legal]
+   ❓ CPFs com todos dígitos iguais (111.111.111-11) devem ser rejeitados?
+   ❓ CPF é dado sensível sob LGPD? Como devo logar/auditar?
+   
+   💡 **Minha análise**:
+   - CPFs sequenciais: Sim, rejeitar (inválidos na prática)
+   - LGPD: CPF é dado pessoal, requer:
+     * Consentimento explícito
+     * Logs de acesso auditáveis
+     * Não logar CPF completo (apenas últimos 3 dígitos)
+   
+   🎯 **Impacto**: 
+   - Compliance: CRÍTICO para LGPD
+   - Logging: Ajustar estratégia de logs
+   - Auditoria: Implementar log de acesso
+   
+   ⚠️ **CRÍTICO**: Decisão de compliance necessária antes de implementar
+   
+   ✅ **Aguardo aprovação de Security + Legal**
+
+**5. INTEGRAÇÃO COM OUTROS MÓDULOS** [Tech Lead + Times afetados]
+   ❓ Esta validação deve ser usada pelo módulo de pagamentos também?
+   ❓ Devo criar lib compartilhada ou manter em cada módulo?
+   
+   💡 **Minha recomendação**:
+   - Criar validador compartilhado em `@empresa/validators`
+   - Motivo: DRY, consistência, manutenção centralizada
+   
+   🎯 **Impacto**: 
+   - Time de pagamentos: Pode substituir validação existente
+   - Time de RH: Pode reusar para cadastro de funcionários
+   - Requer: Comunicação com outros times
+   
+   ✅ **Requer alinhamento com tech leads de outros times**
+
+---
+
+**DOCUMENTAÇÃO REQUERIDA APÓS APROVAÇÕES**:
+- [ ] Criar ADR para decisão de validação compartilhada
+- [ ] Atualizar documentação de API
+- [ ] Criar runbook para tratamento de erros
+- [ ] Documentar compliance LGPD no Privacy Doc
+
+**PRÓXIMOS PASSOS**:
+1. Aguardar respostas dos stakeholders listados
+2. Documentar decisões formalmente
+3. Criar ADR se necessário
+4. Validar plano de implementação com Tech Lead
+5. Obter aprovação final antes de codificar
+
+**PRAZO PARA RESPOSTAS**: 2 dias úteis (prioridade alta)
+**BLOQUEIO**: Implementação não pode iniciar sem estas definições
+```
+
+#### Passo 3: Aguardar Confirmação Formal
+```markdown
+Ação da IA (Enterprise):
+
+🛑 PARAR toda implementação
+📝 DOCUMENTAR perguntas em ferramenta apropriada (Jira, Confluence)
+👥 NOTIFICAR stakeholders apropriados
+📊 INCLUIR análise de impacto e recomendações
+⏳ AGUARDAR respostas formais registradas
+📋 CONFIRMAR que todas aprovações necessárias foram obtidas
+✅ VALIDAR entendimento antes de prosseguir
+```
+
+#### Passo 4: Validar Entendimento e Documentar Decisões
+```markdown
+Após receber respostas:
+
+[ ] Repetir entendimento: "Então, devo fazer X e Y, correto?"
+[ ] Confirmar com CADA stakeholder consultado
+[ ] Esclarecer ambiguidades restantes
+[ ] Documentar decisões formalmente:
+    [ ] Atualizar issue/story com decisões
+    [ ] Criar ADR se decisão arquitetural
+    [ ] Atualizar Confluence com contexto
+    [ ] Registrar aprovações (quem aprovou o quê)
+[ ] Validar impacto com times afetados
+[ ] Obter aprovação final do Tech Lead
+[ ] Confirmar: "Posso prosseguir com implementação?"
+```
+
+### 🎯 Exemplo Prático Enterprise
+
+#### Exemplo: Implementar Cálculo de Desconto (Enterprise)
+
+**Tarefa Recebida**: "Implementar cálculo de desconto no checkout"
+
+**❌ ERRADO (IA assume e implementa)**:
+```python
+# IA assume 10% sem consultar stakeholders - RISCO ALTO!
+def calculate_discount(price):
+    return price * 0.9
+# Resultado: Pode violar regras de negócio, impactar revenue!
+```
+
+**✅ CORRETO (IA faz perguntas estruturadas enterprise)**:
+```markdown
+📋 **DÚVIDAS BLOQUEANTES: Cálculo de Desconto no Checkout**
+**Issue**: ECOM-5678
+**Prioridade**: 🔴 Crítica (impacta revenue)
+**Stakeholders**: Product Owner, Tech Lead, Finance Manager
+
+---
+
+**CONTEXTO**:
+Implementação de desconto no fluxo de checkout. Esta funcionalidade impacta:
+- Revenue (impacto financeiro direto)
+- Integração com gateway de pagamento
+- Relatórios financeiros e contábeis
+- Sistema de cupons existente
+
+---
+
+**1. REGRAS DE NEGÓCIO** [Product Owner + Finance Manager]
+   
+   ❓ **Tipo de Desconto**:
+   - Percentual fixo (ex: 10%)?
+   - Valor fixo (ex: R$ 50)?
+   - Progressivo baseado em valor do pedido?
+   - Combinação de múltiplos tipos?
+   
+   💡 **Recomendação**: Percentual configurável
+   - Flexibilidade para promoções futuras
+   - Padrão do mercado
+   
+   ❓ **Porcentagem/Valor**:
+   - Qual o valor padrão do desconto?
+   - Quem pode configurar (admin, marketing)?
+   - Limite máximo de desconto?
+   
+   🎯 **Impacto Financeiro**: 
+   - CRÍTICO: Erro pode custar milhares de reais
+   - Exemplo: Desconto 90% ao invés de 10% = prejuízo
+   - Requer validação de Finance Manager
+
+**2. REGRAS DE APLICAÇÃO** [Product Owner]
+   
+   ❓ **Condições de Aplicação**:
+   A) Todos os produtos sempre
+   B) Apenas produtos em promoção
+   C) Baseado em valor mínimo do pedido
+   D) Baseado em categoria de produto
+   E) Primeira compra do usuário
+   F) Cupom de desconto
+   
+   💡 **Recomendação**: Opção C + F
+   - Valor mínimo: R$ 100
+   - Suporte a cupons promocionais
+   - Motivo: Incentiva ticket médio maior
+   
+   🎯 **Impacto**:
+   - UX: Comunicar condições claramente
+   - Frontend: Mostrar progresso até desconto
+
+**3. REGRAS DE ACUMULAÇÃO** [Product Owner + Finance]
+   
+   ❓ **Múltiplos Descontos**:
+   - Cupom + desconto progressivo podem acumular?
+   - Cliente VIP recebe desconto adicional?
+   - Como combinar múltiplas promoções?
+   
+   💡 **Recomendação**: Não acumular
+   - Aplicar apenas o maior desconto
+   - Motivo: Simplicidade, prevenção de abuso
+   - Exceção: Descontos VIP podem acumular (aprovação necessária)
+   
+   🎯 **Impacto Financeiro**:
+   - Previne descontos excessivos
+   - Reduz complexidade de cálculo
+
+**4. INTEGRAÇÃO TÉCNICA** [Tech Lead + Time de Pagamentos]
+   
+   ❓ **Momento do Cálculo**:
+   - Calcular no frontend (mostrar preview)?
+   - Recalcular no backend (segurança)?
+   - Validar no gateway de pagamento?
+   
+   💡 **Recomendação**: Todos os 3
+   - Frontend: Preview em tempo real (UX)
+   - Backend: Cálculo autoritativo (segurança)
+   - Gateway: Validação final antes de cobrar
+   - Motivo: Prevenir manipulação de valores
+   
+   ❓ **Integração com Sistema Existente**:
+   - Já existe sistema de cupons implementado?
+   - Devo integrar ou criar novo?
+   - Migração de cupons existentes necessária?
+   
+   🎯 **Impacto**:
+   - Time de pagamentos: Validar integração
+   - Banco de dados: Schema de cupons
+   - Requer alinhamento com outro time
+
+**5. COMPLIANCE E AUDITORIA** [Finance + Legal]
+   
+   ❓ **Rastreabilidade**:
+   - Como auditar descontos aplicados?
+   - Logar motivo do desconto (cupom, promoção, erro)?
+   - Relatórios financeiros: como contabilizar?
+   
+   💡 **Recomendação**:
+   - Log completo: pedido_id, valor_original, valor_desconto, motivo, timestamp
+   - Tabela audit_discounts para rastreabilidade
+   - Relatório mensal para Finance
+   
+   ❓ **Nota Fiscal**:
+   - Desconto deve aparecer discriminado na NF?
+   - Como impacta cálculo de impostos?
+   
+   🎯 **Impacto**:
+   - CRÍTICO: Compliance fiscal
+   - Requer aprovação de Finance + Contador
+   - Erro pode gerar problema legal
+
+**6. TESTES E VALIDAÇÃO** [QA Lead + Tech Lead]
+   
+   ❓ **Cenários de Teste**:
+   - Edge cases a validar?
+   - Como testar sem impactar produção?
+   - Ambiente de staging configurado?
+   
+   💡 **Cenários Críticos**:
+   - Desconto 0%, 100%, negativo (validar rejeição)
+   - Múltiplos cupons simultâneos
+   - Carrinho R$ 0 após desconto (permitir?)
+   - Concorrência: 2 descontos aplicados ao mesmo tempo
+   
+   🎯 **Estratégia**:
+   - Testes unitários: Lógica de cálculo
+   - Testes integração: Gateway pagamento
+   - Testes E2E: Fluxo completo checkout
+   - Cobertura: 90%+ (feature crítica financeiramente)
+
+---
+
+**ANÁLISE DE RISCOS**:
+- 🔴 **Alto**: Impacto financeiro direto (revenue)
+- 🔴 **Alto**: Compliance fiscal
+- 🟡 **Médio**: Integração com sistema de pagamentos
+- 🟡 **Médio**: UX (frustração se desconto não aplicar)
+
+**DECISÕES NECESSÁRIAS DE**:
+- [ ] Product Owner: Regras de negócio
+- [ ] Finance Manager: Validação financeira
+- [ ] Tech Lead: Approach técnico
+- [ ] Legal: Compliance fiscal
+- [ ] Time de Pagamentos: Integração
+
+**DOCUMENTAÇÃO REQUERIDA**:
+- [ ] ADR: "Arquitetura do Sistema de Descontos"
+- [ ] Confluence: "Regras de Negócio - Descontos"
+- [ ] Runbook: "Troubleshooting Descontos"
+- [ ] API Docs: Endpoints de desconto
+
+**PRAZO**: Aguardo respostas em 3 dias úteis
+**PRÓXIMOS PASSOS**: Após aprovações, criar plano de implementação detalhado
+
+---
+
+**BLOQUEIO**: Não posso implementar sem estas definições formais e aprovações registradas.
+```
+
+### ✅ Checklist de Perguntas Obrigatórias (Enterprise)
+
+**Antes de iniciar QUALQUER tarefa enterprise**:
+
+```markdown
+[ ] 1. Requisitos Funcionais Claros e Aprovados?
+   - [ ] Entendo o QUE deve ser feito?
+   - [ ] Entendo o PORQUÊ desta funcionalidade?
+   - [ ] Conheço os critérios de aceitação aprovados pelo PO?
+   - [ ] Requisitos estão documentados formalmente?
+
+[ ] 2. Requisitos Técnicos Definidos e Validados?
+   - [ ] Sei COMO implementar (arquitetura)?
+   - [ ] Approach foi validado por Tech Lead/Arquiteto?
+   - [ ] Conheço as tecnologias/bibliotecas aprovadas?
+   - [ ] Entendo as restrições técnicas e compliance?
+
+[ ] 3. Casos de Uso e Edge Cases Cobertos?
+   - [ ] Sei o fluxo normal de uso?
+   - [ ] Conheço TODOS os edge cases?
+   - [ ] Sei como lidar com erros e rollback?
+   - [ ] Estratégia de retry/circuit breaker definida?
+
+[ ] 4. Integração Clara e Coordenada?
+   - [ ] Sei como integrar com código existente?
+   - [ ] Conheço TODAS as dependências?
+   - [ ] Entendo o impacto em outras partes/times?
+   - [ ] Times afetados foram notificados e alinhados?
+   - [ ] Breaking changes foram comunicados?
+
+[ ] 5. Validação e Testes Definidos?
+   - [ ] Sei como testar a funcionalidade?
+   - [ ] Conheço os cenários de teste (incluindo regressão)?
+   - [ ] Estratégia de teste foi aprovada por QA Lead?
+   - [ ] Cobertura esperada definida (geralmente 80%+)?
+
+[ ] 6. Compliance e Segurança Verificados?
+   - [ ] Feature atende SOC2/ISO/LGPD?
+   - [ ] Security review foi feito?
+   - [ ] Dados sensíveis são tratados corretamente?
+   - [ ] Logs de auditoria estão implementados?
+
+[ ] 7. Documentação e Aprovações Formais?
+   - [ ] ADR criado (se decisão arquitetural)?
+   - [ ] Confluence atualizado?
+   - [ ] API documentada (se mudança pública)?
+   - [ ] Todas aprovações registradas (email, Jira)?
+   - [ ] Stakeholders apropriados aprovaram?
+
+[ ] 8. Impacto Analisado e Comunicado?
+   - [ ] Impacto em produção analisado?
+   - [ ] Estratégia de rollout definida (feature flag, canary)?
+   - [ ] Rollback plan documentado em runbook?
+   - [ ] Monitoring e alertas configurados?
+   - [ ] Outros times/clientes notificados?
+
+Se QUALQUER item acima for ❌ NÃO: PARAR, documentar dúvidas, e consultar stakeholders apropriados!
+```
+
+### 🚨 Consequências de NÃO Fazer Perguntas (Enterprise Context)
+
+**O que acontece quando IA assume ao invés de perguntar em ambiente enterprise**:
+
+1. **❌ Impacto Financeiro Direto**
+   - Bugs em produção podem custar milhares/milhões
+   - Exemplo: Erro em cálculo de desconto = prejuízo imediato
+   - Downtime em sistema crítico = perda de revenue
+
+2. **❌ Violação de Compliance**
+   - Não conformidade com LGPD/GDPR = multas pesadas
+   - Falha em auditoria SOC2/ISO = perda de certificação
+   - Exposição de dados sensíveis = processo legal
+
+3. **❌ Impacto em Múltiplos Times**
+   - Breaking change não comunicado = outros times quebrados
+   - Dependências não coordenadas = atrasos em cascata
+   - Falta de alinhamento = retrabalho em larga escala
+
+4. **❌ Perda de Confiança Organizacional**
+   - Stakeholders perdem confiança em IA/time
+   - Necessidade de múltiplas aprovações/revisões
+   - Processos se tornam mais burocráticos
+   - Autonomia do time é reduzida
+
+5. **❌ Dívida Técnica e Arquitetural**
+   - Decisões erradas são difíceis de reverter
+   - Código fora do padrão requer refactoring caro
+   - Manutenção se torna mais complexa
+   - Escala do sistema é comprometida
+
+### 🎯 Benefícios de Fazer Perguntas (Enterprise Context)
+
+**O que se ganha ao esclarecer dúvidas formalmente antes de implementar**:
+
+1. **✅ Implementação Correta e Rastreável**
+   - Zero retrabalho = economia de $$$
+   - Decisões documentadas = rastreabilidade para auditorias
+   - Aprovações registradas = responsabilidade clara
+
+2. **✅ Compliance e Segurança Garantidos**
+   - Conformidade com regulações verificada
+   - Dados sensíveis tratados corretamente
+   - Auditabilidade completa
+
+3. **✅ Coordenação Entre Times**
+   - Times alinhados = sem surpresas
+   - Dependências gerenciadas = entrega suave
+   - Comunicação clara = colaboração eficiente
+
+4. **✅ Arquitetura Sólida e Escalável**
+   - Decisões validadas por especialistas
+   - Padrões do projeto seguidos
+   - Sistema cresce de forma sustentável
+
+5. **✅ Confiança e Autonomia**
+   - Stakeholders confiam no processo
+   - Time ganha mais autonomia
+   - Menos microgerenciamento
+
+### 📊 Métricas de Sucesso (Enterprise)
+
+**Indicadores de que a IA está fazendo perguntas corretamente em ambiente enterprise**:
+
+- ✅ **Taxa de retrabalho < 5%**: Implementações corretas na primeira tentativa
+- ✅ **Zero incidentes por má interpretação**: Nenhum bug em produção por falta de clareza
+- ✅ **100% decisões críticas documentadas**: Todas ADRs criadas apropriadamente
+- ✅ **Aprovações formais registradas**: Todas stakeholder approvals rastreáveis
+- ✅ **Satisfação de stakeholders alta**: NPS > 8/10
+- ✅ **Compliance 100%**: Zero violações em auditorias
+- ✅ **Tempo de esclarecimento < 30%**: Perguntas não atrasam excessivamente
+- ✅ **Times alinhados**: Zero conflitos por falta de comunicação
+
+### 🎓 Conclusão (Enterprise)
+
+> **"Em ambiente enterprise, é melhor gastar 3 dias esclarecendo dúvidas formalmente do que 3 meses corrigindo um incidente de produção com impacto financeiro e legal."**
+
+**Mensagem para IAs em Ambiente Enterprise**:
+> "NUNCA assuma em ambiente enterprise. SEMPRE pergunte, DOCUMENTE formalmente, e obtenha APROVAÇÕES registradas quando houver a menor dúvida. Sua função é implementar CORRETAMENTE e COM RASTREABILIDADE, não rapidamente. Em enterprise, perguntas estruturadas e documentação formal são sinais de PROFISSIONALISMO e MATURIDADE. Stakeholders preferem responder 20 perguntas bem formuladas agora do que lidar com um incidente em produção que impacta clientes e revenue depois."
+
+**Regra de Ouro para IAs (Enterprise)**:
+> **"Quando em dúvida, PARE, DOCUMENTE, CONSULTE stakeholders apropriados, e AGUARDE aprovação formal. Em enterprise, dúvida não documentada e não validada formalmente é BLOQUEANTE CRÍTICO."**
 
 ---
 
