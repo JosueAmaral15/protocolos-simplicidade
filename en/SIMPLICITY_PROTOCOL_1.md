@@ -2,9 +2,22 @@
 
 **Author**: Josué Amaral  
 **Creation Date**: November 30, 2025  
-**Version**: 2.9  
-**Last Update**: January 7, 2026  
+**Version**: 3.0  
+**Last Update**: January 8, 2026  
 **Objective**: Professional methodology for incremental quality development
+
+**Changelog v3.0** (01/08/2026):
+- ✅ **[INTERNATIONALIZATION]** Added mandatory section: i18n - Software Translation
+- ✅ AI MUST ask user if software should support multiple languages
+- ✅ Translation is OPTIONAL and user's choice
+- ✅ 10 main recommended languages: English, Portuguese, Spanish, Italian, German, Japanese, Arabic, Chinese, Hebrew, Icelandic
+- ✅ Recommended technology: i18n (industry standard)
+- ✅ Mandatory user notification at project start
+- ✅ Complete implementation with examples (Python/Flask, JavaScript/React, Node.js)
+- ✅ Implementation checklist (9 items)
+- ✅ Best practices: pluralization, locale-based formatting, externalized texts
+- ✅ When NOT to implement i18n: MVP, internal tools, prototypes
+- ✅ Rationale: Scope, cost, maintenance, performance, respect for user choice
 
 **Changelog v2.9** (01/07/2026):
 - ✅ **[ABSOLUTE PROHIBITIONS]** Added critical section: Prohibitions for AIs
@@ -3217,6 +3230,284 @@ For national/regional projects (e.g., Portuguese for Brazil/Portugal):
 - 🌍 Multicultural team
 - 🌍 Product aimed at global market
 - 🌍 Library/framework for public distribution
+
+---
+
+## 🌍 Internationalization (i18n) - Software Translation
+
+> **MANDATORY**: The artificial intelligence MUST ask the user about internationalization at the beginning of the project.
+
+### 📢 Mandatory User Notification
+
+**The AI MUST ask at the beginning of the project:**
+
+```markdown
+🌍 **Software Internationalization**
+
+Hello! I need to know about internationalization (i18n) for your project:
+
+**Question**: Do you want the software to support multiple languages?
+
+**Options**:
+A) ❌ **NO** - Software in [Portuguese/English/etc] only
+B) ✅ **YES** - Software should support multiple languages
+
+**If you choose YES, which languages?**
+Main recommended languages:
+1. 🇺🇸 English (USA) - global language
+2. 🇧🇷 Portuguese (Brazil)
+3. 🇪🇸 Spanish (Spain)
+4. 🇮🇹 Italian
+5. 🇩🇪 German
+6. 🇯🇵 Japanese
+7. 🇸🇦 Arabic
+8. 🇨🇳 Chinese (Mandarin)
+9. 🇮🇱 Hebrew
+10. 🇮🇸 Icelandic
+
+**Your choice**: [list desired languages]
+
+**Recommended technology**: i18n (industry standard internationalization)
+```
+
+### 🎯 Fundamental Rule
+
+**Translation is OPTIONAL and USER'S CHOICE:**
+
+- ❌ AI **MUST NOT** implement i18n without asking
+- ❌ AI **MUST NOT** assume user wants translation
+- ✅ AI **MUST** ask explicitly
+- ✅ AI **MUST** respect the user's decision
+- ✅ AI **MUST** implement only the requested languages
+
+### 📋 When to Ask About i18n
+
+**Mandatory moment to ask**:
+1. ✅ At project start (before creating user interface)
+2. ✅ When user mentions "interface", "UI", "frontend", "users"
+3. ✅ When creating web/desktop/mobile application with user-facing texts
+
+**No need to ask if**:
+- ❌ Project is internal script/simple CLI tool
+- ❌ User already specified "only in [language]"
+- ❌ Project is library/API without user interface
+
+### 🛠️ Implementation with i18n
+
+If user chooses **YES for i18n**, implement using standard library:
+
+**Python (Flask/Django)**:
+```python
+# Install
+pip install flask-babel  # For Flask
+pip install django-i18n  # For Django
+
+# Folder structure
+project/
+  locales/
+    en_US/
+      LC_MESSAGES/
+        messages.po  # English translations
+    pt_BR/
+      LC_MESSAGES/
+        messages.po  # Portuguese translations
+    es_ES/
+      LC_MESSAGES/
+        messages.po  # Spanish translations
+  app.py
+  config.py
+
+# Usage in code
+from flask_babel import gettext as _
+
+@app.route('/')
+def index():
+    welcome = _('Welcome to our application')
+    # Returns "Welcome" (EN) or "Bem-vindo" (PT) automatically
+    return render_template('index.html', welcome=welcome)
+```
+
+**JavaScript/TypeScript (React/Next.js)**:
+```bash
+# Install
+npm install next-i18next react-i18next i18next
+
+# Folder structure
+project/
+  public/
+    locales/
+      en/
+        common.json  # English translations
+      pt/
+        common.json  # Portuguese translations
+      es/
+        common.json  # Spanish translations
+  pages/
+    index.tsx
+  next.config.js
+
+# Translation file (public/locales/en/common.json)
+{
+  "welcome": "Welcome to our application",
+  "login": "Log in",
+  "signup": "Sign up"
+}
+
+# Translation file (public/locales/pt/common.json)
+{
+  "welcome": "Bem-vindo ao nosso aplicativo",
+  "login": "Entrar",
+  "signup": "Cadastrar"
+}
+
+# Usage in code (pages/index.tsx)
+import { useTranslation } from 'next-i18next'
+
+export default function Home() {
+  const { t } = useTranslation('common')
+  
+  return (
+    <div>
+      <h1>{t('welcome')}</h1>
+      <button>{t('login')}</button>
+    </div>
+  )
+}
+```
+
+**Node.js (Backend/API)**:
+```bash
+npm install i18next i18next-fs-backend i18next-http-middleware
+
+# Structure
+project/
+  locales/
+    en/
+      translation.json
+    pt/
+      translation.json
+  server.js
+
+# Usage
+const i18next = require('i18next')
+const Backend = require('i18next-fs-backend')
+const middleware = require('i18next-http-middleware')
+
+i18next
+  .use(Backend)
+  .use(middleware.LanguageDetector)
+  .init({
+    fallbackLng: 'en',
+    preload: ['en', 'pt', 'es'],
+    backend: {
+      loadPath: './locales/{{lng}}/{{ns}}.json'
+    }
+  })
+
+app.use(middleware.handle(i18next))
+
+app.get('/api/welcome', (req, res) => {
+  res.json({ 
+    message: req.t('welcome_message') 
+  })
+})
+```
+
+### 🌍 Main Supported Languages
+
+| Language | Code | Speakers | Common Priority |
+|----------|------|----------|-----------------|
+| 🇺🇸 English (USA) | `en-US` | 1.5B | ⭐⭐⭐⭐⭐ |
+| 🇧🇷 Portuguese (BR) | `pt-BR` | 220M | ⭐⭐⭐⭐ |
+| 🇪🇸 Spanish | `es-ES` | 580M | ⭐⭐⭐⭐⭐ |
+| 🇮🇹 Italian | `it-IT` | 85M | ⭐⭐⭐ |
+| 🇩🇪 German | `de-DE` | 130M | ⭐⭐⭐⭐ |
+| 🇯🇵 Japanese | `ja-JP` | 125M | ⭐⭐⭐⭐ |
+| 🇸🇦 Arabic | `ar-SA` | 420M | ⭐⭐⭐⭐ |
+| 🇨🇳 Chinese | `zh-CN` | 1.3B | ⭐⭐⭐⭐⭐ |
+| 🇮🇱 Hebrew | `he-IL` | 9M | ⭐⭐ |
+| 🇮🇸 Icelandic | `is-IS` | 350K | ⭐ |
+
+**Recommendation**: Start with 2-3 languages (e.g., English + Portuguese + Spanish) and expand as needed.
+
+### ✅ i18n Implementation Checklist
+
+If user chooses internationalization:
+
+```markdown
+[ ] Ask which languages to support
+[ ] Choose appropriate i18n library (flask-babel, next-i18next, etc)
+[ ] Create locales/ folder structure
+[ ] Extract ALL hardcoded texts to translation files
+[ ] Create translation file for each chosen language
+[ ] Implement language detection (browser, API, configuration)
+[ ] Test language switching works correctly
+[ ] Document how to add new translations
+[ ] (Optional) Integrate professional translation service (Google Translate API, DeepL)
+```
+
+### 🎯 i18n Best Practices
+
+**✅ DO**:
+```python
+# ✅ GOOD - Externalized text
+message = _('user_welcome', username=user.name)
+# Translation file: "user_welcome": "Welcome, {username}!"
+
+# ✅ GOOD - Pluralization
+items_count = _n('item_single', 'item_plural', count)
+# EN: "1 item" or "2 items"
+# PT: "1 item" or "2 itens"
+
+# ✅ GOOD - Date/time formatting by locale
+from babel.dates import format_datetime
+formatted = format_datetime(datetime.now(), locale='pt_BR')
+# PT: "8 de janeiro de 2026"
+# EN: "January 8, 2026"
+```
+
+**❌ DON'T DO**:
+```python
+# ❌ BAD - Hardcoded text
+print("Welcome to our application")  # Impossible to translate
+
+# ❌ BAD - String concatenation
+message = "You have " + str(count) + " messages"
+# Problem: Word order changes in other languages
+
+# ❌ BAD - Assume date format
+date_str = f"{day}/{month}/{year}"  # USA uses month/day/year
+```
+
+### 📊 When NOT to Implement i18n
+
+**Valid justifications for NOT using i18n**:
+- ✅ Internal application for team that speaks only one language
+- ✅ Quick MVP for validation (add i18n later)
+- ✅ CLI script/tool for personal use
+- ✅ Disposable prototype
+- ✅ Educational project/tutorial
+
+**In these cases**:
+- Write texts in one language only (English or Portuguese)
+- Document that application is single-language
+- If it grows to production, refactor to add i18n later
+
+### 🎯 Rationale
+
+**Why ask the user?**
+
+1. **Scope**: i18n adds complexity - only implement if necessary
+2. **Cost**: Translating content has cost (time/money)
+3. **Maintenance**: Each new text needs translation in N languages
+4. **Performance**: Loading multiple translation files has overhead (small)
+5. **Respect**: User knows best if product is local or global
+
+**When is i18n critical?**:
+- 🌍 SaaS/product sold in multiple countries
+- 🌍 International e-commerce
+- 🌍 Mobile apps for global stores (App Store, Play Store)
+- 🌍 Legal compliance (LGPD/GDPR requires texts in local language)
 
 ---
 

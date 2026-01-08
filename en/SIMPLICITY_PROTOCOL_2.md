@@ -3,9 +3,22 @@
 **Author**: Josué Amaral  
 **Creation Date**: December 02, 2025  
 **Based on**: Simplicity Protocol 1 v2.7  
-**Version**: 3.1  
-**Last Update**: January 7, 2026  
+**Version**: 3.2  
+**Last Update**: January 8, 2026  
 **Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
+
+**Changelog v3.2** (01/08/2026):
+- ✅ **[ENTERPRISE INTERNATIONALIZATION]** Added mandatory section: i18n - Software Translation (Enterprise)
+- ✅ AI MUST formally ask stakeholders (PO + Tech Lead + Architect) about i18n
+- ✅ Decision documented in mandatory ADR
+- ✅ Impact analysis: development (+15-30%), QA (×N languages), cost ($5k-20k/language)
+- ✅ 10 enterprise languages with complexity ratings (RTL for Arabic/Hebrew)
+- ✅ Technology: i18n libraries + enterprise services (Lokalise, Crowdin, Phrase)
+- ✅ Multilateral validation: PO (business) + Tech Lead (technical) + Marketing (languages) + Legal (compliance)
+- ✅ Enterprise checklist: 6 phases (Decision → Implementation → Translation → QA → Deploy → Maintenance)
+- ✅ Typical cost: Setup $4k-8k + Translation $5k-12k/language + Maintenance $4k/year
+- ✅ LGPD/GDPR compliance: Texts in local language mandatory
+- ✅ Text expansion table: German +30%, Japanese -10%, Arabic RTL
 
 **Changelog v3.1** (01/07/2026):
 - ✅ **[ABSOLUTE ENTERPRISE PROHIBITIONS]** Added critical section: Prohibitions for AIs in enterprise environment
@@ -9559,6 +9572,96 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
 - ✅ **[NEW v2.0]** Enterprise practices (Security, CI/CD, ADRs, Retrospectives)
 
 **Reread this document before each sprint!**
+
+---
+
+## 🌍 Internationalization (i18n) - Software Translation (Enterprise)
+
+> **MANDATORY ENTERPRISE**: The artificial intelligence MUST ask stakeholders about internationalization at the beginning of the project and document the decision in an ADR.
+
+### 📢 Mandatory Stakeholder Notification
+
+**The AI MUST formally ask at the beginning of the project:**
+
+```markdown
+🌍 **Architectural Decision: Internationalization (i18n)**
+
+To: Product Owner + Tech Lead + Architect
+Subject: Multi-language support for the product
+
+**Context**: We need to define internationalization strategy before implementing UI/UX.
+
+**Critical Question**: Should the product support multiple languages?
+
+**Options**:
+A) ❌ **NO** - Single-language product [specify: Portuguese/English/etc]
+   - Justification required: [local market only? MVP?]
+   
+B) ✅ **YES** - Multi-language product
+   - Scope: Which languages to support? (choose from list below)
+   - Priority: Which languages are launch vs future?
+   - Budget: Professional or automated translation?
+   - Owner: Who manages translations? (PO, Marketing, external?)
+
+**Recommended Enterprise Languages**:
+1. 🇺🇸 **English (USA)** - Mandatory for global SaaS (1.5B speakers)
+2. 🇧🇷 **Portuguese (Brazil)** - Latin America (220M)
+3. 🇪🇸 **Spanish (Spain)** - Europe + Latin America (580M)
+4. 🇮🇹 **Italian** - Europe (85M)
+5. 🇩🇪 **German** - Central Europe (130M)
+6. 🇯🇵 **Japanese** - Asia (125M)
+7. 🇸🇦 **Arabic** - Middle East + North Africa (420M)
+8. 🇨🇳 **Chinese** - Asia (1.3B)
+9. 🇮🇱 **Hebrew** - Israel (9M)
+10. 🇮🇸 **Icelandic** - Iceland (350K)
+
+**Decision Impact**:
+- **Development**: +15-30% time to implement i18n
+- **QA**: Test in N languages (effort multiplier)
+- **Maintenance**: Each new text = N translations
+- **Cost**: Professional translation ~$0.10-0.25/word (estimate: $5k-20k per language)
+- **Compliance**: LGPD/GDPR may require texts in local language
+
+**Recommended Technology**: i18n (industry standard) + Translation service (Lokalise, Crowdin, Phrase)
+
+**Decision needed by**: [date] (blocking for UI sprint)
+```
+
+### 🎯 Fundamental Enterprise Rule
+
+**Translation is OPTIONAL and a FORMAL DECISION:**
+
+- ❌ AI **MUST NOT** implement i18n without stakeholder approval
+- ❌ AI **MUST NOT** assume languages without formal validation
+- ✅ AI **MUST** formally ask with impact analysis
+- ✅ AI **MUST** document decision in ADR
+- ✅ AI **MUST** include translation cost in estimates
+- ✅ AI **MUST** validate with Marketing about priority languages
+
+### 📋 Main Languages with i18n Technology
+
+| Language | Code | Speakers | Text Expansion | Complexity |
+|----------|------|----------|----------------|------------|
+| 🇺🇸 English | `en-US` | 1.5B | Baseline | ⭐ Simple |
+| 🇧🇷 Portuguese | `pt-BR` | 220M | +15% | ⭐⭐ Medium |
+| 🇪🇸 Spanish | `es-ES` | 580M | +20% | ⭐⭐ Medium |
+| 🇮🇹 Italian | `it-IT` | 85M | +15% | ⭐⭐ Medium |
+| 🇩🇪 German | `de-DE` | 130M | +30% | ⭐⭐⭐ High |
+| 🇯🇵 Japanese | `ja-JP` | 125M | -10% | ⭐⭐⭐⭐ Very High |
+| 🇸🇦 Arabic | `ar-SA` | 420M | +20% (RTL) | ⭐⭐⭐⭐⭐ Extreme |
+| 🇨🇳 Chinese | `zh-CN` | 1.3B | -30% | ⭐⭐⭐⭐ Very High |
+| 🇮🇱 Hebrew | `he-IL` | 9M | +10% (RTL) | ⭐⭐⭐⭐ Very High |
+| 🇮🇸 Icelandic | `is-IS` | 350K | +10% | ⭐⭐⭐ High |
+
+**Recommended Technology**: i18n libraries (next-i18next, flask-babel, etc) + Professional services (Lokalise, Crowdin, Phrase)
+
+### 💰 Enterprise i18n Cost
+
+**Typical estimate**:
+- Initial setup: $4k-8k (technical implementation)
+- Professional translation: $5k-12k per language (medium app)
+- Translation service: $500-2k/year (Lokalise/Crowdin)
+- Maintenance: +10-20% dev time per sprint
 
 ---
 
