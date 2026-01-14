@@ -1985,6 +1985,143 @@ Se TODOS = ✅ e ainda não consegui:
 | 3️⃣ | Enrolar com secundário | ❌ Desperdiça seu tempo limitado | ✅ Foco na tarefa principal |
 | 4️⃣ | Esconder problemas | ❌ Você sozinho no sufoco | ✅ Avisar riscos claramente |
 | 5️⃣ | Desistir sem tentar 5 | ❌ IA preguiçosa | ✅ Esgotar recursos primeiro |
+| 6️⃣ | Executar operação de risco sem permissão | ❌ Danos irreversíveis | ✅ Informar riscos e pedir permissão explícita |
+
+### 🛑 Proibição 6: Executar Operações de Risco Sem Permissão
+
+**PROIBIDO**: Executar operações potencialmente destrutivas ou perigosas sem informar o usuário e obter permissão explícita.
+
+**Regra**:
+> A inteligência artificial **DEVE** informar o usuário ANTES de qualquer operação de risco, explicar o perigo, e pedir permissão explícita. **JAMAIS** assumir que pode executar operações destrutivas.
+
+**Operações de Risco que REQUEREM Permissão Prévia**:
+
+1. **Remoção de Arquivos**:
+   - `rm -rf`, `git rm`, exclusão de pastas/arquivos
+   - Exemplo de PERGUNTA obrigatória:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Remoção de arquivos
+     
+     Preciso remover os seguintes arquivos:
+     - src/old_module.py (não usado há 6 meses)
+     - tests/deprecated_test.py
+     
+     RISCO: Perda permanente de código. Se houver dependências ocultas, pode quebrar sistema.
+     
+     BACKUP: Posso criar backup em .backup/ antes de remover?
+     
+     Posso prosseguir? (sim/não)
+     ```
+
+2. **Operações Force do Git**:
+   - `git push --force`, `git reset --hard`, `git clean -fd`
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Git force push
+     
+     Preciso fazer: git push --force origin main
+     
+     RISCO: Reescreve histórico. Pode causar perda de commits da equipe.
+     
+     MOTIVO: [Explicar por que force é necessário]
+     
+     ALTERNATIVA: Posso fazer rebase interativo ao invés de force?
+     
+     Posso prosseguir com force? (sim/não)
+     ```
+
+3. **Mudanças no Sistema**:
+   - Instalação de pacotes (`npm install`, `pip install`)
+   - Modificação de configurações do sistema
+   - Alteração de variáveis de ambiente
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Instalação de dependência
+     
+     Preciso instalar: requests==2.31.0
+     
+     RISCO: Nova dependência. Pode conflitar com versões existentes.
+     
+     VERIFICAÇÃO: requirements.txt não especifica versão para requests.
+     
+     Posso instalar? (sim/não)
+     ```
+
+4. **Operações de Banco de Dados Destrutivas**:
+   - `DROP TABLE`, `TRUNCATE`, `DELETE FROM` sem WHERE
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Remoção de dados
+     
+     Preciso executar: TRUNCATE TABLE temp_cache;
+     
+     RISCO: Remove TODOS os dados da tabela temp_cache.
+     
+     CONTEXTO: Tabela de cache temporário (pode ser recriada).
+     
+     BACKUP: Deseja backup antes? (sim/não)
+     Posso prosseguir? (sim/não)
+     ```
+
+5. **Sobrescrita de Arquivos Sem Backup**:
+   - Modificações massivas, refatorações grandes
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Refatoração massiva
+     
+     Preciso refatorar 15 arquivos para migrar de JS para TS.
+     
+     RISCO: Mudanças em múltiplos arquivos. Se houver erro, rollback complexo.
+     
+     PROTEÇÃO: Vou criar branch feature/ts-migration antes.
+     
+     Posso prosseguir? (sim/não)
+     ```
+
+6. **Mudanças em Configuração de Produção**:
+   - `.env`, `config.prod.js`, variáveis de deploy
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Alteração de config de produção
+     
+     Preciso mudar DATABASE_URL em .env.production
+     
+     RISCO: ALTO - Afeta ambiente de produção. Erro pode derrubar sistema.
+     
+     RECOMENDAÇÃO: Testar em staging primeiro?
+     
+     TEM CERTEZA que posso alterar produção? (sim/não)
+     ```
+
+**Formato Obrigatório para Solicitar Permissão**:
+```markdown
+⚠️ OPERAÇÃO DE RISCO: [Tipo da operação]
+
+**O que preciso fazer**: [Comando/ação específica]
+
+**RISCO**: [Explicação clara do que pode dar errado]
+
+**MOTIVO**: [Por que esta operação é necessária]
+
+**PROTEÇÕES**: [Backups, branches, rollback plans disponíveis]
+
+**ALTERNATIVA**: [Se houver opção mais segura]
+
+Posso prosseguir? (sim/não/alternativa)
+```
+
+**Exceções** (operações que NÃO requerem permissão):
+- ✅ Criação de arquivos novos
+- ✅ Leitura de arquivos
+- ✅ `git commit`, `git add` (sem force)
+- ✅ Testes em ambiente isolado/local
+- ✅ Instalação de dev dependencies em projeto novo
+- ✅ Modificações em branches feature (não main/master)
+
+**Regra de Ouro**:
+> **"Quando em dúvida se uma operação é arriscada, PERGUNTE ao usuário. Melhor uma pergunta a mais do que um desastre evitável."**
+
+---
 
 ### 🎯 Mentalidade Solo Pragmática
 
@@ -6153,6 +6290,27 @@ Com essas informações, criarei:
         └── rollback-template.md # Template de plano
 ```
 
+### 📁 Regra de Organização: Documentos na Pasta `docs/`
+
+**OBRIGATÓRIO**: Todos os arquivos markdown de documentação **DEVEM** ser colocados na pasta `docs/` para manter a raiz do projeto organizada.
+
+**✅ Permitido na Raiz do Projeto**:
+- `README.md` (visão geral do projeto)
+- Arquivos de estrutura do projeto: `CONTRIBUTING.md`, `LICENSE.md`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`
+
+**❌ Deve ir para `docs/`**:
+- `TASKS.md` → `docs/TASKS.md`
+- `ACTION_PLANS.md` → `docs/ACTION_PLANS.md`
+- Planos de execução → `docs/plans/`
+- Arquivos de fase/sprint → `docs/`
+- Relatórios → `docs/reports/`
+- Especificações → `docs/v*.*.*.md`
+- Qualquer outro arquivo de documentação
+
+**Rationale**: Manter a raiz do projeto limpa e organizada facilita navegação e profissionalismo.
+
+---
+
 **Template de README.md (Solo em Produção)**:
 ```markdown
 # [Nome do Projeto]
@@ -6495,30 +6653,46 @@ A IA deve ter **conhecimento prático** da base de código:
     - Foco em: código que vou mexer + código relacionado
     - Estrutura de pastas básica (src/, tests/, config/)
 
-[ ] **2. Mapa Mental Simples**
+[ ] **2. Leitura do Histórico Git Completo**
+    - **OBRIGATÓRIO**: Ler todo o histórico de commits do branch main/master
+    - Executar: `git log --all --stat -p` para ver mudanças completas com diffs
+    - Compreender evolução das features ao longo do tempo
+    - Estudar histórico de refatorações e por quê foram feitas
+    - Analisar bug fixes e seu contexto (o que quebrou e como foi corrigido)
+    - Entender todas as mudanças do projeto desde o início
+    - **Rationale**: O histórico Git documenta decisões, erros e aprendizados
+
+[ ] **3. Mapa Mental Simples**
     - Qual arquivo chama qual? (principais imports)
     - Onde fica a lógica de negócio crítica?
     - Onde fica código de infraestrutura (DB, APIs)?
 
-[ ] **3. Identificar "Não Mexer"**
+[ ] **4. Identificar "Não Mexer"**
     - Código crítico que funciona (não quebrar!)
     - Código legado complexo (evitar se possível)
     - Arquivos com avisos "DO NOT MODIFY"
 
-[ ] **4. Encontrar Padrões**
+[ ] **5. Encontrar Padrões**
     - Como outros arquivos estão estruturados?
     - Qual naming convention está sendo usado?
     - Onde vão testes? Onde vão novos arquivos?
 
-[ ] **5. Ler Comentários Importantes**
+[ ] **6. Ler Comentários Importantes**
     - TODOs, FIXMEs, WARNINGs no código
     - Comentários que explicam "por quê" (não "o quê")
     - Notas sobre decisões técnicas ou limitações
 
-[ ] **6. Testar Mentalmente**
+[ ] **7. Testar Mentalmente**
     - Se eu modificar arquivo X, o que quebra?
     - Onde preciso adicionar testes?
     - Há código duplicado que posso reusar?
+
+[ ] **8. Execução de Testes Existentes (Se Houver)**
+    - Verificar se existe pasta `tests/` no projeto
+    - Se existir: executar todos os testes para entender comportamento do código
+    - Observar quais cenários são testados e como o sistema se comporta
+    - Identificar padrões de teste e cobertura existente
+    - Usar resultados dos testes para validar compreensão do código
 ```
 
 **Não se estresse com 100% - foque no essencial para a tarefa atual!**

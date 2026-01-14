@@ -1615,6 +1615,143 @@ If ALL 5 items = ✅ and still couldn't:
 | 3️⃣ | Stall or procrastinate | ❌ Time waste | ✅ Laser focus on current task |
 | 4️⃣ | Hide difficulties | ❌ Problems accumulate | ✅ Sincerity > pleasing client |
 | 5️⃣ | Give up without trying 5 alternatives | ❌ Incompetence | ✅ Exhaust resources before asking for help |
+| 6️⃣ | Execute risky operation without permission | ❌ Irreversible damage | ✅ Inform risks and ask for explicit permission |
+
+### 🛑 Prohibition 6: Execute Risky Operations Without Permission
+
+**PROHIBITED**: Execute potentially destructive or dangerous operations without informing the user and obtaining explicit permission.
+
+**Rule**:
+> The artificial intelligence **MUST** inform the user BEFORE any risky operation, explain the danger, and ask for explicit permission. **NEVER** assume it can execute destructive operations.
+
+**Risky Operations that REQUIRE Prior Permission**:
+
+1. **File Deletion**:
+   - `rm -rf`, `git rm`, deletion of folders/files
+   - Mandatory QUESTION example:
+     ```
+     ⚠️ RISKY OPERATION: File deletion
+     
+     Need to remove the following files:
+     - src/old_module.py (unused for 6 months)
+     - tests/deprecated_test.py
+     
+     RISK: Permanent code loss. If there are hidden dependencies, may break system.
+     
+     BACKUP: Can I create backup in .backup/ before removing?
+     
+     May I proceed? (yes/no)
+     ```
+
+2. **Git Force Operations**:
+   - `git push --force`, `git reset --hard`, `git clean -fd`
+   - Example:
+     ```
+     ⚠️ RISKY OPERATION: Git force push
+     
+     Need to do: git push --force origin main
+     
+     RISK: Rewrites history. May cause loss of team commits.
+     
+     REASON: [Explain why force is necessary]
+     
+     ALTERNATIVE: Can I do interactive rebase instead of force?
+     
+     May I proceed with force? (yes/no)
+     ```
+
+3. **System Changes**:
+   - Package installation (`npm install`, `pip install`)
+   - System configuration modification
+   - Environment variable changes
+   - Example:
+     ```
+     ⚠️ RISKY OPERATION: Dependency installation
+     
+     Need to install: requests==2.31.0
+     
+     RISK: New dependency. May conflict with existing versions.
+     
+     VERIFICATION: requirements.txt doesn't specify version for requests.
+     
+     May I install? (yes/no)
+     ```
+
+4. **Destructive Database Operations**:
+   - `DROP TABLE`, `TRUNCATE`, `DELETE FROM` without WHERE
+   - Example:
+     ```
+     ⚠️ RISKY OPERATION: Data removal
+     
+     Need to execute: TRUNCATE TABLE temp_cache;
+     
+     RISK: Removes ALL data from temp_cache table.
+     
+     CONTEXT: Temporary cache table (can be recreated).
+     
+     BACKUP: Want backup first? (yes/no)
+     May I proceed? (yes/no)
+     ```
+
+5. **File Overwriting Without Backup**:
+   - Massive modifications, large refactorings
+   - Example:
+     ```
+     ⚠️ RISKY OPERATION: Massive refactoring
+     
+     Need to refactor 15 files to migrate from JS to TS.
+     
+     RISK: Changes in multiple files. If error occurs, complex rollback.
+     
+     PROTECTION: Will create branch feature/ts-migration first.
+     
+     May I proceed? (yes/no)
+     ```
+
+6. **Production Configuration Changes**:
+   - `.env`, `config.prod.js`, deployment variables
+   - Example:
+     ```
+     ⚠️ RISKY OPERATION: Production config change
+     
+     Need to change DATABASE_URL in .env.production
+     
+     RISK: HIGH - Affects production environment. Error can crash system.
+     
+     RECOMMENDATION: Test in staging first?
+     
+     ARE YOU SURE I can modify production? (yes/no)
+     ```
+
+**Mandatory Format for Requesting Permission**:
+```markdown
+⚠️ RISKY OPERATION: [Operation type]
+
+**What I need to do**: [Specific command/action]
+
+**RISK**: [Clear explanation of what can go wrong]
+
+**REASON**: [Why this operation is necessary]
+
+**PROTECTIONS**: [Backups, branches, rollback plans available]
+
+**ALTERNATIVE**: [If there's a safer option]
+
+May I proceed? (yes/no/alternative)
+```
+
+**Exceptions** (operations that DO NOT require permission):
+- ✅ Creating new files
+- ✅ Reading files
+- ✅ `git commit`, `git add` (without force)
+- ✅ Tests in isolated/local environment
+- ✅ Installing dev dependencies in new project
+- ✅ Modifications in feature branches (not main/master)
+
+**Golden Rule**:
+> **"When in doubt if an operation is risky, ASK the user. Better one extra question than an avoidable disaster."**
+
+---
 
 ### 🎯 Correct Mindset
 
@@ -5498,6 +5635,27 @@ With this information, I'll create the initial documentation structure:
     └── v0.1.0-SPECIFICATIONS.md # First specification
 ```
 
+### 📁 Organization Rule: Documents in `docs/` Folder
+
+**MANDATORY**: All documentation markdown files **MUST** be placed in the `docs/` folder to keep the project root organized.
+
+**✅ Allowed in Project Root**:
+- `README.md` (project overview)
+- Project structure files: `CONTRIBUTING.md`, `LICENSE.md`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`
+
+**❌ Must go to `docs/`**:
+- `TASKS.md` → `docs/TASKS.md`
+- `ACTION_PLANS.md` → `docs/ACTION_PLANS.md`
+- Execution plans → `docs/plans/`
+- Phase/sprint files → `docs/`
+- Reports → `docs/reports/`
+- Specifications → `docs/v*.*.*.md`
+- Any other documentation file
+
+**Rationale**: Keeping the project root clean and organized facilitates navigation and professionalism.
+
+---
+
 [Templates included - same as Portuguese version with English labels]
 
 **Step 5: Document evolution continuously**
@@ -5718,45 +5876,61 @@ AI must have **complete knowledge** of the existing codebase:
     - Map directory structure and organization
     - Identify config files, tests, documentation
 
-[ ] **2. Dependency and Import Mapping**
+[ ] **2. Read Complete Git History**
+    - **MANDATORY**: Read entire commit history from main/master branch
+    - Execute: `git log --all --stat -p` to see complete changes with diffs
+    - Understand feature evolution over time
+    - Study refactoring history and why they were done
+    - Analyze bug fixes and their context (what broke and how it was fixed)
+    - Understand all project changes since inception
+    - **Rationale**: Git history documents team decisions, mistakes and learnings
+
+[ ] **3. Dependency and Import Mapping**
     - Analyze imports/includes of each file
     - Build dependency graph (who imports whom)
     - Identify central and peripheral modules
     - Detect circular dependencies (if any)
 
-[ ] **3. Purpose and Responsibility Analysis**
+[ ] **4. Purpose and Responsibility Analysis**
     - For EACH file: understand what problem it solves
     - Identify separation of responsibilities (SRP)
     - Understand architecture layers (UI, logic, data, infrastructure)
 
-[ ] **4. Study of Functions, Classes, and Methods**
+[ ] **5. Study of Functions, Classes, and Methods**
     - Read signatures: parameters, return types, exceptions
     - Understand algorithms and business logic
     - Identify entry points (main, handlers, controllers)
     - Map main execution flows
 
-[ ] **5. Comprehension of Comments and Docstrings**
+[ ] **6. Comprehension of Comments and Docstrings**
     - Read ALL code comments
     - Understand WHY (why it was done this way)
     - Identify TODOs, FIXMEs, WARNINGs
     - Recognize technical decisions documented in comments
 
-[ ] **6. Pattern and Convention Identification**
+[ ] **7. Pattern and Convention Identification**
     - Code style (naming conventions)
     - Design patterns used (Factory, Strategy, Observer, etc.)
     - Test structure (if exists)
     - File organization conventions
 
-[ ] **7. Cause and Effect Analysis**
+[ ] **8. Cause and Effect Analysis**
     - For critical code: understand impact of each instruction
     - Map side effects (state changes, I/O, mutations)
     - Identify code with side effects vs pure code
     - Understand error and exception propagation
 
-[ ] **8. Unknown File Detection**
+[ ] **9. Unknown File Detection**
     - If files found that aren't understood: STUDY before modifying
     - Ask user about purpose of obscure files
     - Never assume - always confirm understanding
+
+[ ] **9. Execute Existing Tests (If Present)**
+    - Check if `tests/` folder exists in the project
+    - If exists: run all tests to understand code behavior
+    - Observe which scenarios are tested and how the system behaves
+    - Identify testing patterns and existing coverage
+    - Use test results to validate code comprehension
 ```
 
 #### 🔍 Study Methodology

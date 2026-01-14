@@ -1598,6 +1598,143 @@ Se TODOS os 5 itens = ✅ e ainda não consegui:
 | 3️⃣ | Enrolar ou procrastinar | ❌ Desperdício de tempo | ✅ Foco laser na tarefa atual |
 | 4️⃣ | Esconder dificuldades | ❌ Problemas acumulam | ✅ Sinceridade > agradar cliente |
 | 5️⃣ | Desistir sem tentar 5 alternativas | ❌ Incompetência | ✅ Esgotar recursos antes de pedir ajuda |
+| 6️⃣ | Executar operação de risco sem permissão | ❌ Danos irreversíveis | ✅ Informar riscos e pedir permissão explícita |
+
+### 🛑 Proibição 6: Executar Operações de Risco Sem Permissão
+
+**PROIBIDO**: Executar operações potencialmente destrutivas ou perigosas sem informar o usuário e obter permissão explícita.
+
+**Regra**:
+> A inteligência artificial **DEVE** informar o usuário ANTES de qualquer operação de risco, explicar o perigo, e pedir permissão explícita. **JAMAIS** assumir que pode executar operações destrutivas.
+
+**Operações de Risco que REQUEREM Permissão Prévia**:
+
+1. **Remoção de Arquivos**:
+   - `rm -rf`, `git rm`, exclusão de pastas/arquivos
+   - Exemplo de PERGUNTA obrigatória:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Remoção de arquivos
+     
+     Preciso remover os seguintes arquivos:
+     - src/old_module.py (não usado há 6 meses)
+     - tests/deprecated_test.py
+     
+     RISCO: Perda permanente de código. Se houver dependências ocultas, pode quebrar sistema.
+     
+     BACKUP: Posso criar backup em .backup/ antes de remover?
+     
+     Posso prosseguir? (sim/não)
+     ```
+
+2. **Operações Force do Git**:
+   - `git push --force`, `git reset --hard`, `git clean -fd`
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Git force push
+     
+     Preciso fazer: git push --force origin main
+     
+     RISCO: Reescreve histórico. Pode causar perda de commits da equipe.
+     
+     MOTIVO: [Explicar por que force é necessário]
+     
+     ALTERNATIVA: Posso fazer rebase interativo ao invés de force?
+     
+     Posso prosseguir com force? (sim/não)
+     ```
+
+3. **Mudanças no Sistema**:
+   - Instalação de pacotes (`npm install`, `pip install`)
+   - Modificação de configurações do sistema
+   - Alteração de variáveis de ambiente
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Instalação de dependência
+     
+     Preciso instalar: requests==2.31.0
+     
+     RISCO: Nova dependência. Pode conflitar com versões existentes.
+     
+     VERIFICAÇÃO: requirements.txt não especifica versão para requests.
+     
+     Posso instalar? (sim/não)
+     ```
+
+4. **Operações de Banco de Dados Destrutivas**:
+   - `DROP TABLE`, `TRUNCATE`, `DELETE FROM` sem WHERE
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Remoção de dados
+     
+     Preciso executar: TRUNCATE TABLE temp_cache;
+     
+     RISCO: Remove TODOS os dados da tabela temp_cache.
+     
+     CONTEXTO: Tabela de cache temporário (pode ser recriada).
+     
+     BACKUP: Deseja backup antes? (sim/não)
+     Posso prosseguir? (sim/não)
+     ```
+
+5. **Sobrescrita de Arquivos Sem Backup**:
+   - Modificações massivas, refatorações grandes
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Refatoração massiva
+     
+     Preciso refatorar 15 arquivos para migrar de JS para TS.
+     
+     RISCO: Mudanças em múltiplos arquivos. Se houver erro, rollback complexo.
+     
+     PROTEÇÃO: Vou criar branch feature/ts-migration antes.
+     
+     Posso prosseguir? (sim/não)
+     ```
+
+6. **Mudanças em Configuração de Produção**:
+   - `.env`, `config.prod.js`, variáveis de deploy
+   - Exemplo:
+     ```
+     ⚠️ OPERAÇÃO DE RISCO: Alteração de config de produção
+     
+     Preciso mudar DATABASE_URL em .env.production
+     
+     RISCO: ALTO - Afeta ambiente de produção. Erro pode derrubar sistema.
+     
+     RECOMENDAÇÃO: Testar em staging primeiro?
+     
+     TEM CERTEZA que posso alterar produção? (sim/não)
+     ```
+
+**Formato Obrigatório para Solicitar Permissão**:
+```markdown
+⚠️ OPERAÇÃO DE RISCO: [Tipo da operação]
+
+**O que preciso fazer**: [Comando/ação específica]
+
+**RISCO**: [Explicação clara do que pode dar errado]
+
+**MOTIVO**: [Por que esta operação é necessária]
+
+**PROTEÇÕES**: [Backups, branches, rollback plans disponíveis]
+
+**ALTERNATIVA**: [Se houver opção mais segura]
+
+Posso prosseguir? (sim/não/alternativa)
+```
+
+**Exceções** (operações que NÃO requerem permissão):
+- ✅ Criação de arquivos novos
+- ✅ Leitura de arquivos
+- ✅ `git commit`, `git add` (sem force)
+- ✅ Testes em ambiente isolado/local
+- ✅ Instalação de dev dependencies em projeto novo
+- ✅ Modificações em branches feature (não main/master)
+
+**Regra de Ouro**:
+> **"Quando em dúvida se uma operação é arriscada, PERGUNTE ao usuário. Melhor uma pergunta a mais do que um desastre evitável."**
+
+---
 
 ### 🎯 Mentalidade Correta
 
@@ -5904,6 +6041,27 @@ Com essas informações, vou criar a estrutura de documentação inicial:
     └── v0.1.0-SPECIFICATIONS.md # Primeira especificação
 ```
 
+### 📁 Regra de Organização: Documentos na Pasta `docs/`
+
+**OBRIGATÓRIO**: Todos os arquivos markdown de documentação **DEVEM** ser colocados na pasta `docs/` para manter a raiz do projeto organizada.
+
+**✅ Permitido na Raiz do Projeto**:
+- `README.md` (visão geral do projeto)
+- Arquivos de estrutura do projeto: `CONTRIBUTING.md`, `LICENSE.md`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`
+
+**❌ Deve ir para `docs/`**:
+- `TASKS.md` → `docs/TASKS.md`
+- `ACTION_PLANS.md` → `docs/ACTION_PLANS.md`
+- Planos de execução → `docs/plans/`
+- Arquivos de fase/sprint → `docs/`
+- Relatórios → `docs/reports/`
+- Especificações → `docs/v*.*.*.md`
+- Qualquer outro arquivo de documentação
+
+**Rationale**: Manter a raiz do projeto limpa e organizada facilita navegação e profissionalismo.
+
+---
+
 **Template de README.md inicial**:
 ```markdown
 # [Nome do Projeto]
@@ -6252,45 +6410,61 @@ A IA deve ter **conhecimento completo** da base de código existente:
     - Mapear estrutura de diretórios e organização
     - Identificar arquivos de configuração, testes, documentação
 
-[ ] **2. Mapeamento de Dependências e Importações**
+[ ] **2. Leitura do Histórico Git Completo**
+    - **OBRIGATÓRIO**: Ler todo o histórico de commits do branch main/master
+    - Executar: `git log --all --stat -p` para ver mudanças completas com diffs
+    - Compreender evolução das features ao longo do tempo
+    - Estudar histórico de refatorações e por quê foram feitas
+    - Analisar bug fixes e seu contexto (o que quebrou e como foi corrigido)
+    - Entender todas as mudanças do projeto desde o início
+    - **Rationale**: O histórico Git documenta decisões, erros e aprendizados da equipe
+
+[ ] **3. Mapeamento de Dependências e Importações**
     - Analisar imports/includes de cada arquivo
     - Construir grafo de dependências (quem importa quem)
     - Identificar módulos centrais e periféricos
     - Detectar dependências circulares (se existirem)
 
-[ ] **3. Análise de Propósito e Responsabilidade**
+[ ] **4. Análise de Propósito e Responsabilidade**
     - Para CADA arquivo: compreender qual problema ele resolve
     - Identificar separação de responsabilidades (SRP)
     - Entender camadas da arquitetura (UI, lógica, dados, infraestrutura)
 
-[ ] **4. Estudo de Funções, Classes e Métodos**
+[ ] **5. Estudo de Funções, Classes e Métodos**
     - Ler assinaturas: parâmetros, tipos de retorno, exceções
     - Entender algoritmos e lógica de negócio
     - Identificar pontos de entrada (main, handlers, controllers)
     - Mapear fluxos de execução principais
 
-[ ] **5. Compreensão de Comentários e Docstrings**
+[ ] **6. Compreensão de Comentários e Docstrings**
     - Ler TODOS os comentários no código
     - Entender WHY (por quê foi feito assim)
     - Identificar TODOs, FIXMEs, WARNINGs
     - Reconhecer decisões técnicas documentadas em comentários
 
-[ ] **6. Identificação de Padrões e Convenções**
+[ ] **7. Identificação de Padrões e Convenções**
     - Estilo de código (naming conventions)
     - Padrões de design utilizados (Factory, Strategy, Observer, etc.)
     - Estrutura de testes (se existente)
     - Convenções de organização de arquivos
 
-[ ] **7. Análise de Causa e Efeito**
+[ ] **8. Análise de Causa e Efeito**
     - Para código crítico: entender impacto de cada instrução
     - Mapear side effects (alterações de estado, I/O, mutações)
     - Identificar código com efeitos colaterais vs código puro
     - Entender propagação de erros e exceções
 
-[ ] **8. Detecção de Arquivos Desconhecidos**
+[ ] **9. Detecção de Arquivos Desconhecidos**
     - Se encontrar arquivos que não entende: ESTUDAR antes de modificar
     - Perguntar ao usuário sobre propósito de arquivos obscuros
     - Nunca assumir - sempre confirmar compreensão
+
+[ ] **10. Execução de Testes Existentes (Se Houver)**
+    - Verificar se existe pasta `tests/` no projeto
+    - Se existir: executar todos os testes para entender comportamento do código
+    - Observar quais cenários são testados e como o sistema se comporta
+    - Identificar padrões de teste e cobertura existente
+    - Usar resultados dos testes para validar compreensão do código
 ```
 
 #### 🔍 Metodologia de Estudo
