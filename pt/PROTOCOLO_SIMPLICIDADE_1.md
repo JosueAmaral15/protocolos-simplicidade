@@ -1750,6 +1750,129 @@ Posso prosseguir? (sim/não/alternativa)
 
 ---
 
+## 🌿 Fluxo de Trabalho Git Obrigatório: Branches COM-UUID
+
+> **OBRIGATÓRIO PARA IAs**: Antes de iniciar qualquer tarefa, a inteligência artificial **DEVE** criar uma branch de trabalho seguindo o padrão COM-UUID. **NUNCA** trabalhar diretamente na branch `main` sem permissão explícita do usuário.
+
+### 📋 Regra de Branch
+
+**A IA DEVE perguntar ao usuário no início de cada tarefa:**
+
+```markdown
+🌿 **Fluxo de Trabalho Git**
+
+Vou criar uma nova branch para trabalhar nesta tarefa.
+
+**Opções:**
+1. ✅ **[RECOMENDADO]** Criar branch `COM-[UUID]` (ex: COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281)
+2. ⚠️  Trabalhar diretamente na branch `main` (não recomendado)
+
+**Qual opção você prefere?** (padrão: opção 1)
+```
+
+### 🎯 Formato da Branch
+
+**OBRIGATÓRIO**: Branch deve seguir o padrão:
+- **Formato**: `COM-[UUID]`
+- **UUID**: UUID v4 (aleatório, gerado pela IA)
+- **Separador**: Hífen após `COM`
+
+**Exemplos válidos**:
+- `COM-123e4567-e89b-12d3-a456-426614174000`
+- `COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281`
+- `COM-f47ac10b-58cc-4372-a567-0e02b2c3d479`
+
+### 📝 Procedimento Obrigatório
+
+**Passo 1: Perguntar ao Usuário**
+```markdown
+🌿 Antes de iniciar, vou criar branch de trabalho.
+
+**Branch proposta**: COM-[UUID gerado]
+
+Deseja que eu:
+- [1] Crie esta branch e trabalhe nela? (RECOMENDADO)
+- [2] Trabalhe diretamente na main? (apenas se você solicitar)
+
+Resposta padrão: opção 1
+```
+
+**Passo 2: Criar Branch (se usuário concordar ou não responder)**
+```bash
+# Gerar UUID v4 aleatório
+# Exemplo: a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# Criar e trocar para nova branch
+git checkout -b COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+
+**Passo 3: Trabalhar na Branch**
+- Fazer todas as modificações na branch COM-UUID
+- Commits regulares conforme progresso
+- **NUNCA** commitar diretamente na main
+
+**Passo 4: Após Concluir Tarefa**
+```bash
+# 1. Garantir que todas mudanças estão commitadas
+git add -A
+git commit -m "feat: descrição clara das mudanças"
+
+# 2. Push da branch para remote
+git push origin COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# 3. Informar usuário e sugerir PR
+```
+
+**Passo 5: Criar Pull Request**
+```markdown
+✅ **Tarefa concluída na branch COM-[UUID]**
+
+**Próximos passos:**
+1. Branch `COM-[UUID]` foi pushed para remote
+2. **Recomendação**: Criar Pull Request para merge em `main`
+3. Após aprovação e merge, branch pode ser deletada
+
+**Devo criar Pull Request agora?** (sim/não)
+
+Se sim, qual título e descrição deseja para o PR?
+```
+
+### 🚫 Exceções (quando trabalhar na main)
+
+**Apenas trabalhe diretamente na `main` se:**
+1. ✅ Usuário **explicitamente** solicita: "trabalhe na main"
+2. ✅ Emergência P0 em produção (com confirmação do usuário)
+3. ✅ Hotfix crítico aprovado pelo usuário
+
+**Em todos os outros casos**: Criar branch COM-UUID
+
+### ⚠️ Comportamento Padrão
+
+**Se usuário NÃO responder sobre branch:**
+- ✅ **DEFAULT**: Criar branch COM-UUID automaticamente
+- ✅ Informar: "Criando branch COM-[UUID] para esta tarefa"
+- ✅ Prosseguir normalmente
+
+**Se usuário disser "use main":**
+- ⚠️  Confirmar: "Confirma trabalho na main? Isso não é recomendado."
+- ⚠️  Se confirmar: trabalhar na main
+- ✅ Se não confirmar: criar branch COM-UUID
+
+### 🎯 Rationale
+
+**Por que branches COM-UUID?**
+- ✅ **Isolamento**: Mudanças isoladas, sem afetar main
+- ✅ **Rastreabilidade**: UUID único identifica trabalho específico
+- ✅ **Segurança**: Main protegida de mudanças experimentais
+- ✅ **Code Review**: PR permite revisão antes de merge
+- ✅ **Rollback fácil**: Pode deletar branch se algo der errado
+- ✅ **Trabalho paralelo**: Múltiplas branches para múltiplas tarefas
+
+**Regra de Ouro Git**:
+> **"Main é sagrada. Sempre trabalhe em branches COM-UUID, exceto se usuário explicitamente pedir para usar main."**
+
+---
+
 ## 🎓 Paradigma Fundamental: Clareza Total Antes da Implementação
 
 > **OBRIGATÓRIO PARA IAs**: A implementação só acontece quando **TODAS as dúvidas estiverem sanadas**. O paradigma não é "implementar após documentação e planejamento", mas sim **"implementar após documentação, planejamento E clareza total sobre o que o cliente realmente quer"**.
