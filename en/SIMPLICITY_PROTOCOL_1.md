@@ -2228,6 +2228,360 @@ git show --name-only abc1234
 **Collaboration Golden Rule:**
 > **"Git tracks who did what. You track what to do. Use branches to isolate, commits to document, and PRs to review."**
 
+### 🤖 Multi-AI Concurrent Work with Git Worktree
+
+> **CRITICAL SCENARIO**: When multiple AIs work simultaneously on the same project (multiple terminal tabs/windows), it is **MANDATORY** to use `git worktree` to avoid conflicts.
+
+#### 📋 When to Use Git Worktree (MANDATORY)
+
+**Scenario:**
+```
+Terminal Tab 1: AI #1 working on feature A
+Terminal Tab 2: AI #2 working on feature B
+Terminal Tab 3: AI #3 working on bugfix C
+
+All in same project: ~/project/
+```
+
+**Problem without worktree:**
+- `.git/index.lock` conflicts
+- Branch changes affect all AIs
+- Context loss when AI changes branch
+- Accidental commits to wrong branch
+
+**Solution with worktree:**
+- Each AI works in separate directory
+- Each AI has its own active branch
+- No lock file conflicts
+- Isolated and safe context
+
+#### 🔍 Concurrent Work Detection (AI MUST DO)
+
+**Step 1: Ask User (ALWAYS)**
+```markdown
+🤖 **Concurrent Work Detection**
+
+Before starting, I need to know:
+
+❓ Are there other AIs working on this project NOW?
+   - In other terminal tabs/windows?
+   - In other simultaneous processes?
+
+**Answer:**
+- [1] YES - Other AIs are working (I'll use worktree)
+- [2] NO - I'm the only AI working (normal workflow)
+- [3] DON'T KNOW - Check automatically
+
+Default answer: option 3 (check)
+```
+
+**Step 2: Automatic Verification (if user chooses option 3)**
+```bash
+# Check lock files (indicate another AI working)
+if [ -f .git/index.lock ]; then
+    echo "⚠️ DETECTED: .git/index.lock exists"
+    echo "Another AI may be working now"
+    echo "RECOMMENDATION: Use worktree"
+fi
+
+# Check active branches in worktrees
+git worktree list
+# If returns multiple worktrees → other AIs working
+
+# Check active git processes (optional)
+ps aux | grep -i "git\|code\|cursor" | grep -v grep
+```
+
+**Step 3: Decision**
+- If DETECTED other AIs → **MANDATORY** use worktree
+- If NOT DETECTED but user said "YES" → **MANDATORY** use worktree
+- If NOT DETECTED and user said "NO" → Normal workflow
+
+#### 📁 Workflow with Worktree (Step by Step)
+
+**Scenario: User confirmed multiple AIs working**
+
+**Step 1: Check Existing Worktrees**
+```bash
+# List all active worktrees
+git worktree list
+
+# Example output:
+# /home/user/project              abc1234 [main]
+# /home/user/project-worktree-1  def5678 [COM-uuid1]
+# /home/user/project-worktree-2  ghi9012 [COM-uuid2]
+```
+
+**Step 2: Determine Next Worktree Number**
+```bash
+# Count existing worktrees (excluding main)
+existing_worktrees=$(git worktree list | grep -c "worktree-")
+
+# Next number
+next_number=$((existing_worktrees + 1))
+
+# New worktree name
+worktree_name="../project-worktree-${next_number}"
+```
+
+**Step 3: Create COM-UUID Branch**
+```bash
+# Generate UUID v4 for this AI
+uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+branch_name="COM-${uuid}"
+
+echo "📌 Branch created: ${branch_name}"
+```
+
+**Step 4: Create Worktree**
+```bash
+# Create worktree in separate directory
+git worktree add ${worktree_name} -b ${branch_name}
+
+# Expected output:
+# Preparing worktree (new branch 'COM-a5e531b2-...')
+# HEAD is now at abc1234 commit message
+```
+
+**Step 5: Change to Worktree Directory**
+```bash
+cd ${worktree_name}
+
+# Confirm location
+pwd
+# /home/user/project-worktree-3
+
+# Confirm active branch
+git branch --show-current
+# COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+
+**Step 6: Inform User**
+```markdown
+✅ **Worktree Successfully Configured!**
+
+📂 **Working directory:** ${worktree_name}
+🌿 **Active branch:** ${branch_name}
+🔒 **Isolation:** This AI is isolated from other AIs
+
+**Current structure:**
+- Main directory: ~/project/ (don't use!)
+- Worktree 1: ~/project-worktree-1/ (AI #1)
+- Worktree 2: ~/project-worktree-2/ (AI #2)
+- Worktree 3: ~/project-worktree-3/ (YOU ARE HERE)
+
+**IMPORTANT:**
+- Work ONLY in ${worktree_name}
+- DO NOT return to ~/project/
+- Commits will be made on branch ${branch_name}
+```
+
+**Step 7: Work Normally**
+```bash
+# Now work as if it were a normal directory
+vim src/feature.py
+git add src/feature.py
+git commit -m "feat: implement feature A"
+git push origin ${branch_name}
+```
+
+#### 🧹 Cleanup After Completion (ASK USER)
+
+**When AI finishes task:**
+
+```markdown
+✅ **Task Completed!**
+
+📊 **Worktree Status:**
+- Directory: ${worktree_name}
+- Branch: ${branch_name}
+- Commits: X commits made
+- Status: Pushed to remote
+
+🧹 **Worktree Cleanup:**
+
+Do you want me to remove the worktree now?
+
+**Options:**
+1. ✅ YES - Remove worktree (will keep branch on remote)
+2. 📋 NO - Keep for review (you can review later)
+3. 🔀 MERGE - Merge to main and then remove
+
+Recommendation: Option 2 (keep for review)
+```
+
+**If user chooses "YES - Remove":**
+```bash
+# Return to main directory
+cd ~/project/
+
+# Remove worktree
+git worktree remove ${worktree_name}
+
+# Confirm removal
+git worktree list
+# Worktree no longer appears in list
+
+echo "✅ Worktree ${worktree_name} successfully removed!"
+echo "⚠️ Branch ${branch_name} still exists on remote"
+```
+
+**If user chooses "MERGE and Remove":**
+```bash
+# Return to main
+cd ~/project/
+git checkout main
+git pull origin main
+
+# Merge branch
+git merge ${branch_name}
+git push origin main
+
+# Remove worktree
+git worktree remove ${worktree_name}
+
+# Delete local and remote branch
+git branch -d ${branch_name}
+git push origin --delete ${branch_name}
+
+echo "✅ Merge complete and worktree removed!"
+```
+
+#### ⚠️ Common Error Handling
+
+**Error 1: Worktree already exists**
+```bash
+# Error:
+# fatal: '${worktree_name}' already exists
+
+# Solution:
+git worktree list
+# Check if worktree is actually in use
+# If not in use:
+git worktree remove ${worktree_name} --force
+# Recreate
+git worktree add ${worktree_name} -b ${branch_name}
+```
+
+**Error 2: Branch already exists**
+```bash
+# Error:
+# fatal: A branch named 'COM-uuid' already exists
+
+# Solution:
+# Generate new UUID
+uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+branch_name="COM-${uuid}"
+# Try again
+```
+
+**Error 3: Directory not empty**
+```bash
+# Error:
+# fatal: '${worktree_name}' already exists and is not empty
+
+# Solution:
+# Use different directory
+next_number=$((next_number + 1))
+worktree_name="../project-worktree-${next_number}"
+```
+
+#### 📊 Active Worktree Monitoring
+
+**View status of all worktrees:**
+```bash
+# List worktrees
+git worktree list
+
+# Detailed output:
+# /home/user/project              abc1234 [main]
+# /home/user/project-worktree-1  def5678 [COM-uuid1]  ← AI #1
+# /home/user/project-worktree-2  ghi9012 [COM-uuid2]  ← AI #2
+# /home/user/project-worktree-3  jkl3456 [COM-uuid3]  ← AI #3 (you)
+
+# View status of each worktree
+for worktree in $(git worktree list --porcelain | grep "worktree " | cut -d' ' -f2); do
+    echo "📂 Worktree: $worktree"
+    cd "$worktree"
+    git status -s
+    echo "---"
+done
+```
+
+#### 🎯 Flow Diagram
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ User opens multiple terminal tabs/windows                  │
+│ Each tab = 1 AI working                                    │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│ AI asks: "Other AIs working now?"                          │
+│ User answers: YES / NO / DON'T KNOW                        │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+              ┌───────────┴───────────┐
+              │   YES or DETECTED     │   NO
+              ↓                       ↓
+┌──────────────────────────┐  ┌─────────────────┐
+│ Workflow with WORKTREE   │  │ NORMAL Workflow │
+│ (MANDATORY)              │  │ (no worktree)   │
+└──────────────────────────┘  └─────────────────┘
+              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ 1. Check existing worktrees (git worktree list)            │
+│ 2. Determine next number (worktree-N)                      │
+│ 3. Generate UUID for branch (COM-uuid)                     │
+│ 4. Create worktree: git worktree add ../project-worktree-N │
+│ 5. Change to worktree: cd ../project-worktree-N            │
+│ 6. Work in isolation                                       │
+│ 7. Commits and push normally                               │
+└──────────────────────────────────────────────────────────────┘
+              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ Task completed                                              │
+│ Ask: Remove worktree? YES / NO / MERGE                     │
+└──────────────────────────────────────────────────────────────┘
+```
+
+#### 💡 Alternative Worktree Format (Less Common)
+
+**Option: Use COM-UUID as directory name**
+
+```bash
+# Instead of: ../project-worktree-1
+# Use: ../project-COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+worktree_name="../project-${branch_name}"
+git worktree add ${worktree_name} -b ${branch_name}
+```
+
+**Advantages:**
+- Directory name = branch name (consistency)
+- Perfect traceability
+
+**Disadvantages:**
+- Very long and difficult to type name
+- Less readable in listings
+
+**Recommendation:** Use `worktree-N` by default, but offer UUID as option.
+
+#### 🎓 Multi-AI Golden Rule
+
+> **"When multiple AIs work together, worktrees keep each AI in its own universe. One directory per AI, one branch per AI, zero conflicts."**
+
+**Mandatory checklist:**
+- [ ] Did I ask user about other AIs working?
+- [ ] Did I check `.git/index.lock` and `git worktree list`?
+- [ ] If multiple AIs detected → did I use worktree?
+- [ ] Did I create worktree with sequential name (worktree-N)?
+- [ ] Did I change to worktree directory before working?
+- [ ] Did I inform user about location and branch?
+- [ ] Did I ask about removal when completing task?
+
+---
+
 ---
 
 ## 🎓 Fundamental Paradigm: Total Clarity Before Implementation

@@ -2759,6 +2759,360 @@ git checkout -b COM1-recovery
 **Filosofia Solo Dev:**
 > **"Git não é burocracia, é sua rede de segurança. Use-a."**
 
+### 🤖 Trabalho Concorrente Multi-IA com Git Worktree
+
+> **CENÁRIO CRÍTICO**: Quando múltiplas IAs trabalham simultaneamente no mesmo projeto (múltiplas abas/janelas de terminal), é **OBRIGATÓRIO** usar `git worktree` para evitar conflitos.
+
+#### 📋 Quando Usar Git Worktree (OBRIGATÓRIO)
+
+**Cenário:**
+```
+Terminal Tab 1: IA #1 trabalhando em feature A
+Terminal Tab 2: IA #2 trabalhando em feature B
+Terminal Tab 3: IA #3 trabalhando em bugfix C
+
+Todos no mesmo projeto: ~/projeto/
+```
+
+**Problema sem worktree:**
+- Conflitos de `.git/index.lock`
+- Mudanças de branch afetam todas as IAs
+- Perda de contexto quando IA muda de branch
+- Commits acidentais no branch errado
+
+**Solução com worktree:**
+- Cada IA trabalha em diretório separado
+- Cada IA tem seu próprio branch ativo
+- Sem conflitos de lock files
+- Contexto isolado e seguro
+
+#### 🔍 Detecção de Trabalho Concorrente (IA DEVE FAZER)
+
+**Passo 1: Perguntar ao Usuário (SEMPRE)**
+```markdown
+🤖 **Detecção de Trabalho Concorrente**
+
+Antes de iniciar, preciso saber:
+
+❓ Existem outras IAs trabalhando neste projeto AGORA?
+   - Em outras abas/janelas de terminal?
+   - Em outros processos simultâneos?
+
+**Responda:**
+- [1] SIM - Existem outras IAs trabalhando (usarei worktree)
+- [2] NÃO - Sou a única IA trabalhando (workflow normal)
+- [3] NÃO SEI - Verificar automaticamente
+
+Resposta padrão: opção 3 (verificar)
+```
+
+**Passo 2: Verificação Automática (se usuário escolher opção 3)**
+```bash
+# Verificar lock files (indicam outra IA trabalhando)
+if [ -f .git/index.lock ]; then
+    echo "⚠️ DETECTADO: .git/index.lock existe"
+    echo "Outra IA pode estar trabalhando agora"
+    echo "RECOMENDAÇÃO: Usar worktree"
+fi
+
+# Verificar branches ativos em worktrees
+git worktree list
+# Se retornar múltiplos worktrees → outras IAs trabalhando
+
+# Verificar processos git ativos (opcional)
+ps aux | grep -i "git\|code\|cursor" | grep -v grep
+```
+
+**Passo 3: Decisão**
+- Se DETECTADO outras IAs → **OBRIGATÓRIO** usar worktree
+- Se NÃO DETECTADO mas usuário disse "SIM" → **OBRIGATÓRIO** usar worktree
+- Se NÃO DETECTADO e usuário disse "NÃO" → Workflow normal
+
+#### 📁 Workflow com Worktree (Passo a Passo)
+
+**Cenário: Usuário confirmou múltiplas IAs trabalhando**
+
+**Passo 1: Verificar Worktrees Existentes**
+```bash
+# Listar todos os worktrees ativos
+git worktree list
+
+# Exemplo de output:
+# /home/user/projeto           abc1234 [main]
+# /home/user/projeto-worktree-1 def5678 [COM-uuid1]
+# /home/user/projeto-worktree-2 ghi9012 [COM-uuid2]
+```
+
+**Passo 2: Determinar Próximo Número de Worktree**
+```bash
+# Contar worktrees existentes (excluindo main)
+existing_worktrees=$(git worktree list | grep -c "worktree-")
+
+# Próximo número
+next_number=$((existing_worktrees + 1))
+
+# Nome do novo worktree
+worktree_name="../projeto-worktree-${next_number}"
+```
+
+**Passo 3: Criar Branch COM-UUID**
+```bash
+# Gerar UUID v4 para esta IA
+uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+branch_name="COM-${uuid}"
+
+echo "📌 Branch criado: ${branch_name}"
+```
+
+**Passo 4: Criar Worktree**
+```bash
+# Criar worktree em diretório separado
+git worktree add ${worktree_name} -b ${branch_name}
+
+# Output esperado:
+# Preparing worktree (new branch 'COM-a5e531b2-...')
+# HEAD is now at abc1234 commit message
+```
+
+**Passo 5: Mudar para Diretório do Worktree**
+```bash
+cd ${worktree_name}
+
+# Confirmar localização
+pwd
+# /home/user/projeto-worktree-3
+
+# Confirmar branch ativo
+git branch --show-current
+# COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+
+**Passo 6: Informar Usuário**
+```markdown
+✅ **Worktree Configurado com Sucesso!**
+
+📂 **Diretório de trabalho:** ${worktree_name}
+🌿 **Branch ativo:** ${branch_name}
+🔒 **Isolamento:** Esta IA está isolada de outras IAs
+
+**Estrutura atual:**
+- Diretório principal: ~/projeto/ (não usar!)
+- Worktree 1: ~/projeto-worktree-1/ (IA #1)
+- Worktree 2: ~/projeto-worktree-2/ (IA #2)
+- Worktree 3: ~/projeto-worktree-3/ (VOCÊ ESTÁ AQUI)
+
+**IMPORTANTE:**
+- Trabalhar APENAS em ${worktree_name}
+- NÃO voltar para ~/projeto/
+- Commits serão feitos no branch ${branch_name}
+```
+
+**Passo 7: Trabalhar Normalmente**
+```bash
+# Agora trabalhar como se fosse diretório normal
+vim src/feature.py
+git add src/feature.py
+git commit -m "feat: implement feature A"
+git push origin ${branch_name}
+```
+
+#### 🧹 Limpeza Após Conclusão (PERGUNTAR AO USUÁRIO)
+
+**Quando IA termina a tarefa:**
+
+```markdown
+✅ **Tarefa Concluída!**
+
+📊 **Status do Worktree:**
+- Diretório: ${worktree_name}
+- Branch: ${branch_name}
+- Commits: X commits feitos
+- Status: Pushed para remote
+
+🧹 **Limpeza do Worktree:**
+
+Deseja que eu remova o worktree agora?
+
+**Opções:**
+1. ✅ SIM - Remover worktree (manterá branch no remote)
+2. 📋 NÃO - Manter para revisão (você pode revisar depois)
+3. 🔀 MERGE - Fazer merge para main e depois remover
+
+Recomendação: Opção 2 (manter para revisão)
+```
+
+**Se usuário escolher "SIM - Remover":**
+```bash
+# Voltar para diretório principal
+cd ~/projeto/
+
+# Remover worktree
+git worktree remove ${worktree_name}
+
+# Confirmar remoção
+git worktree list
+# Worktree não aparece mais na lista
+
+echo "✅ Worktree ${worktree_name} removido com sucesso!"
+echo "⚠️ Branch ${branch_name} ainda existe no remote"
+```
+
+**Se usuário escolher "MERGE e Remover":**
+```bash
+# Voltar para main
+cd ~/projeto/
+git checkout main
+git pull origin main
+
+# Merge do branch
+git merge ${branch_name}
+git push origin main
+
+# Remover worktree
+git worktree remove ${worktree_name}
+
+# Deletar branch local e remoto
+git branch -d ${branch_name}
+git push origin --delete ${branch_name}
+
+echo "✅ Merge completo e worktree removido!"
+```
+
+#### ⚠️ Tratamento de Erros Comuns
+
+**Erro 1: Worktree já existe**
+```bash
+# Erro:
+# fatal: '${worktree_name}' already exists
+
+# Solução:
+git worktree list
+# Verificar se worktree está realmente em uso
+# Se não estiver em uso:
+git worktree remove ${worktree_name} --force
+# Recriar
+git worktree add ${worktree_name} -b ${branch_name}
+```
+
+**Erro 2: Branch já existe**
+```bash
+# Erro:
+# fatal: A branch named 'COM-uuid' already exists
+
+# Solução:
+# Gerar novo UUID
+uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+branch_name="COM-${uuid}"
+# Tentar novamente
+```
+
+**Erro 3: Diretório não vazio**
+```bash
+# Erro:
+# fatal: '${worktree_name}' already exists and is not empty
+
+# Solução:
+# Usar diretório diferente
+next_number=$((next_number + 1))
+worktree_name="../projeto-worktree-${next_number}"
+```
+
+#### 📊 Monitoramento de Worktrees Ativos
+
+**Ver status de todos os worktrees:**
+```bash
+# Listar worktrees
+git worktree list
+
+# Output detalhado:
+# /home/user/projeto              abc1234 [main]
+# /home/user/projeto-worktree-1  def5678 [COM-uuid1]  ← IA #1
+# /home/user/projeto-worktree-2  ghi9012 [COM-uuid2]  ← IA #2
+# /home/user/projeto-worktree-3  jkl3456 [COM-uuid3]  ← IA #3 (você)
+
+# Ver status de cada worktree
+for worktree in $(git worktree list --porcelain | grep "worktree " | cut -d' ' -f2); do
+    echo "📂 Worktree: $worktree"
+    cd "$worktree"
+    git status -s
+    echo "---"
+done
+```
+
+#### 🎯 Diagrama do Fluxo
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Usuário abre múltiplas abas/janelas de terminal           │
+│ Cada aba = 1 IA trabalhando                                │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│ IA pergunta: "Outras IAs trabalhando agora?"              │
+│ Usuário responde: SIM / NÃO / NÃO SEI                     │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+              ┌───────────┴───────────┐
+              │   SIM ou DETECTADO    │   NÃO
+              ↓                       ↓
+┌──────────────────────────┐  ┌─────────────────┐
+│ Workflow com WORKTREE    │  │ Workflow NORMAL │
+│ (OBRIGATÓRIO)            │  │ (sem worktree)  │
+└──────────────────────────┘  └─────────────────┘
+              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ 1. Verificar worktrees existentes (git worktree list)      │
+│ 2. Determinar próximo número (worktree-N)                  │
+│ 3. Gerar UUID para branch (COM-uuid)                       │
+│ 4. Criar worktree: git worktree add ../projeto-worktree-N  │
+│ 5. Mudar para worktree: cd ../projeto-worktree-N           │
+│ 6. Trabalhar isoladamente                                  │
+│ 7. Commits e push normalmente                              │
+└──────────────────────────────────────────────────────────────┘
+              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ Tarefa concluída                                            │
+│ Perguntar: Remover worktree? SIM / NÃO / MERGE             │
+└──────────────────────────────────────────────────────────────┘
+```
+
+#### 💡 Formato Alternativo de Worktree (Menos Comum)
+
+**Opção: Usar COM-UUID como nome do diretório**
+
+```bash
+# Em vez de: ../projeto-worktree-1
+# Usar: ../projeto-COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+worktree_name="../projeto-${branch_name}"
+git worktree add ${worktree_name} -b ${branch_name}
+```
+
+**Vantagens:**
+- Nome do diretório = nome do branch (consistência)
+- Rastreabilidade perfeita
+
+**Desvantagens:**
+- Nome muito longo e difícil de digitar
+- Menos legível em listagens
+
+**Recomendação:** Usar `worktree-N` por padrão, mas oferecer UUID como opção.
+
+#### 🎓 Regra de Ouro Multi-IA
+
+> **"Quando múltiplas IAs trabalham juntas, worktrees mantêm cada IA em seu próprio universo. Um diretório por IA, um branch por IA, zero conflitos."**
+
+**Checklist obrigatório:**
+- [ ] Perguntei ao usuário sobre outras IAs trabalhando?
+- [ ] Verifiquei `.git/index.lock` e `git worktree list`?
+- [ ] Se múltiplas IAs detectadas → usei worktree?
+- [ ] Criei worktree com nome sequencial (worktree-N)?
+- [ ] Mudei para diretório do worktree antes de trabalhar?
+- [ ] Informei usuário sobre localização e branch?
+- [ ] Perguntei sobre remoção ao concluir tarefa?
+
+---
+
 ---
 
 ## 🎓 Paradigma Fundamental: Clareza Total Antes da Implementação (Solo Pragmático)
