@@ -2262,6 +2262,448 @@ If yes, what title and description would you like for the PR?
 **Git Golden Rule**:
 > **"Main is sacred. Always work on COM-UUID branches, except if user explicitly asks to use main."**
 
+### 🌳 Branch Patterns for Solo Devs (Pragmatic)
+
+As a solo dev, you have flexibility but need organization:
+
+#### **Pattern 1: COM-UUID** (For AIs)
+```bash
+COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+- ✅ **When**: AI works on automated tasks
+- ✅ **Advantage**: Perfect traceability
+
+#### **Pattern 2: COM1-feature** (For You - Recommended)
+```bash
+COM1-add-authentication
+COM1-fix-login-bug
+COM1-refactor-api
+```
+- ✅ **When**: You work on features/bugfixes
+- ✅ **Advantage**: Simple, descriptive, easy to remember
+- ✅ **Format**: `COM1-<short-description>`
+
+#### **Pattern 3: COM1** (Single Workspace - Optional)
+```bash
+COM1  # Personal work branch
+```
+- ⚠️ **When**: Prefer single persistent work branch
+- ⚠️ **Disadvantage**: Mixes different features
+- ✅ **OK for solo dev**, but Pattern 2 is better
+
+**Pragmatic Choice:**
+- **AI**: Always COM-UUID (automatic)
+- **You**: COM1-feature (organized but simple)
+
+### 🔄 Solo Dev Workflow (Straight to the Point)
+
+#### **Step 1: Create Branch**
+```bash
+# Update main
+git checkout main
+git pull origin main
+
+# Create branch for feature
+git checkout -b COM1-add-user-profiles
+```
+
+#### **Step 2: Work and Commit**
+```bash
+# Make changes
+vim src/profiles.py
+
+# Commit (simple but clear message)
+git add src/profiles.py
+git commit -m "feat: add user profile page with avatar upload"
+
+# Push (automatic backup!)
+git push -u origin COM1-add-user-profiles
+```
+
+**Commit frequency:**
+- ✅ Commit at end of day (backup)
+- ✅ Commit before risky change (savepoint)
+- ✅ Commit when feature works (milestone)
+
+#### **Step 3: Test Before Merging**
+```bash
+# Run basic tests
+npm test
+# or
+pytest tests/
+
+# If all OK, merge to main
+git checkout main
+git merge COM1-add-user-profiles
+git push origin main
+
+# Delete branch (optional, but keeps things organized)
+git branch -d COM1-add-user-profiles
+git push origin --delete COM1-add-user-profiles
+```
+
+**Solo Dev Pragmatism:**
+- ✅ PR is optional (you're the reviewer)
+- ✅ CI/CD is optional (useful, but not mandatory)
+- ✅ Code review is you testing manually
+- ✅ Priority: **works > perfect**
+
+#### **Step 4: Handle Experiments**
+```bash
+# For risky tests/experiments:
+git checkout -b COM1-experiment-new-db
+# [do experiment]
+
+# If it worked:
+git checkout main
+git merge COM1-experiment-new-db
+
+# If it failed:
+git checkout main
+git branch -D COM1-experiment-new-db  # Delete without merge
+```
+
+### ⚠️ Conflict Handling (Solo Dev)
+
+**Scenario**: You work on laptop + desktop (or with AI helping)
+
+```bash
+# On laptop: committed changes
+git commit -m "feat: add profile feature"
+git push origin COM1-profiles
+
+# On desktop (or AI committed): edited same file
+git pull origin COM1-profiles
+# Auto-merging src/profiles.py
+# CONFLICT (content): Merge conflict in src/profiles.py
+
+# Resolve conflict:
+vim src/profiles.py
+
+# Conflict example:
+# <<<<<<< HEAD  # Local change (desktop)
+#     def get_profile(user_id):
+#         return database.query(user_id)
+# =======       # Remote change (laptop)
+#     def get_profile(user_id):
+#         return cache.get(user_id) or database.query(user_id)
+# >>>>>>> origin/COM1-profiles
+
+# Choose best version (or combine):
+def get_profile(user_id):
+    return cache.get(user_id) or database.query(user_id)
+
+# Finalize:
+git add src/profiles.py
+git commit -m "merge: resolve conflict - keep cache version"
+git push origin COM1-profiles
+```
+
+**Solo Dev Tip**: If conflicts are rare, don't overcomplicate. Manual resolution is OK.
+
+### 🚫 Common Mistakes (Solo Dev)
+
+#### ❌ **Mistake 1: Never Committing**
+```bash
+# Working for weeks without commit = no backup = risk losing everything
+```
+
+**✅ Solution**: Commit at end of each session
+```bash
+# Every end of day:
+git add -A
+git commit -m "wip: progress on user profiles"
+git push origin COM1-profiles
+```
+
+#### ❌ **Mistake 2: Working Directly on Main for Risky Changes**
+```bash
+git checkout main
+vim src/critical_payment.py  # Big, risky change
+git commit -m "refactor payments"  # If it breaks, main is broken!
+```
+
+**✅ Solution**: Branch for risky changes
+```bash
+git checkout -b COM1-refactor-payments
+vim src/critical_payment.py
+git commit -m "refactor: simplify payment logic"
+# Test A LOT before merging
+npm test
+# If OK:
+git checkout main
+git merge COM1-refactor-payments
+```
+
+#### ❌ **Mistake 3: Forgetting to Push (No Backup)**
+```bash
+# Committing only locally = if HD fails, everything lost
+git commit -m "feat: important feature"
+# [forgets to push]
+# [HD crashes] 💀
+```
+
+**✅ Solution**: Always push after commit
+```bash
+git commit -m "feat: important feature"
+git push origin COM1-feature  # IMMEDIATE BACKUP
+```
+
+### 💡 Useful Commands for Solo Dev
+
+```bash
+# See simple history
+git log --oneline -10
+
+# See what changed recently
+git diff HEAD~1
+
+# Undo last commit (if haven't pushed yet)
+git reset --soft HEAD~1  # Keeps changes
+# or
+git reset --hard HEAD~1  # Discards changes (careful!)
+
+# See modified files
+git status -s
+
+# Quick backup before risky change
+git commit -am "wip: backup before risky change"
+git push
+
+# Undo changes in file (before commit)
+git checkout -- src/file.py
+
+# See who (you or AI) modified each line
+git blame src/file.py
+
+# Find recently introduced bug (simplified bisect)
+git log --oneline
+# Test commits manually until finding culprit
+```
+
+### 🤖 Working with AI (Solo Dev + AI Assistant)
+
+**Scenario**: You + AI working together on project
+
+```bash
+# AI works on COM-UUID branch
+# [AI creates]: git checkout -b COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# You work on COM1-feature branch
+git checkout -b COM1-refactor-ui
+
+# Both can work simultaneously without conflicts!
+
+# When AI finishes, you can:
+# 1. Review AI's code:
+git diff main..COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# 2. Test AI's branch:
+git checkout COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+npm test
+
+# 3. If OK, merge:
+git checkout main
+git merge COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+git push origin main
+
+# 4. Delete AI's branch:
+git branch -d COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+
+### 🎯 Pragmatic Workflow Summary
+
+**For Simple Features:**
+```bash
+# 1. Branch
+git checkout -b COM1-feature
+
+# 2. Work
+vim src/code.py
+
+# 3. Commit + Push (backup)
+git commit -am "feat: add feature"
+git push -u origin COM1-feature
+
+# 4. Test
+npm test
+
+# 5. Merge
+git checkout main
+git merge COM1-feature
+git push origin main
+
+# 6. Cleanup (optional)
+git branch -d COM1-feature
+```
+
+**For Risky Experiments:**
+```bash
+# Separate branch
+git checkout -b COM1-experiment
+
+# Experiment
+# [experimental code]
+
+# If it works → merge
+# If it doesn't → git branch -D COM1-experiment
+```
+
+**For Quick Backup:**
+```bash
+# End of day:
+git add -A
+git commit -m "wip: end of day backup"
+git push
+```
+
+### 📋 Solo Dev Best Practices (Pragmatic)
+
+**DO ✅:**
+- Commit at end of each work session (backup)
+- Use branch for risky changes
+- Push frequently (protection against HD failure)
+- Descriptive commit messages (you'll forget in 1 month)
+- Delete branches after merge (organization)
+
+**DON'T ❌:**
+- Work weeks without commit (risk of loss)
+- Big changes directly on main (no rollback)
+- Forget to push (no remote backup)
+- Vague messages "update" (will regret later)
+
+**Solo Dev Golden Rule:**
+> **"Branches protect experiments. Commits protect progress. Push protects everything. Do all three regularly."**
+
+### 🔧 Useful Scripts for Solo Dev
+
+**Script 1: Auto Backup (End of Day)**
+```bash
+#!/bin/bash
+# daily_backup.sh
+current_branch=$(git branch --show-current)
+
+git add -A
+git diff --cached --quiet || git commit -m "wip: daily backup $(date +%Y-%m-%d)"
+git push origin $current_branch
+echo "✅ Backup sent to remote"
+```
+
+```bash
+chmod +x daily_backup.sh
+# Run at end of day:
+./daily_backup.sh
+# Or automate (cron): 0 18 * * * cd /path && ./daily_backup.sh
+```
+
+**Script 2: Cleanup Old Branches**
+```bash
+#!/bin/bash
+# cleanup_branches.sh
+git checkout main && git pull origin main
+merged=$(git branch --merged main | grep -v "main\|*")
+[[ -z "$merged" ]] && { echo "✅ No branches to clean"; exit 0; }
+echo "$merged"
+read -p "Delete? (y/n): " confirm
+[[ "$confirm" == "y" ]] && echo "$merged" | xargs git branch -d
+```
+
+**Script 3: Quick Commit + Push**
+```bash
+#!/bin/bash
+# qcp.sh (Quick Commit Push)
+# Usage: ./qcp.sh "commit message"
+[[ -z "$1" ]] && { echo "Usage: ./qcp.sh 'message'"; exit 1; }
+git add -A
+git commit -m "$1"
+git push origin $(git branch --show-current)
+echo "✅ Committed and pushed: $1"
+```
+
+```bash
+chmod +x qcp.sh
+./qcp.sh "feat: add user authentication"
+# ✅ Committed and pushed: feat: add user authentication
+```
+
+### 🎓 Advanced Techniques (Optional for Solo Dev)
+
+**Git Stash (Save Temporary Work)**
+```bash
+# You're in the middle of something, need to switch context urgently:
+git stash save "work in progress on profile"
+
+# Switch context:
+git checkout main
+# [do urgent hotfix]
+
+# Return to previous work:
+git checkout COM1-profiles
+git stash pop  # Restore changes
+```
+
+**Git Bisect (Find When Bug Was Introduced)**
+```bash
+# Test was passing last week, now fails. Which commit broke it?
+git bisect start
+git bisect bad                    # Current commit is broken
+git bisect good HEAD~20           # 20 commits ago was OK
+
+# Git checks out middle commit
+# Test:
+npm test
+
+# If fails:
+git bisect bad
+# If passes:
+git bisect good
+
+# Repeat until Git finds culprit commit
+git bisect reset  # Return to normal
+```
+
+**Git Reflog (Recover "Lost" Work)**
+```bash
+# Did git reset --hard by accident and "lost" commits:
+git reflog
+# abc1234 HEAD@{0}: reset: moving to HEAD~5
+# def5678 HEAD@{1}: commit: important feature
+
+# Recover "lost" commit:
+git checkout def5678
+git checkout -b COM1-recovery
+# Commits recovered! 🎉
+```
+
+### 🎯 Solo Dev Summary
+
+**Minimum Viable Workflow:**
+1. Branch for each feature/experiment
+2. Commit at end of day (backup)
+3. Push every time (protection)
+4. Merge when it works
+5. Delete branch when merged
+
+**Essential Rules:**
+- 🌿 **Branch** = Safe experiment
+- 💾 **Commit** = Savepoint
+- ☁️ **Push** = Cloud backup
+- 🧪 **Test** before merge
+- 🧹 **Cleanup** old branches
+
+**When to Simplify:**
+- Trivial features: OK to commit directly to main (you decide)
+- Solo on project: PR is optional
+- Quick prototype: Less rigor OK
+
+**When to Be Strict:**
+- Active production: ALWAYS use branches
+- Risky changes: ALWAYS test in branch
+- Critical code: ALWAYS commit + push
+
+**Solo Dev Philosophy:**
+> **"Git isn't bureaucracy, it's your safety net. Use it."**
+
 ---
 
 ## 🎓 Fundamental Paradigm: Total Clarity Before Implementation (Solo Pragmatic)

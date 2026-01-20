@@ -2261,6 +2261,504 @@ Se sim, qual título e descrição deseja para o PR?
 **Regra de Ouro Git**:
 > **"Main é sagrada. Sempre trabalhe em branches COM-UUID, exceto se usuário explicitamente pedir para usar main."**
 
+### 🌳 Padrões de Branch para Solo Devs (Pragmático)
+
+Como solo dev, você tem flexibilidade mas precisa de organização:
+
+#### **Padrão 1: COM-UUID** (Para IAs)
+```bash
+COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+- ✅ **Quando**: IA trabalha em tarefas automatizadas
+- ✅ **Vantagem**: Rastreabilidade perfeita
+
+#### **Padrão 2: COM1-feature** (Para Você - Recomendado)
+```bash
+COM1-add-authentication
+COM1-fix-login-bug
+COM1-refactor-api
+```
+- ✅ **Quando**: Você trabalha em features/bugfixes
+- ✅ **Vantagem**: Simples, descritivo, fácil lembrar
+- ✅ **Formato**: `COM1-<descrição-curta>`
+
+#### **Padrão 3: COM1** (Workspace Único - Opcional)
+```bash
+COM1  # Branch pessoal de trabalho
+```
+- ⚠️ **Quando**: Prefere uma branch de trabalho persistente
+- ⚠️ **Desvantagem**: Mistura features diferentes
+- ✅ **OK para solo dev**, mas Padrão 2 é melhor
+
+**Escolha Pragmática:**
+- **IA**: Sempre COM-UUID (automático)
+- **Você**: COM1-feature (organizado, mas simples)
+
+### 🔄 Workflow Solo Dev (Direto ao Ponto)
+
+#### **Passo 1: Criar Branch**
+```bash
+# Atualizar main
+git checkout main
+git pull origin main
+
+# Criar branch para feature
+git checkout -b COM1-add-user-profiles
+```
+
+#### **Passo 2: Trabalhar e Commitar**
+```bash
+# Fazer mudanças
+vim src/profiles.py
+
+# Commit (mensagem simples mas clara)
+git add src/profiles.py
+git commit -m "feat: add user profile page with avatar upload"
+
+# Push (backup automático!)
+git push -u origin COM1-add-user-profiles
+```
+
+**Frequência de commits:**
+- ✅ Commitar ao final do dia (backup)
+- ✅ Commitar antes de mudança arriscada (savepoint)
+- ✅ Commitar quando feature funciona (milestone)
+
+#### **Passo 3: Testar Antes de Merger**
+```bash
+# Rodar testes básicos
+npm test
+# ou
+pytest tests/
+
+# Se tudo OK, merge na main
+git checkout main
+git merge COM1-add-user-profiles
+git push origin main
+
+# Deletar branch (opcional, mas mantém organizado)
+git branch -d COM1-add-user-profiles
+git push origin --delete COM1-add-user-profiles
+```
+
+**Pragmatismo Solo Dev:**
+- ✅ PR é opcional (você é o reviewer)
+- ✅ CI/CD é opcional (útil, mas não obrigatório)
+- ✅ Code review é você testando manualmente
+- ✅ Prioridade: **funciona > perfeito**
+
+#### **Passo 4: Lidar com Experimentos**
+```bash
+# Para testes/experimentos arriscados:
+git checkout -b COM1-experiment-new-db
+# [fazer experimento]
+
+# Se deu certo:
+git checkout main
+git merge COM1-experiment-new-db
+
+# Se deu errado:
+git checkout main
+git branch -D COM1-experiment-new-db  # Deletar sem merge
+```
+
+### ⚠️ Tratamento de Conflitos (Solo Dev)
+
+**Cenário**: Você trabalha em laptop + desktop (ou com IA ajudando)
+
+```bash
+# No laptop: commitou mudanças
+git commit -m "feat: add profile feature"
+git push origin COM1-profiles
+
+# No desktop (ou IA commitou): editou mesmo arquivo
+git pull origin COM1-profiles
+# Auto-merging src/profiles.py
+# CONFLICT (content): Merge conflict in src/profiles.py
+
+# Resolver conflito:
+vim src/profiles.py
+
+# Exemplo de conflito:
+# <<<<<<< HEAD  # Mudança local (desktop)
+#     def get_profile(user_id):
+#         return database.query(user_id)
+# =======       # Mudança remota (laptop)
+#     def get_profile(user_id):
+#         return cache.get(user_id) or database.query(user_id)
+# >>>>>>> origin/COM1-profiles
+
+# Escolher melhor versão (ou combinar):
+def get_profile(user_id):
+    return cache.get(user_id) or database.query(user_id)
+
+# Finalizar:
+git add src/profiles.py
+git commit -m "merge: resolve conflict - keep cache version"
+git push origin COM1-profiles
+```
+
+**Dica Solo Dev**: Se conflitos são raros, não complique. Resolver manualmente é OK.
+
+### 🚫 Erros Comuns (Solo Dev)
+
+#### ❌ **Erro 1: Nunca Commitar**
+```bash
+# Trabalhar por semanas sem commit = sem backup = risco de perder tudo
+```
+
+**✅ Solução**: Commitar ao final de cada sessão
+```bash
+# Todo fim de dia:
+git add -A
+git commit -m "wip: progress on user profiles"
+git push origin COM1-profiles
+```
+
+#### ❌ **Erro 2: Trabalhar Direto na Main em Mudança Arriscada**
+```bash
+git checkout main
+vim src/critical_payment.py  # Mudança grande e arriscada
+git commit -m "refactor payments"  # Se quebrar, main quebrada!
+```
+
+**✅ Solução**: Branch para mudanças arriscadas
+```bash
+git checkout -b COM1-refactor-payments
+vim src/critical_payment.py
+git commit -m "refactor: simplify payment logic"
+# Testar MUITO antes de merger
+npm test
+# Se OK:
+git checkout main
+git merge COM1-refactor-payments
+```
+
+#### ❌ **Erro 3: Esquecer de Push (Sem Backup)**
+```bash
+# Commitar apenas localmente = se HD falhar, perdeu tudo
+git commit -m "feat: important feature"
+# [esquece de fazer push]
+# [HD quebra] 💀
+```
+
+**✅ Solução**: Sempre push após commit
+```bash
+git commit -m "feat: important feature"
+git push origin COM1-feature  # BACKUP IMEDIATO
+```
+
+### 💡 Comandos Úteis para Solo Dev
+
+```bash
+# Ver histórico simples
+git log --oneline -10
+
+# Ver o que mudou recentemente
+git diff HEAD~1
+
+# Desfazer último commit (se não fez push ainda)
+git reset --soft HEAD~1  # Mantém mudanças
+# ou
+git reset --hard HEAD~1  # Descarta mudanças (cuidado!)
+
+# Ver arquivos modificados
+git status -s
+
+# Backup rápido antes de mudança arriscada
+git commit -am "wip: backup before risky change"
+git push
+
+# Desfazer mudanças em arquivo (antes de commit)
+git checkout -- src/file.py
+
+# Ver quem (você ou IA) modificou cada linha
+git blame src/file.py
+
+# Encontrar bug introduzido recentemente (bisect simplificado)
+git log --oneline
+# Testar commits manualmente até achar o culpado
+```
+
+### 🤖 Trabalhando com IA (Solo Dev + AI Assistant)
+
+**Cenário**: Você + IA trabalhando juntos no projeto
+
+```bash
+# IA trabalha em branch COM-UUID
+# [IA cria]: git checkout -b COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# Você trabalha em branch COM1-feature
+git checkout -b COM1-refactor-ui
+
+# Ambos podem trabalhar simultaneamente sem conflitos!
+
+# Quando IA termina, você pode:
+# 1. Revisar código da IA:
+git diff main..COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+
+# 2. Testar branch da IA:
+git checkout COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+npm test
+
+# 3. Se OK, merger:
+git checkout main
+git merge COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+git push origin main
+
+# 4. Deletar branch da IA:
+git branch -d COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+```
+
+### 🎯 Workflow Pragmático Resumido
+
+**Para Features Simples:**
+```bash
+# 1. Branch
+git checkout -b COM1-feature
+
+# 2. Trabalhar
+vim src/code.py
+
+# 3. Commitar + Push (backup)
+git commit -am "feat: add feature"
+git push -u origin COM1-feature
+
+# 4. Testar
+npm test
+
+# 5. Merger
+git checkout main
+git merge COM1-feature
+git push origin main
+
+# 6. Cleanup (opcional)
+git branch -d COM1-feature
+```
+
+**Para Experimentos Arriscados:**
+```bash
+# Branch separada
+git checkout -b COM1-experiment
+
+# Experimentar
+# [código experimental]
+
+# Se funcionar → merge
+# Se não funcionar → git branch -D COM1-experiment
+```
+
+**Para Backup Rápido:**
+```bash
+# Final do dia:
+git add -A
+git commit -m "wip: end of day backup"
+git push
+```
+
+### 📋 Boas Práticas Solo Dev (Pragmático)
+
+**DO ✅:**
+- Commitar ao final de cada sessão de trabalho (backup)
+- Usar branch para mudanças arriscadas
+- Push frequente (proteção contra falha de HD)
+- Mensagens de commit descritivas (você vai esquecer em 1 mês)
+- Deletar branches após merge (organização)
+
+**DON'T ❌:**
+- Trabalhar semanas sem commit (risco de perda)
+- Mudanças grandes direto na main (sem rollback)
+- Esquecer de push (sem backup remoto)
+- Mensagens vagas "update" (vai se arrepender depois)
+
+**Regra de Ouro Solo Dev:**
+> **"Branch protege experimentos. Commits protegem progresso. Push protege tudo. Faça os três regularmente."**
+
+### 🔧 Scripts Úteis para Solo Dev
+
+#### **Script 1: Backup Automático (Final do Dia)**
+```bash
+#!/bin/bash
+# daily_backup.sh - Backup automático ao final do dia
+
+current_branch=$(git branch --show-current)
+
+# Commitar tudo (mesmo work in progress)
+git add -A
+
+if git diff --cached --quiet; then
+    echo "✅ Nada para commitar"
+else
+    git commit -m "wip: daily backup $(date +%Y-%m-%d)"
+    echo "✅ Backup commitado"
+fi
+
+# Push
+git push origin $current_branch
+echo "✅ Backup enviado para remote"
+
+# Status
+git status -s
+```
+
+```bash
+chmod +x daily_backup.sh
+
+# Rodar no final do dia:
+./daily_backup.sh
+
+# Ou automatizar (cron):
+# crontab -e
+# 0 18 * * * cd /path/to/projeto && ./daily_backup.sh
+```
+
+#### **Script 2: Cleanup de Branches Antigas**
+```bash
+#!/bin/bash
+# cleanup_branches.sh - Limpar branches merged
+
+echo "🧹 Limpando branches antigas..."
+
+# Atualizar main
+git checkout main
+git pull origin main
+
+# Listar branches merged
+merged=$(git branch --merged main | grep -v "main\|*")
+
+if [ -z "$merged" ]; then
+    echo "✅ Sem branches para limpar"
+    exit 0
+fi
+
+echo "Branches merged:"
+echo "$merged"
+
+read -p "Deletar? (y/n): " confirm
+
+if [ "$confirm" = "y" ]; then
+    echo "$merged" | xargs git branch -d
+    echo "✅ Branches locais deletadas"
+    
+    # Deletar remotas também
+    echo "$merged" | xargs -I {} git push origin --delete {}
+    echo "✅ Branches remotas deletadas"
+fi
+```
+
+#### **Script 3: Quick Commit + Push**
+```bash
+#!/bin/bash
+# qcp.sh (Quick Commit Push) - Commit + push rápido
+
+# Uso: ./qcp.sh "mensagem do commit"
+
+if [ -z "$1" ]; then
+    echo "Uso: ./qcp.sh 'mensagem do commit'"
+    exit 1
+fi
+
+current_branch=$(git branch --show-current)
+
+git add -A
+git commit -m "$1"
+git push origin $current_branch
+
+echo "✅ Commitado e pushed: $1"
+```
+
+```bash
+chmod +x qcp.sh
+
+# Usar:
+./qcp.sh "feat: add user authentication"
+# ✅ Commitado e pushed: feat: add user authentication
+```
+
+### 🎓 Técnicas Avançadas (Opcionais para Solo Dev)
+
+#### **Git Stash (Salvar Trabalho Temporário)**
+```bash
+# Você está no meio de algo, mas precisa mudar de contexto urgente:
+git stash save "trabalho em andamento no profile"
+
+# Mudar de contexto:
+git checkout main
+# [fazer hotfix urgente]
+
+# Voltar ao trabalho anterior:
+git checkout COM1-profiles
+git stash pop  # Restaura mudanças
+```
+
+#### **Git Bisect (Encontrar Quando Bug Foi Introduzido)**
+```bash
+# Teste passava semana passada, agora falha. Qual commit quebrou?
+
+git bisect start
+git bisect bad                    # Commit atual está quebrado
+git bisect good HEAD~20           # 20 commits atrás estava OK
+
+# Git faz checkout no commit do meio
+# Testar:
+npm test
+
+# Se falha:
+git bisect bad
+# Se passa:
+git bisect good
+
+# Repetir até Git achar commit culpado
+# "abc1234 is the first bad commit"
+
+git bisect reset  # Voltar ao normal
+```
+
+#### **Git Reflog (Recuperar Trabalho "Perdido")**
+```bash
+# Fez git reset --hard por acidente e "perdeu" commits:
+git reflog
+
+# Ver histórico de movimentos do HEAD:
+# abc1234 HEAD@{0}: reset: moving to HEAD~5
+# def5678 HEAD@{1}: commit: importante feature
+
+# Recuperar commit "perdido":
+git checkout def5678
+git checkout -b COM1-recovery
+
+# Commits recuperados! 🎉
+```
+
+### 🎯 Resumo Solo Dev
+
+**Workflow Mínimo Viável:**
+1. Branch para cada feature/experimento
+2. Commit ao final do dia (backup)
+3. Push toda vez (proteção)
+4. Merge quando funciona
+5. Delete branch quando merged
+
+**Regras Essenciais:**
+- 🌿 **Branch** = Experimento seguro
+- 💾 **Commit** = Savepoint
+- ☁️ **Push** = Backup na nuvem
+- 🧪 **Test** antes de merge
+- 🧹 **Cleanup** branches antigas
+
+**Quando Simplificar:**
+- Features triviais: OK commitar direto na main (você decide)
+- Sozinho no projeto: PR é opcional
+- Protótipo rápido: Menos rigor OK
+
+**Quando Ser Rigoroso:**
+- Produção ativa: SEMPRE usar branches
+- Mudanças arriscadas: SEMPRE testar em branch
+- Código crítico: SEMPRE commit + push
+
+**Filosofia Solo Dev:**
+> **"Git não é burocracia, é sua rede de segurança. Use-a."**
+
 ---
 
 ## 🎓 Paradigma Fundamental: Clareza Total Antes da Implementação (Solo Pragmático)

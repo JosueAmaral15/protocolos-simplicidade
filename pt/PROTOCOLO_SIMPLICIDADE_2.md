@@ -2143,6 +2143,1414 @@ Se sim, qual título e descrição deseja para o PR?
 **Regra de Ouro Git**:
 > **"Main é sagrada. Sempre trabalhe em branches COM-UUID, exceto se usuário explicitamente pedir para usar main."**
 
+### 🌳 Padrões de Nomenclatura de Branches (Enterprise)
+
+Para ambientes enterprise com múltiplos programadores, existem **3 padrões principais** de branches:
+
+#### **Padrão 1: COM-UUID** (Obrigatório para IAs)
+```bash
+COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+COM-f47ac10b-58cc-4372-a567-0e02b2c3d479
+```
+- ✅ **Para**: IAs trabalhando em tarefas
+- ✅ **Vantagem**: Máxima rastreabilidade, auditoria completa, sem colisões
+- ✅ **Uso**: Gerado automaticamente pela IA
+- ✅ **Compliance**: Ideal para ambientes regulados (SOC2, ISO27001)
+
+#### **Padrão 2: COM<N>-feature** (Recomendado para Programadores Enterprise)
+```bash
+COM2-implement-oauth2-authentication
+COM5-fix-security-cve-2026-1234
+COM7-refactor-payment-gateway
+COM12-add-gdpr-compliance
+```
+- ✅ **Para**: Programadores humanos (1 branch por feature/bugfix)
+- ✅ **Vantagem**: Legível, rastreável, semântico, auditável
+- ✅ **Formato**: `COM<número>-<tipo>-<descrição-kebab-case>`
+- ✅ **Tipos**: `implement`, `fix`, `refactor`, `add`, `remove`, `upgrade`
+- ✅ **Número**: ID único do programador ou ticket (ex: JIRA-1234)
+
+#### **Padrão 3: COM<N>** (Workspace Persistente - Desencorajado em Enterprise)
+```bash
+COM2
+COM5
+```
+- ⚠️ **Para**: Workspace persistente de longa duração
+- ⚠️ **Desvantagem**: Menos semântico, dificulta auditoria
+- ❌ **Não recomendado para enterprise**: Prefira Padrão 2
+
+**Escolha do Padrão (Enterprise):**
+- **IAs**: SEMPRE Padrão 1 (COM-UUID) - rastreabilidade total
+- **Programadores**: Padrão 2 OBRIGATÓRIO (COM<N>-feature) - governança
+- **Proibido**: Sufixos em arquivos (_1, _2, _dev1) - viola auditoria
+
+### 📂 Estrutura de Arquivos e Pastas (Enterprise Standards)
+
+**❌ VIOLAÇÃO DE GOVERNANÇA** (Não fazer):
+```
+src/
+  utils_1.py                    # Sufixo de programador
+  utils_2.py
+  database_senior_dev.py        # Nome de programador
+  api_contractor_maria.py       # Identifica contratado
+docs/
+  team_a/                       # Pastas por equipe
+  team_b/
+  contractor_docs/              # Segrega contratados
+```
+
+**✅ CONFORMIDADE** (Padrão enterprise):
+```
+src/
+  utils.py                      # Nome padrão, limpo
+  database.py
+  api.py
+docs/
+  API_SPECIFICATION.md          # Docs padronizadas
+  DATABASE_SCHEMA.md
+  ARCHITECTURE_DECISION_RECORDS/
+    ADR-001-escolha-database.md
+    ADR-002-autenticacao-oauth2.md
+```
+
+**Rationale Enterprise:**
+- ✅ Git rastreia autoria: `git log`, `git blame` (auditável)
+- ✅ Estrutura profissional e padronizada
+- ✅ Facilita onboarding de novos devs
+- ✅ Compliance com políticas de código
+- ✅ Sem discriminação entre permanentes/contratados
+- ✅ Histórico git serve como fonte de verdade para auditorias
+
+### 🔄 Workflow Completo para Equipes Enterprise Multi-Programador
+
+#### **Passo 1: Criar Branch de Trabalho (com Validação)**
+```bash
+# 1. Verificar se está autorizado a trabalhar nesta tarefa
+# (consultar JIRA, Azure DevOps, etc.)
+
+# 2. Atualizar main local
+git checkout main
+git pull origin main
+
+# 3. Criar branch seguindo padrão de nomenclatura
+git checkout -b COM12-implement-oauth2-saml
+
+# 4. Push imediato para marcar trabalho em progresso (opcional mas recomendado)
+git push -u origin COM12-implement-oauth2-saml
+
+# 5. Atualizar ticket no sistema de gestão
+# JIRA-1234: Status → "In Progress"
+```
+
+#### **Passo 2: Desenvolvimento com Commits Atômicos e Bem Documentados**
+```bash
+# Implementar mudança específica
+vim src/auth/oauth2.py
+vim src/auth/saml.py
+
+# Commit atômico (uma mudança lógica)
+git add src/auth/
+git commit -m "feat(auth): add OAuth2 provider configuration
+
+- Implement OAuth2AuthProvider class
+- Add support for Google, Microsoft, Okta
+- Include configuration validation
+- Refs: JIRA-1234"
+
+# Adicionar testes (commit separado)
+vim tests/auth/test_oauth2.py
+
+git add tests/
+git commit -m "test(auth): add OAuth2 provider tests
+
+- Test provider initialization
+- Test token validation
+- Test configuration errors
+- Coverage: 95%
+- Refs: JIRA-1234"
+
+# Atualizar documentação (commit separado)
+vim docs/AUTHENTICATION.md
+
+git add docs/
+git commit -m "docs(auth): document OAuth2 configuration
+
+- Add OAuth2 setup guide
+- Include configuration examples
+- Document supported providers
+- Refs: JIRA-1234"
+```
+
+**Formato de Mensagem de Commit (Enterprise):**
+```
+<tipo>(<escopo>): <título curto>
+
+<descrição detalhada>
+- Bullet point 1
+- Bullet point 2
+
+<metadata>
+- Refs: JIRA-1234
+- Co-authored-by: Maria Silva <maria@empresa.com>
+- Reviewed-by: João Santos <joao@empresa.com>
+```
+
+**Tipos válidos**: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `style`, `perf`, `ci`, `build`, `revert`
+
+#### **Passo 3: Push Regular para Remote (Backup e Visibilidade)**
+```bash
+# Push frequente (ao menos 1x por dia)
+git push origin COM12-implement-oauth2-saml
+
+# Atualizar status no JIRA
+# JIRA-1234: Comentar progresso diário
+```
+
+**Rationale:**
+- ✅ Backup automático do trabalho
+- ✅ Equipe vê progresso em tempo real
+- ✅ Facilita handoff em emergências
+- ✅ CI/CD pode rodar testes automaticamente
+
+#### **Passo 4: Sincronização Diária Obrigatória com Main**
+```bash
+# Toda manhã ANTES de começar a trabalhar:
+git fetch origin main
+git merge origin/main
+
+# Se houver conflitos:
+# 1. Resolver manualmente
+vim src/auth/oauth2.py  # Resolver conflitos
+
+# 2. Marcar como resolvido
+git add src/auth/oauth2.py
+
+# 3. Completar merge
+git commit -m "merge: resolve conflicts with main in oauth2 module
+
+- Resolved conflict in OAuth2AuthProvider.validate()
+- Kept both changes (mine + John's refactoring)
+- All tests passing
+- Refs: JIRA-1234"
+
+# 4. Testar TUDO novamente
+npm test
+npm run lint
+npm run build
+
+# 5. Push
+git push origin COM12-implement-oauth2-saml
+```
+
+**Por que sincronização diária é OBRIGATÓRIA em enterprise:**
+- ✅ Evita conflitos massivos (custo $$$ alto em resolução)
+- ✅ Detecta incompatibilidades de integração cedo
+- ✅ Reduz risco de merge hell
+- ✅ Melhora qualidade através de integração contínua
+- ✅ Cumpre práticas de Continuous Integration
+
+#### **Passo 5: Pre-Merge Checklist Enterprise (OBRIGATÓRIO)**
+```bash
+# ✅ 1. Todos os testes passando
+npm test
+pytest tests/
+cargo test
+
+# ✅ 2. Linter sem erros
+npm run lint
+pylint src/
+cargo clippy
+
+# ✅ 3. Formatação padronizada
+npm run format
+black src/
+rustfmt src/
+
+# ✅ 4. Build de produção bem-sucedido
+npm run build:prod
+docker build -t app:latest .
+
+# ✅ 5. Testes de segurança
+npm audit
+safety check
+cargo audit
+
+# ✅ 6. Cobertura de testes >= threshold
+npm run test:coverage  # Verificar >= 80%
+
+# ✅ 7. Documentação atualizada
+ls docs/ | grep -i oauth2  # Verificar se docs existem
+
+# ✅ 8. Changelog atualizado (se aplicável)
+vim CHANGELOG.md
+
+# ✅ 9. Migration scripts (se mudanças em DB)
+ls migrations/ | grep -i latest
+
+# ✅ 10. Variáveis de ambiente documentadas (se novas)
+vim .env.example
+```
+
+#### **Passo 6: Criar Pull Request com Template Completo**
+```bash
+# Via CLI (GitHub)
+gh pr create \
+  --title "feat: Implement OAuth2 and SAML authentication" \
+  --body-file .github/PULL_REQUEST_TEMPLATE.md \
+  --assignee mariasilva \
+  --reviewer joaosantos,pedrolima \
+  --label "feature,security,high-priority"
+
+# Ou via Web UI (preencher template)
+```
+
+**Template de PR (Enterprise)**:
+```markdown
+## 📋 Descrição
+Implementa autenticação OAuth2 e SAML conforme especificado em JIRA-1234.
+
+## 🎯 Tipo de Mudança
+- [x] Nova feature
+- [ ] Bug fix
+- [ ] Breaking change
+- [ ] Refatoração
+- [ ] Atualização de documentação
+
+## 🔗 Referências
+- JIRA: https://jira.empresa.com/browse/JIRA-1234
+- Design Doc: https://docs.empresa.com/oauth2-design
+- ADR: docs/ARCHITECTURE_DECISION_RECORDS/ADR-015-oauth2.md
+
+## ✅ Checklist
+- [x] Testes unitários adicionados/atualizados
+- [x] Testes de integração adicionados
+- [x] Documentação atualizada
+- [x] Changelog atualizado
+- [x] Cobertura de testes >= 80%
+- [x] Linter passou sem warnings
+- [x] Build de produção bem-sucedido
+- [x] Testes de segurança passaram
+- [x] Reviewed by security team (se aplicável)
+- [x] Variáveis de ambiente documentadas
+- [x] Migration scripts incluídos (se aplicável)
+
+## 🧪 Como Testar
+1. Configurar `.env` com credenciais OAuth2
+2. Rodar `docker-compose up`
+3. Acessar `http://localhost:3000/auth/login`
+4. Testar login com Google, Microsoft, Okta
+5. Verificar tokens JWT gerados
+
+## 📸 Screenshots (se UI)
+[Anexar screenshots]
+
+## 🎭 Testes de Regressão
+- [x] Login tradicional (email/senha) ainda funciona
+- [x] APIs existentes não quebradas
+- [x] Performance não degradou (< 200ms p95)
+
+## 🔒 Considerações de Segurança
+- Tokens armazenados com encryption em repouso
+- HTTPS obrigatório em produção
+- Rate limiting implementado (100 req/min)
+- Validação de redirect_uri contra whitelist
+
+## 📊 Impacto
+- **Performance**: +50ms latência média (aceitável)
+- **Database**: Nova tabela `oauth_tokens` (~10MB/mês crescimento)
+- **Dependências**: +3 novos pacotes (auditados)
+
+## 👥 Reviewers
+- @mariasilva (Tech Lead) - OBRIGATÓRIO
+- @joaosantos (Security Team) - OBRIGATÓRIO
+- @pedrolima (Backend Team) - Opcional
+
+## 🚀 Deploy Notes
+- Requer migration: `migrations/2026_01_20_oauth2_tables.sql`
+- Requer env vars: `OAUTH2_CLIENT_ID`, `OAUTH2_CLIENT_SECRET`
+- Rollback plan: revert migration + rollback deploy
+```
+
+#### **Passo 7: Code Review Formal (Obrigatório Enterprise)**
+```bash
+# Aguardar aprovações:
+# - Mínimo 2 aprovações (configurável por repo)
+# - Aprovação obrigatória de Tech Lead
+# - Aprovação obrigatória de Security (se mudança sensível)
+
+# Endereçar comentários de review:
+vim src/auth/oauth2.py  # Implementar sugestões
+
+git add src/auth/oauth2.py
+git commit -m "refactor: improve error handling per review feedback
+
+- Add more specific exception types
+- Improve logging of auth failures
+- Add retry logic with exponential backoff
+
+Refs: JIRA-1234
+Reviewed-by: Maria Silva <maria@empresa.com>"
+
+git push origin COM12-implement-oauth2-saml
+
+# Requerer re-review se mudanças significativas
+```
+
+#### **Passo 8: Merge Strategies (Escolher conforme política da equipe)**
+
+**Opção A: Merge Commit (Preserva Histórico Completo)**
+```bash
+# Após aprovações, via UI ou CLI:
+gh pr merge 123 --merge --delete-branch
+
+# Ou manualmente:
+git checkout main
+git merge --no-ff COM12-implement-oauth2-saml
+git push origin main
+git push origin --delete COM12-implement-oauth2-saml
+```
+- ✅ **Vantagem**: Histórico completo, fácil reverter
+- ❌ **Desvantagem**: Histórico pode ficar poluído
+
+**Opção B: Squash Merge (Histórico Limpo)**
+```bash
+gh pr merge 123 --squash --delete-branch
+
+# Ou manualmente:
+git checkout main
+git merge --squash COM12-implement-oauth2-saml
+git commit -m "feat: implement OAuth2 and SAML authentication
+
+Complete implementation with:
+- OAuth2 providers (Google, Microsoft, Okta)
+- SAML SSO support
+- Comprehensive test coverage (95%)
+- Full documentation
+
+Refs: JIRA-1234
+Reviewed-by: Maria Silva, João Santos"
+git push origin main
+git push origin --delete COM12-implement-oauth2-saml
+```
+- ✅ **Vantagem**: Histórico limpo, 1 commit por feature
+- ❌ **Desvantagem**: Perde histórico granular de desenvolvimento
+
+**Opção C: Rebase Merge (Linear History)**
+```bash
+gh pr merge 123 --rebase --delete-branch
+
+# Ou manualmente:
+git checkout COM12-implement-oauth2-saml
+git rebase main
+git checkout main
+git merge --ff-only COM12-implement-oauth2-saml
+git push origin main
+git push origin --delete COM12-implement-oauth2-saml
+```
+- ✅ **Vantagem**: Histórico linear e limpo
+- ❌ **Desvantagem**: Reescreve histórico (requer force push)
+
+**Recomendação Enterprise**: Squash Merge (Opção B) para features, Merge Commit (Opção A) para hotfixes
+
+#### **Passo 9: Post-Merge (Obrigatório)**
+```bash
+# 1. Deletar branch local
+git branch -d COM12-implement-oauth2-saml
+
+# 2. Verificar se branch remota foi deletada
+git fetch --prune
+
+# 3. Atualizar ticket
+# JIRA-1234: Status → "Code Review Complete" → "Merged to Main"
+
+# 4. Notificar stakeholders
+# Slack: "@channel OAuth2 feature merged to main, deploy to staging soon"
+
+# 5. Monitorar deploy (se auto-deploy habilitado)
+# Verificar logs de CI/CD
+# Verificar métricas de produção (se canary deploy)
+
+# 6. Atualizar documentação de release notes (se aplicável)
+vim docs/RELEASE_NOTES_v2.5.0.md
+```
+
+### ⚠️ Tratamento de Conflitos de Merge (Enterprise)
+
+**Cenário Complexo**: Múltiplos devs editaram mesmo arquivo, módulo crítico
+
+```bash
+# Tentativa de merge
+git fetch origin main
+git merge origin/main
+# Auto-merging src/auth/oauth2.py
+# CONFLICT (content): Merge conflict in src/auth/oauth2.py
+# Auto-merging src/database/models.py
+# CONFLICT (content): Merge conflict in src/database/models.py
+
+# Ver arquivos conflitados
+git status
+# On branch COM12-implement-oauth2-saml
+# You have unmerged paths.
+#   (fix conflicts and run "git commit")
+#   (use "git merge --abort" to abort the merge)
+#
+# Unmerged paths:
+#   (use "git add <file>..." to mark resolution)
+#         both modified:   src/auth/oauth2.py
+#         both modified:   src/database/models.py
+```
+
+**Resolução de Conflitos (Passo a Passo):**
+
+```bash
+# 1. Abrir arquivo conflitado
+vim src/auth/oauth2.py
+```
+
+**Conflito complexo:**
+```python
+class OAuth2Provider:
+    def validate_token(self, token):
+<<<<<<< HEAD  # Sua mudança (COM12-implement-oauth2-saml)
+        # Nova implementação com JWT validation
+        try:
+            payload = jwt.decode(
+                token,
+                self.secret_key,
+                algorithms=["RS256", "HS256"],
+                audience=self.client_id
+            )
+            return self._validate_payload(payload)
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationError("Token expired")
+        except jwt.InvalidTokenError:
+            raise AuthenticationError("Invalid token")
+=======      # Mudança na main (outro dev refatorou)
+        # Refatoração para usar novo sistema de validação
+        validator = TokenValidator(
+            secret=self.secret_key,
+            algorithms=["RS256"],
+            audience=self.client_id,
+            issuer=self.issuer
+        )
+        try:
+            return validator.validate(token)
+        except ValidationException as e:
+            logger.error(f"Token validation failed: {e}")
+            raise AuthenticationError(str(e))
+>>>>>>> origin/main
+```
+
+**Análise:**
+- **Sua mudança**: Adicionou HS256, tratamento de erros específicos
+- **Mudança da main**: Refatoração para usar classe `TokenValidator` (melhor arquitetura)
+
+**Resolução (Combinar melhor de ambos):**
+```python
+class OAuth2Provider:
+    def validate_token(self, token):
+        # Combinar: usar TokenValidator (main) + algoritmos adicionais (seu)
+        validator = TokenValidator(
+            secret=self.secret_key,
+            algorithms=["RS256", "HS256"],  # Mantém seus algoritmos
+            audience=self.client_id,
+            issuer=self.issuer
+        )
+        try:
+            return validator.validate(token)
+        except ValidationException as e:
+            # Logging melhorado da main + tratamento de erros específicos
+            logger.error(f"Token validation failed: {e}")
+            if "expired" in str(e).lower():
+                raise AuthenticationError("Token expired")  # Seu tratamento
+            elif "invalid" in str(e).lower():
+                raise AuthenticationError("Invalid token")  # Seu tratamento
+            else:
+                raise AuthenticationError(str(e))
+```
+
+```bash
+# 2. Marcar arquivo como resolvido
+git add src/auth/oauth2.py
+
+# 3. Resolver outros arquivos conflitados
+vim src/database/models.py
+# [resolver conflitos]
+git add src/database/models.py
+
+# 4. Completar merge com mensagem detalhada
+git commit -m "merge: resolve conflicts with main in OAuth2 module
+
+Conflicts resolved:
+- src/auth/oauth2.py: Combined TokenValidator refactoring with HS256 support
+- src/database/models.py: Merged new fields with schema changes
+
+Testing:
+- All unit tests passing (1,234 tests)
+- Integration tests passing (56 tests)
+- Manual testing of OAuth2 flow completed
+
+Refs: JIRA-1234
+Reviewed-with: João Santos <joao@empresa.com> (pair programming session)"
+
+# 5. CRÍTICO: Testar TUDO após resolver conflitos
+npm test
+npm run lint
+npm run build
+npm run test:integration
+
+# 6. Se tudo passar, push
+git push origin COM12-implement-oauth2-saml
+```
+
+**Quando Pedir Ajuda (Escalation):**
+```bash
+# Se conflitos muito complexos ou em código crítico:
+# 1. NÃO resolver sozinho se não entender 100%
+# 2. Marcar para discussão em pair programming:
+
+git merge --abort  # Abortar merge
+
+# 3. Contatar autor original da mudança
+git log --oneline src/auth/oauth2.py | head -5
+# abc1234 refactor: implement TokenValidator class - João Santos
+
+# 4. Agendar sessão de pair programming
+# Slack: "@joaosantos Can we pair on resolving merge conflicts in oauth2.py?"
+
+# 5. Resolver conflitos juntos em call
+# 6. Documentar decisões no commit message
+```
+
+### 🚫 Erros Comuns em Enterprise e Como Evitá-los
+
+#### ❌ **Erro 1: Trabalhar Diretamente na Main (VIOLAÇÃO CRÍTICA)**
+```bash
+# NUNCA fazer isso (pode resultar em ação disciplinar):
+git checkout main
+vim src/critical_payment.py
+git commit -m "quick fix for prod"  # ❌ CRÍTICO: Bypass de code review!
+git push origin main                # ❌ CRÍTICO: Sem approval!
+```
+
+**✅ Solução**: Sempre branch + PR, mesmo para hotfixes
+```bash
+# CORRETO (mesmo em emergência P0):
+git checkout -b COM99-hotfix-payment-critical
+vim src/critical_payment.py
+git commit -m "fix: resolve payment processing bug causing $10k/hour loss
+
+- Fixed null pointer in PaymentProcessor.charge()
+- Added defensive null checks
+- Emergency hotfix - needs immediate review
+
+SEVERITY: P0
+IMPACT: $10,000/hour revenue loss
+Refs: INC-5678"
+
+git push origin COM99-hotfix-payment-critical
+
+# Criar PR com flag de HOTFIX
+gh pr create --title "🚨 HOTFIX: Payment processing bug" \
+  --label "hotfix,p0,critical" \
+  --assignee tech-lead
+
+# Notificar equipe imediatamente
+# Slack: "@here P0 HOTFIX PR ready: [link] - Need immediate review"
+
+# Após aprovação expressa (1 approver suficiente em P0):
+gh pr merge --squash --delete-branch
+```
+
+#### ❌ **Erro 2: Force Push em Branch Compartilhada**
+```bash
+# NUNCA fazer isso (pode perder trabalho de colegas):
+git rebase main                                  # Reescreve histórico
+git push --force origin COM12-team-feature       # ❌ DESTROI trabalho de outros!
+```
+
+**✅ Solução**: Force push APENAS em branches pessoais
+```bash
+# Verificar quem mais está usando a branch:
+git fetch origin COM12-team-feature
+git log --oneline --all --graph origin/COM12-team-feature
+
+# Se APENAS você commitou:
+git push --force-with-lease origin COM12-my-feature  # Mais seguro que --force
+
+# Se OUTROS commitaram:
+git pull --rebase origin COM12-team-feature  # Rebase seu trabalho em cima
+git push origin COM12-team-feature           # Push normal (sem force)
+```
+
+**Regra Enterprise**: `--force` requer justificativa em commit message
+
+#### ❌ **Erro 3: Ignorar Pre-Merge Checklist**
+```bash
+# Criar PR sem rodar testes (CI vai falhar):
+git push origin COM12-feature
+gh pr create  # ❌ Testes não rodados localmente, CI vai quebrar
+```
+
+**✅ Solução**: Automatizar com pre-push hook
+```bash
+# .git/hooks/pre-push
+#!/bin/bash
+
+echo "🔍 Running pre-push checks..."
+
+# 1. Testes
+echo "Running tests..."
+npm test || exit 1
+
+# 2. Linter
+echo "Running linter..."
+npm run lint || exit 1
+
+# 3. Build
+echo "Building..."
+npm run build || exit 1
+
+echo "✅ All checks passed! Pushing..."
+```
+
+```bash
+chmod +x .git/hooks/pre-push
+
+# Agora push automático roda checklist:
+git push origin COM12-feature
+# 🔍 Running pre-push checks...
+# Running tests... ✅
+# Running linter... ✅
+# Building... ✅
+# ✅ All checks passed! Pushing...
+```
+
+#### ❌ **Erro 4: Mensagens de Commit Não-Conformes (Viola Auditoria)**
+```bash
+git commit -m "fix stuff"           # ❌ Não-auditável
+git commit -m "update code"         # ❌ Sem contexto
+git commit -m "WIP"                 # ❌ Não-descritivo
+```
+
+**✅ Solução**: Enforçar com commit-msg hook
+```bash
+# .git/hooks/commit-msg
+#!/bin/bash
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Padrão enterprise: tipo(escopo): título
+pattern="^(feat|fix|docs|refactor|test|chore|style|perf|ci|build|revert)(\([a-z]+\))?: .{10,}"
+
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+    echo "❌ Commit message inválido!"
+    echo ""
+    echo "Formato enterprise requerido:"
+    echo "  <tipo>(<escopo>): <título> (mín 10 chars)"
+    echo ""
+    echo "Tipos válidos: feat, fix, docs, refactor, test, chore, style, perf, ci, build, revert"
+    echo ""
+    echo "Exemplo:"
+    echo "  feat(auth): implement OAuth2 authentication"
+    echo "  fix(payment): resolve race condition in charge processing"
+    echo ""
+    echo "Mensagem rejeitada: '$commit_msg'"
+    exit 1
+fi
+
+# Verificar se inclui referência a ticket (opcional mas recomendado)
+if ! echo "$commit_msg" | grep -qE "(Refs|Closes|Fixes|JIRA-[0-9]+|INC-[0-9]+)"; then
+    echo "⚠️  WARNING: Commit sem referência a ticket"
+    echo "   Recomendado incluir 'Refs: JIRA-1234' na mensagem"
+    echo ""
+    read -p "   Continuar mesmo assim? (y/n): " confirm
+    if [ "$confirm" != "y" ]; then
+        exit 1
+    fi
+fi
+
+exit 0
+```
+
+```bash
+chmod +x .git/hooks/commit-msg
+
+# Agora commits são validados:
+git commit -m "fix stuff"
+# ❌ Commit message inválido!
+# Formato enterprise requerido: <tipo>(<escopo>): <título>
+
+git commit -m "fix(payment): resolve null pointer in charge processing
+
+- Added defensive null check
+- Added error logging
+- Added unit test for edge case
+
+Refs: JIRA-1234"
+# ✅ Commit aceito
+```
+
+#### ❌ **Erro 5: Deixar Branch Desatualizada (Merge Hell)**
+```bash
+# Trabalhar por 2 semanas sem sincronizar com main:
+# [2 semanas depois...]
+git merge origin/main
+# CONFLICT in 47 files  # ❌ MERGE HELL!
+```
+
+**✅ Solução**: Automatizar sincronização diária
+```bash
+# Script: daily_sync.sh
+#!/bin/bash
+
+echo "🔄 Daily branch sync..."
+
+current_branch=$(git branch --show-current)
+
+if [ "$current_branch" = "main" ]; then
+    echo "Already on main, pulling latest..."
+    git pull origin main
+    exit 0
+fi
+
+# Stash uncommitted changes
+if ! git diff-index --quiet HEAD --; then
+    echo "💾 Stashing uncommitted changes..."
+    git stash save "Auto-stash $(date +%Y-%m-%d-%H:%M:%S)"
+    stashed=1
+fi
+
+# Sync with main
+echo "Fetching main..."
+git fetch origin main
+
+echo "Merging main into $current_branch..."
+git merge origin/main
+
+if [ $? -ne 0 ]; then
+    echo "❌ Merge conflicts detected!"
+    echo "📋 Conflicted files:"
+    git diff --name-only --diff-filter=U
+    echo ""
+    echo "Please resolve conflicts, then:"
+    echo "  git add <files>"
+    echo "  git commit"
+    echo "  ./daily_sync.sh  # Re-run to restore stash"
+    exit 1
+fi
+
+# Restore stash
+if [ "$stashed" = "1" ]; then
+    echo "♻️  Restoring stashed changes..."
+    git stash pop
+fi
+
+# Run tests
+echo "🧪 Running tests after merge..."
+npm test
+
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed after merge!"
+    echo "Please fix tests before continuing work."
+    exit 1
+fi
+
+echo "✅ Daily sync complete! Branch up-to-date with main."
+```
+
+```bash
+chmod +x daily_sync.sh
+
+# Agendar no crontab (9h todo dia útil):
+crontab -e
+# 0 9 * * 1-5 cd /path/to/repo && ./daily_sync.sh
+
+# Ou rodar manualmente toda manhã:
+./daily_sync.sh
+```
+
+### 🤖 Automação Enterprise: Scripts e Ferramentas
+
+#### **Script 1: Bulk Branch Cleanup (Pós-Sprint)**
+```bash
+#!/bin/bash
+# cleanup_merged_branches.sh - Limpar branches merged após sprint
+
+echo "🧹 Enterprise Branch Cleanup..."
+
+# Atualizar referências remotas
+git fetch --prune origin
+
+# Listar branches merged
+merged_branches=$(git branch --merged main | grep -v "main\|master\|develop\|staging\|*")
+
+if [ -z "$merged_branches" ]; then
+    echo "✅ No merged branches to cleanup"
+    exit 0
+fi
+
+echo "📋 Merged branches found:"
+echo "$merged_branches"
+echo ""
+echo "These branches were merged to main and can be safely deleted."
+echo ""
+
+read -p "❓ Delete these LOCAL branches? (y/n): " confirm_local
+
+if [ "$confirm_local" = "y" ]; then
+    echo "$merged_branches" | xargs git branch -d
+    echo "✅ Local branches deleted"
+fi
+
+# Verificar branches remotas merged
+remote_merged=$(git branch -r --merged main | grep "origin/" | grep -v "main\|master\|develop\|staging" | sed 's/origin\///')
+
+if [ -z "$remote_merged" ]; then
+    echo "✅ No remote merged branches"
+    exit 0
+fi
+
+echo ""
+echo "📋 Remote merged branches found:"
+echo "$remote_merged"
+echo ""
+
+read -p "❓ Delete these REMOTE branches? (requires permissions) (y/n): " confirm_remote
+
+if [ "$confirm_remote" = "y" ]; then
+    echo "$remote_merged" | xargs -I {} git push origin --delete {}
+    echo "✅ Remote branches deleted"
+fi
+
+echo ""
+echo "✅ Cleanup complete!"
+echo "📊 Remaining branches:"
+git branch -a | grep -v "remotes/origin/HEAD"
+```
+
+**Uso:**
+```bash
+chmod +x cleanup_merged_branches.sh
+
+# Rodar após cada sprint/release:
+./cleanup_merged_branches.sh
+
+# Ou automatizar com GitHub Actions (exemplo):
+# .github/workflows/cleanup-branches.yml
+```
+
+#### **Script 2: Automated Pre-Merge Validation (Enterprise CI/CD)**
+```bash
+#!/bin/bash
+# pre_merge_validation.sh - Validação completa antes de permitir merge
+
+echo "🔍 Enterprise Pre-Merge Validation..."
+
+EXIT_CODE=0
+
+# 1. Unit Tests
+echo "1️⃣  Running unit tests..."
+npm test
+if [ $? -ne 0 ]; then
+    echo "❌ Unit tests failed!"
+    EXIT_CODE=1
+else
+    echo "✅ Unit tests passed"
+fi
+
+# 2. Integration Tests
+echo "2️⃣  Running integration tests..."
+npm run test:integration
+if [ $? -ne 0 ]; then
+    echo "❌ Integration tests failed!"
+    EXIT_CODE=1
+else
+    echo "✅ Integration tests passed"
+fi
+
+# 3. Linter
+echo "3️⃣  Running linter..."
+npm run lint
+if [ $? -ne 0 ]; then
+    echo "❌ Linter failed!"
+    EXIT_CODE=1
+else
+    echo "✅ Linter passed"
+fi
+
+# 4. Code Formatter Check
+echo "4️⃣  Checking code formatting..."
+npm run format:check
+if [ $? -ne 0 ]; then
+    echo "❌ Code not formatted! Run: npm run format"
+    EXIT_CODE=1
+else
+    echo "✅ Code formatting OK"
+fi
+
+# 5. Security Audit
+echo "5️⃣  Running security audit..."
+npm audit --audit-level=high
+if [ $? -ne 0 ]; then
+    echo "❌ Security vulnerabilities found!"
+    EXIT_CODE=1
+else
+    echo "✅ No high/critical vulnerabilities"
+fi
+
+# 6. Test Coverage Check
+echo "6️⃣  Checking test coverage..."
+npm run test:coverage -- --silent
+COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+THRESHOLD=80
+
+if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+    echo "❌ Coverage ${COVERAGE}% < ${THRESHOLD}% threshold!"
+    EXIT_CODE=1
+else
+    echo "✅ Coverage ${COVERAGE}% >= ${THRESHOLD}%"
+fi
+
+# 7. Build Production
+echo "7️⃣  Building for production..."
+npm run build:prod
+if [ $? -ne 0 ]; then
+    echo "❌ Production build failed!"
+    EXIT_CODE=1
+else
+    echo "✅ Production build succeeded"
+fi
+
+# 8. Bundle Size Check
+echo "8️⃣  Checking bundle size..."
+BUNDLE_SIZE=$(stat -f%z dist/main.js)
+MAX_SIZE=524288  # 512KB
+
+if [ $BUNDLE_SIZE -gt $MAX_SIZE ]; then
+    echo "❌ Bundle size ${BUNDLE_SIZE} bytes > ${MAX_SIZE} bytes limit!"
+    EXIT_CODE=1
+else
+    echo "✅ Bundle size OK (${BUNDLE_SIZE} bytes)"
+fi
+
+# 9. Documentation Check
+echo "9️⃣  Checking documentation..."
+if [ ! -f "docs/API_DOCS.md" ]; then
+    echo "⚠️  WARNING: API_DOCS.md not found"
+fi
+
+# 10. Changelog Updated
+echo "🔟 Checking changelog..."
+git diff origin/main --name-only | grep -q CHANGELOG.md
+if [ $? -ne 0 ]; then
+    echo "⚠️  WARNING: CHANGELOG.md not updated"
+fi
+
+# Final Report
+echo ""
+echo "═══════════════════════════════════"
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "✅ ALL VALIDATIONS PASSED"
+    echo "═══════════════════════════════════"
+    echo ""
+    echo "Branch is ready to merge! 🚀"
+else
+    echo "❌ SOME VALIDATIONS FAILED"
+    echo "═══════════════════════════════════"
+    echo ""
+    echo "Fix issues above before merging."
+fi
+
+exit $EXIT_CODE
+```
+
+**Integração com GitHub Actions:**
+```yaml
+# .github/workflows/pre-merge-validation.yml
+name: Pre-Merge Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Pre-Merge Validation
+        run: ./scripts/pre_merge_validation.sh
+      
+      - name: Block merge if validation fails
+        if: failure()
+        run: |
+          echo "::error::Pre-merge validation failed. Fix issues before merging."
+          exit 1
+```
+
+### 🎓 Técnicas Git Avançadas para Enterprise
+
+#### **Técnica 1: Interactive Rebase (Limpar Histórico Antes de PR)**
+
+**Cenário**: Você fez 20 commits "WIP", "fix typo", "debug" durante desenvolvimento
+
+```bash
+# Ver últimos commits
+git log --oneline -20
+# abc1234 fix typo again
+# def5678 debug print
+# ghi9012 WIP
+# jkl3456 fix
+# mno7890 actually working now
+# ... (mais 15 commits messy)
+
+# Interactive rebase dos últimos 20 commits
+git rebase -i HEAD~20
+
+# Editor abre:
+pick abc1234 feat: implement OAuth2 base
+squash def5678 fix typo again           # Combinar com anterior
+squash ghi9012 debug print              # Combinar com anterior
+squash jkl3456 WIP                      # Combinar com anterior
+pick mno7890 test: add OAuth2 tests
+squash pqr1234 fix test                 # Combinar com anterior
+pick stu5678 docs: document OAuth2
+reword vwx9012 update docs              # Mudar mensagem
+
+# Salvar e fechar
+# Git vai abrir editor para cada "squash" para editar mensagem combinada
+# Resultado: 20 commits messy → 3 commits limpos
+```
+
+**Comandos do Interactive Rebase:**
+- `pick`: Manter commit como está
+- `squash`: Combinar com commit anterior, manter ambas mensagens
+- `fixup`: Combinar com commit anterior, descartar mensagem deste
+- `reword`: Manter commit, mas editar mensagem
+- `drop`: Remover commit completamente
+- `edit`: Pausar para editar commit (amend)
+
+**⚠️ ATENÇÃO ENTERPRISE**: Apenas fazer rebase em commits NÃO pushed, ou em sua branch pessoal!
+
+#### **Técnica 2: Git Worktree (Trabalho Paralelo)**
+
+**Cenário**: Você está desenvolvendo feature, mas precisa fazer hotfix urgente
+
+```bash
+# Você está em COM12-oauth2-feature
+cd ~/projects/myapp
+
+# Criar worktree separado para hotfix (sem mudar de branch atual!)
+git worktree add ../myapp-hotfix main
+
+# Agora você tem 2 diretórios:
+# ~/projects/myapp         → branch COM12-oauth2-feature
+# ~/projects/myapp-hotfix  → branch main
+
+# Trabalhar no hotfix SEM afetar seu trabalho em oauth2:
+cd ../myapp-hotfix
+git checkout -b COM99-hotfix-payment
+vim src/payment.py
+git commit -m "fix: resolve payment race condition"
+git push origin COM99-hotfix-payment
+gh pr create --label "hotfix"
+
+# Voltar para trabalho original (ainda na mesma branch!)
+cd ~/projects/myapp
+# Você está exatamente onde parou em COM12-oauth2-feature
+
+# Após merge do hotfix, remover worktree:
+git worktree remove ../myapp-hotfix
+```
+
+**Vantagens Enterprise:**
+- ✅ Sem perda de contexto (arquivos abertos, state)
+- ✅ Pode rodar testes em paralelo em ambas branches
+- ✅ Rápido switch entre trabalho principal e hotfixes
+- ✅ Ideal para multi-tasking em emergências
+
+#### **Técnica 3: Git Bisect (Encontrar Bug Introduction)**
+
+**Cenário**: Testes passavam semana passada, agora falham. Qual commit quebrou?
+
+```bash
+# Iniciar bisect
+git bisect start
+
+# Marcar commit atual como "bad" (bug existe)
+git bisect bad
+
+# Marcar commit de 1 semana atrás como "good" (sem bug)
+git log --since="7 days ago" --oneline | tail -1
+# abc1234 (hash de 1 semana atrás)
+git bisect good abc1234
+
+# Git faz checkout automático do commit do MEIO
+# Bisecting: 50 revisions left to test after this
+
+# Testar se bug existe neste commit
+npm test
+
+# Se teste FALHA (bug existe):
+git bisect bad
+
+# Se teste PASSA (sem bug):
+git bisect good
+
+# Repetir até Git encontrar commit exato que introduziu o bug
+# Bisecting: 25 revisions left...
+# Bisecting: 12 revisions left...
+# Bisecting: 6 revisions left...
+# Bisecting: 3 revisions left...
+# Bisecting: 1 revision left...
+
+# Git encontra o culpado:
+# abc1234 is the first bad commit
+# commit abc1234
+# Author: João Silva <joao@empresa.com>
+# Date: 3 days ago
+# 
+#     refactor: optimize database queries
+
+# Ver detalhes do commit problemático
+git show abc1234
+
+# Encerrar bisect
+git bisect reset
+
+# Agora você sabe EXATAMENTE qual commit introduziu o bug!
+# Pode reverter ou contatar autor para discutir
+```
+
+**Automação com Script:**
+```bash
+# Se teste é automático, bisect pode rodar sozinho:
+git bisect start HEAD abc1234
+git bisect run npm test
+
+# Git vai rodar "npm test" em cada commit e decidir automaticamente good/bad
+# Muito mais rápido que manual!
+```
+
+#### **Técnica 4: Cherry-Pick (Aplicar Commits Específicos)**
+
+**Cenário**: Bugfix em branch de feature, mas precisa aplicar na main urgentemente
+
+```bash
+# Você está em COM12-oauth2-feature
+# Commitou bugfix importante:
+git commit -m "fix: resolve critical XSS vulnerability in auth"
+# Commit hash: abc1234
+
+# Push da branch
+git push origin COM12-oauth2-feature
+
+# Aplicar APENAS este commit na main (sem merger toda a feature):
+git checkout main
+git pull origin main
+git cherry-pick abc1234
+
+# Se houver conflitos, resolver:
+vim <arquivo_conflitado>
+git add <arquivo_conflitado>
+git cherry-pick --continue
+
+# Criar PR do cherry-pick:
+git checkout -b COM99-cherry-pick-xss-fix
+git push origin COM99-cherry-pick-xss-fix
+gh pr create --title "fix: cherry-pick XSS fix from oauth2 feature" \
+  --label "security,hotfix"
+
+# Ou se emergência, push direto (com aprovação):
+git checkout main
+git cherry-pick abc1234
+git push origin main  # (apenas se permitido em emergências)
+```
+
+**Uso Enterprise:**
+- ✅ Backport fixes para release branches
+- ✅ Aplicar hotfixes críticos sem merger features incompletas
+- ✅ Copiar commits entre projetos relacionados
+
+#### **Técnica 5: Reflog (Recuperar Trabalho "Perdido")**
+
+**Cenário**: Você fez `git reset --hard` e perdeu commits importantes
+
+```bash
+# Acidentalmente resetou:
+git reset --hard HEAD~10
+# HEAD is now at abc1234 old commit
+
+# PÂNICO! Onde estão meus 10 commits?!
+
+# Calma, reflog salva tudo:
+git reflog
+
+# Output (histórico de movimentos do HEAD):
+# abc1234 HEAD@{0}: reset: moving to HEAD~10
+# def5678 HEAD@{1}: commit: feat: critical feature implementation
+# ghi9012 HEAD@{2}: commit: test: add comprehensive tests
+# jkl3456 HEAD@{3}: commit: docs: document new API
+# ... (todos os commits "perdidos" estão aqui!)
+
+# Recuperar commit perdido:
+git checkout def5678
+
+# Ou criar nova branch a partir dele:
+git checkout -b COM99-recovery-branch def5678
+
+# Ou resetar main de volta:
+git checkout main
+git reset --hard def5678
+
+# Commits "perdidos" recuperados! 🎉
+```
+
+**Reflog para Auditoria Enterprise:**
+```bash
+# Ver tudo que aconteceu nos últimos 30 dias:
+git reflog --since="30 days ago"
+
+# Ver quem fez reset perigoso:
+git reflog | grep "reset --hard"
+
+# Reflog é LOCAL (não vai para remote), expira em 90 dias (padrão)
+```
+
+#### **Técnica 6: Git Filter-Repo (Reescrever Histórico - EXTREMO CUIDADO)**
+
+**Cenário**: Senha foi commitada acidentalmente e já está no remote
+
+**⚠️ ATENÇÃO**: Requer coordenação com TODA equipe!
+
+```bash
+# Instalar git-filter-repo (não vem built-in)
+pip install git-filter-repo
+
+# BACKUP antes de fazer qualquer coisa!
+git clone --mirror git@github.com:empresa/projeto.git backup-projeto.git
+
+# Remover arquivo com segredo de TODO histórico:
+git filter-repo --path config/secrets.yml --invert-paths
+
+# Ou substituir texto em TODO histórico:
+echo "old_password_123==>***REMOVED***" > replacements.txt
+git filter-repo --replace-text replacements.txt
+
+# Force push (QUEBRA repos de todos!)
+git push origin --force --all
+git push origin --force --tags
+
+# NOTIFICAR TODA EQUIPE IMEDIATAMENTE:
+# "🚨 URGENT: Repository history rewritten. Everyone must:"
+# 1. git clone fresh copy
+# 2. Delete old local repos
+# 3. Recreate any in-progress branches from new history
+```
+
+**Checklist Enterprise para Filter-Repo:**
+- [ ] Aprovação de CTO/VP Engineering
+- [ ] Backup completo do repositório
+- [ ] Notificação prévia de TODA equipe (24h antes)
+- [ ] Janela de manutenção agendada (fora do horário)
+- [ ] Documentação de rollback plan
+- [ ] Post-mortem: Como segredo foi commitado? Como prevenir?
+
+### 📊 Métricas e Monitoramento Git (Enterprise)
+
+#### **Métrica 1: Velocidade de Code Review**
+```bash
+# Tempo médio entre PR criada e PR merged:
+gh pr list --state merged --limit 100 --json createdAt,mergedAt \
+  | jq '.[] | (.mergedAt | fromdateiso8601) - (.createdAt | fromdateiso8601)' \
+  | awk '{sum+=$1; count++} END {print "Avg PR time:", sum/count/3600, "hours"}'
+
+# Meta Enterprise: < 24h para PRs normais, < 2h para hotfixes
+```
+
+#### **Métrica 2: Frequência de Conflitos**
+```bash
+# Commits de merge com conflitos nos últimos 30 dias:
+git log --since="30 days ago" --grep="merge.*conflict" --oneline | wc -l
+
+# Meta Enterprise: < 5% de merges com conflitos
+```
+
+#### **Métrica 3: Commits per Developer (Contribuição)**
+```bash
+# Commits por autor nos últimos 30 dias:
+git shortlog -sn --since="30 days ago"
+
+# Output:
+#    45  Maria Silva
+#    38  João Santos
+#    32  Pedro Lima
+#     5  Ana Costa
+
+# Meta Enterprise: Distribuição equilibrada (evitar hero developers)
+```
+
+#### **Métrica 4: Test Coverage Trend**
+```bash
+# Script para rastrear coverage ao longo do tempo:
+#!/bin/bash
+# track_coverage.sh
+
+COVERAGE=$(npm run test:coverage --silent | grep "All files" | awk '{print $10}')
+DATE=$(date +%Y-%m-%d)
+
+echo "$DATE,$COVERAGE" >> coverage_history.csv
+
+# Plotar gráfico (usando gnuplot ou enviar para monitoring):
+# Meta Enterprise: Coverage >= 80% sempre, tendência crescente
+```
+
+### 🎯 Resumo: Fluxo Git Enterprise
+
+**Workflow Completo:**
+```
+1. Criar branch (COM-UUID ou COM<N>-feature)
+   ↓
+2. Desenvolver com commits atômicos
+   ↓
+3. Sincronizar diariamente com main
+   ↓
+4. Push frequente (backup + visibilidade)
+   ↓
+5. Pre-merge checklist (testes, lint, build, security)
+   ↓
+6. Criar PR com template completo
+   ↓
+7. Code review formal (mín. 2 approvers)
+   ↓
+8. Merge (escolher strategy: merge/squash/rebase)
+   ↓
+9. Post-merge cleanup (delete branch, update tickets)
+   ↓
+10. Monitorar deploy e métricas
+```
+
+**Regras de Ouro Enterprise:**
+1. **Main é sagrada** - Nunca commit direto
+2. **Code review é obrigatório** - Sem exceções
+3. **Testes são mandatórios** - Coverage >= 80%
+4. **Sincronize diariamente** - Evite merge hell
+5. **Commits são auditáveis** - Mensagens descritivas + ticket refs
+6. **Automação é amiga** - Hooks, CI/CD, scripts
+7. **Comunique mudanças** - PRs, Slack, documentação
+8. **Segurança primeiro** - Audit, secrets scanning, reviews
+
 ---
 
 ## 🎓 Paradigma Fundamental: Clareza Total Antes da Implementação (Enterprise)

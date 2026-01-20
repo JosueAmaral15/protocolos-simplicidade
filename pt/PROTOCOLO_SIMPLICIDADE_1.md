@@ -1871,6 +1871,346 @@ Se sim, qual título e descrição deseja para o PR?
 **Regra de Ouro Git**:
 > **"Main é sagrada. Sempre trabalhe em branches COM-UUID, exceto se usuário explicitamente pedir para usar main."**
 
+### 🌳 Padrões de Nomenclatura de Branches (Expandido)
+
+Além do padrão COM-UUID obrigatório para IAs, existem **3 padrões principais** de branches para equipes multi-programador:
+
+#### **Padrão 1: COM-UUID** (Obrigatório para IAs)
+```bash
+COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
+COM-f47ac10b-58cc-4372-a567-0e02b2c3d479
+```
+- ✅ **Para**: IAs trabalhando em tarefas
+- ✅ **Vantagem**: Máxima rastreabilidade, sem colisões
+- ✅ **Uso**: Gerado automaticamente pela IA
+
+#### **Padrão 2: COM<N>-feature** (Recomendado para Humanos)
+```bash
+COM2-add-authentication
+COM5-fix-login-bug
+COM7-refactor-database
+```
+- ✅ **Para**: Programadores humanos (1 branch por programador ou feature)
+- ✅ **Vantagem**: Legível, rastreável, semântico
+- ✅ **Formato**: `COM<número>-<descrição-kebab-case>`
+- ✅ **Número**: Identificador único do programador/feature
+
+#### **Padrão 3: COM<N>** (Workspace Persistente - Opcional)
+```bash
+COM2
+COM5
+COM7
+```
+- ⚠️ **Para**: Workspace persistente de longa duração (raro)
+- ⚠️ **Uso limitado**: Apenas se equipe preferir workspace único por dev
+- ⚠️ **Não recomendado**: Menos semântico que Padrão 2
+
+**Escolha do Padrão:**
+- **IAs**: SEMPRE Padrão 1 (COM-UUID)
+- **Programadores**: Padrão 2 recomendado (COM<N>-feature)
+- **Evite**: Sufixos em arquivos (_1, _2, _josue, _maria) - Git rastreia autoria!
+
+### 📂 Estrutura de Arquivos e Pastas (Sem Sufixos de Programador)
+
+**❌ EVITE** (Má prática):
+```
+src/
+  utils_1.py          # Sufixo de programador
+  utils_2.py
+  database_josue.py   # Nome de programador
+  api_maria.py
+docs/
+  programmer_1/       # Pasta por programador
+  programmer_2/
+```
+
+**✅ USE** (Boa prática):
+```
+src/
+  utils.py            # Nome padrão
+  database.py
+  api.py
+docs/
+  API_DOCS.md         # Documentação padrão
+  DATABASE_SCHEMA.md
+```
+
+**Por quê?**
+- ✅ Git rastreia autoria automaticamente: `git log`, `git blame`
+- ✅ Estrutura limpa e profissional
+- ✅ Fácil navegação no código
+- ✅ Sem conflitos de nomenclatura
+- ✅ Padrão da indústria
+
+### 🔄 Workflow Completo para Equipes Multi-Programador
+
+#### **Passo 1: Criar Branch de Trabalho**
+```bash
+# Atualizar main local
+git checkout main
+git pull origin main
+
+# Criar nova branch (exemplo para humano)
+git checkout -b COM2-add-user-profile
+
+# Para IA: usar COM-UUID conforme seção anterior
+```
+
+#### **Passo 2: Fazer Mudanças e Commits Frequentes**
+```bash
+# Trabalhar no código
+vim src/profile/user.py
+vim src/profile/avatar.py
+
+# Commit pequeno e focado
+git add src/profile/
+git commit -m "feat: add user profile model"
+
+# Mais trabalho
+vim tests/test_profile.py
+
+# Outro commit focado
+git add tests/
+git commit -m "test: add user profile tests"
+```
+
+**Boas Práticas de Commit:**
+- ✅ **Commits pequenos**: Uma mudança lógica por commit
+- ✅ **Mensagens claras**: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`
+- ✅ **Commits frequentes**: Não espere ter tudo perfeito
+- ❌ **Evite**: "update", "fix", "changes" (muito vago)
+
+#### **Passo 3: Push para Remote**
+```bash
+# Primeira vez (cria branch no remote)
+git push -u origin COM2-add-user-profile
+
+# Pushes subsequentes
+git push origin COM2-add-user-profile
+```
+
+#### **Passo 4: Manter Branch Atualizada com Main**
+```bash
+# Sincronizar com main regularmente (diariamente recomendado)
+git fetch origin main
+git merge origin/main
+
+# Se houver conflitos, resolver:
+vim <arquivo_conflitado>
+git add <arquivo_conflitado>
+git commit -m "merge: resolve conflicts with main"
+
+# Push das mudanças
+git push origin COM2-add-user-profile
+```
+
+**Por que sincronizar?**
+- ✅ Evita conflitos massivos no final
+- ✅ Testa integração com trabalho de outros devs
+- ✅ Facilita merge final
+
+#### **Passo 5: Criar Pull Request (Code Review)**
+```bash
+# Via GitHub/GitLab UI ou CLI
+gh pr create --title "Add user profile feature" \
+  --body "Implements user profile with avatar upload"
+
+# Ou via web interface
+```
+
+**Checklist pré-PR:**
+```bash
+# 1. Rodar testes
+npm test          # ou pytest, cargo test, etc.
+
+# 2. Rodar linter
+npm run lint      # ou pylint, clippy, etc.
+
+# 3. Verificar formatação
+npm run format    # ou black, prettier, rustfmt, etc.
+
+# 4. Atualizar documentação (se necessário)
+vim docs/USER_PROFILE.md
+```
+
+#### **Passo 6: Merge e Cleanup**
+```bash
+# Após aprovação do PR, fazer merge (via UI ou CLI)
+# Se via CLI:
+git checkout main
+git merge COM2-add-user-profile
+git push origin main
+
+# Deletar branch local
+git branch -d COM2-add-user-profile
+
+# Deletar branch remota
+git push origin --delete COM2-add-user-profile
+```
+
+### ⚠️ Tratamento de Conflitos de Merge
+
+**Cenário**: Dois programadores editaram o mesmo arquivo
+
+```bash
+# Você: editou src/utils.py na branch COM2-feature-x
+# Colega: editou src/utils.py na main (já merged)
+
+# Ao sincronizar:
+git fetch origin main
+git merge origin/main
+# Auto-merging src/utils.py
+# CONFLICT (content): Merge conflict in src/utils.py
+
+# Ver arquivos conflitados
+git status
+
+# Abrir arquivo e resolver conflitos manualmente
+vim src/utils.py
+```
+
+**Exemplo de conflito:**
+```python
+def calculate_total(items):
+<<<<<<< HEAD  # Sua mudança
+    return sum(item.price * item.quantity for item in items)
+=======      # Mudança da main
+    return sum(item.price * item.qty * (1 - item.discount) for item in items)
+>>>>>>> origin/main
+```
+
+**Resolução:**
+```python
+# Escolher melhor solução (ou combinar ambas)
+def calculate_total(items):
+    return sum(
+        item.price * item.quantity * (1 - item.discount) 
+        for item in items
+    )
+```
+
+**Finalizar resolução:**
+```bash
+# Marcar como resolvido
+git add src/utils.py
+
+# Completar merge
+git commit -m "merge: resolve conflict in calculate_total"
+
+# Push
+git push origin COM2-feature-x
+```
+
+### 🚫 Erros Comuns e Como Evitá-los
+
+#### ❌ **Erro 1: Trabalhar Diretamente na Main**
+```bash
+# NUNCA fazer isso:
+git checkout main
+vim src/important.py
+git commit -m "quick fix"  # ❌ Direto na main!
+```
+
+**✅ Solução**: Sempre criar branch
+```bash
+git checkout -b COM2-quick-fix
+vim src/important.py
+git commit -m "fix: corrige bug crítico"
+git push origin COM2-quick-fix
+# Criar PR para review
+```
+
+#### ❌ **Erro 2: Force Push em Branch Compartilhada**
+```bash
+# NUNCA fazer isso em branch que outros estão usando:
+git push --force origin COM2-shared-feature  # ❌ Destroi histórico!
+```
+
+**✅ Solução**: Usar force push APENAS em suas branches pessoais
+```bash
+# OK apenas se você é o único usando a branch
+git push --force origin COM2-minha-feature-pessoal
+```
+
+#### ❌ **Erro 3: Deixar Branch Desatualizada**
+```bash
+# Trabalhar por semanas sem sincronizar com main
+# Resultado: CONFLITOS MASSIVOS no final
+```
+
+**✅ Solução**: Sincronizar diariamente
+```bash
+# Toda manhã:
+git fetch origin main
+git merge origin/main
+# Resolver pequenos conflitos incrementalmente
+```
+
+#### ❌ **Erro 4: Mensagens de Commit Vagas**
+```bash
+git commit -m "update"           # ❌ O que foi atualizado?
+git commit -m "fix"              # ❌ O que foi consertado?
+git commit -m "changes"          # ❌ Quais mudanças?
+```
+
+**✅ Solução**: Mensagens descritivas
+```bash
+git commit -m "feat: add email validation to user registration"
+git commit -m "fix: resolve null pointer in payment processing"
+git commit -m "docs: update API authentication guide"
+```
+
+### 🎯 Comandos Git Úteis para Rastreamento
+
+```bash
+# Ver quem modificou cada linha de um arquivo
+git blame src/utils.py
+
+# Ver histórico de um arquivo específico
+git log --follow src/utils.py
+
+# Ver mudanças de um programador específico
+git log --author="Maria Silva"
+
+# Ver commits de hoje
+git log --since="midnight"
+
+# Ver commits entre datas
+git log --since="2026-01-01" --until="2026-01-20"
+
+# Ver estatísticas de contribuição
+git shortlog -sn
+
+# Ver diff entre branches
+git diff main..COM2-feature-x
+
+# Ver arquivos modificados em um commit
+git show --name-only abc1234
+```
+
+### 💡 Boas Práticas Resumidas
+
+**DO ✅:**
+- Criar branch para cada tarefa/feature
+- Commits pequenos e frequentes
+- Mensagens de commit descritivas (tipo: descrição)
+- Sincronizar com main diariamente
+- Code review via Pull Requests
+- Deletar branches após merge
+- Usar `git log` e `git blame` para rastreamento
+
+**DON'T ❌:**
+- Trabalhar diretamente na main
+- Force push em branches compartilhadas
+- Sufixos de programador em arquivos (_1, _2)
+- Pastas por programador (programmer_1/)
+- Deixar branch desatualizada por semanas
+- Mensagens de commit vagas
+- Ignorar conflitos de merge
+
+**Regra de Ouro de Colaboração:**
+> **"Git rastreia quem fez o quê. Você rastreia o que fazer. Use branches para isolar, commits para documentar, e PRs para revisar."**
+
 ---
 
 ## 🎓 Paradigma Fundamental: Clareza Total Antes da Implementação

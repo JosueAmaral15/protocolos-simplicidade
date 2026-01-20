@@ -2139,6 +2139,463 @@ If yes, what title and description would you like for the PR?
 **Git Golden Rule**:
 > **"Main is sacred. Always work on COM-UUID branches, except if user explicitly asks to use main."**
 
+### 🌳 Branch Naming Patterns (Enterprise Multi-Programmer)
+
+**Three Main Patterns:**
+
+1. **COM-UUID** (AI Mandatory): `COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281`
+   - Maximum traceability, audit compliance (SOC2, ISO27001)
+   
+2. **COM<N>-feature** (Human Recommended): `COM2-implement-oauth2`, `COM5-fix-cve-2026-1234`
+   - Readable, semantic, auditable - RECOMMENDED for enterprise
+   
+3. **COM<N>** (Workspace): `COM2`, `COM5`
+   - Persistent workspace - DISCOURAGED in enterprise
+
+**File Structure (NO Programmer Suffixes):**
+- ❌ AVOID: `utils_1.py`, `utils_2.py`, `programmer_1/`
+- ✅ USE: `utils.py` - Git tracks authorship via `git log` and `git blame`
+
+### 🔄 Enterprise Multi-Programmer Workflow (Complete)
+
+**Step 1: Create Branch (with Authorization)**
+```bash
+git checkout main && git pull origin main
+git checkout -b COM12-implement-oauth2-saml
+git push -u origin COM12-implement-oauth2-saml  # Mark WIP
+# Update JIRA-1234: Status → "In Progress"
+```
+
+**Step 2: Atomic Commits with Metadata**
+```bash
+git commit -m "feat(auth): add OAuth2 provider configuration
+
+- Implement OAuth2AuthProvider class
+- Support Google, Microsoft, Okta
+- Configuration validation included
+- Coverage: 95%
+
+Refs: JIRA-1234
+Co-authored-by: Maria Silva <maria@company.com>"
+```
+
+**Commit Format (Enterprise):**
+```
+<type>(<scope>): <title>
+
+<description>
+- Bullet 1
+- Bullet 2
+
+Refs: JIRA-1234
+Reviewed-by: Tech Lead <lead@company.com>
+```
+
+Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`
+
+**Step 3: Daily Sync (MANDATORY)**
+```bash
+# Every morning BEFORE starting work:
+git fetch origin main
+git merge origin/main  # Resolve conflicts incrementally
+git push origin COM12-oauth2-saml
+```
+
+**Why mandatory:** Avoids merge hell, reduces cost, continuous integration
+
+**Step 4: Pre-Merge Checklist (MANDATORY)**
+```bash
+# 1. Tests
+npm test && pytest tests/ && cargo test
+
+# 2. Linter
+npm run lint && pylint src/ && cargo clippy
+
+# 3. Formatting
+npm run format && black src/ && rustfmt src/
+
+# 4. Build
+npm run build:prod && docker build -t app:latest .
+
+# 5. Security
+npm audit && safety check && cargo audit
+
+# 6. Coverage (>= 80% threshold)
+npm run test:coverage
+
+# 7. Documentation updated
+ls docs/ | grep oauth2
+
+# 8. Changelog updated
+vim CHANGELOG.md
+```
+
+**Step 5: Pull Request (with Template)**
+```bash
+gh pr create \
+  --title "feat: Implement OAuth2 and SAML authentication" \
+  --body-file .github/PULL_REQUEST_TEMPLATE.md \
+  --assignee tech-lead \
+  --reviewer security-team,backend-team \
+  --label "feature,security,high-priority"
+```
+
+**PR Template (Enterprise):**
+```markdown
+## 📋 Description
+Implements OAuth2 and SAML per JIRA-1234
+
+## 🎯 Change Type
+- [x] New feature
+- [ ] Bug fix
+- [ ] Breaking change
+
+## 🔗 References
+- JIRA: https://jira.company.com/browse/JIRA-1234
+- Design Doc: https://docs.company.com/oauth2-design
+- ADR: docs/ADR/ADR-015-oauth2.md
+
+## ✅ Checklist
+- [x] Unit tests added
+- [x] Integration tests added
+- [x] Documentation updated
+- [x] Changelog updated
+- [x] Coverage >= 80%
+- [x] Linter passed
+- [x] Build succeeded
+- [x] Security audit passed
+- [x] Reviewed by security team
+
+## 🧪 How to Test
+1. Configure `.env` with OAuth2 credentials
+2. Run `docker-compose up`
+3. Access `http://localhost:3000/auth/login`
+4. Test login with Google, Microsoft, Okta
+
+## 🔒 Security Considerations
+- Tokens encrypted at rest
+- HTTPS mandatory in production
+- Rate limiting: 100 req/min
+- Redirect URI whitelist validation
+
+## 📊 Impact
+- Performance: +50ms latency (acceptable)
+- Database: New table `oauth_tokens` (~10MB/month)
+- Dependencies: +3 packages (audited)
+
+## 👥 Reviewers
+- @tech-lead (MANDATORY)
+- @security-team (MANDATORY)
+- @backend-team (Optional)
+```
+
+**Step 6: Code Review (Mandatory Enterprise)**
+- Minimum 2 approvals required
+- Tech Lead approval MANDATORY
+- Security team approval for security changes
+- Address all comments before merge
+
+**Step 7: Merge Strategies**
+
+A. **Merge Commit** (Preserves history - use for hotfixes)
+```bash
+gh pr merge 123 --merge --delete-branch
+```
+
+B. **Squash Merge** (Clean history - RECOMMENDED for features)
+```bash
+gh pr merge 123 --squash --delete-branch
+```
+
+C. **Rebase Merge** (Linear history)
+```bash
+gh pr merge 123 --rebase --delete-branch
+```
+
+**Step 8: Post-Merge (MANDATORY)**
+```bash
+git branch -d COM12-oauth2-saml
+git fetch --prune
+# Update JIRA-1234: Status → "Merged"
+# Notify team in Slack
+# Monitor CI/CD deploy
+# Update release notes
+```
+
+### ⚠️ Conflict Resolution (Enterprise)
+
+**Complex Scenario:**
+```bash
+git merge origin/main
+# CONFLICT in src/auth/oauth2.py
+
+vim src/auth/oauth2.py
+# Analyze both changes carefully
+# Combine best of both approaches
+# Test thoroughly after resolution
+
+git add src/auth/oauth2.py
+git commit -m "merge: resolve OAuth2 conflicts
+
+Combined:
+- TokenValidator refactoring (main)
+- HS256 algorithm support (branch)
+
+All tests passing (1,234 tests)
+Refs: JIRA-1234
+Reviewed-with: João Santos (pair programming)"
+
+npm test  # CRITICAL: Test after conflicts!
+```
+
+**Escalation Policy:**
+- If conflicts too complex → `git merge --abort`
+- Contact original author for pair programming
+- Document decisions in commit message
+
+### 🚫 Enterprise Mistakes (CRITICAL)
+
+**❌ Mistake 1: Direct Work on Main (VIOLATION)**
+```bash
+# NEVER (disciplinary action possible):
+git checkout main
+git commit -m "quick fix"  # ❌ Bypasses code review!
+git push origin main        # ❌ No approval!
+```
+
+**✅ Correct (even for P0 emergencies):**
+```bash
+git checkout -b COM99-hotfix-payment-critical
+git commit -m "fix: payment bug causing $10k/hour loss
+
+SEVERITY: P0
+IMPACT: $10,000/hour revenue loss
+Refs: INC-5678"
+git push origin COM99-hotfix-payment-critical
+gh pr create --label "hotfix,p0,critical"
+# Notify: "@here P0 HOTFIX PR ready - need immediate review"
+# After express approval (1 reviewer OK for P0)
+gh pr merge --squash --delete-branch
+```
+
+**❌ Mistake 2: Force Push on Shared Branch**
+```bash
+git push --force origin COM12-team-feature  # ❌ DESTROYS others' work!
+```
+
+**✅ Solution:**
+```bash
+# Only force push on personal branches:
+git push --force-with-lease origin COM12-my-feature
+# Check first: git log origin/COM12-team-feature
+```
+
+**❌ Mistake 3: Ignoring Pre-Merge Checklist**
+**✅ Solution:** Automate with pre-push hook:
+```bash
+# .git/hooks/pre-push
+#!/bin/bash
+npm test || exit 1
+npm run lint || exit 1
+npm run build || exit 1
+```
+
+**❌ Mistake 4: Non-Compliant Commit Messages**
+**✅ Solution:** Enforce with commit-msg hook:
+```bash
+# .git/hooks/commit-msg
+pattern="^(feat|fix|docs|refactor|test|chore)(\([a-z]+\))?: .{10,}"
+if ! grep -qE "$pattern" "$1"; then
+    echo "❌ Invalid commit message format!"
+    echo "Required: <type>(<scope>): <title> (min 10 chars)"
+    exit 1
+fi
+```
+
+### 🤖 Enterprise Automation Scripts
+
+**Script 1: Daily Sync Automation**
+```bash
+#!/bin/bash
+# daily_sync.sh
+current_branch=$(git branch --show-current)
+[[ "$current_branch" == "main" ]] && exit 0
+
+git diff-index --quiet HEAD -- || git stash save "Auto-stash $(date)"
+git fetch origin main
+git merge origin/main || {
+    echo "❌ Conflicts detected! Resolve manually."
+    exit 1
+}
+[[ -n "$(git stash list)" ]] && git stash pop
+npm test || { echo "❌ Tests failed after merge!"; exit 1; }
+echo "✅ Daily sync complete!"
+```
+
+**Script 2: Pre-Merge Validation**
+```bash
+#!/bin/bash
+# pre_merge_validation.sh
+echo "🔍 Enterprise Pre-Merge Validation..."
+npm test && npm run lint && npm run build:prod && npm audit --audit-level=high
+COVERAGE=$(npm run test:coverage --silent | grep "All files" | awk '{print $10}')
+[[ $(echo "$COVERAGE < 80" | bc -l) ]] && { echo "❌ Coverage $COVERAGE% < 80%"; exit 1; }
+echo "✅ ALL VALIDATIONS PASSED - Ready to merge! 🚀"
+```
+
+**Script 3: Branch Cleanup (Post-Sprint)**
+```bash
+#!/bin/bash
+# cleanup_merged_branches.sh
+git fetch --prune origin
+merged=$(git branch --merged main | grep -v "main\|master\|*")
+[[ -z "$merged" ]] && { echo "✅ No branches to cleanup"; exit 0; }
+echo "$merged"
+read -p "Delete these LOCAL branches? (y/n): " confirm
+[[ "$confirm" == "y" ]] && echo "$merged" | xargs git branch -d
+```
+
+**GitHub Actions Integration:**
+```yaml
+# .github/workflows/pre-merge.yml
+name: Pre-Merge Validation
+on: pull_request
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: ./scripts/pre_merge_validation.sh
+      - if: failure()
+        run: echo "::error::Pre-merge validation failed"
+```
+
+### 🎓 Advanced Git Techniques (Enterprise)
+
+**1. Interactive Rebase (Clean History Before PR)**
+```bash
+git log --oneline -20  # See messy commits
+git rebase -i HEAD~20
+# Editor: squash/fixup WIP commits, reword messages
+# Result: 20 messy commits → 3 clean commits
+```
+
+⚠️ **WARNING:** Only rebase un-pushed commits or personal branches!
+
+**2. Git Worktree (Parallel Work)**
+```bash
+# Working on COM12-oauth2-feature, need urgent hotfix
+git worktree add ../myapp-hotfix main
+cd ../myapp-hotfix
+git checkout -b COM99-hotfix-payment
+# Work on hotfix without losing oauth2 context
+# After merge: git worktree remove ../myapp-hotfix
+```
+
+**3. Git Bisect (Find Bug Introduction)**
+```bash
+git bisect start
+git bisect bad              # Current commit has bug
+git bisect good abc1234     # Commit from 1 week ago was OK
+# Test at each step: npm test
+git bisect bad  # or good
+# Git finds: "abc1234 is the first bad commit"
+git bisect reset
+```
+
+**Automated bisect:**
+```bash
+git bisect start HEAD abc1234
+git bisect run npm test  # Auto-runs tests at each commit!
+```
+
+**4. Cherry-Pick (Apply Specific Commits)**
+```bash
+# Bugfix in feature branch needs to go to main urgently
+git checkout COM12-oauth2-feature
+git commit -m "fix: critical XSS vulnerability" # abc1234
+
+git checkout main
+git cherry-pick abc1234
+git push origin main  # (with approval for emergencies)
+```
+
+**5. Reflog (Recover "Lost" Work)**
+```bash
+# Accidentally did: git reset --hard HEAD~10
+git reflog  # Shows all HEAD movements
+# def5678 HEAD@{1}: commit: important feature
+git checkout def5678
+git checkout -b COM99-recovery-branch
+# Work recovered! 🎉
+```
+
+**6. Filter-Repo (Rewrite History - EXTREME CAUTION)**
+```bash
+# Password committed accidentally - ALREADY IN REMOTE
+pip install git-filter-repo
+git clone --mirror git@github.com:company/project.git backup.git  # BACKUP!
+git filter-repo --path config/secrets.yml --invert-paths
+git push origin --force --all  # BREAKS everyone's repos!
+# NOTIFY ENTIRE TEAM IMMEDIATELY
+# Requires: CTO approval, 24h notice, maintenance window
+```
+
+### 📊 Enterprise Git Metrics
+
+**1. PR Review Velocity:**
+```bash
+gh pr list --state merged --limit 100 --json createdAt,mergedAt \
+  | jq '.[] | (.mergedAt - .createdAt)/3600' \
+  | awk '{sum+=$1; count++} END {print "Avg:", sum/count, "hours"}'
+# Target: < 24h for normal PRs, < 2h for hotfixes
+```
+
+**2. Conflict Rate:**
+```bash
+git log --since="30 days ago" --grep="merge.*conflict" | wc -l
+# Target: < 5% of merges have conflicts
+```
+
+**3. Contribution Distribution:**
+```bash
+git shortlog -sn --since="30 days ago"
+# Target: Balanced distribution (avoid hero developers)
+```
+
+**4. Test Coverage Trend:**
+```bash
+echo "$(date +%Y-%m-%d),$(npm run test:coverage --silent | grep 'All files' | awk '{print $10}')" >> coverage_history.csv
+# Target: >= 80% always, upward trend
+```
+
+### 🎯 Enterprise Git Workflow Summary
+
+**Complete Flow:**
+```
+1. Create branch (COM-UUID/COM<N>-feature)
+2. Atomic commits with metadata
+3. Daily sync with main (MANDATORY)
+4. Frequent push (backup + visibility)
+5. Pre-merge checklist (automated)
+6. PR with complete template
+7. Formal code review (min 2 approvers)
+8. Merge (squash recommended for features)
+9. Post-merge cleanup
+10. Monitor deploy and metrics
+```
+
+**Enterprise Golden Rules:**
+1. **Main is sacred** - Never commit directly
+2. **Code review is mandatory** - No exceptions
+3. **Tests are required** - Coverage >= 80%
+4. **Sync daily** - Avoid merge hell
+5. **Commits are auditable** - Descriptive messages + ticket refs
+6. **Automation is friend** - Hooks, CI/CD, scripts
+7. **Communicate changes** - PRs, Slack, docs
+8. **Security first** - Audit, secrets scanning, reviews
+
 ---
 
 ## 🎓 Fundamental Paradigm: Total Clarity Before Implementation (Enterprise)
