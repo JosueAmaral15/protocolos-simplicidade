@@ -9157,6 +9157,9 @@ echo -e "${GREEN}🚀 Starting Java application...${NC}"
 # Compile if necessary
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compiling project...${NC}"
+    # ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
+    # Tests MUST be executed separately with: mvn test
+    # In CI/CD, NEVER use -DskipTests - always run complete tests
     mvn clean package -DskipTests
 fi
 
@@ -9175,6 +9178,9 @@ echo 🚀 Starting Java application...
 REM Compile if necessary
 if not exist "target\" (
     echo 🏗️ Compiling project...
+    REM ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
+    REM Tests MUST be executed separately with: mvn test
+    REM In CI/CD, NEVER use -DskipTests - always run complete tests
     call mvn clean package -DskipTests
 )
 

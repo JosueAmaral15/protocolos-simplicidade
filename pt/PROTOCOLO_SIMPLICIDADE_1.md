@@ -3158,10 +3158,11 @@ Antes de iniciar qualquer tarefa nova:
 - Ferramenta é **reutilizada** em múltiplos lugares
 - Ferramenta tem **edge cases** não óbvios
 
-**❌ Pode pular testes quando:**
-- Ferramenta é trivial (<10 linhas, lógica óbvia)
-- Ferramenta é apenas getter/setter simples
-- Ferramenta é código de setup/configuração básico
+**✅ Testes obrigatórios com ordem de prioridade:**
+- 🔴 **PRIORIDADE MÁXIMA**: Ferramentas críticas e complexas (>50 linhas, lógica de negócio)
+- 🟡 **PRIORIDADE MÉDIA**: Ferramentas com validações e transformações
+- 🟢 **PRIORIDADE BAIXA**: Ferramentas simples com lógica básica
+- ⚪ **TESTAGEM MANUAL ACEITÁVEL**: Apenas código puramente trivial (constantes simples, getters/setters sem lógica, pass-through puro)
 
 ### 📁 Organização dos Testes
 
@@ -3444,7 +3445,7 @@ Desenvolvedor pede: "Adicionar endpoint /api/users"
 - ✅ **Mudanças arquiteturais** (refatorações, novos padrões)
 - ✅ **Integrações com APIs externas** (Stripe, OpenAI, etc.)
 
-**Pode pular para** (planejamento mental é suficiente):
+**Planejamento documentado OBRIGATÓRIO** (organização da IA é essencial):
 - ⚠️ Correções triviais (<10 linhas de código)
 - ⚠️ Ajustes de CSS/styling simples
 - ⚠️ Correções de typos na documentação
@@ -10219,6 +10220,9 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+    # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    # Testes DEVEM ser executados separadamente com: mvn test
+    # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     mvn clean package -DskipTests
 fi
 
@@ -10237,6 +10241,9 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+    REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    REM Testes DEVEM ser executados separadamente com: mvn test
+    REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     call mvn clean package -DskipTests
 )
 

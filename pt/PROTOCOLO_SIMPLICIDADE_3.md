@@ -4250,7 +4250,7 @@ Tarefa → Dúvidas? (perguntar) → Documentar ANTES (5-10min) → Implementar 
 - ✅ **Features que você não domina** (nova biblioteca, novo conceito)
 - ✅ **Quando você se sentir "perdido"** (planejamento organiza pensamento)
 
-**Pode pular para** (planejamento mental é suficiente):
+**Planejamento documentado OBRIGATÓRIO** (organização da IA é essencial):
 - ⚠️ Correções triviais (<50 linhas de código)
 - ⚠️ Ajustes de CSS/styling simples
 - ⚠️ Correções que você já fez 10x (know-how consolidado)
@@ -4357,9 +4357,10 @@ função principal():
 - [ ] Teste unitário para função X (5min para escrever)
 - [ ] Teste de integração para fluxo Y (10min para escrever)
 
-**Decisão Solo**: 
-- ✅ Escrever testes SE: Feature crítica + difícil de testar manualmente
-- ⚠️ Pular testes SE: Feature simples + fácil de testar manualmente (pragmatismo)
+**Decisão Profissional**: 
+- ✅ Escrever testes SEMPRE para: TODO código com lógica (if/else, loops, cálculos, validações)
+- ✅ Usar ordem de prioridade: Código crítico/complexo PRIMEIRO, depois código simples
+- ❌ NUNCA pular testes para código com lógica - apenas código puramente trivial (constantes, pass-through puro)
 
 ---
 
@@ -4447,7 +4448,7 @@ função principal():
 ├────────────────────────────────────────────────────────────┤
 │ 2️⃣ Avaliar Complexidade                                   │
 │    - Complexa (>200 linhas)? → Planejamento OBRIGATÓRIO  │
-│    - Simples (<50 linhas)? → Pode pular planejamento     │
+│    - Simples (<50 linhas)? → Planejamento resumido (mas documentado) │
 │    ↓                                                        │
 ├────────────────────────────────────────────────────────────┤
 │ 3️⃣ Estudar Código Existente (15-30min)                    │
@@ -4729,13 +4730,13 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
-## 🧪 Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Solo Pragmático)
+## 🧪 Regra Obrigatória: Testes Unitários para Código com Lógica (Desenvolvimento Disciplinado)
 
-> **CRÍTICO PARA SOLO DEVS**: Quando ferramentas (funções, classes, módulos) são **complexas o suficiente para causar sessões de debug às 3h da manhã**, é **OBRIGATÓRIO** criar testes unitários pragmáticos em uma pasta `tests/`. **Teste o que te acordaria à noite, pule o resto.**
+> **CRÍTICO PARA TODOS OS DESENVOLVEDORES**: TODO código que contém lógica (if/else, loops, cálculos, validações) **DEVE** ter testes unitários abrangentes em uma pasta `tests/`. **Teste TODO código com lógica usando ordem de prioridade inteligente: crítico primeiro, depois complexo, depois simples.**
 
-### 🎯 Objetivo (Foco Solo Developer)
+### 🎯 Objetivo (Desenvolvimento Profissional)
 
-Garantir que código **crítico e complexo** seja **testado seletivamente** para:
+Garantir que TODO código com lógica seja **testado de forma abrangente e ordenada por prioridade** para:
 - ✅ Prevenir bugs de produção que exigem correção urgente
 - ✅ Servir como "memória externa" para seu eu do futuro
 - ✅ Permitir refatoração segura sem quebrar funcionalidades
@@ -10019,6 +10020,9 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+    # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    # Testes DEVEM ser executados separadamente com: mvn test
+    # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     mvn clean package -DskipTests
 fi
 
@@ -10037,6 +10041,9 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+    REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    REM Testes DEVEM ser executados separadamente com: mvn test
+    REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     call mvn clean package -DskipTests
 )
 
@@ -13427,7 +13434,7 @@ A **Organização Ordinal de Tarefas** e a **Analogia da Árvore de Importaçõe
 ```markdown
 [ ] **1. Estudou código que VAI MEXER + código relacionado direto**
     - Leu o código que vai refatorar linha por linha
-    - Entendeu o que cada parte faz (não precisa entender 100% do projeto)
+    - Entendeu o que cada parte faz (DEVE entender 100% do que vai mexer + impactos no projeto)
     - Identificou código que CHAMA esta parte (dependentes diretos)
     - Mapeou o que esta parte CHAMA (dependências diretas)
     - ⏱️ Tempo: 15-30min (foco no essencial)

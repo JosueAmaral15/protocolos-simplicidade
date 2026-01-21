@@ -5137,7 +5137,7 @@ Tarefa → Dúvidas? (perguntar) → Documentar ANTES → Corrigir erros → Imp
 - ✅ **Integrações com sistemas legados** (riscos de breaking changes)
 - ✅ **Features com compliance/security** (LGPD, SOC2, ISO27001)
 
-**Pode pular para** (planejamento informal é suficiente):
+**Planejamento documentado OBRIGATÓRIO** (organização da IA é essencial):
 - ⚠️ Hotfixes críticos (<30min de prazo)
 - ⚠️ Correções triviais já documentadas em ADR
 
@@ -5725,9 +5725,13 @@ Antes de iniciar qualquer tarefa nova:
 - **[ENTERPRISE]** Ferramenta é parte de API pública/contrato
 - **[ENTERPRISE]** Ferramenta processa PII (dados sensíveis)
 
-**❌ Pode pular testes APENAS quando:**
-- Código é trivial E não-crítico (<10 linhas, lógica óbvia)
-- **IMPORTANTE**: Em ambiente enterprise, quase tudo é crítico. Quando em dúvida, teste.
+**✅ Testes obrigatórios com ordem de prioridade:**
+- 🔴 **PRIORIDADE MÁXIMA**: Código crítico e complexo (lógica de negócio, segurança, integrações)
+- 🟡 **PRIORIDADE MÉDIA**: Código com validações e transformações
+- 🟢 **PRIORIDADE BAIXA**: Código simples com lógica básica
+- ⚪ **TESTAGEM MANUAL ACEITÁVEL**: Apenas código puramente trivial (constantes, pass-through puro sem lógica)
+
+**IMPORTANTE**: Em ambiente enterprise, quase TODO código tem lógica e é crítico. Quando em dúvida, teste com prioridade alta.
 
 ### 📁 Organização dos Testes (Enterprise)
 
@@ -10833,6 +10837,9 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+    # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    # Testes DEVEM ser executados separadamente com: mvn test
+    # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     mvn clean package -DskipTests
 fi
 
@@ -10851,6 +10858,9 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+    REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
+    REM Testes DEVEM ser executados separadamente com: mvn test
+    REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
     call mvn clean package -DskipTests
 )
 

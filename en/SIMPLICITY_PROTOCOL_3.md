@@ -4277,13 +4277,13 @@ Before starting any new task:
 
 ---
 
-## 🧪 Mandatory Rule: Unit Tests for Complex Tools (Solo Pragmatic)
+## 🧪 Mandatory Rule: Unit Tests for Code with Logic (Disciplined Development)
 
-> **CRITICAL FOR SOLO DEVS**: When tools (functions, classes, modules) are **complex enough to cause 3AM debugging sessions**, it is **MANDATORY** to create pragmatic unit tests in a `tests/` folder. **Test what would wake you up at night, skip the rest.**
+> **CRITICAL FOR ALL DEVELOPERS**: ALL code containing logic (if/else, loops, calculations, validations) **MUST** have comprehensive unit tests in a `tests/` folder. **Test ALL code with logic using intelligent priority order: critical first, then complex, then simple.**
 
-### 🎯 Objective (Solo Developer Focus)
+### 🎯 Objective (Professional Development)
 
-Ensure that **critical and complex** code is **selectively tested** to:
+Ensure that ALL code with logic is **comprehensively tested in priority order** to:
 - ✅ Prevent production bugs that require urgent fixes
 - ✅ Act as "external memory" for your future self
 - ✅ Enable safe refactoring without breaking things
@@ -4434,7 +4434,7 @@ export function formatPrice(amount: number, currency: string = 'USD'): string {
 
 #### Unit Tests (`tests/pricing.test.ts`)
 
-**Only test the critical `calculatePrice` function, skip `formatPrice`**:
+**Test ALL functions with logic - `calculatePrice` (Priority 1) and `formatPrice` (Priority 3)**:
 
 ```typescript
 import { calculatePrice, DiscountRule } from '../src/lib/pricing';
@@ -9085,6 +9085,9 @@ echo -e "${GREEN}🚀 Starting Java application...${NC}"
 # Compile if necessary
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compiling project...${NC}"
+    # ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
+    # Tests MUST be executed separately with: mvn test
+    # In CI/CD, NEVER use -DskipTests - always run complete tests
     mvn clean package -DskipTests
 fi
 
@@ -9103,6 +9106,9 @@ echo 🚀 Starting Java application...
 REM Compile if necessary
 if not exist "target\" (
     echo 🏗️ Compiling project...
+    REM ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
+    REM Tests MUST be executed separately with: mvn test
+    REM In CI/CD, NEVER use -DskipTests - always run complete tests
     call mvn clean package -DskipTests
 )
 
