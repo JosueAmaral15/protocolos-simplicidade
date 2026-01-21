@@ -4876,8 +4876,8 @@ export function calcularPreco(
 /**
  * Helper simples: formata preço com moeda
  * 
- * NÃO É CRÍTICO: Apenas formatação de exibição
- * → PULE TESTES (teste manualmente)
+ * PRIORIDADE BAIXA: Formatação de exibição (mas ainda tem lógica de locale)
+ * → DEVE SER TESTADO (Priority 3: test after critical code)
  */
 export function formatarPreco(valor: number, moeda: string = 'BRL'): string {
   return new Intl.NumberFormat('pt-BR', {
@@ -4889,7 +4889,7 @@ export function formatarPreco(valor: number, moeda: string = 'BRL'): string {
 
 #### Testes Unitários (`tests/precificacao.test.ts`)
 
-**Apenas teste a função crítica `calcularPreco`, pule `formatarPreco`**:
+**Teste TODAS as funções com lógica - `calcularPreco` (Prioridade 1) e `formatarPreco` (Prioridade 3)**:
 
 ```typescript
 import { calcularPreco, RegraDesconto } from '../src/lib/precificacao';
@@ -5002,11 +5002,11 @@ describe('calcularPreco (Lógica Crítica de Receita)', () => {
   });
 });
 
-// ⚠️ NOTA: NÃO estamos testando formatarPreco() porque:
-// - É apenas formatação de exibição (não crítico para negócio)
-// - Usa Intl.NumberFormat nativo (já testado pela engine JS)
-// - Fácil de verificar manualmente na UI
-// - Um bug aqui não me acordaria às 3h da manhã
+// ⚠️ NOTA: formatarPreco() também deve ser testado (Prioridade 3):
+// - Formatação ainda tem lógica (locale, moeda)
+// - Pode ter bugs (moeda inválida, valores edge case)
+// - Fácil de testar (3-5 minutos para testes básicos)
+// - Testar DEPOIS do código crítico, mas ainda testar!
 ```
 
 ### ✅ Checklist de Testes Solo Developer

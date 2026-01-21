@@ -4421,8 +4421,8 @@ export function calculatePrice(
 /**
  * Simple helper: formats price with currency
  * 
- * NOT CRITICAL: Just display formatting
- * → SKIP TESTING (test manually)
+ * LOW PRIORITY: Display formatting (but still has locale logic)
+ * → MUST BE TESTED (Priority 3: test after critical code)
  */
 export function formatPrice(amount: number, currency: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
@@ -4547,11 +4547,11 @@ describe('calculatePrice (Critical Revenue Logic)', () => {
   });
 });
 
-// ⚠️ NOTE: We are NOT testing formatPrice() because:
-// - It's just display formatting (not business critical)
-// - Uses built-in Intl.NumberFormat (already tested by JS engine)
-// - Easy to verify manually in UI
-// - A bug here won't wake me up at 3AM
+// ⚠️ NOTE: formatPrice() should also be tested (Priority 3):
+// - Formatting still has logic (locale, currency)
+// - Can have bugs (invalid currency, edge case values)
+// - Easy to test (3-5 minutes for basic tests)
+// - Test AFTER critical code, but still test!
 ```
 
 ### ✅ Solo Developer Test Checklist
