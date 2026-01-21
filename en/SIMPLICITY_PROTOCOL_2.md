@@ -196,6 +196,183 @@
 - ✅ **Accessibility Checklist** (GUI)
 
 ---
+---
+
+## 🤝 Human-AI Interaction Guide: Main Steps for Software Development
+
+**CRITICAL NOTICE**: The artificial intelligence MUST be notified about the main steps to correctly perform the software development process. The interaction between human beings and artificial intelligence MUST follow this flow:
+
+### 📋 Complete Development Process (8 Steps)
+
+#### **Step 1: Choose and Read 100% of the Protocol**
+- Choose one of the simplicity protocols (example: Simplicity Protocol 3)
+- The AI MUST read **100% of the chosen protocol**
+- This is the **first mandatory step** before any action
+- Without complete reading, the AI will not have the necessary methodological context
+
+#### **Step 2: Study 100% of Documentation and Code**
+After the protocol has been 100% read:
+1. **Documentation**: The AI MUST study **100% of the project documentation**
+2. **Source Code**: If there is code, the AI MUST study **100% of the code** (if not already read)
+3. **Git History**: The AI MUST read the entire project history with:
+   ```bash
+   git log --all --stat --graph --decorate
+   ```
+4. **Tests**: The AI MUST study and investigate algorithm behavior by running test codes from the `tests/` folder
+
+**Recommended order**: Protocol → Documentation → Git Log → Code → Tests
+
+#### **Step 3: Document Tasks in docs/TASKS.md**
+**Scenario A - If `docs/TASKS.md` does NOT exist:**
+1. Ask the AI to document your tasks in `docs/ORIGINAL-TASKS.md`
+2. The AI will use the protocol to organize tasks from `docs/ORIGINAL-TASKS.md` → `docs/TASKS.md`
+3. If you already have the requirements, place them in `docs/ORIGINAL-TASKS.md`
+4. If you do NOT have the requirements, discuss with the AI what needs to be implemented
+5. These requirements should be listed directly in `docs/TASKS.md`
+
+**Scenario B - If `docs/TASKS.md` exists:**
+1. The AI already has the structured task list
+2. Proceed to Step 4
+
+**🔑 Importance**: Documenting features is essential to:
+- Make the protocol more effective
+- Ensure requirements are documented and remembered later
+- Allow clear organization of all demands
+
+#### **Step 4: Complete Tasks According to the Protocol**
+1. With documentation read and tasks defined, ask the AI to complete the tasks
+2. Execute **one task at a time**, following the simplicity protocol
+3. **You do NOT need to choose which task**: The protocol's central rule is to solve:
+   - Simplest tasks first
+   - Tasks that other tasks depend on to be executed
+   - Task/sprint/feature/requirement selection is **automatic**
+
+#### **Step 5: Refine Requirements with Questions and Answers**
+1. **Answer the questions** that the AI asks in each session
+2. This allows refining the requirements
+3. The AI will better understand what it should do
+4. **Observe the protocol in action** at this stage
+5. See your software being developed incrementally
+
+**🎯 Bilateral relationship**: Client and AI learn from each other (student-teacher relationship)
+
+#### **Step 6: Test User Experience (UX)**
+1. The AI can perform **automated technical tests**
+2. **You** need to conduct **user experience (UX) tests**
+3. Until the user experience is satisfactory:
+   - Provide details of your experience
+   - Explain what you want to do
+   - Continue refining until the AI gets it right, according to the simplicity protocol
+
+**🔁 Iterative cycle**: Test → Feedback → Refinement → Test again
+
+#### **Step 7: Final Verification - Mandatory Questions**
+When the AI signals that it has finished and that the program/application has been completed, **ALWAYS** ask to challenge the AI's assumptions:
+
+**Question 1 (Mandatory):**
+```
+❓ "What does this program do?"
+```
+- The AI will give a description of how the program/application turned out
+
+**Question 2 (Mandatory):**
+```
+❓ "And do you GUARANTEE that the program does ALL of this?"
+```
+- This question will reveal if the AI actually managed to perform the requested activities
+- It will reveal if the AI is being sincere and honest in what it says
+
+**🚨 STRONGLY RECOMMENDED**: Ask these two questions after the AI signals completion
+
+**After the two questions, ask the AI to:**
+1. Install dependencies
+2. Run all tests
+3. Finalize pending sprints
+4. Check for orphaned code (unused code)
+5. Analyze if refactoring was successful
+6. Get organized and follow the simplicity protocol
+7. Create a **detailed action plan** with specific stages
+8. Record **step by step** in the action plan what needs to be done to get organized
+9. Divide into clear phases/stages
+
+#### **Step 8: Software Completion**
+✅ **Success criteria**:
+1. All requirements are implemented
+2. There are no known bugs
+3. User experience (UX) tests are a success
+4. All automated tests pass
+5. Code is organized and documented
+
+🎉 **Congratulations, your software is finished!**
+
+---
+
+### 📊 Human-AI Interaction Checklist
+
+**Before starting to program:**
+- [ ] ✅ I chose a simplicity protocol (1, 2, or 3)
+- [ ] ✅ AI read 100% of the chosen protocol
+- [ ] ✅ AI studied 100% of existing documentation
+- [ ] ✅ AI read entire Git history (`git log --all --stat`)
+- [ ] ✅ AI studied 100% of source code (if it exists)
+- [ ] ✅ AI executed tests from `tests/` folder to understand behavior
+- [ ] ✅ Tasks documented in `docs/TASKS.md` or `docs/ORIGINAL-TASKS.md`
+
+**During development:**
+- [ ] ✅ AI is completing tasks one at a time
+- [ ] ✅ AI automatically chooses simple tasks or tasks with dependencies
+- [ ] ✅ I am answering AI questions to refine requirements
+- [ ] ✅ I am observing the protocol in action
+- [ ] ✅ I am testing user experience (UX)
+- [ ] ✅ I am providing detailed UX feedback
+
+**Final verification:**
+- [ ] ✅ Asked: "What does this program do?"
+- [ ] ✅ Asked: "And do you GUARANTEE that the program does ALL of this?"
+- [ ] ✅ AI installed all dependencies
+- [ ] ✅ AI executed all tests successfully
+- [ ] ✅ AI finalized all pending sprints
+- [ ] ✅ AI checked for orphaned code
+- [ ] ✅ AI analyzed refactoring success
+- [ ] ✅ AI created detailed action plan
+- [ ] ✅ All requirements implemented
+- [ ] ✅ No known bugs
+- [ ] ✅ UX tests successful
+
+---
+
+### 🎯 Golden Rules of Human-AI Interaction
+
+1. **📖 Complete Reading**: AI MUST read 100% of the protocol before any action
+2. **🔍 Deep Study**: AI MUST study docs, git log, code, and tests before implementing
+3. **📝 Clear Documentation**: All tasks MUST be in `docs/TASKS.md`
+4. **🎯 Incremental Focus**: One task at a time, from simplest to most complex
+5. **💬 Active Communication**: Questions and answers continuously refine requirements
+6. **🧪 Continuous Testing**: AI tests technically, user tests experience (UX)
+7. **✅ Final Verification**: Always ask the 2 mandatory questions at the end
+8. **🎉 Clear Criteria**: Finished software = requirements + no bugs + perfect UX
+
+---
+
+### ⚠️ Important Warnings
+
+**For the AI:**
+- 🚫 **NEVER** skip complete protocol reading
+- 🚫 **NEVER** start coding without studying documentation, git log, and code
+- 🚫 **NEVER** assume you understood everything without asking questions
+- 🚫 **NEVER** say you finished without guaranteeing EVERYTHING works
+- ✅ **ALWAYS** be sincere and honest, even if it temporarily displeases
+- ✅ **ALWAYS** answer the 2 mandatory questions with complete honesty
+
+**For the User:**
+- 📋 **ALWAYS** document requirements in `docs/TASKS.md` or `docs/ORIGINAL-TASKS.md`
+- 💬 **ALWAYS** answer AI questions to refine requirements
+- 🧪 **ALWAYS** test user experience (UX) personally
+- ❓ **ALWAYS** ask the 2 mandatory questions at the end
+- 🔍 **ALWAYS** verify if the AI really delivered what it promised
+
+---
+
 
 ## 📊 Comparison of the 3 Protocols
 

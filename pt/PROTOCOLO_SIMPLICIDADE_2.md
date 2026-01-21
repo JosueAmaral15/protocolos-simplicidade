@@ -195,6 +195,183 @@
 - ✅ **Checklist de Acessibilidade** (GUI)
 
 ---
+---
+
+## 🤝 Guia de Interação Humano-IA: Passos Principais para Desenvolvimento de Software
+
+**AVISO CRÍTICO**: A inteligência artificial DEVE ser notificada sobre os passos principais para realizar corretamente o processo de desenvolvimento de software. A interação entre seres humanos e inteligência artificial DEVE seguir este fluxo:
+
+### 📋 Processo Completo de Desenvolvimento (8 Passos)
+
+#### **Passo 1: Escolher e Ler 100% do Protocolo**
+- Escolha um dos protocolos de simplicidade (exemplo: Protocolo Simplicidade 3)
+- A IA DEVE ler **100% do protocolo escolhido**
+- Este é o **primeiro passo obrigatório** antes de qualquer ação
+- Sem a leitura completa, a IA não terá o contexto metodológico necessário
+
+#### **Passo 2: Estudar 100% da Documentação e Código**
+Após o protocolo ter sido 100% lido:
+1. **Documentação**: A IA DEVE estudar **100% da documentação** do projeto
+2. **Código-fonte**: Se houver código, a IA DEVE estudar **100% do código** (se não tiver sido lido)
+3. **Histórico Git**: A IA DEVE ler todo o histórico do projeto com:
+   ```bash
+   git log --all --stat --graph --decorate
+   ```
+4. **Testes**: A IA DEVE estudar e investigar o comportamento dos algoritmos executando os códigos de teste da pasta `tests/`
+
+**Ordem recomendada**: Protocolo → Documentação → Git Log → Código → Testes
+
+#### **Passo 3: Documentar Tarefas em docs/TASKS.md**
+**Cenário A - Se `docs/TASKS.md` NÃO existe:**
+1. Peça à IA para documentar suas tarefas em `docs/ORIGINAL-TASKS.md`
+2. A IA usará o protocolo para organizar as tarefas de `docs/ORIGINAL-TASKS.md` → `docs/TASKS.md`
+3. Se você já tem os requisitos, coloque-os em `docs/ORIGINAL-TASKS.md`
+4. Se você NÃO tem os requisitos, discuta com a IA o que precisa implementar
+5. Estes requisitos devem ser listados diretamente em `docs/TASKS.md`
+
+**Cenário B - Se `docs/TASKS.md` existe:**
+1. A IA já possui a lista de tarefas estruturada
+2. Prossiga para o Passo 4
+
+**🔑 Importância**: Documentar as funcionalidades é essencial para:
+- Tornar o protocolo mais efetivo
+- Garantir que requisitos sejam documentados e lembrados posteriormente
+- Permitir organização clara de todas as demandas
+
+#### **Passo 4: Completar Tarefas Segundo o Protocolo**
+1. Com a documentação lida e tarefas definidas, peça à IA para completar as tarefas
+2. Execute **uma tarefa por vez**, seguindo o protocolo de simplicidade
+3. **Você NÃO precisa escolher qual tarefa**: A regra central do protocolo é resolver:
+   - Tarefas mais simples primeiro
+   - Tarefas das quais outras dependem para serem executadas
+   - A escolha de tarefa/sprint/funcionalidade/requisito é **automática**
+
+#### **Passo 5: Refinar Requisitos com Perguntas e Respostas**
+1. **Responda as perguntas** que a IA faz em cada sessão
+2. Isso permite refinar os requisitos
+3. A IA compreenderá melhor o que deve fazer
+4. **Observe o protocolo em ação** nesta etapa
+5. Veja seu software sendo desenvolvido incrementalmente
+
+**🎯 Relação bilateral**: Cliente e IA aprendem mutuamente (relação aluno-professor)
+
+#### **Passo 6: Testar Experiência de Usuário (UX)**
+1. A IA pode realizar **testes técnicos automatizados**
+2. **Você** precisa conduzir os **testes de experiência de usuário (UX)**
+3. Até que a experiência de usuário seja satisfatória:
+   - Forneça detalhes da sua experiência
+   - Explique o que você quer fazer
+   - Continue refinando até a IA acertar, conforme o protocolo de simplicidade
+
+**🔁 Ciclo iterativo**: Testar → Feedback → Refinamento → Testar novamente
+
+#### **Passo 7: Verificação Final - Perguntas Obrigatórias**
+Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, **SEMPRE** pergunte para desafiar as suposições da IA:
+
+**Pergunta 1 (Obrigatória):**
+```
+❓ "O que este programa faz?"
+```
+- A IA dará uma descrição de como o programa/aplicação ficou
+
+**Pergunta 2 (Obrigatória):**
+```
+❓ "E você GARANTE que o programa faz TUDO isso?"
+```
+- Esta pergunta revelará se a IA realmente conseguiu realizar as atividades solicitadas
+- Revelará se a IA está sendo sincera e honesta no que diz
+
+**🚨 FORTEMENTE RECOMENDADO**: Fazer estas duas perguntas após a IA sinalizar conclusão
+
+**Após as duas perguntas, peça à IA para:**
+1. Instalar dependências
+2. Executar todos os testes
+3. Finalizar sprints pendentes
+4. Verificar código órfão (código não utilizado)
+5. Analisar se a refatoração foi bem-sucedida
+6. Se organizar e seguir o protocolo de simplicidade
+7. Criar um **plano de ação detalhado** com etapas específicas
+8. Registrar **passo a passo** no plano de ação o que deve fazer para se organizar
+9. Dividir em fases/etapas claras
+
+#### **Passo 8: Finalização do Software**
+✅ **Critérios de sucesso**:
+1. Todos os requisitos estão implementados
+2. Não há bugs conhecidos
+3. Os testes de experiência de usuário (UX) são um sucesso
+4. Todos os testes automatizados passam
+5. Código está organizado e documentado
+
+🎉 **Parabéns, seu software está finalizado!**
+
+---
+
+### 📊 Checklist de Interação Humano-IA
+
+**Antes de começar a programar:**
+- [ ] ✅ Escolhi um protocolo de simplicidade (1, 2 ou 3)
+- [ ] ✅ IA leu 100% do protocolo escolhido
+- [ ] ✅ IA estudou 100% da documentação existente
+- [ ] ✅ IA leu todo o histórico Git (`git log --all --stat`)
+- [ ] ✅ IA estudou 100% do código-fonte (se existir)
+- [ ] ✅ IA executou testes da pasta `tests/` para entender comportamento
+- [ ] ✅ Tarefas documentadas em `docs/TASKS.md` ou `docs/ORIGINAL-TASKS.md`
+
+**Durante o desenvolvimento:**
+- [ ] ✅ IA está completando tarefas uma por vez
+- [ ] ✅ IA escolhe automaticamente tarefas simples ou com dependências
+- [ ] ✅ Estou respondendo perguntas da IA para refinar requisitos
+- [ ] ✅ Estou observando o protocolo em ação
+- [ ] ✅ Estou testando a experiência de usuário (UX)
+- [ ] ✅ Estou fornecendo feedback detalhado sobre UX
+
+**Verificação final:**
+- [ ] ✅ Perguntei: "O que este programa faz?"
+- [ ] ✅ Perguntei: "E você GARANTE que o programa faz TUDO isso?"
+- [ ] ✅ IA instalou todas as dependências
+- [ ] ✅ IA executou todos os testes com sucesso
+- [ ] ✅ IA finalizou todos os sprints pendentes
+- [ ] ✅ IA verificou código órfão
+- [ ] ✅ IA analisou sucesso da refatoração
+- [ ] ✅ IA criou plano de ação detalhado
+- [ ] ✅ Todos os requisitos implementados
+- [ ] ✅ Sem bugs conhecidos
+- [ ] ✅ Testes UX bem-sucedidos
+
+---
+
+### 🎯 Regras de Ouro da Interação Humano-IA
+
+1. **📖 Leitura Completa**: IA DEVE ler 100% do protocolo antes de qualquer ação
+2. **🔍 Estudo Profundo**: IA DEVE estudar docs, git log, código e testes antes de implementar
+3. **📝 Documentação Clara**: Todas as tarefas DEVEM estar em `docs/TASKS.md`
+4. **🎯 Foco Incremental**: Uma tarefa por vez, das mais simples às mais complexas
+5. **💬 Comunicação Ativa**: Perguntas e respostas refinam requisitos continuamente
+6. **🧪 Testes Contínuos**: IA testa tecnicamente, usuário testa experiência (UX)
+7. **✅ Verificação Final**: Sempre fazer as 2 perguntas obrigatórias ao final
+8. **🎉 Critérios Claros**: Software finalizado = requisitos + sem bugs + UX perfeita
+
+---
+
+### ⚠️ Avisos Importantes
+
+**Para a IA:**
+- 🚫 **NUNCA** pule a leitura completa do protocolo
+- 🚫 **NUNCA** comece a codificar sem estudar documentação, git log e código
+- 🚫 **NUNCA** assuma que entendeu tudo sem fazer perguntas
+- 🚫 **NUNCA** diga que terminou sem garantir que TUDO funciona
+- ✅ **SEMPRE** seja sincera e honesta, mesmo que isso desagrade temporariamente
+- ✅ **SEMPRE** responda às 2 perguntas obrigatórias com total honestidade
+
+**Para o Usuário:**
+- 📋 **SEMPRE** documente requisitos em `docs/TASKS.md` ou `docs/ORIGINAL-TASKS.md`
+- 💬 **SEMPRE** responda perguntas da IA para refinar requisitos
+- 🧪 **SEMPRE** teste a experiência de usuário (UX) pessoalmente
+- ❓ **SEMPRE** faça as 2 perguntas obrigatórias ao final
+- 🔍 **SEMPRE** verifique se a IA realmente entregou o que prometeu
+
+---
+
 
 ## 📊 Comparação dos 3 Protocolos
 
