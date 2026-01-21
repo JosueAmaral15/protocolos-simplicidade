@@ -4595,6 +4595,8 @@ Antes de considerar planejamento completo:
 **Gatilho de "bom o suficiente"**:
 Se gastar >1h planejando → Está procrastinando, comece a codificar!
 Planejamento perfeito não existe, planejamento "bom o suficiente" sim.
+
+**⚠️ IMPORTANTE**: "Bom o suficiente" significa que TODOS os itens essenciais do checklist foram respondidos e compreendidos, NÃO significa "planejamento apressado" ou "respostas superficiais". Todos os pontos críticos devem estar claros antes de codificar.
 ```
 
 **Se TODOS os itens essenciais estão ✅ → Pode codificar! 🚀**
@@ -8565,6 +8567,8 @@ DONE. Não complique.
 
 **Mensagem para IAs (Solo Dev)**:
 > "Solo developer não tem tempo para planning meetings. Mas PRECISA de organização. Crie sprints curtos (1-3 dias), tarefas pequenas (1-4h), documentação mínima. 30 minutos de planejamento economizam 3 horas de retrabalho. Organize-se, mas não se perca em cerimônias desnecessárias."
+
+**⚠️ IMPORTANTE - CLARIFICAÇÃO**: "Documentação mínima" refere-se EXCLUSIVAMENTE a **atualizações diárias de sprints** (apenas atualizar `docs/TASKS.md` com progresso). O **planejamento INICIAL da task**, o **estudo COMPLETO da documentação** e o **estudo COMPLETO do código** (conforme Passo 1.0 e 1.2) continuam sendo **OBRIGATÓRIOS** e **100% COMPLETOS**. "Mínima" = formato simples, NÃO = conteúdo incompleto.
 
 ---
 

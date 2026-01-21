@@ -7485,6 +7485,8 @@ DONE. Don't overcomplicate.
 **Message for AIs (Solo Dev)**:
 > "Solo developer doesn't have time for planning meetings. But NEEDS organization. Create short sprints (1-3 days), small tasks (1-4h), minimum documentation. 30 minutes of planning saves 3 hours of rework. Organize yourself, but don't get lost in unnecessary ceremonies."
 
+**⚠️ IMPORTANT - CLARIFICATION**: "Minimum documentation" refers EXCLUSIVELY to **daily sprint updates** (just updating `docs/TASKS.md` with progress). The **INITIAL task planning**, the **COMPLETE study of documentation**, and the **COMPLETE study of code** (as per Step 1.0 and 1.2) remain **MANDATORY** and **100% COMPLETE**. "Minimum" = simple format, NOT = incomplete content.
+
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**
