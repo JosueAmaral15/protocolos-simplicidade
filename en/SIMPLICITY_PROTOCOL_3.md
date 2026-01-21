@@ -136,9 +136,9 @@
 **Changelog v3.6** (01/06/2026):
 - ✅ **[MANDATORY PRAGMATIC]** Added Mandatory Rule: Unit Tests for Complex Tools (Solo Pragmatic)
 - ✅ MANDATORY: Test critical code that causes 3AM debugging sessions
-- ✅ Pragmatic coverage: 60-70% for critical paths only
+- ✅ Rigorous coverage: 80-90% for ALL code with logic (if/else, loops, validations)
 - ✅ When to test: Complex logic, data handling, would-wake-you-up bugs
-- ✅ When to SKIP: Trivial getters/setters, temporary code, CRUD boilerplate
+- ✅ Priority order: Critical first, then complex, then simple (but test ALL)
 - ✅ Discount calculation example showing test priorities
 - ✅ Solo-specific rationale: Limited memory, you're the only firefighter
 - ✅ Simplified CI/CD without blocking coverage requirements
@@ -4625,10 +4625,12 @@ This rule **complements** Step 9 (Test Before Deploy):
 
 **Solo Developer Testing Strategy**:
 
-1. **Unit Tests** (This Rule): Critical business logic only
-   - Payment calculations, discounts, data validation
+1. **Unit Tests** (This Rule): ALL code with logic (if/else, loops, validations)
+   - MAXIMUM PRIORITY: Payment calculations, discounts, critical data validation
+   - MEDIUM PRIORITY: Utilities with logic, data transformations
+   - LOW PRIORITY: Simple code with basic logic
    - Run before every git commit (fast feedback)
-   - Goal: 60-70% coverage of critical code
+   - Goal: 80-90% coverage of code with logic
 
 2. **Smoke Tests** (Step 9): Main user flows work
    - Can users sign up?

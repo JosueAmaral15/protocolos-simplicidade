@@ -128,9 +128,9 @@
 **Changelog v3.6** (06/01/2026):
 - ✅ **[OBRIGATÓRIO PRAGMÁTICO]** Adicionada Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Solo Pragmático)
 - ✅ OBRIGATÓRIO: Testar código crítico que causa sessões de debug às 3h da manhã
-- ✅ Cobertura pragmática: 60-70% apenas para caminhos críticos
+- ✅ Cobertura rigorosa: 80-90% para TODO código com lógica (if/else, loops, validações)
 - ✅ Quando testar: Lógica complexa, manipulação de dados, bugs que te acordariam
-- ✅ Quando PULAR: Getters/setters triviais, código temporário, CRUD boilerplate
+- ✅ Ordem de prioridade: Crítico primeiro, depois complexo, depois simples (mas testar TODOS)
 - ✅ Exemplo de cálculo de descontos mostrando prioridades de teste
 - ✅ Rationale específico para solo: Memória limitada, você é o único bombeiro
 - ✅ CI/CD simplificado sem requisitos de cobertura bloqueantes
@@ -5051,9 +5051,9 @@ describe('calcularPreco (Lógica Crítica de Receita)', () => {
    - Testes pegam bugs antes do deploy
 
 3. **⏰ Tempo é Seu Recurso Mais Escasso**
-   - Não teste tudo (cobertura de 60-70% está OK)
-   - Foque em código que causa emergências às 3h
-   - Pule código trivial que você verifica em segundos
+   - Teste TODO código com lógica usando ordem de prioridade (cobertura de 80-90%)
+   - Priorize código crítico que causa emergências às 3h (testa PRIMEIRO)
+   - Código com lógica simples testa DEPOIS (mas ainda testa!)
 
 4. **💰 Bugs Te Custam Dinheiro**
    - Bugs de produção = clientes perdidos
@@ -5080,10 +5080,12 @@ Esta regra **complementa** a Etapa 9 (Testar Antes de Deploy):
 
 **Estratégia de Testes Solo Developer**:
 
-1. **Testes Unitários** (Esta Regra): Apenas lógica de negócio crítica
-   - Cálculos de pagamento, descontos, validação de dados
+1. **Testes Unitários** (Esta Regra): TODO código com lógica (if/else, loops, validações)
+   - PRIORIDADE MÁXIMA: Cálculos de pagamento, descontos, validação de dados crítica
+   - PRIORIDADE MÉDIA: Utilitários com lógica, transformações de dados
+   - PRIORIDADE BAIXA: Código simples com lógica básica
    - Rodar antes de cada git commit (feedback rápido)
-   - Meta: 60-70% de cobertura do código crítico
+   - Meta: 80-90% de cobertura do código com lógica
 
 2. **Smoke Tests** (Etapa 9): Fluxos principais de usuário funcionam
    - Usuários conseguem se cadastrar?
