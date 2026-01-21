@@ -2519,11 +2519,11 @@ git branch -d COM1-add-user-profiles
 git push origin --delete COM1-add-user-profiles
 ```
 
-**Solo Dev Pragmatism:**
-- ✅ PR is optional (you're the reviewer)
-- ✅ CI/CD is optional (useful, but not mandatory)
-- ✅ Code review is you testing manually
-- ✅ Priority: **works > perfect**
+**Disciplined Solo Development:**
+- ✅ PR is mandatory even solo (documents self-review and decisions)
+- ✅ CI/CD is strongly recommended (automates quality and prevents bugs)
+- ✅ Code review is you methodically reviewing with checklist
+- ✅ Priority: **works WELL > works poorly** (quality is non-negotiable)
 
 #### **Step 4: Handle Experiments**
 ```bash
@@ -4596,9 +4596,9 @@ describe('calculatePrice (Critical Revenue Logic)', () => {
    - Tests catch bugs before deploy
 
 3. **⏰ Time is Your Scarcest Resource**
-   - Don't test everything (60-70% coverage is fine)
-   - Focus on code that causes 3AM emergencies
-   - Skip trivial code you can verify in seconds
+   - Test ALL code with logic (80-90% coverage target)
+   - Use priority order: critical first, complex next, simple last
+   - Only purely trivial code (constants, pure pass-through) verified manually
 
 4. **💰 Bugs Cost You Money**
    - Production bugs = lost customers

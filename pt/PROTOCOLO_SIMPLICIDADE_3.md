@@ -2518,11 +2518,11 @@ git branch -d COM1-add-user-profiles
 git push origin --delete COM1-add-user-profiles
 ```
 
-**Pragmatismo Solo Dev:**
-- ✅ PR é opcional (você é o reviewer)
-- ✅ CI/CD é opcional (útil, mas não obrigatório)
-- ✅ Code review é você testando manualmente
-- ✅ Prioridade: **funciona > perfeito**
+**Desenvolvimento Solo Disciplinado:**
+- ✅ PR é obrigatório mesmo solo (documenta self-review e decisões)
+- ✅ CI/CD é fortemente recomendado (automatiza qualidade e previne bugs)
+- ✅ Code review é você revisando metodicamente com checklist
+- ✅ Prioridade: **funciona BEM > funciona mal** (qualidade não é negociável)
 
 #### **Passo 4: Lidar com Experimentos**
 ```bash
