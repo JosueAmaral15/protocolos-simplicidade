@@ -3722,8 +3722,8 @@ Escolha óbvia, certo? Então por que você não pergunta?
   💡 Sugestão: SEMPRE mockar APIs externas. Sempre.
   
 - "Quanto de cobertura é suficiente?"
-  ⚠️ RISCO: 100% = perder tempo. 0% = bugs garantidos
-  💡 Sugestão Solo: 70% é bom. Focar em lógica crítica e edge cases.
+  ⚠️ RISCO: <80% = bugs em produção. 0% = desastre garantido
+  💡 Sugestão Solo: 80-90% para TODO código com lógica. Priorize crítico PRIMEIRO, mas teste TODOS.
   
 - "Como testar isso sem quebrar produção?"
   ⚠️ RISCO: Testar em produção = usuários são beta testers involuntários

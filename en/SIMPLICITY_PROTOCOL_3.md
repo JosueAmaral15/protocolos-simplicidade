@@ -3668,8 +3668,8 @@ Obvious choice, right? So why don't you ask?
   💡 Suggestion: ALWAYS mock external APIs. Always.
   
 - "How much coverage is enough?"
-  ⚠️ RISK: 100% = waste time. 0% = guaranteed bugs
-  💡 Solo suggestion: 70% is good. Focus on critical logic and edge cases.
+  ⚠️ RISK: <80% = production bugs. 0% = guaranteed disaster
+  💡 Solo suggestion: 80-90% for ALL code with logic. Prioritize critical FIRST, but test ALL.
   
 - "How to test without breaking production?"
   ⚠️ RISK: Testing in production = users are involuntary beta testers
