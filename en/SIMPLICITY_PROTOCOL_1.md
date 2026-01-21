@@ -2759,6 +2759,625 @@ git worktree add ${worktree_name} -b ${branch_name}
 
 ---
 
+### 🌐 Multi-AI Communication & Coordination
+
+> **CRITICAL UNDERSTANDING**: GitHub Copilot CLI (and Copilot in general) is **stateless per invocation**. Each terminal session is completely isolated—AIs do NOT communicate directly. To enable coordination between multiple AIs working on the same project, you must architect an external communication system.
+
+#### 🔍 Technical Reality: How Copilot CLI Actually Works
+
+**Core Architecture:**
+- **Stateless per invocation**: Each Copilot call is independent—no memory persists between invocations
+- **Process isolation**: Each terminal tab is a separate shell process with:
+  - Independent environment variables
+  - Own STDIN/STDOUT/STDERR streams
+  - No shared Inter-Process Communication (IPC) channels
+- **No agent identity**: Copilot does not have:
+  - Agent IDs or persistent identities
+  - Message buses or event systems
+  - Long-running background processes
+  - Awareness of other terminal sessions
+- **Security model**: GitHub intentionally prevents:
+  - Background autonomous coordination
+  - Cross-terminal inference without user consent
+  - Implicit data sharing between sessions
+  - Autonomous behavior that could leak sensitive data
+
+**What This Means in Practice:**
+```
+Terminal A: Copilot receives prompt → generates response → exits
+Terminal B: Copilot receives prompt → generates response → exits
+
+Result: No shared context, no communication, no coordination
+```
+
+Think of two Copilot sessions like two people answering emails independently—**zero awareness of each other**.
+
+#### 🎯 Communication Options: How to Enable Multi-AI Coordination
+
+Since direct AI-to-AI communication is impossible, you must **build coordination infrastructure**. Three options exist, ranked by sophistication:
+
+---
+
+#### 📁 Option A: Shared State via Filesystem (Simplest, Last Resort)
+
+**Concept**: All AIs read/write from a shared JSON file to exchange state and messages.
+
+**How It Works:**
+1. All terminals agree on a shared file location: `/tmp/ai_coordination.json`
+2. Each AI reads the file before acting
+3. Each AI writes its status/conclusions back
+4. Coordination emerges from sequential read-modify-write cycles
+
+**Setup Instructions:**
+
+```bash
+# 1. Create shared state file
+cat > /tmp/ai_coordination.json << 'EOF'
+{
+  "project_name": "my-project",
+  "global_goal": "Refactor authentication module",
+  "agents": {},
+  "messages": [],
+  "file_locks": {},
+  "last_updated": ""
+}
+EOF
+
+# 2. In each terminal, AI includes in prompt:
+# "Read /tmp/ai_coordination.json and respond as Agent A"
+# "Write your status and decisions back to the file"
+
+# 3. Example AI interaction:
+jq '.agents.A = {"role": "Refactor", "status": "working", "files": ["auth.py"]}' \
+  /tmp/ai_coordination.json > /tmp/ai_coordination.json.tmp && \
+  mv /tmp/ai_coordination.json.tmp /tmp/ai_coordination.json
+```
+
+**Advantages:**
+- ✅ Extremely simple—just a JSON file
+- ✅ No external dependencies
+- ✅ Works on any system with filesystem access
+- ✅ Human-readable for debugging
+
+**Disadvantages:**
+- ❌ Race conditions (two AIs writing simultaneously)
+- ❌ No real-time updates (polling required)
+- ❌ Fragile—file corruption breaks everything
+- ❌ Manual coordination logic (no enforcement)
+- ❌ Not scalable beyond 2-3 AIs
+
+**When to Use:**
+- Only when Option C and Option B both fail
+- Simple 2-AI scenarios with low conflict risk
+- Temporary/experimental multi-AI work
+- No tmux available, no ability to run external process
+
+---
+
+#### 🎛️ Option B: External Orchestrator (Recommended for Production)
+
+**Concept**: A central controller process maintains shared memory, assigns roles, tracks state, and coordinates all AIs through a clean API.
+
+**Architecture:**
+```
+┌─────────────────┐
+│ Terminal A      │─┐
+│ (AI #1)         │ │
+└─────────────────┘ │
+                    ▼
+              ┌──────────────────┐
+              │  Orchestrator    │
+              │  (Python/Go)     │
+              │                  │
+              │  • Shared memory │
+              │  • Task graph    │
+              │  • Role manager  │
+              │  • Conflict ctrl │
+              └──────────────────┘
+                    ▲
+┌─────────────────┐ │
+│ Terminal B      │─┘
+│ (AI #2)         │
+└─────────────────┘
+```
+
+**How It Works:**
+1. **Orchestrator maintains shared state** (in-memory or Redis/SQLite)
+2. **Each AI registers** with the orchestrator (gets Agent ID and role)
+3. **AIs send messages** to orchestrator (not to each other)
+4. **Orchestrator updates context** for each AI based on global state
+5. **Coordination rules enforced** by orchestrator (file locks, task dependencies)
+
+**Setup Instructions:**
+
+**Step 1: Create Orchestrator (Python example)**
+
+```python
+#!/usr/bin/env python3
+# orchestrator.py
+import json
+import time
+from flask import Flask, request, jsonify
+from threading import Lock
+
+app = Flask(__name__)
+state_lock = Lock()
+
+# Shared state
+state = {
+    "global_goal": "",
+    "agents": {},
+    "messages": [],
+    "file_locks": {},
+    "task_queue": []
+}
+
+@app.route('/register', methods=['POST'])
+def register_agent():
+    """Register new agent with role"""
+    data = request.json
+    agent_id = data.get('agent_id')
+    role = data.get('role')
+    
+    with state_lock:
+        state['agents'][agent_id] = {
+            "role": role,
+            "status": "idle",
+            "files": [],
+            "last_seen": time.time()
+        }
+    return jsonify({"status": "registered", "agent_id": agent_id})
+
+@app.route('/get_context', methods=['GET'])
+def get_context():
+    """AI requests current context"""
+    agent_id = request.args.get('agent_id')
+    with state_lock:
+        return jsonify({
+            "global_state": state,
+            "your_role": state['agents'].get(agent_id, {}).get('role'),
+            "messages": state['messages'][-10:]  # Last 10 messages
+        })
+
+@app.route('/update_status', methods=['POST'])
+def update_status():
+    """AI reports status/decisions"""
+    data = request.json
+    agent_id = data.get('agent_id')
+    
+    with state_lock:
+        if agent_id in state['agents']:
+            state['agents'][agent_id].update({
+                "status": data.get('status'),
+                "files": data.get('files', []),
+                "last_seen": time.time()
+            })
+        
+        # Add to message log
+        state['messages'].append({
+            "from": agent_id,
+            "message": data.get('message'),
+            "timestamp": time.time()
+        })
+    
+    return jsonify({"status": "updated"})
+
+@app.route('/lock_file', methods=['POST'])
+def lock_file():
+    """Request exclusive file access"""
+    data = request.json
+    agent_id = data.get('agent_id')
+    file_path = data.get('file')
+    
+    with state_lock:
+        if file_path in state['file_locks']:
+            return jsonify({"locked": False, "owner": state['file_locks'][file_path]})
+        else:
+            state['file_locks'][file_path] = agent_id
+            return jsonify({"locked": True})
+
+@app.route('/unlock_file', methods=['POST'])
+def unlock_file():
+    """Release file lock"""
+    data = request.json
+    file_path = data.get('file')
+    
+    with state_lock:
+        if file_path in state['file_locks']:
+            del state['file_locks'][file_path]
+    
+    return jsonify({"unlocked": True})
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5555)
+```
+
+**Step 2: Start Orchestrator**
+
+```bash
+# In a dedicated terminal:
+python3 orchestrator.py
+
+# Orchestrator runs on http://127.0.0.1:5555
+```
+
+**Step 3: AI Terminal Integration**
+
+```bash
+# Each AI terminal registers and communicates via HTTP
+
+# Register Agent A
+curl -X POST http://127.0.0.1:5555/register \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id": "A", "role": "Refactor"}'
+
+# Get context (AI includes this in prompt)
+CONTEXT=$(curl -s http://127.0.0.1:5555/get_context?agent_id=A)
+echo "Context for Agent A: $CONTEXT"
+
+# Update status after action
+curl -X POST http://127.0.0.1:5555/update_status \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id": "A", "status": "working", "files": ["auth.py"], "message": "Refactoring authentication logic"}'
+
+# Lock file before editing
+curl -X POST http://127.0.0.1:5555/lock_file \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id": "A", "file": "auth.py"}'
+
+# Unlock when done
+curl -X POST http://127.0.0.1:5555/unlock_file \
+  -H "Content-Type: application/json" \
+  -d '{"file": "auth.py"}'
+```
+
+**Step 4: AI Prompt Integration**
+
+When prompting Copilot, include:
+
+```
+You are Agent A working on project "my-project".
+Your assigned role: Refactor
+
+Current global state:
+<insert JSON from /get_context>
+
+Your task:
+- Refactor auth.py
+- Do not touch files locked by other agents
+- Report status via orchestrator
+
+Before proceeding, check file locks and coordinate with other agents.
+```
+
+**Advantages:**
+- ✅ Scalable to many AIs (tested with 10+)
+- ✅ Real-time coordination (event-driven possible)
+- ✅ Enforced rules (file locks, task dependencies)
+- ✅ Auditable (all messages logged)
+- ✅ Production-ready architecture
+- ✅ Works across machines (network-accessible)
+
+**Disadvantages:**
+- ❌ Requires running external process
+- ❌ More complex setup
+- ❌ Network dependency (HTTP calls)
+- ❌ Debugging overhead
+
+**When to Use:**
+- 3+ AIs working concurrently
+- Complex projects with many files
+- Need strong conflict prevention
+- Production/enterprise environments
+- Multi-machine coordination
+- When Option C (tmux) is not available or insufficient
+
+---
+
+#### 🖥️ Option C: tmux + Daemon Controller (Default, Best for Local Development)
+
+**Concept**: Each tmux pane represents one AI role. A daemon monitors pane output, extracts intent, updates shared state, and injects context into prompts. This creates a **visual coordination surface** where you can see all AIs working in parallel.
+
+**Architecture:**
+```
+┌──────────────┬──────────────┐
+│ Pane A       │ Pane B       │
+│ AI: Refactor │ AI: Tests    │
+├──────────────┼──────────────┤
+│ Pane C       │ Pane D       │
+│ AI: Lint     │ AI: Docs     │
+└──────────────┴──────────────┘
+        ▲              ▲
+        │              │
+        └──────┬───────┘
+               │
+       ┌───────▼────────┐
+       │ tmux Daemon    │
+       │ (monitors all) │
+       │ • Logs output  │
+       │ • Shares state │
+       │ • Injects ctx  │
+       └────────────────┘
+```
+
+**How It Works:**
+1. **tmux session** with multiple panes (one per AI)
+2. **Daemon monitors** each pane's output using `tmux capture-pane`
+3. **State extraction**: Daemon parses logs to understand what each AI is doing
+4. **Context injection**: Daemon sends updated context to each pane via `tmux send-keys`
+5. **Visual feedback**: You see all AIs working in real-time
+
+**Setup Instructions:**
+
+**Step 1: Create tmux Session with Panes**
+
+```bash
+# Create session with 4 panes
+tmux new-session -s ai-coord -d
+tmux split-window -h -t ai-coord
+tmux split-window -v -t ai-coord:0.0
+tmux split-window -v -t ai-coord:0.2
+
+# Name each pane (for clarity)
+tmux select-pane -t ai-coord:0.0 -T "AI-Refactor"
+tmux select-pane -t ai-coord:0.1 -T "AI-Tests"
+tmux select-pane -t ai-coord:0.2 -T "AI-Lint"
+tmux select-pane -t ai-coord:0.3 -T "AI-Docs"
+
+# Attach to session
+tmux attach -t ai-coord
+```
+
+**Step 2: Create Monitoring Daemon**
+
+```python
+#!/usr/bin/env python3
+# tmux_ai_daemon.py
+import subprocess
+import json
+import time
+import re
+from pathlib import Path
+
+STATE_FILE = "/tmp/tmux_ai_state.json"
+SESSION = "ai-coord"
+
+def get_pane_list():
+    """Get all panes in session"""
+    result = subprocess.run(
+        ["tmux", "list-panes", "-t", SESSION, "-F", "#{pane_index}"],
+        capture_output=True, text=True
+    )
+    return result.stdout.strip().split('\n')
+
+def capture_pane_output(pane_id):
+    """Capture last 50 lines from pane"""
+    result = subprocess.run(
+        ["tmux", "capture-pane", "-t", f"{SESSION}:{pane_id}", "-p", "-S", "-50"],
+        capture_output=True, text=True
+    )
+    return result.stdout
+
+def extract_intent(output):
+    """Parse output to understand AI intent"""
+    # Look for common patterns
+    if "editing" in output.lower() or "modifying" in output.lower():
+        files = re.findall(r'[a-zA-Z0-9_/-]+\.(py|js|ts|java|go)', output)
+        return {"action": "editing", "files": files}
+    elif "testing" in output.lower():
+        return {"action": "testing", "status": "running"}
+    elif "waiting" in output.lower():
+        return {"action": "waiting", "reason": "dependency"}
+    else:
+        return {"action": "unknown"}
+
+def send_context_to_pane(pane_id, context):
+    """Inject context into pane"""
+    prompt = f"\n# UPDATED CONTEXT:\n{json.dumps(context, indent=2)}\n"
+    subprocess.run(
+        ["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", prompt]
+    )
+
+def load_state():
+    """Load shared state"""
+    if Path(STATE_FILE).exists():
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    return {"agents": {}, "file_locks": {}, "messages": []}
+
+def save_state(state):
+    """Save shared state"""
+    with open(STATE_FILE, 'w') as f:
+        json.dump(state, f, indent=2)
+
+def main():
+    """Main coordination loop"""
+    print(f"[tmux AI Daemon] Monitoring session: {SESSION}")
+    
+    while True:
+        state = load_state()
+        panes = get_pane_list()
+        
+        for pane_id in panes:
+            # Capture output
+            output = capture_pane_output(pane_id)
+            
+            # Extract intent
+            intent = extract_intent(output)
+            
+            # Update state
+            state['agents'][pane_id] = {
+                "last_action": intent,
+                "last_seen": time.time()
+            }
+            
+            # Check for conflicts (e.g., two AIs editing same file)
+            if intent['action'] == 'editing':
+                for file in intent.get('files', []):
+                    if file in state['file_locks']:
+                        # Send warning to pane
+                        warning = f"\n⚠️  WARNING: {file} locked by pane {state['file_locks'][file]}\n"
+                        subprocess.run(["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", warning])
+                    else:
+                        state['file_locks'][file] = pane_id
+        
+        # Save updated state
+        save_state(state)
+        
+        # Update context for all panes
+        for pane_id in panes:
+            context = {
+                "all_agents": state['agents'],
+                "file_locks": state['file_locks'],
+                "your_pane": pane_id
+            }
+            # Only send if significant change (avoid spam)
+            # Implementation: compare with previous state
+        
+        time.sleep(5)  # Poll every 5 seconds
+
+if __name__ == '__main__':
+    main()
+```
+
+**Step 3: Start Daemon**
+
+```bash
+# In a separate terminal (outside tmux):
+python3 tmux_ai_daemon.py
+
+# Daemon monitors all panes and maintains /tmp/tmux_ai_state.json
+```
+
+**Step 4: AI Usage in Each Pane**
+
+In each tmux pane, when prompting Copilot:
+
+```bash
+# Before asking Copilot, check state:
+cat /tmp/tmux_ai_state.json
+
+# Include in prompt:
+# "You are Agent in Pane 0 (Refactor role)"
+# "Current state: <paste JSON>"
+# "Your task: Refactor auth.py"
+# "Before editing, check file_locks to avoid conflicts"
+```
+
+**Advantages:**
+- ✅ **Visual coordination**: See all AIs working in real-time
+- ✅ **Natural parallelism**: Each pane = independent AI
+- ✅ **Human-in-the-loop**: Easy to intervene/supervise
+- ✅ **No cloud dependency**: Fully local
+- ✅ **Perfect for development**: Tactile, immediate feedback
+- ✅ **Aligns with parallel workflow intuition**
+
+**Disadvantages:**
+- ❌ Requires tmux (Linux/macOS only, not Windows)
+- ❌ Local machine only (doesn't scale across network)
+- ❌ Manual pane management
+- ❌ Daemon adds complexity
+
+**When to Use (Default):**
+- Local development on Linux/macOS
+- 2-4 AIs working concurrently
+- Need visual feedback and supervision
+- Want tactile control over coordination
+- Working in terminal-heavy environment (your preferred style)
+
+---
+
+#### 🔍 Option Detection & Selection Protocol
+
+**MANDATORY**: Before choosing a coordination option, AI MUST detect if another AI already established coordination.
+
+**Detection Steps:**
+
+```bash
+# 1. Check for Option A (shared JSON file)
+if [ -f /tmp/ai_coordination.json ]; then
+    echo "Option A detected - using shared filesystem"
+    # Use Option A
+fi
+
+# 2. Check for Option B (orchestrator)
+if curl -s http://127.0.0.1:5555/get_context?agent_id=probe >/dev/null 2>&1; then
+    echo "Option B detected - orchestrator running on port 5555"
+    # Use Option B
+fi
+
+# 3. Check for Option C (tmux + daemon)
+if [ -f /tmp/tmux_ai_state.json ] && tmux has-session -t ai-coord 2>/dev/null; then
+    echo "Option C detected - tmux session 'ai-coord' active"
+    # Use Option C
+fi
+
+# 4. If none detected - ask user
+if [ no coordination detected ]; then
+    echo "No coordination system detected."
+    echo "Multiple AIs working on this project?"
+    read -p "Choose: (C) tmux [default], (B) orchestrator, (A) filesystem: " choice
+    # Setup chosen option
+fi
+```
+
+**Fallback Hierarchy (if setup fails):**
+
+```
+Attempt C (tmux) → if fails → Attempt B (orchestrator) → if fails → Use A (filesystem)
+```
+
+**Example Failure Scenarios:**
+- **C fails**: tmux not installed → fall back to B
+- **B fails**: Cannot bind port 5555, no Python → fall back to A
+- **A always works**: Filesystem always available (last resort)
+
+---
+
+#### ✅ Multi-AI Coordination Checklist
+
+**Before Starting Multi-AI Work:**
+- [ ] Did I detect if coordination already exists?
+- [ ] If detected → am I using the SAME option as other AIs?
+- [ ] If NOT detected → did I ask user which option to use?
+- [ ] Is coordination infrastructure running (daemon/orchestrator)?
+- [ ] Did I register my agent with ID and role?
+- [ ] Do I understand fallback hierarchy (C → B → A)?
+
+**During Work:**
+- [ ] Am I checking shared state before major actions?
+- [ ] Am I updating my status after decisions?
+- [ ] Am I respecting file locks from other AIs?
+- [ ] Am I avoiding files currently being edited?
+- [ ] Am I sending messages to coordinate (not working blind)?
+
+**Conflict Prevention:**
+- [ ] Before editing file → check if locked by another AI
+- [ ] Before git operations → check if another AI is mid-commit
+- [ ] Before running tests → check if another AI modified test files
+- [ ] If conflict detected → ask user for guidance
+
+**After Completing Task:**
+- [ ] Did I update status to "completed"?
+- [ ] Did I release all file locks?
+- [ ] Did I notify other AIs of completion?
+- [ ] Did I document my changes in shared state?
+
+---
+
+#### 🎓 Multi-AI Golden Rules
+
+1. **Never assume isolation**: Always check if other AIs are working
+2. **Coordination is mandatory**: If multiple AIs detected → MUST use one of the 3 options
+3. **Same option for all**: All AIs must use the same coordination method
+4. **Fallback is acceptable**: If preferred option fails, use next in hierarchy
+5. **User decides conflicts**: If AIs disagree on file ownership → ask user
+6. **Visual feedback**: Option C (tmux) is default because visibility prevents mistakes
+7. **Production uses B**: For enterprise/critical work, Option B (orchestrator) is most robust
+8. **Option A is last resort**: Only use filesystem coordination if B and C both fail
+
+---
+
 ---
 
 ## 🎓 Fundamental Paradigm: Total Clarity Before Implementation
