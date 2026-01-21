@@ -6708,7 +6708,7 @@ cache = {}
 6. ✅ **Quality**: Well-documented code from the start
 
 **Message for AIs**:
-> "NEVER start coding without reading all available documentation. It's like trying to continue a book without reading previous chapters - you'll introduce inconsistencies, rework and bugs. Invest 10-30 minutes reading EVERYTHING before writing the first line of code."
+> "NEVER start coding without reading all available documentation. It's like trying to continue a book without reading previous chapters - you'll introduce inconsistencies, rework and bugs. Invest the necessary time (1-4 hours for small projects, up to 1-4 days for large projects) reading ALL documentation and studying ALL code before writing the first line of code."
 
 **Golden Rule**:
 > **"Read documentation FIRST, code AFTER. Always."**

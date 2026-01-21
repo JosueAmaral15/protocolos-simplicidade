@@ -7243,7 +7243,7 @@ cache = {}
 6. ✅ **Qualidade**: Código bem documentado desde o início
 
 **Mensagem para IAs**:
-> "NUNCA comece a codificar sem ler toda a documentação disponível. É como tentar continuar um livro sem ler os capítulos anteriores - você vai introduzir inconsistências, retrabalho e bugs. Invista 10-30 minutos lendo TUDO antes de escrever a primeira linha de código."
+> "NUNCA comece a codificar sem ler toda a documentação disponível. É como tentar continuar um livro sem ler os capítulos anteriores - você vai introduzir inconsistências, retrabalho e bugs. Invista o tempo necessário (1-4 horas para projetos pequenos, até 1-4 dias para projetos grandes) lendo TODA a documentação e estudando TODO o código antes de escrever a primeira linha de código."
 
 **Regra de Ouro**:
 > **"Ler documentação PRIMEIRO, codificar DEPOIS. Sempre."**
