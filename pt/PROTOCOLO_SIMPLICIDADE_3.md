@@ -5153,22 +5153,23 @@ jobs:
       # ✅ Apenas rode testes e reporte
 ```
 
-### 📝 Resumo (Solo Pragmático)
+### 📝 Resumo (Solo Abrangente & Eficiente)
 
 **Quando**:
-- Lógica complexa que causaria debug às 3h
-- Código que afeta diretamente receita ou integridade de dados
-- Pule código trivial (formatadores, getters, CRUD)
+- TODO código com lógica (if/else, loops, cálculos, validações)
+- PRIORIDADE: Lógica complexa que causa debug às 3h (testar PRIMEIRO)
+- TAMBÉM TESTAR: Código mais simples com lógica (testar DEPOIS do código crítico)
 
 **Cobertura**:
-- **60-70% do código crítico** (não 100%!)
-- Teste com inteligência, não teste tudo
-- Sem enforcement de cobertura em CI/CD
+- **80-90% de TODO código com lógica**
+- Testar TODO código com lógica usando ordem de prioridade: crítico primeiro, depois complexo, depois simples
+- Sem enforcement de cobertura no CI/CD (mas ainda testar de forma abrangente)
 
 **O Quê**:
-- Happy path, edge cases, cálculos financeiros
-- Pule formatadores simples e boilerplate
-- Foque em bugs "te-acordariam-à-noite"
+- Happy path, edge cases, cálculos financeiros (PRIORIDADE MÁXIMA)
+- Utilitários com lógica, transformações de dados (PRIORIDADE MÉDIA)
+- Código simples com lógica básica (PRIORIDADE BAIXA)
+- Apenas código puramente trivial pode ser verificado manualmente (constantes, pass-through puro)
 
 **Por Quê**:
 - Memória limitada (testes como cérebro externo)

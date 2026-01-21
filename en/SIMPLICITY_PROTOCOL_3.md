@@ -4698,22 +4698,23 @@ jobs:
       # ✅ Just run tests and report
 ```
 
-### 📝 Summary (Solo Pragmatic)
+### 📝 Summary (Solo Comprehensive & Efficient)
 
 **When**:
-- Complex logic that would cause 3AM debugging
-- Code that directly affects revenue or data integrity
-- Skip trivial code (formatters, getters, CRUD)
+- ALL code with logic (if/else, loops, calculations, validations)
+- PRIORITY: Complex logic that would cause 3AM debugging (test FIRST)
+- ALSO TEST: Simpler code with logic (test AFTER critical code)
 
 **Coverage**:
-- **60-70% of critical code** (not 100%!)
-- Test smart, not everything
-- No CI/CD coverage enforcement
+- **80-90% of ALL code with logic**
+- Test ALL code with logic using priority order: critical first, then complex, then simple
+- No CI/CD coverage enforcement (but still test comprehensively)
 
 **What**:
-- Happy path, edge cases, financial calculations
-- Skip simple formatters and boilerplate
-- Focus on "would-wake-you-up" bugs
+- Happy path, edge cases, financial calculations (MAXIMUM PRIORITY)
+- Utilities with logic, data transformations (MEDIUM PRIORITY)  
+- Simple code with basic logic (LOW PRIORITY)
+- Only purely trivial code can be verified manually (constants, pure pass-through)
 
 **Why**:
 - Limited memory (tests as external brain)
