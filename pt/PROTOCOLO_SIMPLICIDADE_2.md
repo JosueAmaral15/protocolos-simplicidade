@@ -4088,521 +4088,1546 @@ git worktree add ${worktree_name} -b ${branch_name}
 
 ---
 
-### 🌐 Comunicação e Coordenação Multi-IA
 
-> **COMPREENSÃO CRÍTICA**: O GitHub Copilot CLI (e o Copilot em geral) é **stateless por invocação**. Cada sessão de terminal é completamente isolada—IAs NÃO se comunicam diretamente. Para permitir a coordenação entre múltiplas IAs trabalhando no mesmo projeto, você deve arquitetar um sistema de comunicação externo.
+## 🌐 Comunicação e Coordenação Multi-IA
 
-#### 🔍 Realidade Técnica: Como o Copilot CLI Realmente Funciona
+> **CAPACIDADE CRÍTICA** (v3.3+): Quando múltiplas inteligências artificiais trabalham simultaneamente no mesmo projeto (múltiplas abas/janelas/sessões de terminal), é necessária coordenação especializada para prevenir conflitos e habilitar verdadeira colaboração paralela.
 
-**Arquitetura Central:**
-- **Stateless por invocação**: Cada chamada do Copilot é independente—nenhuma memória persiste entre invocações
-- **Isolamento de processos**: Cada aba de terminal é um processo shell separado com:
-  - Variáveis de ambiente independentes
-  - Próprios streams STDIN/STDOUT/STDERR
-  - Sem canais de Comunicação Inter-Processos (IPC) compartilhados
-- **Sem identidade de agente**: O Copilot não possui:
-  - IDs de agentes ou identidades persistentes
-  - Barramentos de mensagens ou sistemas de eventos
-  - Processos em segundo plano de longa duração
-  - Consciência de outras sessões de terminal
-- **Modelo de segurança**: O GitHub intencionalmente previne:
-  - Coordenação autônoma em segundo plano
-  - Inferência entre terminais sem consentimento do usuário
-  - Compartilhamento implícito de dados entre sessões
-  - Comportamento autônomo que poderia vazar dados sensíveis
+### 📋 Visão Geral do Capítulo
 
-**O Que Isso Significa na Prática:**
-```
-Terminal A: Copilot recebe prompt → gera resposta → sai
-Terminal B: Copilot recebe prompt → gera resposta → sai
-
-Resultado: Sem contexto compartilhado, sem comunicação, sem coordenação
-```
-
-Pense em duas sessões do Copilot como duas pessoas respondendo e-mails independentemente—**zero consciência uma da outra**.
-
-#### 🎯 Opções de Comunicação: Como Habilitar Coordenação Multi-IA
-
-Como a comunicação direta IA-para-IA é impossível, você deve **construir infraestrutura de coordenação**. Existem três opções, ranqueadas por sofisticação:
+Este capítulo aborda:
+- **Trabalho concorrente Multi-IA** com Git worktree (obrigatório quando múltiplas IAs ativas)
+- **Opções de comunicação** entre instâncias de IA (3 arquiteturas: A, B, C)
+- **Verificação de coordenação** checklist para garantir que sistemas funcionem corretamente
+- **Tratamento de falhas de rede** e estratégias de fallback
+- **Gerenciamento de worktree** automação e limpeza
+- **Detecção de colisão de branches** e resolução
+- **Conflitos de operações git** com lógica de retry automática
+- **Bloqueio de arquivos de teste** para prevenir modificação concorrente durante execução
 
 ---
 
-#### 📁 Opção A: Estado Compartilhado via Sistema de Arquivos (Mais Simples, Último Recurso)
+### 🔍 Realidade Técnica: Como o Copilot CLI Realmente Funciona
 
-**Conceito**: Todas as IAs leem/escrevem de um arquivo JSON compartilhado para trocar estado e mensagens.
+**Compreensão Crítica:**
+- GitHub Copilot CLI é **stateless por invocação**
+- Cada execução de comando é **independente**—sem memória persistente entre chamadas
+- Cada aba de terminal executa um **processo Copilot separado**
+- **Sem comunicação embutida** entre instâncias do Copilot
 
-**Como Funciona:**
-1. Todos os terminais concordam com uma localização de arquivo compartilhado: `/tmp/ai_coordination.json`
-2. Cada IA lê o arquivo antes de agir
-3. Cada IA escreve seu status/conclusões de volta
-4. Coordenação emerge de ciclos sequenciais de leitura-modificação-escrita
+**Por Que Isso Importa:**
+```
+Terminal Aba A: IA #1 (processo separado)
+Terminal Aba B: IA #2 (processo separado)  
+Terminal Aba C: IA #3 (processo separado)
 
-**Instruções de Configuração:**
+❌ Elas NÃO PODEM conversar diretamente entre si
+❌ Elas NÃO compartilham memória
+❌ Elas NÃO sabem da existência uma da outra
+```
 
+**A Solução:**
+> Sistemas de coordenação externos que IAs usam para sincronizar seu trabalho através de **estado compartilhado**, **passagem de mensagens**, ou **feedback visual**.
+
+---
+
+### 🤖 Trabalho Concorrente Multi-IA com Git Worktree
+
+> **CENÁRIO OBRIGATÓRIO**: Quando múltiplas IAs trabalham simultaneamente no mesmo projeto (múltiplas abas/janelas de terminal), é **REQUERIDO** usar `git worktree` ou sistemas de coordenação para evitar conflitos.
+
+#### 📋 Quando Usar (Detecção OBRIGATÓRIA)
+
+**Cenário:**
+```
+Terminal Aba 1: IA #1 trabalhando na feature A
+Terminal Aba 2: IA #2 trabalhando na feature B
+Terminal Aba 3: IA #3 trabalhando no bugfix C
+
+Todos no mesmo projeto: ~/project/
+```
+
+**Problemas sem coordenação:**
+- Conflitos de `.git/index.lock` quando múltiplas IAs executam comandos git
+- Mudanças de branch afetam todas as IAs simultaneamente
+- Perda de contexto quando uma IA troca de branch
+- Commits acidentais no branch errado
+- Modificações em arquivos de teste durante execução de testes
+- Race conditions em operações de arquivo
+
+**Solução com worktree:**
+- Cada IA trabalha em **diretório separado**
+- Cada IA tem seu próprio **branch ativo**
+- Sem conflitos de arquivo de lock
+- Contexto isolado e seguro
+- Progresso de trabalho independente
+
+#### 🔍 Detecção de Trabalho Concorrente (IA DEVE REALIZAR)
+
+**Passo 1: Perguntar ao Usuário (SEMPRE)**
+```markdown
+🤖 **Detecção de Trabalho Concorrente**
+
+Antes de começar, preciso saber:
+
+❓ Existem outras IAs trabalhando neste projeto AGORA?
+   - Em outras abas/janelas de terminal?
+   - Em outras máquinas?
+   - Em pipelines de CI/CD?
+
+Isso afeta minha estratégia de fluxo de trabalho.
+```
+
+**Passo 2: Detecção Técnica (RECOMENDADO)**
 ```bash
-# 1. Criar arquivo de estado compartilhado
-cat > /tmp/ai_coordination.json << 'EOF'
+# Verificar arquivos de lock
+ls -la .git/index.lock 2>/dev/null && echo "⚠️  Outra operação git em progresso"
+
+# Verificar branches ativos através de worktrees
+git worktree list
+
+# Verificar sinais de coordenação (ver Opção A/B/C abaixo)
+ls -la /tmp/ai_coordination_*.json 2>/dev/null
+```
+
+**Passo 3: Decidir Estratégia de Coordenação**
+- **Se trabalho concorrente**: DEVE usar Opção C (tmux), Opção B (orquestrador), ou Opção A (filesystem)
+- **Se trabalho solo**: Fluxo de trabalho git padrão (branch COM-UUID)
+
+---
+
+### 🎯 Opções de Comunicação: Como Habilitar Coordenação Multi-IA
+
+Três arquiteturas com **hierarquia de fallback**:
+
+```
+┌─────────────────────────────────────┐
+│ Padrão: Opção C (tmux + daemon)    │ ← Preferido para dev local
+│ Fallback 1: Opção B (orquestrador) │ ← Produção/remoto
+│ Fallback 2: Opção A (filesystem)   │ ← Último recurso
+└─────────────────────────────────────┘
+```
+
+---
+
+### 📁 Opção A: Estado Compartilhado via Filesystem (Mais Simples, Último Recurso)
+
+**Usar quando:**
+- Opções B e C não estão disponíveis
+- Coordenação simples necessária
+- Todas as IAs na mesma máquina
+- Rede indisponível
+
+**Como funciona:**
+Todas as IAs leem/escrevem de um arquivo JSON compartilhado contendo estado global.
+
+#### Implementação
+
+**Arquivo de estado compartilhado:**
+```bash
+/tmp/ai_coordination_<PROJECT_HASH>.json
+```
+
+**Estrutura:**
+```json
 {
-  "project_name": "my-project",
-  "global_goal": "Refatorar módulo de autenticação",
+  "project": "/home/usuario/meuprojeto",
+  "started_at": "2026-01-22T17:00:00Z",
+  "agents": {
+    "IA-1": {
+      "role": "Refatorar módulo auth",
+      "status": "working",
+      "branch": "COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281",
+      "worktree": "../meuprojeto-COM-a5e531b2",
+      "last_update": "2026-01-22T17:05:30Z",
+      "locked_files": ["src/auth.py"],
+      "pid": 12345
+    },
+    "IA-2": {
+      "role": "Escrever testes",
+      "status": "waiting",
+      "branch": "COM-b7f642c3-6e5g-23e4-b567-537725285111",
+      "worktree": "../meuprojeto-COM-b7f642c3",
+      "last_update": "2026-01-22T17:05:25Z",
+      "blocked_by": "IA-1",
+      "pid": 12346
+    }
+  },
+  "global_state": {
+    "tests_passing": true,
+    "build_status": "success",
+    "dirty_files": ["src/auth.py"]
+  },
+  "messages": [
+    {
+      "from": "IA-1",
+      "to": "IA-2",
+      "timestamp": "2026-01-22T17:05:00Z",
+      "message": "Refatorando auth.py, por favor aguarde antes de escrever testes"
+    }
+  ]
+}
+```
+
+#### Scripts de Leitura/Escrita
+
+**Escrever estado:**
+```bash
+#!/bin/bash
+# ai_write_state.sh <agent_id> <role> <status> <branch>
+
+AGENT_ID="$1"
+ROLE="$2"
+STATUS="$3"
+BRANCH="$4"
+
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+
+# Inicializar se não existir
+if [ ! -f "$STATE_FILE" ]; then
+  cat > "$STATE_FILE" << EOF
+{
+  "project": "$(pwd)",
+  "started_at": "$(date -Iseconds)",
   "agents": {},
-  "messages": [],
-  "file_locks": {},
-  "last_updated": ""
+  "global_state": {},
+  "messages": []
 }
 EOF
+fi
 
-# 2. Em cada terminal, IA inclui no prompt:
-# "Leia /tmp/ai_coordination.json e responda como Agente A"
-# "Escreva seu status e decisões de volta no arquivo"
+# Atualizar entrada do agente usando jq
+jq --arg aid "$AGENT_ID" \
+   --arg role "$ROLE" \
+   --arg status "$STATUS" \
+   --arg branch "$BRANCH" \
+   --arg time "$(date -Iseconds)" \
+   --arg pid "$$" \
+   '.agents[$aid] = {
+     "role": $role,
+     "status": $status,
+     "branch": $branch,
+     "last_update": $time,
+     "pid": ($pid | tonumber)
+   }' "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
 
-# 3. Exemplo de interação da IA:
-jq '.agents.A = {"role": "Refatorar", "status": "trabalhando", "files": ["auth.py"]}' \
-  /tmp/ai_coordination.json > /tmp/ai_coordination.json.tmp && \
-  mv /tmp/ai_coordination.json.tmp /tmp/ai_coordination.json
+echo "✅ Estado atualizado para $AGENT_ID"
 ```
 
-**Vantagens:**
-- ✅ Extremamente simples—apenas um arquivo JSON
-- ✅ Sem dependências externas
-- ✅ Funciona em qualquer sistema com acesso ao sistema de arquivos
-- ✅ Legível por humanos para depuração
+**Ler estado:**
+```bash
+#!/bin/bash
+# ai_read_state.sh
 
-**Desvantagens:**
-- ❌ Condições de corrida (duas IAs escrevendo simultaneamente)
-- ❌ Sem atualizações em tempo real (polling necessário)
-- ❌ Frágil—corrupção de arquivo quebra tudo
-- ❌ Lógica de coordenação manual (sem aplicação)
-- ❌ Não escalável além de 2-3 IAs
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
 
-**Quando Usar:**
-- Apenas quando Opção C e Opção B falharem
-- Cenários simples de 2 IAs com baixo risco de conflito
-- Trabalho multi-IA temporário/experimental
-- tmux não disponível, sem capacidade de executar processo externo
+if [ ! -f "$STATE_FILE" ]; then
+  echo "⚠️  Arquivo de coordenação não encontrado"
+  exit 1
+fi
+
+cat "$STATE_FILE" | jq '.'
+```
+
+**Bloquear arquivo:**
+```bash
+#!/bin/bash
+# ai_lock_file.sh <agent_id> <filepath>
+
+AGENT_ID="$1"
+FILEPATH="$2"
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+
+jq --arg aid "$AGENT_ID" \
+   --arg file "$FILEPATH" \
+   '.agents[$aid].locked_files += [$file] | .agents[$aid].locked_files |= unique' \
+   "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
+
+echo "🔒 Bloqueado: $FILEPATH por $AGENT_ID"
+```
+
+#### Fluxo de Trabalho da IA com Opção A
+
+```bash
+# 1. Registrar instância da IA
+./ai_write_state.sh "IA-1" "Refatorar auth" "working" "COM-abc123"
+
+# 2. Bloquear arquivos antes de editar
+./ai_lock_file.sh "IA-1" "src/auth.py"
+
+# 3. Verificar conflitos antes da operação
+./ai_read_state.sh | jq '.agents[] | select(.locked_files[] | contains("src/auth.py"))'
+
+# 4. Realizar trabalho...
+
+# 5. Atualizar status
+./ai_write_state.sh "IA-1" "Refatorar auth" "complete" "COM-abc123"
+
+# 6. Limpeza
+jq 'del(.agents["IA-1"])' /tmp/ai_coordination_*.json
+```
+
+#### Limitações da Opção A
+
+- ❌ Sem sincronização em tempo real
+- ❌ Requer execução manual de script
+- ❌ Race conditions possíveis (conflitos de escrita de arquivo)
+- ❌ Sem resolução automática de conflitos
+- ❌ Limitado à mesma máquina
+- ✅ Mas: Simples, sem dependências, funciona offline
 
 ---
 
-#### 🎛️ Opção B: Orquestrador Externo (Recomendado para Produção)
+### 🎛️ Opção B: Orquestrador Externo (Recomendado para Produção)
 
-**Conceito**: Um processo controlador central mantém memória compartilhada, atribui papéis, rastreia estado e coordena todas as IAs através de uma API limpa.
+**Usar quando:**
+- Ambiente de produção
+- Colaboração remota necessária
+- Múltiplas máquinas
+- Requisitos empresariais
+- Coordenação estrita necessária
 
 **Arquitetura:**
 ```
-┌─────────────────┐
-│ Terminal A      │─┐
-│ (IA #1)         │ │
-└─────────────────┘ │
-                    ▼
-              ┌──────────────────┐
-              │  Orquestrador    │
-              │  (Python/Go)     │
-              │                  │
-              │  • Memória comp. │
-              │  • Grafo tarefas │
-              │  • Gerente papéis│
-              │  • Ctrl conflitos│
-              └──────────────────┘
-                    ▲
-┌─────────────────┐ │
-│ Terminal B      │─┘
-│ (IA #2)         │
-└─────────────────┘
+┌────────────┐    HTTP/WebSocket    ┌─────────────┐
+│ Terminal A │◄──────────────────────►│             │
+│   IA #1    │                       │Orquestrador │
+└────────────┘                       │  (Servidor) │
+                                     │             │
+┌────────────┐    HTTP/WebSocket    │  - Memória  │
+│ Terminal B │◄──────────────────────►│  - Papéis  │
+│   IA #2    │                       │  - Tarefas  │
+└────────────┘                       │  - Estado   │
+                                     └─────────────┘
+┌────────────┐    HTTP/WebSocket           ▲
+│ Terminal C │◄────────────────────────────┘
+│   IA #3    │
+└────────────┘
 ```
 
-**Como Funciona:**
-1. **Orquestrador mantém estado compartilhado** (em memória ou Redis/SQLite)
-2. **Cada IA se registra** com o orquestrador (obtém ID de Agente e papel)
-3. **IAs enviam mensagens** ao orquestrador (não entre si)
-4. **Orquestrador atualiza contexto** para cada IA baseado no estado global
-5. **Regras de coordenação aplicadas** pelo orquestrador (bloqueios de arquivo, dependências de tarefas)
+**Como funciona:**
+- Servidor centralizado mantém TODO o estado
+- IAs enviam seu contexto/status ao servidor
+- Servidor atribui papéis e coordena trabalho
+- Servidor previne conflitos (bloqueios de arquivo, dependências de tarefas)
+- Suporta colaboração remota através de máquinas/redes
 
-**Instruções de Configuração:**
+#### Implementação (Python + Flask)
 
-**Passo 1: Criar Orquestrador (exemplo Python)**
-
+**Código do servidor (`orchestrator_server.py`):**
 ```python
 #!/usr/bin/env python3
-# orchestrator.py
-import json
-import time
+"""
+Servidor Orquestrador Multi-IA
+Coordena múltiplas instâncias de IA trabalhando no mesmo projeto
+"""
+
 from flask import Flask, request, jsonify
-from threading import Lock
+from datetime import datetime
+import threading
+import uuid
 
 app = Flask(__name__)
-state_lock = Lock()
 
-# Estado compartilhado
+# Estado global
 state = {
-    "global_goal": "",
-    "agents": {},
-    "messages": [],
-    "file_locks": {},
-    "task_queue": []
+    "agents": {},        # {agent_id: {role, status, branch, ...}}
+    "files": {},         # {filepath: agent_id} - bloqueios de arquivo
+    "messages": [],      # Log de comunicação
+    "project_info": {},
+    "lock": threading.Lock()
 }
 
 @app.route('/register', methods=['POST'])
 def register_agent():
-    """Registrar novo agente com papel"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    role = data.get('role')
-    
-    with state_lock:
-        state['agents'][agent_id] = {
-            "role": role,
-            "status": "idle",
-            "files": [],
-            "last_seen": time.time()
-        }
-    return jsonify({"status": "registered", "agent_id": agent_id})
-
-@app.route('/get_context', methods=['GET'])
-def get_context():
-    """IA solicita contexto atual"""
-    agent_id = request.args.get('agent_id')
-    with state_lock:
-        return jsonify({
-            "global_state": state,
-            "your_role": state['agents'].get(agent_id, {}).get('role'),
-            "messages": state['messages'][-10:]  # Últimas 10 mensagens
-        })
-
-@app.route('/update_status', methods=['POST'])
-def update_status():
-    """IA reporta status/decisões"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    
-    with state_lock:
-        if agent_id in state['agents']:
-            state['agents'][agent_id].update({
-                "status": data.get('status'),
-                "files": data.get('files', []),
-                "last_seen": time.time()
-            })
+    """Registrar um novo agente IA"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id') or str(uuid.uuid4())
         
-        # Adicionar ao log de mensagens
-        state['messages'].append({
-            "from": agent_id,
-            "message": data.get('message'),
-            "timestamp": time.time()
+        state["agents"][agent_id] = {
+            "role": data.get('role', 'Unknown'),
+            "status": "registered",
+            "branch": data.get('branch'),
+            "worktree": data.get('worktree'),
+            "registered_at": datetime.now().isoformat(),
+            "last_heartbeat": datetime.now().isoformat()
+        }
+        
+        return jsonify({"agent_id": agent_id, "status": "registered"})
+
+@app.route('/status/<agent_id>', methods=['POST'])
+def update_status(agent_id):
+    """Atualizar status do agente IA"""
+    with state["lock"]:
+        if agent_id not in state["agents"]:
+            return jsonify({"error": "Agente não registrado"}), 404
+        
+        data = request.json
+        state["agents"][agent_id].update({
+            "status": data.get('status'),
+            "last_heartbeat": datetime.now().isoformat()
         })
-    
-    return jsonify({"status": "updated"})
+        
+        return jsonify({"status": "updated"})
 
 @app.route('/lock_file', methods=['POST'])
 def lock_file():
-    """Solicitar acesso exclusivo ao arquivo"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    file_path = data.get('file')
-    
-    with state_lock:
-        if file_path in state['file_locks']:
-            return jsonify({"locked": False, "owner": state['file_locks'][file_path]})
-        else:
-            state['file_locks'][file_path] = agent_id
-            return jsonify({"locked": True})
+    """Bloquear um arquivo para edição exclusiva"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id')
+        filepath = data.get('filepath')
+        
+        # Verificar se arquivo já está bloqueado
+        if filepath in state["files"]:
+            locked_by = state["files"][filepath]
+            if locked_by != agent_id:
+                return jsonify({
+                    "error": "Arquivo bloqueado",
+                    "locked_by": locked_by
+                }), 409
+        
+        # Bloquear arquivo
+        state["files"][filepath] = agent_id
+        if agent_id in state["agents"]:
+            if "locked_files" not in state["agents"][agent_id]:
+                state["agents"][agent_id]["locked_files"] = []
+            state["agents"][agent_id]["locked_files"].append(filepath)
+        
+        return jsonify({"status": "locked", "file": filepath})
 
 @app.route('/unlock_file', methods=['POST'])
 def unlock_file():
-    """Liberar bloqueio de arquivo"""
-    data = request.json
-    file_path = data.get('file')
-    
-    with state_lock:
-        if file_path in state['file_locks']:
-            del state['file_locks'][file_path]
-    
-    return jsonify({"unlocked": True})
+    """Desbloquear um arquivo"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id')
+        filepath = data.get('filepath')
+        
+        if filepath in state["files"] and state["files"][filepath] == agent_id:
+            del state["files"][filepath]
+            if agent_id in state["agents"] and "locked_files" in state["agents"][agent_id]:
+                state["agents"][agent_id]["locked_files"].remove(filepath)
+            return jsonify({"status": "unlocked"})
+        
+        return jsonify({"error": "Arquivo não bloqueado por você"}), 403
+
+@app.route('/state', methods=['GET'])
+def get_state():
+    """Obter estado completo"""
+    with state["lock"]:
+        return jsonify(state)
+
+@app.route('/message', methods=['POST'])
+def send_message():
+    """Enviar mensagem entre IAs"""
+    with state["lock"]:
+        data = request.json
+        state["messages"].append({
+            "from": data.get('from'),
+            "to": data.get('to'),
+            "message": data.get('message'),
+            "timestamp": datetime.now().isoformat()
+        })
+        return jsonify({"status": "sent"})
+
+@app.route('/unregister/<agent_id>', methods=['POST'])
+def unregister_agent(agent_id):
+    """Desregistrar IA e liberar todos os bloqueios"""
+    with state["lock"]:
+        if agent_id in state["agents"]:
+            # Liberar todos os bloqueios de arquivo
+            files_to_unlock = [f for f, a in state["files"].items() if a == agent_id]
+            for f in files_to_unlock:
+                del state["files"][f]
+            
+            del state["agents"][agent_id]
+            return jsonify({"status": "unregistered"})
+        
+        return jsonify({"error": "Agente não encontrado"}), 404
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5555)
+    print("🎛️  Servidor Orquestrador Multi-IA")
+    print("   Iniciando em http://localhost:5000")
+    app.run(host='0.0.0.0', port=5000, threaded=True)
 ```
 
-**Passo 2: Iniciar Orquestrador**
+**Biblioteca cliente (`ai_client.py`):**
+```python
+#!/usr/bin/env python3
+"""Cliente IA para comunicar com orquestrador"""
+
+import requests
+import json
+import sys
+
+class AIClient:
+    def __init__(self, server_url="http://localhost:5000"):
+        self.server_url = server_url
+        self.agent_id = None
+    
+    def register(self, role, branch, worktree=None):
+        """Registrar esta IA com orquestrador"""
+        response = requests.post(f"{self.server_url}/register", json={
+            "role": role,
+            "branch": branch,
+            "worktree": worktree
+        })
+        data = response.json()
+        self.agent_id = data["agent_id"]
+        print(f"✅ Registrado como {self.agent_id}")
+        return self.agent_id
+    
+    def update_status(self, status):
+        """Atualizar status da IA"""
+        if not self.agent_id:
+            raise Exception("Não registrado")
+        
+        requests.post(f"{self.server_url}/status/{self.agent_id}", json={
+            "status": status
+        })
+        print(f"📊 Status: {status}")
+    
+    def lock_file(self, filepath):
+        """Bloquear um arquivo para edição"""
+        response = requests.post(f"{self.server_url}/lock_file", json={
+            "agent_id": self.agent_id,
+            "filepath": filepath
+        })
+        
+        if response.status_code == 409:
+            data = response.json()
+            print(f"🔒 Arquivo {filepath} bloqueado por {data['locked_by']}")
+            return False
+        
+        print(f"🔓 Bloqueado: {filepath}")
+        return True
+    
+    def unlock_file(self, filepath):
+        """Desbloquear um arquivo"""
+        requests.post(f"{self.server_url}/unlock_file", json={
+            "agent_id": self.agent_id,
+            "filepath": filepath
+        })
+        print(f"🔓 Desbloqueado: {filepath}")
+    
+    def get_state(self):
+        """Obter estado global"""
+        response = requests.get(f"{self.server_url}/state")
+        return response.json()
+    
+    def send_message(self, to_agent, message):
+        """Enviar mensagem para outra IA"""
+        requests.post(f"{self.server_url}/message", json={
+            "from": self.agent_id,
+            "to": to_agent,
+            "message": message
+        })
+        print(f"📨 Enviado: {message}")
+    
+    def unregister(self):
+        """Desregistrar e limpar"""
+        if self.agent_id:
+            requests.post(f"{self.server_url}/unregister/{self.agent_id}")
+            print(f"👋 Desregistrado {self.agent_id}")
+
+# Exemplo de uso
+if __name__ == "__main__":
+    client = AIClient()
+    client.register("Refatoração de teste", "COM-abc123")
+    
+    # Bloquear arquivo
+    if client.lock_file("src/auth.py"):
+        print("Trabalhando em auth.py...")
+        client.update_status("working")
+        # ... fazer trabalho ...
+        client.unlock_file("src/auth.py")
+        client.update_status("complete")
+    
+    client.unregister()
+```
+
+#### Fluxo de Trabalho da IA com Opção B
 
 ```bash
-# Em um terminal dedicado:
-python3 orchestrator.py
+# 1. Iniciar servidor orquestrador (uma vez, em terminal dedicado)
+python3 orchestrator_server.py
 
-# Orquestrador roda em http://127.0.0.1:5555
+# 2. Cada IA registra
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.register('Refatorar auth', 'COM-abc123')
+# Armazenar agent_id para chamadas subsequentes
+"
+
+# 3. Bloquear arquivos antes de editar
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.lock_file('src/auth.py')
+"
+
+# 4. Verificar estado global
+curl http://localhost:5000/state | jq '.'
+
+# 5. Atualizar status
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.update_status('working')
+"
+
+# 6. Desbloquear e desregistrar quando terminar
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.unlock_file('src/auth.py')
+client.unregister()
+"
 ```
 
-**Passo 3: Integração do Terminal da IA**
+#### Tratamento de Falhas de Rede (NOVO - Fase 2)
+
+**Problema:** Orquestrador depende de HTTP—e se a rede cair durante coordenação?
+
+**Solução: Fallback Automático com Lógica de Retry**
 
 ```bash
-# Cada terminal IA registra e se comunica via HTTP
+#!/bin/bash
+# ai_with_fallback.sh - Wrapper que trata falhas de rede
 
-# Registrar Agente A
-curl -X POST http://127.0.0.1:5555/register \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "role": "Refatorar"}'
+ORCHESTRATOR_URL="http://localhost:5000"
+MAX_RETRIES=3
+RETRY_DELAY=5
 
-# Obter contexto (IA inclui isso no prompt)
-CONTEXT=$(curl -s http://127.0.0.1:5555/get_context?agent_id=A)
-echo "Contexto para Agente A: $CONTEXT"
+# Tentar Opção B com retries
+try_orchestrator() {
+    local attempt=1
+    while [ $attempt -le $MAX_RETRIES ]; do
+        echo "🔄 Tentativa $attempt/$MAX_RETRIES: Conectando ao orquestrador..."
+        
+        if curl -s -m 5 "$ORCHESTRATOR_URL/state" > /dev/null; then
+            echo "✅ Orquestrador disponível - usando Opção B"
+            return 0
+        fi
+        
+        echo "❌ Conexão falhou, aguardando ${RETRY_DELAY}s..."
+        sleep $RETRY_DELAY
+        attempt=$((attempt + 1))
+    done
+    
+    return 1
+}
 
-# Atualizar status após ação
-curl -X POST http://127.0.0.1:5555/update_status \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "status": "trabalhando", "files": ["auth.py"], "message": "Refatorando lógica de autenticação"}'
-
-# Bloquear arquivo antes de editar
-curl -X POST http://127.0.0.1:5555/lock_file \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "file": "auth.py"}'
-
-# Desbloquear quando terminar
-curl -X POST http://127.0.0.1:5555/unlock_file \
-  -H "Content-Type: application/json" \
-  -d '{"file": "auth.py"}'
+# Lógica principal de coordenação
+if try_orchestrator; then
+    echo "📡 Usando Opção B: Orquestrador"
+    # Usar coordenação com orquestrador
+    python3 orchestrator_client.py "$@"
+    exit $?
+else
+    echo "⚠️  Orquestrador indisponível após $MAX_RETRIES tentativas"
+    echo "🔀 FALLBACK: Mudando para Opção A (filesystem)"
+    
+    # Fallback para Opção A
+    PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+    STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+    
+    echo "📁 Usando coordenação por filesystem: $STATE_FILE"
+    ./ai_write_state.sh "$@"
+    exit $?
+fi
 ```
 
-**Passo 4: Integração de Prompt da IA**
+**Exponential Backoff para Operações Git (NOVO - Fase 2):**
 
-Ao fazer prompt ao Copilot, inclua:
+```bash
+#!/bin/bash
+# git_with_retry.sh - Tratar conflitos de operações git concorrentes
 
+git_push_with_retry() {
+    local branch="$1"
+    local max_attempts=5
+    local attempt=1
+    local wait_time=2
+    
+    while [ $attempt -le $max_attempts ]; do
+        echo "🔄 Tentativa de push $attempt/$max_attempts..."
+        
+        if git push origin "$branch" 2>&1 | tee /tmp/git_push.log; then
+            echo "✅ Push bem-sucedido!"
+            return 0
+        fi
+        
+        # Verificar tipo de erro
+        if grep -q "failed to push" /tmp/git_push.log || grep -q "rejected" /tmp/git_push.log; then
+            echo "⚠️  Push rejeitado, puxando últimas mudanças..."
+            git pull --rebase origin "$branch" || {
+                echo "❌ Conflito de merge detectado"
+                echo "🤔 Intervenção do usuário necessária:"
+                echo "   1. Resolver conflitos manualmente"
+                echo "   2. Executar: git rebase --continue"
+                echo "   3. Tentar push novamente"
+                return 1
+            }
+        fi
+        
+        if [ $attempt -lt $max_attempts ]; then
+            echo "⏳ Aguardando ${wait_time}s antes de retry (exponential backoff)..."
+            sleep $wait_time
+            wait_time=$((wait_time * 2))  # Dobrar tempo de espera
+            attempt=$((attempt + 1))
+        else
+            echo "❌ Push falhou após $max_attempts tentativas"
+            return 1
+        fi
+    done
+}
+
+# Uso
+git_push_with_retry "COM-abc123"
 ```
-Você é o Agente A trabalhando no projeto "my-project".
-Seu papel atribuído: Refatorar
 
-Estado global atual:
-<inserir JSON de /get_context>
+#### Vantagens da Opção B
 
-Sua tarefa:
-- Refatorar auth.py
-- Não toque em arquivos bloqueados por outros agentes
-- Reportar status via orquestrador
-
-Antes de prosseguir, verifique bloqueios de arquivo e coordene com outros agentes.
-```
-
-**Vantagens:**
-- ✅ Escalável para muitas IAs (testado com 10+)
-- ✅ Coordenação em tempo real (orientada a eventos possível)
-- ✅ Regras aplicadas (bloqueios de arquivo, dependências de tarefas)
-- ✅ Auditável (todas mensagens registradas)
-- ✅ Arquitetura pronta para produção
-- ✅ Funciona entre máquinas (acessível via rede)
-
-**Desvantagens:**
-- ❌ Requer execução de processo externo
-- ❌ Configuração mais complexa
-- ❌ Dependência de rede (chamadas HTTP)
-- ❌ Overhead de depuração
-
-**Quando Usar:**
-- 3+ IAs trabalhando concorrentemente
-- Projetos complexos com muitos arquivos
-- Necessita prevenção forte de conflitos
-- Ambientes de produção/empresariais
-- Coordenação multi-máquina
-- Quando Opção C (tmux) não está disponível ou é insuficiente
+- ✅ Coordenação em tempo real
+- ✅ Funciona através de máquinas/redes
+- ✅ Controle centralizado
+- ✅ Detecção automática de conflitos
+- ✅ Pronto para produção
+- ✅ Log de auditoria de todas as ações
+- ✅ Tratamento de falhas de rede com fallback
+- ✅ Lógica de retry para falhas transitórias
 
 ---
 
-#### 🖥️ Opção C: tmux + Controlador Daemon (Padrão, Melhor para Desenvolvimento Local)
+### 🖥️ Opção C: tmux + Daemon (Padrão para Desenvolvimento Local)
 
-**Conceito**: Cada painel tmux representa um papel de IA. Um daemon monitora a saída do painel, extrai intenção, atualiza estado compartilhado e injeta contexto nos prompts. Isso cria uma **superfície de coordenação visual** onde você pode ver todas as IAs trabalhando em paralelo.
+**Usar quando:**
+- Desenvolvimento local (mesma máquina)
+- Feedback visual desejado
+- Supervisão humana disponível
+- Múltiplas abas/janelas de terminal
 
 **Arquitetura:**
 ```
-┌──────────────┬──────────────┐
-│ Painel A     │ Painel B     │
-│ IA: Refatorar│ IA: Testes   │
-├──────────────┼──────────────┤
-│ Painel C     │ Painel D     │
-│ IA: Lint     │ IA: Docs     │
-└──────────────┴──────────────┘
-        ▲              ▲
-        │              │
-        └──────┬───────┘
-               │
-       ┌───────▼────────┐
-       │ Daemon tmux    │
-       │ (monitora tudo)│
-       │ • Registra saída│
-       │ • Compart.estado│
-       │ • Injeta ctx   │
-       └────────────────┘
+┌─────────────┬─────────────┐
+│ Painel A    │ Painel B    │
+│ IA #1       │ IA #2       │
+│ Refatorar   │ Testes      │
+├─────────────┼─────────────┤
+│ Painel C    │ Painel D    │
+│ IA #3       │ Daemon      │
+│ Lint        │ Coordenador │
+└─────────────┴─────────────┘
+      ▲             ▲
+      │             │
+      └─────┬───────┘
+            │
+      ┌─────▼──────┐
+      │   tmux     │
+      │  capture   │
+      └────────────┘
 ```
 
-**Como Funciona:**
-1. **Sessão tmux** com múltiplos painéis (um por IA)
-2. **Daemon monitora** a saída de cada painel usando `tmux capture-pane`
-3. **Extração de estado**: Daemon analisa logs para entender o que cada IA está fazendo
-4. **Injeção de contexto**: Daemon envia contexto atualizado para cada painel via `tmux send-keys`
-5. **Feedback visual**: Você vê todas as IAs trabalhando em tempo real
+**Como funciona:**
+- Cada painel tmux = uma IA com papel dedicado
+- Processo daemon monitora todos os painéis
+- Captura output, extrai estado
+- Injeta contexto no prompt de cada IA
+- Humano pode ver todas as IAs trabalhando simultaneamente
 
-**Instruções de Configuração:**
-
-**Passo 1: Criar Sessão tmux com Painéis**
+#### Configurar Sessão tmux
 
 ```bash
-# Criar sessão com 4 painéis
-tmux new-session -s ai-coord -d
-tmux split-window -h -t ai-coord
-tmux split-window -v -t ai-coord:0.0
-tmux split-window -v -t ai-coord:0.2
+#!/bin/bash
+# setup_multi_ai_session.sh
 
-# Nomear cada painel (para clareza)
-tmux select-pane -t ai-coord:0.0 -T "IA-Refatorar"
-tmux select-pane -t ai-coord:0.1 -T "IA-Testes"
-tmux select-pane -t ai-coord:0.2 -T "IA-Lint"
-tmux select-pane -t ai-coord:0.3 -T "IA-Docs"
+SESSION_NAME="multi-ai-project"
+
+# Criar sessão tmux com 4 painéis
+tmux new-session -d -s "$SESSION_NAME" -n "MultiAI"
+
+# Dividir em 4 painéis
+tmux split-window -h -t "$SESSION_NAME"
+tmux split-window -v -t "$SESSION_NAME:0.0"
+tmux split-window -v -t "$SESSION_NAME:0.2"
+
+# Rotular painéis
+tmux select-pane -t "$SESSION_NAME:0.0" -T "IA-Refatorar"
+tmux select-pane -t "$SESSION_NAME:0.1" -T "IA-Teste"
+tmux select-pane -t "$SESSION_NAME:0.2" -T "IA-Lint"
+tmux select-pane -t "$SESSION_NAME:0.3" -T "Daemon"
+
+# Iniciar daemon no painel 3
+tmux send-keys -t "$SESSION_NAME:0.3" "python3 tmux_coordinator_daemon.py" C-m
 
 # Anexar à sessão
-tmux attach -t ai-coord
+tmux attach-session -t "$SESSION_NAME"
 ```
 
-**Passo 2: Criar Daemon de Monitoramento**
+#### Daemon Coordenador
 
 ```python
 #!/usr/bin/env python3
-# tmux_ai_daemon.py
+"""
+Daemon Coordenador tmux
+Monitora todos os painéis tmux e coordena trabalho das IAs
+"""
+
 import subprocess
 import json
 import time
 import re
-from pathlib import Path
+from datetime import datetime
 
 STATE_FILE = "/tmp/tmux_ai_state.json"
-SESSION = "ai-coord"
 
-def get_pane_list():
-    """Obter todos os painéis na sessão"""
+def get_tmux_panes():
+    """Obter todos os painéis na sessão atual"""
     result = subprocess.run(
-        ["tmux", "list-panes", "-t", SESSION, "-F", "#{pane_index}"],
+        ["tmux", "list-panes", "-F", "#{pane_index}:#{pane_title}"],
         capture_output=True, text=True
     )
-    return result.stdout.strip().split('\n')
+    panes = {}
+    for line in result.stdout.strip().split("\n"):
+        if ":" in line:
+            idx, title = line.split(":", 1)
+            panes[int(idx)] = title
+    return panes
 
-def capture_pane_output(pane_id):
-    """Capturar últimas 50 linhas do painel"""
+def capture_pane_output(pane_idx, lines=50):
+    """Capturar output recente de um painel"""
     result = subprocess.run(
-        ["tmux", "capture-pane", "-t", f"{SESSION}:{pane_id}", "-p", "-S", "-50"],
+        ["tmux", "capture-pane", "-p", "-t", f"{pane_idx}", "-S", f"-{lines}"],
         capture_output=True, text=True
     )
     return result.stdout
 
-def extract_intent(output):
-    """Analisar saída para entender intenção da IA"""
-    # Procurar por padrões comuns
-    if "editing" in output.lower() or "modifying" in output.lower():
-        files = re.findall(r'[a-zA-Z0-9_/-]+\.(py|js|ts|java|go)', output)
-        return {"action": "editing", "files": files}
-    elif "testing" in output.lower():
-        return {"action": "testing", "status": "running"}
-    elif "waiting" in output.lower():
-        return {"action": "waiting", "reason": "dependency"}
-    else:
-        return {"action": "unknown"}
+def extract_ai_status(output):
+    """Extrair status da IA do output"""
+    status = {
+        "working_on": None,
+        "status": "idle",
+        "branch": None,
+        "locked_files": []
+    }
+    
+    # Procurar padrões comuns
+    if re.search(r"(refactor|modifying|editing|refatorando|modificando|editando)", output, re.I):
+        status["status"] = "working"
+    if re.search(r"(test|testing|teste|testando)", output, re.I):
+        status["status"] = "testing"
+    if re.search(r"(lint|linting|checking|verificando)", output, re.I):
+        status["status"] = "linting"
+    
+    # Extrair branch
+    branch_match = re.search(r"COM-[a-f0-9-]+", output)
+    if branch_match:
+        status["branch"] = branch_match.group(0)
+    
+    # Extrair arquivos sendo editados
+    file_matches = re.findall(r"(src/[\w/]+\.py|[\w/]+\.js|[\w/]+\.ts)", output)
+    status["locked_files"] = list(set(file_matches))[:3]  # Máx 3
+    
+    return status
 
-def send_context_to_pane(pane_id, context):
-    """Injetar contexto no painel"""
-    prompt = f"\n# CONTEXTO ATUALIZADO:\n{json.dumps(context, indent=2)}\n"
-    subprocess.run(
-        ["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", prompt]
-    )
-
-def load_state():
-    """Carregar estado compartilhado"""
-    if Path(STATE_FILE).exists():
-        with open(STATE_FILE) as f:
-            return json.load(f)
-    return {"agents": {}, "file_locks": {}, "messages": []}
-
-def save_state(state):
-    """Salvar estado compartilhado"""
+def update_state(panes_data):
+    """Atualizar arquivo de estado global"""
+    state = {
+        "updated_at": datetime.now().isoformat(),
+        "panes": panes_data
+    }
+    
     with open(STATE_FILE, 'w') as f:
         json.dump(state, f, indent=2)
 
 def main():
-    """Loop principal de coordenação"""
-    print(f"[Daemon IA tmux] Monitorando sessão: {SESSION}")
+    print("🖥️  Daemon Coordenador tmux Iniciado")
+    print(f"   Arquivo de estado: {STATE_FILE}")
+    print("   Monitorando painéis...")
     
     while True:
-        state = load_state()
-        panes = get_pane_list()
-        
-        for pane_id in panes:
-            # Capturar saída
-            output = capture_pane_output(pane_id)
+        try:
+            panes = get_tmux_panes()
+            panes_data = {}
             
-            # Extrair intenção
-            intent = extract_intent(output)
+            for idx, title in panes.items():
+                if title == "Daemon":
+                    continue  # Pular a si mesmo
+                
+                output = capture_pane_output(idx, lines=30)
+                status = extract_ai_status(output)
+                
+                panes_data[f"pane-{idx}"] = {
+                    "title": title,
+                    "pane_index": idx,
+                    **status,
+                    "last_update": datetime.now().isoformat()
+                }
             
-            # Atualizar estado
-            state['agents'][pane_id] = {
-                "last_action": intent,
-                "last_seen": time.time()
-            }
+            update_state(panes_data)
             
-            # Verificar conflitos (ex: duas IAs editando o mesmo arquivo)
-            if intent['action'] == 'editing':
-                for file in intent.get('files', []):
-                    if file in state['file_locks']:
-                        # Enviar aviso ao painel
-                        warning = f"\n⚠️  AVISO: {file} bloqueado pelo painel {state['file_locks'][file]}\n"
-                        subprocess.run(["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", warning])
-                    else:
-                        state['file_locks'][file] = pane_id
-        
-        # Salvar estado atualizado
-        save_state(state)
-        
-        # Atualizar contexto para todos os painéis
-        for pane_id in panes:
-            context = {
-                "all_agents": state['agents'],
-                "file_locks": state['file_locks'],
-                "your_pane": pane_id
-            }
-            # Enviar apenas se mudança significativa (evitar spam)
-            # Implementação: comparar com estado anterior
-        
-        time.sleep(5)  # Poll a cada 5 segundos
+            # Imprimir status
+            print(f"\r⏱️  {datetime.now().strftime('%H:%M:%S')} | ", end="")
+            for pane_id, data in panes_data.items():
+                print(f"{data['title']}: {data['status']} | ", end="")
+            
+            time.sleep(5)  # Atualizar a cada 5 segundos
+            
+        except KeyboardInterrupt:
+            print("\n\n👋 Daemon parado")
+            break
+        except Exception as e:
+            print(f"\n⚠️  Erro: {e}")
+            time.sleep(5)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 
-**Passo 3: Iniciar Daemon**
+#### Injeção de Prompt da IA
+
+Cada IA deve ler o arquivo de estado antes de operações:
 
 ```bash
-# Em um terminal separado (fora do tmux):
-python3 tmux_ai_daemon.py
+# Antes de cada comando, IA lê estado
+cat /tmp/tmux_ai_state.json | jq '.'
 
-# Daemon monitora todos os painéis e mantém /tmp/tmux_ai_state.json
+# Exemplo de output:
+{
+  "updated_at": "2026-01-22T17:05:30Z",
+  "panes": {
+    "pane-0": {
+      "title": "IA-Refatorar",
+      "pane_index": 0,
+      "status": "working",
+      "branch": "COM-a5e531b2-5d4f-a827-b3c8",
+      "locked_files": ["src/auth.py"],
+      "last_update": "2026-01-22T17:05:30Z"
+    },
+    "pane-1": {
+      "title": "IA-Teste",
+      "pane_index": 1,
+      "status": "waiting",
+      "branch": "COM-b7f642c3-6e5g-23e4",
+      "locked_files": [],
+      "last_update": "2026-01-22T17:05:28Z"
+    }
+  }
+}
+
+# IA inclui isso na tomada de decisão:
+# "IA-Refatorar está trabalhando em src/auth.py, devo esperar antes de testar"
 ```
 
-**Passo 4: Uso da IA em Cada Painel**
+#### Vantagens da Opção C
 
-Em cada painel tmux, ao fazer prompt ao Copilot:
+- ✅ Feedback visual (ver todas as IAs trabalhando)
+- ✅ Supervisão humana fácil
+- ✅ Sem dependência de rede
+- ✅ Configuração local simples
+- ✅ Natural para fluxos de trabalho pesados em terminal
+- ✅ Tmux nativo na maioria dos sistemas Linux
+- ✅ Perfeito para ambiente Linux Mint
+
+---
+
+### ✅ Checklist de Verificação de Coordenação (NOVO - Fase 2)
+
+Após configurar coordenação (Opções A, B, ou C), verificar se está funcionando corretamente:
+
+#### 1. **Teste de Conectividade Básica**
+
+**Opção A (Filesystem):**
+```bash
+# Escrever entrada de teste
+./ai_write_state.sh "TESTE-IA" "Papel teste" "testing" "COM-teste"
+
+# Ler de volta
+./ai_read_state.sh | jq '.agents["TESTE-IA"]'
+
+# Esperado: Deve ver entrada do agente de teste
+# ✅ PASSA se entrada aparecer
+# ❌ FALHA se erro ou vazio
+```
+
+**Opção B (Orquestrador):**
+```bash
+# Verificar saúde do servidor
+curl -s http://localhost:5000/state | jq '.agents'
+
+# Registrar agente de teste
+curl -X POST http://localhost:5000/register \
+  -H "Content-Type: application/json" \
+  -d '{"role": "Teste", "branch": "COM-teste"}' | jq '.'
+
+# Esperado: {"agent_id": "...", "status": "registered"}
+# ✅ PASSA se registro bem-sucedido
+# ❌ FALHA se connection refused ou erro
+```
+
+**Opção C (tmux):**
+```bash
+# Verificar se daemon está rodando
+ps aux | grep tmux_coordinator_daemon
+
+# Verificar se arquivo de estado existe e atualiza
+watch -n 2 "cat /tmp/tmux_ai_state.json | jq '.updated_at'"
+
+# Esperado: Timestamp atualiza a cada 5 segundos
+# ✅ PASSA se timestamp se atualiza
+# ❌ FALHA se arquivo ausente ou antigo
+```
+
+#### 2. **Teste de Bloqueio de Arquivo**
 
 ```bash
-# Antes de perguntar ao Copilot, verificar estado:
-cat /tmp/tmux_ai_state.json
+# IA #1: Bloquear arquivo
+# Opção A:
+./ai_lock_file.sh "IA-1" "src/test.py"
 
-# Incluir no prompt:
-# "Você é o Agente no Painel 0 (papel Refatorar)"
-# "Estado atual: <colar JSON>"
-# "Sua tarefa: Refatorar auth.py"
-# "Antes de editar, verificar file_locks para evitar conflitos"
+# Opção B:
+curl -X POST http://localhost:5000/lock_file \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id": "IA-1", "filepath": "src/test.py"}'
+
+# IA #2: Tentar bloquear mesmo arquivo (deve falhar)
+# Esperado: Erro "Arquivo já bloqueado por IA-1"
+# ✅ PASSA se conflito de bloqueio detectado
+# ❌ FALHA se ambas as IAs puderem bloquear mesmo arquivo
 ```
 
-**Vantagens:**
-- ✅ **Coordenação visual**: Veja todas as IAs trabalhando em tempo real
-- ✅ **Paralelismo natural**: Cada painel = IA independente
-- ✅ **Humano no controle**: Fácil intervir/supervisionar
-- ✅ **Sem dependência de nuvem**: Totalmente local
-- ✅ **Perfeito para desenvolvimento**: Feedback tátil e imediato
-- ✅ **Alinha com intuição de fluxo paralelo**
+#### 3. **Teste de Operação Concorrente**
 
-**Desvantagens:**
-- ❌ Requer tmux (somente Linux/macOS, não Windows)
+```bash
+# Terminal 1 (IA #1):
+./ai_write_state.sh "IA-1" "Tarefa A" "working" "COM-branch1"
+
+# Terminal 2 (IA #2):
+./ai_write_state.sh "IA-2" "Tarefa B" "working" "COM-branch2"
+
+# Verificar ambos os agentes visíveis:
+./ai_read_state.sh | jq '.agents | keys'
+
+# Esperado: ["IA-1", "IA-2"]
+# ✅ PASSA se ambos os agentes aparecerem
+# ❌ FALHA se apenas um visível (race condition)
+```
+
+#### 4. **Teste de Recuperação de Falha de Rede (Opção B)**
+
+```bash
+# Iniciar orquestrador
+python3 orchestrator_server.py &
+ORCHESTRATOR_PID=$!
+
+# Registrar agente
+curl -X POST http://localhost:5000/register \
+  -d '{"role": "Teste"}' -H "Content-Type: application/json"
+
+# Matar orquestrador (simular falha de rede)
+kill $ORCHESTRATOR_PID
+
+# Executar script de fallback
+./ai_with_fallback.sh "IA-1" "Teste recuperação" "working" "COM-teste"
+
+# Esperado: Deve fazer fallback para Opção A (filesystem)
+# ✅ PASSA se fallback ativado e filesystem usado
+# ❌ FALHA se script travar ou quebrar
+```
+
+#### 5. **Teste de Resolução de Conflito Git**
+
+```bash
+# Terminal 1:
+git checkout -b COM-teste1
+echo "Mudança da IA-1" >> README.md
+git add README.md
+git commit -m "Mudança IA-1"
+
+# Terminal 2 (ao mesmo tempo):
+git checkout -b COM-teste2
+echo "Mudança da IA-2" >> README.md
+git add README.md
+git commit -m "Mudança IA-2"
+
+# Ambos tentam fazer push para main:
+git checkout main
+git merge COM-teste1  # IA-1 vence
+git merge COM-teste2  # Deve disparar lógica de retry
+
+# Esperado: git_with_retry.sh detecta conflito e pede usuário
+# ✅ PASSA se conflito tratado graciosamente
+# ❌ FALHA se falha silenciosa ou perda de dados
+```
+
+#### 6. **Verificação de Bloqueio de Arquivo de Teste**
+
+```bash
+# IA #1: Começar executando testes
+./ai_lock_file.sh "IA-1" "tests/test_auth.py"
+pytest tests/test_auth.py &
+TEST_PID=$!
+
+# IA #2: Tentar modificar arquivo de teste (deve ser bloqueado)
+./ai_read_state.sh | jq '.agents["IA-1"].locked_files'
+
+# Esperado: Deve ver "tests/test_auth.py" em arquivos bloqueados
+# IA #2 deve esperar ou perguntar ao usuário antes de modificar
+
+# Limpeza
+wait $TEST_PID
+./ai_unlock_file.sh "IA-1" "tests/test_auth.py"
+
+# ✅ PASSA se IA-2 detecta bloqueio e espera
+# ❌ FALHA se IA-2 modifica arquivo durante execução de teste
+```
+
+#### 7. **Teste de Isolamento de Worktree**
+
+```bash
+# Criar dois worktrees
+git worktree add ../projeto-COM-ia1 -b COM-ia1
+git worktree add ../projeto-COM-ia2 -b COM-ia2
+
+# IA #1 em worktree 1:
+cd ../projeto-COM-ia1
+echo "Trabalho IA-1" >> arquivo.txt
+git add arquivo.txt
+
+# IA #2 em worktree 2:
+cd ../projeto-COM-ia2
+echo "Trabalho IA-2" >> arquivo.txt
+git add arquivo.txt
+
+# Verificar ambos podem trabalhar simultaneamente sem conflitos
+ls -la .git/index.lock  # NÃO deve existir em nenhum
+
+# ✅ PASSA se ambas as IAs trabalham independentemente
+# ❌ FALHA se arquivo de lock aparecer ou conflitos ocorrerem
+```
+
+#### 8. **Teste de Integração Completo**
+
+Teste de fluxo de trabalho completo simulando 3 IAs trabalhando juntas:
+
+```bash
+# Configuração
+./setup_multi_ai_session.sh  # Ou iniciar orquestrador
+
+# IA #1: Refatorar
+cd ../projeto-COM-ia1
+./ai_write_state.sh "IA-1" "Refatorar auth" "working" "COM-ia1"
+./ai_lock_file.sh "IA-1" "src/auth.py"
+echo "# Refatorado" >> src/auth.py
+git add src/auth.py && git commit -m "refactor: módulo auth"
+
+# IA #2: Escrever testes (espera por IA-1)
+cd ../projeto-COM-ia2
+./ai_read_state.sh | jq '.agents["IA-1"].status'  # Verificar se IA-1 terminou
+./ai_lock_file.sh "IA-2" "tests/test_auth.py"
+echo "def test_auth(): pass" >> tests/test_auth.py
+git add tests/test_auth.py && git commit -m "test: testes auth"
+
+# IA #3: Executar testes
+cd ../projeto-COM-ia3
+./ai_read_state.sh | jq '.agents["IA-2"].status'  # Esperar testes escritos
+pytest tests/test_auth.py
+
+# Esperado: Todas as 3 IAs completam seu trabalho sem conflitos
+# ✅ PASSA se fluxo de trabalho completa com sucesso
+# ❌ FALHA se quaisquer conflitos, deadlocks, ou perda de dados
+```
+
+#### 🚨 Indicadores de Falha
+
+- ❌ **Conflitos de bloqueio de arquivo**: Duas IAs editando mesmo arquivo simultaneamente
+- ❌ **Estado desatualizado**: Arquivo de estado não atualizando (timestamp congelado)
+- ❌ **Timeouts de rede**: Orquestrador não respondendo (Opção B)
+- ❌ **Arquivos de lock git**: `.git/index.lock` aparecendo frequentemente
+- ❌ **Falhas de teste**: Testes modificados durante execução
+- ❌ **Falhas silenciosas**: Sem mensagens de erro mas coordenação não funcionando
+- ❌ **Race conditions**: Comportamento imprevisível (às vezes funciona, às vezes falha)
+
+#### ✅ Indicadores de Sucesso
+
+- ✅ Todos os testes passam consistentemente
+- ✅ Estado atualiza em tempo real
+- ✅ Bloqueios de arquivo previnem conflitos
+- ✅ Fallback ativa quando rede falha
+- ✅ Operações git bem-sucedidas com lógica de retry
+- ✅ IAs detectam trabalho umas das outras
+- ✅ Sem perda de dados ou corrupção de arquivo
+- ✅ Humano pode ver toda atividade das IAs (Opção C)
+
+---
+
+### 🧹 Automação de Limpeza de Worktree (NOVO - Fase 2)
+
+**Problema:** Com o tempo, worktrees abandonados acumulam, desperdiçando espaço em disco.
+
+**Solução:** Script de limpeza automatizado com verificações de segurança.
+
+```bash
+#!/bin/bash
+# worktree_cleanup.sh - Limpar worktrees abandonados
+
+echo "🧹 Utilitário de Limpeza de Git Worktree"
+echo ""
+
+# Listar todos os worktrees
+echo "📋 Worktrees atuais:"
+git worktree list
+echo ""
+
+# Encontrar worktrees sem atividade recente
+echo "🔍 Procurando worktrees abandonados..."
+THRESHOLD_DAYS=7
+CURRENT_TIME=$(date +%s)
+
+git worktree list --porcelain | grep -E "^worktree|^branch" | while read -r line; do
+    if [[ $line == worktree* ]]; then
+        WORKTREE_PATH=${line#worktree }
+        continue
+    fi
+    
+    if [[ $line == branch* ]]; then
+        BRANCH=${line#branch refs/heads/}
+        
+        # Pular branches main/master
+        if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
+            continue
+        fi
+        
+        # Verificar data do último commit
+        LAST_COMMIT=$(git log -1 --format=%ct "$BRANCH" 2>/dev/null || echo "0")
+        DAYS_OLD=$(( (CURRENT_TIME - LAST_COMMIT) / 86400 ))
+        
+        if [ "$DAYS_OLD" -gt "$THRESHOLD_DAYS" ]; then
+            echo ""
+            echo "⚠️  Worktree: $WORKTREE_PATH"
+            echo "   Branch: $BRANCH"
+            echo "   Última atividade: $DAYS_OLD dias atrás"
+            echo "   Status: ABANDONADO"
+            
+            # Verificar se worktree tem mudanças não commitadas
+            cd "$WORKTREE_PATH" 2>/dev/null || continue
+            if git status --porcelain | grep -q .; then
+                echo "   ⚠️  AVISO: Mudanças não commitadas detectadas!"
+                echo "   Ação: PULANDO (intervenção manual necessária)"
+            else
+                # Seguro para remover
+                echo "   Ação: Marcado para remoção"
+                echo "$WORKTREE_PATH|$BRANCH" >> /tmp/worktrees_to_remove.txt
+            fi
+            cd - > /dev/null
+        fi
+    fi
+done
+
+# Confirmar remoção
+if [ -f /tmp/worktrees_to_remove.txt ]; then
+    echo ""
+    echo "📝 Resumo:"
+    REMOVE_COUNT=$(wc -l < /tmp/worktrees_to_remove.txt)
+    echo "   Encontrados $REMOVE_COUNT worktree(s) abandonado(s)"
+    echo ""
+    
+    cat /tmp/worktrees_to_remove.txt
+    echo ""
+    
+    read -p "❓ Remover estes worktrees? (yes/NO): " CONFIRM
+    
+    if [[ "$CONFIRM" == "yes" ]]; then
+        while IFS='|' read -r worktree branch; do
+            echo "🗑️  Removendo: $worktree (branch: $branch)"
+            
+            # Remover worktree
+            git worktree remove "$worktree" --force 2>/dev/null || {
+                echo "   ⚠️  Falha ao remover worktree, tentando limpeza manual..."
+                rm -rf "$worktree"
+            }
+            
+            # Deletar branch se merged
+            if git branch --merged main | grep -q "$branch"; then
+                echo "   🗑️  Deletando branch merged: $branch"
+                git branch -d "$branch"
+            else
+                echo "   ⚠️  Branch não merged, mantendo: $branch"
+            fi
+        done < /tmp/worktrees_to_remove.txt
+        
+        rm /tmp/worktrees_to_remove.txt
+        echo ""
+        echo "✅ Limpeza completa!"
+    else
+        echo "❌ Limpeza cancelada"
+        rm /tmp/worktrees_to_remove.txt
+    fi
+else
+    echo ""
+    echo "✅ Nenhum worktree abandonado encontrado!"
+fi
+
+echo ""
+echo "📊 Lista final de worktrees:"
+git worktree list
+```
+
+**Limpeza automática agendada (opcional):**
+```bash
+# Adicionar ao crontab para rodar semanalmente:
+# 0 2 * * 0 cd /caminho/para/projeto && /caminho/para/worktree_cleanup.sh
+
+# Ou adicionar git hook: .git/hooks/post-checkout
+#!/bin/bash
+# Rodar limpeza após cada checkout
+/caminho/para/worktree_cleanup.sh
+```
+
+---
+
+### 🔀 Detecção e Resolução de Colisão de Branches (NOVO - Fase 2)
+
+**Problema:** Extremamente raro, mas duas IAs podem gerar o mesmo UUID.
+
+**Solução:** Detecção + regeneração automática.
+
+```bash
+#!/bin/bash
+# create_branch_safe.sh - Criar branch com detecção de colisão
+
+generate_uuid() {
+    # Gerar UUID v4
+    cat /proc/sys/kernel/random/uuid
+}
+
+create_branch_with_collision_check() {
+    local max_attempts=10
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        # Gerar UUID
+        UUID=$(generate_uuid)
+        BRANCH="COM-$UUID"
+        
+        echo "🎲 Tentativa $attempt: Nome de branch gerado: $BRANCH"
+        
+        # Verificar se branch existe localmente
+        if git show-ref --verify --quiet "refs/heads/$BRANCH"; then
+            echo "⚠️  COLISÃO: Branch existe localmente!"
+            attempt=$((attempt + 1))
+            continue
+        fi
+        
+        # Verificar se branch existe no remoto
+        if git ls-remote --heads origin "$BRANCH" | grep -q "$BRANCH"; then
+            echo "⚠️  COLISÃO: Branch existe no remoto!"
+            attempt=$((attempt + 1))
+            continue
+        fi
+        
+        # Verificar sistema de coordenação para conflitos
+        if [ -f "/tmp/ai_coordination_*.json" ]; then
+            if grep -q "$BRANCH" /tmp/ai_coordination_*.json; then
+                echo "⚠️  COLISÃO: Nome de branch no sistema de coordenação!"
+                attempt=$((attempt + 1))
+                continue
+            fi
+        fi
+        
+        # Nenhuma colisão detectada - seguro para criar
+        echo "✅ Nome de branch é único!"
+        git checkout -b "$BRANCH"
+        
+        # Registrar no sistema de coordenação
+        if [ -f "/tmp/ai_coordination_*.json" ]; then
+            ./ai_write_state.sh "$(whoami)-$$" "Working" "active" "$BRANCH"
+        fi
+        
+        echo "✅ Branch criado: $BRANCH"
+        return 0
+    done
+    
+    echo "❌ CRÍTICO: Falha ao gerar nome de branch único após $max_attempts tentativas"
+    echo "   Isso é estatisticamente impossível (probabilidade < 10^-30)"
+    echo "   Por favor verificar:"
+    echo "   1. Geração de UUID está funcionando? (verificar /proc/sys/kernel/random/uuid)"
+    echo "   2. Há problemas de corrupção no repositório git?"
+    echo "   3. Estado do sistema de coordenação está corrompido?"
+    return 1
+}
+
+# Uso
+create_branch_with_collision_check || exit 1
+```
+
+**Análise de probabilidade de colisão:**
+```
+UUID v4 tem 122 bits de aleatoriedade
+UUIDs possíveis totais: 2^122 ≈ 5.3 × 10^36
+
+Com 10.000 branches:
+P(colisão) ≈ 10.000^2 / (2 × 2^122) ≈ 9.4 × 10^-30
+
+Conclusão: Praticamente impossível, mas detecção adiciona segurança
+```
+
+---
+
+### 🔒 Bloqueio de Arquivo de Teste Durante Execução (NOVO - Fase 2)
+
+**Problema:** Uma IA modifica arquivo de teste enquanto outra IA está executando aqueles testes.
+
+**Solução:** Bloquear arquivos de teste durante execução, desbloquear após conclusão.
+
+```bash
+#!/bin/bash
+# pytest_with_lock.sh - Executar testes com bloqueio de arquivo
+
+AGENT_ID="${1:-$(whoami)-$$}"
+TEST_PATH="$2"
+
+if [ -z "$TEST_PATH" ]; then
+    echo "Uso: $0 <agent_id> <test_path>"
+    exit 1
+fi
+
+echo "🧪 Executando testes com bloqueio de arquivo"
+echo "   Agente: $AGENT_ID"
+echo "   Testes: $TEST_PATH"
+
+# Encontrar todos os arquivos de teste
+if [ -d "$TEST_PATH" ]; then
+    TEST_FILES=$(find "$TEST_PATH" -name "test_*.py" -o -name "*_test.py")
+else
+    TEST_FILES="$TEST_PATH"
+fi
+
+echo ""
+echo "📁 Arquivos de teste a bloquear:"
+echo "$TEST_FILES"
+echo ""
+
+# Bloquear todos os arquivos de teste
+echo "🔒 Bloqueando arquivos de teste..."
+for file in $TEST_FILES; do
+    ./ai_lock_file.sh "$AGENT_ID" "$file"
+done
+
+# Executar testes
+echo ""
+echo "▶️  Executando testes..."
+pytest "$TEST_PATH" -v
+TEST_EXIT_CODE=$?
+
+# Desbloquear todos os arquivos de teste
+echo ""
+echo "🔓 Desbloqueando arquivos de teste..."
+for file in $TEST_FILES; do
+    ./ai_unlock_file.sh "$AGENT_ID" "$file" 2>/dev/null
+done
+
+# Reportar resultado
+if [ $TEST_EXIT_CODE -eq 0 ]; then
+    echo "✅ Testes passaram!"
+else
+    echo "❌ Testes falharam (código de saída: $TEST_EXIT_CODE)"
+fi
+
+exit $TEST_EXIT_CODE
+```
+
+**Integração com sistemas de coordenação:**
+
+```python
+# Extensão ai_client.py
+def run_tests_with_lock(self, test_path):
+    """Executar testes com bloqueio automático de arquivo"""
+    import subprocess
+    import glob
+    
+    # Encontrar arquivos de teste
+    if os.path.isdir(test_path):
+        test_files = glob.glob(f"{test_path}/**/test_*.py", recursive=True)
+    else:
+        test_files = [test_path]
+    
+    print(f"🧪 Executando testes: {test_path}")
+    print(f"📁 Bloqueando {len(test_files)} arquivo(s) de teste...")
+    
+    # Bloquear todos os arquivos de teste
+    for filepath in test_files:
+        if not self.lock_file(filepath):
+            print(f"❌ Não foi possível bloquear {filepath}, abortando execução de teste")
+            # Desbloquear arquivos previamente bloqueados
+            for f in test_files:
+                self.unlock_file(f)
+            return False
+    
+    try:
+        # Executar testes
+        print("▶️  Executando pytest...")
+        result = subprocess.run(
+            ["pytest", test_path, "-v"],
+            capture_output=True, text=True
+        )
+        
+        print(result.stdout)
+        if result.stderr:
+            print(result.stderr)
+        
+        if result.returncode == 0:
+            print("✅ Todos os testes passaram!")
+        else:
+            print(f"❌ Testes falharam (código de saída: {result.returncode})")
+        
+        return result.returncode == 0
+        
+    finally:
+        # Sempre desbloquear arquivos
+        print("🔓 Desbloqueando arquivos de teste...")
+        for filepath in test_files:
+            self.unlock_file(filepath)
+```
+
+---
+
+### 📊 Coordenação Multi-IA: Resumo de Melhores Práticas
+
+#### Quando Usar Cada Opção
+
+| Situação | Opção Recomendada | Razão |
+|----------|-------------------|-------|
+| Dev local, mesma máquina | **Opção C (tmux)** | Feedback visual, sem rede necessária |
+| Colaboração remota | **Opção B (orquestrador)** | Funciona através de redes |
+| Rede indisponível | **Opção A (filesystem)** | Simples, capaz offline |
+| Produção/empresa | **Opção B (orquestrador)** | Robusto, logs de auditoria |
+| Desenvolvimento solo | **Nenhuma** | Fluxo de trabalho git padrão suficiente |
+
+#### Regras Críticas
+
+1. **Sempre detectar trabalho concorrente**: IA deve perguntar ao usuário antes de assumir trabalho solo
+2. **Usar worktrees para isolamento**: Cada IA = diretório separado quando concorrente
+3. **Bloquear arquivos antes de editar**: Previne perda de dados e conflitos
+4. **Implementar fallback**: Hierarquia Opção C → B → A
+5. **Verificar coordenação funcionando**: Executar checklist após configuração
+6. **Limpar worktrees**: Manutenção regular previne inchaço de disco
+7. **Tratar falhas de rede**: Lógica de retry + fallback essencial
+8. **Bloquear testes durante execução**: Previne modificação durante execução de testes
+9. **Usuário decide conflitos**: Se IAs discordam sobre propriedade de arquivo → perguntar ao usuário
+10. **Feedback visual**: Opção C (tmux) é padrão porque visibilidade previne erros
+
+---
+
 
 ---
 

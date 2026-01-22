@@ -2765,624 +2765,1546 @@ git worktree add ${worktree_name} -b ${branch_name}
 
 ---
 
-### 🌐 Multi-AI Communication & Coordination
 
-> **CRITICAL UNDERSTANDING**: GitHub Copilot CLI (and Copilot in general) is **stateless per invocation**. Each terminal session is completely isolated—AIs do NOT communicate directly. To enable coordination between multiple AIs working on the same project, you must architect an external communication system.
+## 🌐 Multi-AI Communication & Coordination
 
-#### 🔍 Technical Reality: How Copilot CLI Actually Works
+> **CRITICAL CAPABILITY** (v3.3+): When multiple artificial intelligences work simultaneously on the same project (multiple terminal tabs/windows/sessions), specialized coordination is required to prevent conflicts and enable true parallel collaboration.
 
-**Core Architecture:**
-- **Stateless per invocation**: Each Copilot call is independent—no memory persists between invocations
-- **Process isolation**: Each terminal tab is a separate shell process with:
-  - Independent environment variables
-  - Own STDIN/STDOUT/STDERR streams
-  - No shared Inter-Process Communication (IPC) channels
-- **No agent identity**: Copilot does not have:
-  - Agent IDs or persistent identities
-  - Message buses or event systems
-  - Long-running background processes
-  - Awareness of other terminal sessions
-- **Security model**: GitHub intentionally prevents:
-  - Background autonomous coordination
-  - Cross-terminal inference without user consent
-  - Implicit data sharing between sessions
-  - Autonomous behavior that could leak sensitive data
+### 📋 Chapter Overview
 
-**What This Means in Practice:**
-```
-Terminal A: Copilot receives prompt → generates response → exits
-Terminal B: Copilot receives prompt → generates response → exits
-
-Result: No shared context, no communication, no coordination
-```
-
-Think of two Copilot sessions like two people answering emails independently—**zero awareness of each other**.
-
-#### 🎯 Communication Options: How to Enable Multi-AI Coordination
-
-Since direct AI-to-AI communication is impossible, you must **build coordination infrastructure**. Three options exist, ranked by sophistication:
+This chapter addresses:
+- **Multi-AI concurrent work** with Git worktree (mandatory when multiple AIs active)
+- **Communication options** between AI instances (3 architectures: A, B, C)
+- **Coordination verification** checklist to ensure systems work correctly
+- **Network failure handling** and fallback strategies
+- **Worktree management** automation and cleanup
+- **Branch collision detection** and resolution
+- **Git operation conflicts** with automatic retry logic
+- **Test file locking** to prevent concurrent modification during execution
 
 ---
 
-#### 📁 Option A: Shared State via Filesystem (Simplest, Last Resort)
+### 🔍 Technical Reality: How Copilot CLI Actually Works
 
-**Concept**: All AIs read/write from a shared JSON file to exchange state and messages.
+**Critical Understanding:**
+- GitHub Copilot CLI is **stateless per invocation**
+- Each command execution is **independent**—no persistent memory between calls
+- Each terminal tab runs a **separate Copilot process**
+- **No built-in communication** between Copilot instances
 
-**How It Works:**
-1. All terminals agree on a shared file location: `/tmp/ai_coordination.json`
-2. Each AI reads the file before acting
-3. Each AI writes its status/conclusions back
-4. Coordination emerges from sequential read-modify-write cycles
+**Why This Matters:**
+```
+Terminal Tab A: AI #1 (separate process)
+Terminal Tab B: AI #2 (separate process)  
+Terminal Tab C: AI #3 (separate process)
 
-**Setup Instructions:**
+❌ They CANNOT talk directly to each other
+❌ They DON'T share memory
+❌ They DON'T know about each other's existence
+```
 
+**The Solution:**
+> External coordination systems that AIs use to synchronize their work through **shared state**, **message passing**, or **visual feedback**.
+
+---
+
+### 🤖 Multi-AI Concurrent Work with Git Worktree
+
+> **MANDATORY SCENARIO**: When multiple AIs work simultaneously on the same project (multiple terminal tabs/windows), it is **REQUIRED** to use `git worktree` or coordination systems to avoid conflicts.
+
+#### 📋 When to Use (MANDATORY Detection)
+
+**Scenario:**
+```
+Terminal Tab 1: AI #1 working on feature A
+Terminal Tab 2: AI #2 working on feature B
+Terminal Tab 3: AI #3 working on bugfix C
+
+All in same project: ~/project/
+```
+
+**Problems without coordination:**
+- `.git/index.lock` conflicts when multiple AIs run git commands
+- Branch changes affect all AIs simultaneously
+- Context loss when one AI switches branches
+- Accidental commits to wrong branch
+- Test file modifications during test execution
+- Race conditions in file operations
+
+**Solution with worktree:**
+- Each AI works in **separate directory**
+- Each AI has its own **active branch**
+- No lock file conflicts
+- Isolated and safe context
+- Independent work progress
+
+#### 🔍 Concurrent Work Detection (AI MUST PERFORM)
+
+**Step 1: Ask User (ALWAYS)**
+```markdown
+🤖 **Concurrent Work Detection**
+
+Before starting, I need to know:
+
+❓ Are there other AIs working on this project NOW?
+   - In other terminal tabs/windows?
+   - On other machines?
+   - In CI/CD pipelines?
+
+This affects my workflow strategy.
+```
+
+**Step 2: Technical Detection (RECOMMENDED)**
 ```bash
-# 1. Create shared state file
-cat > /tmp/ai_coordination.json << 'EOF'
+# Check for lock files
+ls -la .git/index.lock 2>/dev/null && echo "⚠️  Another git operation in progress"
+
+# Check active branches across worktrees
+git worktree list
+
+# Check for coordination signals (see Option A/B/C below)
+ls -la /tmp/ai_coordination_*.json 2>/dev/null
+```
+
+**Step 3: Decide Coordination Strategy**
+- **If concurrent work**: MUST use Option C (tmux), Option B (orchestrator), or Option A (filesystem)
+- **If solo work**: Standard git workflow (COM-UUID branch)
+
+---
+
+### 🎯 Communication Options: How to Enable Multi-AI Coordination
+
+Three architectures with **fallback hierarchy**:
+
+```
+┌─────────────────────────────────────┐
+│ Default: Option C (tmux + daemon)  │ ← Preferred for local dev
+│ Fallback 1: Option B (orchestrator)│ ← Production/remote
+│ Fallback 2: Option A (filesystem)  │ ← Last resort
+└─────────────────────────────────────┘
+```
+
+---
+
+### 📁 Option A: Shared State via Filesystem (Simplest, Last Resort)
+
+**Use when:**
+- Options B and C are unavailable
+- Simple coordination needed
+- All AIs on same machine
+- Network unavailable
+
+**How it works:**
+All AIs read/write from a shared JSON file containing global state.
+
+#### Implementation
+
+**Shared state file:**
+```bash
+/tmp/ai_coordination_<PROJECT_HASH>.json
+```
+
+**Structure:**
+```json
 {
-  "project_name": "my-project",
-  "global_goal": "Refactor authentication module",
+  "project": "/home/user/myproject",
+  "started_at": "2026-01-22T17:00:00Z",
+  "agents": {
+    "AI-1": {
+      "role": "Refactor auth module",
+      "status": "working",
+      "branch": "COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281",
+      "worktree": "../myproject-COM-a5e531b2",
+      "last_update": "2026-01-22T17:05:30Z",
+      "locked_files": ["src/auth.py"],
+      "pid": 12345
+    },
+    "AI-2": {
+      "role": "Write tests",
+      "status": "waiting",
+      "branch": "COM-b7f642c3-6e5g-23e4-b567-537725285111",
+      "worktree": "../myproject-COM-b7f642c3",
+      "last_update": "2026-01-22T17:05:25Z",
+      "blocked_by": "AI-1",
+      "pid": 12346
+    }
+  },
+  "global_state": {
+    "tests_passing": true,
+    "build_status": "success",
+    "dirty_files": ["src/auth.py"]
+  },
+  "messages": [
+    {
+      "from": "AI-1",
+      "to": "AI-2",
+      "timestamp": "2026-01-22T17:05:00Z",
+      "message": "Refactoring auth.py, please wait before writing tests"
+    }
+  ]
+}
+```
+
+#### Read/Write Scripts
+
+**Write state:**
+```bash
+#!/bin/bash
+# ai_write_state.sh <agent_id> <role> <status> <branch>
+
+AGENT_ID="$1"
+ROLE="$2"
+STATUS="$3"
+BRANCH="$4"
+
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+
+# Initialize if doesn't exist
+if [ ! -f "$STATE_FILE" ]; then
+  cat > "$STATE_FILE" << EOF
+{
+  "project": "$(pwd)",
+  "started_at": "$(date -Iseconds)",
   "agents": {},
-  "messages": [],
-  "file_locks": {},
-  "last_updated": ""
+  "global_state": {},
+  "messages": []
 }
 EOF
+fi
 
-# 2. In each terminal, AI includes in prompt:
-# "Read /tmp/ai_coordination.json and respond as Agent A"
-# "Write your status and decisions back to the file"
+# Update agent entry using jq
+jq --arg aid "$AGENT_ID" \
+   --arg role "$ROLE" \
+   --arg status "$STATUS" \
+   --arg branch "$BRANCH" \
+   --arg time "$(date -Iseconds)" \
+   --arg pid "$$" \
+   '.agents[$aid] = {
+     "role": $role,
+     "status": $status,
+     "branch": $branch,
+     "last_update": $time,
+     "pid": ($pid | tonumber)
+   }' "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
 
-# 3. Example AI interaction:
-jq '.agents.A = {"role": "Refactor", "status": "working", "files": ["auth.py"]}' \
-  /tmp/ai_coordination.json > /tmp/ai_coordination.json.tmp && \
-  mv /tmp/ai_coordination.json.tmp /tmp/ai_coordination.json
+echo "✅ State updated for $AGENT_ID"
 ```
 
-**Advantages:**
-- ✅ Extremely simple—just a JSON file
-- ✅ No external dependencies
-- ✅ Works on any system with filesystem access
-- ✅ Human-readable for debugging
+**Read state:**
+```bash
+#!/bin/bash
+# ai_read_state.sh
 
-**Disadvantages:**
-- ❌ Race conditions (two AIs writing simultaneously)
-- ❌ No real-time updates (polling required)
-- ❌ Fragile—file corruption breaks everything
-- ❌ Manual coordination logic (no enforcement)
-- ❌ Not scalable beyond 2-3 AIs
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
 
-**When to Use:**
-- Only when Option C and Option B both fail
-- Simple 2-AI scenarios with low conflict risk
-- Temporary/experimental multi-AI work
-- No tmux available, no ability to run external process
+if [ ! -f "$STATE_FILE" ]; then
+  echo "⚠️  No coordination file found"
+  exit 1
+fi
+
+cat "$STATE_FILE" | jq '.'
+```
+
+**Lock file:**
+```bash
+#!/bin/bash
+# ai_lock_file.sh <agent_id> <filepath>
+
+AGENT_ID="$1"
+FILEPATH="$2"
+PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+
+jq --arg aid "$AGENT_ID" \
+   --arg file "$FILEPATH" \
+   '.agents[$aid].locked_files += [$file] | .agents[$aid].locked_files |= unique' \
+   "$STATE_FILE" > "${STATE_FILE}.tmp" && mv "${STATE_FILE}.tmp" "$STATE_FILE"
+
+echo "🔒 Locked: $FILEPATH by $AGENT_ID"
+```
+
+#### AI Workflow with Option A
+
+```bash
+# 1. Register AI instance
+./ai_write_state.sh "AI-1" "Refactor auth" "working" "COM-abc123"
+
+# 2. Lock files before editing
+./ai_lock_file.sh "AI-1" "src/auth.py"
+
+# 3. Check for conflicts before operation
+./ai_read_state.sh | jq '.agents[] | select(.locked_files[] | contains("src/auth.py"))'
+
+# 4. Perform work...
+
+# 5. Update status
+./ai_write_state.sh "AI-1" "Refactor auth" "complete" "COM-abc123"
+
+# 6. Cleanup
+jq 'del(.agents["AI-1"])' /tmp/ai_coordination_*.json
+```
+
+#### Limitations of Option A
+
+- ❌ No real-time synchronization
+- ❌ Requires manual script execution
+- ❌ Race conditions possible (file write conflicts)
+- ❌ No automatic conflict resolution
+- ❌ Limited to same machine
+- ✅ But: Simple, no dependencies, works offline
 
 ---
 
-#### 🎛️ Option B: External Orchestrator (Recommended for Production)
+### 🎛️ Option B: External Orchestrator (Recommended for Production)
 
-**Concept**: A central controller process maintains shared memory, assigns roles, tracks state, and coordinates all AIs through a clean API.
+**Use when:**
+- Production environment
+- Remote collaboration needed
+- Multiple machines
+- Enterprise requirements
+- Strict coordination needed
 
 **Architecture:**
 ```
-┌─────────────────┐
-│ Terminal A      │─┐
-│ (AI #1)         │ │
-└─────────────────┘ │
-                    ▼
-              ┌──────────────────┐
-              │  Orchestrator    │
-              │  (Python/Go)     │
-              │                  │
-              │  • Shared memory │
-              │  • Task graph    │
-              │  • Role manager  │
-              │  • Conflict ctrl │
-              └──────────────────┘
-                    ▲
-┌─────────────────┐ │
-│ Terminal B      │─┘
-│ (AI #2)         │
-└─────────────────┘
+┌────────────┐    HTTP/WebSocket    ┌─────────────┐
+│ Terminal A │◄──────────────────────►│             │
+│   AI #1    │                       │ Orchestrator│
+└────────────┘                       │   (Server)  │
+                                     │             │
+┌────────────┐    HTTP/WebSocket    │  - Memory   │
+│ Terminal B │◄──────────────────────►│  - Roles   │
+│   AI #2    │                       │  - Tasks    │
+└────────────┘                       │  - State    │
+                                     └─────────────┘
+┌────────────┐    HTTP/WebSocket           ▲
+│ Terminal C │◄────────────────────────────┘
+│   AI #3    │
+└────────────┘
 ```
 
-**How It Works:**
-1. **Orchestrator maintains shared state** (in-memory or Redis/SQLite)
-2. **Each AI registers** with the orchestrator (gets Agent ID and role)
-3. **AIs send messages** to orchestrator (not to each other)
-4. **Orchestrator updates context** for each AI based on global state
-5. **Coordination rules enforced** by orchestrator (file locks, task dependencies)
+**How it works:**
+- Centralized server maintains ALL state
+- AIs send their context/status to server
+- Server assigns roles and coordinates work
+- Server prevents conflicts (file locks, task dependencies)
+- Supports remote collaboration across machines/networks
 
-**Setup Instructions:**
+#### Implementation (Python + Flask)
 
-**Step 1: Create Orchestrator (Python example)**
-
+**Server code (`orchestrator_server.py`):**
 ```python
 #!/usr/bin/env python3
-# orchestrator.py
-import json
-import time
+"""
+Multi-AI Orchestrator Server
+Coordinates multiple AI instances working on same project
+"""
+
 from flask import Flask, request, jsonify
-from threading import Lock
+from datetime import datetime
+import threading
+import uuid
 
 app = Flask(__name__)
-state_lock = Lock()
 
-# Shared state
+# Global state
 state = {
-    "global_goal": "",
-    "agents": {},
-    "messages": [],
-    "file_locks": {},
-    "task_queue": []
+    "agents": {},        # {agent_id: {role, status, branch, ...}}
+    "files": {},         # {filepath: agent_id} - file locks
+    "messages": [],      # Communication log
+    "project_info": {},
+    "lock": threading.Lock()
 }
 
 @app.route('/register', methods=['POST'])
 def register_agent():
-    """Register new agent with role"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    role = data.get('role')
-    
-    with state_lock:
-        state['agents'][agent_id] = {
-            "role": role,
-            "status": "idle",
-            "files": [],
-            "last_seen": time.time()
-        }
-    return jsonify({"status": "registered", "agent_id": agent_id})
-
-@app.route('/get_context', methods=['GET'])
-def get_context():
-    """AI requests current context"""
-    agent_id = request.args.get('agent_id')
-    with state_lock:
-        return jsonify({
-            "global_state": state,
-            "your_role": state['agents'].get(agent_id, {}).get('role'),
-            "messages": state['messages'][-10:]  # Last 10 messages
-        })
-
-@app.route('/update_status', methods=['POST'])
-def update_status():
-    """AI reports status/decisions"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    
-    with state_lock:
-        if agent_id in state['agents']:
-            state['agents'][agent_id].update({
-                "status": data.get('status'),
-                "files": data.get('files', []),
-                "last_seen": time.time()
-            })
+    """Register a new AI agent"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id') or str(uuid.uuid4())
         
-        # Add to message log
-        state['messages'].append({
-            "from": agent_id,
-            "message": data.get('message'),
-            "timestamp": time.time()
+        state["agents"][agent_id] = {
+            "role": data.get('role', 'Unknown'),
+            "status": "registered",
+            "branch": data.get('branch'),
+            "worktree": data.get('worktree'),
+            "registered_at": datetime.now().isoformat(),
+            "last_heartbeat": datetime.now().isoformat()
+        }
+        
+        return jsonify({"agent_id": agent_id, "status": "registered"})
+
+@app.route('/status/<agent_id>', methods=['POST'])
+def update_status(agent_id):
+    """Update AI agent status"""
+    with state["lock"]:
+        if agent_id not in state["agents"]:
+            return jsonify({"error": "Agent not registered"}), 404
+        
+        data = request.json
+        state["agents"][agent_id].update({
+            "status": data.get('status'),
+            "last_heartbeat": datetime.now().isoformat()
         })
-    
-    return jsonify({"status": "updated"})
+        
+        return jsonify({"status": "updated"})
 
 @app.route('/lock_file', methods=['POST'])
 def lock_file():
-    """Request exclusive file access"""
-    data = request.json
-    agent_id = data.get('agent_id')
-    file_path = data.get('file')
-    
-    with state_lock:
-        if file_path in state['file_locks']:
-            return jsonify({"locked": False, "owner": state['file_locks'][file_path]})
-        else:
-            state['file_locks'][file_path] = agent_id
-            return jsonify({"locked": True})
+    """Lock a file for exclusive editing"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id')
+        filepath = data.get('filepath')
+        
+        # Check if file already locked
+        if filepath in state["files"]:
+            locked_by = state["files"][filepath]
+            if locked_by != agent_id:
+                return jsonify({
+                    "error": "File locked",
+                    "locked_by": locked_by
+                }), 409
+        
+        # Lock file
+        state["files"][filepath] = agent_id
+        if agent_id in state["agents"]:
+            if "locked_files" not in state["agents"][agent_id]:
+                state["agents"][agent_id]["locked_files"] = []
+            state["agents"][agent_id]["locked_files"].append(filepath)
+        
+        return jsonify({"status": "locked", "file": filepath})
 
 @app.route('/unlock_file', methods=['POST'])
 def unlock_file():
-    """Release file lock"""
-    data = request.json
-    file_path = data.get('file')
-    
-    with state_lock:
-        if file_path in state['file_locks']:
-            del state['file_locks'][file_path]
-    
-    return jsonify({"unlocked": True})
+    """Unlock a file"""
+    with state["lock"]:
+        data = request.json
+        agent_id = data.get('agent_id')
+        filepath = data.get('filepath')
+        
+        if filepath in state["files"] and state["files"][filepath] == agent_id:
+            del state["files"][filepath]
+            if agent_id in state["agents"] and "locked_files" in state["agents"][agent_id]:
+                state["agents"][agent_id]["locked_files"].remove(filepath)
+            return jsonify({"status": "unlocked"})
+        
+        return jsonify({"error": "File not locked by you"}), 403
+
+@app.route('/state', methods=['GET'])
+def get_state():
+    """Get complete state"""
+    with state["lock"]:
+        return jsonify(state)
+
+@app.route('/message', methods=['POST'])
+def send_message():
+    """Send message between AIs"""
+    with state["lock"]:
+        data = request.json
+        state["messages"].append({
+            "from": data.get('from'),
+            "to": data.get('to'),
+            "message": data.get('message'),
+            "timestamp": datetime.now().isoformat()
+        })
+        return jsonify({"status": "sent"})
+
+@app.route('/unregister/<agent_id>', methods=['POST'])
+def unregister_agent(agent_id):
+    """Unregister AI and release all locks"""
+    with state["lock"]:
+        if agent_id in state["agents"]:
+            # Release all file locks
+            files_to_unlock = [f for f, a in state["files"].items() if a == agent_id]
+            for f in files_to_unlock:
+                del state["files"][f]
+            
+            del state["agents"][agent_id]
+            return jsonify({"status": "unregistered"})
+        
+        return jsonify({"error": "Agent not found"}), 404
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5555)
+    print("🎛️  Multi-AI Orchestrator Server")
+    print("   Starting on http://localhost:5000")
+    app.run(host='0.0.0.0', port=5000, threaded=True)
 ```
 
-**Step 2: Start Orchestrator**
+**Client library (`ai_client.py`):**
+```python
+#!/usr/bin/env python3
+"""AI Client for communicating with orchestrator"""
+
+import requests
+import json
+import sys
+
+class AIClient:
+    def __init__(self, server_url="http://localhost:5000"):
+        self.server_url = server_url
+        self.agent_id = None
+    
+    def register(self, role, branch, worktree=None):
+        """Register this AI with orchestrator"""
+        response = requests.post(f"{self.server_url}/register", json={
+            "role": role,
+            "branch": branch,
+            "worktree": worktree
+        })
+        data = response.json()
+        self.agent_id = data["agent_id"]
+        print(f"✅ Registered as {self.agent_id}")
+        return self.agent_id
+    
+    def update_status(self, status):
+        """Update AI status"""
+        if not self.agent_id:
+            raise Exception("Not registered")
+        
+        requests.post(f"{self.server_url}/status/{self.agent_id}", json={
+            "status": status
+        })
+        print(f"📊 Status: {status}")
+    
+    def lock_file(self, filepath):
+        """Lock a file for editing"""
+        response = requests.post(f"{self.server_url}/lock_file", json={
+            "agent_id": self.agent_id,
+            "filepath": filepath
+        })
+        
+        if response.status_code == 409:
+            data = response.json()
+            print(f"🔒 File {filepath} locked by {data['locked_by']}")
+            return False
+        
+        print(f"🔓 Locked: {filepath}")
+        return True
+    
+    def unlock_file(self, filepath):
+        """Unlock a file"""
+        requests.post(f"{self.server_url}/unlock_file", json={
+            "agent_id": self.agent_id,
+            "filepath": filepath
+        })
+        print(f"🔓 Unlocked: {filepath}")
+    
+    def get_state(self):
+        """Get global state"""
+        response = requests.get(f"{self.server_url}/state")
+        return response.json()
+    
+    def send_message(self, to_agent, message):
+        """Send message to another AI"""
+        requests.post(f"{self.server_url}/message", json={
+            "from": self.agent_id,
+            "to": to_agent,
+            "message": message
+        })
+        print(f"📨 Sent: {message}")
+    
+    def unregister(self):
+        """Unregister and cleanup"""
+        if self.agent_id:
+            requests.post(f"{self.server_url}/unregister/{self.agent_id}")
+            print(f"👋 Unregistered {self.agent_id}")
+
+# Example usage
+if __name__ == "__main__":
+    client = AIClient()
+    client.register("Test refactoring", "COM-abc123")
+    
+    # Lock file
+    if client.lock_file("src/auth.py"):
+        print("Working on auth.py...")
+        client.update_status("working")
+        # ... do work ...
+        client.unlock_file("src/auth.py")
+        client.update_status("complete")
+    
+    client.unregister()
+```
+
+#### AI Workflow with Option B
 
 ```bash
-# In a dedicated terminal:
-python3 orchestrator.py
+# 1. Start orchestrator server (once, in dedicated terminal)
+python3 orchestrator_server.py
 
-# Orchestrator runs on http://127.0.0.1:5555
+# 2. Each AI registers
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.register('Refactor auth', 'COM-abc123')
+# Store agent_id for subsequent calls
+"
+
+# 3. Lock files before editing
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.lock_file('src/auth.py')
+"
+
+# 4. Check global state
+curl http://localhost:5000/state | jq '.'
+
+# 5. Update status
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.update_status('working')
+"
+
+# 6. Unlock and unregister when done
+python3 -c "
+from ai_client import AIClient
+client = AIClient()
+client.agent_id = 'YOUR_AGENT_ID'
+client.unlock_file('src/auth.py')
+client.unregister()
+"
 ```
 
-**Step 3: AI Terminal Integration**
+#### Network Failure Handling (NEW - Phase 2)
+
+**Problem:** Orchestrator depends on HTTP—what if network drops mid-coordination?
+
+**Solution: Automatic Fallback with Retry Logic**
 
 ```bash
-# Each AI terminal registers and communicates via HTTP
+#!/bin/bash
+# ai_with_fallback.sh - Wrapper that handles network failures
 
-# Register Agent A
-curl -X POST http://127.0.0.1:5555/register \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "role": "Refactor"}'
+ORCHESTRATOR_URL="http://localhost:5000"
+MAX_RETRIES=3
+RETRY_DELAY=5
 
-# Get context (AI includes this in prompt)
-CONTEXT=$(curl -s http://127.0.0.1:5555/get_context?agent_id=A)
-echo "Context for Agent A: $CONTEXT"
+# Try Option B with retries
+try_orchestrator() {
+    local attempt=1
+    while [ $attempt -le $MAX_RETRIES ]; do
+        echo "🔄 Attempt $attempt/$MAX_RETRIES: Connecting to orchestrator..."
+        
+        if curl -s -m 5 "$ORCHESTRATOR_URL/state" > /dev/null; then
+            echo "✅ Orchestrator available - using Option B"
+            return 0
+        fi
+        
+        echo "❌ Connection failed, waiting ${RETRY_DELAY}s..."
+        sleep $RETRY_DELAY
+        attempt=$((attempt + 1))
+    done
+    
+    return 1
+}
 
-# Update status after action
-curl -X POST http://127.0.0.1:5555/update_status \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "status": "working", "files": ["auth.py"], "message": "Refactoring authentication logic"}'
-
-# Lock file before editing
-curl -X POST http://127.0.0.1:5555/lock_file \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "A", "file": "auth.py"}'
-
-# Unlock when done
-curl -X POST http://127.0.0.1:5555/unlock_file \
-  -H "Content-Type: application/json" \
-  -d '{"file": "auth.py"}'
+# Main coordination logic
+if try_orchestrator; then
+    echo "📡 Using Option B: Orchestrator"
+    # Use orchestrator coordination
+    python3 orchestrator_client.py "$@"
+    exit $?
+else
+    echo "⚠️  Orchestrator unavailable after $MAX_RETRIES attempts"
+    echo "🔀 FALLBACK: Switching to Option A (filesystem)"
+    
+    # Fallback to Option A
+    PROJECT_HASH=$(pwd | md5sum | cut -d' ' -f1 | cut -c1-8)
+    STATE_FILE="/tmp/ai_coordination_${PROJECT_HASH}.json"
+    
+    echo "📁 Using filesystem coordination: $STATE_FILE"
+    ./ai_write_state.sh "$@"
+    exit $?
+fi
 ```
 
-**Step 4: AI Prompt Integration**
+**Exponential Backoff for Git Operations (NEW - Phase 2):**
 
-When prompting Copilot, include:
+```bash
+#!/bin/bash
+# git_with_retry.sh - Handle concurrent git operation conflicts
 
+git_push_with_retry() {
+    local branch="$1"
+    local max_attempts=5
+    local attempt=1
+    local wait_time=2
+    
+    while [ $attempt -le $max_attempts ]; do
+        echo "🔄 Push attempt $attempt/$max_attempts..."
+        
+        if git push origin "$branch" 2>&1 | tee /tmp/git_push.log; then
+            echo "✅ Push successful!"
+            return 0
+        fi
+        
+        # Check error type
+        if grep -q "failed to push" /tmp/git_push.log || grep -q "rejected" /tmp/git_push.log; then
+            echo "⚠️  Push rejected, pulling latest changes..."
+            git pull --rebase origin "$branch" || {
+                echo "❌ Merge conflict detected"
+                echo "🤔 User intervention required:"
+                echo "   1. Resolve conflicts manually"
+                echo "   2. Run: git rebase --continue"
+                echo "   3. Retry push"
+                return 1
+            }
+        fi
+        
+        if [ $attempt -lt $max_attempts ]; then
+            echo "⏳ Waiting ${wait_time}s before retry (exponential backoff)..."
+            sleep $wait_time
+            wait_time=$((wait_time * 2))  # Double wait time
+            attempt=$((attempt + 1))
+        else
+            echo "❌ Push failed after $max_attempts attempts"
+            return 1
+        fi
+    done
+}
+
+# Usage
+git_push_with_retry "COM-abc123"
 ```
-You are Agent A working on project "my-project".
-Your assigned role: Refactor
 
-Current global state:
-<insert JSON from /get_context>
+#### Advantages of Option B
 
-Your task:
-- Refactor auth.py
-- Do not touch files locked by other agents
-- Report status via orchestrator
-
-Before proceeding, check file locks and coordinate with other agents.
-```
-
-**Advantages:**
-- ✅ Scalable to many AIs (tested with 10+)
-- ✅ Real-time coordination (event-driven possible)
-- ✅ Enforced rules (file locks, task dependencies)
-- ✅ Auditable (all messages logged)
-- ✅ Production-ready architecture
-- ✅ Works across machines (network-accessible)
-
-**Disadvantages:**
-- ❌ Requires running external process
-- ❌ More complex setup
-- ❌ Network dependency (HTTP calls)
-- ❌ Debugging overhead
-
-**When to Use:**
-- 3+ AIs working concurrently
-- Complex projects with many files
-- Need strong conflict prevention
-- Production/enterprise environments
-- Multi-machine coordination
-- When Option C (tmux) is not available or insufficient
+- ✅ Real-time coordination
+- ✅ Works across machines/networks
+- ✅ Centralized control
+- ✅ Automatic conflict detection
+- ✅ Production-ready
+- ✅ Audit log of all actions
+- ✅ Network failure handling with fallback
+- ✅ Retry logic for transient failures
 
 ---
 
-#### 🖥️ Option C: tmux + Daemon Controller (Default, Best for Local Development)
+### 🖥️ Option C: tmux + Daemon (Default for Local Development)
 
-**Concept**: Each tmux pane represents one AI role. A daemon monitors pane output, extracts intent, updates shared state, and injects context into prompts. This creates a **visual coordination surface** where you can see all AIs working in parallel.
+**Use when:**
+- Local development (same machine)
+- Visual feedback desired
+- Human supervision available
+- Multiple terminal tabs/windows
 
 **Architecture:**
 ```
-┌──────────────┬──────────────┐
-│ Pane A       │ Pane B       │
-│ AI: Refactor │ AI: Tests    │
-├──────────────┼──────────────┤
-│ Pane C       │ Pane D       │
-│ AI: Lint     │ AI: Docs     │
-└──────────────┴──────────────┘
-        ▲              ▲
-        │              │
-        └──────┬───────┘
-               │
-       ┌───────▼────────┐
-       │ tmux Daemon    │
-       │ (monitors all) │
-       │ • Logs output  │
-       │ • Shares state │
-       │ • Injects ctx  │
-       └────────────────┘
+┌─────────────┬─────────────┐
+│ Pane A      │ Pane B      │
+│ AI #1       │ AI #2       │
+│ Refactor    │ Tests       │
+├─────────────┼─────────────┤
+│ Pane C      │ Pane D      │
+│ AI #3       │ Daemon      │
+│ Lint        │ Coordinator │
+└─────────────┴─────────────┘
+      ▲             ▲
+      │             │
+      └─────┬───────┘
+            │
+      ┌─────▼──────┐
+      │   tmux     │
+      │  capture   │
+      └────────────┘
 ```
 
-**How It Works:**
-1. **tmux session** with multiple panes (one per AI)
-2. **Daemon monitors** each pane's output using `tmux capture-pane`
-3. **State extraction**: Daemon parses logs to understand what each AI is doing
-4. **Context injection**: Daemon sends updated context to each pane via `tmux send-keys`
-5. **Visual feedback**: You see all AIs working in real-time
+**How it works:**
+- Each tmux pane = one AI with dedicated role
+- Daemon process monitors all panes
+- Captures output, extracts state
+- Injects context into each AI's prompt
+- Human can see all AIs working simultaneously
 
-**Setup Instructions:**
-
-**Step 1: Create tmux Session with Panes**
+#### Setup tmux Session
 
 ```bash
-# Create session with 4 panes
-tmux new-session -s ai-coord -d
-tmux split-window -h -t ai-coord
-tmux split-window -v -t ai-coord:0.0
-tmux split-window -v -t ai-coord:0.2
+#!/bin/bash
+# setup_multi_ai_session.sh
 
-# Name each pane (for clarity)
-tmux select-pane -t ai-coord:0.0 -T "AI-Refactor"
-tmux select-pane -t ai-coord:0.1 -T "AI-Tests"
-tmux select-pane -t ai-coord:0.2 -T "AI-Lint"
-tmux select-pane -t ai-coord:0.3 -T "AI-Docs"
+SESSION_NAME="multi-ai-project"
+
+# Create tmux session with 4 panes
+tmux new-session -d -s "$SESSION_NAME" -n "MultiAI"
+
+# Split into 4 panes
+tmux split-window -h -t "$SESSION_NAME"
+tmux split-window -v -t "$SESSION_NAME:0.0"
+tmux split-window -v -t "$SESSION_NAME:0.2"
+
+# Label panes
+tmux select-pane -t "$SESSION_NAME:0.0" -T "AI-Refactor"
+tmux select-pane -t "$SESSION_NAME:0.1" -T "AI-Test"
+tmux select-pane -t "$SESSION_NAME:0.2" -T "AI-Lint"
+tmux select-pane -t "$SESSION_NAME:0.3" -T "Daemon"
+
+# Start daemon in pane 3
+tmux send-keys -t "$SESSION_NAME:0.3" "python3 tmux_coordinator_daemon.py" C-m
 
 # Attach to session
-tmux attach -t ai-coord
+tmux attach-session -t "$SESSION_NAME"
 ```
 
-**Step 2: Create Monitoring Daemon**
+#### Coordinator Daemon
 
 ```python
 #!/usr/bin/env python3
-# tmux_ai_daemon.py
+"""
+tmux Coordinator Daemon
+Monitors all tmux panes and coordinates AI work
+"""
+
 import subprocess
 import json
 import time
 import re
-from pathlib import Path
+from datetime import datetime
 
 STATE_FILE = "/tmp/tmux_ai_state.json"
-SESSION = "ai-coord"
 
-def get_pane_list():
-    """Get all panes in session"""
+def get_tmux_panes():
+    """Get all panes in current session"""
     result = subprocess.run(
-        ["tmux", "list-panes", "-t", SESSION, "-F", "#{pane_index}"],
+        ["tmux", "list-panes", "-F", "#{pane_index}:#{pane_title}"],
         capture_output=True, text=True
     )
-    return result.stdout.strip().split('\n')
+    panes = {}
+    for line in result.stdout.strip().split("\n"):
+        if ":" in line:
+            idx, title = line.split(":", 1)
+            panes[int(idx)] = title
+    return panes
 
-def capture_pane_output(pane_id):
-    """Capture last 50 lines from pane"""
+def capture_pane_output(pane_idx, lines=50):
+    """Capture recent output from a pane"""
     result = subprocess.run(
-        ["tmux", "capture-pane", "-t", f"{SESSION}:{pane_id}", "-p", "-S", "-50"],
+        ["tmux", "capture-pane", "-p", "-t", f"{pane_idx}", "-S", f"-{lines}"],
         capture_output=True, text=True
     )
     return result.stdout
 
-def extract_intent(output):
-    """Parse output to understand AI intent"""
+def extract_ai_status(output):
+    """Extract AI status from output"""
+    status = {
+        "working_on": None,
+        "status": "idle",
+        "branch": None,
+        "locked_files": []
+    }
+    
     # Look for common patterns
-    if "editing" in output.lower() or "modifying" in output.lower():
-        files = re.findall(r'[a-zA-Z0-9_/-]+\.(py|js|ts|java|go)', output)
-        return {"action": "editing", "files": files}
-    elif "testing" in output.lower():
-        return {"action": "testing", "status": "running"}
-    elif "waiting" in output.lower():
-        return {"action": "waiting", "reason": "dependency"}
-    else:
-        return {"action": "unknown"}
+    if re.search(r"(refactor|modifying|editing)", output, re.I):
+        status["status"] = "working"
+    if re.search(r"(test|testing)", output, re.I):
+        status["status"] = "testing"
+    if re.search(r"(lint|linting|checking)", output, re.I):
+        status["status"] = "linting"
+    
+    # Extract branch
+    branch_match = re.search(r"COM-[a-f0-9-]+", output)
+    if branch_match:
+        status["branch"] = branch_match.group(0)
+    
+    # Extract files being edited
+    file_matches = re.findall(r"(src/[\w/]+\.py|[\w/]+\.js|[\w/]+\.ts)", output)
+    status["locked_files"] = list(set(file_matches))[:3]  # Max 3
+    
+    return status
 
-def send_context_to_pane(pane_id, context):
-    """Inject context into pane"""
-    prompt = f"\n# UPDATED CONTEXT:\n{json.dumps(context, indent=2)}\n"
-    subprocess.run(
-        ["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", prompt]
-    )
-
-def load_state():
-    """Load shared state"""
-    if Path(STATE_FILE).exists():
-        with open(STATE_FILE) as f:
-            return json.load(f)
-    return {"agents": {}, "file_locks": {}, "messages": []}
-
-def save_state(state):
-    """Save shared state"""
+def update_state(panes_data):
+    """Update global state file"""
+    state = {
+        "updated_at": datetime.now().isoformat(),
+        "panes": panes_data
+    }
+    
     with open(STATE_FILE, 'w') as f:
         json.dump(state, f, indent=2)
 
 def main():
-    """Main coordination loop"""
-    print(f"[tmux AI Daemon] Monitoring session: {SESSION}")
+    print("🖥️  tmux Coordinator Daemon Started")
+    print(f"   State file: {STATE_FILE}")
+    print("   Monitoring panes...")
     
     while True:
-        state = load_state()
-        panes = get_pane_list()
-        
-        for pane_id in panes:
-            # Capture output
-            output = capture_pane_output(pane_id)
+        try:
+            panes = get_tmux_panes()
+            panes_data = {}
             
-            # Extract intent
-            intent = extract_intent(output)
+            for idx, title in panes.items():
+                if title == "Daemon":
+                    continue  # Skip self
+                
+                output = capture_pane_output(idx, lines=30)
+                status = extract_ai_status(output)
+                
+                panes_data[f"pane-{idx}"] = {
+                    "title": title,
+                    "pane_index": idx,
+                    **status,
+                    "last_update": datetime.now().isoformat()
+                }
             
-            # Update state
-            state['agents'][pane_id] = {
-                "last_action": intent,
-                "last_seen": time.time()
-            }
+            update_state(panes_data)
             
-            # Check for conflicts (e.g., two AIs editing same file)
-            if intent['action'] == 'editing':
-                for file in intent.get('files', []):
-                    if file in state['file_locks']:
-                        # Send warning to pane
-                        warning = f"\n⚠️  WARNING: {file} locked by pane {state['file_locks'][file]}\n"
-                        subprocess.run(["tmux", "send-keys", "-t", f"{SESSION}:{pane_id}", warning])
-                    else:
-                        state['file_locks'][file] = pane_id
-        
-        # Save updated state
-        save_state(state)
-        
-        # Update context for all panes
-        for pane_id in panes:
-            context = {
-                "all_agents": state['agents'],
-                "file_locks": state['file_locks'],
-                "your_pane": pane_id
-            }
-            # Only send if significant change (avoid spam)
-            # Implementation: compare with previous state
-        
-        time.sleep(5)  # Poll every 5 seconds
+            # Print status
+            print(f"\r⏱️  {datetime.now().strftime('%H:%M:%S')} | ", end="")
+            for pane_id, data in panes_data.items():
+                print(f"{data['title']}: {data['status']} | ", end="")
+            
+            time.sleep(5)  # Update every 5 seconds
+            
+        except KeyboardInterrupt:
+            print("\n\n👋 Daemon stopped")
+            break
+        except Exception as e:
+            print(f"\n⚠️  Error: {e}")
+            time.sleep(5)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 
-**Step 3: Start Daemon**
+#### AI Prompt Injection
+
+Each AI should read the state file before operations:
 
 ```bash
-# In a separate terminal (outside tmux):
-python3 tmux_ai_daemon.py
+# Before each command, AI reads state
+cat /tmp/tmux_ai_state.json | jq '.'
 
-# Daemon monitors all panes and maintains /tmp/tmux_ai_state.json
+# Example output:
+{
+  "updated_at": "2026-01-22T17:05:30Z",
+  "panes": {
+    "pane-0": {
+      "title": "AI-Refactor",
+      "pane_index": 0,
+      "status": "working",
+      "branch": "COM-a5e531b2-5d4f-a827-b3c8",
+      "locked_files": ["src/auth.py"],
+      "last_update": "2026-01-22T17:05:30Z"
+    },
+    "pane-1": {
+      "title": "AI-Test",
+      "pane_index": 1,
+      "status": "waiting",
+      "branch": "COM-b7f642c3-6e5g-23e4",
+      "locked_files": [],
+      "last_update": "2026-01-22T17:05:28Z"
+    }
+  }
+}
+
+# AI includes this in decision making:
+# "AI-Refactor is working on src/auth.py, I should wait before testing"
 ```
 
-**Step 4: AI Usage in Each Pane**
+#### Advantages of Option C
 
-In each tmux pane, when prompting Copilot:
+- ✅ Visual feedback (see all AIs working)
+- ✅ Human supervision easy
+- ✅ No network dependency
+- ✅ Simple local setup
+- ✅ Natural for terminal-heavy workflows
+- ✅ Tmux native on most Linux systems
+- ✅ Perfect for Linux Mint environment
+
+---
+
+### ✅ Coordination Verification Checklist (NEW - Phase 2)
+
+After setting up coordination (Options A, B, or C), verify it's working correctly:
+
+#### 1. **Basic Connectivity Test**
+
+**Option A (Filesystem):**
+```bash
+# Write test entry
+./ai_write_state.sh "TEST-AI" "Test role" "testing" "COM-test"
+
+# Read back
+./ai_read_state.sh | jq '.agents["TEST-AI"]'
+
+# Expected: Should see test agent entry
+# ✅ PASS if entry appears
+# ❌ FAIL if error or empty
+```
+
+**Option B (Orchestrator):**
+```bash
+# Check server health
+curl -s http://localhost:5000/state | jq '.agents'
+
+# Register test agent
+curl -X POST http://localhost:5000/register \
+  -H "Content-Type: application/json" \
+  -d '{"role": "Test", "branch": "COM-test"}' | jq '.'
+
+# Expected: {"agent_id": "...", "status": "registered"}
+# ✅ PASS if registration succeeds
+# ❌ FAIL if connection refused or error
+```
+
+**Option C (tmux):**
+```bash
+# Check daemon is running
+ps aux | grep tmux_coordinator_daemon
+
+# Check state file exists and updates
+watch -n 2 "cat /tmp/tmux_ai_state.json | jq '.updated_at'"
+
+# Expected: Timestamp updates every 5 seconds
+# ✅ PASS if timestamp refreshes
+# ❌ FAIL if file missing or stale
+```
+
+#### 2. **File Locking Test**
 
 ```bash
-# Before asking Copilot, check state:
-cat /tmp/tmux_ai_state.json
+# AI #1: Lock file
+# Option A:
+./ai_lock_file.sh "AI-1" "src/test.py"
 
-# Include in prompt:
-# "You are Agent in Pane 0 (Refactor role)"
-# "Current state: <paste JSON>"
-# "Your task: Refactor auth.py"
-# "Before editing, check file_locks to avoid conflicts"
+# Option B:
+curl -X POST http://localhost:5000/lock_file \
+  -H "Content-Type: application/json" \
+  -d '{"agent_id": "AI-1", "filepath": "src/test.py"}'
+
+# AI #2: Try to lock same file (should fail)
+# Expected: Error "File already locked by AI-1"
+# ✅ PASS if lock conflict detected
+# ❌ FAIL if both AIs can lock same file
 ```
 
-**Advantages:**
-- ✅ **Visual coordination**: See all AIs working in real-time
-- ✅ **Natural parallelism**: Each pane = independent AI
-- ✅ **Human-in-the-loop**: Easy to intervene/supervise
-- ✅ **No cloud dependency**: Fully local
-- ✅ **Perfect for development**: Tactile, immediate feedback
-- ✅ **Aligns with parallel workflow intuition**
-
-**Disadvantages:**
-- ❌ Requires tmux (Linux/macOS only, not Windows)
-- ❌ Local machine only (doesn't scale across network)
-- ❌ Manual pane management
-- ❌ Daemon adds complexity
-
-**When to Use (Default):**
-- Local development on Linux/macOS
-- 2-4 AIs working concurrently
-- Need visual feedback and supervision
-- Want tactile control over coordination
-- Working in terminal-heavy environment (your preferred style)
-
----
-
-#### 🔍 Option Detection & Selection Protocol
-
-**MANDATORY**: Before choosing a coordination option, AI MUST detect if another AI already established coordination.
-
-**Detection Steps:**
+#### 3. **Concurrent Operation Test**
 
 ```bash
-# 1. Check for Option A (shared JSON file)
-if [ -f /tmp/ai_coordination.json ]; then
-    echo "Option A detected - using shared filesystem"
-    # Use Option A
-fi
+# Terminal 1 (AI #1):
+./ai_write_state.sh "AI-1" "Task A" "working" "COM-branch1"
 
-# 2. Check for Option B (orchestrator)
-if curl -s http://127.0.0.1:5555/get_context?agent_id=probe >/dev/null 2>&1; then
-    echo "Option B detected - orchestrator running on port 5555"
-    # Use Option B
-fi
+# Terminal 2 (AI #2):
+./ai_write_state.sh "AI-2" "Task B" "working" "COM-branch2"
 
-# 3. Check for Option C (tmux + daemon)
-if [ -f /tmp/tmux_ai_state.json ] && tmux has-session -t ai-coord 2>/dev/null; then
-    echo "Option C detected - tmux session 'ai-coord' active"
-    # Use Option C
-fi
+# Check both agents visible:
+./ai_read_state.sh | jq '.agents | keys'
 
-# 4. If none detected - ask user
-if [ no coordination detected ]; then
-    echo "No coordination system detected."
-    echo "Multiple AIs working on this project?"
-    read -p "Choose: (C) tmux [default], (B) orchestrator, (A) filesystem: " choice
-    # Setup chosen option
-fi
+# Expected: ["AI-1", "AI-2"]
+# ✅ PASS if both agents appear
+# ❌ FAIL if only one visible (race condition)
 ```
 
-**Fallback Hierarchy (if setup fails):**
+#### 4. **Network Failure Recovery Test (Option B)**
 
-```
-Attempt C (tmux) → if fails → Attempt B (orchestrator) → if fails → Use A (filesystem)
+```bash
+# Start orchestrator
+python3 orchestrator_server.py &
+ORCHESTRATOR_PID=$!
+
+# Register agent
+curl -X POST http://localhost:5000/register \
+  -d '{"role": "Test"}' -H "Content-Type: application/json"
+
+# Kill orchestrator (simulate network failure)
+kill $ORCHESTRATOR_PID
+
+# Run fallback script
+./ai_with_fallback.sh "AI-1" "Recovery test" "working" "COM-test"
+
+# Expected: Should fallback to Option A (filesystem)
+# ✅ PASS if fallback activated and filesystem used
+# ❌ FAIL if script crashes or hangs
 ```
 
-**Example Failure Scenarios:**
-- **C fails**: tmux not installed → fall back to B
-- **B fails**: Cannot bind port 5555, no Python → fall back to A
-- **A always works**: Filesystem always available (last resort)
+#### 5. **Git Conflict Resolution Test**
+
+```bash
+# Terminal 1:
+git checkout -b COM-test1
+echo "Change from AI-1" >> README.md
+git add README.md
+git commit -m "AI-1 change"
+
+# Terminal 2 (same time):
+git checkout -b COM-test2
+echo "Change from AI-2" >> README.md
+git add README.md
+git commit -m "AI-2 change"
+
+# Both try to push to main:
+git checkout main
+git merge COM-test1  # AI-1 wins
+git merge COM-test2  # Should trigger retry logic
+
+# Expected: git_with_retry.sh detects conflict and asks user
+# ✅ PASS if conflict handled gracefully
+# ❌ FAIL if silent failure or data loss
+```
+
+#### 6. **Test File Locking Verification**
+
+```bash
+# AI #1: Start running tests
+./ai_lock_file.sh "AI-1" "tests/test_auth.py"
+pytest tests/test_auth.py &
+TEST_PID=$!
+
+# AI #2: Try to modify test file (should be blocked)
+./ai_read_state.sh | jq '.agents["AI-1"].locked_files'
+
+# Expected: Should see "tests/test_auth.py" in locked files
+# AI #2 should wait or ask user before modifying
+
+# Cleanup
+wait $TEST_PID
+./ai_unlock_file.sh "AI-1" "tests/test_auth.py"
+
+# ✅ PASS if AI-2 detects lock and waits
+# ❌ FAIL if AI-2 modifies file during test execution
+```
+
+#### 7. **Worktree Isolation Test**
+
+```bash
+# Create two worktrees
+git worktree add ../project-COM-ai1 -b COM-ai1
+git worktree add ../project-COM-ai2 -b COM-ai2
+
+# AI #1 in worktree 1:
+cd ../project-COM-ai1
+echo "AI-1 work" >> file.txt
+git add file.txt
+
+# AI #2 in worktree 2:
+cd ../project-COM-ai2
+echo "AI-2 work" >> file.txt
+git add file.txt
+
+# Check both can work simultaneously without conflicts
+ls -la .git/index.lock  # Should NOT exist in either
+
+# ✅ PASS if both AIs work independently
+# ❌ FAIL if lock file appears or conflicts occur
+```
+
+#### 8. **Complete Integration Test**
+
+Full workflow test simulating 3 AIs working together:
+
+```bash
+# Setup
+./setup_multi_ai_session.sh  # Or start orchestrator
+
+# AI #1: Refactor
+cd ../project-COM-ai1
+./ai_write_state.sh "AI-1" "Refactor auth" "working" "COM-ai1"
+./ai_lock_file.sh "AI-1" "src/auth.py"
+echo "# Refactored" >> src/auth.py
+git add src/auth.py && git commit -m "refactor: auth module"
+
+# AI #2: Write tests (waits for AI-1)
+cd ../project-COM-ai2
+./ai_read_state.sh | jq '.agents["AI-1"].status'  # Check if AI-1 done
+./ai_lock_file.sh "AI-2" "tests/test_auth.py"
+echo "def test_auth(): pass" >> tests/test_auth.py
+git add tests/test_auth.py && git commit -m "test: auth tests"
+
+# AI #3: Run tests
+cd ../project-COM-ai3
+./ai_read_state.sh | jq '.agents["AI-2"].status'  # Wait for tests written
+pytest tests/test_auth.py
+
+# Expected: All 3 AIs complete their work without conflicts
+# ✅ PASS if workflow completes successfully
+# ❌ FAIL if any conflicts, deadlocks, or data loss
+```
+
+#### 🚨 Failure Indicators
+
+- ❌ **File lock conflicts**: Two AIs editing same file simultaneously
+- ❌ **Stale state**: State file not updating (timestamp frozen)
+- ❌ **Network timeouts**: Orchestrator not responding (Option B)
+- ❌ **Git lock files**: `.git/index.lock` appearing frequently
+- ❌ **Test failures**: Tests modified during execution
+- ❌ **Silent failures**: No error messages but coordination not working
+- ❌ **Race conditions**: Unpredictable behavior (sometimes works, sometimes fails)
+
+#### ✅ Success Indicators
+
+- ✅ All tests pass consistently
+- ✅ State updates in real-time
+- ✅ File locks prevent conflicts
+- ✅ Fallback activates when network fails
+- ✅ Git operations succeed with retry logic
+- ✅ AIs detect each other's work
+- ✅ No data loss or file corruption
+- ✅ Human can see all AI activity (Option C)
 
 ---
 
-#### ✅ Multi-AI Coordination Checklist
+### 🧹 Worktree Cleanup Automation (NEW - Phase 2)
 
-**Before Starting Multi-AI Work:**
-- [ ] Did I detect if coordination already exists?
-- [ ] If detected → am I using the SAME option as other AIs?
-- [ ] If NOT detected → did I ask user which option to use?
-- [ ] Is coordination infrastructure running (daemon/orchestrator)?
-- [ ] Did I register my agent with ID and role?
-- [ ] Do I understand fallback hierarchy (C → B → A)?
+**Problem:** Over time, abandoned worktrees accumulate, wasting disk space.
 
-**During Work:**
-- [ ] Am I checking shared state before major actions?
-- [ ] Am I updating my status after decisions?
-- [ ] Am I respecting file locks from other AIs?
-- [ ] Am I avoiding files currently being edited?
-- [ ] Am I sending messages to coordinate (not working blind)?
+**Solution:** Automated cleanup script with safety checks.
 
-**Conflict Prevention:**
-- [ ] Before editing file → check if locked by another AI
-- [ ] Before git operations → check if another AI is mid-commit
-- [ ] Before running tests → check if another AI modified test files
-- [ ] If conflict detected → ask user for guidance
+```bash
+#!/bin/bash
+# worktree_cleanup.sh - Clean up abandoned worktrees
 
-**After Completing Task:**
-- [ ] Did I update status to "completed"?
-- [ ] Did I release all file locks?
-- [ ] Did I notify other AIs of completion?
-- [ ] Did I document my changes in shared state?
+echo "🧹 Git Worktree Cleanup Utility"
+echo ""
+
+# List all worktrees
+echo "📋 Current worktrees:"
+git worktree list
+echo ""
+
+# Find worktrees with no recent activity
+echo "🔍 Scanning for abandoned worktrees..."
+THRESHOLD_DAYS=7
+CURRENT_TIME=$(date +%s)
+
+git worktree list --porcelain | grep -E "^worktree|^branch" | while read -r line; do
+    if [[ $line == worktree* ]]; then
+        WORKTREE_PATH=${line#worktree }
+        continue
+    fi
+    
+    if [[ $line == branch* ]]; then
+        BRANCH=${line#branch refs/heads/}
+        
+        # Skip main/master branches
+        if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
+            continue
+        fi
+        
+        # Check last commit date
+        LAST_COMMIT=$(git log -1 --format=%ct "$BRANCH" 2>/dev/null || echo "0")
+        DAYS_OLD=$(( (CURRENT_TIME - LAST_COMMIT) / 86400 ))
+        
+        if [ "$DAYS_OLD" -gt "$THRESHOLD_DAYS" ]; then
+            echo ""
+            echo "⚠️  Worktree: $WORKTREE_PATH"
+            echo "   Branch: $BRANCH"
+            echo "   Last activity: $DAYS_OLD days ago"
+            echo "   Status: ABANDONED"
+            
+            # Check if worktree has uncommitted changes
+            cd "$WORKTREE_PATH" 2>/dev/null || continue
+            if git status --porcelain | grep -q .; then
+                echo "   ⚠️  WARNING: Uncommitted changes detected!"
+                echo "   Action: SKIPPING (manual intervention required)"
+            else
+                # Safe to remove
+                echo "   Action: Marked for removal"
+                echo "$WORKTREE_PATH|$BRANCH" >> /tmp/worktrees_to_remove.txt
+            fi
+            cd - > /dev/null
+        fi
+    fi
+done
+
+# Confirm removal
+if [ -f /tmp/worktrees_to_remove.txt ]; then
+    echo ""
+    echo "📝 Summary:"
+    REMOVE_COUNT=$(wc -l < /tmp/worktrees_to_remove.txt)
+    echo "   Found $REMOVE_COUNT abandoned worktree(s)"
+    echo ""
+    
+    cat /tmp/worktrees_to_remove.txt
+    echo ""
+    
+    read -p "❓ Remove these worktrees? (yes/NO): " CONFIRM
+    
+    if [[ "$CONFIRM" == "yes" ]]; then
+        while IFS='|' read -r worktree branch; do
+            echo "🗑️  Removing: $worktree (branch: $branch)"
+            
+            # Remove worktree
+            git worktree remove "$worktree" --force 2>/dev/null || {
+                echo "   ⚠️  Failed to remove worktree, trying manual cleanup..."
+                rm -rf "$worktree"
+            }
+            
+            # Delete branch if merged
+            if git branch --merged main | grep -q "$branch"; then
+                echo "   🗑️  Deleting merged branch: $branch"
+                git branch -d "$branch"
+            else
+                echo "   ⚠️  Branch not merged, keeping: $branch"
+            fi
+        done < /tmp/worktrees_to_remove.txt
+        
+        rm /tmp/worktrees_to_remove.txt
+        echo ""
+        echo "✅ Cleanup complete!"
+    else
+        echo "❌ Cleanup cancelled"
+        rm /tmp/worktrees_to_remove.txt
+    fi
+else
+    echo ""
+    echo "✅ No abandoned worktrees found!"
+fi
+
+echo ""
+echo "📊 Final worktree list:"
+git worktree list
+```
+
+**Automatic scheduled cleanup (optional):**
+```bash
+# Add to crontab to run weekly:
+# 0 2 * * 0 cd /path/to/project && /path/to/worktree_cleanup.sh
+
+# Or add git hook: .git/hooks/post-checkout
+#!/bin/bash
+# Run cleanup after every checkout
+/path/to/worktree_cleanup.sh
+```
 
 ---
 
-#### 🎓 Multi-AI Golden Rules
+### 🔀 Branch Collision Detection & Resolution (NEW - Phase 2)
 
-1. **Never assume isolation**: Always check if other AIs are working
-2. **Coordination is mandatory**: If multiple AIs detected → MUST use one of the 3 options
-3. **Same option for all**: All AIs must use the same coordination method
-4. **Fallback is acceptable**: If preferred option fails, use next in hierarchy
-5. **User decides conflicts**: If AIs disagree on file ownership → ask user
-6. **Visual feedback**: Option C (tmux) is default because visibility prevents mistakes
-7. **Production uses B**: For enterprise/critical work, Option B (orchestrator) is most robust
-8. **Option A is last resort**: Only use filesystem coordination if B and C both fail
+**Problem:** Extremely rare, but two AIs might generate the same UUID.
+
+**Solution:** Detection + automatic regeneration.
+
+```bash
+#!/bin/bash
+# create_branch_safe.sh - Create branch with collision detection
+
+generate_uuid() {
+    # Generate UUID v4
+    cat /proc/sys/kernel/random/uuid
+}
+
+create_branch_with_collision_check() {
+    local max_attempts=10
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        # Generate UUID
+        UUID=$(generate_uuid)
+        BRANCH="COM-$UUID"
+        
+        echo "🎲 Attempt $attempt: Generated branch name: $BRANCH"
+        
+        # Check if branch exists locally
+        if git show-ref --verify --quiet "refs/heads/$BRANCH"; then
+            echo "⚠️  COLLISION: Branch exists locally!"
+            attempt=$((attempt + 1))
+            continue
+        fi
+        
+        # Check if branch exists on remote
+        if git ls-remote --heads origin "$BRANCH" | grep -q "$BRANCH"; then
+            echo "⚠️  COLLISION: Branch exists on remote!"
+            attempt=$((attempt + 1))
+            continue
+        fi
+        
+        # Check coordination system for conflicts
+        if [ -f "/tmp/ai_coordination_*.json" ]; then
+            if grep -q "$BRANCH" /tmp/ai_coordination_*.json; then
+                echo "⚠️  COLLISION: Branch name in coordination system!"
+                attempt=$((attempt + 1))
+                continue
+            fi
+        fi
+        
+        # No collision detected - safe to create
+        echo "✅ Branch name is unique!"
+        git checkout -b "$BRANCH"
+        
+        # Register in coordination system
+        if [ -f "/tmp/ai_coordination_*.json" ]; then
+            ./ai_write_state.sh "$(whoami)-$$" "Working" "active" "$BRANCH"
+        fi
+        
+        echo "✅ Branch created: $BRANCH"
+        return 0
+    done
+    
+    echo "❌ CRITICAL: Failed to generate unique branch name after $max_attempts attempts"
+    echo "   This is statistically impossible (probability < 10^-30)"
+    echo "   Please check:"
+    echo "   1. Is UUID generation working? (check /proc/sys/kernel/random/uuid)"
+    echo "   2. Are there git repository corruption issues?"
+    echo "   3. Is coordination system state corrupted?"
+    return 1
+}
+
+# Usage
+create_branch_with_collision_check || exit 1
+```
+
+**Collision probability analysis:**
+```
+UUID v4 has 122 bits of randomness
+Total possible UUIDs: 2^122 ≈ 5.3 × 10^36
+
+With 10,000 branches:
+P(collision) ≈ 10,000^2 / (2 × 2^122) ≈ 9.4 × 10^-30
+
+Conclusion: Practically impossible, but detection adds safety
+```
 
 ---
+
+### 🔒 Test File Locking During Execution (NEW - Phase 2)
+
+**Problem:** One AI modifies test file while another AI is running those tests.
+
+**Solution:** Lock test files during execution, unlock after completion.
+
+```bash
+#!/bin/bash
+# pytest_with_lock.sh - Run tests with file locking
+
+AGENT_ID="${1:-$(whoami)-$$}"
+TEST_PATH="$2"
+
+if [ -z "$TEST_PATH" ]; then
+    echo "Usage: $0 <agent_id> <test_path>"
+    exit 1
+fi
+
+echo "🧪 Running tests with file locking"
+echo "   Agent: $AGENT_ID"
+echo "   Tests: $TEST_PATH"
+
+# Find all test files
+if [ -d "$TEST_PATH" ]; then
+    TEST_FILES=$(find "$TEST_PATH" -name "test_*.py" -o -name "*_test.py")
+else
+    TEST_FILES="$TEST_PATH"
+fi
+
+echo ""
+echo "📁 Test files to lock:"
+echo "$TEST_FILES"
+echo ""
+
+# Lock all test files
+echo "🔒 Locking test files..."
+for file in $TEST_FILES; do
+    ./ai_lock_file.sh "$AGENT_ID" "$file"
+done
+
+# Run tests
+echo ""
+echo "▶️  Executing tests..."
+pytest "$TEST_PATH" -v
+TEST_EXIT_CODE=$?
+
+# Unlock all test files
+echo ""
+echo "🔓 Unlocking test files..."
+for file in $TEST_FILES; do
+    ./ai_unlock_file.sh "$AGENT_ID" "$file" 2>/dev/null
+done
+
+# Report result
+if [ $TEST_EXIT_CODE -eq 0 ]; then
+    echo "✅ Tests passed!"
+else
+    echo "❌ Tests failed (exit code: $TEST_EXIT_CODE)"
+fi
+
+exit $TEST_EXIT_CODE
+```
+
+**Integration with coordination systems:**
+
+```python
+# ai_client.py extension
+def run_tests_with_lock(self, test_path):
+    """Run tests with automatic file locking"""
+    import subprocess
+    import glob
+    
+    # Find test files
+    if os.path.isdir(test_path):
+        test_files = glob.glob(f"{test_path}/**/test_*.py", recursive=True)
+    else:
+        test_files = [test_path]
+    
+    print(f"🧪 Running tests: {test_path}")
+    print(f"📁 Locking {len(test_files)} test file(s)...")
+    
+    # Lock all test files
+    for filepath in test_files:
+        if not self.lock_file(filepath):
+            print(f"❌ Cannot lock {filepath}, aborting test run")
+            # Unlock previously locked files
+            for f in test_files:
+                self.unlock_file(f)
+            return False
+    
+    try:
+        # Run tests
+        print("▶️  Executing pytest...")
+        result = subprocess.run(
+            ["pytest", test_path, "-v"],
+            capture_output=True, text=True
+        )
+        
+        print(result.stdout)
+        if result.stderr:
+            print(result.stderr)
+        
+        if result.returncode == 0:
+            print("✅ All tests passed!")
+        else:
+            print(f"❌ Tests failed (exit code: {result.returncode})")
+        
+        return result.returncode == 0
+        
+    finally:
+        # Always unlock files
+        print("🔓 Unlocking test files...")
+        for filepath in test_files:
+            self.unlock_file(filepath)
+```
+
+---
+
+### 📊 Multi-AI Coordination: Best Practices Summary
+
+#### When to Use Each Option
+
+| Situation | Recommended Option | Reason |
+|-----------|-------------------|---------|
+| Local dev, same machine | **Option C (tmux)** | Visual feedback, no network needed |
+| Remote collaboration | **Option B (orchestrator)** | Works across networks |
+| Network unavailable | **Option A (filesystem)** | Simple, offline capable |
+| Production/enterprise | **Option B (orchestrator)** | Robust, audit logs |
+| Solo development | **None** | Standard git workflow sufficient |
+
+#### Critical Rules
+
+1. **Always detect concurrent work**: AI must ask user before assuming solo work
+2. **Use worktrees for isolation**: Each AI = separate directory when concurrent
+3. **Lock files before editing**: Prevents data loss and conflicts
+4. **Implement fallback**: Option C → B → A hierarchy
+5. **Verify coordination working**: Run checklist after setup
+6. **Clean up worktrees**: Regular maintenance prevents disk bloat
+7. **Handle network failures**: Retry logic + fallback essential
+8. **Lock tests during execution**: Prevents modification during test runs
+9. **User decides conflicts**: If AIs disagree on file ownership → ask user
+10. **Visual feedback**: Option C (tmux) is default because visibility prevents mistakes
+
+---
+
 
 ---
 
