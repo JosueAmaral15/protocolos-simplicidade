@@ -192,6 +192,137 @@
 ---
 ---
 
+---
+
+## 📑 Índice
+
+> **Guia de Navegação**: Clique em qualquer seção para ir diretamente até ela. Use este índice para acesso rápido a qualquer parte deste protocolo.
+
+- [🤝 Guia de Interação Humano-IA: Passos Principais para Desenvolvimento de Software](#guia-de-interao-humano-ia-passos-principais-para-desenvolvimento-de-software)
+- [🎯 Por Quê Simplicidade 3 Existe?](#por-qu-simplicidade-3-existe)
+- [📊 Comparação dos Protocolos](#comparao-dos-protocolos)
+- [🎯 Quando Usar Simplicidade 3?](#quando-usar-simplicidade-3)
+- [🎯 Filosofia Central](#filosofia-central)
+- [📝 FILOSOFIA DE CLAREZA MÁXIMA: Documentação Universal (Solo)](#filosofia-de-clareza-mxima-documentao-universal-solo)
+- [Começar Rápido (3 minutos)](#comear-rpido-3-minutos)
+- [Como Estrutura Funciona](#como-estrutura-funciona)
+- [DECISIONS.md (Seu Mapa de Tesouro)](#decisionsmd-seu-mapa-de-tesouro)
+- [Decidido: Usar algoritmo módulo 11](#decidido-usar-algoritmo-mdulo-11)
+- [Troubleshooting Solo (Se der ruim)](#troubleshooting-solo-se-der-ruim)
+- [Como usar](#como-usar)
+- [🔴 CRÍTICO AGORA (Bombas-Relógio)](#crtico-agora-bombas-relgio)
+- [🟢 BACKLOG (Interessante, mas não urgente)](#backlog-interessante-mas-no-urgente)
+- [📝 REFERÊNCIA RÁPIDA (Para acordar assustado às 2AM)](#referncia-rpida-para-acordar-assustado-s-2am)
+- [🔐 FILOSOFIA DE SCRIPTS: Segurança, Transparência e Praticidade (Solo)](#filosofia-de-scripts-segurana-transparncia-e-praticidade-solo)
+- [👨‍💻 POSTURA PROFISSIONAL OBRIGATÓRIA: Desenvolvedor Sênior de Elite](#postura-profissional-obrigatria-desenvolvedor-snior-de-elite)
+- [🚫 PROIBIÇÕES ABSOLUTAS PARA INTELIGÊNCIAS ARTIFICIAIS (Solo Pragmático)](#proibies-absolutas-para-inteligncias-artificiais-solo-pragmtico)
+- [🌿 Fluxo de Trabalho Git Obrigatório: Branches COM-UUID](#fluxo-de-trabalho-git-obrigatrio-branches-com-uuid)
+- [🌐 Comunicação e Coordenação Multi-IA](#comunicao-e-coordenao-multi-ia)
+- [🎓 Paradigma Fundamental: Clareza Total Antes da Implementação (Solo Pragmático)](#paradigma-fundamental-clareza-total-antes-da-implementao-solo-pragmtico)
+- [❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas (Solo Dev)](#regra-obrigatria-perguntas-bloqueantes-para-dvidas-solo-dev)
+- [2026-01-08: Validação de CPF](#2026-01-08-validao-de-cpf)
+- [🚫 Hierarquia de Prioridades Bloqueantes](#hierarquia-de-prioridades-bloqueantes)
+- [1️⃣ O Que Precisa Ser Feito?](#1-o-que-precisa-ser-feito)
+- [2️⃣ Análise Rápida do Código Existente](#2-anlise-rpida-do-cdigo-existente)
+- [3️⃣ Como Vou Implementar?](#3-como-vou-implementar)
+- [4️⃣ Passo a Passo (Do Simples ao Complexo)](#4-passo-a-passo-do-simples-ao-complexo)
+- [5️⃣ Como Vou Testar?](#5-como-vou-testar)
+- [6️⃣ Documentação a Atualizar (Bloqueante)](#6-documentao-a-atualizar-bloqueante)
+- [7️⃣ Dúvidas que Preciso Resolver ANTES (Bloqueantes)](#7-dvidas-que-preciso-resolver-antes-bloqueantes)
+- [8️⃣ Riscos e Plano B (Solo Pragmático)](#8-riscos-e-plano-b-solo-pragmtico)
+- [9️⃣ Checklist Pré-Implementação (Solo)](#9-checklist-pr-implementao-solo)
+- [🔄 Notas Durante Implementação (Atualizar enquanto codifico)](#notas-durante-implementao-atualizar-enquanto-codifico)
+- [⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace](#regra-de-ouro-prioridade-absoluta-para-erros-no-workspace)
+- [🧪 Regra Obrigatória: Testes Unitários para Código com Lógica (Desenvolvimento Disciplinado)](#regra-obrigatria-testes-unitrios-para-cdigo-com-lgica-desenvolvimento-disciplinado)
+- [📝 Padrão de Questionários Editáveis para Solo Developers](#padro-de-questionrios-editveis-para-solo-developers)
+- [📊 Comparação Rápida](#comparao-rpida)
+- [✅ Sua Decisão](#sua-deciso)
+- [🗓️ Registro para "Você do Futuro"](#registro-para-voc-do-futuro)
+- [📊 Comparação Rápida](#comparao-rpida)
+- [✅ Sua Decisão](#sua-deciso)
+- [🗓️ Registro para "Você do Futuro"](#registro-para-voc-do-futuro)
+- [🔍 Busca Binária para Localização de Defeitos](#busca-binria-para-localizao-de-defeitos)
+- [🧠 Fator de Memória Associativa](#fator-de-memria-associativa)
+- [2025-12-28 - ValueError em CSV parsing](#2025-12-28-valueerror-em-csv-parsing)
+- [🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários](#idioma-do-cdigo-nomenclatura-de-variveis-e-comentrios)
+- [🌐 Convenções de Código](#convenes-de-cdigo)
+- [🌍 Internacionalização (i18n) - Tradução do Software (Solo Pragmático)](#internacionalizao-i18n-traduo-do-software-solo-pragmtico)
+- [📧 Meios de Contato para Feedback do Usuário](#meios-de-contato-para-feedback-do-usurio)
+- [📧 Feedback e Contato](#feedback-e-contato)
+- [📮 Feedback](#feedback)
+- [🐛 Reportar Problemas ou Dar Feedback](#reportar-problemas-ou-dar-feedback)
+- [📞 Entre em Contato](#entre-em-contato)
+- [📬 Feedback e Contato](#feedback-e-contato)
+- [📧 Política de Feedback](#poltica-de-feedback)
+- [📊 Divisão Recursiva de Tarefas Complexas](#diviso-recursiva-de-tarefas-complexas)
+- [📋 Espinha Dorsal do Protocolo (17 Etapas Obrigatórias)](#espinha-dorsal-do-protocolo-17-etapas-obrigatrias)
+- [📋 Descrição](#descrio)
+- [🚀 Produção](#produo)
+- [🛠️ Stack Tecnológico](#stack-tecnolgico)
+- [🔐 Segurança](#segurana)
+- [🔄 Rollback](#rollback)
+- [📚 Documentação](#documentao)
+- [🚨 Contato de Emergência](#contato-de-emergncia)
+- [A01:2021 – Broken Access Control](#a012021-broken-access-control)
+- [A02:2021 – Cryptographic Failures](#a022021-cryptographic-failures)
+- [A03:2021 – Injection](#a032021-injection)
+- [🎯 PLANO DE AÇÃO #[ID]: [Título]](#plano-de-ao-id-ttulo)
+- [🗂️ Estrutura](#estrutura)
+- [⚠️ Não Mexer](#no-mexer)
+- [💡 Padrões](#padres)
+- [🐛 TODOs Importantes](#todos-importantes)
+- [🤔 Dúvidas](#dvidas)
+- [🎯 Stack Recomendada: [Nome da Stack]](#stack-recomendada-nome-da-stack)
+- [🛠️ Stack Tecnológico (Solo Developer em Produção)](#stack-tecnolgico-solo-developer-em-produo)
+- [Sprint N: [Objetivo] ](#sprint-n-objetivo)
+- [Backlog](#backlog)
+- [Bloqueios](#bloqueios)
+- [docs/ARCHITECTURE.md (Solo - Mínimo)](#docsarchitecturemd-solo-mnimo)
+- [🔴 MUST HAVE - Sprint v2.1.0](#must-have-sprint-v210)
+- [Security Checklist - Task #XX](#security-checklist-task-xx)
+- [Checklist de Ícones - Projeto [Nome]](#checklist-de-cones-projeto-nome)
+- [🎨 Ícone do Projeto](#cone-do-projeto)
+- [Checklist de Scripts - Projeto [Nome]](#checklist-de-scripts-projeto-nome)
+- [🚀 Como Executar](#como-executar)
+- [📋 Objetivos da Sprint](#objetivos-da-sprint)
+- [🎯 Funcionalidades Implementadas](#funcionalidades-implementadas)
+- [✅ Qualidade (Protocolo Simplicidade 3)](#qualidade-protocolo-simplicidade-3)
+- [📊 Estatísticas](#estatsticas)
+- [Sprint v2.5 - Backlog Solo Developer](#sprint-v25-backlog-solo-developer)
+- [Esta Semana - Matriz Eisenhower](#esta-semana-matriz-eisenhower)
+- [📊 Legenda](#legenda)
+- [📊 Status do Projeto](#status-do-projeto)
+- [🔴 MUST HAVE - Release v3.3.0](#must-have-release-v330)
+- [🟡 SHOULD HAVE - Release v3.4.0 (backlog)](#should-have-release-v340-backlog)
+- [🟢 COULD HAVE - Backlog Futuro](#could-have-backlog-futuro)
+- [⚪ WON'T HAVE - Não fazer agora](#wont-have-no-fazer-agora)
+- [🤖 Recomendações da IA (3/30 usadas)](#recomendaes-da-ia-330-usadas)
+- [📝 Notas de Decisão (ADR Simplificado)](#notas-de-deciso-adr-simplificado)
+- [🟢 COULD HAVE (Prioridade Baixa)](#could-have-prioridade-baixa)
+- [Categorias](#categorias)
+- [Estatísticas](#estatsticas)
+- [📋 Objetivos da Sprint](#objetivos-da-sprint)
+- [🎯 Tasks Implementadas](#tasks-implementadas)
+- [✅ Qualidade (Protocolo Simplicidade 1)](#qualidade-protocolo-simplicidade-1)
+- [📊 Estatísticas](#estatsticas)
+- [Critérios para Rollback](#critrios-para-rollback)
+- [Como Reverter (Passo-a-Passo)](#como-reverter-passo-a-passo)
+- [Tempo Total Rollback](#tempo-total-rollback)
+- [Backup Necessário](#backup-necessrio)
+- [Dados em Risco](#dados-em-risco)
+- [🏆 Critérios de Qualidade Profissional](#critrios-de-qualidade-profissional)
+- [📊 Aplicação Prática: Task Example (Exemplo Completo)](#aplicao-prtica-task-example-exemplo-completo)
+- [🎓 Lições Aprendidas](#lies-aprendidas)
+- [📚 Referências](#referncias)
+- [🔄 Ciclo Contínuo](#ciclo-contnuo)
+- [🎯 Mensagem Final](#mensagem-final)
+- [📊 Organização Ordinal de Tarefas - Protocolos Simplicidade](#organizao-ordinal-de-tarefas-protocolos-simplicidade)
+- [🌳 Analogia da Árvore de Importações](#analogia-da-rvore-de-importaes)
+- [💡 Boas Práticas de Programação para IAs](#boas-prticas-de-programao-para-ias)
+- [📚 Documentos Relacionados](#documentos-relacionados)
+
+---
+
 ## 🤝 Guia de Interação Humano-IA: Passos Principais para Desenvolvimento de Software
 
 **AVISO CRÍTICO**: A inteligência artificial DEVE ser notificada sobre os passos principais para realizar corretamente o processo de desenvolvimento de software. A interação entre seres humanos e inteligência artificial DEVE seguir este fluxo:
@@ -5070,6 +5201,187 @@ Posso corrigir agora?
 - ✅ Correção rápida e pragmática
 - ✅ Aprendizado pessoal documentado
 - ✅ Seguir em frente sem drama
+
+
+### 🎯 Ordem de Execução de Testes Baseada em Prioridade (Estratégia CI/CD)
+
+> **OBRIGATÓRIO**: Testes devem ser executados em ordem de prioridade para habilitar estratégia **fail-fast** e otimizar eficiência do pipeline CI/CD.
+
+#### Níveis de Prioridade de Testes
+
+Testes são categorizados em 3 níveis de prioridade baseados em criticidade e velocidade de execução:
+
+**🔴 Prioridade MÁXIMA** (Executar Primeiro)
+- **Testes de caminho crítico**: Lógica de negócio core, autenticação, integridade de dados
+- **Testes unitários rápidos**: <5 segundos tempo total de execução
+- **Smoke tests**: Inicialização básica da aplicação e conectividade
+- **Testes de segurança**: Autenticação, autorização, validação de entrada
+
+**🟡 Prioridade MÉDIA** (Executar Segundo)
+- **Testes de integração**: Endpoints de API, operações de banco de dados
+- **Testes de componente**: Componentes UI, camada de serviço
+- **Testes de regressão**: Bugs previamente corrigidos
+- **Testes de performance**: Tempo de resposta, throughput (não-exaustivos)
+
+**🟢 Prioridade BAIXA** (Executar Por Último)
+- **Testes E2E**: Fluxos completos de usuário (lentos, caros)
+- **Testes de regressão visual**: Comparações de screenshots de UI
+- **Testes de carga**: Stress testing, planejamento de capacidade
+- **Testes cross-browser**: Múltiplas combinações browser/dispositivo
+
+#### Estratégia de Execução
+
+```bash
+# Ordem de Execução do Pipeline CI/CD
+
+# Fase 1: Prioridade MÁXIMA (fail fast)
+echo "🔴 Executando testes de prioridade MÁXIMA..."
+pytest -m "critical or security" --maxfail=1 tests/
+EXIT_CODE_MAX=$?
+
+if [ $EXIT_CODE_MAX -ne 0 ]; then
+    echo "❌ Testes de prioridade MÁXIMA FALHARAM - Parando pipeline"
+    exit 1
+fi
+
+# Fase 2: Prioridade MÉDIA
+echo "🟡 Executando testes de prioridade MÉDIA..."
+pytest -m "integration or component" tests/
+EXIT_CODE_MED=$?
+
+if [ $EXIT_CODE_MED -ne 0 ]; then
+    echo "⚠️  Testes de prioridade MÉDIA FALHARAM"
+    # Continuar para coletar todas as falhas, mas marcar build como instável
+fi
+
+# Fase 3: Prioridade BAIXA
+echo "🟢 Executando testes de prioridade BAIXA..."
+pytest -m "e2e or visual or load" tests/
+EXIT_CODE_LOW=$?
+
+if [ $EXIT_CODE_LOW -ne 0 ]; then
+    echo "⚠️  Testes de prioridade BAIXA FALHARAM"
+fi
+
+# Relatório final
+if [ $EXIT_CODE_MAX -eq 0 ] && [ $EXIT_CODE_MED -eq 0 ] && [ $EXIT_CODE_LOW -eq 0 ]; then
+    echo "✅ TODOS os testes passaram!"
+    exit 0
+elif [ $EXIT_CODE_MAX -eq 0 ]; then
+    echo "⚠️  Funcionalidade core OK, mas alguns testes falharam"
+    exit 1
+else
+    echo "❌ Testes críticos falharam - build QUEBRADO"
+    exit 1
+fi
+```
+
+#### Marcadores de Teste (exemplo pytest)
+
+```python
+# tests/test_auth.py
+
+import pytest
+
+@pytest.mark.critical
+@pytest.mark.security
+def test_authentication_required():
+    """🔴 MÁXIMA: Deve verificar que auth é forçada"""
+    response = client.get("/api/protected")
+    assert response.status_code == 401
+
+@pytest.mark.integration
+def test_login_flow():
+    """🟡 MÉDIA: Integração completa de login"""
+    response = client.post("/api/login", json={"user": "test", "pass": "test123"})
+    assert response.status_code == 200
+    assert "token" in response.json()
+
+@pytest.mark.e2e
+def test_complete_user_journey():
+    """🟢 BAIXA: Fluxo E2E completo (lento)"""
+    # Navegar, login, realizar ações, logout
+    # Leva 30+ segundos
+    pass
+```
+
+#### Configuração pytest.ini
+
+```ini
+[pytest]
+markers =
+    critical: Testes de caminho crítico (🔴 prioridade MÁXIMA)
+    security: Testes relacionados a segurança (🔴 prioridade MÁXIMA)
+    integration: Testes de integração (🟡 prioridade MÉDIA)
+    component: Testes de componente/unitário (🟡 prioridade MÉDIA)
+    e2e: Testes end-to-end (🟢 prioridade BAIXA)
+    visual: Testes de regressão visual (🟢 prioridade BAIXA)
+    load: Testes de carga/performance (🟢 prioridade BAIXA)
+```
+
+#### Benefícios da Execução Baseada em Prioridade
+
+1. **⚡ Feedback Rápido**: Falhas críticas detectadas em <1 minuto
+2. **💰 Redução de Custo**: Evitar rodar testes E2E caros se o core está quebrado
+3. **🎯 Prioridades Claras**: Time sabe quais testes são mais importantes
+4. **📊 Melhor Reportagem**: Categorias de falha separadas em dashboards CI
+5. **🔄 Execução Paralela**: Rodar grupos de prioridade em estágios paralelos
+
+#### Tempos de Execução Recomendados
+
+| Prioridade | Tempo Alvo | Máx. Falhas | Ação |
+|----------|-------------|--------------|--------|
+| 🔴 MÁXIMA | <2 minutos | 0 toleradas | Parar imediatamente |
+| 🟡 MÉDIA | <10 minutos | Reportar mas continuar | Marcar instável |
+| 🟢 BAIXA | <30 minutos | Reportar apenas | Informacional |
+
+#### Exemplo de Workflow GitHub Actions
+
+```yaml
+name: Testes (Baseados em Prioridade)
+
+on: [push, pull_request]
+
+jobs:
+  critical-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🔴 Executar testes de prioridade MÁXIMA
+        run: pytest -m "critical or security" --maxfail=1
+        timeout-minutes: 2
+
+  medium-tests:
+    runs-on: ubuntu-latest
+    needs: critical-tests  # Só executar se críticos passaram
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🟡 Executar testes de prioridade MÉDIA
+        run: pytest -m "integration or component"
+        timeout-minutes: 10
+
+  low-tests:
+    runs-on: ubuntu-latest
+    needs: medium-tests
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🟢 Executar testes de prioridade BAIXA
+        run: pytest -m "e2e or visual or load"
+        timeout-minutes: 30
+        continue-on-error: true  # Não bloquear merge em falhas E2E
+```
+
+#### Metas de Cobertura por Prioridade
+
+| Prioridade | Meta de Cobertura | Justificativa |
+|----------|----------------|-----------|
+| 🔴 MÁXIMA | **95-100%** | Caminhos críticos devem ter cobertura total |
+| 🟡 MÉDIA | **80-90%** | Cobertura padrão para a maioria do código |
+| 🟢 BAIXA | **60-80%** | Testes E2E fornecem cobertura mais ampla |
+
+**Meta geral do projeto**: 80-90% (conforme definido nos padrões do protocolo)
+
+---
 
 ### 📝 Resumo do Paradigma Solo
 

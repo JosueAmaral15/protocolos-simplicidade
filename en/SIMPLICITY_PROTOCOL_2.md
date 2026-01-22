@@ -204,6 +204,151 @@
 ---
 ---
 
+---
+
+## 📑 Table of Contents
+
+> **Navigation Guide**: Click any section to jump directly to it. Use this TOC for quick access to any part of this protocol.
+
+- [🤝 Human-AI Interaction Guide: Main Steps for Software Development](#human-ai-interaction-guide-main-steps-for-software-development)
+- [📊 Comparison of the 3 Protocols](#comparison-of-the-3-protocols)
+- [🎯 When to Use Each Protocol?](#when-to-use-each-protocol)
+- [🎯 Core Philosophy](#core-philosophy)
+- [📝 PHILOSOPHY OF MAXIMUM CLARITY: Universal Documentation (Enterprise)](#philosophy-of-maximum-clarity-universal-documentation-enterprise)
+- [🛡️ Compliance and Security](#compliance-and-security)
+- [How to use](#how-to-use)
+- [📋 Stakeholder Tracking](#stakeholder-tracking)
+- [🔴 Critical Tasks (Compliance)](#critical-tasks-compliance)
+- [🔐 SCRIPTS PHILOSOPHY: Security, Transparency, and Practicality (Enterprise)](#scripts-philosophy-security-transparency-and-practicality-enterprise)
+- [👨‍💻 MANDATORY PROFESSIONAL POSTURE: Elite Senior Developer](#mandatory-professional-posture-elite-senior-developer)
+- [🚫 ABSOLUTE PROHIBITIONS FOR ARTIFICIAL INTELLIGENCES (Enterprise)](#absolute-prohibitions-for-artificial-intelligences-enterprise)
+- [🌿 Mandatory Git Workflow: COM-UUID Branches](#mandatory-git-workflow-com-uuid-branches)
+- [📋 Description](#description)
+- [🎯 Change Type](#change-type)
+- [🔗 References](#references)
+- [✅ Checklist](#checklist)
+- [🧪 How to Test](#how-to-test)
+- [🔒 Security Considerations](#security-considerations)
+- [📊 Impact](#impact)
+- [👥 Reviewers](#reviewers)
+- [🌐 Multi-AI Communication & Coordination](#multi-ai-communication-coordination)
+- [🎓 Fundamental Paradigm: Total Clarity Before Implementation (Enterprise)](#fundamental-paradigm-total-clarity-before-implementation-enterprise)
+- [❓ Mandatory Rule: Blocking Questions for Doubts (Enterprise)](#mandatory-rule-blocking-questions-for-doubts-enterprise)
+- [🚫 Blocking Priorities Hierarchy](#blocking-priorities-hierarchy)
+- [⚠️ Golden Rule: Absolute Priority for Workspace Errors](#golden-rule-absolute-priority-for-workspace-errors)
+- [🧪 Mandatory Rule: Unit Tests for Complex Tools (Enterprise)](#mandatory-rule-unit-tests-for-complex-tools-enterprise)
+- [🔍 Binary Search for Bug Localization](#binary-search-for-bug-localization)
+- [🧠 Associative Memory Factor](#associative-memory-factor)
+- [📋 Associative Memory Factor - Complete Documentation](#associative-memory-factor-complete-documentation)
+- [🌐 Code Language: Variable Naming and Comments](#code-language-variable-naming-and-comments)
+- [🌐 Code Conventions](#code-conventions)
+- [📧 Contact Methods for User Feedback](#contact-methods-for-user-feedback)
+- [📧 Feedback and Contact](#feedback-and-contact)
+- [📮 Feedback](#feedback)
+- [🐛 Report Problems or Give Feedback](#report-problems-or-give-feedback)
+- [📞 Get in Touch](#get-in-touch)
+- [📬 Feedback and Contact](#feedback-and-contact)
+- [📧 Feedback Policy](#feedback-policy)
+- [📊 Recursive Division of Complex Tasks](#recursive-division-of-complex-tasks)
+- [📋 Protocol Backbone (24 Steps: 14 Mandatory + 10 Optional)](#protocol-backbone-24-steps-14-mandatory-10-optional)
+- [Context](#context)
+- [Decision](#decision)
+- [Alternatives Considered](#alternatives-considered)
+- [Consequences](#consequences)
+- [Validation](#validation)
+- [References](#references)
+- [Future Review](#future-review)
+- [📊 Project Metrics](#project-metrics)
+- [🏗️ Architecture](#architecture)
+- [🔗 Dependency Map](#dependency-map)
+- [🚨 Critical Code](#critical-code)
+- [📋 Main Flows](#main-flows)
+- [⚠️ Technical Debt and TODOs](#technical-debt-and-todos)
+- [✅ Validation](#validation)
+- [Context](#context)
+- [Decision](#decision)
+- [Alternatives Considered](#alternatives-considered)
+- [Consequences](#consequences)
+- [Validation](#validation)
+- [Cost Analysis](#cost-analysis)
+- [Compliance](#compliance)
+- [References](#references)
+- [Future Review](#future-review)
+- [🎯 ACTION PLAN #[ID]: [Title]](#action-plan-id-title)
+- [Decision Matrix - Sprint vX.X.X](#decision-matrix-sprint-vxxx)
+- [Icon Checklist - Project [Name]](#icon-checklist-project-name)
+- [🎨 Project Icon](#project-icon)
+- [Scripts Checklist - Project [Name]](#scripts-checklist-project-name)
+- [🚀 How to Run](#how-to-run)
+- [Description](#description)
+- [Type of Change](#type-of-change)
+- [Simplicity Protocol Checklist](#simplicity-protocol-checklist)
+- [How to Test](#how-to-test)
+- [Screenshots (if applicable)](#screenshots-if-applicable)
+- [Related](#related)
+- [Feature Description](#feature-description)
+- [Simplicity Protocol Checklist](#simplicity-protocol-checklist)
+- [How to Test](#how-to-test)
+- [Screenshots](#screenshots)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+- [Implementation](#implementation)
+- [References](#references)
+- [Notes](#notes)
+- [Active Decisions](#active-decisions)
+- [Superseded Decisions](#superseded-decisions)
+- [Rejected Decisions](#rejected-decisions)
+- [Proposed (Pending Discussion)](#proposed-pending-discussion)
+- [Template](#template)
+- [Numbering](#numbering)
+- [Status](#status)
+- [Context](#context)
+- [Decision](#decision)
+- [Consequences](#consequences)
+- [PR #145: Implement SQLite storage](#pr-145-implement-sqlite-storage)
+- [Sprint v3.2 - Prioritized Backlog](#sprint-v32-prioritized-backlog)
+- [📊 Legend](#legend)
+- [📊 Statistics](#statistics)
+- [🔴 MUST HAVE - Release v4.1](#must-have-release-v41)
+- [🟡 SHOULD HAVE - Release v4.2](#should-have-release-v42)
+- [🟢 COULD HAVE - Backlog](#could-have-backlog)
+- [🟢 COULD HAVE (Low Priority)](#could-have-low-priority)
+- [Categories](#categories)
+- [Statistics](#statistics)
+- [📋 Sprint Objectives](#sprint-objectives)
+- [🎯 Implemented Tasks](#implemented-tasks)
+- [✅ Quality (Simplicity Protocol 1)](#quality-simplicity-protocol-1)
+- [📊 Statistics](#statistics)
+- [Change Summary](#change-summary)
+- [Criteria for Rollback](#criteria-for-rollback)
+- [Step-by-Step Rollback](#step-by-step-rollback)
+- [Estimated Rollback Time](#estimated-rollback-time)
+- [External Dependencies](#external-dependencies)
+- [Data at Risk](#data-at-risk)
+- [Contact Persons](#contact-persons)
+- [🏆 Professional Quality Criteria](#professional-quality-criteria)
+- [📊 Practical Application: Task Example (Complete Example)](#practical-application-task-example-complete-example)
+- [🎓 Lessons Learned](#lessons-learned)
+- [📚 References](#references)
+- [🔄 Continuous Cycle](#continuous-cycle)
+- [📊 Sprint Metrics](#sprint-metrics)
+- [✅ What Went Well (Keep Doing)](#what-went-well-keep-doing)
+- [❌ What Didn't Go Well (Stop Doing / Fix)](#what-didnt-go-well-stop-doing-fix)
+- [💡 Ideas for Improvement (Start Doing)](#ideas-for-improvement-start-doing)
+- [📈 Comparison with Previous Sprints](#comparison-with-previous-sprints)
+- [🎯 Action Items for Next Sprint](#action-items-for-next-sprint)
+- [💬 Team Feedback](#team-feedback)
+- [📚 Lessons Learned](#lessons-learned)
+- [🎯 Final Message](#final-message)
+- [🌍 Internationalization (i18n) - Software Translation (Enterprise)](#internationalization-i18n-software-translation-enterprise)
+- [📊 Ordinal Task Organization - Simplicity Protocols](#ordinal-task-organization-simplicity-protocols)
+- [🌳 Tree Imports Analogy](#tree-imports-analogy)
+- [💡 Programming Best Practices for AI](#programming-best-practices-for-ai)
+
+---
+
 ## 🤝 Human-AI Interaction Guide: Main Steps for Software Development
 
 **CRITICAL NOTICE**: The artificial intelligence MUST be notified about the main steps to correctly perform the software development process. The interaction between human beings and artificial intelligence MUST follow this flow:
@@ -6482,6 +6627,187 @@ jobs:
 - `testify`: Enhanced assertions and mocking
 - `gomock`: Mock generation
 - `go-sqlmock`: Database mocking
+
+
+### 🎯 Priority-Based Test Execution Order (CI/CD Strategy)
+
+> **MANDATORY**: Tests must be executed in priority order to enable **fail-fast** strategy and optimize CI/CD pipeline efficiency.
+
+#### Test Priority Levels
+
+Tests are categorized into 3 priority levels based on criticality and execution speed:
+
+**🔴 MAXIMUM Priority** (Run First)
+- **Critical path tests**: Core business logic, authentication, data integrity
+- **Fast unit tests**: <5 seconds total execution time
+- **Smoke tests**: Basic application startup and connectivity
+- **Security tests**: Authentication, authorization, input validation
+
+**🟡 MEDIUM Priority** (Run Second)
+- **Integration tests**: API endpoints, database operations
+- **Component tests**: UI components, service layer
+- **Regression tests**: Previously fixed bugs
+- **Performance tests**: Response time, throughput (non-exhaustive)
+
+**🟢 LOW Priority** (Run Last)
+- **E2E tests**: Full user workflows (slow, expensive)
+- **Visual regression tests**: UI screenshot comparisons
+- **Load tests**: Stress testing, capacity planning
+- **Cross-browser tests**: Multiple browser/device combinations
+
+#### Execution Strategy
+
+```bash
+# CI/CD Pipeline Execution Order
+
+# Phase 1: MAXIMUM Priority (fail fast)
+echo "🔴 Running MAXIMUM priority tests..."
+pytest -m "critical or security" --maxfail=1 tests/
+EXIT_CODE_MAX=$?
+
+if [ $EXIT_CODE_MAX -ne 0 ]; then
+    echo "❌ MAXIMUM priority tests FAILED - Stopping pipeline"
+    exit 1
+fi
+
+# Phase 2: MEDIUM Priority
+echo "🟡 Running MEDIUM priority tests..."
+pytest -m "integration or component" tests/
+EXIT_CODE_MED=$?
+
+if [ $EXIT_CODE_MED -ne 0 ]; then
+    echo "⚠️  MEDIUM priority tests FAILED"
+    # Continue to collect all failures, but mark build as unstable
+fi
+
+# Phase 3: LOW Priority
+echo "🟢 Running LOW priority tests..."
+pytest -m "e2e or visual or load" tests/
+EXIT_CODE_LOW=$?
+
+if [ $EXIT_CODE_LOW -ne 0 ]; then
+    echo "⚠️  LOW priority tests FAILED"
+fi
+
+# Final report
+if [ $EXIT_CODE_MAX -eq 0 ] && [ $EXIT_CODE_MED -eq 0 ] && [ $EXIT_CODE_LOW -eq 0 ]; then
+    echo "✅ ALL tests passed!"
+    exit 0
+elif [ $EXIT_CODE_MAX -eq 0 ]; then
+    echo "⚠️  Core functionality OK, but some tests failed"
+    exit 1
+else
+    echo "❌ Critical tests failed - build BROKEN"
+    exit 1
+fi
+```
+
+#### Test Markers (pytest example)
+
+```python
+# tests/test_auth.py
+
+import pytest
+
+@pytest.mark.critical
+@pytest.mark.security
+def test_authentication_required():
+    """🔴 MAXIMUM: Must verify auth is enforced"""
+    response = client.get("/api/protected")
+    assert response.status_code == 401
+
+@pytest.mark.integration
+def test_login_flow():
+    """🟡 MEDIUM: Full login integration"""
+    response = client.post("/api/login", json={"user": "test", "pass": "test123"})
+    assert response.status_code == 200
+    assert "token" in response.json()
+
+@pytest.mark.e2e
+def test_complete_user_journey():
+    """🟢 LOW: Full E2E workflow (slow)"""
+    # Navigate, login, perform actions, logout
+    # Takes 30+ seconds
+    pass
+```
+
+#### pytest.ini Configuration
+
+```ini
+[pytest]
+markers =
+    critical: Critical path tests (🔴 MAXIMUM priority)
+    security: Security-related tests (🔴 MAXIMUM priority)
+    integration: Integration tests (🟡 MEDIUM priority)
+    component: Component/unit tests (🟡 MEDIUM priority)
+    e2e: End-to-end tests (🟢 LOW priority)
+    visual: Visual regression tests (🟢 LOW priority)
+    load: Load/performance tests (🟢 LOW priority)
+```
+
+#### Benefits of Priority-Based Execution
+
+1. **⚡ Fast Feedback**: Critical failures detected in <1 minute
+2. **💰 Cost Reduction**: Avoid running expensive E2E tests if core is broken
+3. **�� Clear Priorities**: Team knows which tests are most important
+4. **📊 Better Reporting**: Separate failure categories in CI dashboards
+5. **🔄 Parallel Execution**: Run priority groups in parallel stages
+
+#### Recommended Execution Times
+
+| Priority | Target Time | Max Failures | Action |
+|----------|-------------|--------------|--------|
+| 🔴 MAXIMUM | <2 minutes | 0 tolerated | Stop immediately |
+| 🟡 MEDIUM | <10 minutes | Report but continue | Mark unstable |
+| 🟢 LOW | <30 minutes | Report only | Informational |
+
+#### Example GitHub Actions Workflow
+
+```yaml
+name: Tests (Priority-Based)
+
+on: [push, pull_request]
+
+jobs:
+  critical-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🔴 Run MAXIMUM priority tests
+        run: pytest -m "critical or security" --maxfail=1
+        timeout-minutes: 2
+
+  medium-tests:
+    runs-on: ubuntu-latest
+    needs: critical-tests  # Only run if critical passed
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🟡 Run MEDIUM priority tests
+        run: pytest -m "integration or component"
+        timeout-minutes: 10
+
+  low-tests:
+    runs-on: ubuntu-latest
+    needs: medium-tests
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🟢 Run LOW priority tests
+        run: pytest -m "e2e or visual or load"
+        timeout-minutes: 30
+        continue-on-error: true  # Don't block merge on E2E failures
+```
+
+#### Coverage Targets by Priority
+
+| Priority | Coverage Target | Rationale |
+|----------|----------------|-----------|
+| 🔴 MAXIMUM | **95-100%** | Critical paths must be fully covered |
+| 🟡 MEDIUM | **80-90%** | Standard coverage for most code |
+| 🟢 LOW | **60-80%** | E2E tests provide broader coverage |
+
+**Overall project target**: 80-90% (as defined in protocol standards)
+
+---
 
 ### 📝 Summary (Enterprise)
 
