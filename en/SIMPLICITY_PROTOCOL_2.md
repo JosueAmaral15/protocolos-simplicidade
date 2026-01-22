@@ -139,7 +139,7 @@
 
 **Changelog v2.7** (01/06/2026):
 - ✅ **[MANDATORY ENTERPRISE]** Added Mandatory Rule: Unit Tests for Complex Tools (Enterprise)
-- ✅ MANDATORY: 80%+ code coverage for production code
+- ✅ MANDATORY: 90%+ code coverage for production code (Enterprise standard)
 - ✅ Strict criteria: All complex logic, critical paths, security/compliance code
 - ✅ CI/CD quality gates: Build fails if coverage drops below threshold
 - ✅ Payment processing example with mocking and audit logging tests
@@ -365,10 +365,33 @@
 After the protocol has been 100% read:
 1. **Documentation**: The AI MUST study **100% of the project documentation**
 2. **Source Code**: If there is code, the AI MUST study **100% of the code** (if not already read)
-3. **Git History**: The AI MUST read the entire project history with:
+3. **Git History**: The AI MUST read the project git history to understand changes:
    ```bash
+   # For recent projects or focused understanding (RECOMMENDED):
+   # Last 500 commits + key milestones
+   git log --all --stat --graph --decorate -n 500
+   
+   # Identify key milestones (major versions, releases)
+   git tag --list | sort -V
+   git log --all --stat --graph --decorate v1.0.0..HEAD
+   
+   # For older/large projects, limit scope to avoid overwhelming data:
+   # - Last 500 commits provides recent context
+   # - Key tags/releases show major evolution points
+   # - Use --since for time-based filtering if needed:
+   git log --all --stat --since="6 months ago"
+   
+   # For complete history (use with caution on large repos):
+   # Only if explicitly needed or project is small (<1000 commits)
    git log --all --stat --graph --decorate
    ```
+   
+   **Understanding Focus**:
+   - **Recent changes** (last 500 commits): Current development patterns
+   - **Key milestones** (tags, releases): Major feature evolution
+   - **Refactoring history**: Architectural decisions
+   - **Bug fixes**: Common failure patterns
+   - **Purpose**: Understand project evolution, not memorize every commit
 4. **Tests**: The AI MUST study and investigate algorithm behavior by running test codes from the `tests/` folder
 
 **Recommended order**: Protocol → Documentation → Git Log → Code → Tests
@@ -464,7 +487,7 @@ When the AI signals that it has finished and that the program/application has be
 - [ ] ✅ I chose a simplicity protocol (1, 2, or 3)
 - [ ] ✅ AI read 100% of the chosen protocol
 - [ ] ✅ AI studied 100% of existing documentation
-- [ ] ✅ AI read entire Git history (`git log --all --stat`)
+- [ ] ✅ AI read Git history (last 500 commits + key milestones)
 - [ ] ✅ AI studied 100% of source code (if it exists)
 - [ ] ✅ AI executed tests from `tests/` folder to understand behavior
 - [ ] ✅ Tasks documented in `docs/TASKS.md` or `docs/ORIGINAL-TASKS.md`
@@ -2588,7 +2611,7 @@ Implements OAuth2 and SAML per JIRA-1234
 - [x] Integration tests added
 - [x] Documentation updated
 - [x] Changelog updated
-- [x] Coverage >= 80%
+- [x] Coverage >= 90% (Enterprise)
 - [x] Linter passed
 - [x] Build succeeded
 - [x] Security audit passed
@@ -2917,7 +2940,7 @@ echo "$(date +%Y-%m-%d),$(npm run test:coverage --silent | grep 'All files' | aw
 **Enterprise Golden Rules:**
 1. **Main is sacred** - Never commit directly
 2. **Code review is mandatory** - No exceptions
-3. **Tests are required** - Coverage >= 80%
+3. **Tests are required** - Coverage >= 90% (Enterprise)
 4. **Sync daily** - Avoid merge hell
 5. **Commits are auditable** - Descriptive messages + ticket refs
 6. **Automation is friend** - Hooks, CI/CD, scripts
@@ -5011,7 +5034,7 @@ I need to clarify requirements before implementing:
 
 [ ] **Tests planned**
     - Test strategy defined
-    - Minimum 80% coverage planned
+    - Minimum 90% coverage (Enterprise standard) planned
     - Test cases documented
 
 [ ] **100% confidence + Formal approval**
@@ -5106,7 +5129,7 @@ I need to clarify requirements before implementing:
 11. 🧘 Organize internally
 12. 💯 Have 100% confidence + approvals
 13. 👥 Coordinate with other teams
-14. 🧪 Plan tests (80%+ coverage)
+14. 🧪 Plan tests (90%+ coverage (Enterprise))
 15. 💻 THEN and only THEN: Implement
 ```
 
@@ -5942,7 +5965,7 @@ Before starting any new task:
 
 ## 🧪 Mandatory Rule: Unit Tests for Complex Tools (Enterprise)
 
-> **CRITICAL ENTERPRISE**: When tools (classes, modules, components, functions) are **complex or critical for business**, it is **MANDATORY** to create comprehensive unit test files with **80%+ coverage** for each tool in a `tests/` folder.
+> **CRITICAL ENTERPRISE**: When tools (classes, modules, components, functions) are **complex or critical for business**, it is **MANDATORY** to create comprehensive unit test files with **90%+ coverage (Enterprise)** for each tool in a `tests/` folder.
 
 ### 🎯 Objective (Enterprise Focus)
 
@@ -8551,14 +8574,17 @@ AI must have **complete architectural knowledge** of the codebase:
     - Map public vs internal modules
     - Identify critical code (core business logic)
 
-[ ] **2. Read Complete Git History**
-    - **MANDATORY**: Read entire commit history from main/master branch
-    - Execute: `git log --all --stat -p` to see complete changes with diffs
+[ ] **2. Read Git History (Focused Scope)**
+    - **RECOMMENDED**: Read last 500 commits + key milestones for recent context
+    - Execute: `git log --all --stat --graph --decorate -n 500`
+    - Identify key milestones: `git tag --list | sort -V`
+    - For complete history (small projects <1000 commits): `git log --all --stat -p`
     - Understand feature evolution over time
     - Study refactoring history and why they were done
     - Analyze bug fixes and their context (what broke and how it was fixed)
-    - Understand all project changes since inception
+    - Understand project changes and development patterns
     - **Rationale**: Git history documents team decisions, mistakes and learnings
+    - **Note**: Last 500 commits + milestones provides sufficient context without overwhelming data
 
 [ ] **3. Architectural Analysis and Patterns**
     - Identify architecture (MVC, Clean Architecture, Hexagonal, Microservices)

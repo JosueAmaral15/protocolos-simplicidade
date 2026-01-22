@@ -438,7 +438,7 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 - [ ] ✅ Escolhi um protocolo de simplicidade (1, 2 ou 3)
 - [ ] ✅ IA leu 100% do protocolo escolhido
 - [ ] ✅ IA estudou 100% da documentação existente
-- [ ] ✅ IA leu todo o histórico Git (`git log --all --stat`)
+- [ ] ✅ IA leu histórico Git (últimos 500 commits + marcos-chave)
 - [ ] ✅ IA estudou 100% do código-fonte (se existir)
 - [ ] ✅ IA executou testes da pasta `tests/` para entender comportamento
 - [ ] ✅ Tarefas documentadas em `docs/TASKS.md` ou `docs/ORIGINAL-TASKS.md`

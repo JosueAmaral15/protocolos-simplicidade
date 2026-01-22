@@ -321,10 +321,33 @@
 After the protocol has been 100% read:
 1. **Documentation**: The AI MUST study **100% of the project documentation**
 2. **Source Code**: If there is code, the AI MUST study **100% of the code** (if not already read)
-3. **Git History**: The AI MUST read the entire project history with:
+3. **Git History**: The AI MUST read the project git history to understand changes:
    ```bash
+   # For recent projects or focused understanding (RECOMMENDED):
+   # Last 500 commits + key milestones
+   git log --all --stat --graph --decorate -n 500
+   
+   # Identify key milestones (major versions, releases)
+   git tag --list | sort -V
+   git log --all --stat --graph --decorate v1.0.0..HEAD
+   
+   # For older/large projects, limit scope to avoid overwhelming data:
+   # - Last 500 commits provides recent context
+   # - Key tags/releases show major evolution points
+   # - Use --since for time-based filtering if needed:
+   git log --all --stat --since="6 months ago"
+   
+   # For complete history (use with caution on large repos):
+   # Only if explicitly needed or project is small (<1000 commits)
    git log --all --stat --graph --decorate
    ```
+   
+   **Understanding Focus**:
+   - **Recent changes** (last 500 commits): Current development patterns
+   - **Key milestones** (tags, releases): Major feature evolution
+   - **Refactoring history**: Architectural decisions
+   - **Bug fixes**: Common failure patterns
+   - **Purpose**: Understand project evolution, not memorize every commit
 4. **Tests**: The AI MUST study and investigate algorithm behavior by running test codes from the `tests/` folder
 
 **Recommended order**: Protocol → Documentation → Git Log → Code → Tests
@@ -420,7 +443,7 @@ When the AI signals that it has finished and that the program/application has be
 - [ ] ✅ I chose a simplicity protocol (1, 2, or 3)
 - [ ] ✅ AI read 100% of the chosen protocol
 - [ ] ✅ AI studied 100% of existing documentation
-- [ ] ✅ AI read entire Git history (`git log --all --stat`)
+- [ ] ✅ AI read Git history (last 500 commits + key milestones)
 - [ ] ✅ AI studied 100% of source code (if it exists)
 - [ ] ✅ AI executed tests from `tests/` folder to understand behavior
 - [ ] ✅ Tasks documented in `docs/TASKS.md` or `docs/ORIGINAL-TASKS.md`

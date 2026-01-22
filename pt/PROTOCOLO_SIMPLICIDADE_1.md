@@ -400,10 +400,33 @@
 Após o protocolo ter sido 100% lido:
 1. **Documentação**: A IA DEVE estudar **100% da documentação** do projeto
 2. **Código-fonte**: Se houver código, a IA DEVE estudar **100% do código** (se não tiver sido lido)
-3. **Histórico Git**: A IA DEVE ler todo o histórico do projeto com:
+3. **Histórico Git**: A IA DEVE ler o histórico git do projeto para entender mudanças:
    ```bash
+   # Para projetos recentes ou compreensão focada (RECOMENDADO):
+   # Últimos 500 commits + marcos-chave
+   git log --all --stat --graph --decorate -n 500
+   
+   # Identificar marcos-chave (versões principais, releases)
+   git tag --list | sort -V
+   git log --all --stat --graph --decorate v1.0.0..HEAD
+   
+   # Para projetos grandes/antigos, limitar escopo para evitar dados excessivos:
+   # - Últimos 500 commits fornecem contexto recente
+   # - Tags/releases chave mostram pontos de evolução principais
+   # - Use --since para filtragem baseada em tempo se necessário:
+   git log --all --stat --since="6 months ago"
+   
+   # Para histórico completo (use com cautela em repos grandes):
+   # Apenas se explicitamente necessário ou projeto pequeno (<1000 commits)
    git log --all --stat --graph --decorate
    ```
+   
+   **Foco de Compreensão**:
+   - **Mudanças recentes** (últimos 500 commits): Padrões atuais de desenvolvimento
+   - **Marcos-chave** (tags, releases): Evolução de features principais
+   - **Histórico de refatoração**: Decisões arquiteturais
+   - **Correções de bugs**: Padrões comuns de falha
+   - **Propósito**: Entender evolução do projeto, não memorizar cada commit
 4. **Testes**: A IA DEVE estudar e investigar o comportamento dos algoritmos executando os códigos de teste da pasta `tests/`
 
 **Ordem recomendada**: Protocolo → Documentação → Git Log → Código → Testes
@@ -499,7 +522,7 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 - [ ] ✅ Escolhi um protocolo de simplicidade (1, 2 ou 3)
 - [ ] ✅ IA leu 100% do protocolo escolhido
 - [ ] ✅ IA estudou 100% da documentação existente
-- [ ] ✅ IA leu todo o histórico Git (`git log --all --stat`)
+- [ ] ✅ IA leu histórico Git (últimos 500 commits + marcos-chave)
 - [ ] ✅ IA estudou 100% do código-fonte (se existir)
 - [ ] ✅ IA executou testes da pasta `tests/` para entender comportamento
 - [ ] ✅ Tarefas documentadas em `docs/TASKS.md` ou `docs/ORIGINAL-TASKS.md`
