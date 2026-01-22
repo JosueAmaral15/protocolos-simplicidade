@@ -76,6 +76,63 @@ Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da 
 
 ---
 
+## 🤖 Para Inteligências Artificiais
+
+### ⚠️ Instrução Obrigatória de Leitura do Protocolo
+
+**Todos os protocolos começam com uma INSTRUÇÃO OBRIGATÓRIA exigindo compreensão de 100% do conteúdo antes de prosseguir.**
+
+Cada arquivo de protocolo inicia com um aviso proeminente:
+
+> 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes.
+
+**O que isso significa:**
+- IAs devem ler **cada seção, princípio, checklist e diretriz**
+- Compreensão parcial leva a trabalho incompleto e frustração do usuário
+- A eficácia depende inteiramente do domínio do protocolo
+
+### 🌐 Comunicação e Coordenação Multi-IA (v3.3+)
+
+**Novo Recurso**: Guia completo para múltiplas IAs trabalhando concorrentemente no mesmo projeto.
+
+Quando múltiplas inteligências artificiais trabalham simultaneamente (ex: múltiplas abas/janelas de terminal), a coordenação é **obrigatória** para prevenir conflitos.
+
+**3 Opções de Coordenação:**
+
+1. **Opção A: Estado Compartilhado via Sistema de Arquivos** (Mais Simples, Último Recurso)
+   - Todas as IAs leem/escrevem de `/tmp/ai_coordination.json`
+   - Vantagens: Simples, sem dependências
+   - Desvantagens: Condições de corrida, não escalável além de 2-3 IAs
+
+2. **Opção B: Orquestrador Externo** (Recomendado para Produção)
+   - Controlador central Python/Go com API REST
+   - Mantém memória compartilhada, atribui papéis, aplica bloqueios de arquivo
+   - Vantagens: Escalável (10+ IAs), auditável, pronto para produção
+   - Desvantagens: Requer processo externo, mais complexo
+
+3. **Opção C: tmux + Controlador Daemon** (Padrão para Desenvolvimento Local)
+   - Superfície de coordenação visual (1 painel = 1 papel de IA)
+   - Daemon monitora painéis, extrai intenção, injeta contexto
+   - Vantagens: Feedback visual, controle tátil, apenas local
+   - Desvantagens: Requer tmux, apenas máquina local
+
+**Hierarquia de Fallback:** C → B → A (se configuração falhar)
+
+**Recursos Principais:**
+- ✅ Protocolos de detecção (IA deve detectar se coordenação já existe)
+- ✅ Prevenção de conflitos (bloqueios de arquivo, retry de operações git com backoff exponencial)
+- ✅ Checklist de verificação de coordenação (como testar se está funcionando)
+- ✅ Tratamento de falha de rede (fallback automático)
+- ✅ Instruções completas de configuração (scripts Python/Bash incluídos)
+
+**Onde encontrar:** Todos os 6 protocolos incluem capítulo abrangente de Comunicação e Coordenação Multi-IA com:
+- Explicação da realidade técnica (por que comunicação direta IA-para-IA é impossível)
+- Guia completo de implementação para todas as 3 opções
+- Troubleshooting & casos extremos
+- Checklists de coordenação
+
+---
+
 ## ⚠️ Regra Fundamental para Todos os Protocolos
 
 > **CRÍTICO**: Antes de implementar novas funcionalidades, **todos os erros no workspace devem ser corrigidos**.

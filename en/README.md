@@ -73,6 +73,63 @@ Created specifically for the developer who doesn't have a team but needs the sec
 
 ---
 
+## 🤖 For Artificial Intelligences
+
+### ⚠️ Mandatory Protocol Reading Instruction
+
+**All protocols begin with a MANDATORY INSTRUCTION requiring 100% comprehension of content before proceeding.**
+
+Every protocol file starts with a prominent notice:
+
+> 📖 **MANDATORY FOR ALL ARTIFICIAL INTELLIGENCES**: If you are reading this protocol, you MUST study and comprehend 100% of its content before proceeding. This is not optional documentation—it is the foundational methodology that defines how you must assist users and their customers.
+
+**What this means:**
+- AIs must read **every section, principle, checklist, and guideline**
+- Partial understanding leads to incomplete work and user frustration
+- Effectiveness depends entirely on mastering the protocol
+
+### 🌐 Multi-AI Communication & Coordination (v3.3+)
+
+**New Feature**: Complete guide for multiple AIs working concurrently on the same project.
+
+When multiple artificial intelligences work simultaneously (e.g., multiple terminal tabs/windows), coordination is **mandatory** to prevent conflicts.
+
+**3 Coordination Options:**
+
+1. **Option A: Shared State via Filesystem** (Simplest, Last Resort)
+   - All AIs read/write from `/tmp/ai_coordination.json`
+   - Advantages: Simple, no dependencies
+   - Disadvantages: Race conditions, not scalable beyond 2-3 AIs
+
+2. **Option B: External Orchestrator** (Recommended for Production)
+   - Central Python/Go controller with REST API
+   - Maintains shared memory, assigns roles, enforces file locks
+   - Advantages: Scalable (10+ AIs), auditable, production-ready
+   - Disadvantages: Requires external process, more complex
+
+3. **Option C: tmux + Daemon Controller** (Default for Local Development)
+   - Visual coordination surface (1 pane = 1 AI role)
+   - Daemon monitors panes, extracts intent, injects context
+   - Advantages: Visual feedback, tactile control, local-only
+   - Disadvantages: Requires tmux, local machine only
+
+**Fallback Hierarchy:** C → B → A (if setup fails)
+
+**Key Features:**
+- ✅ Detection protocols (AI must detect if coordination already exists)
+- ✅ Conflict prevention (file locks, git operation retry with exponential backoff)
+- ✅ Coordination verification checklist (how to test if working)
+- ✅ Network failure handling (automatic fallback)
+- ✅ Complete setup instructions (Python/Bash scripts included)
+
+**Where to find:** All 6 protocols include comprehensive Multi-AI Communication & Coordination chapter with:
+- Technical reality explanation (why direct AI-to-AI communication is impossible)
+- Complete implementation guide for all 3 options
+- Troubleshooting & edge cases
+- Coordination checklists
+
+---
+
 ## ⚠️ Fundamental Rule for All Protocols
 
 > **CRITICAL**: Before implementing new features, **all workspace errors must be fixed**.
