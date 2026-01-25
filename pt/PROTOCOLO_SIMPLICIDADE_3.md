@@ -7636,6 +7636,483 @@ A busca binária não se limita a linhas de código. Pode ser aplicada a:
 
 ---
 
+## 🐛 Estratégias de Depuração: Investigação Baseada em Prints
+
+> **RECOMENDADO**: Ao investigar bugs e a causa raiz não é imediatamente óbvia, adicionar declarações de print de debug é uma técnica poderosa para entender o comportamento do algoritmo e rastrear o fluxo de execução.
+
+### 📋 Quando Usar Debug Prints
+
+**Cenários ideais:**
+- Bug é reproduzível mas a causa é obscura
+- Necessidade de rastrear valores de variáveis durante execução
+- Compreender fluxo de lógica condicional complexa
+- Investigar mudanças de estado ao longo do tempo
+- Depuração rápida sem configurar ferramentas de debugger
+
+**Não ideal para:**
+- Código em produção (use frameworks de logging ao invés)
+- Seções críticas de performance (prints são lentos)
+- Código multi-thread (output pode intercalar)
+- Quando ferramentas de debugger já estão configuradas
+
+---
+
+### 🎯 Template de Debug Print (Formato Padronizado)
+
+**Formato Universal:**
+```
+DEBUG [NÚMERO_LINHA] [nome_função()] | nome_variável: valor
+```
+
+**Componentes:**
+1. **DEBUG**: Prefixo para fácil filtragem/remoção
+2. **[NÚMERO_LINHA]**: Linha atual do código (ajuda a localizar o print)
+3. **[nome_função()]**: Função/método onde o print está localizado
+4. **|**: Separador entre identificação e valor
+5. **nome_variável: valor**: O que você está inspecionando
+
+---
+
+### 💻 Exemplos Específicos por Linguagem
+
+#### Python
+```python
+def calcular_total(itens, taxa_imposto):
+    print(f"DEBUG 42 calcular_total() | itens: {itens}")
+    print(f"DEBUG 43 calcular_total() | taxa_imposto: {taxa_imposto}")
+    
+    subtotal = sum(item['preco'] for item in itens)
+    print(f"DEBUG 45 calcular_total() | subtotal: {subtotal}")
+    
+    imposto = subtotal * taxa_imposto
+    print(f"DEBUG 48 calcular_total() | imposto: {imposto}")
+    
+    total = subtotal + imposto
+    print(f"DEBUG 51 calcular_total() | total: {total}")
+    
+    return total
+```
+
+**Alternativa com marcadores de fluxo de execução:**
+```python
+def processar_pedido(pedido_id):
+    print(f"DEBUG 100 processar_pedido() | ENTRADA | pedido_id: {pedido_id}")
+    
+    pedido = obter_pedido(pedido_id)
+    print(f"DEBUG 103 processar_pedido() | pedido: {pedido}")
+    
+    if pedido.status == 'pendente':
+        print(f"DEBUG 106 processar_pedido() | BRANCH: status pendente")
+        resultado = validar_pedido(pedido)
+        print(f"DEBUG 108 processar_pedido() | resultado_validacao: {resultado}")
+    else:
+        print(f"DEBUG 110 processar_pedido() | BRANCH: status não-pendente")
+        resultado = None
+    
+    print(f"DEBUG 114 processar_pedido() | SAÍDA | resultado: {resultado}")
+    return resultado
+```
+
+#### JavaScript/TypeScript
+```javascript
+function calcularDesconto(preco, porcentagemDesconto) {
+    console.log(`DEBUG 25 calcularDesconto() | preco: ${preco}`);
+    console.log(`DEBUG 26 calcularDesconto() | porcentagemDesconto: ${porcentagemDesconto}`);
+    
+    const desconto = preco * (porcentagemDesconto / 100);
+    console.log(`DEBUG 29 calcularDesconto() | desconto: ${desconto}`);
+    
+    const precoFinal = preco - desconto;
+    console.log(`DEBUG 32 calcularDesconto() | precoFinal: ${precoFinal}`);
+    
+    return precoFinal;
+}
+```
+
+#### C/C++
+```c
+int fibonacci(int n) {
+    printf("DEBUG 15 fibonacci() | n: %d
+", n);
+    
+    if (n <= 1) {
+        printf("DEBUG 18 fibonacci() | BRANCH: caso base | retornando: %d
+", n);
+        return n;
+    }
+    
+    int a = fibonacci(n - 1);
+    printf("DEBUG 23 fibonacci() | a: %d
+", a);
+    
+    int b = fibonacci(n - 2);
+    printf("DEBUG 26 fibonacci() | b: %d
+", b);
+    
+    int resultado = a + b;
+    printf("DEBUG 29 fibonacci() | resultado: %d
+", resultado);
+    
+    return resultado;
+}
+```
+
+#### Java
+```java
+public double calcularJuros(double principal, double taxa, int anos) {
+    System.out.println("DEBUG 50 calcularJuros() | principal: " + principal);
+    System.out.println("DEBUG 51 calcularJuros() | taxa: " + taxa);
+    System.out.println("DEBUG 52 calcularJuros() | anos: " + anos);
+    
+    double juros = principal * taxa * anos;
+    System.out.println("DEBUG 55 calcularJuros() | juros: " + juros);
+    
+    return juros;
+}
+```
+
+#### Go
+```go
+func ProcessarDados(dados []int) int {
+    fmt.Printf("DEBUG 80 ProcessarDados() | dados: %v
+", dados)
+    
+    soma := 0
+    for i, val := range dados {
+        fmt.Printf("DEBUG 84 ProcessarDados() | iteracao: %d | val: %d
+", i, val)
+        soma += val
+        fmt.Printf("DEBUG 86 ProcessarDados() | soma: %d
+", soma)
+    }
+    
+    fmt.Printf("DEBUG 89 ProcessarDados() | soma_final: %d
+", soma)
+    return soma
+}
+```
+
+---
+
+### 📚 Exemplo Antes/Depois: Depurando um Bug Real
+
+#### Antes (Código com Bug)
+```python
+def aplicar_desconto(preco, codigo_desconto):
+    """Aplicar código de desconto ao preço"""
+    descontos = {
+        'ECONOMIZE10': 0.10,
+        'ECONOMIZE20': 0.20,
+        'ECONOMIZE30': 0.30
+    }
+    
+    valor_desconto = preco * descontos[codigo_desconto]  # Bug: KeyError se código inválido
+    preco_final = preco - valor_desconto
+    
+    return preco_final
+
+# Usuário reporta: "App quebra com código de desconto 'BEMVINDO'"
+```
+
+#### Depois (Com Debug Prints Adicionados)
+```python
+def aplicar_desconto(preco, codigo_desconto):
+    """Aplicar código de desconto ao preço"""
+    print(f"DEBUG 10 aplicar_desconto() | ENTRADA | preco: {preco}, codigo_desconto: '{codigo_desconto}'")
+    
+    descontos = {
+        'ECONOMIZE10': 0.10,
+        'ECONOMIZE20': 0.20,
+        'ECONOMIZE30': 0.30
+    }
+    print(f"DEBUG 17 aplicar_desconto() | codigos_disponiveis: {list(descontos.keys())}")
+    
+    # Verificar se código existe
+    print(f"DEBUG 20 aplicar_desconto() | verificando se '{codigo_desconto}' em descontos")
+    print(f"DEBUG 21 aplicar_desconto() | codigo_existe: {codigo_desconto in descontos}")
+    
+    valor_desconto = preco * descontos[codigo_desconto]  # Esta linha vai quebrar
+    print(f"DEBUG 24 aplicar_desconto() | valor_desconto: {valor_desconto}")
+    
+    preco_final = preco - valor_desconto
+    print(f"DEBUG 27 aplicar_desconto() | preco_final: {preco_final}")
+    
+    return preco_final
+```
+
+#### Saída no Terminal (Revela o Bug)
+```
+DEBUG 10 aplicar_desconto() | ENTRADA | preco: 100, codigo_desconto: 'BEMVINDO'
+DEBUG 17 aplicar_desconto() | codigos_disponiveis: ['ECONOMIZE10', 'ECONOMIZE20', 'ECONOMIZE30']
+DEBUG 20 aplicar_desconto() | verificando se 'BEMVINDO' em descontos
+DEBUG 21 aplicar_desconto() | codigo_existe: False
+KeyError: 'BEMVINDO'
+```
+
+**Bug Identificado:** Código não trata códigos de desconto inválidos! Falta validação.
+
+#### Código Corrigido (Bug Resolvido)
+```python
+def aplicar_desconto(preco, codigo_desconto):
+    """Aplicar código de desconto ao preço"""
+    descontos = {
+        'ECONOMIZE10': 0.10,
+        'ECONOMIZE20': 0.20,
+        'ECONOMIZE30': 0.30
+    }
+    
+    # Validação adicionada baseada na investigação com debug
+    if codigo_desconto not in descontos:
+        print(f"Aviso: Código de desconto inválido '{codigo_desconto}', usando desconto de 0%")
+        return preco
+    
+    valor_desconto = preco * descontos[codigo_desconto]
+    preco_final = preco - valor_desconto
+    
+    return preco_final
+# Debug prints removidos após correção
+```
+
+---
+
+### ✅ Melhores Práticas para Debug Prints
+
+#### 1. **Use Mensagens Significativas**
+```python
+# ❌ Ruim
+print(x)
+print("aqui")
+print(123)
+
+# ✅ Bom
+print(f"DEBUG 50 processar() | id_usuario: {x}")
+print(f"DEBUG 75 validar() | CHECKPOINT: validação alcançada")
+print(f"DEBUG 123 calcular() | contador_iteracao: {123}")
+```
+
+#### 2. **Mostre Nomes de Variáveis E Valores**
+```python
+# ❌ Ruim - apenas o valor
+print(total)  # O que é 42?
+
+# ✅ Bom - contexto incluído
+print(f"DEBUG 30 checkout() | total: {total}")  # total: 42
+```
+
+#### 3. **Registre Marcadores de Fluxo de Execução**
+```python
+def algoritmo_complexo(dados):
+    print(f"DEBUG 100 algoritmo_complexo() | ENTRADA")
+    
+    if condicao_a:
+        print(f"DEBUG 103 algoritmo_complexo() | BRANCH: condicao_a = True")
+        # ... lógica ...
+    elif condicao_b:
+        print(f"DEBUG 107 algoritmo_complexo() | BRANCH: condicao_b = True")
+        # ... lógica ...
+    else:
+        print(f"DEBUG 111 algoritmo_complexo() | BRANCH: else (fallback)")
+        # ... lógica ...
+    
+    print(f"DEBUG 115 algoritmo_complexo() | SAÍDA | resultado: {resultado}")
+    return resultado
+```
+
+#### 4. **Use Formatação Consistente**
+```python
+# Template consistente facilita filtragem
+# Formato: DEBUG [LINHA] [funcao()] | contexto: valor
+
+print(f"DEBUG 25 main() | qtd_usuarios: {len(usuarios)}")
+print(f"DEBUG 30 main() | sessoes_ativas: {sessoes}")
+print(f"DEBUG 35 main() | uso_memoria: {memoria}MB")
+```
+
+#### 5. **Remova ou Comente Após Corrigir**
+```python
+def funcao_corrigida():
+    # print(f"DEBUG 10 funcao_corrigida() | ENTRADA")  # Comentado após correção
+    
+    resultado = fazer_trabalho()
+    
+    # print(f"DEBUG 15 funcao_corrigida() | resultado: {resultado}")  # Comentado
+    return resultado
+```
+
+---
+
+### 🛠️ Ferramentas Alternativas de Depuração
+
+Embora debug prints sejam poderosos, considere estas alternativas:
+
+#### Quando Usar Ferramentas de Debugger
+
+| Ferramenta | Linguagem | Quando Usar |
+|------------|-----------|-------------|
+| **pdb** | Python | Depuração passo-a-passo, inspeção interativa de variáveis |
+| **GDB** | C/C++ | Problemas de memória, segfaults, depuração de baixo nível |
+| **Chrome DevTools** | JavaScript | Código baseado em browser, inspeção de rede |
+| **VS Code Debugger** | Multi-linguagem | Integração com IDE, breakpoints, watch expressions |
+| **jdb / IntelliJ** | Java | Aplicações Java complexas, depuração de threads |
+| **Delve** | Go | Inspeção de goroutines, problemas de concorrência |
+
+**Debugger vs Print Statements:**
+
+**Use Debuggers quando:**
+- ✅ Precisa pausar execução e inspecionar estado
+- ✅ Quer percorrer código linha-por-linha
+- ✅ Investigando hierarquias complexas de objetos
+- ✅ Depurando código multi-thread/concorrente
+- ✅ Já familiarizado com configuração de debugger
+
+**Use Print Statements quando:**
+- ✅ Investigação rápida (mais rápido que configurar debugger)
+- ✅ Ambientes remotos/headless (sem debugger GUI)
+- ✅ Compreender fluxo ao longo de muitas iterações
+- ✅ Depurar problemas intermitentes (capturar logs)
+- ✅ Bugs simples em pequenas seções de código
+
+---
+
+### 📊 Frameworks de Logging (Alternativa para Produção)
+
+**⚠️ Importante:** Debug print statements devem ser **removidos antes de commitar** ou substituídos por logging adequado.
+
+#### Python: módulo `logging`
+```python
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+def processar_dados(dados):
+    logger.debug(f"processar_dados() | ENTRADA | dados: {dados}")
+    
+    resultado = transformar(dados)
+    logger.debug(f"processar_dados() | resultado: {resultado}")
+    
+    logger.info(f"Processados {len(dados)} itens com sucesso")
+    return resultado
+
+# Pode ser desabilitado em produção com level=logging.INFO
+```
+
+#### JavaScript: pacote `debug`
+```javascript
+const debug = require('debug')('app:modulo');
+
+function processarPedido(pedidoId) {
+    debug('processarPedido() | pedidoId: %s', pedidoId);
+    
+    const pedido = obterPedido(pedidoId);
+    debug('processarPedido() | pedido: %O', pedido);
+    
+    return pedido;
+}
+
+// Habilitar com: DEBUG=app:* node app.js
+```
+
+#### Java: SLF4J + Logback
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ServicosPedido {
+    private static final Logger logger = LoggerFactory.getLogger(ServicosPedido.class);
+    
+    public void processarPedido(String pedidoId) {
+        logger.debug("processarPedido() | pedidoId: {}", pedidoId);
+        
+        Pedido pedido = obterPedido(pedidoId);
+        logger.debug("processarPedido() | pedido: {}", pedido);
+        
+        logger.info("Pedido {} processado com sucesso", pedidoId);
+    }
+}
+```
+
+#### C++: spdlog
+```cpp
+#include "spdlog/spdlog.h"
+
+void processarDados(const std::vector<int>& dados) {
+    spdlog::debug("processarDados() | ENTRADA | tamanho: {}", dados.size());
+    
+    int soma = 0;
+    for (int val : dados) {
+        soma += val;
+        spdlog::debug("processarDados() | val: {} | soma: {}", val, soma);
+    }
+    
+    spdlog::info("Processados {} itens, total: {}", dados.size(), soma);
+}
+```
+
+---
+
+### ⚠️ Avisos Importantes
+
+#### Antes de Commitar Código:
+
+**FAÇA ✅:**
+- Remova todas as declarações de debug print
+- Ou substitua por framework de logging adequado
+- Revise git diff para pegar prints esquecidos
+- Busque na codebase por "DEBUG" ou "print(" antes de commit
+
+**NÃO FAÇA ❌:**
+- Commitar código com print() statements (Python)
+- Commitar código com console.log() (JavaScript)
+- Commitar código com printf() (C/C++) para debug
+- Deixar output de debug em código de produção
+
+#### Comando para Encontrar Debug Prints Antes de Commit:
+```bash
+# Buscar padrões comuns de debug
+git diff --cached | grep -i "DEBUG\|print(\|console.log\|printf("
+
+# Ou buscar na codebase inteira
+grep -r "DEBUG [0-9]" . --include="*.py" --include="*.js" --include="*.c"
+```
+
+#### Use Logging Ao Invés:
+```python
+# ❌ NÃO commite isso
+print(f"DEBUG 50 processar() | usuario: {usuario}")
+
+# ✅ COMMITE isso
+logger.debug("processar() | usuario: %s", usuario)  # Pode ser desabilitado em produção
+```
+
+---
+
+### 🎯 Resumo: Estratégia de Debug Print
+
+**Quando usar:**
+- Investigando bugs com causa raiz obscura
+- Necessidade de rastrear valores de variáveis e fluxo de execução
+- Depuração rápida sem configuração de debugger
+
+**Template:**
+```
+DEBUG [LINHA] [funcao()] | variavel: valor
+```
+
+**Processo:**
+1. Adicione debug prints em áreas suspeitas do código
+2. Execute o programa e analise saída no terminal
+3. Identifique o bug baseado em valores/fluxo inesperados
+4. Corrija o bug
+5. **Remova debug prints antes de commitar**
+6. Considere usar frameworks de logging para produção
+
+**Lembre-se:** Debug prints são uma **ferramenta temporária de investigação**, não uma solução permanente. Sempre limpe após depuração!
+
+---
+
+
+
 ## 🧠 Fator de Memória Associativa
 
 > **IMPORTANTE PARA IAs**: Durante investigação e correção de erros, aplique o **Fator de Memória Associativa** para aprender com padrões passados e acelerar diagnósticos futuros.
