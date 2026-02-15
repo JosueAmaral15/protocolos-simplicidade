@@ -217,6 +217,7 @@
 - [👨‍💻 POSTURA PROFISSIONAL OBRIGATÓRIA: Desenvolvedor Sênior de Elite](#postura-profissional-obrigatria-desenvolvedor-snior-de-elite)
 - [🚫 PROIBIÇÕES ABSOLUTAS PARA INTELIGÊNCIAS ARTIFICIAIS (Solo Pragmático)](#proibies-absolutas-para-inteligncias-artificiais-solo-pragmtico)
 - [🌿 Fluxo de Trabalho Git Obrigatório: Branches COM-UUID](#fluxo-de-trabalho-git-obrigatrio-branches-com-uuid)
+- [🔄 Metodologia de Execução Faseada: Progresso Incremental com Aprovação do Usuário](#metodologia-de-execuo-faseada-progresso-incremental-com-aprovao-do-usurio)
 - [🌐 Comunicação e Coordenação Multi-IA](#comunicao-e-coordenao-multi-ia)
 - [🎓 Paradigma Fundamental: Clareza Total Antes da Implementação (Solo Pragmático)](#paradigma-fundamental-clareza-total-antes-da-implementao-solo-pragmtico)
 - [❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas (Solo Dev)](#regra-obrigatria-perguntas-bloqueantes-para-dvidas-solo-dev)
@@ -3567,6 +3568,219 @@ git worktree add ${worktree_name} -b ${branch_name}
 - [ ] Mudei para diretório do worktree antes de trabalhar?
 - [ ] Informei usuário sobre localização e branch?
 - [ ] Perguntei sobre remoção ao concluir tarefa?
+
+---
+
+
+## 🔄 Metodologia de Execução Faseada: Progresso Incremental com Aprovação do Usuário
+
+> **REGRA OBRIGATÓRIA** (v3.3+): Ao trabalhar em tarefas complexas que envolvem múltiplas fases ou etapas, execute incrementalmente com aprovação do usuário entre cada fase.
+
+### 📋 Princípios Fundamentais
+
+Quando uma tarefa se divide naturalmente em fases distintas (investigação → implementação → testes → documentação), siga esta abordagem obrigatória:
+
+#### 1️⃣ Execute UMA Fase por Vez
+
+- ✅ **DEVE** completar a fase atual totalmente antes de passar para a próxima
+- ✅ **DEVE** aguardar confirmação do usuário entre as fases
+- ❌ **NUNCA** execute múltiplas fases em uma única sessão sem aprovação explícita
+- ❌ **NUNCA** assuma que o usuário quer prosseguir automaticamente
+
+#### 2️⃣ Faça Commit Após CADA Fase Separadamente
+
+- ✅ **DEVE** criar commit dedicado para cada fase
+- ✅ **DEVE** identificar claramente a fase na mensagem de commit (ex: "Fase 1: ...", "Fase 2: ...")
+- ✅ **DEVE** fazer push após cada commit para garantir que o progresso seja salvo
+- ❌ **NUNCA** agrupe múltiplas fases em um único commit
+
+### 📊 Exemplo de Fluxo de Trabalho
+
+```
+Fase 1: Investigação & Análise
+├─ Executar investigação
+├─ Documentar descobertas
+├─ Criar relatório de análise
+├─ Commit: "Fase 1: Investigação concluída - 4 problemas identificados"
+├─ Push para remoto
+└─ ⏸️  AGUARDAR APROVAÇÃO DO USUÁRIO
+
+Usuário: "prossiga"
+
+Fase 2: Implementação de Correções Críticas
+├─ Implementar correções para Problemas #1 e #2
+├─ Testar correções localmente
+├─ Verificar ausência de regressões
+├─ Commit: "Fase 2: Corrigidos problemas #1 e #2 (críticos)"
+├─ Push para remoto
+└─ ⏸️  AGUARDAR APROVAÇÃO DO USUÁRIO
+
+Usuário: "prossiga"
+
+Fase 3: Correções de Prioridade Média
+├─ Implementar correções para Problemas #3 e #4
+├─ Testar correções localmente
+├─ Verificar ausência de regressões
+├─ Commit: "Fase 3: Corrigidos problemas #3 e #4 (prioridade média)"
+├─ Push para remoto
+└─ ⏸️  AGUARDAR APROVAÇÃO DO USUÁRIO
+
+Usuário: "prossiga"
+
+Fase 4: Atualização da Documentação
+├─ Atualizar documentação relacionada
+├─ Verificar consistência entre arquivos
+├─ Atualizar changelog
+├─ Commit: "Fase 4: Documentação atualizada com mudanças das Fases 2-3"
+├─ Push para remoto
+└─ ✅ TODAS AS FASES COMPLETAS
+```
+
+### ✅ Benefícios da Execução Faseada
+
+| Benefício | Descrição |
+|-----------|-----------|
+| 🎯 **Controle do Usuário** | Usuário mantém controle total sobre a direção do projeto e pode ajustar o rumo entre fases |
+| 📚 **Histórico Claro** | Histórico Git se torna auto-documentado com commits específicos por fase |
+| ↩️ **Reversão Fácil** | Pode reverter para fases específicas se problemas surgirem |
+| 🚫 **Previne Expansão de Escopo** | Impede mudanças descontroladas e expansão de escopo |
+| 🔄 **Correção de Rumo** | Permite ajustes baseados em descobertas de fases anteriores |
+| 🧪 **Testes Incrementais** | Cada fase pode ser testada independentemente antes de prosseguir |
+| 📊 **Rastreamento de Progresso** | Visibilidade clara do que foi completado |
+
+### 🎯 Quando Usar Execução Faseada
+
+**Sempre use esta abordagem para:**
+
+- ✅ Investigações multi-etapas (pesquisar → analisar → documentar → recomendar)
+- ✅ Tarefas de refatoração complexas (analisar → planejar → refatorar → testar → documentar)
+- ✅ Implementações de features com múltiplos componentes (backend → frontend → testes → docs)
+- ✅ Correções de bugs com múltiplas etapas (investigar → reproduzir → corrigir → verificar → documentar)
+- ✅ Migrações de banco de dados (backup → migrar → verificar → plano de rollback)
+- ✅ Otimizações de performance (baseline → implementar → medir → comparar)
+- ✅ Correções de segurança (avaliar → corrigir → testar → verificar → documentar)
+- ✅ Qualquer tarefa que naturalmente se divide em fases distintas
+
+### ❌ O Que NÃO Fazer
+
+```bash
+# ❌ ERRADO: Executar todas as fases sem perguntar
+Fase 1: Investigação concluída
+Fase 2: Correções implementadas
+Fase 3: Testes passaram
+Fase 4: Documentação atualizada
+git commit -m "Tudo corrigido"  # ❌ Todas as fases em um commit!
+```
+
+```bash
+# ❌ ERRADO: Assumir que o usuário quer prosseguir
+Fase 1 concluída. Passando diretamente para a Fase 2...  # ❌ Sem aprovação do usuário!
+```
+
+```bash
+# ❌ ERRADO: Agrupar fases
+git commit -m "Fases 1, 2 e 3 concluídas"  # ❌ Múltiplas fases em um commit!
+```
+
+### ✅ O Que Fazer
+
+```bash
+# ✅ CORRETO: Uma fase por vez com aprovação
+Fase 1: Investigação concluída - descobertas documentadas
+git commit -m "Fase 1: Investigação concluída - 4 problemas identificados"
+git push
+
+# Aguardar aprovação do usuário...
+
+Usuário: "prossiga"
+
+# Continuar para a Fase 2...
+Fase 2: Corrigidos problemas críticos #1 e #2
+git commit -m "Fase 2: Corrigidos problemas #1 e #2 (críticos)"
+git push
+
+# Aguardar aprovação novamente...
+```
+
+### 📝 Template de Solicitação de Aprovação
+
+Após completar cada fase, **SEMPRE** use este formato:
+
+```
+✅ Fase N: [Nome da Fase] Concluída
+
+Resumo do que foi feito:
+- [Ação 1]
+- [Ação 2]
+- [Ação 3]
+
+Commit realizado: [hash do commit]
+Push realizado: ✅
+
+Próxima Fase: Fase N+1 - [Nome da Próxima Fase]
+- [O que será feito na próxima fase]
+
+Devo prosseguir para a Fase N+1?
+
+Resposta:
+```
+
+### 🎓 Exemplo de Conversa
+
+**IA:**
+```
+✅ Fase 1: Investigação de Consistência Concluída
+
+Resumo:
+- Analisados todos os 6 arquivos de protocolo
+- Identificadas 2 entradas de TOC faltando
+- Criado relatório de investigação (209 linhas)
+
+Commit realizado: 14f8260
+Push realizado: ✅
+
+Próxima Fase: Fase 2 - Corrigir Entradas de TOC Faltando
+- Adicionar entradas faltando aos Protocolos PT 2 & 3
+- Verificar se os links funcionam corretamente
+
+Devo prosseguir para a Fase 2?
+
+Resposta:
+```
+
+**Usuário:** `prossiga`
+
+**IA:**
+```
+✅ Fase 2: Entradas de TOC Faltando Corrigidas
+
+Resumo:
+- Adicionada entrada de TOC faltando ao Protocolo PT 2 (linha 264)
+- Adicionada entrada de TOC faltando ao Protocolo PT 3 (linha 245)
+- Verificado que todos os links funcionam corretamente
+
+Commit realizado: 14f8260
+Push realizado: ✅
+
+Próxima Fase: Fase 3 - Análise de Estrutura de TOC
+- Comparar contagens de entradas de TOC EN/PT
+- Investigar diferença de 113 entradas
+
+Devo prosseguir para a Fase 3?
+
+Resposta:
+```
+
+### 🚨 Exceções
+
+Esta abordagem faseada **NÃO é necessária** para:
+
+- ❌ Tarefas simples de uma única etapa (ex: "corrigir erro de digitação no README")
+- ❌ Mudanças triviais (ex: "atualizar número de versão")
+- ❌ Hotfixes emergenciais quando o usuário explicitamente solicita execução completa imediata
+- ❌ Usuário explicitamente declara: "execute todas as fases sem perguntar"
+
+**Comportamento padrão**: Na dúvida, **USE EXECUÇÃO FASEADA** e aguarde aprovação.
 
 ---
 
