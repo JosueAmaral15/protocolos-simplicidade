@@ -281,6 +281,7 @@
 
 ### 🌿 Git & Collaboration
 - [🌿 Mandatory Git Workflow: COM-UUID Branches](#-mandatory-git-workflow-com-uuid-branches)
+- [🔄 Phased Execution Methodology: Incremental Progress with User Approval](#-phased-execution-methodology-incremental-progress-with-user-approval)
 - [🌐 Multi-AI Communication & Coordination](#-multi-ai-communication--coordination)
 
 ### 🎓 Development Principles
@@ -2883,6 +2884,219 @@ git worktree add ${worktree_name} -b ${branch_name}
 - [ ] Did I change to worktree directory before working?
 - [ ] Did I inform user about location and branch?
 - [ ] Did I ask about removal when completing task?
+
+---
+
+
+## 🔄 Phased Execution Methodology: Incremental Progress with User Approval
+
+> **MANDATORY RULE** (v3.3+): When working on complex tasks that involve multiple phases or steps, execute incrementally with user approval between each phase.
+
+### 📋 Core Principles
+
+When a task naturally divides into distinct phases (investigation → implementation → testing → documentation), follow this mandatory approach:
+
+#### 1️⃣ Execute ONE Phase at a Time
+
+- ✅ **MUST** complete current phase fully before moving to next
+- ✅ **MUST** wait for user confirmation between phases
+- ❌ **NEVER** execute multiple phases in a single session without explicit approval
+- ❌ **NEVER** assume user wants to proceed automatically
+
+#### 2️⃣ Commit After EACH Phase Separately
+
+- ✅ **MUST** create dedicated commit for each phase
+- ✅ **MUST** clearly identify phase in commit message (e.g., "Phase 1: ...", "Phase 2: ...")
+- ✅ **MUST** push after each commit to ensure progress is saved
+- ❌ **NEVER** batch multiple phases into a single commit
+
+### 📊 Example Workflow
+
+```
+Phase 1: Investigation & Analysis
+├─ Execute investigation
+├─ Document findings
+├─ Create analysis report
+├─ Commit: "Phase 1: Investigation complete - 4 issues identified"
+├─ Push to remote
+└─ ⏸️  WAIT FOR USER APPROVAL
+
+User: "proceed"
+
+Phase 2: Critical Fixes Implementation
+├─ Implement fixes for Issues #1 and #2
+├─ Test fixes locally
+├─ Verify no regressions
+├─ Commit: "Phase 2: Fixed issues #1 and #2 (critical)"
+├─ Push to remote
+└─ ⏸️  WAIT FOR USER APPROVAL
+
+User: "proceed"
+
+Phase 3: Medium Priority Fixes
+├─ Implement fixes for Issues #3 and #4
+├─ Test fixes locally
+├─ Verify no regressions
+├─ Commit: "Phase 3: Fixed issues #3 and #4 (medium priority)"
+├─ Push to remote
+└─ ⏸️  WAIT FOR USER APPROVAL
+
+User: "proceed"
+
+Phase 4: Documentation Update
+├─ Update related documentation
+├─ Verify consistency across files
+├─ Update changelog
+├─ Commit: "Phase 4: Documentation updated with Phase 2-3 changes"
+├─ Push to remote
+└─ ✅ ALL PHASES COMPLETE
+```
+
+### ✅ Benefits of Phased Execution
+
+| Benefit | Description |
+|---------|-------------|
+| 🎯 **User Control** | User maintains full control over project direction and can adjust course between phases |
+| 📚 **Clear History** | Git history becomes self-documenting with phase-specific commits |
+| ↩️ **Easy Rollback** | Can rollback to specific phases if issues arise |
+| 🚫 **Prevents Scope Creep** | Stops uncontrolled changes and scope expansion |
+| 🔄 **Course Correction** | Allows for adjustments based on findings from previous phases |
+| 🧪 **Incremental Testing** | Each phase can be tested independently before proceeding |
+| 📊 **Progress Tracking** | Clear visibility of what has been completed |
+
+### 🎯 When to Use Phased Execution
+
+**Always use this approach for:**
+
+- ✅ Multi-step investigations (research → analyze → document → recommend)
+- ✅ Complex refactoring tasks (analyze → plan → refactor → test → document)
+- ✅ Feature implementations with multiple components (backend → frontend → tests → docs)
+- ✅ Bug fixes requiring multiple steps (investigate → reproduce → fix → verify → document)
+- ✅ Database migrations (backup → migrate → verify → rollback plan)
+- ✅ Performance optimizations (baseline → implement → measure → compare)
+- ✅ Security fixes (assess → patch → test → verify → document)
+- ✅ Any task that naturally divides into distinct phases
+
+### ❌ What NOT to Do
+
+```bash
+# ❌ WRONG: Executing all phases without asking
+Phase 1: Investigation complete
+Phase 2: Fixes implemented
+Phase 3: Tests passed
+Phase 4: Documentation updated
+git commit -m "Fixed everything"  # ❌ All phases in one commit!
+```
+
+```bash
+# ❌ WRONG: Assuming user wants to proceed
+Phase 1 complete. Moving directly to Phase 2...  # ❌ No user approval!
+```
+
+```bash
+# ❌ WRONG: Batching phases
+git commit -m "Phase 1, 2, and 3 complete"  # ❌ Multiple phases in one commit!
+```
+
+### ✅ What TO Do
+
+```bash
+# ✅ CORRECT: One phase at a time with approval
+Phase 1: Investigation complete - findings documented
+git commit -m "Phase 1: Investigation complete - 4 issues identified"
+git push
+
+# Wait for user approval...
+
+User: "proceed"
+
+# Continue to Phase 2...
+Phase 2: Fixed critical issues #1 and #2
+git commit -m "Phase 2: Fixed issues #1 and #2 (critical)"
+git push
+
+# Wait for user approval again...
+```
+
+### 📝 Approval Request Template
+
+After completing each phase, **ALWAYS** use this format:
+
+```
+✅ Phase N: [Phase Name] Complete
+
+Summary of what was done:
+- [Action 1]
+- [Action 2]
+- [Action 3]
+
+Committed: [commit hash]
+Pushed: ✅
+
+Next Phase: Phase N+1 - [Next Phase Name]
+- [What will be done in next phase]
+
+Should I proceed to Phase N+1?
+
+Answer:
+```
+
+### 🎓 Example Conversation
+
+**AI:**
+```
+✅ Phase 1: Consistency Investigation Complete
+
+Summary:
+- Analyzed all 6 protocol files
+- Identified 2 missing TOC entries
+- Created investigation report (209 lines)
+
+Committed: 14f8260
+Pushed: ✅
+
+Next Phase: Phase 2 - Fix Missing TOC Entries
+- Add missing entries to PT Protocols 2 & 3
+- Verify links work correctly
+
+Should I proceed to Phase 2?
+
+Answer:
+```
+
+**User:** `proceed`
+
+**AI:**
+```
+✅ Phase 2: Missing TOC Entries Fixed
+
+Summary:
+- Added missing TOC entry to PT Protocol 2 (line 264)
+- Added missing TOC entry to PT Protocol 3 (line 245)
+- Verified all links work correctly
+
+Committed: 14f8260
+Pushed: ✅
+
+Next Phase: Phase 3 - TOC Structure Analysis
+- Compare EN/PT TOC entry counts
+- Investigate 113-entry difference
+
+Should I proceed to Phase 3?
+
+Answer:
+```
+
+### 🚨 Exceptions
+
+This phased approach is **NOT required** for:
+
+- ❌ Simple single-step tasks (e.g., "fix typo in README")
+- ❌ Trivial changes (e.g., "update version number")
+- ❌ Emergency hotfixes when user explicitly requests immediate full execution
+- ❌ User explicitly states: "execute all phases without asking"
+
+**Default behavior**: When in doubt, **USE PHASED EXECUTION** and wait for approval.
 
 ---
 
