@@ -39,15 +39,15 @@ Don't know where to start? Use the table below to choose the appropriate protoco
 
 | Protocol | Color (Book) | Main Focus | Target Audience | Ideal Context |
 | :--- | :--- | :--- | :--- | :--- |
-| **[Simplicity 1](PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agility & Foundation | Beginners / Internal | Prototypes, Disposable MVPs, Studies, Internal Tools. |
-| **[Simplicity 2](PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governance & Scale | Teams (2+) | Enterprise Environments, Large Teams, Projects with Code Review and Dedicated QA. |
-| **[Simplicity 3](PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustness & Autonomy | **Solo Developer** | **Production**, Critical Projects, Solo SaaS, Long Term. |
+| **[Simplicity 1](SIMPLICITY_PROTOCOL_1.md)** | 📘 **Blue** | Agility & Foundation | Beginners / Internal | Prototypes, Disposable MVPs, Studies, Internal Tools. |
+| **[Simplicity 2](SIMPLICITY_PROTOCOL_2.md)** | 📕 **Red** | Governance & Scale | Teams (2+) | Enterprise Environments, Large Teams, Projects with Code Review and Dedicated QA. |
+| **[Simplicity 3](SIMPLICITY_PROTOCOL_3.md)** | 📗 **Green** | Robustness & Autonomy | **Solo Developer** | **Production**, Critical Projects, Solo SaaS, Long Term. |
 
 ---
 
 ## 📂 Protocol Details
 
-### 📘 [Simplicity Protocol 1: The Foundation](PROTOCOLO_SIMPLICIDADE_1.md)
+### 📘 [Simplicity Protocol 1: The Foundation](SIMPLICITY_PROTOCOL_1.md)
 *For those who want to start fast, but the right way.*
 
 The entry-level protocol. Defines the 13 fundamental steps to ensure code works, is tested, and documented, without excessive bureaucracy.
@@ -55,7 +55,7 @@ The entry-level protocol. Defines the 13 fundamental steps to ensure code works,
 - **Guarantee:** Zero initial technical debt.
 - **When NOT to use:** If the project is for production with sensitive user data (lacks advanced security checklist).
 
-### 📕 [Simplicity Protocol 2: Enterprise](PROTOCOLO_SIMPLICIDADE_2.md)
+### 📕 [Simplicity Protocol 2: Enterprise](SIMPLICITY_PROTOCOL_2.md)
 *For teams that need mature processes.*
 
 The extended version for the corporate world. Adds layers of cross-verification to prevent human errors from going unnoticed in large teams.
@@ -63,7 +63,7 @@ The extended version for the corporate world. Adds layers of cross-verification 
 - **Overhead:** High. Requires meetings and third-party validations.
 - **Ideal for:** Consultancies, Structured IT Departments.
 
-### 📗 [Simplicity Protocol 3: Solo in Production](PROTOCOLO_SIMPLICIDADE_3.md)
+### 📗 [Simplicity Protocol 3: Solo in Production](SIMPLICITY_PROTOCOL_3.md)
 *The perfect balance for the "One-Man Army".*
 
 Created specifically for the developer who doesn't have a team but needs the security of a large company. Removes meeting bureaucracy (from Simplicity 2) but imposes extreme technical rigor (OWASP, CI/CD, Profiling).

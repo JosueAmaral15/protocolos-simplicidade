@@ -42,15 +42,15 @@ Não sabe por onde começar? Utilize a tabela abaixo para escolher o protocolo a
 
 | Protocolo | Cor (Book) | Foco Principal | Público Alvo | Contexto Ideal |
 | :--- | :--- | :--- | :--- | :--- |
-| **[Simplicidade 1](pt/PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
-| **[Simplicidade 2](pt/PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
-| **[Simplicidade 3](pt/PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
+| **[Simplicidade 1](PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
+| **[Simplicidade 2](PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
+| **[Simplicidade 3](PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
 
 ---
 
 ## 📂 Detalhes dos Protocolos
 
-### 📘 [Protocolo Simplicidade 1: A Base](pt/PROTOCOLO_SIMPLICIDADE_1.md)
+### 📘 [Protocolo Simplicidade 1: A Base](PROTOCOLO_SIMPLICIDADE_1.md)
 *Para quem quer começar rápido, mas do jeito certo.*
 
 O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o código funcione, seja testado e documentado, sem burocracia excessiva.
@@ -58,7 +58,7 @@ O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o có
 - **Garantia:** Zero dívida técnica inicial.
 - **Quando NÃO usar:** Se o projeto for para produção com dados sensíveis de usuários (falta checklist de segurança avançada).
 
-### 📕 [Protocolo Simplicidade 2: Enterprise](pt/PROTOCOLO_SIMPLICIDADE_2.md)
+### 📕 [Protocolo Simplicidade 2: Enterprise](PROTOCOLO_SIMPLICIDADE_2.md)
 *Para equipes que precisam de processos maduros.*
 
 A versão estendida para o mundo corporativo. Adiciona camadas de verificação cruzada para evitar que erros humanos passem despercebidos em times grandes.
@@ -66,7 +66,7 @@ A versão estendida para o mundo corporativo. Adiciona camadas de verificação 
 - **Overhead:** Alto. Exige reuniões e validações de terceiros.
 - **Ideal para:** Consultorias, Departamentos de TI estruturados.
 
-### 📗 [Protocolo Simplicidade 3: Solo em Produção](pt/PROTOCOLO_SIMPLICIDADE_3.md)
+### 📗 [Protocolo Simplicidade 3: Solo em Produção](PROTOCOLO_SIMPLICIDADE_3.md)
 *O equilíbrio perfeito para o "Exército de Um Homem Só".*
 
 Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da segurança de uma empresa grande. Remove a burocracia de reuniões (do Simplicidade 2) mas impõe rigor técnico extremo (OWASP, CI/CD, Profiling).
