@@ -261,6 +261,7 @@
 - [✅ Approval Section](#approval-section)
 - [📎 Attachments & References](#attachments-references)
 - [🔍 Busca Binária para Localização de Defeitos](#busca-binria-para-localizao-de-defeitos)
+- [🐛 Estratégias de Depuração: Investigação Baseada em Prints](#estratégias-de-depuração-investigação-baseada-em-prints)
 - [🧠 Fator de Memória Associativa](#fator-de-memria-associativa)
 - [🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários](#idioma-do-cdigo-nomenclatura-de-variveis-e-comentrios)
 - [🌐 Convenções de Código](#convenes-de-cdigo)

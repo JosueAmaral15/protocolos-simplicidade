@@ -242,6 +242,7 @@
 - [✅ Sua Decisão](#sua-deciso)
 - [🗓️ Registro para "Você do Futuro"](#registro-para-voc-do-futuro)
 - [🔍 Busca Binária para Localização de Defeitos](#busca-binria-para-localizao-de-defeitos)
+- [🐛 Estratégias de Depuração: Investigação Baseada em Prints](#estratégias-de-depuração-investigação-baseada-em-prints)
 - [🧠 Fator de Memória Associativa](#fator-de-memria-associativa)
 - [2025-12-28 - ValueError em CSV parsing](#2025-12-28-valueerror-em-csv-parsing)
 - [🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários](#idioma-do-cdigo-nomenclatura-de-variveis-e-comentrios)
