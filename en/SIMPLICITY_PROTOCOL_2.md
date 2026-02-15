@@ -5509,6 +5509,148 @@ After receiving responses:
 [ ] Confirm: "Can I proceed with implementation?"
 ```
 
+### 📝 Standardized Question Format
+
+> **MANDATORY FOR AIs**: When asking questions to the user, use the following standardized format to ensure clarity and facilitate responses.
+
+#### Question Format Template
+
+```markdown
+❓ [Category Name]:
+
+  1. [Question text]?
+     Answer:
+     
+  2. [Question text]?
+     Answer:
+     
+  3. [Question text]?
+     Answer:
+
+Any questions about this?
+```
+
+#### Key Components
+
+1. **Category Header** (❓ [Category Name]:)
+   - Groups related questions together
+   - Examples: "Clarification Questions:", "Technical Details:", "Architecture Decisions:"
+
+2. **Numbered Questions**
+   - Each question on its own line
+   - Clear, specific, and unambiguous
+   - End with question mark (?)
+
+3. **Answer Field**
+   - Blank line with "Answer:" label
+   - Provides clear space for user response
+   - Makes it easy to identify where to respond
+
+4. **Follow-up Question**
+   - Always end with: "Any questions about this?"
+   - Allows user to ask clarifications about your questions
+   - Creates bidirectional communication
+
+#### ✅ Complete Example
+
+```markdown
+❓ Clarification Questions:
+
+  1. What should be the behavior when the user enters a negative value?
+     Answer:
+     
+  2. Should the functionality validate email in real-time or only on submit?
+     Answer:
+     
+  3. What's the priority between performance and accuracy in this calculation?
+     Answer:
+
+Any questions about this?
+```
+
+#### ✅ Example with Options
+
+```markdown
+❓ Implementation Decisions:
+
+  1. Which export formats should I support?
+     A) PDF only
+     B) PDF + Excel
+     C) PDF + Excel + CSV
+     💡 Suggestion: Option B (PDF for viewing, Excel for analysis)
+     Answer:
+     
+  2. Should large reports be generated in background?
+     💡 Suggestion: Yes, with notification when completed (>1000 records)
+     Answer:
+     
+  3. Where should generated files be saved?
+     A) /tmp directory
+     B) User's home directory
+     C) Configurable path
+     Answer:
+
+Any questions about this?
+```
+
+#### ✅ Example with Multiple Categories
+
+```markdown
+❓ Requirements Clarification:
+
+  1. What should happen if the operation fails?
+     Answer:
+     
+  2. How should I notify the user about errors?
+     Answer:
+
+❓ Technical Decisions:
+
+  1. Should I create a new module or add to existing module X?
+     Answer:
+     
+  2. What's the most appropriate design pattern here?
+     Answer:
+
+Any questions about this?
+```
+
+#### Benefits of This Format
+
+- ✅ **Clear structure**: User knows exactly where to respond
+- ✅ **Easy to parse**: Both human and AI can easily identify answers
+- ✅ **Bidirectional**: "Any questions about this?" encourages clarification
+- ✅ **Professional**: Shows organization and attention to detail
+- ✅ **Efficient**: Minimizes back-and-forth confusion
+
+#### ❌ Wrong Format (Don't Use)
+
+```markdown
+# BAD: Questions without answer space
+Do you want A or B? And what about C?
+
+# BAD: Mixed questions without structure
+What format should I use? Also, where should files go? And should I validate?
+
+# BAD: No follow-up question
+1. Question A?
+2. Question B?
+[User doesn't know if they can ask clarifications]
+```
+
+#### When to Use This Format
+
+**ALWAYS use this format when:**
+- ❓ You need clarification before implementing
+- ❓ Multiple options exist and you need user decision
+- ❓ Requirements are ambiguous or unclear
+- ❓ You need confirmation of your understanding
+- ❓ Technical decisions require user input
+
+**Remember**: This format is MANDATORY for all question-asking interactions with users.
+
+---
+
 ### 🎯 Enterprise Practical Example
 
 #### Example: Implement Discount Calculation (Enterprise)

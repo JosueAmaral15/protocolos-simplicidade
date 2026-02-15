@@ -1478,6 +1478,148 @@ sudo apt install redis-server
 - 🟢 Próxima vez você entende o que foi feito
 ```
 
+### 📝 Formato Padronizado de Perguntas
+
+> **OBRIGATÓRIO PARA IAs**: Ao fazer perguntas ao usuário, use o seguinte formato padronizado para garantir clareza e facilitar as respostas.
+
+#### Template de Formato de Pergunta
+
+```markdown
+❓ [Nome da Categoria]:
+
+  1. [Texto da pergunta]?
+     Resposta:
+     
+  2. [Texto da pergunta]?
+     Resposta:
+     
+  3. [Texto da pergunta]?
+     Resposta:
+
+Alguma dúvida sobre isso?
+```
+
+#### Componentes-Chave
+
+1. **Cabeçalho de Categoria** (❓ [Nome da Categoria]:)
+   - Agrupa perguntas relacionadas
+   - Exemplos: "Perguntas de Esclarecimento:", "Detalhes Técnicos:", "Decisões de Arquitetura:"
+
+2. **Perguntas Numeradas**
+   - Cada pergunta em sua própria linha
+   - Clara, específica e sem ambiguidades
+   - Termina com ponto de interrogação (?)
+
+3. **Campo de Resposta**
+   - Linha em branco com rótulo "Resposta:"
+   - Fornece espaço claro para resposta do usuário
+   - Facilita identificar onde responder
+
+4. **Pergunta de Acompanhamento**
+   - Sempre termine com: "Alguma dúvida sobre isso?"
+   - Permite ao usuário pedir esclarecimentos sobre suas perguntas
+   - Cria comunicação bidirecional
+
+#### ✅ Exemplo Completo
+
+```markdown
+❓ Perguntas de Esclarecimento:
+
+  1. Qual deve ser o comportamento quando o usuário insere um valor negativo?
+     Resposta:
+     
+  2. A funcionalidade deve validar email em tempo real ou apenas no envio?
+     Resposta:
+     
+  3. Qual é a prioridade entre desempenho e precisão neste cálculo?
+     Resposta:
+
+Alguma dúvida sobre isso?
+```
+
+#### ✅ Exemplo com Opções
+
+```markdown
+❓ Decisões de Implementação:
+
+  1. Quais formatos de exportação devo suportar?
+     A) Apenas PDF
+     B) PDF + Excel
+     C) PDF + Excel + CSV
+     💡 Sugestão: Opção B (PDF para visualização, Excel para análise)
+     Resposta:
+     
+  2. Relatórios grandes devem ser gerados em segundo plano?
+     💡 Sugestão: Sim, com notificação quando concluído (>1000 registros)
+     Resposta:
+     
+  3. Onde os arquivos gerados devem ser salvos?
+     A) Diretório /tmp
+     B) Diretório home do usuário
+     C) Caminho configurável
+     Resposta:
+
+Alguma dúvida sobre isso?
+```
+
+#### ✅ Exemplo com Múltiplas Categorias
+
+```markdown
+❓ Esclarecimento de Requisitos:
+
+  1. O que deve acontecer se a operação falhar?
+     Resposta:
+     
+  2. Como devo notificar o usuário sobre erros?
+     Resposta:
+
+❓ Decisões Técnicas:
+
+  1. Devo criar um novo módulo ou adicionar ao módulo X existente?
+     Resposta:
+     
+  2. Qual é o padrão de design mais apropriado aqui?
+     Resposta:
+
+Alguma dúvida sobre isso?
+```
+
+#### Benefícios Deste Formato
+
+- ✅ **Estrutura clara**: Usuário sabe exatamente onde responder
+- ✅ **Fácil de analisar**: Tanto humano quanto IA podem facilmente identificar respostas
+- ✅ **Bidirecional**: "Alguma dúvida sobre isso?" encoraja esclarecimentos
+- ✅ **Profissional**: Demonstra organização e atenção aos detalhes
+- ✅ **Eficiente**: Minimiza confusão de ida e volta
+
+#### ❌ Formato Errado (Não Use)
+
+```markdown
+# RUIM: Perguntas sem espaço para resposta
+Você quer A ou B? E quanto a C?
+
+# RUIM: Perguntas misturadas sem estrutura
+Que formato devo usar? Também, onde os arquivos devem ir? E devo validar?
+
+# RUIM: Sem pergunta de acompanhamento
+1. Pergunta A?
+2. Pergunta B?
+[Usuário não sabe se pode pedir esclarecimentos]
+```
+
+#### Quando Usar Este Formato
+
+**SEMPRE use este formato quando:**
+- ❓ Você precisa de esclarecimento antes de implementar
+- ❓ Existem múltiplas opções e você precisa da decisão do usuário
+- ❓ Requisitos são ambíguos ou pouco claros
+- ❓ Você precisa de confirmação do seu entendimento
+- ❓ Decisões técnicas requerem input do usuário
+
+**Lembre-se**: Este formato é OBRIGATÓRIO para todas as interações de perguntas com usuários.
+
+---
+
 ### 💡 Exemplos Práticos Completos
 
 #### **Exemplo 1: Node Version Manager (Script Completo com Rollback)**
