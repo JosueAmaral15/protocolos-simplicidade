@@ -1,5 +1,6 @@
 # Protocolo Simplicidade 2
 
+<<<<<<< HEAD
 ---
 
 > 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes. Leia cada seção minuciosamente, entenda cada princípio, checklist e diretriz. Sua eficácia depende inteiramente do domínio deste protocolo. Compreensão parcial leva a trabalho incompleto e frustração do usuário.
@@ -188,6 +189,15 @@
 
 **Changelog v2.2** (10/12/2025):
 
+=======
+**Autor**: Josué Amaral  
+**Data de Criação**: 02 de Dezembro de 2025  
+**Baseado em**: Protocolo Simplicidade 1 v2.0  
+**Versão**: 2.2  
+**Última Atualização**: 10 de Dezembro de 2025  
+**Objetivo**: Metodologia profissional AVANÇADA para desenvolvimento incremental de qualidade com foco em segurança, performance e melhoria contínua
+
+>>>>>>> copilot/update-protocols-for-ai-research
 **Diferenças do Simplicidade 1**:
 - ✅ **10 novas etapas opcionais** para projetos complexos e críticos
 - ✅ **Matriz de Decisão** objetiva para escolha de tarefas
@@ -201,6 +211,7 @@
 - ✅ **Checklist de Acessibilidade** (GUI)
 
 ---
+<<<<<<< HEAD
 ---
 
 ---
@@ -583,6 +594,8 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 📊 Comparação dos 3 Protocolos
 
@@ -659,6 +672,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 - ✅ Comparação: Simplicidade 2 vs 3 (equipe vs solo) com 12 aspectos analisados
 - ✅ Inspiração: Conceitos adaptados do Simplicidade 3 v3.1 (tabelas, critérios, rationale)
 
+<<<<<<< HEAD
 **Changelog v2.2** (01/01/2026):
 - ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
 - ✅ Formato enterprise: Documento formal com aprovações e stakeholders
@@ -667,6 +681,8 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 - ✅ Rationale: Coleta estruturada com rastreabilidade e governança corporativa
 - ✅ Classificação: **OBRIGATÓRIO para decisões que afetam >3 pessoas**
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v2.1** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -757,6 +773,7 @@ Porém, esse rigor tem **custo**: ~4-6h por task vs ~2-3h no Simplicidade 1. Par
 
 ---
 
+<<<<<<< HEAD
 ## 📝 FILOSOFIA DE CLAREZA MÁXIMA: Documentação Universal (Enterprise)
 
 > **FUNDAMENTAL PARA IAs EM AMBIENTE ENTERPRISE**: A inteligência artificial DEVE escrever toda documentação, planos de execução, planos de ação, TASKS.md e **documentação para stakeholders** (ADRs, Decisões Arquiteturais, Compliance) **COMO SE** outras pessoas, equipes, auditores ou outras IAs fossem ler e executar. Esta é uma **técnica mental obrigatória** para forçar clareza máxima e accountability em ambientes enterprise.
@@ -7886,6 +7903,8 @@ Antes de considerar planejamento completo:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
 > **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.
@@ -7996,6 +8015,7 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+<<<<<<< HEAD
 ## 📋 Regra Obrigatória: Testes Unitários para Ferramentas Complexas (Enterprise)
 
 > **CRÍTICO PARA IAs EM AMBIENTE ENTERPRISE**: Quando qualquer ferramenta (classe, módulo, componente, função) demonstra ser **complexa** e **difícil de compreender**, é **OBRIGATÓRIO** criar arquivos de testes unitários com cobertura >80%.
@@ -8470,6 +8490,8 @@ O padrão de questionários editáveis em ambiente enterprise adiciona:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Busca Binária para Localização de Defeitos
 
 > **IMPORTANTE PARA IAs**: Quando estiver lidando com correção de erros e eliminação de bugs, lembre-se de que existe a possibilidade de utilizar **busca binária** para localizar defeitos de maneira eficiente.
@@ -8665,6 +8687,7 @@ A busca binária não se limita a linhas de código. Pode ser aplicada a:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Estratégias de Depuração: Investigação Baseada em Prints
 
 > **RECOMENDADO**: Ao investigar bugs e a causa raiz não é imediatamente óbvia, adicionar declarações de print de debug é uma técnica poderosa para entender o comportamento do algoritmo e rastrear o fluxo de execução.
@@ -9142,6 +9165,8 @@ DEBUG [LINHA] [funcao()] | variavel: valor
 
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Fator de Memória Associativa
 
 > **IMPORTANTE PARA IAs**: Durante investigação e correção de erros, aplique o **Fator de Memória Associativa** para aprender com padrões passados e acelerar diagnósticos futuros.
@@ -10082,6 +10107,7 @@ Para projetos brasileiros/portugueses:
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internacionalização (i18n) - Tradução do Software (Enterprise)
 
 > **OBRIGATÓRIO ENTERPRISE**: A inteligência artificial DEVE perguntar aos stakeholders sobre internacionalização no início do projeto e documentar decisão em ADR.
@@ -10172,6 +10198,8 @@ B) ✅ **SIM** - Produto multi-idioma
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📧 Meios de Contato para Feedback do Usuário
 
 > **IMPORTANTE PARA IAs**: Durante a primeira sessão de interação com o programador, a inteligência artificial deve perguntar se o desenvolvedor gostaria de incluir meios de contato no projeto para que os usuários possam fornecer feedback aos responsáveis.
@@ -10194,8 +10222,13 @@ elogios e opiniões)?
 💡 Sugestão: Sim (recomendado para projetos com usuários finais)
 
 Opções:
+<<<<<<< HEAD
 A) ✅ Sim, incluir GitHub Issues (PADRÃO RECOMENDADO para projetos versionados)
 B) ✅ Sim, incluir email para feedback (alternativa ou complemento)
+=======
+A) ✅ Sim, incluir email para feedback (PADRÃO RECOMENDADO)
+B) ✅ Sim, incluir GitHub Issues (para projetos open-source)
+>>>>>>> copilot/update-protocols-for-ai-research
 C) ✅ Sim, incluir formulário de contato na aplicação
 D) ✅ Sim, incluir múltiplos canais (email + issues + formulário)
 E) ❌ Não, não incluir meios de contato
@@ -10555,7 +10588,10 @@ Use Matriz de Decisão (Etapa 2.5) quando há múltiplas formas de dividir:
 
 ### **Etapas Obrigatórias** (Protocolo Simplicidade 1):
 1. 📚 Ler a documentação
+<<<<<<< HEAD
    - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 2. ✅ Escolher tarefas mais simples
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
 4. 🔍 Analisar e estudar o projeto
@@ -10583,6 +10619,7 @@ Use Matriz de Decisão (Etapa 2.5) quando há múltiplas formas de dividir:
 **13.5** 🔄 Retrospectiva de Sprint
 
 ### 1️⃣ **Ler a Documentação**
+<<<<<<< HEAD
 
 > **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
 
@@ -10871,6 +10908,8 @@ Com essas informações, vou criar a estrutura de documentação enterprise:
 ---
 
 **Após completar a leitura da documentação**, prosseguir para:
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
@@ -11018,6 +11057,7 @@ docs/
 
 ---
 
+<<<<<<< HEAD
 ### 1️⃣.2️⃣ **Compreensão Profunda da Base de Código Existente** [OBRIGATÓRIO]
 
 > **CRÍTICO PARA IAs EM AMBIENTE ENTERPRISE**: Após ler a documentação, a IA **DEVE** estudar e compreender TODOS os arquivos de código do projeto, suas relações, dependências, propósito e impacto. **Conhecimento completo da base de código é requisito para qualidade enterprise.**
@@ -11821,6 +11861,8 @@ A IA DEVE:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**
@@ -12178,6 +12220,7 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation para Pesquisa Aprimorada**
 
 > **TÉCNICA AVANÇADA PARA IAs**: Ao pesquisar e consultar documentação, você pode aproveitar os princípios do **RAG (Retrieval-Augmented Generation)** para fornecer respostas mais precisas, atualizadas e rastreáveis.
@@ -12514,6 +12557,8 @@ Antes de responder uma pergunta técnica:
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analisar e Estudar o Projeto**
 - **CRÍTICO**: Após sanar todas as dúvidas, **estudar o código antes de implementar**
 - Ler documentação relevante (README, docs/, comentários no código)
@@ -12557,6 +12602,7 @@ Antes de responder uma pergunta técnica:
 → Resultado: Implementação em 2h ao invés de 5h (economia de 60%)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Princípio de Opções Paralelas (Multi-Choice)**
 
 [Content: Same as Protocol 1 PT with enterprise-specific adaptations]
@@ -12591,6 +12637,8 @@ Antes de responder uma pergunta técnica:
 **Aprovadores**: [Tech Lead], [Product Owner]
 ```
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
 
 ---
@@ -12659,6 +12707,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repete try/except 20 vezes)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Comentários de Código Obrigatórios**
 
 > **CRÍTICO**: Todo código implementado **DEVE** ser comentado quando a linguagem de programação permitir comentários.
@@ -12671,6 +12720,8 @@ def read_file_safe(path: str) -> Optional[str]:
 **[ESPECÍFICO PARA SIMPLICIDADE 2 - ENTERPRISE]**:
 > "Em ambientes enterprise, comentários são ainda mais críticos pois múltiplos desenvolvedores trabalham no mesmo código. Documente decisões arquiteturais, restrições de compliance e integrações com sistemas legados. Código sem comentário em enterprise é código que causa incidentes em produção."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.
@@ -13938,9 +13989,12 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     # Testes DEVEM ser executados separadamente com: mvn test
     # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -13959,9 +14013,12 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+<<<<<<< HEAD
     REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     REM Testes DEVEM ser executados separadamente com: mvn test
     REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -18890,6 +18947,7 @@ A **Organização Ordinal de Tarefas** e a **Analogia da Árvore de Importaçõe
 
 > **CRÍTICO PARA IAs**: Lembre-se **frequentemente** de refatorar o código durante o desenvolvimento para manter a qualidade e evitar acúmulo de dívida técnica.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **REGRA OBRIGATÓRIA ENTERPRISE: Estudar Código ANTES de Refatorar**
@@ -19931,6 +19989,8 @@ Post-deployment metrics:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Práticas obrigatórias**:
 
 - ✅ **Evitar arquivos excessivamente grandes**:

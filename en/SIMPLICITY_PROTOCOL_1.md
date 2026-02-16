@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Simplicity Protocol 1
 
 ---
@@ -181,6 +182,19 @@
 - ✅ Checklist of 10 items for validation
 - ✅ Rationale: Avoids rework, ensures professional quality, increases productivity
 
+=======
+Here's the English translation of the provided document:
+
+```markdown
+# Simplicity Protocol 1
+
+**Author**: Josué Amaral
+**Creation Date**: November 30, 2025
+**Version**: 2.0
+**Last Update**: December 10, 2025
+**Objective**: Professional methodology for incremental quality development
+
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v2.0** (10/12/2025):
 - ✅ **[COMPLEMENTATION]** Added section "🎯 When to Use Simplicity 1?"
 - ✅ Clear criteria: ✅ When to use (8 criteria) | ❌ When NOT to use (6 criteria)
@@ -188,6 +202,7 @@
 - ✅ Detailed Rationale: Why Simplicity 1 is agile but insufficient for production
 - ✅ Inspiration: Concepts adapted from Simplicity 3 v3.1 (comparative tables, criteria)
 
+<<<<<<< HEAD
 **Changelog v1.10** (01/01/2026):
 - ✅ **[STEP 3]** Added editable questionnaire pattern for information gathering
 - ✅ Format: .md or .txt document with formatted questions for user to fill manually
@@ -197,6 +212,8 @@
 - ✅ Rationale: Structured collection of complex information without extensive conversation
 - ✅ Classification: **HIGHLY RECOMMENDED for questionnaires with 5+ questions**
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v1.9** (09/12/2025):
 - ✅ **[STEP 3]** Added recommendation for AI to provide suggestions and hunches for questions
 - ✅ Recommended format: "❓ Question + 💡 AI Suggestion + Options A/B/C"
@@ -259,6 +276,7 @@
 - ✅ Total steps: 10 → 12
 
 ---
+<<<<<<< HEAD
 ---
 
 ---
@@ -558,6 +576,8 @@ When the AI signals that it has finished and that the program/application has be
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 🎯 Core Philosophy
 
@@ -567,6 +587,7 @@ When the AI signals that it has finished and that the program/application has be
 
 ---
 
+<<<<<<< HEAD
 ## 📝 MAXIMUM CLARITY PHILOSOPHY: Universal Documentation
 
 > **FUNDAMENTAL FOR AIs**: The artificial intelligence MUST write all documentation, execution plans, action plans, and TASKS.md **AS IF** other people or other AIs will read and execute them. This is a **mandatory mental technique** to force maximum clarity and intelligibility.
@@ -4996,6 +5017,8 @@ Task → Questions? (ask) → Document BEFORE → Fix errors → Implement
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.
@@ -5106,6 +5129,7 @@ Before starting any new task:
 
 ---
 
+<<<<<<< HEAD
 ## 🧪 Mandatory Rule: Unit Tests for Complex Tools
 
 > **CRITICAL**: When tools (classes, modules, components, functions) are **complex and difficult to understand**, it is **MANDATORY** to create unit test files for each tool in a `tests/` folder.
@@ -6039,6 +6063,8 @@ If ANY item above is ❌ NO: STOP and ask questions!
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Binary Search for Bug Localization
 
 > **IMPORTANT FOR AIs**: When dealing with error correction and bug elimination, remember that you can use **binary search** to locate defects efficiently.
@@ -6234,6 +6260,7 @@ Binary search is not limited to lines of code. It can be applied to:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Debugging Strategies: Print-Based Investigation
 
 > **RECOMMENDED**: When investigating bugs and the root cause is not immediately obvious, adding debug print statements is a powerful technique to understand algorithm behavior and trace execution flow.
@@ -7283,6 +7310,8 @@ The editable questionnaire pattern is a powerful tool for:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Associative Memory Factor
 
 > **IMPORTANT FOR AIs**: During error investigation and correction, apply the **Associative Memory Factor** to learn from past patterns and accelerate future diagnostics.
@@ -8201,6 +8230,7 @@ For national/regional projects (e.g., Portuguese for Brazil/Portugal):
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internationalization (i18n) - Software Translation
 
 > **MANDATORY**: The artificial intelligence MUST ask the user about internationalization at the beginning of the project.
@@ -8807,6 +8837,8 @@ python -m project.cli calculate div 10 0
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📧 Contact Methods for User Feedback
 
 > **IMPORTANT FOR AIs**: During the first session of interaction with the programmer, the artificial intelligence must ask if the developer would like to include contact methods in the project so that users can provide feedback to those responsible.
@@ -8829,10 +8861,17 @@ compliments, and opinions)?
 💡 Suggestion: Yes (recommended for projects with end users)
 
 Options:
+<<<<<<< HEAD
 A) ✅ Yes, include GitHub Issues (RECOMMENDED DEFAULT for versioned projects)
 B) ✅ Yes, include email for feedback (alternative or complement)
 C) ✅ Yes, include contact form in the application
 D) ✅ Yes, include multiple channels (GitHub + email + form)
+=======
+A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
+B) ✅ Yes, include GitHub Issues (for open-source projects)
+C) ✅ Yes, include contact form in the application
+D) ✅ Yes, include multiple channels (email + issues + form)
+>>>>>>> copilot/update-protocols-for-ai-research
 E) ❌ No, do not include contact methods
 
 What is your preference?
@@ -8840,6 +8879,7 @@ What is your preference?
 
 ### ✅ Available Options
 
+<<<<<<< HEAD
 #### Option A: ✅ GitHub Issues (RECOMMENDED DEFAULT)
 
 **Why GitHub Issues as default?**
@@ -8855,6 +8895,9 @@ What is your preference?
 [Full content matching PT version with templates and examples]
 
 #### Option B: ✅ Email for Feedback (Alternative or Complement)
+=======
+#### Option A: ✅ Email for Feedback (DEFAULT RECOMMENDED)
+>>>>>>> copilot/update-protocols-for-ai-research
 
 **What to include**:
 - Dedicated email for feedback
@@ -9191,7 +9234,10 @@ Sprint 4 (2h):
 
 **Executive Summary**:
 1. 📚 Read the documentation
+<<<<<<< HEAD
    - 1.5 🔍 **Research suitable technologies for the project** (MANDATORY AT START)
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 2. ✅ Choose the simplest tasks
 3. ❓ Ask questions until 100% of doubts are clarified
 4. 🔍 Analyze and study the project
@@ -9207,6 +9253,7 @@ Sprint 4 (2h):
 1️⃣3️⃣ 🚀 Commit and push
 
 ### 1️⃣ **Read the Documentation**
+<<<<<<< HEAD
 
 > **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
 
@@ -9387,6 +9434,8 @@ cache = {}
 ---
 
 **After completing documentation reading**, proceed to:
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 - Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
 - Consult `docs/REQUIREMENTS.md` to understand the project context
 - Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
@@ -9509,6 +9558,7 @@ docs/
 
 ---
 
+<<<<<<< HEAD
 ### 1️⃣.2️⃣ **Deep Comprehension of Existing Codebase** [MANDATORY]
 
 > **CRITICAL FOR AIs**: After reading documentation, AI **MUST** study and understand ALL code files in the project, their relationships, dependencies, and purpose. **Knowing documentation is not enough - knowing the actual code is mandatory.**
@@ -10224,6 +10274,8 @@ Even for small tasks:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 2️⃣ **Choose the Simplest Tasks**
 - **Golden Rule**: Always start with the tasks **easiest to implement**
 - Even in a list of complex tasks, **there are always some simpler than others**
@@ -10453,6 +10505,7 @@ Options: A) [option A] | B) [option B] | C) [option C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation for Enhanced Research**
 
 > **ADVANCED TECHNIQUE FOR AIs**: When researching and consulting documentation, you can leverage **RAG (Retrieval-Augmented Generation)** principles to provide more accurate, up-to-date, and traceable answers.
@@ -10787,6 +10840,8 @@ Before answering a technical question:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analyze and Study the Project**
 - **CRITICAL**: After understanding all doubts, **study the code before implementing**
 - Read relevant documentation (README, docs/, code comments)
@@ -10832,6 +10887,7 @@ Before answering a technical question:
 → Result: Faster and more consistent implementation (60% savings)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Parallel Options Principle (Multi-Choice)**
 
 > **IMPORTANT**: When there are multiple valid **non-mutually exclusive** options, consider implementing **BOTH** instead of choosing just one, allowing the user to decide which to use.
@@ -10930,6 +10986,8 @@ B) ❌ No, choose only [Option A | Option B]
 **Message for AIs**:
 > "When identifying multiple valid ways to implement something, always ASK the user if they want to implement parallel options before choosing arbitrarily. Present pros/cons of each option and additional effort. Let the user decide if it's worth it. This demonstrates deep analysis and avoids surprises."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Why?**: Avoid refactoring, save time, ensure code consistent with the existing base.
 
 ---
@@ -10998,6 +11056,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repeats try/except 20 times)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Mandatory Code Comments**
 
 > **CRITICAL**: All implemented code **MUST** be commented when the programming language supports comments.
@@ -11163,6 +11222,8 @@ VirtualGraph.execute()  # This command executes graphical environment features t
 **Message for AIs**:
 > "When generating code, ALWAYS add explanatory comments. Comment the 'why', not just the 'what'. Well-commented code is worth 10x more than clean code without comments. Prioritize comments on technical decisions, complex algorithms and special cases."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Import Tree Analogy**
 
 **Concept**: A program's import structure can be visualized as a tree, where each module imports other modules, forming a dependency hierarchy.
@@ -12010,9 +12071,12 @@ echo -e "${GREEN}🚀 Starting Java application...${NC}"
 # Compile if necessary
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compiling project...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     # Tests MUST be executed separately with: mvn test
     # In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -12031,9 +12095,12 @@ echo 🚀 Starting Java application...
 REM Compile if necessary
 if not exist "target\" (
     echo 🏗️ Compiling project...
+<<<<<<< HEAD
     REM ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     REM Tests MUST be executed separately with: mvn test
     REM In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -15234,6 +15301,7 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 
 > **CRITICAL FOR AIs**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **MANDATORY RULE: Study Code BEFORE Refactoring**
@@ -15564,6 +15632,8 @@ def calculate_discount(amount: float, customer_tier: int) -> float:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Mandatory practices**:
 
 - ✅ **Avoid excessively large files**:
@@ -15889,3 +15959,7 @@ Before generating/committing code, verify:
 **Last update**: December 16, 2025
 **Maintained by**: Josué Amaral
 **Status**: ACTIVE - Official project protocol
+<<<<<<< HEAD
+=======
+```
+>>>>>>> copilot/update-protocols-for-ai-research

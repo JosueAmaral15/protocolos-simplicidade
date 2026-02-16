@@ -1,5 +1,6 @@
 # Protocolo Simplicidade 1
 
+<<<<<<< HEAD
 ---
 
 > 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes. Leia cada seção minuciosamente, entenda cada princípio, checklist e diretriz. Sua eficácia depende inteiramente do domínio deste protocolo. Compreensão parcial leva a trabalho incompleto e frustração do usuário.
@@ -165,6 +166,14 @@
 - ✅ Checklist de 10 itens para validação
 - ✅ Rationale: Evita retrabalho, garante qualidade profissional, aumenta produtividade
 
+=======
+**Autor**: Josué Amaral  
+**Data de Criação**: 30 de Novembro de 2025  
+**Versão**: 2.0  
+**Última Atualização**: 10 de Dezembro de 2025  
+**Objetivo**: Metodologia profissional para desenvolvimento incremental de qualidade
+
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v2.0** (10/12/2025):
 - ✅ **[COMPLEMENTAÇÃO]** Adicionada seção "🎯 Quando Usar Simplicidade 1?"
 - ✅ Critérios claros: ✅ Quando usar (8 critérios) | ❌ Quando NÃO usar (6 critérios)
@@ -172,6 +181,7 @@
 - ✅ Rationale detalhado: Por quê Simplicidade 1 é ágil mas insuficiente para produção
 - ✅ Inspiração: Conceitos adaptados do Simplicidade 3 v3.1 (tabelas comparativas, critérios)
 
+<<<<<<< HEAD
 **Changelog v1.10** (01/01/2026):
 - ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
 - ✅ Formato: Documento .md ou .txt com perguntas formatadas para o usuário preencher manualmente
@@ -180,6 +190,8 @@
 - ✅ Rationale: Coleta estruturada de informações complexas sem conversação extensa
 - ✅ Classificação: **ALTAMENTE RECOMENDADO para questionários com 5+ perguntas**
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v1.9** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -242,6 +254,7 @@
 - ✅ Total de etapas: 10 → 12
 
 ---
+<<<<<<< HEAD
 ---
 
 ---
@@ -584,6 +597,8 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 🎯 Filosofia Central
 
@@ -593,6 +608,7 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 
 ---
 
+<<<<<<< HEAD
 ## 📝 FILOSOFIA DE CLAREZA MÁXIMA: Documentação Universal
 
 > **FUNDAMENTAL PARA IAs**: A inteligência artificial DEVE escrever toda documentação, planos de execução, planos de ação e TASKS.md **COMO SE** outras pessoas ou outras IAs fossem ler e executar. Esta é uma **técnica mental obrigatória** para forçar clareza e inteligibilidade máximas.
@@ -5139,6 +5155,8 @@ jobs:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
 > **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.
@@ -5249,6 +5267,7 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+<<<<<<< HEAD
 ## 📋 Regra Obrigatória: Testes Unitários para Ferramentas Complexas
 
 > **CRÍTICO PARA IAs**: Quando qualquer ferramenta (classe, módulo, componente, função) demonstra ser **complexa** e **difícil de compreender**, é **OBRIGATÓRIO** criar arquivos de testes unitários.
@@ -5929,6 +5948,8 @@ Antes de implementar qualquer feature, confirme:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ❓ Regra Obrigatória: Perguntas Bloqueantes para Dúvidas
 
 > **CRÍTICO PARA IAs**: Sempre que a inteligência artificial estiver com alguma pergunta ou dúvida sobre alguma tarefa que essa inteligência artificial deve fazer, é **OBRIGATÓRIO** que essa IA faça perguntas sobre a tarefa correspondente que se deve fazer.
@@ -6086,6 +6107,7 @@ Após receber respostas:
 [ ] Obter aprovação explícita: "Posso prosseguir com este entendimento?"
 ```
 
+<<<<<<< HEAD
 ### 📝 Formato Padronizado de Perguntas
 
 > **OBRIGATÓRIO PARA IAs**: Ao fazer perguntas ao usuário, use o seguinte formato padronizado para garantir clareza e facilitar as respostas.
@@ -6229,6 +6251,8 @@ Que formato devo usar? Também, onde os arquivos devem ir? E devo validar?
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 🎯 Exemplos Práticos
 
 #### Exemplo 1: Tarefa com Requisitos Ambíguos
@@ -6415,6 +6439,7 @@ Se QUALQUER item acima for ❌ NÃO: PARAR e fazer perguntas!
 
 ---
 
+<<<<<<< HEAD
 ## 📝 Documentar Respostas do Usuário às Perguntas
 
 > **CRÍTICO PARA IAs**: Após receber respostas do usuário às suas perguntas, você **DEVE DOCUMENTAR** essas respostas com suas próprias palavras para criar uma compreensão mais profunda do software.
@@ -6957,6 +6982,8 @@ O padrão de questionários editáveis é uma ferramenta poderosa para:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Busca Binária para Localização de Defeitos
 
 > **IMPORTANTE PARA IAs**: Quando estiver lidando com correção de erros e eliminação de bugs, lembre-se de que existe a possibilidade de utilizar **busca binária** para localizar defeitos de maneira eficiente.
@@ -7152,6 +7179,7 @@ A busca binária não se limita a linhas de código. Pode ser aplicada a:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Estratégias de Depuração: Investigação Baseada em Prints
 
 > **RECOMENDADO**: Ao investigar bugs e a causa raiz não é imediatamente óbvia, adicionar declarações de print de debug é uma técnica poderosa para entender o comportamento do algoritmo e rastrear o fluxo de execução.
@@ -7629,6 +7657,8 @@ DEBUG [LINHA] [funcao()] | variavel: valor
 
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Fator de Memória Associativa
 
 > **IMPORTANTE PARA IAs**: Durante investigação e correção de erros, aplique o **Fator de Memória Associativa** para aprender com padrões passados e acelerar diagnósticos futuros.
@@ -8533,6 +8563,7 @@ Para projetos brasileiros/portugueses:
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internacionalização (i18n) - Tradução do Software
 
 > **OBRIGATÓRIO**: A inteligência artificial DEVE perguntar ao usuário sobre internacionalização no início do projeto.
@@ -8811,6 +8842,8 @@ date_str = f"{day}/{month}/{year}"  # USA usa mês/dia/ano
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🖥️ Importância da Interface de Linha de Comando (CLI)
 
 > **CRÍTICO PARA IAs**: Em muitos casos, senão em todos os casos, é importante implementar uma **CLI (Command-Line Interface)** que pode ser utilizada no terminal para acesso pelo usuário e principalmente para **testes por parte de quem estiver desenvolvendo o software**.
@@ -9161,10 +9194,17 @@ elogios e opiniões)?
 💡 Sugestão: Sim (recomendado para projetos com usuários finais)
 
 Opções:
+<<<<<<< HEAD
 A) ✅ Sim, incluir GitHub Issues (PADRÃO RECOMENDADO para projetos versionados)
 B) ✅ Sim, incluir email para feedback (alternativa ou complemento)
 C) ✅ Sim, incluir formulário de contato na aplicação
 D) ✅ Sim, incluir múltiplos canais (GitHub + email + formulário)
+=======
+A) ✅ Sim, incluir email para feedback (PADRÃO RECOMENDADO)
+B) ✅ Sim, incluir GitHub Issues (para projetos open-source)
+C) ✅ Sim, incluir formulário de contato na aplicação
+D) ✅ Sim, incluir múltiplos canais (email + issues + formulário)
+>>>>>>> copilot/update-protocols-for-ai-research
 E) ❌ Não, não incluir meios de contato
 
 Qual sua preferência?
@@ -9172,6 +9212,7 @@ Qual sua preferência?
 
 ### ✅ Opções Disponíveis
 
+<<<<<<< HEAD
 #### Opção A: ✅ GitHub Issues (PADRÃO RECOMENDADO)
 
 **Por quê GitHub Issues como padrão?**
@@ -9327,6 +9368,9 @@ assignees: ''
 ```
 
 #### Opção B: ✅ Email para Feedback (Alternativa ou Complemento)
+=======
+#### Opção A: ✅ Email para Feedback (PADRÃO RECOMENDADO)
+>>>>>>> copilot/update-protocols-for-ai-research
 
 **O que incluir**:
 - Email de contato dedicado para feedback
@@ -9363,6 +9407,7 @@ críticas, reclamações, elogios e opiniões para:
 Seu feedback nos ajuda a melhorar continuamente!
 ```
 
+<<<<<<< HEAD
 **Quando usar email**:
 - Feedback confidencial ou sensível
 - Projetos sem repositório público
@@ -9371,6 +9416,26 @@ Seu feedback nos ajuda a melhorar continuamente!
 
 > **Nota**: Se o projeto tem repositório Git, preferimos GitHub Issues para manter
 > histórico público e permitir que a comunidade se beneficie das discussões.
+=======
+#### Opção B: ✅ GitHub Issues
+
+**Para projetos open-source**:
+```markdown
+## 🐛 Reportar Problemas ou Dar Feedback
+
+Use as [GitHub Issues](https://github.com/seu-usuario/seu-projeto/issues) para:
+
+- 🐛 Reportar bugs
+- 💡 Sugerir novas funcionalidades
+- 💬 Compartilhar feedback geral
+- ❓ Fazer perguntas
+
+**Templates disponíveis**:
+- Bug Report
+- Feature Request  
+- Feedback Geral
+```
+>>>>>>> copilot/update-protocols-for-ai-research
 
 #### Opção C: ✅ Formulário de Contato na Aplicação
 
@@ -9653,7 +9718,10 @@ Sprint 4 (2h):
 
 **Resumo Executivo**:
 1. 📚 Ler a documentação
+<<<<<<< HEAD
    - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 2. ✅ Escolher tarefas mais simples
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
 4. 🔍 Analisar e estudar o projeto
@@ -9669,6 +9737,7 @@ Sprint 4 (2h):
 1️⃣3️⃣ 🚀 Fazer commit e push
 
 ### 1️⃣ **Ler a Documentação**
+<<<<<<< HEAD
 
 > **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
 
@@ -9977,6 +10046,8 @@ cache = {}
 ---
 
 **Após completar a leitura da documentação**, prosseguir para:
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
@@ -10099,6 +10170,7 @@ docs/
 
 ---
 
+<<<<<<< HEAD
 ### 1️⃣.2️⃣ **Compreensão Profunda da Base de Código Existente** [OBRIGATÓRIO]
 
 > **CRÍTICO PARA IAs**: Após ler a documentação, a IA **DEVE** estudar e compreender TODOS os arquivos de código do projeto, suas relações, dependências e propósito. **Não basta conhecer a documentação - é obrigatório conhecer o código real.**
@@ -11367,6 +11439,8 @@ Mesmo para tarefas pequenas:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**
@@ -11596,6 +11670,7 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation para Pesquisa Aprimorada**
 
 > **TÉCNICA AVANÇADA PARA IAs**: Ao pesquisar e consultar documentação, você pode aproveitar os princípios do **RAG (Retrieval-Augmented Generation)** para fornecer respostas mais precisas, atualizadas e rastreáveis.
@@ -11932,6 +12007,8 @@ Antes de responder uma pergunta técnica:
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analisar e Estudar o Projeto**
 - **CRÍTICO**: Após sanar todas as dúvidas, **estudar o código antes de implementar**
 - Ler documentação relevante (README, docs/, comentários no código)
@@ -11977,6 +12054,7 @@ Antes de responder uma pergunta técnica:
 → Resultado: Implementação mais rápida e consistente (economia de 60%)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Princípio de Opções Paralelas (Multi-Choice)**
 
 > **IMPORTANTE**: Quando há múltiplas opções válidas e **não mutuamente exclusivas**, considere implementar **AMBAS** ao invés de escolher apenas uma, permitindo ao usuário decidir qual usar.
@@ -12162,6 +12240,8 @@ def list_files(display_mode='table', show_hidden=False):
 **Mensagem para IAs**:
 > "Quando identificar múltiplas formas válidas de implementar algo, sempre PERGUNTE ao usuário se deseja implementar opções paralelas antes de escolher arbitrariamente. Apresente os prós/contras de cada opção e o esforço adicional. Deixe o usuário decidir se vale a pena. Isso demonstra análise profunda e evita surpresas."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
 
 ---
@@ -12230,6 +12310,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repete try/except 20 vezes)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Comentários de Código Obrigatórios**
 
 > **CRÍTICO**: Todo código implementado **DEVE** ser comentado quando a linguagem de programação permitir comentários.
@@ -12435,6 +12516,8 @@ VirtualGraph.execute()  # Este comando executa funcionalidades do ambiente gráf
 **Mensagem para IAs**:
 > "Ao gerar código, SEMPRE adicione comentários explicativos. Comente o 'por quê', não apenas o 'o quê'. Um código bem comentado vale 10x mais que código limpo sem comentários. Priorize comentários em decisões técnicas, algoritmos complexos e casos especiais."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.
@@ -13282,9 +13365,12 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     # Testes DEVEM ser executados separadamente com: mvn test
     # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -13303,9 +13389,12 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+<<<<<<< HEAD
     REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     REM Testes DEVEM ser executados separadamente com: mvn test
     REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -16543,6 +16632,7 @@ A **Organização Ordinal de Tarefas** e a **Analogia da Árvore de Importaçõe
 
 > **CRÍTICO PARA IAs**: Lembre-se **frequentemente** de refatorar o código durante o desenvolvimento para manter a qualidade e evitar acúmulo de dívida técnica.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **REGRA OBRIGATÓRIA: Estudar Código ANTES de Refatorar**
@@ -16873,6 +16963,8 @@ def calculate_discount(amount: float, customer_tier: int) -> float:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Práticas obrigatórias**:
 
 - ✅ **Evitar arquivos excessivamente grandes**:

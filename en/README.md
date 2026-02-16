@@ -5,6 +5,7 @@
 
 This repository contains the "Simplicity" suite, a set of protocols created by **Josué Amaral** to guide the software development lifecycle, from rapid prototyping to critical production systems.
 
+<<<<<<< HEAD
 Important note to programmers and software developers: you can read the protocols if you want, but you DO NOT NEED to apply anything to the protocol or even read the protocols, as this is only for artificial intelligence to read for you and program for you based on the protocol (for example, with advanced AI-powered automatic programming tools like Github Copilot Pro+). It is the artificial intelligence that needs to read the entire protocol and program based on those protocols, providing more productivity and technical capacity for the artificial intelligence to develop code as if it were real programmers, such as a mid-level or senior programmer, for example, which is the goal of the protocols. Examples of programming platforms that can be used by professional programmers include Cursor and Visual Studio Code. Within Visual Studio Code, there is the Github Copilot tool, which requires a subscription to access Claude Sonnet 4.5, the main artificial intelligence model capable of programming projects from scratch using this protocol.
 
 ## Recommended step-by-step instructions (quick guide)
@@ -30,6 +31,9 @@ To begin programming, some steps must be taken:
 - Analogously to the teaching and transfer of knowledge between a student and a teacher, or between a master and his disciple, so is the programmer user as the teacher in relation to the artificial intelligence as the student. Doubts about artificial intelligence must be completely resolved, tests to understand the behavior of complex codes or algorithms must be carried out, and bugs, software defects, or undesirable behaviors must be correctly corrected.
 - Organization is the key to success, starting with the simplest, most comprehensive, important, and urgent tasks that form the basis of all other more complex tasks. Documentation must always be up-to-date, code refactoring should be performed frequently, action and execution plans need to be encouraged, and the development of artificial intelligence learning needs to be progressive across ALL the code.
 - Give the artificial intelligence only one task at a time. Do not overload it with multiple parallel tasks simultaneously; instead, be cohesive by focusing on one task at a time, and place the remaining or additional tasks in the docs/TASKS.md file.
+=======
+Important note to programmers and software developers: you can read the protocols if you want, but you DO NOT NEED to apply anything to the protocol or even read the protocols, as this is only for artificial intelligence to read for you and program for you based on the protocol (for example, with advanced AI-powered automatic programming tools like Github Copilot Pro+). It is the artificial intelligence that needs to read the entire protocol and program based on those protocols, providing more productivity and technical capacity for the artificial intelligence to develop code as if it were real programmers, such as a mid-level or senior programmer, for example, which is the goal of the protocols.
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
@@ -39,15 +43,25 @@ Don't know where to start? Use the table below to choose the appropriate protoco
 
 | Protocol | Color (Book) | Main Focus | Target Audience | Ideal Context |
 | :--- | :--- | :--- | :--- | :--- |
+<<<<<<< HEAD
 | **[Simplicity 1](SIMPLICITY_PROTOCOL_1.md)** | 📘 **Blue** | Agility & Foundation | Beginners / Internal | Prototypes, Disposable MVPs, Studies, Internal Tools. |
 | **[Simplicity 2](SIMPLICITY_PROTOCOL_2.md)** | 📕 **Red** | Governance & Scale | Teams (2+) | Enterprise Environments, Large Teams, Projects with Code Review and Dedicated QA. |
 | **[Simplicity 3](SIMPLICITY_PROTOCOL_3.md)** | 📗 **Green** | Robustness & Autonomy | **Solo Developer** | **Production**, Critical Projects, Solo SaaS, Long Term. |
+=======
+| **[Simplicity 1](PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agility & Foundation | Beginners / Internal | Prototypes, Disposable MVPs, Studies, Internal Tools. |
+| **[Simplicity 2](PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governance & Scale | Teams (2+) | Enterprise Environments, Large Teams, Projects with Code Review and Dedicated QA. |
+| **[Simplicity 3](PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustness & Autonomy | **Solo Developer** | **Production**, Critical Projects, Solo SaaS, Long Term. |
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
 ## 📂 Protocol Details
 
+<<<<<<< HEAD
 ### 📘 [Simplicity Protocol 1: The Foundation](SIMPLICITY_PROTOCOL_1.md)
+=======
+### 📘 [Simplicity Protocol 1: The Foundation](PROTOCOLO_SIMPLICIDADE_1.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *For those who want to start fast, but the right way.*
 
 The entry-level protocol. Defines the 13 fundamental steps to ensure code works, is tested, and documented, without excessive bureaucracy.
@@ -55,7 +69,11 @@ The entry-level protocol. Defines the 13 fundamental steps to ensure code works,
 - **Guarantee:** Zero initial technical debt.
 - **When NOT to use:** If the project is for production with sensitive user data (lacks advanced security checklist).
 
+<<<<<<< HEAD
 ### 📕 [Simplicity Protocol 2: Enterprise](SIMPLICITY_PROTOCOL_2.md)
+=======
+### 📕 [Simplicity Protocol 2: Enterprise](PROTOCOLO_SIMPLICIDADE_2.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *For teams that need mature processes.*
 
 The extended version for the corporate world. Adds layers of cross-verification to prevent human errors from going unnoticed in large teams.
@@ -63,7 +81,11 @@ The extended version for the corporate world. Adds layers of cross-verification 
 - **Overhead:** High. Requires meetings and third-party validations.
 - **Ideal for:** Consultancies, Structured IT Departments.
 
+<<<<<<< HEAD
 ### 📗 [Simplicity Protocol 3: Solo in Production](SIMPLICITY_PROTOCOL_3.md)
+=======
+### 📗 [Simplicity Protocol 3: Solo in Production](PROTOCOLO_SIMPLICIDADE_3.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *The perfect balance for the "One-Man Army".*
 
 Created specifically for the developer who doesn't have a team but needs the security of a large company. Removes meeting bureaucracy (from Simplicity 2) but imposes extreme technical rigor (OWASP, CI/CD, Profiling).
@@ -73,6 +95,7 @@ Created specifically for the developer who doesn't have a team but needs the sec
 
 ---
 
+<<<<<<< HEAD
 ## 🤖 For Artificial Intelligences
 
 ### ⚠️ Mandatory Protocol Reading Instruction
@@ -130,6 +153,8 @@ When multiple artificial intelligences work simultaneously (e.g., multiple termi
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Fundamental Rule for All Protocols
 
 > **CRITICAL**: Before implementing new features, **all workspace errors must be fixed**.
@@ -249,6 +274,7 @@ Each protocol contains a complete section "🔍 Binary Search for Bug Localizati
 
 ---
 
+<<<<<<< HEAD
 ## 📖 Documentation Reading: First Mandatory Action (NEW v2.2/2.4/3.3)
 
 > **🚨 CRITICAL FOR AIs**: Before ANYTHING else, AI **MUST** search for and read **100% of existing local markdown documentation** in the project.
@@ -1173,6 +1199,8 @@ AI **should provide recommendations** based on project understanding and what it
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📝 Mandatory Documentation in `docs/` Folder
 
 > **CRITICAL**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
@@ -1320,6 +1348,7 @@ AI can dynamically suggest new tasks as the project evolves, following a 5-phase
 
 ### 📂 ACTION_PLANS.md File Structure
 
+<<<<<<< HEAD
 Action plans can be organized in two ways:
 
 #### **Option 1: Consolidated File** `docs/ACTION_PLANS.md`
@@ -1341,6 +1370,9 @@ docs/
 ```
 
 **Recommendation**: For projects with multiple complex tasks, use `docs/plans/` for better organization. For smaller projects, `ACTION_PLANS.md` is sufficient.
+=======
+**Default location**: `docs/ACTION_PLANS.md` (same directory as TASKS.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 
 **Action Plan Template:**
 
@@ -1349,6 +1381,7 @@ docs/
 
 ## 🎯 ACTION PLAN #[ID]: [Objective Title]
 
+<<<<<<< HEAD
 **📅 Date**: YYYY-MM-DD  
 **🕐 Time**: HH:MM  
 **⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal  
@@ -1358,6 +1391,13 @@ docs/
 **🎯 Main Function**: [Main objective of this plan]  
 **📋 Desired Requirement**: [What needs to be achieved]  
 **✅ Expected Result**: [Measurable success criteria]
+=======
+**📅 Created on**: YYYY-MM-DD  
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal  
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation  
+**⏱️ Estimate**: [total estimated time]  
+**📌 Related to**: Task #X from TASKS.md (if applicable)
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ### 📝 Context
 [Why was this action plan created? What problem does it solve?]
@@ -1392,6 +1432,7 @@ docs/
 ---
 ```
 
+<<<<<<< HEAD
 ### 📝 Mandatory Action Plan Fields
 
 Each action plan **MUST** contain the following mandatory fields:
@@ -1446,6 +1487,8 @@ docs/plans/plan-127-postgresql-migration.md
 - **Slug**: Short description in kebab-case (lowercase, separated by hyphens)
 - **Maximum 50 characters** in filename for easy navigation
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 🤖 How AI Should Use Action Plans
 
 **When to create an Action Plan:**
@@ -1464,6 +1507,7 @@ docs/plans/plan-127-postgresql-migration.md
 ```
 1. Consult TASKS.md to see pending tasks
 2. Identify complex task needing Action Plan
+<<<<<<< HEAD
 3. Create detailed Action Plan:
    - Option A: Add to docs/ACTION_PLANS.md
    - Option B: Create file in docs/plans/plan-[ID]-[name].md
@@ -1487,6 +1531,14 @@ docs/plans/plan-127-postgresql-migration.md
 - 🤝 **In Meetings**: Communicate progress based on concrete steps
 - 🐛 **During Debug**: Review if all steps were followed correctly
 
+=======
+3. Create detailed Action Plan in ACTION_PLANS.md
+4. Execute step by step, marking progress
+5. Upon completion, mark task in TASKS.md as complete
+6. Move completed plan to "History" section or separate file
+```
+
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 🎯 Benefits of Action Plans
 
 - ✅ **Clarity**: Breaks complex problems into manageable steps
@@ -1499,6 +1551,7 @@ docs/plans/plan-127-postgresql-migration.md
 ### ⏱️ When to Discard an Action Plan
 
 After completion, you can:
+<<<<<<< HEAD
 1. **Move to "📚 Completed Plans History" section** (if using ACTION_PLANS.md)
 2. **Archive in dedicated directory**: 
    - `docs/plans/archive/[year]/plan-[id].md`
@@ -1511,10 +1564,18 @@ After completion, you can:
 - ✅ Analysis of recurring problem patterns
 - ✅ Onboarding of new developers (real examples)
 - ✅ Documentation of important technical decisions
+=======
+1. **Move to "📚 Completed Plans History" section** in same file
+2. **Archive in** `docs/action_plans_history/[year]/plan-[id].md`
+3. **Delete** (if no historical value)
+
+**Recommendation**: Keep history of complex plans for future reference and problem pattern analysis.
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ### 📊 Complete Real Example
 
 ```markdown
+<<<<<<< HEAD
 ## 🎯 ACTION PLAN #003: Fix Memory Leak in Cache System
 
 **📅 Date**: 2025-12-26  
@@ -1526,6 +1587,15 @@ After completion, you can:
 **🎯 Main Function**: Eliminate memory leak in Redis cache module  
 **📋 Desired Requirement**: Stable memory consumption without growth over time  
 **✅ Expected Result**: Stable memory < 300MB for 48h continuous operation
+=======
+## 🎯 ACTION PLAN #03: Fix Memory Leak in Cache System
+
+**📅 Created on**: 2025-12-26  
+**⚡ Priority**: 🔴 Critical  
+**🏷️ Type**: Correction  
+**⏱️ Estimate**: 4-6 hours  
+**📌 Related to**: Bug #127 from TASKS.md
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ### 📝 Context
 Application showing growing memory consumption (from 200MB to 4GB in 48h).
@@ -1571,8 +1641,11 @@ Eliminate memory leak and ensure stable memory consumption below 300MB.
 **Last update**: 2025-12-26 15:30
 ```
 
+<<<<<<< HEAD
 **Location of this plan**: `docs/plans/plan-003-memory-leak-fix.md`
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ---
 
 📖 **Complete details**: See "Action Plans" section in Step 2 (Read Existing Code) of each protocol for specific instructions on when and how to create action plans.
@@ -1825,6 +1898,7 @@ Five categories of highly undesirable defects:
 
 The **complete Associative Memory Factor documentation** is now integrated into each protocol:
 
+<<<<<<< HEAD
 - **📘 Simplicity Protocol 1** (in English): Section "Associative Memory Factor - Complete Documentation"
 - **📕 Simplicity Protocol 2** (in English): Section "Associative Memory Factor - Complete Documentation"  
 - **📗 Simplicity Protocol 3** (in English): Section "Associative Memory Factor - Complete Documentation"
@@ -1832,6 +1906,11 @@ The **complete Associative Memory Factor documentation** is now integrated into 
 - **📘 Protocolo Simplicidade 1** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
 - **📕 Protocolo Simplicidade 2** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
 - **📗 Protocolo Simplicidade 3** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
+=======
+- **📘 Simplicity Protocol 1**: Section "Associative Memory Factor - Complete Documentation"
+- **📕 Simplicity Protocol 2**: Section "Associative Memory Factor - Complete Documentation"  
+- **📗 Simplicity Protocol 3**: Section "Associative Memory Factor - Complete Documentation"
+>>>>>>> copilot/update-protocols-for-ai-research
 
 Each protocol contains the full documentation with:
 - ✅ Detailed top-down investigation methodology
@@ -1858,9 +1937,15 @@ Each protocol contains the full documentation with:
 - **Author:** Josué Amaral
 - **License:** Internal and educational use.
 - **Status:**
+<<<<<<< HEAD
     - Simplicity 1: `v2.3`
     - Simplicity 2: `v2.5`
     - Simplicity 3: `v3.4`
+=======
+    - Simplicity 1: `v2.0`
+    - Simplicity 2: `v2.2`
+    - Simplicity 3: `v3.1`
+>>>>>>> copilot/update-protocols-for-ai-research
     - Tree Imports Analogy: `v1.0`
     - Associative Memory Factor: `v1.0`
 

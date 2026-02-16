@@ -1,5 +1,6 @@
 # Protocolo Simplicidade 3 - Solo Developer em Produção
 
+<<<<<<< HEAD
 ---
 
 > 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes. Leia cada seção minuciosamente, entenda cada princípio, checklist e diretriz. Sua eficácia depende inteiramente do domínio deste protocolo. Compreensão parcial leva a trabalho incompleto e frustração do usuário.
@@ -500,6 +501,15 @@ Quando a IA sinalizar que terminou e que o programa/aplicação foi concluído, 
 
 ---
 
+=======
+**Autor**: Josué Amaral  
+**Data de Criação**: 02 de Dezembro de 2025  
+**Versão**: 3.1  
+**Última Atualização**: 09 de Dezembro de 2025  
+**Objetivo**: Metodologia híbrida para **solo developer** com aplicação em **produção**
+
+---
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 🎯 Por Quê Simplicidade 3 Existe?
 
@@ -596,6 +606,7 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 ---
 
+<<<<<<< HEAD
 **Changelog v3.2** (01/01/2026):
 - ✅ **[ETAPA 3]** Adicionado padrão de questionários editáveis para coleta de informações
 - ✅ Formato solo: Documento simples e direto, sem burocracia
@@ -604,6 +615,8 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 - ✅ Rationale: Solo dev precisa documentar decisões sem perder tempo
 - ✅ Classificação: **RECOMENDADO para decisões complexas (stack, arquitetura)**
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Changelog v3.1** (09/12/2025):
 - ✅ **[ETAPA 3]** Adicionada recomendação para IA fornecer sugestões e palpites nas perguntas
 - ✅ Formato recomendado: "❓ Pergunta + 💡 Sugestão da IA + Opções A/B/C"
@@ -697,6 +710,7 @@ Simplicidade 3 = Base Simplicidade 1 (13 etapas)
 
 ---
 
+<<<<<<< HEAD
 ## 📝 FILOSOFIA DE CLAREZA MÁXIMA: Documentação Universal (Solo)
 
 > **FUNDAMENTAL PARA IAs AJUDANDO SOLO DEVS**: A inteligência artificial DEVE escrever toda documentação, planos de execução, planos de ação e TASKS.md **COMO SE** você (o desenvolvedor solo) fosse ler isso 3 meses depois, meio adormecido, tentando debugar uma bomba-relógio. Esta é uma **técnica mental obrigatória** para proteger seu sono e sua sanidade.
@@ -6838,6 +6852,8 @@ Planejamento perfeito não existe, planejamento "bom o suficiente" sim.
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Regra de Ouro: Prioridade Absoluta para Erros no Workspace
 
 > **CRÍTICO PARA IAs**: Antes de implementar novas funcionalidades ou continuar com tarefas, **todos os erros no workspace devem ser corrigidos POR VOCÊ (IA)**.
@@ -6948,6 +6964,7 @@ Antes de iniciar qualquer tarefa nova:
 
 ---
 
+<<<<<<< HEAD
 ## 🧪 Regra Obrigatória: Testes Unitários para Código com Lógica (Desenvolvimento Disciplinado)
 
 > **CRÍTICO PARA TODOS OS DESENVOLVEDORES**: TODO código que contém lógica (if/else, loops, cálculos, validações) **DEVE** ter testes unitários abrangentes em uma pasta `tests/`. **Teste TODO código com lógica usando ordem de prioridade inteligente: crítico primeiro, depois complexo, depois simples.**
@@ -7798,6 +7815,8 @@ O padrão de questionários editáveis para solo developers:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Busca Binária para Localização de Defeitos
 
 > **IMPORTANTE PARA IAs**: Quando estiver lidando com correção de erros e eliminação de bugs, lembre-se de que existe a possibilidade de utilizar **busca binária** para localizar defeitos de maneira eficiente.
@@ -7993,6 +8012,7 @@ A busca binária não se limita a linhas de código. Pode ser aplicada a:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Estratégias de Depuração: Investigação Baseada em Prints
 
 > **RECOMENDADO**: Ao investigar bugs e a causa raiz não é imediatamente óbvia, adicionar declarações de print de debug é uma técnica poderosa para entender o comportamento do algoritmo e rastrear o fluxo de execução.
@@ -8470,6 +8490,8 @@ DEBUG [LINHA] [funcao()] | variavel: valor
 
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Fator de Memória Associativa
 
 > **IMPORTANTE PARA IAs**: Durante investigação e correção de erros, aplique o **Fator de Memória Associativa** para aprender com padrões passados e acelerar diagnósticos futuros.
@@ -9436,6 +9458,7 @@ Para projetos brasileiros/portugueses:
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internacionalização (i18n) - Tradução do Software (Solo Pragmático)
 
 > **OBRIGATÓRIO PARA SOLO DEVS**: A inteligência artificial DEVE perguntar sobre tradução do software antes de criar interface de usuário. **Protect your time!**
@@ -9638,6 +9661,8 @@ Se escolher i18n mas sem grana para tradutor profissional:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📧 Meios de Contato para Feedback do Usuário
 
 > **IMPORTANTE PARA IAs**: Durante a primeira sessão de interação com o programador, a inteligência artificial deve perguntar se o desenvolvedor gostaria de incluir meios de contato no projeto para que os usuários possam fornecer feedback aos responsáveis.
@@ -9660,8 +9685,13 @@ elogios e opiniões)?
 💡 Sugestão: Sim (recomendado para projetos com usuários finais)
 
 Opções:
+<<<<<<< HEAD
 A) ✅ Sim, incluir GitHub Issues (PADRÃO RECOMENDADO para projetos versionados)
 B) ✅ Sim, incluir email para feedback (alternativa ou complemento)
+=======
+A) ✅ Sim, incluir email para feedback (PADRÃO RECOMENDADO)
+B) ✅ Sim, incluir GitHub Issues (para projetos open-source)
+>>>>>>> copilot/update-protocols-for-ai-research
 C) ✅ Sim, incluir formulário de contato na aplicação
 D) ✅ Sim, incluir múltiplos canais (email + issues + formulário)
 E) ❌ Não, não incluir meios de contato
@@ -10053,7 +10083,10 @@ Regra prática:
 
 **Resumo Executivo** (⭐ = NOVO vs Simplicidade 1):
 1. 📚 Ler a documentação
+<<<<<<< HEAD
    - 1.5 🔍 **Pesquisar tecnologias adequadas ao projeto** (OBRIGATÓRIO NO INÍCIO)
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 2. ✅ Escolher tarefas mais simples
    - 2.5 📊 [OPCIONAL] Matriz de Decisão (quando 10+ tasks)
 3. ❓ Fazer perguntas até sanar 100% das dúvidas
@@ -10077,6 +10110,7 @@ Regra prática:
 **Total**: 14 base + 3 obrigatórias novas ⭐ + 3 opcionais = **17-20 etapas**
 
 ### 1️⃣ **Ler a Documentação**
+<<<<<<< HEAD
 
 > **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
 
@@ -10307,6 +10341,8 @@ cache = {}
 ---
 
 **Após completar a leitura**, prosseguir para:
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 - Consultar `TASKS.md` (ou arquivo equivalente definido pelo usuário) para ver as tarefas pendentes
 - Consultar `docs/REQUIREMENTS.md` para entender o contexto do projeto
 - Revisar especificações anteriores (`v2.9.X-SPECIFICATIONS.md`)
@@ -10492,6 +10528,7 @@ docs/
 
 ---
 
+<<<<<<< HEAD
 ### 1️⃣.2️⃣ **Compreensão Profunda da Base de Código Existente** [OBRIGATÓRIO]
 
 > **CRÍTICO PARA SOLO DEVS**: Após ler a documentação, a IA **DEVE** estudar e compreender o código existente. **Você é o único desenvolvedor - não pode se dar ao luxo de quebrar coisas por não conhecer o código.**
@@ -11268,6 +11305,8 @@ DONE. Não complique.
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 2️⃣ **Escolher as Tarefas Mais Simples**
 - **Regra de Ouro**: Sempre começar pelas tarefas **mais fáceis de implementar**
 - Mesmo em uma lista de tarefas complexas, **sempre há umas mais simples que outras**
@@ -11563,6 +11602,7 @@ Opções: A) [opção A] | B) [opção B] | C) [opção C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation para Pesquisa Aprimorada**
 
 > **TÉCNICA AVANÇADA PARA IAs**: Ao pesquisar e consultar documentação, você pode aproveitar os princípios do **RAG (Retrieval-Augmented Generation)** para fornecer respostas mais precisas, atualizadas e rastreáveis.
@@ -11899,6 +11939,8 @@ Antes de responder uma pergunta técnica:
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analisar e Estudar o Projeto**
 - **CRÍTICO**: Após sanar todas as dúvidas, **estudar o código antes de implementar**
 - Ler documentação relevante (README, docs/, comentários no código)
@@ -11942,6 +11984,7 @@ Antes de responder uma pergunta técnica:
 → Resultado: Implementação em 2h ao invés de 5h (economia de 60%)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Princípio de Opções Paralelas (Multi-Choice)**
 
 [Content: Same core as Protocol 1 PT with solo-specific adaptations]
@@ -11977,6 +12020,8 @@ Antes de responder uma pergunta técnica:
 3. Se usuários pedirem opção alternativa, adicionar DEPOIS
 4. Evita trabalho especulativo (pode nunca ser necessário)
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Por quê?**: Evita refatorações, economiza tempo, garante código consistente com a base existente.
 
 ---
@@ -12045,6 +12090,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repete try/except 20 vezes)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Comentários de Código Obrigatórios**
 
 > **CRÍTICO**: Todo código implementado **DEVE** ser comentado quando a linguagem de programação permitir comentários.
@@ -12057,6 +12103,8 @@ def read_file_safe(path: str) -> Optional[str]:
 **[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
 > "Para solo developers, comentários são sua 'memória externa'. Você esquecerá por quê tomou certas decisões em 3 meses. Comente para o 'você do futuro'. Documente especialmente: decisões técnicas não-óbvias, workarounds temporários, e por quê escolheu biblioteca X ao invés de Y. Seu 'eu futuro' agradecerá."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.
@@ -13056,9 +13104,12 @@ echo -e "${GREEN}🚀 Iniciando aplicação Java...${NC}"
 # Compilar se necessário
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compilando projeto...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     # Testes DEVEM ser executados separadamente com: mvn test
     # Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -13077,9 +13128,12 @@ echo 🚀 Iniciando aplicação Java...
 REM Compilar se necessário
 if not exist "target\" (
     echo 🏗️ Compilando projeto...
+<<<<<<< HEAD
     REM ⚠️ NOTA: -DskipTests usado APENAS para build rápido em desenvolvimento local
     REM Testes DEVEM ser executados separadamente com: mvn test
     REM Em CI/CD, NUNCA usar -DskipTests - sempre executar testes completos
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -16426,6 +16480,7 @@ A **Organização Ordinal de Tarefas** e a **Analogia da Árvore de Importaçõe
 
 > **CRÍTICO PARA IAs**: Lembre-se **frequentemente** de refatorar o código durante o desenvolvimento para manter a qualidade e evitar acúmulo de dívida técnica.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **REGRA OBRIGATÓRIA SOLO: Estudar Código ANTES de Refatorar**
@@ -16881,6 +16936,8 @@ def test_validate_form_age_not_number():
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Práticas obrigatórias**:
 
 - ✅ **Evitar arquivos excessivamente grandes**:

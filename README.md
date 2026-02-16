@@ -3,6 +3,7 @@
 **Coleção de Metodologias de Desenvolvimento de Software**
 > *Padronização, Qualidade e Eficiência para Diferentes Contextos.*
 
+<<<<<<< HEAD
 > 🌍 **Available in**: **Português** ([pt/](pt/)) | **English** ([en/](en/))  
 > All protocols are fully updated in both languages.
 
@@ -33,6 +34,11 @@ Para começar a programar, alguns passos devem ser dados:
 - Analogamente ao ensino e transferência de conhecimento entre um aluno e um professor, ou entre um mestre e seu discípulo, assim é o usuário programador como o professor em relação à inteligência artificial como aluno. As dúvidas da inteligência artificial devem ser completamente sanadas, testes para compreender o comportamento dos códigos ou dos algoritmos complexos devem ser realizados e os bugs, defeitos de software, ou ainda comportamentos indesejáveis, corretamente corrigidos.
 - A organização é a chave do sucesso, começando pelas tarefas mais simples, abrangentes, importantes e urgentes que são a base de todas as outras tarefas mais complexas. A documentação precisa estar sempre atualizada, a refatoração do código deve ser realizada frequentemente, planos de ação e de execução precisam ser estimulados e o desenvolvimento do aprendizado da inteligência artificial precisa ser crescente sobre TODO o código.
 - Forneça para a inteligência artificial apenas uma tarefa por vez. Não a sobrecarregue com várias tarefas paralelas ao mesmo tempo, pelo contrário, seja coeso focando em uma tarefa por vez, e coloque as tarefas restantes ou adicionais no arquivo docs/TASKS.md.
+=======
+Este repositório contém a suíte "Simplicidade", um conjunto de protocolos criados por **Josué Amaral** para guiar o ciclo de vida de desenvolvimento de software, desde a prototipagem rápida até sistemas críticos em produção.
+
+Observação importante para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos.
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
@@ -42,15 +48,25 @@ Não sabe por onde começar? Utilize a tabela abaixo para escolher o protocolo a
 
 | Protocolo | Cor (Book) | Foco Principal | Público Alvo | Contexto Ideal |
 | :--- | :--- | :--- | :--- | :--- |
+<<<<<<< HEAD
 | **[Simplicidade 1](pt/PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
 | **[Simplicidade 2](pt/PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
 | **[Simplicidade 3](pt/PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
+=======
+| **[Simplicidade 1](PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
+| **[Simplicidade 2](PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
+| **[Simplicidade 3](PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
 ## 📂 Detalhes dos Protocolos
 
+<<<<<<< HEAD
 ### 📘 [Protocolo Simplicidade 1: A Base](pt/PROTOCOLO_SIMPLICIDADE_1.md)
+=======
+### 📘 [Protocolo Simplicidade 1: A Base](PROTOCOLO_SIMPLICIDADE_1.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *Para quem quer começar rápido, mas do jeito certo.*
 
 O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o código funcione, seja testado e documentado, sem burocracia excessiva.
@@ -58,7 +74,11 @@ O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o có
 - **Garantia:** Zero dívida técnica inicial.
 - **Quando NÃO usar:** Se o projeto for para produção com dados sensíveis de usuários (falta checklist de segurança avançada).
 
+<<<<<<< HEAD
 ### 📕 [Protocolo Simplicidade 2: Enterprise](pt/PROTOCOLO_SIMPLICIDADE_2.md)
+=======
+### 📕 [Protocolo Simplicidade 2: Enterprise](PROTOCOLO_SIMPLICIDADE_2.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *Para equipes que precisam de processos maduros.*
 
 A versão estendida para o mundo corporativo. Adiciona camadas de verificação cruzada para evitar que erros humanos passem despercebidos em times grandes.
@@ -66,7 +86,11 @@ A versão estendida para o mundo corporativo. Adiciona camadas de verificação 
 - **Overhead:** Alto. Exige reuniões e validações de terceiros.
 - **Ideal para:** Consultorias, Departamentos de TI estruturados.
 
+<<<<<<< HEAD
 ### 📗 [Protocolo Simplicidade 3: Solo em Produção](pt/PROTOCOLO_SIMPLICIDADE_3.md)
+=======
+### 📗 [Protocolo Simplicidade 3: Solo em Produção](PROTOCOLO_SIMPLICIDADE_3.md)
+>>>>>>> copilot/update-protocols-for-ai-research
 *O equilíbrio perfeito para o "Exército de Um Homem Só".*
 
 Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da segurança de uma empresa grande. Remove a burocracia de reuniões (do Simplicidade 2) mas impõe rigor técnico extremo (OWASP, CI/CD, Profiling).
@@ -76,6 +100,7 @@ Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da 
 
 ---
 
+<<<<<<< HEAD
 ## 🤖 Para Inteligências Artificiais
 
 ### ⚠️ Instrução Obrigatória de Leitura do Protocolo
@@ -133,6 +158,8 @@ Quando múltiplas inteligências artificiais trabalham simultaneamente (ex: múl
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Regra Fundamental para Todos os Protocolos
 
 > **CRÍTICO**: Antes de implementar novas funcionalidades, **todos os erros no workspace devem ser corrigidos**.
@@ -252,6 +279,7 @@ Cada protocolo contém uma seção completa "🔍 Busca Binária para Localizaç
 
 ---
 
+<<<<<<< HEAD
 ## 📖 Leitura de Documentação: Primeira Ação Obrigatória (NOVO v2.2/2.4/3.3)
 
 > **🚨 CRÍTICO PARA IAs**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
@@ -430,6 +458,8 @@ cache = {}
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📝 Documentação Obrigatória na Pasta `docs/`
 
 > **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
@@ -1054,6 +1084,7 @@ Inclui:
 
 ---
 
+<<<<<<< HEAD
 ## 🔍 Pesquisa de Tecnologias Adequadas ao Projeto (NOVO v2.1/2.3/3.2)
 
 > **CRÍTICO**: Todos os protocolos agora incluem **Etapa 1.5 obrigatória** para pesquisa e recomendação de tecnologias adequadas no início do projeto.
@@ -1307,6 +1338,8 @@ Para ver a lista completa de versões de cada pacote (80+ dependências), consul
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🤖 Como usar com IA (Cursor / Github Copilot)
 
 Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
@@ -1527,13 +1560,20 @@ Cada protocolo contém a documentação completa com:
 - **Autor:** Josué Amaral
 - **Licença:** Uso interno e educacional.
 - **Status:**
+<<<<<<< HEAD
     - Simplicidade 1: `v2.3`
     - Simplicidade 2: `v2.5`
     - Simplicidade 3: `v3.4`
+=======
+    - Simplicidade 1: `v2.0`
+    - Simplicidade 2: `v2.2`
+    - Simplicidade 3: `v3.1`
+>>>>>>> copilot/update-protocols-for-ai-research
     - Analogia da Árvore de Importações: `v1.0`
     - Fator de Memória Associativa: `v1.0`
 
 > *"Quero um trabalho completo e profissional!"*
+<<<<<<< HEAD
 
 ## Atualização 2026-01-05: Documentação de Respostas
 
@@ -1546,3 +1586,5 @@ Todos os protocolos Simplicidade (1, 2 e 3) agora incluem **seção obrigatória
 - ✅ Objetivo: Criar compreensão profunda, rastreabilidade e referência futura
 
 Esta regra está detalhada na seção "📝 Documentar Respostas do Usuário às Perguntas" de todos os protocolos.
+=======
+>>>>>>> copilot/update-protocols-for-ai-research

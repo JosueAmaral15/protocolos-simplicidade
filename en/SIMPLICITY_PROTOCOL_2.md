@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Simplicity Protocol 2
 
 ---
@@ -190,6 +191,21 @@
 - ✅ Alignment with Simplicity 1 v2.1 (same core functionality)
 
 **Changelog v2.2** (10/12/2025):
+=======
+Aqui está a tradução do seu arquivo Markdown do português para o inglês:
+
+```markdown
+# Simplicity Protocol 2
+
+**Author**: Josué Amaral
+**Creation Date**: December 02, 2025
+**Based on**: Simplicity Protocol 1 v2.0
+**Version**: 2.2
+**Last Update**: December 10, 2025
+**Objective**: ADVANCED professional methodology for incremental quality development with a focus on security, performance, and continuous improvement
+
+**Differences from Simplicity 1**:
+>>>>>>> copilot/update-protocols-for-ai-research
 - ✅ **10 new optional steps** for complex and critical projects
 - ✅ Objective **Decision Matrix** for task selection
 - ✅ **Security Checklist** (OWASP Top 10)
@@ -202,6 +218,7 @@
 - ✅ **Accessibility Checklist** (GUI)
 
 ---
+<<<<<<< HEAD
 ---
 
 ---
@@ -549,6 +566,8 @@ When the AI signals that it has finished and that the program/application has be
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 📊 Comparison of the 3 Protocols
 
@@ -715,6 +734,7 @@ However, this rigor comes with a **cost**: ~4-6h per task vs ~2-3h in Simplicity
 
 ---
 
+<<<<<<< HEAD
 ## 📝 PHILOSOPHY OF MAXIMUM CLARITY: Universal Documentation (Enterprise)
 
 > **FUNDAMENTAL FOR AIs IN ENTERPRISE ENVIRONMENT**: Artificial intelligence MUST write all documentation, execution plans, action plans, TASKS.md and **documentation for stakeholders** (ADRs, Architectural Decisions, Compliance) **AS IF** other people, teams, auditors, or other AIs would read and execute them. This is a **mandatory mental technique** to force maximum clarity and accountability in enterprise environments.
@@ -6210,6 +6230,8 @@ If ANY item above is ❌ NOT: STOP, document doubts, and consult appropriate Sta
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.
@@ -6320,6 +6342,7 @@ Before starting any new task:
 
 ---
 
+<<<<<<< HEAD
 ## 🧪 Mandatory Rule: Unit Tests for Complex Tools (Enterprise)
 
 > **CRITICAL ENTERPRISE**: When tools (classes, modules, components, functions) are **complex or critical for business**, it is **MANDATORY** to create comprehensive unit test files with **90%+ coverage (Enterprise)** for each tool in a `tests/` folder.
@@ -7216,6 +7239,8 @@ jobs:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Binary Search for Bug Localization
 
 > **IMPORTANT FOR AIs**: When dealing with error correction and bug elimination, remember that you can use **binary search** to locate defects efficiently.
@@ -7411,6 +7436,7 @@ Binary search is not limited to lines of code. It can be applied to:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Debugging Strategies: Print-Based Investigation
 
 > **RECOMMENDED**: When investigating bugs and the root cause is not immediately obvious, adding debug print statements is a powerful technique to understand algorithm behavior and trace execution flow.
@@ -7877,6 +7903,8 @@ DEBUG [LINE] [function()] | variable: value
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Associative Memory Factor
 
 > **IMPORTANT FOR AIs**: During error investigation and correction, apply the **Associative Memory Factor** to learn from past patterns and accelerate future diagnostics.
@@ -8838,7 +8866,11 @@ compliments, and opinions)?
 
 Options:
 A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
+<<<<<<< HEAD
 B) ✅ Yes, include email for feedback (alternative or complement)
+=======
+B) ✅ Yes, include GitHub Issues (for open-source projects)
+>>>>>>> copilot/update-protocols-for-ai-research
 C) ✅ Yes, include contact form in the application
 D) ✅ Yes, include multiple channels (email + issues + form)
 E) ❌ No, do not include contact methods
@@ -9225,6 +9257,7 @@ Use Decision Matrix (Step 2.5) when there are multiple ways to divide:
 **13.5** 🔄 Sprint Retrospective
 
 ### 1️⃣ **Read the Documentation**
+<<<<<<< HEAD
 
 > **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
 
@@ -10004,6 +10037,32 @@ AI MUST:
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**
+=======
+- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
+- Consult `docs/REQUIREMENTS.md` to understand the project context
+- Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
+- Understand dependencies and existing architecture
+- Check examples in `tests/files/` when applicable
+
+**📋 About the Task File**:
+
+The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+
+**Task File Requirements**:
+- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
+- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
+- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+
+**If no task file exists**:
+1. AI should ask the user: "Which file do you use to manage tasks?"
+2. If none exists, suggest creating the default `TASKS.md`
+3. Confirm file location and name with the user
+
+**Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
+
+**📋 About Action Plans**:
+>>>>>>> copilot/update-protocols-for-ai-research
 
 In addition to `TASKS.md`, you can create **Action Plans** for tasks requiring detailed step-by-step guidance.
 
@@ -10484,6 +10543,7 @@ Options: A) [option A] | B) [option B] | C) [option C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation for Enhanced Research**
 
 > **ADVANCED TECHNIQUE FOR AIs**: When researching and consulting documentation, you can leverage **RAG (Retrieval-Augmented Generation)** principles to provide more accurate, up-to-date, and traceable answers.
@@ -10819,6 +10879,8 @@ Before answering a technical question:
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analyze and Study the Project**
 - **CRITICAL**: After understanding all doubts, **study the code before implementing**
 - Read relevant documentation (README, docs/, comments in code)
@@ -10862,6 +10924,7 @@ Before answering a technical question:
 → Result: Implementation in 2h instead of 5h (60% savings)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Parallel Options Principle (Multi-Choice)**
 
 [Content: Same as Protocol 1 EN core]
@@ -10869,6 +10932,8 @@ Before answering a technical question:
 **[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
 > "In enterprise environments, offering parallel options must be formally documented via ADR (Architecture Decision Record). Justify the additional implementation cost vs user benefit. Parallel options increase future maintenance (2x tests, 2x docs), so ensure stakeholder approval. Document in `docs/ADR/adr-NNN-multiple-options.md`."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Why?**: Avoids refactoring, saves time, ensures consistent code with the existing codebase.
 
 ---
@@ -10937,6 +11002,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repeats try/except 20 times)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Mandatory Code Comments**
 
 [Same content as Protocol 1 EN]
@@ -10947,6 +11013,8 @@ def read_file_safe(path: str) -> Optional[str]:
 **[SPECIFIC FOR SIMPLICITY 2 - ENTERPRISE]**:
 > "In enterprise environments, comments are even more critical as multiple developers work on the same code. Document architectural decisions, compliance restrictions and legacy system integrations. Code without comments in enterprise is code that causes production incidents."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Import Tree Analogy**
 
 **Concept**: A program's import structure can be visualized as a tree, where each module imports other modules, forming a dependency hierarchy.
@@ -12214,9 +12282,12 @@ echo -e "${GREEN}🚀 Starting Java application...${NC}"
 # Compile if necessary
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compiling project...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     # Tests MUST be executed separately with: mvn test
     # In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -12235,9 +12306,12 @@ echo 🚀 Starting Java application...
 REM Compile if necessary
 if not exist "target\" (
     echo 🏗️ Compiling project...
+<<<<<<< HEAD
     REM ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     REM Tests MUST be executed separately with: mvn test
     REM In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -15924,6 +15998,7 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internationalization (i18n) - Software Translation (Enterprise)
 
 > **MANDATORY ENTERPRISE**: The artificial intelligence MUST ask stakeholders about internationalization at the beginning of the project and document the decision in an ADR.
@@ -16014,6 +16089,8 @@ B) ✅ **YES** - Multi-language product
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📊 Ordinal Task Organization - Simplicity Protocols
 
 **Version**: 1.0  
@@ -17047,6 +17124,7 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 
 > **CRITICAL FOR AIs**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **MANDATORY ENTERPRISE RULE: Study Code BEFORE Refactoring**
@@ -17252,6 +17330,8 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Mandatory practices**:
 
 - ✅ **Avoid excessively large files**:
@@ -17577,3 +17657,7 @@ Before generating/committing code, verify:
 **Last updated**: December 16, 2025
 **Maintained by**: Josué Amaral
 **Status**: ACTIVE - Advanced protocol for critical/enterprise projects
+<<<<<<< HEAD
+=======
+```
+>>>>>>> copilot/update-protocols-for-ai-research

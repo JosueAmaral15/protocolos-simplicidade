@@ -1,5 +1,6 @@
 # Simplicity 3 Protocol - Solo Developer in Production
 
+<<<<<<< HEAD
 ---
 
 > 📖 **MANDATORY FOR ALL ARTIFICIAL INTELLIGENCES**: If you are reading this protocol, you MUST study and comprehend 100% of its content before proceeding. This is not optional documentation—it is the foundational methodology that defines how you must assist users and their customers. Read every section thoroughly, understand every principle, checklist, and guideline. Your effectiveness depends entirely on mastering this protocol. Partial understanding leads to incomplete work and user frustration.
@@ -505,6 +506,15 @@ When the AI signals that it has finished and that the program/application has be
 
 ---
 
+=======
+**Author**: Josué Amaral
+**Creation Date**: December 02, 2025
+**Version**: 3.1
+**Last Update**: December 09, 2025
+**Objective**: Hybrid methodology for **solo developers** with application in **production**
+
+---
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ## 🎯 Why Does Simplicity 3 Exist?
 
@@ -694,6 +704,7 @@ Simplicity 3 = Simplicity 1 Base (13 steps)
 
 ---
 
+<<<<<<< HEAD
 ## 📝 PHILOSOPHY OF MAXIMUM CLARITY: Universal Documentation (Solo)
 
 > **FUNDAMENTAL FOR AIs HELPING SOLO DEVS**: Artificial intelligence MUST write all documentation, execution plans, action plans and TASKS.md **AS IF** you (the solo developer) would read it 3 months later, half asleep, trying to debug a ticking time bomb. This is a **mandatory mental technique** to protect your sleep and your sanity.
@@ -6200,6 +6211,8 @@ If ANY item is ❌ or "maybe": YOU HAVE DOUBT. Ask now or debug later.
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Golden Rule: Absolute Priority for Workspace Errors
 
 > **CRITICAL FOR AIs**: Before implementing new features or continuing with tasks, **all workspace errors must be fixed BY YOU (AI)**.
@@ -6310,6 +6323,7 @@ Before starting any new task:
 
 ---
 
+<<<<<<< HEAD
 ## 🧪 Mandatory Rule: Unit Tests for Code with Logic (Disciplined Development)
 
 > **CRITICAL FOR ALL DEVELOPERS**: ALL code containing logic (if/else, loops, calculations, validations) **MUST** have comprehensive unit tests in a `tests/` folder. **Test ALL code with logic using intelligent priority order: critical first, then complex, then simple.**
@@ -7341,6 +7355,8 @@ The editable questionnaire pattern for solo developers:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🔍 Binary Search for Bug Localization
 
 > **IMPORTANT FOR AIs**: When dealing with error correction and bug elimination, remember that you can use **binary search** to locate defects efficiently.
@@ -7536,6 +7552,7 @@ Binary search is not limited to lines of code. It can be applied to:
 
 ---
 
+<<<<<<< HEAD
 ## 🐛 Debugging Strategies: Print-Based Investigation
 
 > **RECOMMENDED**: When investigating bugs and the root cause is not immediately obvious, adding debug print statements is a powerful technique to understand algorithm behavior and trace execution flow.
@@ -8002,6 +8019,8 @@ DEBUG [LINE] [function()] | variable: value
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 🧠 Associative Memory Factor
 
 > **IMPORTANT FOR AIs**: During error investigation and correction, apply the **Associative Memory Factor** to learn from past patterns and accelerate future diagnostics.
@@ -8776,6 +8795,7 @@ When investigating and fixing errors, AI should:
 
 ---
 
+<<<<<<< HEAD
 ### 🗂️ Solo Knowledge Management
 
 For solo developers in production:
@@ -8871,6 +8891,8 @@ When investigating and correcting errors, AI must:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 🎓 Conclusion
 
 The **Associative Memory Factor** transforms the debugging approach from reactive to proactive:
@@ -8880,7 +8902,10 @@ The **Associative Memory Factor** transforms the debugging approach from reactiv
 - 🎯 **Applies** validated solutions
 - 📈 **Evolves** continuously
 - 🚀 **Prevents** future problems
+<<<<<<< HEAD
 - 👤 **[Simplicity 3]** Keeps solo developer productive without overload
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 
 The integration of **deductive** (top-down) and **inductive** (bottom-up) approaches, combined with systematic analysis of **defect taxonomy**, creates a neuro-symbolic AI capable of:
 
@@ -8888,8 +8913,12 @@ The integration of **deductive** (top-down) and **inductive** (bottom-up) approa
 ✅ Applying more effective solutions  
 ✅ Preventing recurring problems  
 ✅ Continuously improving its knowledge base  
+<<<<<<< HEAD
 ✅ Better serving developer and client requirements  
 ✅ **[Simplicity 3]** Keeping solo developer productive without overload
+=======
+✅ Better serving developer and client requirements
+>>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
@@ -9082,7 +9111,11 @@ compliments, and opinions)?
 
 Options:
 A) ✅ Yes, include email for feedback (DEFAULT RECOMMENDED)
+<<<<<<< HEAD
 B) ✅ Yes, include email for feedback (alternative or complement)
+=======
+B) ✅ Yes, include GitHub Issues (for open-source projects)
+>>>>>>> copilot/update-protocols-for-ai-research
 C) ✅ Yes, include contact form in the application
 D) ✅ Yes, include multiple channels (email + issues + form)
 E) ❌ No, do not include contact methods
@@ -9497,6 +9530,7 @@ Rule of thumb:
 **Total**: 14 base + 3 new mandatory ⭐ + 3 optional = **17-20 steps**
 
 ### 1️⃣ **Read the Documentation**
+<<<<<<< HEAD
 
 > **🚨 CRITICAL FOR AIs - FIRST MANDATORY ACTION**: Before ANYTHING else, AI **MUST** search for and read **100% of local markdown documentation** existing in the project.
 
@@ -10173,6 +10207,30 @@ DONE. Don't overcomplicate.
 ---
 
 ### 2️⃣ **Choose the Simplest Tasks**
+=======
+- Consult `TASKS.md` (or equivalent file defined by the user) to see pending tasks
+- Consult `docs/REQUIREMENTS.md` to understand the project context
+- Review previous specifications (`v2.9.X-SPECIFICATIONS.md`)
+- Understand dependencies and existing architecture
+- Check examples in `tests/files/` when applicable
+
+**📋 About the Task File**:
+
+The `TASKS.md` file is the **default file** for managing project tasks, but you can use any ASCII format file (`.txt`, `.md`, etc.) according to your preference.
+
+**Task File Requirements**:
+- ✅ **ASCII format mandatory**: `.md`, `.txt` or similar (readable as plain text)
+- ❌ **NOT accepted**: `.docx`, `.pdf`, or binary formats
+- 📍 **Location**: Project root or in `docs/` (e.g., `TASKS.md`, `TODO.md`, `requirements.md`)
+- 🔄 **Alternative**: If you prefer another name/location, specify at project start
+
+**If no task file exists**:
+1. AI should ask the user: "Which file do you use to manage tasks?"
+2. If none exists, suggest creating the default `TASKS.md`
+3. Confirm file location and name with the user
+
+**Why?**: Avoid rework and ensure coherence with existing code. The task file centralizes project planning and progress.
+>>>>>>> copilot/update-protocols-for-ai-research
 
 **📋 About Action Plans**:
 
@@ -10634,6 +10692,7 @@ Options: A) [option A] | B) [option B] | C) [option C]
 
 ---
 
+<<<<<<< HEAD
 #### 🧠 **RAG: Retrieval-Augmented Generation for Enhanced Research**
 
 > **ADVANCED TECHNIQUE FOR AIs**: When researching and consulting documentation, you can leverage **RAG (Retrieval-Augmented Generation)** principles to provide more accurate, up-to-date, and traceable answers.
@@ -10969,6 +11028,8 @@ Before answering a technical question:
 ---
 
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ### 4️⃣ **Analyze and Study the Project**
 - **CRITICAL**: After understanding all doubts, **study the code before implementing**
 - Read relevant documentation (README, docs/, comments in code)
@@ -11012,6 +11073,7 @@ Before answering a technical question:
 → Result: Implementation in 2h instead of 5h (60% saving)
 ```
 
+<<<<<<< HEAD
 #### 🔀 **Parallel Options Principle (Multi-Choice)**
 
 [Content: Same core as Protocol 1 EN]
@@ -11028,6 +11090,8 @@ Before implementing parallel options, answer:
 
 **Solo "MVP First" Strategy**: Implement main option FIRST, launch, collect feedback, add alternative LATER if requested.
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Why?**: Avoids refactorings, saves time, ensures consistent code with the existing base.
 
 ---
@@ -11096,6 +11160,7 @@ def read_file_safe(path: str) -> Optional[str]:
 # (repeats try/except 20 times)
 ```
 
+<<<<<<< HEAD
 #### 💬 **Mandatory Code Comments**
 
 [Same content as Protocol 1 EN]
@@ -11106,6 +11171,8 @@ def read_file_safe(path: str) -> Optional[str]:
 **[SPECIFIC FOR SIMPLICITY 3 - SOLO]**:
 > "For solo developers, comments are your 'external memory'. You'll forget why you made certain decisions in 3 months. Comment for 'future you'. Document especially: non-obvious technical decisions, temporary workarounds, and why you chose library X instead of Y. Your future self will thank you."
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 #### 🌳 **Import Tree Analogy**
 
 **Concept**: A program's import structure can be visualized as a tree, where each module imports other modules, forming a dependency hierarchy.
@@ -12105,9 +12172,12 @@ echo -e "${GREEN}🚀 Starting Java application...${NC}"
 # Compile if necessary
 if [ ! -d "target" ]; then
     echo -e "${GREEN}🏗️ Compiling project...${NC}"
+<<<<<<< HEAD
     # ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     # Tests MUST be executed separately with: mvn test
     # In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     mvn clean package -DskipTests
 fi
 
@@ -12126,9 +12196,12 @@ echo 🚀 Starting Java application...
 REM Compile if necessary
 if not exist "target\" (
     echo 🏗️ Compiling project...
+<<<<<<< HEAD
     REM ⚠️ NOTE: -DskipTests used ONLY for quick local development builds
     REM Tests MUST be executed separately with: mvn test
     REM In CI/CD, NEVER use -DskipTests - always run complete tests
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
     call mvn clean package -DskipTests
 )
 
@@ -15280,6 +15353,7 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 
 > **CRITICAL FOR AIs**: Remember to **frequently** refactor code during development to maintain quality and avoid accumulation of technical debt.
 
+<<<<<<< HEAD
 ---
 
 ### ⚠️ **MANDATORY SOLO RULE: Study Code BEFORE Refactoring**
@@ -15449,6 +15523,8 @@ The **Ordinal Task Organization** and **Tree Imports Analogy** provide powerful 
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 **Mandatory practices**:
 
 - ✅ **Avoid excessively large files**:
@@ -15766,6 +15842,7 @@ Before generating/committing code, verify:
 
 ---
 
+<<<<<<< HEAD
 ## 🌍 Internationalization (i18n) - Software Translation (Solo Pragmatic)
 
 > **MANDATORY FOR SOLO DEVS**: The artificial intelligence MUST ask about software translation before creating user interface. **Protect your time!**
@@ -15972,6 +16049,8 @@ If you choose i18n but no money for professional translator:
 
 ---
 
+=======
+>>>>>>> copilot/update-protocols-for-ai-research
 ## 📚 Related Documents
 
 - 📘 **PROTOCOLO_SIMPLICIDADE_1.md**: Base (13 steps) - For prototypes/internal
@@ -15980,7 +16059,12 @@ If you choose i18n but no money for professional translator:
 
 ---
 
+<<<<<<< HEAD
 **Version**: 4.1
 **Last update**: January 8, 2026
+=======
+**Version**: 3.2
+**Last update**: December 16, 2025
+>>>>>>> copilot/update-protocols-for-ai-research
 **Maintained by**: Josué Amaral
 **Status**: ACTIVE - Protocol for solo developer in production
