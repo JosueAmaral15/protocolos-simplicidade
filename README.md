@@ -3,7 +3,6 @@
 **Coleção de Metodologias de Desenvolvimento de Software**
 > *Padronização, Qualidade e Eficiência para Diferentes Contextos.*
 
-<<<<<<< HEAD
 > 🌍 **Available in**: **Português** ([pt/](pt/)) | **English** ([en/](en/))  
 > All protocols are fully updated in both languages.
 
@@ -34,11 +33,6 @@ Para começar a programar, alguns passos devem ser dados:
 - Analogamente ao ensino e transferência de conhecimento entre um aluno e um professor, ou entre um mestre e seu discípulo, assim é o usuário programador como o professor em relação à inteligência artificial como aluno. As dúvidas da inteligência artificial devem ser completamente sanadas, testes para compreender o comportamento dos códigos ou dos algoritmos complexos devem ser realizados e os bugs, defeitos de software, ou ainda comportamentos indesejáveis, corretamente corrigidos.
 - A organização é a chave do sucesso, começando pelas tarefas mais simples, abrangentes, importantes e urgentes que são a base de todas as outras tarefas mais complexas. A documentação precisa estar sempre atualizada, a refatoração do código deve ser realizada frequentemente, planos de ação e de execução precisam ser estimulados e o desenvolvimento do aprendizado da inteligência artificial precisa ser crescente sobre TODO o código.
 - Forneça para a inteligência artificial apenas uma tarefa por vez. Não a sobrecarregue com várias tarefas paralelas ao mesmo tempo, pelo contrário, seja coeso focando em uma tarefa por vez, e coloque as tarefas restantes ou adicionais no arquivo docs/TASKS.md.
-=======
-Este repositório contém a suíte "Simplicidade", um conjunto de protocolos criados por **Josué Amaral** para guiar o ciclo de vida de desenvolvimento de software, desde a prototipagem rápida até sistemas críticos em produção.
-
-Observação importante para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos.
->>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
@@ -48,25 +42,15 @@ Não sabe por onde começar? Utilize a tabela abaixo para escolher o protocolo a
 
 | Protocolo | Cor (Book) | Foco Principal | Público Alvo | Contexto Ideal |
 | :--- | :--- | :--- | :--- | :--- |
-<<<<<<< HEAD
 | **[Simplicidade 1](pt/PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
 | **[Simplicidade 2](pt/PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
 | **[Simplicidade 3](pt/PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
-=======
-| **[Simplicidade 1](PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
-| **[Simplicidade 2](PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
-| **[Simplicidade 3](PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
->>>>>>> copilot/update-protocols-for-ai-research
 
 ---
 
 ## 📂 Detalhes dos Protocolos
 
-<<<<<<< HEAD
 ### 📘 [Protocolo Simplicidade 1: A Base](pt/PROTOCOLO_SIMPLICIDADE_1.md)
-=======
-### 📘 [Protocolo Simplicidade 1: A Base](PROTOCOLO_SIMPLICIDADE_1.md)
->>>>>>> copilot/update-protocols-for-ai-research
 *Para quem quer começar rápido, mas do jeito certo.*
 
 O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o código funcione, seja testado e documentado, sem burocracia excessiva.
@@ -74,11 +58,7 @@ O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o có
 - **Garantia:** Zero dívida técnica inicial.
 - **Quando NÃO usar:** Se o projeto for para produção com dados sensíveis de usuários (falta checklist de segurança avançada).
 
-<<<<<<< HEAD
 ### 📕 [Protocolo Simplicidade 2: Enterprise](pt/PROTOCOLO_SIMPLICIDADE_2.md)
-=======
-### 📕 [Protocolo Simplicidade 2: Enterprise](PROTOCOLO_SIMPLICIDADE_2.md)
->>>>>>> copilot/update-protocols-for-ai-research
 *Para equipes que precisam de processos maduros.*
 
 A versão estendida para o mundo corporativo. Adiciona camadas de verificação cruzada para evitar que erros humanos passem despercebidos em times grandes.
@@ -86,11 +66,7 @@ A versão estendida para o mundo corporativo. Adiciona camadas de verificação 
 - **Overhead:** Alto. Exige reuniões e validações de terceiros.
 - **Ideal para:** Consultorias, Departamentos de TI estruturados.
 
-<<<<<<< HEAD
 ### 📗 [Protocolo Simplicidade 3: Solo em Produção](pt/PROTOCOLO_SIMPLICIDADE_3.md)
-=======
-### 📗 [Protocolo Simplicidade 3: Solo em Produção](PROTOCOLO_SIMPLICIDADE_3.md)
->>>>>>> copilot/update-protocols-for-ai-research
 *O equilíbrio perfeito para o "Exército de Um Homem Só".*
 
 Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da segurança de uma empresa grande. Remove a burocracia de reuniões (do Simplicidade 2) mas impõe rigor técnico extremo (OWASP, CI/CD, Profiling).
@@ -100,66 +76,6 @@ Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da 
 
 ---
 
-<<<<<<< HEAD
-## 🤖 Para Inteligências Artificiais
-
-### ⚠️ Instrução Obrigatória de Leitura do Protocolo
-
-**Todos os protocolos começam com uma INSTRUÇÃO OBRIGATÓRIA exigindo compreensão de 100% do conteúdo antes de prosseguir.**
-
-Cada arquivo de protocolo inicia com um aviso proeminente:
-
-> 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes.
-
-**O que isso significa:**
-- IAs devem ler **cada seção, princípio, checklist e diretriz**
-- Compreensão parcial leva a trabalho incompleto e frustração do usuário
-- A eficácia depende inteiramente do domínio do protocolo
-
-### 🌐 Comunicação e Coordenação Multi-IA (v3.3+)
-
-**Novo Recurso**: Guia completo para múltiplas IAs trabalhando concorrentemente no mesmo projeto.
-
-Quando múltiplas inteligências artificiais trabalham simultaneamente (ex: múltiplas abas/janelas de terminal), a coordenação é **obrigatória** para prevenir conflitos.
-
-**3 Opções de Coordenação:**
-
-1. **Opção A: Estado Compartilhado via Sistema de Arquivos** (Mais Simples, Último Recurso)
-   - Todas as IAs leem/escrevem de `/tmp/ai_coordination.json`
-   - Vantagens: Simples, sem dependências
-   - Desvantagens: Condições de corrida, não escalável além de 2-3 IAs
-
-2. **Opção B: Orquestrador Externo** (Recomendado para Produção)
-   - Controlador central Python/Go com API REST
-   - Mantém memória compartilhada, atribui papéis, aplica bloqueios de arquivo
-   - Vantagens: Escalável (10+ IAs), auditável, pronto para produção
-   - Desvantagens: Requer processo externo, mais complexo
-
-3. **Opção C: tmux + Controlador Daemon** (Padrão para Desenvolvimento Local)
-   - Superfície de coordenação visual (1 painel = 1 papel de IA)
-   - Daemon monitora painéis, extrai intenção, injeta contexto
-   - Vantagens: Feedback visual, controle tátil, apenas local
-   - Desvantagens: Requer tmux, apenas máquina local
-
-**Hierarquia de Fallback:** C → B → A (se configuração falhar)
-
-**Recursos Principais:**
-- ✅ Protocolos de detecção (IA deve detectar se coordenação já existe)
-- ✅ Prevenção de conflitos (bloqueios de arquivo, retry de operações git com backoff exponencial)
-- ✅ Checklist de verificação de coordenação (como testar se está funcionando)
-- ✅ Tratamento de falha de rede (fallback automático)
-- ✅ Instruções completas de configuração (scripts Python/Bash incluídos)
-
-**Onde encontrar:** Todos os 6 protocolos incluem capítulo abrangente de Comunicação e Coordenação Multi-IA com:
-- Explicação da realidade técnica (por que comunicação direta IA-para-IA é impossível)
-- Guia completo de implementação para todas as 3 opções
-- Troubleshooting & casos extremos
-- Checklists de coordenação
-
----
-
-=======
->>>>>>> copilot/update-protocols-for-ai-research
 ## ⚠️ Regra Fundamental para Todos os Protocolos
 
 > **CRÍTICO**: Antes de implementar novas funcionalidades, **todos os erros no workspace devem ser corrigidos**.
@@ -279,187 +195,6 @@ Cada protocolo contém uma seção completa "🔍 Busca Binária para Localizaç
 
 ---
 
-<<<<<<< HEAD
-## 📖 Leitura de Documentação: Primeira Ação Obrigatória (NOVO v2.2/2.4/3.3)
-
-> **🚨 CRÍTICO PARA IAs**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
-
-### 🎯 O Que Mudou
-
-A partir das versões mais recentes (v2.2, v2.4, v3.3), **todos os três protocolos** incluem agora a **Etapa 1.0: Busca e Leitura Completa de Documentação** como **PRIMEIRA AÇÃO PRIORITÁRIA** antes de qualquer tarefa.
-
-### 📋 Como Funciona
-
-**Passo 1: Busca Recursiva**
-
-A IA deve procurar **TODOS** os arquivos `.md` no workspace:
-```bash
-find . -name "*.md" -type f | grep -v node_modules | grep -v venv
-```
-
-**Locais a buscar**:
-- 📂 Raiz: `README.md`, `TASKS.md`, `CHANGELOG.md`
-- 📂 `docs/`: Toda documentação estruturada
-- 📂 `docs/plans/`: Planos de ação
-- 📂 `docs/ADR/`: Architecture Decision Records (Simplicidade 2)
-- 📂 `docs/security/`: Checklists de segurança (Simplicidade 3)
-- 📂 `docs/rollback/`: Planos de rollback (Simplicidade 3)
-- 📂 Qualquer outro diretório com `.md`
-
-**Passo 2: Leitura Completa (100%)**
-
-A IA deve ler **COMPLETAMENTE** todos os arquivos encontrados:
-- ✅ `README.md` - Visão geral do projeto
-- ✅ `TASKS.md` - Tarefas pendentes e concluídas
-- ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
-- ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack
-- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões
-- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
-- ✅ `docs/plans/*.md` - Planos de ação
-- ✅ `docs/ADR/*.md` - Decisões formais (Enterprise)
-- ✅ `docs/security/*.md` - Checklists OWASP (Produção)
-- ✅ Qualquer outro arquivo `.md`
-
-**Passo 3: Se Não Encontrar Documentação**
-
-A IA **DEVE** perguntar ao usuário:
-```markdown
-❓ Procurei por documentação markdown mas não encontrei arquivos .md.
-
-Você tem documentação do projeto?
-A) Sim, está em [localização específica]
-B) Sim, mas em formato diferente
-C) Não, ainda não existe
-
-Se C: Vou criar a estrutura inicial de documentação.
-```
-
-**Passo 4: Criar Documentação Inicial (Se Não Existir)**
-
-A IA deve criar estrutura mínima obrigatória:
-
-**Simplicidade 1** (Protótipos):
-```
-README.md
-TASKS.md
-docs/
-├── REQUIREMENTS.md
-├── ARCHITECTURE.md
-└── v0.1.0-SPECIFICATIONS.md
-```
-
-**Simplicidade 2** (Enterprise):
-```
-README.md
-TASKS.md
-docs/
-├── REQUIREMENTS.md
-├── ARCHITECTURE.md
-├── v0.1.0-SPECIFICATIONS.md
-├── ADR/
-│   └── template-adr.md
-├── security/
-│   └── OWASP-checklist.md
-└── api/
-    └── api-reference.md
-```
-
-**Simplicidade 3** (Solo em Produção):
-```
-README.md
-TASKS.md
-docs/
-├── REQUIREMENTS.md
-├── ARCHITECTURE.md
-├── v0.1.0-SPECIFICATIONS.md
-├── security/
-│   └── OWASP-checklist.md
-└── rollback/
-    └── rollback-template.md
-```
-
-### ✅ Checklist Obrigatório (Para IAs)
-
-Antes de iniciar qualquer tarefa:
-
-```markdown
-[ ] 🔍 Busquei recursivamente por todos arquivos .md
-[ ] 📖 Li 100% do conteúdo de TODOS os arquivos encontrados
-[ ] 📝 Se não encontrei, perguntei ao usuário
-[ ] 📚 Se não existe, criei estrutura mínima
-[ ] 🎯 Entendi objetivo e contexto completo
-[ ] 📋 Sei quais tarefas estão pendentes
-[ ] 🛠️ Conheço o stack tecnológico
-[ ] 🏗️ Entendi decisões arquiteturais
-[ ] ✅ Pronto para trabalhar com contexto completo
-```
-
-### 🚀 Rationale: Por Quê Isso é CRÍTICO?
-
-**Para TODOS os Protocolos**:
-1. ✅ **Contexto é Tudo**: Código sem contexto é impossível de manter
-2. ✅ **Evita Duplicação**: Não reimplementar funcionalidades existentes
-3. ✅ **Decisões Anteriores**: Entender por quê escolhas foram feitas
-4. ✅ **Consistência**: Seguir padrões já estabelecidos
-5. ✅ **Produtividade**: 10 minutos de leitura economizam horas de retrabalho
-
-**Simplicidade 1** (Protótipos):
-- ✅ Evita reintroduzir bugs já corrigidos
-- ✅ Mantém consistência de estilo e padrões
-
-**Simplicidade 2** (Enterprise):
-- ✅ **ADRs são críticos**: Decisões formais não podem ser ignoradas
-- ✅ **Compliance**: Não seguir padrões corporativos bloqueia deploy
-- ✅ **Coordenação**: Múltiplos devs precisam de contexto compartilhado
-
-**Simplicidade 3** (Solo em Produção):
-- ✅ **Memória Externa**: Documentação é seu "colega de equipe virtual"
-- ✅ **Sem Backup**: Não há quem perguntar se travar
-- ✅ **Futuro Você**: Documentar para "você do futuro" (você esquece decisões)
-- ✅ **Continuidade**: Se ficar doente/férias, alguém precisa assumir
-
-### 💬 Mensagens para IAs
-
-**Regra de Ouro Universal**:
-> **"Ler documentação PRIMEIRO, codificar DEPOIS. Sempre. Sem exceções."**
-
-**Simplicidade 1**:
-> "10 minutos de leitura economizam horas de retrabalho."
-
-**Simplicidade 2**:
-> "Em enterprise, documentação não é opcional - é OBRIGATÓRIA e FORMAL. Ler 100% dos ADRs ANTES de codificar."
-
-**Simplicidade 3**:
-> "Para solo developers, documentação é CRÍTICA. Você não tem equipe. Documente como se fosse ser atropelado por um ônibus amanhã."
-
-### 📊 Comentários no Código
-
-Além de documentação markdown, a IA deve adicionar **comentários úteis** no código:
-
-**O QUE documentar nos comentários**:
-- ✅ **Por quê** o código foi escrito assim (não apenas "o que" faz)
-- ✅ **Decisões não-óbvias**: Por quê escolheu abordagem X ao invés de Y
-- ✅ **Edge cases**: Por quê certos casos especiais são tratados
-- ✅ **TODOs**: O que falta implementar ou pode ser melhorado
-
-**Exemplo de comentário útil**:
-```python
-# DECISÃO: Usamos cache em memória ao invés de Redis porque:
-# 1. Escala do projeto não justifica complexidade
-# 2. Dados pequenos (<10MB) não precisam persistir
-# 3. Startup rápido é prioridade
-cache = {}
-
-# TODO: Se escala ultrapassar 100k registros, migrar para Redis
-# Estimativa: ~2h de trabalho, criar rollback plan antes
-```
-
-📖 **Detalhes completos**: Veja Etapa 1.0 de cada protocolo para templates, comandos e exemplos específicos.
-
----
-
-=======
->>>>>>> copilot/update-protocols-for-ai-research
 ## 📝 Documentação Obrigatória na Pasta `docs/`
 
 > **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
@@ -1084,7 +819,6 @@ Inclui:
 
 ---
 
-<<<<<<< HEAD
 ## 🔍 Pesquisa de Tecnologias Adequadas ao Projeto (NOVO v2.1/2.3/3.2)
 
 > **CRÍTICO**: Todos os protocolos agora incluem **Etapa 1.5 obrigatória** para pesquisa e recomendação de tecnologias adequadas no início do projeto.
@@ -1338,242 +1072,10 @@ Para ver a lista completa de versões de cada pacote (80+ dependências), consul
 
 ---
 
-=======
->>>>>>> copilot/update-protocols-for-ai-research
-## 🤖 Como usar com IA (Cursor / Github Copilot)
-
-Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
-
-### No Cursor (Rules for AI)
-Adicione o seguinte prompt nas configurações globais ou do projeto:
-
-> "Sempre analise o contexto do projeto. Se for um projeto novo ou protótipo, siga estritamente o `PROTOCOLO_SIMPLICIDADE_1.md`. Se eu informar que é um projeto em produção e estou sozinho, adote o `PROTOCOLO_SIMPLICIDADE_3.md` e valide cada etapa de segurança comigo. Sempre consulte o TASKS.md para gerenciar tarefas do projeto."
-
-### No GitHub Copilot
-Ao iniciar uma task, invoque o contexto:
-
-> "@workspace Hoje vamos trabalhar na Task #42 do TASKS.md. Como este é um projeto crítico em produção, leia o `PROTOCOLO_SIMPLICIDADE_3.md` e guie-me passo a passo começando pela Etapa 1."
-
----
-
-## 🔍 Pesquisas Online: Capacidade da IA para Resolver Problemas Complexos
-
-**Todos os protocolos Simplicidade agora incluem orientações sobre pesquisas online para a IA:**
-
-### 📋 Quando a IA Deve Pesquisar Online
-
-Se a inteligência artificial está com **muitas dúvidas** sobre como resolver um determinado problema, ou tem **dificuldades significativas** para resolver esse mesmo problema, ela **pode e deve efetuar pesquisas online**.
-
-### 🎯 Onde Pesquisar
-
-As pesquisas podem ser realizadas em:
-
-1. **📚 Documentação do GitHub de Projetos Relacionados**:
-   - Repositórios similares ou que resolvem problemas parecidos
-   - Issues e Pull Requests relevantes
-   - Wiki e documentação técnica de projetos open source
-
-2. **📖 Plataformas de Documentação Online**:
-   - Documentação oficial das bibliotecas e frameworks
-   - Tutoriais e guias técnicos especializados
-   - Blogs técnicos de desenvolvedores experientes
-
-3. **💬 Plataformas de Perguntas e Respostas**:
-   - **StackOverflow**: Principal plataforma para dúvidas de programação
-   - **GitHub Discussions**: Para questões específicas de projetos
-   - Outras comunidades técnicas relevantes
-
-### ✅ Por Quê Isso é Importante
-
-- ✅ **Economiza tempo**: Problemas complexos já podem ter soluções documentadas
-- ✅ **Melhores práticas**: Aprenda com implementações já validadas pela comunidade
-- ✅ **Evita reinventar a roda**: Muitos problemas já foram resolvidos por outros
-- ✅ **Reduz erros**: Soluções testadas pela comunidade têm menos bugs
-- ✅ **Mantém atualizado**: Descubra as abordagens mais modernas
-
-**Detalhes completos**: Veja seção "🌐 Pesquisas Online" na Etapa 3 de cada protocolo.
-
----
-
-## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
-
-**Todos os protocolos Simplicidade agora incluem diretrizes sobre o idioma do código:**
-
-### 📋 Regra Padrão
-- **Por padrão**: Nomes de variáveis e comentários devem estar em **português** para projetos nacionais
-- **Alternativa**: Inglês pode ser usado para projetos internacionais ou de código aberto
-- **Flexibilidade**: Permite opção mista (variáveis em inglês, comentários em português)
-
-### 🤔 Pergunta Obrigatória
-**A IA deve perguntar ao programador na primeira sessão** qual idioma preferir para:
-- Nomes de variáveis
-- Comentários no código
-- Docstrings
-
-Esta preferência será registrada e aplicada consistentemente em todo o projeto.
-
-### 🎯 Rationale
-- **Projetos Nacionais**: Português facilita compreensão e manutenção para times brasileiros
-- **Projetos Internacionais**: Inglês facilita colaboração com desenvolvedores de todo o mundo
-- **Consistência**: Definir padrão no início evita mistura confusa de idiomas
-
-**Detalhes completos**: Veja seção "🌐 Idioma do Código" em cada protocolo.
-
----
-
-## 🌳 Analogia da Árvore de Importações
-
-**Novo documento complementar aos Protocolos Simplicidade!**
-
-A **[Analogia da Árvore de Importações](pt/ANALOGIA_ARVORE_IMPORTACOES.md)** é um modelo mental poderoso para compreender e organizar a arquitetura de dependências em projetos de software.
-
-### 📚 O Que é?
-
-Um guia que visualiza a estrutura de importações do seu projeto como uma árvore hierárquica:
-- 🌲 **Raiz**: Arquivo principal (orquestrador)
-- 🌿 **Galhos**: Módulos intermediários (coordenadores)
-- 🍃 **Folhas**: Módulos terminais (executores)
-
-### 🎯 Para Que Serve?
-
-- ✅ **Compreender** arquitetura existente
-- ✅ **Planejar** novos módulos
-- ✅ **Refatorar** código organicamente
-- ✅ **Comunicar** decisões de design
-
-### 🔄 Abordagens de Desenvolvimento
-
-O documento descreve três abordagens complementares:
-- **Top-Down**: Da raiz para as folhas (ideal para refatoração)
-- **Bottom-Up**: Das folhas para a raiz (ideal para componentes reutilizáveis)
-- **Middle-Out**: Do meio para fora (ideal para novos módulos)
-
-### 📖 Acesse o Documento
-
-- **🇧🇷 Português**: [pt/ANALOGIA_ARVORE_IMPORTACOES.md](pt/ANALOGIA_ARVORE_IMPORTACOES.md)
-- **🇺🇸 English**: [en/TREE_IMPORTS_ANALOGY.md](en/TREE_IMPORTS_ANALOGY.md)
-
-### 🌍 Aplicável a Todas as Linguagens
-
-Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de módulos.
-
-**Regra de Ouro:**
-> *"O arquivo principal (raiz) deve ser o orquestrador, não o executor.  
-> Quanto mais simples a folha, mais reutilizável o código."*
-
----
-
-## 🧠 Fator de Memória Associativa
-
-> **INTEGRADO**: Conceito fundamental para permitir que IAs aprendam com padrões de erros e apliquem conhecimento acumulado.
-
-O **Fator de Memória Associativa** está agora **totalmente integrado** nos três Protocolos Simplicidade, permitindo que a IA desenvolva uma "memória" de problemas e soluções.
-
-### 🎯 O Que é?
-
-Capacidade da IA de:
-- 🧠 **Reconhecer padrões** recorrentes em erros
-- 🔗 **Associar causas e efeitos** em diferentes contextos
-- 📈 **Generalizar soluções** de casos específicos para regras gerais
-- 📉 **Deduzir problemas** do geral para o específico (top-down)
-- 📊 **Induzir regras** do específico para o geral (bottom-up)
-
-### 🐍 Conexão com Python Traceback
-
-O Traceback do Python apresenta erros em estrutura **top-down** (de fora para dentro):
-- **Raiz** (orquestrador) → **Galhos** (coordenadores) → **Folhas** (executores)
-- A investigação segue o mesmo caminho dedutivo
-- Memória associativa ajuda a identificar nível e causa raiz rapidamente
-
-### 🔬 Abordagens Complementares
-
-**Dedutiva (Geral → Específico)**:
-- Aplicar regras gerais conhecidas para diagnosticar erro
-- Exemplo: "AttributeError geralmente indica objeto não inicializado"
-
-**Indutiva (Específico → Geral)**:
-- Observar casos específicos repetidos para criar regra geral
-- Exemplo: "70% dos IndexError são por manipulação incorreta de índices"
-
-**Neuro-Simbólica (Combinação)**:
-- Une dedução (IA simbólica) com indução (IA neural)
-- Aprende continuamente enquanto aplica regras estabelecidas
-
-### 🐛 Taxonomia de Defeitos
-
-Cinco categorias de defeitos altamente indesejáveis:
-
-1. **Fato Incorreto**: Informação errada ou desatualizada no código
-2. **Informação Estranha**: Código/comentários que não pertencem ao contexto
-3. **Ambiguidade**: Código que pode ser interpretado de múltiplas formas
-4. **Inconsistência**: Violação de padrões estabelecidos no projeto
-5. **Omissão**: Código ou lógica faltante (validações, tratamento de erros)
-
-### 🔄 Padrões de Erro
-
-**Erros Independentes de Entrada**:
-- Ocorrem sempre, independente dos dados
-- Indicam problema estrutural na lógica
-
-**Erros em Escopo Específico**:
-- Confinados a módulo/função específica
-- Um bug, múltiplos sintomas
-
-**Erros por Importação Comum**:
-- Múltiplos módulos falham porque importam código bugado
-- Corrigir uma vez resolve todos os casos
-
-### 📖 Onde Encontrar
-
-A **documentação completa do Fator de Memória Associativa** está agora integrada em cada protocolo:
-
-- **📘 Protocolo Simplicidade 1** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
-- **📕 Protocolo Simplicidade 2** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
-- **📗 Protocolo Simplicidade 3** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
-
-- **📘 Simplicity Protocol 1** (in English): Section "Associative Memory Factor - Complete Documentation"
-- **📕 Simplicity Protocol 2** (in English): Section "Associative Memory Factor - Complete Documentation"
-- **📗 Simplicity Protocol 3** (in English): Section "Associative Memory Factor - Complete Documentation"
-
-Cada protocolo contém a documentação completa com:
-- ✅ Metodologia detalhada de investigação top-down
-- ✅ Ciclo de debugging neuro-simbólico
-- ✅ Exemplos práticos de cada tipo de defeito
-- ✅ Base de conhecimento de padrões de erro
-- ✅ Integração com HDC (Hyperdimensional Computing)
-- ✅ Checklist completo de uso para IAs
-
-### 🎯 Benefícios
-
-- ✅ Diagnóstico mais rápido de erros
-- ✅ Correções mais efetivas
-- ✅ Prevenção de problemas recorrentes
-- ✅ Base de conhecimento em crescimento contínuo
-- ✅ Melhor atendimento aos requisitos de desenvolvedores e clientes
-
-**Integração**: Este conceito está integrado em todos os três protocolos nas etapas de correção de erros e debugging.
-
----
-
-## 📝 Créditos e Versionamento
-
-- **Autor:** Josué Amaral
-- **Licença:** Uso interno e educacional.
-- **Status:**
-<<<<<<< HEAD
-    - Simplicidade 1: `v2.3`
-    - Simplicidade 2: `v2.5`
-    - Simplicidade 3: `v3.4`
-=======
-    - Simplicidade 1: `v2.0`
-    - Simplicidade 2: `v2.2`
-    - Simplicidade 3: `v3.1`
->>>>>>> copilot/update-protocols-for-ai-research
     - Analogia da Árvore de Importações: `v1.0`
     - Fator de Memória Associativa: `v1.0`
 
 > *"Quero um trabalho completo e profissional!"*
-<<<<<<< HEAD
 
 ## Atualização 2026-01-05: Documentação de Respostas
 
@@ -1586,5 +1088,3 @@ Todos os protocolos Simplicidade (1, 2 e 3) agora incluem **seção obrigatória
 - ✅ Objetivo: Criar compreensão profunda, rastreabilidade e referência futura
 
 Esta regra está detalhada na seção "📝 Documentar Respostas do Usuário às Perguntas" de todos os protocolos.
-=======
->>>>>>> copilot/update-protocols-for-ai-research
