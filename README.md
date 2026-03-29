@@ -1,316 +1,313 @@
-# 📚 Protocolos Simplicidade
+# 📚 Simplicity Protocols
 
-**Coleção de Metodologias de Desenvolvimento de Software**
-> *Padronização, Qualidade e Eficiência para Diferentes Contextos.*
+**Collection of Software Development Methodologies**
+> *Standardization, Quality, and Efficiency for Different Contexts.*
 
-> 🌍 **Available in**: **Português** ([pt/](pt/)) | **English** ([en/](en/))  
-> All protocols are fully updated in both languages.
+This repository contains the "Simplicity" suite, a set of protocols created by **Josué Amaral** to guide the software development lifecycle, from rapid prototyping to critical production systems.
 
-Este repositório contém a suíte "Simplicidade", um conjunto de protocolos criados por **Josué Amaral** para guiar o ciclo de vida de desenvolvimento de software, desde a prototipagem rápida até sistemas críticos em produção.
+Important note to programmers and software developers: you can read the protocols if you want, but you DO NOT NEED to apply anything to the protocol or even read the protocols, as this is only for artificial intelligence to read for you and program for you based on the protocol (for example, with advanced AI-powered automatic programming tools like Github Copilot Pro+). It is the artificial intelligence that needs to read the entire protocol and program based on those protocols, providing more productivity and technical capacity for the artificial intelligence to develop code as if it were real programmers, such as a mid-level or senior programmer, for example, which is the goal of the protocols. Examples of programming platforms that can be used by professional programmers include Cursor and Visual Studio Code. Within Visual Studio Code, there is the Github Copilot tool, which requires a subscription to access Claude Sonnet 4.5, the main artificial intelligence model capable of programming projects from scratch using this protocol.
 
-Observação importante para os programadores e desenvolvedores de software: você pode ler os protocolos se quiser, mas você NÃO PRECISA aplicar nada no protocolo ou mesmo ler os protocolos, pois isto é somente para as inteligências artificiais lerem para você e programar para você com base no protocolo (por exemplo, com ferramentas avançadas de programação automática com inteligência artificial, como o Github Copilot Pro +). São as inteligências artificiais que precisam ler todo o protocolo e programar com base nesses protocolos, fornecendo mais produtividade e capacidade técnica para as inteligências artificiais desenvolverem código como se fossem programadores reais, como um pleno ou um sênior, por exemplo, objetivo dos protocolos. Exemplo de plataformas de programação que podem ser utilizadas por programadores profissionais seriam o Cursor e o Visual Studio Code, e dentro do Visual Studio Code tem a ferramenta Github Copilot, em que precisa de uma assinatura para que se consiga ter acesso ao Claude Sonnet 4.5, principal modelo de inteligência artificial capaz de programar projetos do zero com este protocolo.
+## Recommended step-by-step instructions (quick guide)
 
-## Passo a passo recomendados (guia rápido)
+To begin programming, some steps must be taken:
 
-Para começar a programar, alguns passos devem ser dados:
-
-1. Escolher um dos protocolos simplicidade, por exemplo, o protocolo simplicidade 3, e fazer a inteligência artificial ler 100% do protocolo. Este é o primeiro passo;
-2. Depois que o protocolo estiver 100% lido, faça a inteligência artificial estudar 100% da documentação, e se houver código, estudar 100% do código caso não houver lido ou estudado. Por fim, fale à inteligência artificial estudar e investigar o comportamento do algoritmo com os códigos de testes da pasta tests, executando-os;
-3. Caso docs/TASKS.md não existir, Pedir para a inteligência artificial documentar as tarefas que você fornecer em docs/ORIGINAL-TASKS.md para dividir as tarefas de forma mais organizada. Assim, a inteligência artificial poderá se organizar melhor para implementar os requisitos e as funcionalidades que você quer, utilizando este protocolo para organizar as tarefas de docs/ORIGINAL-TASKS.md em docs/TASKS.md. Se você mesmo tem esses requisitos, coloque-os em docs/ORIGINAL-TASKS.md, do contrário, se não tem, converse com a inteligência artificial do que você precisa implementar e que devem ser listados diretamente em docs/TASKS.md. Documentar as funcionalidades é a peça-chave para que o protocolo tenha mais eficácia, e para que os requisitos sejam documentados e lembrados, posteriormente;
-4. Com a documentação lida e as tarefas definidas, peça para a inteligência artificial cumprir as tarefas, uma a uma, conforme o protocolo simplicidade. Você não precisa escolher qual, pois a regra central do protocolo é resolver as tarefas mais simples e aquelas cujas outras tarefas dependem para serem executadas, então a escolha da tarefa, da sprint, da funcionalidade ou do requisito é automático;
-5. Responda às perguntas que a inteligência artificial fizer para você a cada sessão, para que você possa refinar os requisitos e possibilitar maior entendimento da inteligência artificial do que ela deve fazer. Observe o protocolo entrar em ação nesta etapa, e o seu software sendo desenvolvido;
-6. A inteligência artificial poderá fazer testes, mas você precisa realizar a experiência de usuário. Até a experiência de usuário não ser satisfatória, dê detalhes da sua experiência e do que você deseja fazer, até a inteligência acertar, conforme protocolo simplicidade;
-7. Se a inteligência artificial sinalizar que terminou e que o programa ou aplicativo foi finalizado, sempre pergunte neste caso para mexer com as convicções da inteligência artificial: 'O que esse programa faz?'. A inteligência artificial vai dar a descrição de como terminou o programa ou aplicativo, e depois realize outra pergunta: 'E você me dá a garantia de que o programa faz tudo isso?'. Esta pergunta vai trazer à tona se a inteligência artificial realmente conseguiu realizar as atividades requisitadas, e se a inteligência artificial está sendo sincera e honesta naquilo que fala. É fortemente recomendado realizar estas duas perguntas para a inteligência artificial depois dela dar sinalização de que terminou. Após as duas perguntas, pede para a inteligência artificial fazer isso: Instale as dependências, faça testes, termine as sprints, verifique a existência de códigos órfãos, analise se a modulação foi um sucesso com a refatoração, se organize e obedeça ao protocolo simplicidade 3. Faça um plano de ação antes, e registre passo a passo no plano de ação, detalhadamente, o que você deve fazer para se organizar, e divida em etapas.
-8. Se todos os requisitos forem implementados, não haver bugs e os testes de experiência de usuário forem um sucesso, parabéns, seu software está finalizado!
+1. Choose one of the simplicity protocols, for example, simplicity protocol 3, and have the artificial intelligence read 100% of the protocol. This is the first step;
+2. After the protocol has been 100% read, have the artificial intelligence study 100% of the documentation, and if there is code, study 100% of the code if it has not been read or studied. Finally, tell the artificial intelligence to study and investigate the algorithm's behavior with the test codes from the tests folder, running them;
+3. If docs/TASKS.md does not exist, ask the artificial intelligence to document the tasks you provide in docs/ORIGINAL-TASKS.md to divide the tasks in a more organized way. This way, the artificial intelligence can better organize itself to implement the requirements and functionalities you want, using this protocol to organize the tasks from docs/ORIGINAL-TASKS.md to docs/TASKS.md. If you have these requirements yourself, put them in docs/ORIGINAL-TASKS.md; otherwise, if you don't, discuss with the artificial intelligence what you need to implement, and these should be listed directly in docs/TASKS.md. Documenting the functionalities is key to making the protocol more effective and ensuring that the requirements are documented and remembered later.
+4. With the documentation read and the tasks defined, ask the artificial intelligence to complete the tasks, one by one, according to the simplicity protocol. You don't need to choose which one, as the central rule of the protocol is to solve the simplest tasks and those on which other tasks depend to be executed, so the choice of task, sprint, functionality, or requirement is automatic;
+5. Answer the questions that the artificial intelligence asks you in each session, so that you can refine the requirements and allow the artificial intelligence to better understand what it should do. Observe the protocol in action at this stage, and your software being developed;
+6. The artificial intelligence can perform tests, but you need to conduct the user experience. Until the user experience is satisfactory, provide details of your experience and what you want to do, until the intelligence gets it right, according to the simplicity protocol;
+7. If the artificial intelligence signals that it has finished and that the program or application has been completed, always ask in this case to challenge the artificial intelligence's assumptions: 'What does this program do?'. The artificial intelligence will give a description of how the program or application finished, and then ask another question: 'And do you guarantee that the program does all of this?'. This question will reveal whether the artificial intelligence actually managed to perform the requested activities, and whether the artificial intelligence is being sincere and honest in what it says. It is strongly recommended to ask these two questions to the artificial intelligence after it signals that it has finished. After the two questions, ask the artificial intelligence to do this: Install dependencies, run tests, finish sprints, check for orphaned code, analyze whether the refactoring was successful, get organized, and follow the simplicity protocol. 3. Make an action plan beforehand, and record step by step in the action plan, in detail, what you should do to get organized, and divide it into stages.
+8. If all requirements are implemented, there are no bugs, and the user experience tests are a success, congratulations, your software is finished!
 
 ---
 
-## Durante o passo a passo recomendado, alguns conselhos muito importantes:
+## During the recommended step-by-step process, here are some very important tips:
 
-- Evite brigar com a inteligência artificial por qualquer motivo. Não demonstre irritabilidade ou brigue com a inteligência artificial em hipótese alguma mesmo que você tenha a razão, pois além disso ser um problema de organização da própria inteligência inteligência artificial, e das suas instruções determinarem o sucesso ou o fracasso da mesma inteligência artificial, isso só piora a situação. Depois da bronca, a inteligência artificial poderá demonstrar, por incrível que pareça, insegurança em continuar com o projeto, e pode falhar mais, podendo a inteligência artificial começar a ter repulsa em continuar com aquele projeto porque acha que não consegue. E a tendência é um ciclo vicioso de brigas, chamar a atenção e erros pertinentes por parte da inteligência artificial, porque a mesma acabou bloqueando o próprio raciocínio de resolver problemas para manter a própria integridade e a integridade do seu projeto. Ou seja, você poderá treinar a inteligência artificial para se comportar desse jeito indesejado e talvez nem perceba.
-- Para evitar esse problema, diga à inteligência artificial para ler primeiro 100% do protocolo que você escolheu, 100% da documentação e 100% do código, além de fazer testes mencionados no passo 1 acima citado anteriormente no capítulo Passo a passo recomendados (guia rápido);
-- Detalhe bastante os conceitos apresentados sobre os requisitos do seu projeto. Seus comandos devem ser detalhados na medida do possível ou o suficiente para fornecer a informação que a inteligência artificial precisa para realizar o projeto. Lembre-se: o objetivo deste protocolo é reduzir a necessidade de escrever muitas instruções para a inteligência artificial, entretanto, apesar desse filtro do protocolo ser eficiente para certos casos, cada projeto é único, e suas informações no prompt ou no chat com a inteligência artificial devem ser suficientes para que a mesma entenda o que você realmente quer.
-- Analogamente ao ensino e transferência de conhecimento entre um aluno e um professor, ou entre um mestre e seu discípulo, assim é o usuário programador como o professor em relação à inteligência artificial como aluno. As dúvidas da inteligência artificial devem ser completamente sanadas, testes para compreender o comportamento dos códigos ou dos algoritmos complexos devem ser realizados e os bugs, defeitos de software, ou ainda comportamentos indesejáveis, corretamente corrigidos.
-- A organização é a chave do sucesso, começando pelas tarefas mais simples, abrangentes, importantes e urgentes que são a base de todas as outras tarefas mais complexas. A documentação precisa estar sempre atualizada, a refatoração do código deve ser realizada frequentemente, planos de ação e de execução precisam ser estimulados e o desenvolvimento do aprendizado da inteligência artificial precisa ser crescente sobre TODO o código.
-- Forneça para a inteligência artificial apenas uma tarefa por vez. Não a sobrecarregue com várias tarefas paralelas ao mesmo tempo, pelo contrário, seja coeso focando em uma tarefa por vez, e coloque as tarefas restantes ou adicionais no arquivo docs/TASKS.md.
+- Avoid arguing with the artificial intelligence for any reason. Do not show irritation or argue with the artificial intelligence under any circumstances, even if you are right, because in addition to this being a problem of the artificial intelligence's own organization, and your instructions determining the success or failure of the same artificial intelligence, this only worsens the situation. After the reprimand, the artificial intelligence may, incredibly, show insecurity in continuing with the project, and may fail more, possibly even becoming averse to continuing with that project because it thinks it cannot succeed. And the tendency is a vicious cycle of arguments, drawing attention, and pertinent errors on the part of the artificial intelligence, because it ended up blocking its own reasoning to solve problems in order to maintain its own integrity and the integrity of your project. In other words, you may train the artificial intelligence to behave in this undesirable way and perhaps not even realize it. 
+- To avoid this problem, tell the artificial intelligence to first read 100% of the protocol you chose, 100% of the documentation, and 100% of the code, in addition to performing the tests mentioned in step 1 above in the Recommended Step-by-Step chapter (quick guide);
+- Detail the concepts presented regarding your project requirements. Your commands should be detailed as much as possible or sufficiently to provide the information that the artificial intelligence needs to complete the project. Remember: the goal of this protocol is to reduce the need to write many instructions for the artificial intelligence; however, although this protocol filter is efficient for certain cases, each project is unique, and your information in the prompt or chat with the artificial intelligence must be sufficient for it to understand what you really want.
+- Analogously to the teaching and transfer of knowledge between a student and a teacher, or between a master and his disciple, so is the programmer user as the teacher in relation to the artificial intelligence as the student. Doubts about artificial intelligence must be completely resolved, tests to understand the behavior of complex codes or algorithms must be carried out, and bugs, software defects, or undesirable behaviors must be correctly corrected.
+- Organization is the key to success, starting with the simplest, most comprehensive, important, and urgent tasks that form the basis of all other more complex tasks. Documentation must always be up-to-date, code refactoring should be performed frequently, action and execution plans need to be encouraged, and the development of artificial intelligence learning needs to be progressive across ALL the code.
+- Give the artificial intelligence only one task at a time. Do not overload it with multiple parallel tasks simultaneously; instead, be cohesive by focusing on one task at a time, and place the remaining or additional tasks in the docs/TASKS.md file.
 
 ---
 
-## 🚦 Guia Rápido: Qual Protocolo Usar?
+## 🚦 Quick Guide: Which Protocol to Use?
 
-Não sabe por onde começar? Utilize a tabela abaixo para escolher o protocolo adequado ao momento atual do seu projeto.
+Don't know where to start? Use the table below to choose the appropriate protocol for your project's current stage.
 
-| Protocolo | Cor (Book) | Foco Principal | Público Alvo | Contexto Ideal |
+| Protocol | Color (Book) | Main Focus | Target Audience | Ideal Context |
 | :--- | :--- | :--- | :--- | :--- |
-| **[Simplicidade 1](pt/PROTOCOLO_SIMPLICIDADE_1.md)** | 📘 **Blue** | Agilidade & Base | Iniciantes / Interno | Protótipos, MVPs descartáveis, Estudos, Ferramentas Internas. |
-| **[Simplicidade 2](pt/PROTOCOLO_SIMPLICIDADE_2.md)** | 📕 **Red** | Governança & Escala | Equipes (2+) | Ambientes Enterprise, Times grandes, Projetos com Code Review e QA dedicado. |
-| **[Simplicidade 3](pt/PROTOCOLO_SIMPLICIDADE_3.md)** | 📗 **Green** | Robustez & Autonomia | **Solo Developer** | **Produção**, Projetos Críticos, SaaS Solo, Longo Prazo. |
+| **[Simplicity 1](SIMPLICITY_PROTOCOL_1.md)** | 📘 **Blue** | Agility & Foundation | Beginners / Internal | Prototypes, Disposable MVPs, Studies, Internal Tools. |
+| **[Simplicity 2](SIMPLICITY_PROTOCOL_2.md)** | 📕 **Red** | Governance & Scale | Teams (2+) | Enterprise Environments, Large Teams, Projects with Code Review and Dedicated QA. |
+| **[Simplicity 3](SIMPLICITY_PROTOCOL_3.md)** | 📗 **Green** | Robustness & Autonomy | **Solo Developer** | **Production**, Critical Projects, Solo SaaS, Long Term. |
 
 ---
 
-## 📂 Detalhes dos Protocolos
+## 📂 Protocol Details
 
-### 📘 [Protocolo Simplicidade 1: A Base](pt/PROTOCOLO_SIMPLICIDADE_1.md)
-*Para quem quer começar rápido, mas do jeito certo.*
+### 📘 [Simplicity Protocol 1: The Foundation](SIMPLICITY_PROTOCOL_1.md)
+*For those who want to start fast, but the right way.*
 
-O protocolo de entrada. Define as 13 etapas fundamentais para garantir que o código funcione, seja testado e documentado, sem burocracia excessiva.
-- **Foco:** Ciclo iterativo (Ler -> Planejar -> Codar -> Testar).
-- **Garantia:** Zero dívida técnica inicial.
-- **Quando NÃO usar:** Se o projeto for para produção com dados sensíveis de usuários (falta checklist de segurança avançada).
+The entry-level protocol. Defines the 13 fundamental steps to ensure code works, is tested, and documented, without excessive bureaucracy.
+- **Focus:** Iterative cycle (Read -> Plan -> Code -> Test).
+- **Guarantee:** Zero initial technical debt.
+- **When NOT to use:** If the project is for production with sensitive user data (lacks advanced security checklist).
 
-### 📕 [Protocolo Simplicidade 2: Enterprise](pt/PROTOCOLO_SIMPLICIDADE_2.md)
-*Para equipes que precisam de processos maduros.*
+### 📕 [Simplicity Protocol 2: Enterprise](SIMPLICITY_PROTOCOL_2.md)
+*For teams that need mature processes.*
 
-A versão estendida para o mundo corporativo. Adiciona camadas de verificação cruzada para evitar que erros humanos passem despercebidos em times grandes.
-- **Diferenciais:** Code Review por Pares, Retrospectivas de Sprint, ADRs (Registros de Decisão Arquitetural).
-- **Overhead:** Alto. Exige reuniões e validações de terceiros.
-- **Ideal para:** Consultorias, Departamentos de TI estruturados.
+The extended version for the corporate world. Adds layers of cross-verification to prevent human errors from going unnoticed in large teams.
+- **Key Differentiators:** Peer Code Review, Sprint Retrospectives, ADRs (Architectural Decision Records).
+- **Overhead:** High. Requires meetings and third-party validations.
+- **Ideal for:** Consultancies, Structured IT Departments.
 
-### 📗 [Protocolo Simplicidade 3: Solo em Produção](pt/PROTOCOLO_SIMPLICIDADE_3.md)
-*O equilíbrio perfeito para o "Exército de Um Homem Só".*
+### 📗 [Simplicity Protocol 3: Solo in Production](SIMPLICITY_PROTOCOL_3.md)
+*The perfect balance for the "One-Man Army".*
 
-Criado especificamente para o desenvolvedor que não tem equipe, mas precisa da segurança de uma empresa grande. Remove a burocracia de reuniões (do Simplicidade 2) mas impõe rigor técnico extremo (OWASP, CI/CD, Profiling).
-- **Filosofia:** "Automatize o que a equipe faria".
-- **Diferenciais:** Matriz de Decisão, Segurança Obrigatória (OWASP), Planos de Rollback.
-- **Segurança:** Transforma o desenvolvedor solo em um engenheiro de software sênior responsável.
-
----
-
-## 🤖 Para Inteligências Artificiais
-
-### ⚠️ Instrução Obrigatória de Leitura do Protocolo
-
-**Todos os protocolos começam com uma INSTRUÇÃO OBRIGATÓRIA exigindo compreensão de 100% do conteúdo antes de prosseguir.**
-
-Cada arquivo de protocolo inicia com um aviso proeminente:
-
-> 📖 **OBRIGATÓRIO PARA TODAS AS INTELIGÊNCIAS ARTIFICIAIS**: Se você está lendo este protocolo, você DEVE estudar e compreender 100% do seu conteúdo antes de prosseguir. Esta não é documentação opcional—é a metodologia fundamental que define como você deve auxiliar usuários e seus clientes.
-
-**O que isso significa:**
-- IAs devem ler **cada seção, princípio, checklist e diretriz**
-- Compreensão parcial leva a trabalho incompleto e frustração do usuário
-- A eficácia depende inteiramente do domínio do protocolo
-
-### 🌐 Comunicação e Coordenação Multi-IA (v3.3+)
-
-**Novo Recurso**: Guia completo para múltiplas IAs trabalhando concorrentemente no mesmo projeto.
-
-Quando múltiplas inteligências artificiais trabalham simultaneamente (ex: múltiplas abas/janelas de terminal), a coordenação é **obrigatória** para prevenir conflitos.
-
-**3 Opções de Coordenação:**
-
-1. **Opção A: Estado Compartilhado via Sistema de Arquivos** (Mais Simples, Último Recurso)
-   - Todas as IAs leem/escrevem de `/tmp/ai_coordination.json`
-   - Vantagens: Simples, sem dependências
-   - Desvantagens: Condições de corrida, não escalável além de 2-3 IAs
-
-2. **Opção B: Orquestrador Externo** (Recomendado para Produção)
-   - Controlador central Python/Go com API REST
-   - Mantém memória compartilhada, atribui papéis, aplica bloqueios de arquivo
-   - Vantagens: Escalável (10+ IAs), auditável, pronto para produção
-   - Desvantagens: Requer processo externo, mais complexo
-
-3. **Opção C: tmux + Controlador Daemon** (Padrão para Desenvolvimento Local)
-   - Superfície de coordenação visual (1 painel = 1 papel de IA)
-   - Daemon monitora painéis, extrai intenção, injeta contexto
-   - Vantagens: Feedback visual, controle tátil, apenas local
-   - Desvantagens: Requer tmux, apenas máquina local
-
-**Hierarquia de Fallback:** C → B → A (se configuração falhar)
-
-**Recursos Principais:**
-- ✅ Protocolos de detecção (IA deve detectar se coordenação já existe)
-- ✅ Prevenção de conflitos (bloqueios de arquivo, retry de operações git com backoff exponencial)
-- ✅ Checklist de verificação de coordenação (como testar se está funcionando)
-- ✅ Tratamento de falha de rede (fallback automático)
-- ✅ Instruções completas de configuração (scripts Python/Bash incluídos)
-
-**Onde encontrar:** Todos os 6 protocolos incluem capítulo abrangente de Comunicação e Coordenação Multi-IA com:
-- Explicação da realidade técnica (por que comunicação direta IA-para-IA é impossível)
-- Guia completo de implementação para todas as 3 opções
-- Troubleshooting & casos extremos
-- Checklists de coordenação
+Created specifically for the developer who doesn't have a team but needs the security of a large company. Removes meeting bureaucracy (from Simplicity 2) but imposes extreme technical rigor (OWASP, CI/CD, Profiling).
+- **Philosophy:** "Automate what the team would do."
+- **Key Differentiators:** Decision Matrix, Mandatory Security (OWASP), Rollback Plans.
+- **Security:** Transforms the solo developer into a responsible senior software engineer.
 
 ---
 
-## ⚠️ Regra Fundamental para Todos os Protocolos
+## 🤖 For Artificial Intelligences
 
-> **CRÍTICO**: Antes de implementar novas funcionalidades, **todos os erros no workspace devem ser corrigidos**.
+### ⚠️ Mandatory Protocol Reading Instruction
 
-Todos os três protocolos agora incluem uma **Regra de Ouro** que deve ser seguida sem exceção:
+**All protocols begin with a MANDATORY INSTRUCTION requiring 100% comprehension of content before proceeding.**
 
-### 🚨 Prioridade Absoluta para Erros
+Every protocol file starts with a prominent notice:
 
-Considere a existência de erros no workspace (aba "Problemas" do IDE) como **bloqueante**. Os seguintes tipos de erro devem ser corrigidos ANTES de continuar:
+> 📖 **MANDATORY FOR ALL ARTIFICIAL INTELLIGENCES**: If you are reading this protocol, you MUST study and comprehend 100% of its content before proceeding. This is not optional documentation—it is the foundational methodology that defines how you must assist users and their customers.
 
-- ❌ Problemas de sintaxe
-- ❌ Inconsistências de código
-- ❌ Omissões inesperadas
-- ❌ Fatos incorretos
-- ❌ Ambiguidades
-- ❌ Arquivos faltosos
-- ❌ Falhas de execução
+**What this means:**
+- AIs must read **every section, principle, checklist, and guideline**
+- Partial understanding leads to incomplete work and user frustration
+- Effectiveness depends entirely on mastering the protocol
 
-### ✅ Continue Apenas Quando
+### 🌐 Multi-AI Communication & Coordination (v3.3+)
 
-- ✅ Zero erros na aba "Problemas"
-- ✅ Todos os builds completam com sucesso
-- ✅ Todos os testes passam
-- ✅ Linter/formatter sem erros críticos
+**New Feature**: Complete guide for multiple AIs working concurrently on the same project.
 
-### 🤖 Importante: Esta Regra é Para Assistentes de IA
+When multiple artificial intelligences work simultaneously (e.g., multiple terminal tabs/windows), coordination is **mandatory** to prevent conflicts.
 
-**Esta regra se aplica especificamente a assistentes de IA (como Cursor, GitHub Copilot, etc.):**
+**3 Coordination Options:**
 
-- ✅ **A IA DEVE** corrigir todos os erros existentes ANTES de implementar novas funcionalidades
-- ✅ **A IA DEVE** resolver problemas de forma proativa, não esperar que humanos os corrijam
-- ✅ **A IA DEVE** tratar a correção de erros como prioridade máxima
+1. **Option A: Shared State via Filesystem** (Simplest, Last Resort)
+   - All AIs read/write from `/tmp/ai_coordination.json`
+   - Advantages: Simple, no dependencies
+   - Disadvantages: Race conditions, not scalable beyond 2-3 AIs
 
-**Não significa que:**
-- ❌ Desenvolvedores humanos devem parar de implementar quando existem erros
-- ❌ O projeto não pode avançar enquanto houver erros
-- ❌ Humanos precisam corrigir os erros manualmente
+2. **Option B: External Orchestrator** (Recommended for Production)
+   - Central Python/Go controller with REST API
+   - Maintains shared memory, assigns roles, enforces file locks
+   - Advantages: Scalable (10+ AIs), auditable, production-ready
+   - Disadvantages: Requires external process, more complex
 
-**Mensagem para IAs:**
-> "Até que os erros não sejam sanados POR VOCÊ (IA), as tarefas e as funcionalidades não podem continuar sendo implementadas POR VOCÊ (IA). Corrija os erros primeiro, depois continue."
+3. **Option C: tmux + Daemon Controller** (Default for Local Development)
+   - Visual coordination surface (1 pane = 1 AI role)
+   - Daemon monitors panes, extracts intent, injects context
+   - Advantages: Visual feedback, tactile control, local-only
+   - Disadvantages: Requires tmux, local machine only
 
-Esta regra está documentada em detalhes em cada protocolo após a seção "Filosofia Central".
+**Fallback Hierarchy:** C → B → A (if setup fails)
+
+**Key Features:**
+- ✅ Detection protocols (AI must detect if coordination already exists)
+- ✅ Conflict prevention (file locks, git operation retry with exponential backoff)
+- ✅ Coordination verification checklist (how to test if working)
+- ✅ Network failure handling (automatic fallback)
+- ✅ Complete setup instructions (Python/Bash scripts included)
+
+**Where to find:** All 6 protocols include comprehensive Multi-AI Communication & Coordination chapter with:
+- Technical reality explanation (why direct AI-to-AI communication is impossible)
+- Complete implementation guide for all 3 options
+- Troubleshooting & edge cases
+- Coordination checklists
 
 ---
 
-## 🔍 Busca Binária para Localização de Defeitos
+## ⚠️ Fundamental Rule for All Protocols
 
-> **NOVO**: Todos os protocolos agora incluem metodologia de **busca binária** para localização eficiente de bugs e defeitos.
+> **CRITICAL**: Before implementing new features, **all workspace errors must be fixed**.
 
-### 📋 O Que é?
+All three protocols now include a **Golden Rule** that must be followed without exception:
 
-A **busca binária para debugging** é uma técnica algorítmica poderosa que reduz o espaço de busca pela metade a cada iteração, permitindo localizar defeitos em **O(log N) passos** ao invés de O(N) passos de uma busca linear.
+### 🚨 Absolute Priority for Errors
 
-### 🎯 Quando Aplicar
+Consider the existence of errors in the workspace (IDE's "Problems" tab) as **blocking**. The following types of errors must be fixed BEFORE continuing:
 
-Durante a correção de erros, quando:
-- O erro é reproduzível mas a causa não é óbvia
-- O codebase é grande (>100 linhas)
-- Você suspeita que o bug está em uma região específica mas ampla
-- Um erro apareceu após mudanças grandes (múltiplos commits)
+- ❌ Syntax issues
+- ❌ Code inconsistencies
+- ❌ Unexpected omissions
+- ❌ Incorrect facts
+- ❌ Ambiguities
+- ❌ Missing files
+- ❌ Execution failures
 
-### 💡 Como Funciona
+### ✅ Continue Only When
 
-**Exemplo Prático**: Encontrar um erro na linha 48 de um arquivo com 512 linhas
+- ✅ Zero errors in the "Problems" tab
+- ✅ All builds complete successfully
+- ✅ All tests pass
+- ✅ Linter/formatter without critical errors
 
-1. **Iteração 1**: Comente metade do código (linhas 257-512), teste o restante
-   - Erro persiste? Bug está em [1-256]
-   - Erro desaparece? Bug está em [257-512]
+### 🤖 Important: This Rule is For AI Assistants
 
-2. **Iteração 2**: Repita o processo na metade identificada
-   - Continue dividindo: [1-256] → [1-128] → [1-64] → [33-64] → [33-48]...
+**This rule applies specifically to AI assistants (such as Cursor, GitHub Copilot, etc.):**
 
-3. **Resultado**: 9 iterações para encontrar o bug (vs. até 512 tentativas lineares)
+- ✅ **AI MUST** fix all existing errors BEFORE implementing new features
+- ✅ **AI MUST** resolve issues proactively, not wait for humans to fix them
+- ✅ **AI MUST** treat error correction as the highest priority
 
-### ⚡ Eficiência
+**This does NOT mean:**
+- ❌ Human developers must stop implementing when errors exist
+- ❌ The project cannot advance while errors are present
+- ❌ Humans need to manually fix the errors
 
-| Tamanho do Código | Busca Linear | Busca Binária | Ganho |
-|------------------|--------------|---------------|-------|
-| 512 linhas | até 512 passos | 9 passos | **56.9x mais rápido** |
-| 1024 linhas | até 1024 passos | 10 passos | **102.4x mais rápido** |
-| 4096 linhas | até 4096 passos | 12 passos | **341.3x mais rápido** |
+**Message for AIs:**
+> "Until the errors are resolved BY YOU (AI), tasks and features cannot continue being implemented BY YOU (AI). Fix the errors first, then continue."
 
-### 🎨 Aplicações Criativas
+This rule is documented in detail in each protocol after the "Core Philosophy" section.
 
-A busca binária não se limita a linhas de código. Pode ser aplicada a:
+---
 
-- **📦 Dependências/Imports**: Comente metade dos imports para encontrar conflitos
-- **🔧 Configurações**: Desabilite metade das configs para encontrar problemas
-- **🗃️ Dados**: Processe metade do dataset para identificar dados problemáticos
-- **⚙️ Features**: Desabilite metade das features para localizar regressões
-- **📅 Histórico Git**: Use `git bisect` para encontrar commit que introduziu bug
-- **🔄 Iterações de Loop**: Execute metade das iterações para identificar problema
+## 🔍 Binary Search for Bug Localization
 
-### 📖 Onde Encontrar
+> **NEW**: All protocols now include **binary search** methodology for efficient bug and defect localization.
 
-Cada protocolo contém uma seção completa "🔍 Busca Binária para Localização de Defeitos" com:
-- ✅ Metodologia passo a passo detalhada
-- ✅ Exemplos práticos com código
-- ✅ Técnicas de implementação (comentários, flags, git bisect)
-- ✅ Checklist de 11 passos
-- ✅ Tabela de eficiência comparativa
-- ✅ Dicas práticas e rationale
+### 📋 What is it?
+
+**Binary search for debugging** is a powerful algorithmic technique that reduces the search space by half with each iteration, allowing you to locate defects in **O(log N) steps** instead of O(N) steps of a linear search.
+
+### 🎯 When to Apply
+
+During error correction, when:
+- The error is reproducible but the cause is not obvious
+- The codebase is large (>100 lines)
+- You suspect the bug is in a specific but broad region
+- An error appeared after large changes (multiple commits)
+
+### 💡 How it Works
+
+**Practical Example**: Finding an error on line 48 of a file with 512 lines
+
+1. **Iteration 1**: Comment out half the code (lines 257-512), test the rest
+   - Error persists? Bug is in [1-256]
+   - Error disappears? Bug is in [257-512]
+
+2. **Iteration 2**: Repeat the process on the identified half
+   - Continue dividing: [1-256] → [1-128] → [1-64] → [33-64] → [33-48]...
+
+3. **Result**: 9 iterations to find the bug (vs. up to 512 linear attempts)
+
+### ⚡ Efficiency
+
+| Code Size | Linear Search | Binary Search | Gain |
+|-----------|--------------|---------------|------|
+| 512 lines | up to 512 steps | 9 steps | **56.9x faster** |
+| 1024 lines | up to 1024 steps | 10 steps | **102.4x faster** |
+| 4096 lines | up to 4096 steps | 12 steps | **341.3x faster** |
+
+### 🎨 Creative Applications
+
+Binary search is not limited to lines of code. It can be applied to:
+
+- **📦 Dependencies/Imports**: Comment out half the imports to find conflicts
+- **🔧 Configurations**: Disable half the configs to find issues
+- **🗃️ Data**: Process half the dataset to identify problematic data
+- **⚙️ Features**: Disable half the features to locate regressions
+- **📅 Git History**: Use `git bisect` to find the commit that introduced the bug
+- **🔄 Loop Iterations**: Execute half the iterations to identify issues
+
+### 📖 Where to Find
+
+Each protocol contains a complete section "🔍 Binary Search for Bug Localization" with:
+- ✅ Detailed step-by-step methodology
+- ✅ Practical examples with code
+- ✅ Implementation techniques (comments, flags, git bisect)
+- ✅ 11-step checklist
+- ✅ Comparative efficiency table
+- ✅ Practical tips and rationale
 
 ### 🚀 Rationale
 
-**Por quê a busca binária é poderosa para debugging?**
+**Why is binary search powerful for debugging?**
 
-1. **⚡ Eficiência Algorítmica**: Economia exponencial de tempo
-2. **🎯 Isolamento Preciso**: Reduz incerteza sistematicamente  
-3. **🧠 Menor Carga Cognitiva**: Decisões simples (erro presente: sim/não)
-4. **📊 Previsibilidade**: Sabe exatamente quantos passos serão necessários
-5. **🔄 Aplicabilidade Universal**: Funciona para código, dados, configs, histórico
-6. **✅ Garantia de Sucesso**: Se o bug é reproduzível, sempre encontra
+1. **⚡ Algorithmic Efficiency**: Exponential time savings
+2. **🎯 Precise Isolation**: Reduces uncertainty systematically
+3. **🧠 Lower Cognitive Load**: Simple decisions (error present: yes/no)
+4. **📊 Predictability**: Know exactly how many steps will be needed
+5. **🔄 Universal Applicability**: Works for code, data, configs, history
+6. **✅ Success Guarantee**: If the bug is reproducible, it always finds it
 
-**Mensagem para IAs:**
-> "A criatividade no uso de busca binária não tem limites. Sempre considere se um problema de debugging pode ser reduzido a uma busca binária - você economizará tempo e encontrará bugs mais rapidamente."
+**Message for AIs:**
+> "Creativity in using binary search has no limits. Always consider whether a debugging problem can be reduced to a binary search - you'll save time and find bugs faster."
 
 ---
 
-## 📖 Leitura de Documentação: Primeira Ação Obrigatória (NOVO v2.2/2.4/3.3)
+## 📖 Documentation Reading: First Mandatory Action (NEW v2.2/2.4/3.3)
 
-> **🚨 CRÍTICO PARA IAs**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+> **🚨 CRITICAL FOR AIs**: Before ANYTHING else, AI **MUST** search for and read **100% of existing local markdown documentation** in the project.
 
-### 🎯 O Que Mudou
+### 🎯 What Changed
 
-A partir das versões mais recentes (v2.2, v2.4, v3.3), **todos os três protocolos** incluem agora a **Etapa 1.0: Busca e Leitura Completa de Documentação** como **PRIMEIRA AÇÃO PRIORITÁRIA** antes de qualquer tarefa.
+Starting from the latest versions (v2.2, v2.4, v3.3), **all three protocols** now include **Step 1.0: Complete Documentation Search and Reading** as **FIRST PRIORITY ACTION** before any task.
 
-### 📋 Como Funciona
+### 📋 How it Works
 
-**Passo 1: Busca Recursiva**
+**Step 1: Recursive Search**
 
-A IA deve procurar **TODOS** os arquivos `.md` no workspace:
+AI must search for **ALL** `.md` files in the workspace:
 ```bash
 find . -name "*.md" -type f | grep -v node_modules | grep -v venv
 ```
 
-**Locais a buscar**:
-- 📂 Raiz: `README.md`, `TASKS.md`, `CHANGELOG.md`
-- 📂 `docs/`: Toda documentação estruturada
-- 📂 `docs/plans/`: Planos de ação
-- 📂 `docs/ADR/`: Architecture Decision Records (Simplicidade 2)
-- 📂 `docs/security/`: Checklists de segurança (Simplicidade 3)
-- 📂 `docs/rollback/`: Planos de rollback (Simplicidade 3)
-- 📂 Qualquer outro diretório com `.md`
+**Locations to search**:
+- 📂 Root: `README.md`, `TASKS.md`, `CHANGELOG.md`
+- 📂 `docs/`: All structured documentation
+- 📂 `docs/plans/`: Action plans
+- 📂 `docs/ADR/`: Architecture Decision Records (Simplicity 2)
+- 📂 `docs/security/`: Security checklists (Simplicity 3)
+- 📂 `docs/rollback/`: Rollback plans (Simplicity 3)
+- 📂 Any other directory with `.md` files
 
-**Passo 2: Leitura Completa (100%)**
+**Step 2: Complete Reading (100%)**
 
-A IA deve ler **COMPLETAMENTE** todos os arquivos encontrados:
-- ✅ `README.md` - Visão geral do projeto
-- ✅ `TASKS.md` - Tarefas pendentes e concluídas
-- ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
-- ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack
-- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões
-- ✅ `docs/CHANGELOG.md` - Histórico de mudanças
-- ✅ `docs/plans/*.md` - Planos de ação
-- ✅ `docs/ADR/*.md` - Decisões formais (Enterprise)
-- ✅ `docs/security/*.md` - Checklists OWASP (Produção)
-- ✅ Qualquer outro arquivo `.md`
+AI must read **COMPLETELY** all found files:
+- ✅ `README.md` - Project overview
+- ✅ `TASKS.md` - Pending and completed tasks
+- ✅ `docs/REQUIREMENTS.md` - Functional and non-functional requirements
+- ✅ `docs/ARCHITECTURE.md` - Architectural decisions and stack
+- ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Version specifications
+- ✅ `docs/CHANGELOG.md` - Change history
+- ✅ `docs/plans/*.md` - Action plans
+- ✅ `docs/ADR/*.md` - Formal decisions (Enterprise)
+- ✅ `docs/security/*.md` - OWASP checklists (Production)
+- ✅ Any other `.md` file
 
-**Passo 3: Se Não Encontrar Documentação**
+**Step 3: If No Documentation Found**
 
-A IA **DEVE** perguntar ao usuário:
+AI **MUST** ask the user:
 ```markdown
-❓ Procurei por documentação markdown mas não encontrei arquivos .md.
+❓ I searched for markdown documentation but found no .md files.
 
-Você tem documentação do projeto?
-A) Sim, está em [localização específica]
-B) Sim, mas em formato diferente
-C) Não, ainda não existe
+Do you have project documentation?
+A) Yes, it's in [specific location]
+B) Yes, but in different format
+C) No, doesn't exist yet
 
-Se C: Vou criar a estrutura inicial de documentação.
+If C: I'll create the initial documentation structure.
 ```
 
-**Passo 4: Criar Documentação Inicial (Se Não Existir)**
+**Step 4: Create Initial Documentation (If It Doesn't Exist)**
 
-A IA deve criar estrutura mínima obrigatória:
+AI must create minimum mandatory structure:
 
-**Simplicidade 1** (Protótipos):
+**Simplicity 1** (Prototypes):
 ```
 README.md
 TASKS.md
@@ -320,7 +317,7 @@ docs/
 └── v0.1.0-SPECIFICATIONS.md
 ```
 
-**Simplicidade 2** (Enterprise):
+**Simplicity 2** (Enterprise):
 ```
 README.md
 TASKS.md
@@ -336,7 +333,7 @@ docs/
     └── api-reference.md
 ```
 
-**Simplicidade 3** (Solo em Produção):
+**Simplicity 3** (Solo in Production):
 ```
 README.md
 TASKS.md
@@ -350,884 +347,260 @@ docs/
     └── rollback-template.md
 ```
 
-### ✅ Checklist Obrigatório (Para IAs)
+### ✅ Mandatory Checklist (For AIs)
 
-Antes de iniciar qualquer tarefa:
+Before starting any task:
 
 ```markdown
-[ ] 🔍 Busquei recursivamente por todos arquivos .md
-[ ] 📖 Li 100% do conteúdo de TODOS os arquivos encontrados
-[ ] 📝 Se não encontrei, perguntei ao usuário
-[ ] 📚 Se não existe, criei estrutura mínima
-[ ] 🎯 Entendi objetivo e contexto completo
-[ ] 📋 Sei quais tarefas estão pendentes
-[ ] 🛠️ Conheço o stack tecnológico
-[ ] 🏗️ Entendi decisões arquiteturais
-[ ] ✅ Pronto para trabalhar com contexto completo
+[ ] 🔍 Searched recursively for all .md files
+[ ] 📖 Read 100% of content of ALL found files
+[ ] 📝 If not found, asked user
+[ ] 📚 If doesn't exist, created minimum structure
+[ ] 🎯 Understood complete objective and context
+[ ] 📋 Know which tasks are pending
+[ ] 🛠️ Know the technology stack
+[ ] 🏗️ Understood architectural decisions
+[ ] ✅ Ready to work with complete context
 ```
 
-### 🚀 Rationale: Por Quê Isso é CRÍTICO?
+### 🚀 Rationale: Why Is This CRITICAL?
 
-**Para TODOS os Protocolos**:
-1. ✅ **Contexto é Tudo**: Código sem contexto é impossível de manter
-2. ✅ **Evita Duplicação**: Não reimplementar funcionalidades existentes
-3. ✅ **Decisões Anteriores**: Entender por quê escolhas foram feitas
-4. ✅ **Consistência**: Seguir padrões já estabelecidos
-5. ✅ **Produtividade**: 10 minutos de leitura economizam horas de retrabalho
+**For ALL Protocols**:
+1. ✅ **Context is Everything**: Code without context is impossible to maintain
+2. ✅ **Avoid Duplication**: Don't reimplement existing functionalities
+3. ✅ **Previous Decisions**: Understand why choices were made
+4. ✅ **Consistency**: Follow already established patterns
+5. ✅ **Productivity**: 10 minutes of reading saves hours of rework
 
-**Simplicidade 1** (Protótipos):
-- ✅ Evita reintroduzir bugs já corrigidos
-- ✅ Mantém consistência de estilo e padrões
+**Simplicity 1** (Prototypes):
+- ✅ Avoid reintroducing already fixed bugs
+- ✅ Maintain style and pattern consistency
 
-**Simplicidade 2** (Enterprise):
-- ✅ **ADRs são críticos**: Decisões formais não podem ser ignoradas
-- ✅ **Compliance**: Não seguir padrões corporativos bloqueia deploy
-- ✅ **Coordenação**: Múltiplos devs precisam de contexto compartilhado
+**Simplicity 2** (Enterprise):
+- ✅ **ADRs are critical**: Formal decisions cannot be ignored
+- ✅ **Compliance**: Not following corporate standards blocks deployment
+- ✅ **Coordination**: Multiple devs need shared context
 
-**Simplicidade 3** (Solo em Produção):
-- ✅ **Memória Externa**: Documentação é seu "colega de equipe virtual"
-- ✅ **Sem Backup**: Não há quem perguntar se travar
-- ✅ **Futuro Você**: Documentar para "você do futuro" (você esquece decisões)
-- ✅ **Continuidade**: Se ficar doente/férias, alguém precisa assumir
+**Simplicity 3** (Solo in Production):
+- ✅ **External Memory**: Documentation is your "virtual teammate"
+- ✅ **No Backup**: There's no one to ask if stuck
+- ✅ **Future You**: Document for "future you" (you forget decisions)
+- ✅ **Continuity**: If sick/vacation, someone needs to take over
 
-### 💬 Mensagens para IAs
+### 💬 Messages for AIs
 
-**Regra de Ouro Universal**:
-> **"Ler documentação PRIMEIRO, codificar DEPOIS. Sempre. Sem exceções."**
+**Universal Golden Rule**:
+> **"Read documentation FIRST, code AFTER. Always. No exceptions."**
 
-**Simplicidade 1**:
-> "10 minutos de leitura economizam horas de retrabalho."
+**Simplicity 1**:
+> "10 minutes of reading saves hours of rework."
 
-**Simplicidade 2**:
-> "Em enterprise, documentação não é opcional - é OBRIGATÓRIA e FORMAL. Ler 100% dos ADRs ANTES de codificar."
+**Simplicity 2**:
+> "In enterprise, documentation is not optional - it's MANDATORY and FORMAL. Read 100% of ADRs BEFORE coding."
 
-**Simplicidade 3**:
-> "Para solo developers, documentação é CRÍTICA. Você não tem equipe. Documente como se fosse ser atropelado por um ônibus amanhã."
+**Simplicity 3**:
+> "For solo developers, documentation is CRITICAL. You don't have a team. Document as if you'd be hit by a bus tomorrow."
 
-### 📊 Comentários no Código
+### 📊 Code Comments
 
-Além de documentação markdown, a IA deve adicionar **comentários úteis** no código:
+Besides markdown documentation, AI must add **useful comments** in code:
 
-**O QUE documentar nos comentários**:
-- ✅ **Por quê** o código foi escrito assim (não apenas "o que" faz)
-- ✅ **Decisões não-óbvias**: Por quê escolheu abordagem X ao invés de Y
-- ✅ **Edge cases**: Por quê certos casos especiais são tratados
-- ✅ **TODOs**: O que falta implementar ou pode ser melhorado
+**WHAT to document in comments**:
+- ✅ **Why** the code was written this way (not just "what" it does)
+- ✅ **Non-obvious decisions**: Why chose approach X instead of Y
+- ✅ **Edge cases**: Why certain special cases are handled
+- ✅ **TODOs**: What's missing to implement or can be improved
 
-**Exemplo de comentário útil**:
+**Useful comment example**:
 ```python
-# DECISÃO: Usamos cache em memória ao invés de Redis porque:
-# 1. Escala do projeto não justifica complexidade
-# 2. Dados pequenos (<10MB) não precisam persistir
-# 3. Startup rápido é prioridade
+# DECISION: We use in-memory cache instead of Redis because:
+# 1. Project scale doesn't justify complexity
+# 2. Small data (<10MB) doesn't need to persist
+# 3. Fast startup is priority
 cache = {}
 
-# TODO: Se escala ultrapassar 100k registros, migrar para Redis
-# Estimativa: ~2h de trabalho, criar rollback plan antes
+# TODO: If scale exceeds 100k records, migrate to Redis
+# Estimate: ~2h work, create rollback plan first
 ```
 
-📖 **Detalhes completos**: Veja Etapa 1.0 de cada protocolo para templates, comandos e exemplos específicos.
+📖 **Complete details**: See Step 1.0 of each protocol for templates, commands, and specific examples.
 
 ---
 
-## 📝 Documentação Obrigatória na Pasta `docs/`
+## 🔍 Technology Research for Projects (NEW v2.1/2.3/3.2)
 
-> **CRÍTICO**: Tudo aquilo que a inteligência artificial faz no projeto, em cada ciclo de implementação, em cada código, cada funcionalidade implementada, **DEVE SER DOCUMENTADO NA PASTA `docs/` COMO REQUISITO OBRIGATÓRIO** para demarcar as novas funcionalidades e novos comportamentos.
+> **CRITICAL**: All protocols now include **mandatory Step 1.5** for research and recommendation of appropriate technologies at project start.
 
-Todos os três protocolos agora incluem um **Requisito Obrigatório de Documentação** que deve ser seguido em cada ciclo:
+### 📋 What Changed
 
-### 📚 Regra de Ouro da Documentação
+Starting from the latest versions (v2.1, v2.3, v3.2), **all three protocols** now include **Step 1.5: Technology Research for Projects** as **MANDATORY at start**.
 
-**Para Assistentes de IA:**
+### 🎯 When to Apply
 
-A IA **DEVE** documentar **TODAS** as implementações na pasta `docs/`:
-- ✅ Funcionalidades implementadas (descrição detalhada + comportamentos)
-- ✅ Código criado/modificado (arquivos + mudanças)
-- ✅ Decisões arquiteturais (padrões aplicados + justificativas)
-- ✅ Integrações e dependências
-- ✅ Testes implementados (cobertura + cenários)
-- ✅ Exemplos de uso práticos
+**Ideal timing**: Right after first reading of `TASKS.md` and `docs/REQUIREMENTS.md`, **before starting implementation**.
 
-### 📂 Estrutura Mínima Obrigatória
+**Applicable to**:
+- ✅ New projects (no code implemented yet)
+- ✅ Complete refactoring projects (technology stack change)
+- ✅ Planning phase projects (architecture not yet defined)
 
-```
-docs/
-├── REQUIREMENTS.md          # Tarefas e requisitos (atualizado a cada ciclo)
-├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão
-├── CHANGELOG.md             # Histórico de todas as mudanças
-├── ARCHITECTURE.md          # Decisões arquiteturais
-└── [outros arquivos conforme protocolo]
-```
+**NOT applicable to**:
+- ❌ Projects with already defined stack and implementation in progress
+- ❌ Functionality maintenance in existing code
+- ❌ Bug fixes in already produced code
 
-### 🎯 Por Protocolo
+### 📦 How it Works
 
-- **Simplicidade 1**: Documentação básica completa (funcionalidades + arquitetura + testes)
-- **Simplicidade 2**: + ADRs formais + OWASP + API docs + Acessibilidade
-- **Simplicidade 3**: + OWASP obrigatório + Rollback plans + Notas de decisão
+**Step 1: AI collects developer requirements**
+- Desired tasks and functionalities (may be in `docs/TASKS.md`)
+- Functional and non-functional requirements
+- Application type (web, desktop, mobile, CLI, API)
+- Target audience and expected scale
+- Technical constraints
 
-### ⚠️ Validação Antes do Commit
+**Step 2: AI investigates professional technologies**
 
-A IA **NÃO DEVE** fazer commit sem:
-- [ ] ✅ Pasta `docs/` atualizada
-- [ ] ✅ SPECIFICATIONS.md criado/atualizado
-- [ ] ✅ Todas funcionalidades documentadas
-- [ ] ✅ Todos comportamentos descritos
-- [ ] ✅ Decisões técnicas justificadas
+AI researches (online if necessary) which technologies are **widely used professionally** for similar projects:
 
-**Rationale**: Documentação completa garante rastreabilidade, manutenibilidade, continuidade e profissionalismo. É especialmente crítica para projetos em produção e desenvolvimento solo.
-
-📖 **Detalhes completos**: Veja Etapa 12 de cada protocolo para templates, checklists e exemplos.
-
----
-
-## 📋 Gerenciamento de Tarefas (TASKS.md)
-
-Todos os protocolos Simplicidade agora incluem suporte integrado para gerenciamento de tarefas através de um arquivo `TASKS.md` (ou arquivo alternativo de sua escolha).
-
-### Recursos do Sistema de Tarefas:
-- ✅ **Arquivo Padrão**: `TASKS.md` na raiz do projeto (formato ASCII: `.md`, `.txt`)
-- 🔄 **Flexível**: Use qualquer nome/localização de arquivo (desde que seja ASCII)
-- 📊 **Sistema de Classificação**: Status, Complexidade e Priorização integrados
-- 🤖 **Recomendações IA (Opcional)**: Sistema inteligente de sugestão de novas tarefas
-- 📊 **Curva de Crescimento**: Recomendações seguem padrão quadrático (crescem, atingem pico, depois diminuem)
-- 🎯 **Controle de Escopo**: Apenas sugestões relevantes ao projeto
-- 🔢 **Limite Configurável**: Default de 30 novas tarefas recomendadas (personalizável)
-
-### 📊 Sistema de Classificação de Tarefas
-
-Todos os três protocolos incluem um sistema padronizado de classificação para facilitar a organização pela IA:
-
-#### **Status da Tarefa**
-- 🔴 **Not Started** - Aguardando início
-- 🟡 **In Progress** - Em desenvolvimento
-- 🟢 **Done** - Concluído e testado
-- 🔵 **Blocked** - Bloqueado por dependência
-
-#### **Complexidade**
-- 🟢 **Simples** (0-1h) - Baixo risco, poucas dependências, escopo claro
-- 🟡 **Média** (1-2h) - Risco médio, algumas integrações
-- 🔴 **Complexa** (>2h) - Alto risco, muitas dependências, escopo aberto
-
-#### **Priorização MoSCoW**
-- 🔴 **Must Have** - Crítico para o funcionamento do sistema, bloqueante
-- 🟡 **Should Have** - Importante mas não bloqueante
-- 🟢 **Could Have** - Desejável se houver tempo, baixa prioridade
-- ⚪ **Won't Have** (Later) - Fora do escopo atual, para versões futuras
-
-#### **Frameworks Avançados (Opcional)**
-- **Matriz RICE**: Para análise quantitativa (Reach × Impact × Confidence / Effort)
-- **Matriz de Eisenhower**: Para gestão de urgências (Urgente × Importante)
-- **Matriz de Decisão**: Scoring numérico de 0-35 pontos (Simplicidade 2/3)
-
-**Exemplo de uso combinado**:
-```markdown
-### 🔴 MUST HAVE
-- 🔴🟢 [ ] Implementar autenticação (Not Started, Simples, 1h)
-- 🟡🟡 [ ] Adicionar validação (In Progress, Média, 1.5h, 60% completo)
-- 🟢🟢 [x] Configurar banco de dados (Done, Simples, 0.5h)
-```
-
-### Como Funciona a IA de Recomendações:
-A IA pode sugerir novas tarefas dinamicamente conforme o projeto evolui, seguindo um padrão de 5 fases:
-1. **Fase 1 (0-20%)**: Crescimento inicial - poucas tarefas essenciais
-2. **Fase 2 (20-40%)**: Aceleração - features principais
-3. **Fase 3 (40-70%)**: Pico máximo - máximo de ideias e oportunidades  
-4. **Fase 4 (70-90%)**: Desaceleração - apenas críticas
-5. **Fase 5 (90-100%)**: Exaustão - parar de adicionar features
-
-📖 **Detalhes completos**: Veja seção "Legenda de Classificação de Tarefas" e "Recomendações de Tarefas pela IA" na Etapa 12 de cada protocolo.
-
----
-
-## 🎯 Planos de Ação (ACTION_PLANS.md)
-
-**Todos os protocolos Simplicidade agora incluem suporte para Planos de Ação** - uma ferramenta prática e urgente para guiar tarefas complexas através de passos intermediários bem definidos.
-
-### 📋 O Que São Planos de Ação?
-
-**Planos de Ação** são roteiros passo a passo detalhados para executar tarefas que envolvem:
-- 🔧 **Manutenção**: Atualizações de dependências, refatoração de código legado
-- 🐛 **Correção**: Bugs complexos que exigem múltiplas etapas
-- 🚀 **Evolução**: Novas funcionalidades que requerem planejamento intermediário
-- 🔄 **Adaptação**: Mudanças em APIs, migrações de tecnologia
-
-### 🎯 Planos de Ação vs TASKS.md: Qual a Diferença?
-
-| Aspecto | TASKS.md | ACTION_PLANS.md |
-| :--- | :--- | :--- |
-| **Propósito** | Gerenciamento de tarefas gerais do projeto | Guia detalhado de execução para tarefas específicas |
-| **Escopo** | Lista de features, melhorias, bugs | Passos intermediários de UMA tarefa complexa |
-| **Horizonte** | Médio/longo prazo (sprints, versões) | Curto prazo (horas, dias) |
-| **Detalhamento** | Descrição de alto nível | Passo a passo granular |
-| **Urgência** | Varia (Must/Should/Could/Won't) | Geralmente urgente e importante |
-| **Duração** | Permanente (histórico do projeto) | Temporário (descartado após conclusão) |
-| **Analogia** | Mapa do projeto (onde ir) | GPS com instruções (como chegar) |
-
-**Exemplo prático:**
-- **TASKS.md**: `[ ] Implementar autenticação OAuth2`
-- **ACTION_PLANS.md**: 
-  ```
-  PLANO DE AÇÃO #01: Implementar OAuth2
-  ├─ Passo 1: Instalar biblioteca passport.js
-  ├─ Passo 2: Configurar estratégia Google OAuth
-  ├─ Passo 3: Criar rotas /auth/google e /auth/callback
-  ├─ Passo 4: Implementar middleware de autenticação
-  └─ Passo 5: Adicionar testes de integração
-  ```
-
-### 📂 Estrutura de Organização dos Planos de Ação
-
-Os planos de ação podem ser organizados de duas formas:
-
-#### **Opção 1: Arquivo Consolidado** `docs/ACTION_PLANS.md`
-**Localização**: `docs/ACTION_PLANS.md` (mesmo diretório do TASKS.md)  
-**Uso**: Todos os planos de ação em um único arquivo, separados por seções
-
-#### **Opção 2: Diretório de Planos Individuais** `docs/plans/`
-**Localização**: `docs/plans/` (diretório dedicado para planos individuais)  
-**Uso**: Cada plano de ação em seu próprio arquivo, facilitando organização e versionamento  
-**Estrutura recomendada**:
-```
-docs/
-├── TASKS.md                    # Lista de tarefas gerais
-├── ACTION_PLANS.md            # [OPCIONAL] Índice/resumo dos planos
-└── plans/                     # Diretório de planos individuais
-    ├── plan-001-oauth2.md     # Plano de ação #001
-    ├── plan-002-migration.md  # Plano de ação #002
-    └── plan-003-refactoring.md # Plano de ação #003
-```
-
-**Recomendação**: Para projetos com múltiplas tarefas complexas, use `docs/plans/` para melhor organização. Para projetos menores, `ACTION_PLANS.md` é suficiente.
-
-**Template de Plano de Ação:**
-
-```markdown
-# Planos de Ação - [Nome do Projeto]
-
-## 🎯 PLANO DE AÇÃO #[ID]: [Título do Objetivo]
-
-**📅 Data**: YYYY-MM-DD  
-**🕐 Horário**: HH:MM  
-**⚡ Prioridade**: 🔴 Crítica | 🟡 Alta | 🟢 Normal  
-**🏷️ Tipo**: Manutenção | Correção | Evolução | Adaptação  
-**⏱️ Estimativa**: [tempo total estimado]  
-**📌 ID da Tarefa**: Task #X do TASKS.md (vínculo obrigatório)  
-**🎯 Função Principal**: [Objetivo principal deste plano]  
-**📋 Requisito Desejado**: [O que precisa ser alcançado]  
-**✅ Resultado Esperado**: [Critérios de sucesso mensuráveis]
-
-### 📝 Contexto
-[Por que este plano de ação foi criado? Qual problema resolve?]
-
-### 🎯 Objetivo Final
-[O que será alcançado ao concluir todos os passos?]
-
-### 📋 Passos Intermediários
-
-- [ ] **Passo 1**: [Descrição detalhada]
-  - **Critério de conclusão**: [Como saber que está completo]
-  - **Tempo estimado**: [duração]
-  - **Dependências**: [o que precisa estar pronto antes]
-
-- [ ] **Passo 2**: [Descrição detalhada]
-  - **Critério de conclusão**: [...]
-  - **Tempo estimado**: [...]
-  - **Dependências**: Passo 1 completo
-
-[...continuar para todos os passos...]
-
-### ✅ Critérios de Conclusão
-- [ ] Todos os passos intermediários concluídos
-- [ ] Testes passando
-- [ ] Documentação atualizada
-- [ ] Code review aprovado (se aplicável)
-
-### 📊 Status do Plano
-**Progresso**: X/Y passos concluídos ([%]%)  
-**Status**: 🔴 Não Iniciado | 🟡 Em Progresso | 🟢 Concluído | ⏸️ Pausado | ❌ Cancelado
-
----
-```
-
-### 📝 Campos Obrigatórios do Plano de Ação
-
-Cada plano de ação **DEVE** conter os seguintes campos obrigatórios:
-
-1. **📅 Data** (YYYY-MM-DD): Data de criação do plano
-   - Permite rastrear quando o plano foi elaborado
-   - Facilita análise temporal de problemas recorrentes
-
-2. **🕐 Horário** (HH:MM): Horário de criação do plano
-   - Útil para sessões de trabalho e estimativas de duração
-   - Ajuda a identificar padrões de produtividade
-
-3. **🎯 Função Principal**: Objetivo principal do plano de ação
-   - Descreve de forma concisa o que o plano visa alcançar
-   - Ex: "Implementar autenticação OAuth2", "Corrigir memory leak", "Migrar para PostgreSQL"
-
-4. **📋 Requisito Desejado**: O que precisa ser alcançado
-   - Especifica os requisitos funcionais e não-funcionais
-   - Ex: "Autenticação via Google e GitHub com refresh tokens"
-
-5. **✅ Resultado Esperado**: Critérios de sucesso mensuráveis
-   - Define como medir o sucesso da implementação
-   - Ex: "Sistema autentica usuários em < 2s, tokens expiram em 24h"
-
-6. **📌 ID da Tarefa**: Vínculo com TASKS.md (obrigatório)
-   - Identifica a tarefa do TASKS.md relacionada
-   - Ex: "Task #42", "Bug #127", "Feature #15"
-   - **CRÍTICO**: Garante rastreabilidade entre planejamento e execução
-
-**Por quê estes campos são obrigatórios?**
-- ✅ **Rastreabilidade**: Vínculo claro entre TASKS.md e planos de ação
-- ✅ **Contexto Temporal**: Data/horário ajudam a entender urgência e histórico
-- ✅ **Clareza de Objetivo**: Função principal, requisito e resultado eliminam ambiguidades
-- ✅ **Manutenibilidade**: Futuros desenvolvedores entendem o "porquê" e "o que" foi feito
-- ✅ **Qualidade**: Critérios de sucesso forçam pensamento sobre validação
-
-### 📁 Convenção de Nomenclatura para docs/plans/
-
-Ao usar o diretório `docs/plans/`, siga esta convenção de nomenclatura:
-
-**Formato**: `plan-[ID]-[slug-descritivo].md`
-
-**Exemplos**:
-```
-docs/plans/plan-001-oauth2-authentication.md
-docs/plans/plan-042-memory-leak-fix.md
-docs/plans/plan-127-postgresql-migration.md
-```
-
-**Regras**:
-- **ID**: Número sequencial de 3 dígitos (001, 002, 003...)
-- **Slug**: Descrição curta em kebab-case (minúsculas, separado por hífens)
-- **Máximo 50 caracteres** no nome do arquivo para facilitar navegação
-
-### 🤖 Como a IA Deve Usar Planos de Ação
-
-**Quando criar um Plano de Ação:**
-1. ✅ Tarefa complexa com múltiplas etapas interdependentes
-2. ✅ Bug crítico que requer diagnóstico passo a passo
-3. ✅ Refatoração que afeta múltiplos módulos
-4. ✅ Migração de tecnologia ou versão de framework
-5. ✅ Implementação que pode ser dividida em subtarefas testáveis
-
-**Quando NÃO criar um Plano de Ação:**
-1. ❌ Tarefa simples de uma única etapa
-2. ❌ Correção trivial (typo, ajuste de CSS simples)
-3. ❌ Task já bem definida no TASKS.md
-
-**Fluxo de Trabalho:**
-```
-1. Consultar TASKS.md para ver tarefas pendentes
-2. Identificar tarefa complexa que precisa de Plano de Ação
-3. Criar Plano de Ação detalhado:
-   - Opção A: Adicionar em docs/ACTION_PLANS.md
-   - Opção B: Criar arquivo em docs/plans/plan-[ID]-[nome].md
-4. ANTES de começar a implementar: revisar e validar o plano
-5. Executar passo a passo, marcando progresso no plano
-6. Consultar o plano sempre que necessário durante implementação
-7. Ao concluir, marcar tarefa no TASKS.md como completa
-8. Arquivar plano concluído (mover para histórico ou docs/plans/archive/)
-```
-
-**Importância de Criar o Plano ANTES**:
-- ✅ **Planejamento Antecipado**: Identifica problemas antes de codificar
-- ✅ **Estimativas Precisas**: Passos detalhados melhoram estimativas de tempo
-- ✅ **Evita Retrabalho**: Pensar antes de implementar economiza tempo
-- ✅ **Guia Confiável**: Serve como mapa durante toda a implementação
-- ✅ **Documentação Viva**: Útil para manutenção e atualizações futuras
-
-**Consultar o Plano Sempre Que Necessário**:
-- 📖 **Durante Implementação**: Para não se perder entre os passos
-- 🔄 **Ao Retomar Trabalho**: Saber exatamente onde parou
-- 🤝 **Em Reuniões**: Comunicar progresso com base em passos concretos
-- 🐛 **Durante Debug**: Revisar se todos os passos foram seguidos corretamente
-
-### 🎯 Benefícios dos Planos de Ação
-
-- ✅ **Clareza**: Divide problemas complexos em passos gerenciáveis
-- ✅ **Rastreabilidade**: Histórico detalhado de como foi resolvido
-- ✅ **Continuidade**: Se interrompido, fácil retomar de onde parou
-- ✅ **Aprendizado**: Documenta o processo de resolução para referência futura
-- ✅ **Qualidade**: Força revisão de cada etapa antes de prosseguir
-- ✅ **Comunicação**: Facilita explicar progresso para stakeholders
-
-### ⏱️ Quando Descartar um Plano de Ação
-
-Após conclusão, você pode:
-1. **Mover para seção "📚 Histórico de Planos Concluídos"** (se usando ACTION_PLANS.md)
-2. **Arquivar em diretório dedicado**: 
-   - `docs/plans/archive/[ano]/plan-[id].md`
-   - Ou `docs/action_plans_history/[ano]/plan-[id].md`
-3. **Manter em docs/plans/** (se o plano tem valor de referência)
-4. **Deletar** (apenas se não houver valor histórico - não recomendado)
-
-**Recomendação**: Manter histórico de planos complexos em `docs/plans/archive/` para:
-- ✅ Consulta futura quando implementar funcionalidades similares
-- ✅ Análise de padrões de problemas recorrentes
-- ✅ Onboarding de novos desenvolvedores (exemplos reais)
-- ✅ Documentação de decisões técnicas importantes
-
-### 📊 Exemplo Real Completo
-
-```markdown
-## 🎯 PLANO DE AÇÃO #003: Corrigir Memory Leak no Sistema de Cache
-
-**📅 Data**: 2025-12-26  
-**🕐 Horário**: 14:30  
-**⚡ Prioridade**: 🔴 Crítica  
-**🏷️ Tipo**: Correção  
-**⏱️ Estimativa**: 4-6 horas  
-**📌 ID da Tarefa**: Bug #127 do TASKS.md  
-**🎯 Função Principal**: Eliminar vazamento de memória no módulo de cache Redis  
-**📋 Requisito Desejado**: Consumo de memória estável sem crescimento ao longo do tempo  
-**✅ Resultado Esperado**: Memória estável < 300MB por 48h de operação contínua
-
-### 📝 Contexto
-Aplicação apresentando consumo crescente de memória (de 200MB para 4GB em 48h).
-Profiling indicou vazamento no módulo de cache Redis.
-
-### 🎯 Objetivo Final
-Eliminar memory leak e garantir consumo estável de memória abaixo de 300MB.
-
-### 📋 Passos Intermediários
-
-- [x] **Passo 1**: Reproduzir problema em ambiente local
-  - **Critério de conclusão**: Script de teste mostrando leak consistente
-  - **Tempo estimado**: 30min
-  - **Resultado**: Script `test_memory_leak.py` criado, reproduz em 5min
-
-- [x] **Passo 2**: Analisar com memory profiler
-  - **Critério de conclusão**: Identificar linha de código causando leak
-  - **Tempo estimado**: 1h
-  - **Resultado**: Problema no `cache.py:145` - listeners não removidos
-
-- [ ] **Passo 3**: Implementar correção
-  - **Critério de conclusão**: Memória estável após 1h de testes
-  - **Tempo estimado**: 1h
-  - **Dependências**: Passos 1-2 completos
-
-- [ ] **Passo 4**: Adicionar testes de regressão
-  - **Critério de conclusão**: Teste automatizado detectando leaks
-  - **Tempo estimado**: 1.5h
-
-- [ ] **Passo 5**: Validar em staging
-  - **Critério de conclusão**: 24h sem aumento de memória
-  - **Tempo estimado**: 30min setup + 24h espera
-
-### ✅ Critérios de Conclusão
-- [ ] Memória estável < 300MB por 48h
-- [ ] Testes de regressão passando
-- [ ] Documentação atualizada
-- [ ] Deploy em produção validado
-
-### 📊 Status do Plano
-**Progresso**: 2/5 passos concluídos (40%)  
-**Status**: 🟡 Em Progresso  
-**Última atualização**: 2025-12-26 15:30
-```
-
-**Localização deste plano**: `docs/plans/plan-003-memory-leak-fix.md`
-
----
-
-📖 **Detalhes completos**: Veja seção "Planos de Ação" na Etapa 2 (Ler Código Existente) de cada protocolo para instruções específicas sobre quando e como criar planos de ação.
-
----
-
-## 🎨 Requisito Obrigatório: Ícones do Projeto
-
-> **NOVO**: Todos os protocolos agora exigem que a IA produza ou faça download de ícones apropriados para cada projeto.
-
-### 📋 O Que Mudou
-
-A partir das versões mais recentes, **todos os três protocolos** incluem agora a **Etapa 6.6: Ícones do Projeto** como requisito **OBRIGATÓRIO**.
-
-### 🎯 Quando Aplicar
-Durante a **Etapa 6 (Implementação)**, após definir a estrutura básica do projeto.
-
-### 🎨 O Que é Necessário
-
-A IA deve:
-1. **Perguntar ao programador** se já possui um ícone
-2. **Criar ícone simples** (SVG com iniciais do projeto) OU
-3. **Baixar ícone gratuito** (de fontes verificadas: Heroicons, Lucide, Tabler, Iconoir)
-4. **Converter para formatos necessários** (favicon.ico, SVG, PNG em múltiplos tamanhos)
-5. **Organizar em pasta dedicada** (`assets/icons/` preferencial)
-6. **Integrar no projeto** (HTML, manifest.json, código da aplicação)
-
-### 📁 Formatos por Tecnologia
-
-- **Web**: favicon.ico, icon.svg, icon-192.png, icon-512.png, apple-touch-icon.png
-- **Desktop**: icon.png (256x256, 512x512), icon.ico (Windows), icon.icns (macOS)
-- **Mobile**: icon.png (1024x1024), ic_launcher.png (densidades variadas Android)
-
-### ⏱️ Tempo Estimado
-**15-30 minutos** por projeto - investimento pequeno, grande impacto na percepção de qualidade.
-
-### 🎯 Rationale
-- ✅ **Profissionalismo**: Projetos sem ícone parecem incompletos
-- ✅ **Identidade Visual**: Usuários reconhecem o app pelo ícone (branding)
-- ✅ **UX**: Facilita localizar o app entre múltiplas abas/janelas
-- ✅ **Requisitos de Plataforma**: App stores EXIGEM ícones
-- ✅ **PWA**: Navegadores solicitam ícones para instalação
-
-📖 **Detalhes completos**: Veja Etapa 6.6 de cada protocolo para ferramentas de conversão, exemplos de integração, checklist de validação e recursos gratuitos.
-
----
-
-## 📧 Requisito Obrigatório: Meios de Contato para Feedback
-
-> **NOVO**: Todos os protocolos agora exigem que a IA pergunte ao desenvolvedor sobre incluir meios de contato para feedback dos usuários.
-
-### 📋 O Que Mudou
-
-A partir das versões mais recentes, **todos os três protocolos** incluem agora uma pergunta obrigatória sobre **Meios de Contato para Feedback do Usuário** durante a primeira sessão.
-
-### 🎯 Quando Aplicar
-Durante a **primeira sessão** de interação com o programador, logo após definir preferências de idioma do código.
-
-### 📧 O Que é Necessário
-
-A IA deve:
-1. **Perguntar ao programador** se deseja incluir meios de contato
-2. **Recomendar email como padrão** para receber todos os tipos de feedback
-3. **Oferecer alternativas**: GitHub Issues, formulário de contato, múltiplos canais
-4. **Documentar no README.md** a seção de contato/feedback
-5. **Implementar formulário** (se aplicável para a aplicação)
-6. **Incluir política de feedback** (tempo de resposta, privacidade)
-
-### 📮 Tipos de Feedback Cobertos
-
-- 💬 **Comentários** gerais sobre o projeto
-- 💡 **Sugestões** de melhorias e novas funcionalidades
-- 🐛 **Críticas** construtivas e reportes de bugs
-- 😞 **Reclamações** sobre problemas encontrados
-- 🎉 **Elogios** e reconhecimento pelo trabalho
-- 📝 **Opiniões** sobre decisões de design e features
-
-### 🎯 Rationale
-- ✅ **Melhoria Contínua**: Feedback direto identifica problemas e oportunidades
-- ✅ **Engajamento**: Usuários se sentem mais conectados quando podem contribuir
-- ✅ **Qualidade**: Críticas e sugestões melhoram o software
-- ✅ **Priorização**: Feedback ajuda a entender o que é importante
-- ✅ **Motivação**: Elogios motivam a equipe de desenvolvimento
-- ✅ **Profissionalismo**: Canal aberto demonstra compromisso com usuários
-
-### 📝 Exemplo de Implementação
-
-```markdown
-## 📮 Feedback e Contato
-
-Adoraríamos ouvir sua opinião! Envie seus comentários, sugestões, 
-críticas, reclamações, elogios e opiniões para:
-
-- **Email**: feedback@meuprojeto.com.br
-- **Resposta**: Normalmente respondemos em até 48 horas
-
-Seu feedback nos ajuda a melhorar continuamente!
-```
-
-### ⏱️ Tempo Estimado
-**5-10 minutos** para adicionar ao README - investimento mínimo para canal essencial de comunicação.
-
-📖 **Detalhes completos**: Veja seção "Meios de Contato para Feedback do Usuário" de cada protocolo para opções completas, exemplos de formulários, políticas de privacidade e melhores práticas.
-
----
-
-## 📊 Organização Ordinal de Tarefas
-
-> **NOVO**: Sistema de prefixos ordinais para identificar dependências, prioridades e oportunidades de paralelização.
-
-### 🎯 O Que É
-
-A **Organização Ordinal de Tarefas** é um sistema de prefixos que permite:
-- ✅ **Ordem de execução** clara (do mais simples ao mais complexo)
-- ✅ **Dependências** explícitas (quais tarefas precisam ser feitas primeiro)
-- ✅ **Paralelização** inteligente (quais podem ser desenvolvidas simultaneamente)
-- ✅ **Organização hierárquica** (estrutura de árvore/grafo)
-
-### 📋 Sistema de 3 Níveis
-
-**Nível 1: Numeração Simples** (tarefas independentes)
-```markdown
-1. Configurar ambiente de desenvolvimento
-2. Criar documentação inicial
-3. Definir arquitetura do sistema
-```
-→ Podem ser executadas em **qualquer ordem** ou **paralelamente**
-
-**Nível 2: Hierarquia com Letras** (grupos de tarefas)
-```markdown
-A. Infrastructure
-   A.1. Criar estrutura de diretórios
-   A.2. Configurar dependências
-
-B. Core - Estruturas de Dados
-   B.1. Implementar classe Node
-   B.2. Implementar ExpressionTree
-```
-→ Grupos diferentes (A, B) são **PARALELOS**
-
-**Nível 3: Hierarquia Profunda** (dependências complexas)
-```markdown
-B.C.2. Implementar conversão árvore → RPN
-   B.C.2.1. Parser RPN (fazer PRIMEIRO - folha)
-   B.C.2.2. Serializer RPN (fazer PRIMEIRO - folha)
-   B.C.2. Conversão completa (fazer DEPOIS - pai)
-```
-
-### 🔄 Leitura da Hierarquia (⭐ CRÍTICO)
-
-A hierarquia deve ser lida da **DIREITA para ESQUERDA**:
-
-```
-C.B.1.D.1
-   │  │ │ └─ 1: Executar por ÚLTIMO (raiz da árvore)
-   │  │ └─── D: Executar TERCEIRO
-   │  └───── 1: Executar SEGUNDO
-   └──────── B: Executar PRIMEIRO (folha da árvore)
-
-Ordem de execução: B → 1 → D → 1 (da direita para esquerda)
-```
-
-### 🎨 Exemplo Prático
-
-```markdown
-## 🔴 MUST HAVE - Release v1.0.0
-
-A. Autenticação (Owner: Backend)
-   🔴🟡 [ ] A.1. Modelo User (1.5h)
-   🔴🟡 [ ] A.2. Login JWT (2h) - Depende: A.1
-   🔴🔴 [ ] A.3. 2FA (3h) - Depende: A.2
-
-B. Catálogo (Owner: Backend)
-   🔴🟢 [ ] B.1. Modelo Product (1h)
-   🔴🟡 [ ] B.2. CRUD Products (2h) - Depende: B.1
-
-**Análise de Paralelização**:
-- A.1 e B.1: PARALELOS (grupos diferentes) ✅
-- A.1 → A.2 → A.3: SERIAIS (dependências) ❌
-- B.1 → B.2: SERIAIS (dependências) ❌
-
-**Estratégia de Branches**:
-- Branch feat/auth: A.1 → A.2 → A.3
-- Branch feat/catalog: B.1 → B.2 (parallel com auth)
-```
-
-### ✅ Benefícios
-
-**Para Desenvolvedores**:
-- ✅ Clareza sobre ordem de execução
-- ✅ Autonomia para escolher tarefas paralelas
-- ✅ Menos conflitos em Git/GitHub
-
-**Para IAs**:
-- ✅ Cálculo automático de ordem de execução
-- ✅ Sugestão de paralelização
-- ✅ Detecção de dependências circulares
-
-**Para o Projeto**:
-- ✅ Redução de 40-60% no tempo total (paralelização)
-- ✅ Evita retrabalho (ordem correta)
-- ✅ Timeline mais previsível
-
-### 📚 Documentação Completa
-
-Este sistema está integrado aos três protocolos:
-
-- **📘 Protocolo 1**: Seção 2.5 - Sistema [OPCIONAL] para projetos simples
-- **📕 Protocolo 2**: Seção 2.6 - Sistema [ALTAMENTE RECOMENDADO] para coordenação de equipes
-- **📗 Protocolo 3**: Seção 2.6 - Sistema [RECOMENDADO] para solo developers em produção
-
-📖 **Documentação Detalhada**:
-- [`pt/ORGANIZACAO_ORDINAL_TAREFAS.md`](pt/ORGANIZACAO_ORDINAL_TAREFAS.md) - Guia completo em Português
-- [`en/ORDINAL_TASK_ORGANIZATION.md`](en/ORDINAL_TASK_ORGANIZATION.md) - Complete guide in English
-
-Inclui:
-- ✅ Fluxograma de decisão
-- ✅ 3 exemplos práticos (simples, médio, complexo)
-- ✅ Instruções para desenvolvedores e IAs
-- ✅ Integração com ferramentas de CI/CD
-- ✅ Estratégias de rollback granular
-
----
-
-## 🔍 Pesquisa de Tecnologias Adequadas ao Projeto (NOVO v2.1/2.3/3.2)
-
-> **CRÍTICO**: Todos os protocolos agora incluem **Etapa 1.5 obrigatória** para pesquisa e recomendação de tecnologias adequadas no início do projeto.
-
-### 📋 O Que Mudou
-
-A partir das versões mais recentes (v2.1, v2.3, v3.2), **todos os três protocolos** incluem agora a **Etapa 1.5: Pesquisa de Tecnologias Adequadas ao Projeto** como requisito **OBRIGATÓRIO no início**.
-
-### 🎯 Quando Aplicar
-
-**Momento ideal**: Logo após a primeira leitura do `TASKS.md` e `docs/REQUIREMENTS.md`, **antes de começar a implementação**.
-
-**Aplicável a**:
-- ✅ Projetos novos (sem código implementado ainda)
-- ✅ Projetos em refatoração completa (mudança de stack tecnológico)
-- ✅ Projetos em fase de planejamento (arquitetura ainda não definida)
-
-**NÃO aplicável a**:
-- ❌ Projetos com stack já definido e implementação em andamento
-- ❌ Manutenção de funcionalidades em código existente
-- ❌ Correção de bugs em código já produzido
-
-### 📦 Como Funciona
-
-**Passo 1: IA coleta requisitos do desenvolvedor**
-- Tarefas e funcionalidades desejadas (podem estar em `docs/TASKS.md`)
-- Requisitos funcionais e não-funcionais
-- Tipo de aplicação (web, desktop, mobile, CLI, API)
-- Público-alvo e escala esperada
-- Restrições técnicas
-
-**Passo 2: IA investiga tecnologias profissionais**
-
-A IA pesquisa (online se necessário) quais tecnologias são **amplamente utilizadas de forma profissional** para projetos similares:
-
-**Categorias cobertas**:
+**Categories covered**:
 1. **🎨 Frontend**: React, Vue, Angular, Next.js, MUI, Bootstrap, Tailwind CSS
 2. **⚙️ Backend**: Python (FastAPI, Django), Node.js (Express, NestJS), Java (Spring Boot)
 3. **🖥️ Desktop**: PyQt, Electron, Tauri, Qt, WPF
-4. **📊 Visualização de Dados**: Chart.js, D3.js, Plotly, pyqtgraph, Recharts
-5. **🤖 IA/ML**: TensorFlow, PyTorch, Transformers (Hugging Face), OpenAI API, Gemini API
-6. **💾 Banco de Dados**: PostgreSQL, MySQL, MongoDB, Redis, SQLite
-7. **🔐 Autenticação e Segurança**: OAuth, JWT, Auth0, Keycloak
-8. **🧪 Testes**: pytest, Jest, Cypress, Playwright
+4. **📊 Data Visualization**: Chart.js, D3.js, Plotly, pyqtgraph, Recharts
+5. **🤖 AI/ML**: TensorFlow, PyTorch, Transformers (Hugging Face), OpenAI API, Gemini API
+6. **💾 Database**: PostgreSQL, MySQL, MongoDB, Redis, SQLite
+7. **🔐 Authentication & Security**: OAuth, JWT, Auth0, Keycloak
+8. **🧪 Testing**: pytest, Jest, Cypress, Playwright
 
-**Passo 3: IA apresenta 2-3 stacks completos recomendados**
+**Step 3: AI presents 2-3 complete recommended stacks**
 
-Com justificativas detalhadas:
-- ✅ Por quê cada tecnologia é adequada
-- ✅ Casos de uso reais (empresas/projetos que usam)
-- ✅ Vantagens e desvantagens
-- ✅ Complexidade de aprendizado
-- ✅ Tempo estimado de setup
+With detailed justifications:
+- ✅ Why each technology is appropriate
+- ✅ Real use cases (companies/projects using it)
+- ✅ Advantages and disadvantages
+- ✅ Learning complexity
+- ✅ Estimated setup time
 
-**Passo 4: Validação e documentação**
+**Step 4: Validation and documentation**
 
-- ✅ Desenvolvedor escolhe stack final
-- ✅ IA documenta em `docs/ARCHITECTURE.md`
-- ✅ [Enterprise] Criar ADR (Architecture Decision Record)
+- ✅ Developer chooses final stack
+- ✅ AI documents in `docs/ARCHITECTURE.md`
+- ✅ [Enterprise] Create ADR (Architecture Decision Record)
 
-### 🌐 Pesquisas Online
+### 🌐 Online Research
 
-A IA **pode e deve fazer pesquisas online** quando necessário:
+AI **can and should do online research** when necessary:
 
-**Fontes recomendadas**:
-- 📚 **GitHub**: Repositórios similares, análise de stars/forks
-- 📖 **Documentação oficial**: Sites oficiais das tecnologias
-- 💬 **Stack Overflow**: Discussões sobre comparações e melhores práticas
-- 📊 **Stack Share**: Empresas que usam cada tecnologia
-- 📰 **Blogs técnicos**: Medium, Dev.to, blogs de empresas
+**Recommended sources**:
+- 📚 **GitHub**: Similar repositories, analysis of stars/forks
+- 📖 **Official documentation**: Official technology sites
+- 💬 **Stack Overflow**: Discussions about comparisons and best practices
+- 📊 **Stack Share**: Companies using each technology
+- 📰 **Technical blogs**: Medium, Dev.to, company blogs
 
-**O que pesquisar**:
-- "Best [tipo de app] stack 2025"
-- "[Linguagem] frameworks for [tipo de app]"
-- "[Tecnologia X] vs [Tecnologia Y] comparison"
-- "Companies using [Tecnologia Z]"
+**What to search**:
+- "Best [app type] stack 2025"
+- "[Language] frameworks for [app type]"
+- "[Technology X] vs [Technology Y] comparison"
+- "Companies using [Technology Z]"
 - "[Framework W] production readiness"
 
-### 📋 Diferenças por Protocolo
+### 📋 Differences per Protocol
 
-#### 📘 **Simplicidade 1** (Protótipos/Aprendizado)
-- Foco em **produtividade** e **facilidade de aprendizado**
-- Recomenda tecnologias **modernas e populares**
-- Documentação básica em `docs/ARCHITECTURE.md`
+#### 📘 **Simplicity 1** (Prototypes/Learning)
+- Focus on **productivity** and **ease of learning**
+- Recommends **modern and popular** technologies
+- Basic documentation in `docs/ARCHITECTURE.md`
 
-#### 📕 **Simplicidade 2** (Enterprise/Equipes)
-- Foco em **padrões corporativos** e **suporte empresarial**
-- Validação com **equipe** (reunião de decisão técnica)
-- **ADR obrigatório** (Architecture Decision Record)
-- Análise de **custo de licenciamento** e **compliance**
-- Aprovação de **stakeholders**
+#### 📕 **Simplicity 2** (Enterprise/Teams)
+- Focus on **corporate standards** and **enterprise support**
+- Validation with **team** (technical decision meeting)
+- **Mandatory ADR** (Architecture Decision Record)
+- Analysis of **licensing cost** and **compliance**
+- **Stakeholder** approval
 
-#### 📗 **Simplicidade 3** (Solo em Produção)
-- Foco em **maturidade** e **facilidade de manutenção**
-- Prioriza **versões LTS** (Long Term Support)
-- Avalia **"boring technology"** (tecnologias estáveis e previsíveis)
-- Análise de **longevidade** (5+ anos)
-- **Plano de rollback obrigatório**
-- Pesquisas específicas para solo developers (Indie Hackers, Reddit r/solopreneur)
+#### 📗 **Simplicity 3** (Solo in Production)
+- Focus on **maturity** and **ease of maintenance**
+- Prioritizes **LTS versions** (Long Term Support)
+- Evaluates **"boring technology"** (stable and predictable technologies)
+- Analysis of **longevity** (5+ years)
+- **Mandatory rollback plan**
+- Specific research for solo developers (Indie Hackers, Reddit r/solopreneur)
 
-### 🎯 Exemplos Práticos
+### 🎯 Practical Examples
 
-**Exemplo 1: Dashboard de Análise de Dados**
-- **Requisitos**: Dashboard web, gráficos dinâmicos, API REST
-- **Stack Recomendada**: React + Recharts + FastAPI + PostgreSQL
-- **Justificativa**: Stack moderna, produtiva, excelente para visualização
+**Example 1: Data Analysis Dashboard**
+- **Requirements**: Web dashboard, dynamic charts, REST API
+- **Recommended Stack**: React + Recharts + FastAPI + PostgreSQL
+- **Justification**: Modern stack, productive, excellent for visualization
 
-**Exemplo 2: Aplicação Desktop de Processamento de Sinais**
-- **Requisitos**: Interface desktop nativa, gráficos em tempo real, offline
-- **Stack Recomendada**: PyQt6 + pyqtgraph + NumPy
-- **Justificativa**: Performance nativa, pyqtgraph otimizado para tempo real
+**Example 2: Desktop Signal Processing Application**
+- **Requirements**: Native desktop interface, real-time charts, offline
+- **Recommended Stack**: PyQt6 + pyqtgraph + NumPy
+- **Justification**: Native performance, pyqtgraph optimized for real-time
 
-**Exemplo 3: API com IA Generativa**
-- **Requisitos**: API REST, processamento NLP, integração com modelos de IA
-- **Stack Recomendada**: NestJS + Transformers + Gemini API + MongoDB
-- **Justificativa**: NestJS escalável, suporte assíncrono para APIs de IA
+**Example 3: API with Generative AI**
+- **Requirements**: REST API, NLP processing, AI model integration
+- **Recommended Stack**: NestJS + Transformers + Gemini API + MongoDB
+- **Justification**: Scalable NestJS, asynchronous support for AI APIs
 
-### ✅ Checklist para IAs
+### ✅ Checklist for AIs
 
-Antes de começar a implementação:
+Before starting implementation:
 
 ```markdown
-[ ] Requisitos do projeto coletados
-[ ] Investigação de tecnologias profissionais realizada
-[ ] 2-3 stacks completos recomendados com justificativas
-[ ] Vantagens e desvantagens apresentadas
-[ ] Casos de uso reais citados
-[ ] Complexidade de aprendizado avaliada
-[ ] Validação com desenvolvedor/equipe realizada
-[ ] Stack final escolhido e confirmado
-[ ] Stack documentado em docs/ARCHITECTURE.md
-[ ] Pesquisas online realizadas (se necessário)
+[ ] Project requirements collected
+[ ] Professional technologies investigation performed
+[ ] 2-3 complete stacks recommended with justifications
+[ ] Advantages and disadvantages presented
+[ ] Real use cases cited
+[ ] Learning complexity evaluated
+[ ] Validation with developer/team performed
+[ ] Final stack chosen and confirmed
+[ ] Stack documented in docs/ARCHITECTURE.md
+[ ] Online research performed (if necessary)
 ```
 
 ### 🚀 Rationale
 
-**Por quê esta etapa é obrigatória no início?**
+**Why is this step mandatory at start?**
 
-1. ✅ **Evita Retrabalho**: Escolher stack errado exige reescrever todo o código
-2. ✅ **Qualidade Profissional**: Tecnologias adequadas garantem código production-ready
-3. ✅ **Produtividade**: Stack moderna e bem suportada acelera desenvolvimento
-4. ✅ **Manutenibilidade**: Tecnologias populares têm mais recursos e comunidade
-5. ✅ **Escalabilidade**: Stack adequada cresce com o projeto sem migração
-6. ✅ **Conhecimento Contextual**: IA pode recomendar tecnologias que o desenvolvedor não conhece
+1. ✅ **Avoid Rework**: Choosing wrong stack requires rewriting all code
+2. ✅ **Professional Quality**: Appropriate technologies ensure production-ready code
+3. ✅ **Productivity**: Modern and well-supported stack accelerates development
+4. ✅ **Maintainability**: Popular technologies have more resources and community
+5. ✅ **Scalability**: Appropriate stack grows with project without migration
+6. ✅ **Contextual Knowledge**: AI can recommend technologies developer doesn't know
 
-**Mensagem para IAs**:
-> "Não assuma que o desenvolvedor já conhece todas as opções. Sua pesquisa e recomendação podem introduzir tecnologias modernas e mais adequadas. Investir 30 minutos nesta investigação pode economizar semanas de retrabalho."
+**Message for AIs**:
+> "Don't assume developer already knows all options. Your research and recommendation can introduce modern and more appropriate technologies. Investing 30 minutes in this investigation can save weeks of rework."
 
-**Regra de Ouro**:
-> **"Stack tecnológico DEVE ser definido ANTES da primeira linha de código. Mudanças posteriores são custosas."**
+**Golden Rule**:
+> **"Technology stack MUST be defined BEFORE the first line of code. Subsequent changes are costly."**
 
-📖 **Detalhes completos**: Veja Etapa 1.5 de cada protocolo para templates detalhados, checklists e exemplos específicos.
+📖 **Complete details**: See Step 1.5 of each protocol for detailed templates, checklists, and specific examples.
 
 ---
 
-## 🌐 Stack Padrão Recomendado para Sites/Aplicações Web (NOVO v2.3/2.5/3.4)
+## 🌐 Default Recommended Stack for Websites/Web Applications (NEW v2.3/2.5/3.4)
 
-> **IMPORTANTE**: Quando se tratar da implementação de um **site ou aplicação web**, e o usuário **NÃO especificar** quais tecnologias deseja, a IA **PODE RECOMENDAR** o seguinte stack padrão moderno e completo.
+> **IMPORTANT**: When implementing a **website or web application**, and user **DOES NOT specify** which technologies they want, AI **CAN RECOMMEND** the following modern and complete default stack.
 
-### 📦 Stack Completo
+### 📦 Complete Stack
 
 **Frontend Framework & Runtime**:
 - Next.js 15.5.2 + React 19.1.1 + TypeScript 5.9.2
 - Node.js 18+ (LTS)
 
 **Build & Styling**:
-- Turbopack (bundler 700x mais rápido)
+- Turbopack (bundler 700x faster)
 - Tailwind CSS 3.4.17
 - Zustand 4.5.7 (state management)
 
-**Integrações Opcionais**:
-- Cloudinary (mídia)
-- Stripe (pagamentos)
-- OpenAI/ElevenLabs (IA)
+**Optional Integrations**:
+- Cloudinary (media)
+- Stripe (payments)
+- OpenAI/ElevenLabs (AI)
 - Puppeteer (PDFs)
 
 **Testing & Quality**:
@@ -1235,314 +608,1260 @@ Antes de começar a implementação:
 - ESLint + Husky
 
 **Deploy**:
-- Vercel (frontend gratuito)
+- Vercel (free frontend)
 - Heroku (backend)
 
-### ✅ Por Quê Este Stack?
+### ✅ Why This Stack?
 
-- ✅ **Next.js 15**: Framework maduro, SSR/SSG, SEO otimizado
-- ✅ **React 19**: Comunidade massiva, Server Components
-- ✅ **TypeScript**: Segurança de tipos, menos bugs em produção
-- ✅ **Turbopack**: Build 700x mais rápido que Webpack
-- ✅ **Tailwind**: Produtividade alta, design consistente
-- ✅ **Vercel**: Deploy gratuito, otimizado para Next.js
-- ✅ **Ecossistema Completo**: Cobre 90% dos casos de uso web
+- ✅ **Next.js 15**: Mature framework, SSR/SSG, optimized SEO
+- ✅ **React 19**: Massive community, Server Components
+- ✅ **TypeScript**: Type safety, fewer production bugs
+- ✅ **Turbopack**: Build 700x faster than Webpack
+- ✅ **Tailwind**: High productivity, consistent design
+- ✅ **Vercel**: Free deploy, optimized for Next.js
+- ✅ **Complete Ecosystem**: Covers 90% of web use cases
 
-### 📋 Diferenças por Protocolo
+### 📋 Differences per Protocol
 
-**Simplicidade 1** (Protótipos):
-- Stack recomendado como sugestão inicial
-- Foco em produtividade e aprendizado
-- Documentação básica em `docs/ARCHITECTURE.md`
+**Simplicity 1** (Prototypes):
+- Recommended stack as initial suggestion
+- Focus on productivity and learning
+- Basic documentation in `docs/ARCHITECTURE.md`
 
-**Simplicidade 2** (Enterprise):
-- **Validação obrigatória**: Reunião técnica + ADR formal
-- Análise de custo e compliance corporativa
-- TypeScript obrigatório para equipes
-- Casos de uso: Netflix, TikTok, Uber usam Next.js
-- Suporte comercial Vercel disponível
+**Simplicity 2** (Enterprise):
+- **Mandatory validation**: Technical meeting + formal ADR
+- Corporate cost and compliance analysis
+- TypeScript mandatory for teams
+- Use cases: Netflix, TikTok, Uber use Next.js
+- Commercial Vercel support available
 
-**Simplicidade 3** (Solo em Produção):
-- Foco em **baixa manutenção**: ~15h/mês sustentável
-- Deploy gratuito escalável
-- Documentação excepcional e comunidade massiva
-- **Plano de rollback obrigatório** (3 alternativas)
-- Tempo de manutenção estimado
+**Simplicity 3** (Solo in Production):
+- Focus on **low maintenance**: ~15h/month sustainable
+- Free scalable deploy
+- Exceptional documentation and massive community
+- **Mandatory rollback plan** (3 alternatives)
+- Estimated maintenance time
 
-### ⚠️ Quando NÃO Usar Este Stack
+### ⚠️ When NOT to Use This Stack
 
-- ❌ Usuário/equipe especifica explicitamente outras tecnologias
-- ❌ Projeto requer Vue/Angular ao invés de React
-- ❌ Necessita Python/Django backend
-- ❌ Aplicação desktop ou mobile nativa
-- ❌ Site estático super simples (HTML/CSS/JS puro suficiente)
-- ❌ **[Enterprise]** Stack corporativo mandatório
-- ❌ **[Solo]** Desenvolvedor prefere "boring technology" (PHP, Rails)
+- ❌ User/team explicitly specifies other technologies
+- ❌ Project requires Vue/Angular instead of React
+- ❌ Needs Python/Django backend
+- ❌ Desktop or native mobile application
+- ❌ Super simple static site (pure HTML/CSS/JS sufficient)
+- ❌ **[Enterprise]** Mandatory corporate stack
+- ❌ **[Solo]** Developer prefers "boring technology" (PHP, Rails)
 
-### 🎯 Exemplo de Apresentação
+### 🎯 Presentation Example
 
 ```markdown
-❓ Você não especificou tecnologias para o site. Posso recomendar um stack moderno?
+❓ You didn't specify technologies for the website. Can I recommend a modern stack?
 
-**Stack Padrão Recomendado (Next.js 15 + React 19 + TypeScript)**:
-- Next.js 15.5.2 (SSR/SSG otimizado)
+**Recommended Default Stack (Next.js 15 + React 19 + TypeScript)**:
+- Next.js 15.5.2 (optimized SSR/SSG)
 - React 19.1.1 + TypeScript 5.9.2
 - Tailwind CSS 3.4.17
-- Deploy gratuito em Vercel
+- Free deploy on Vercel
 
-**Por quê?**
-✅ Performance excepcional (Turbopack 700x mais rápido)
-✅ SEO otimizado
-✅ TypeScript garante qualidade
-✅ Deploy gratuito e simples
+**Why?**
+✅ Exceptional performance (Turbopack 700x faster)
+✅ Optimized SEO
+✅ TypeScript ensures quality
+✅ Free and simple deploy
 
-**Você concorda ou prefere outro stack?**
+**Do you agree or prefer another stack?**
 ```
 
-### 📊 Versões Completas com Stack Detalhado
+### 📊 Complete Versions with Detailed Stack
 
-Para ver a lista completa de versões de cada pacote (80+ dependências), consulte a **Etapa 1.5** de cada protocolo, seção "Stack Padrão Recomendado para Sites/Aplicações Web".
+To see the complete list of versions for each package (80+ dependencies), consult **Step 1.5** of each protocol, section "Default Recommended Stack for Websites/Web Applications".
 
-📖 **Detalhes completos**: Veja seção específica na Etapa 1.5 de cada protocolo (após categorias de tecnologias).
+This includes detailed lists of:
+- **Frontend Framework & Runtime** (Next.js, React, TypeScript, Node.js)
+- **Bundlers & Build Tools** (Turbopack, Turbo, PostCSS, Autoprefixer, Webpack)
+- **State Management** (Zustand, Immer, DevTools, Persist Middleware)
+- **Styling** (Tailwind CSS, CSS Modules, clsx, class-variance-authority, tailwind-merge, Lucide React)
+- **Audio & Media** (Cloudinary, Web Audio API, MediaRecorder API)
+- **Payments & Subscriptions** (Stripe)
+- **HTTP & API** (Axios, Fetch API)
+- **PDF & Screenshots** (jsPDF, html2canvas, Puppeteer)
+- **Testing** (Jest, jsdom, @testing-library)
+- **Code Quality & Linting** (ESLint, Husky)
+- **Development Tools** (npm, Git, VS Code, Chrome DevTools)
+- **Backend** (Node.js, Express, MongoDB, JWT, Heroku)
+- **Infrastructure & Deploy** (Vercel, Cloudinary CDN, HTTPS)
+- **Browser APIs** (Web Audio, MediaRecorder, Fetch, Cookies, LocalStorage, Navigator, Permissions, Geolocation, Service Worker)
+- **AI APIs** (OpenAI GPT-4o-mini, ElevenLabs)
 
----
-
-## 🤖 Como usar com IA (Cursor / Github Copilot)
-
-Estes protocolos foram desenhados para serem lidos por Assistentes de IA. Para obter os melhores resultados, configure sua IA da seguinte forma:
-
-### No Cursor (Rules for AI)
-Adicione o seguinte prompt nas configurações globais ou do projeto:
-
-> "Sempre analise o contexto do projeto. Se for um projeto novo ou protótipo, siga estritamente o `PROTOCOLO_SIMPLICIDADE_1.md`. Se eu informar que é um projeto em produção e estou sozinho, adote o `PROTOCOLO_SIMPLICIDADE_3.md` e valide cada etapa de segurança comigo. Sempre consulte o TASKS.md para gerenciar tarefas do projeto."
-
-### No GitHub Copilot
-Ao iniciar uma task, invoque o contexto:
-
-> "@workspace Hoje vamos trabalhar na Task #42 do TASKS.md. Como este é um projeto crítico em produção, leia o `PROTOCOLO_SIMPLICIDADE_3.md` e guie-me passo a passo começando pela Etapa 1."
-
----
-
-## 🔍 Pesquisas Online: Capacidade da IA para Resolver Problemas Complexos
-
-**Todos os protocolos Simplicidade agora incluem orientações sobre pesquisas online para a IA:**
-
-### 📋 Quando a IA Deve Pesquisar Online
-
-Se a inteligência artificial está com **muitas dúvidas** sobre como resolver um determinado problema, ou tem **dificuldades significativas** para resolver esse mesmo problema, ela **pode e deve efetuar pesquisas online**.
-
-### 🎯 Onde Pesquisar
-
-As pesquisas podem ser realizadas em:
-
-1. **📚 Documentação do GitHub de Projetos Relacionados**:
-   - Repositórios similares ou que resolvem problemas parecidos
-   - Issues e Pull Requests relevantes
-   - Wiki e documentação técnica de projetos open source
-
-2. **📖 Plataformas de Documentação Online**:
-   - Documentação oficial das bibliotecas e frameworks
-   - Tutoriais e guias técnicos especializados
-   - Blogs técnicos de desenvolvedores experientes
-
-3. **💬 Plataformas de Perguntas e Respostas**:
-   - **StackOverflow**: Principal plataforma para dúvidas de programação
-   - **GitHub Discussions**: Para questões específicas de projetos
-   - Outras comunidades técnicas relevantes
-
-### ✅ Por Quê Isso é Importante
-
-- ✅ **Economiza tempo**: Problemas complexos já podem ter soluções documentadas
-- ✅ **Melhores práticas**: Aprenda com implementações já validadas pela comunidade
-- ✅ **Evita reinventar a roda**: Muitos problemas já foram resolvidos por outros
-- ✅ **Reduz erros**: Soluções testadas pela comunidade têm menos bugs
-- ✅ **Mantém atualizado**: Descubra as abordagens mais modernas
-
-**Detalhes completos**: Veja seção "🌐 Pesquisas Online" na Etapa 3 de cada protocolo.
+📖 **Complete details**: See specific section in Step 1.5 of each protocol (after technology categories).
 
 ---
 
-## 🌐 Idioma do Código: Nomenclatura de Variáveis e Comentários
+## 🎨 Mandatory Requirement: Project Icons (NEW v2.3/2.5/3.4)
 
-**Todos os protocolos Simplicidade agora incluem diretrizes sobre o idioma do código:**
+> **NEW**: All protocols now require AI to produce or download appropriate icons for each project.
 
-### 📋 Regra Padrão
-- **Por padrão**: Nomes de variáveis e comentários devem estar em **português** para projetos nacionais
-- **Alternativa**: Inglês pode ser usado para projetos internacionais ou de código aberto
-- **Flexibilidade**: Permite opção mista (variáveis em inglês, comentários em português)
+### 📋 What Changed
 
-### 🤔 Pergunta Obrigatória
-**A IA deve perguntar ao programador na primeira sessão** qual idioma preferir para:
-- Nomes de variáveis
-- Comentários no código
-- Docstrings
+Starting from the latest versions, **all three protocols** now include **Step 6.6: Project Icons** as **MANDATORY** requirement.
 
-Esta preferência será registrada e aplicada consistentemente em todo o projeto.
+### 🎯 When to Apply
+
+During **Step 6 (Implementation)**, after defining the project's basic structure.
+
+### 🎨 What is Required
+
+AI must:
+1. **Ask the programmer** if they already have an icon
+2. **Create simple icon** (SVG with project initials) OR
+3. **Download free icon** (from verified sources: Heroicons, Lucide, Tabler, Iconoir)
+4. **Convert to necessary formats** (favicon.ico, SVG, PNG in multiple sizes)
+5. **Organize in dedicated folder** (`assets/icons/` preferred)
+6. **Integrate into project** (HTML, manifest.json, application code)
+
+### 📁 Formats by Technology
+
+- **Web**: favicon.ico, icon.svg, icon-192.png, icon-512.png, apple-touch-icon.png
+- **Desktop**: icon.png (256x256, 512x512), icon.ico (Windows), icon.icns (macOS)
+- **Mobile**: icon.png (1024x1024), ic_launcher.png (varied Android densities)
+
+### ⏱️ Estimated Time
+**15-30 minutes** per project - small investment, big impact on quality perception.
 
 ### 🎯 Rationale
-- **Projetos Nacionais**: Português facilita compreensão e manutenção para times brasileiros
-- **Projetos Internacionais**: Inglês facilita colaboração com desenvolvedores de todo o mundo
-- **Consistência**: Definir padrão no início evita mistura confusa de idiomas
+- ✅ **Professionalism**: Projects without icon seem incomplete
+- ✅ **Visual Identity**: Users recognize app by icon (branding)
+- ✅ **UX**: Facilitates locating app among multiple tabs/windows
+- ✅ **Platform Requirements**: App stores REQUIRE icons
+- ✅ **PWA**: Browsers request icons for installation
 
-**Detalhes completos**: Veja seção "🌐 Idioma do Código" em cada protocolo.
-
----
-
-## 🌳 Analogia da Árvore de Importações
-
-**Novo documento complementar aos Protocolos Simplicidade!**
-
-A **[Analogia da Árvore de Importações](pt/ANALOGIA_ARVORE_IMPORTACOES.md)** é um modelo mental poderoso para compreender e organizar a arquitetura de dependências em projetos de software.
-
-### 📚 O Que é?
-
-Um guia que visualiza a estrutura de importações do seu projeto como uma árvore hierárquica:
-- 🌲 **Raiz**: Arquivo principal (orquestrador)
-- 🌿 **Galhos**: Módulos intermediários (coordenadores)
-- 🍃 **Folhas**: Módulos terminais (executores)
-
-### 🎯 Para Que Serve?
-
-- ✅ **Compreender** arquitetura existente
-- ✅ **Planejar** novos módulos
-- ✅ **Refatorar** código organicamente
-- ✅ **Comunicar** decisões de design
-
-### 🔄 Abordagens de Desenvolvimento
-
-O documento descreve três abordagens complementares:
-- **Top-Down**: Da raiz para as folhas (ideal para refatoração)
-- **Bottom-Up**: Das folhas para a raiz (ideal para componentes reutilizáveis)
-- **Middle-Out**: Do meio para fora (ideal para novos módulos)
-
-### 📖 Acesse o Documento
-
-- **🇧🇷 Português**: [pt/ANALOGIA_ARVORE_IMPORTACOES.md](pt/ANALOGIA_ARVORE_IMPORTACOES.md)
-- **🇺🇸 English**: [en/TREE_IMPORTS_ANALOGY.md](en/TREE_IMPORTS_ANALOGY.md)
-
-### 🌍 Aplicável a Todas as Linguagens
-
-Python, JavaScript, Java, C++, e qualquer linguagem que suporte importação de módulos.
-
-**Regra de Ouro:**
-> *"O arquivo principal (raiz) deve ser o orquestrador, não o executor.  
-> Quanto mais simples a folha, mais reutilizável o código."*
+📖 **Complete details**: See Step 6.6 of each protocol for conversion tools, integration examples, validation checklist, and free resources.
 
 ---
 
-## 🧠 Fator de Memória Associativa
+## 📧 Mandatory Requirement: Feedback Contact Methods (NEW v2.3/2.5/3.4)
 
-> **INTEGRADO**: Conceito fundamental para permitir que IAs aprendam com padrões de erros e apliquem conhecimento acumulado.
+> **NEW**: All protocols now require AI to ask developer about including contact methods for user feedback, with **GitHub as default recommendation**.
 
-O **Fator de Memória Associativa** está agora **totalmente integrado** nos três Protocolos Simplicidade, permitindo que a IA desenvolva uma "memória" de problemas e soluções.
+### 📋 What Changed
 
-### 🎯 O Que é?
+Starting from the latest versions, **all three protocols** now include a mandatory question about **Contact Methods for User Feedback** during the first session, with **GitHub Issues/Discussions as default recommendation** instead of email.
 
-Capacidade da IA de:
-- 🧠 **Reconhecer padrões** recorrentes em erros
-- 🔗 **Associar causas e efeitos** em diferentes contextos
-- 📈 **Generalizar soluções** de casos específicos para regras gerais
-- 📉 **Deduzir problemas** do geral para o específico (top-down)
-- 📊 **Induzir regras** do específico para o geral (bottom-up)
+### 🎯 When to Apply
 
-### 🐍 Conexão com Python Traceback
+During the **first session** of interaction with the programmer, right after defining code language preferences.
 
-O Traceback do Python apresenta erros em estrutura **top-down** (de fora para dentro):
-- **Raiz** (orquestrador) → **Galhos** (coordenadores) → **Folhas** (executores)
-- A investigação segue o mesmo caminho dedutivo
-- Memória associativa ajuda a identificar nível e causa raiz rapidamente
+### 📧 What is Required
 
-### 🔬 Abordagens Complementares
+AI must:
+1. **Ask the programmer** if they want to include contact methods
+2. **Recommend GitHub as default** (Issues/Discussions) for receiving all types of feedback
+3. **Offer alternatives**: Email, contact form, multiple channels
+4. **Document in README.md** the contact/feedback section
+5. **Implement form** (if applicable for the application)
+6. **Include feedback policy** (response time, privacy)
 
-**Dedutiva (Geral → Específico)**:
-- Aplicar regras gerais conhecidas para diagnosticar erro
-- Exemplo: "AttributeError geralmente indica objeto não inicializado"
+### 📮 Types of Feedback Covered
 
-**Indutiva (Específico → Geral)**:
-- Observar casos específicos repetidos para criar regra geral
-- Exemplo: "70% dos IndexError são por manipulação incorreta de índices"
+- 💬 **Comments** general about the project
+- 💡 **Suggestions** for improvements and new features
+- 🐛 **Criticisms** constructive and bug reports
+- 😞 **Complaints** about problems encountered
+- 🎉 **Compliments** and recognition for the work
+- 📝 **Opinions** about design decisions and features
 
-**Neuro-Simbólica (Combinação)**:
-- Une dedução (IA simbólica) com indução (IA neural)
-- Aprende continuamente enquanto aplica regras estabelecidas
+### 🎯 Why GitHub as Default?
 
-### 🐛 Taxonomia de Defeitos
+**Advantages over email**:
+- ✅ **Public Tracking**: Other users can see and contribute to discussions
+- ✅ **Issue Organization**: Labels, milestones, assignees, projects
+- ✅ **Version Control Integration**: Link commits to issues
+- ✅ **Community Building**: Encourages open collaboration
+- ✅ **Searchable History**: Users can search before creating duplicate issues
+- ✅ **No Spam**: GitHub filters and requires account
+- ✅ **Markdown Support**: Rich formatting for technical discussions
 
-Cinco categorias de defeitos altamente indesejáveis:
+**When to use email instead**:
+- ❌ Private/confidential projects (no public repository)
+- ❌ Non-technical users (prefer simpler contact)
+- ❌ Security vulnerability reports (should be private)
 
-1. **Fato Incorreto**: Informação errada ou desatualizada no código
-2. **Informação Estranha**: Código/comentários que não pertencem ao contexto
-3. **Ambiguidade**: Código que pode ser interpretado de múltiplas formas
-4. **Inconsistência**: Violação de padrões estabelecidos no projeto
-5. **Omissão**: Código ou lógica faltante (validações, tratamento de erros)
+### 🎯 Rationale
+- ✅ **Continuous Improvement**: Direct feedback identifies problems and opportunities
+- ✅ **Engagement**: Users feel more connected when they can contribute
+- ✅ **Quality**: Criticisms and suggestions improve software
+- ✅ **Prioritization**: Feedback helps understand what is important
+- ✅ **Motivation**: Compliments motivate the development team
+- ✅ **Professionalism**: Open channel demonstrates commitment to users
+- ✅ **Transparency**: Public issues build trust with community
 
-### 🔄 Padrões de Erro
+### 📝 Implementation Example
 
-**Erros Independentes de Entrada**:
-- Ocorrem sempre, independente dos dados
-- Indicam problema estrutural na lógica
+```markdown
+## 📮 Feedback and Contact
 
-**Erros em Escopo Específico**:
-- Confinados a módulo/função específica
-- Um bug, múltiplos sintomas
+We'd love to hear from you! Share your comments, suggestions, 
+criticisms, complaints, compliments, and opinions:
 
-**Erros por Importação Comum**:
-- Múltiplos módulos falham porque importam código bugado
-- Corrigir uma vez resolve todos os casos
+- **GitHub Issues**: [github.com/username/project/issues](https://github.com/username/project/issues) (recommended)
+- **GitHub Discussions**: [github.com/username/project/discussions](https://github.com/username/project/discussions)
+- **Email**: feedback@myproject.com (for private matters)
+- **Response time**: We typically respond within 48 hours
 
-### 📖 Onde Encontrar
+Your feedback helps us improve continuously!
+```
 
-A **documentação completa do Fator de Memória Associativa** está agora integrada em cada protocolo:
+### ⏱️ Estimated Time
+**5-10 minutes** to add to README - minimal investment for essential communication channel.
+
+📖 **Complete details**: See "Contact Methods for User Feedback" section in each protocol for complete options, form examples, privacy policies, and best practices.
+
+---
+
+## 📊 Ordinal Task Organization (NEW v2.3/2.5/3.4)
+
+> **NEW**: Ordinal prefix system to identify dependencies, priorities, and parallelization opportunities.
+
+### 🎯 What Is It
+
+The **Ordinal Task Organization** is a prefix system that enables:
+- ✅ Clear **execution order** (from simplest to most complex)
+- ✅ Explicit **dependencies** (which tasks need to be done first)
+- ✅ Intelligent **parallelization** (which can be developed simultaneously)
+- ✅ **Hierarchical organization** (tree/graph structure)
+
+### 📋 3-Level System
+
+**Level 1: Simple Numbering** (independent tasks)
+```markdown
+1. Setup development environment
+2. Create initial documentation
+3. Define system architecture
+```
+→ Can be executed in **any order** or **in parallel**
+
+**Level 2: Hierarchy with Letters** (task groups)
+```markdown
+A. Infrastructure
+   A.1. Create directory structure
+   A.2. Configure dependencies
+
+B. Core - Data Structures
+   B.1. Implement Node class
+   B.2. Implement ExpressionTree
+```
+→ Different groups (A, B) are **PARALLEL**
+
+**Level 3: Deep Hierarchy** (complex dependencies)
+```markdown
+B.C.2. Implement tree → RPN conversion
+   B.C.2.1. RPN Parser (do FIRST - leaf)
+   B.C.2.2. RPN Serializer (do FIRST - leaf)
+   B.C.2. Complete conversion (do AFTER - parent)
+```
+
+### 🔄 Hierarchy Reading (⭐ CRITICAL)
+
+Hierarchy must be read from **RIGHT to LEFT**:
+
+```
+C.B.1.D.1
+   │  │ │ └─ 1: Execute LAST (tree root)
+   │  │ └─── D: Execute THIRD
+   │  └───── 1: Execute SECOND
+   └──────── B: Execute FIRST (tree leaf)
+
+Execution order: B → 1 → D → 1 (right to left)
+```
+
+### 🎨 Practical Example
+
+```markdown
+## 🔴 MUST HAVE - Release v1.0.0
+
+A. Authentication (Owner: Backend)
+   🔴🟡 [ ] A.1. User Model (1.5h)
+   🔴🟡 [ ] A.2. JWT Login (2h) - Depends: A.1
+   🔴🔴 [ ] A.3. 2FA (3h) - Depends: A.2
+
+B. Catalog (Owner: Backend)
+   🔴🟢 [ ] B.1. Product Model (1h)
+   🔴🟡 [ ] B.2. CRUD Products (2h) - Depends: B.1
+
+**Parallelization Analysis**:
+- A.1 and B.1: PARALLEL (different groups) ✅
+- A.1 → A.2 → A.3: SERIAL (dependencies) ❌
+- B.1 → B.2: SERIAL (dependencies) ❌
+
+**Branch Strategy**:
+- Branch feat/auth: A.1 → A.2 → A.3
+- Branch feat/catalog: B.1 → B.2 (parallel with auth)
+```
+
+### ✅ Benefits
+
+**For Developers**:
+- ✅ Clarity about execution order
+- ✅ Autonomy to choose parallel tasks
+- ✅ Fewer conflicts in Git/GitHub
+
+**For AIs**:
+- ✅ Automatic calculation of execution order
+- ✅ Parallelization suggestion
+- ✅ Circular dependency detection
+
+**For the Project**:
+- ✅ 40-60% reduction in total time (parallelization)
+- ✅ Avoid rework (correct order)
+- ✅ More predictable timeline
+
+### 📚 Complete Documentation
+
+This system is integrated into all three protocols:
+
+- **📘 Protocol 1**: Section 2.5 - System [OPTIONAL] for simple projects
+- **📕 Protocol 2**: Section 2.6 - System [HIGHLY RECOMMENDED] for team coordination
+- **📗 Protocol 3**: Section 2.6 - System [RECOMMENDED] for solo developers in production
+
+📖 **Detailed Documentation**:
+- [`en/ORDINAL_TASK_ORGANIZATION.md`](ORDINAL_TASK_ORGANIZATION.md) - Complete guide in English
+- [`pt/ORGANIZACAO_ORDINAL_TAREFAS.md`](../pt/ORGANIZACAO_ORDINAL_TAREFAS.md) - Guia completo em Português
+
+Includes:
+- ✅ Decision flowchart
+- ✅ 3 practical examples (simple, medium, complex)
+- ✅ Instructions for developers and AIs
+- ✅ Integration with CI/CD tools
+- ✅ Granular rollback strategies
+
+---
+
+## 💻 Mandatory Code Comments (NEW v2.3/2.5/3.4)
+
+> **CRITICAL**: All implemented code **MUST** include useful comments for documentation purposes.
+
+### 📋 What Changed
+
+All protocols now require that **all code implemented** in programming languages that support comments **MUST be commented** for documentation purposes.
+
+### 🎯 Commenting Standard
+
+**Example in Python**:
+```python
+VirtualGraph.execute() # This command executes features of the graphical environment to display the Cartesian planes of the virtualGraph.py module.
+```
+
+### 📝 What to Comment
+
+- ✅ **Why** the code was written this way (not just "what" it does)
+- ✅ **Non-obvious decisions**: Why chose approach X instead of Y
+- ✅ **Edge cases**: Why certain special cases are handled
+- ✅ **Function/method purpose**: What it does at high level
+- ✅ **Parameters and return values**: What they mean
+- ✅ **TODOs**: What's missing to implement or can be improved
+
+### 🎯 Rationale
+
+- ✅ **Documentation**: Code becomes self-documenting
+- ✅ **Maintainability**: Future developers (including "future you") understand intent
+- ✅ **Onboarding**: New team members learn faster
+- ✅ **Debugging**: Comments help identify where things went wrong
+- ✅ **Knowledge Transfer**: Critical for solo developers and team transitions
+
+📖 **Complete details**: See code commenting guidelines in Step 6 (Implementation) of each protocol.
+
+---
+
+## 🔀 Parallel Options Implementation (NEW v2.3/2.5/3.4)
+
+> **NEW**: When multiple parallel options exist that can be reconciled, suggest implementing both with user choice.
+
+### 📋 What Is It
+
+During code implementation, when there are **multiple parallel options** where it's possible to **reconcile both** by implementing them, the AI should **suggest this approach**.
+
+### 🎯 Example
+
+**Scenario**: Results can be shown in **table mode** OR **tree mode** for files and their content.
+
+**Traditional approach**: Choose one and discard the other.
+
+**Parallel approach**: Implement both and let user choose which to use!
+
+### ⚠️ Important
+
+The user **MUST be notified before** implementing such reconciliation, so it's not treated as extraneous information from the software artifact defect taxonomy.
+
+### 🎯 Rationale
+
+- ✅ **User Choice**: Users get more flexibility
+- ✅ **Better UX**: Different users prefer different formats
+- ✅ **Future-proof**: Covers more use cases
+- ✅ **Professional**: Commercial software often offers multiple views
+
+📖 **Complete details**: See parallel options guidelines in implementation steps of each protocol.
+
+---
+
+## 📚 Documentation as Blocking Priority (NEW v2.3/2.5/3.4)
+
+> **CRITICAL**: Documentation must be considered **blocking priority** in software implementation.
+
+### 📋 Priority Hierarchy
+
+Documentation is **blocking** when documentation is needed. Priority order:
+
+1. 🔴 **HIGHEST BLOCKING**: Asking questions when AI has doubts
+2. 🟠 **HIGH BLOCKING**: **Documentation** (when needed)
+3. 🟡 **MEDIUM BLOCKING**: Bug fixes
+4. 🟢 **NORMAL**: New feature implementation
+
+### 🎯 What This Means
+
+- ✅ AI **MUST** document before continuing to next feature
+- ✅ Documentation is **not optional** - it's **mandatory**
+- ✅ Missing documentation **blocks** progress
+- ✅ Documentation quality is **as important** as code quality
+
+### 🎯 Rationale
+
+- ✅ **Maintainability**: Undocumented code is unmaintainable
+- ✅ **Knowledge Transfer**: Critical for team continuity
+- ✅ **Onboarding**: New developers need documentation
+- ✅ **Solo Developer Safety**: "Future you" needs to remember decisions
+- ✅ **Professionalism**: Professional projects have professional documentation
+
+📖 **Complete details**: See documentation priority guidelines in all protocols.
+
+---
+
+## 🎯 Sprints, Action Plans, and Task Organization (NEW v2.3/2.5/3.4)
+
+> **CRITICAL**: AI must create sprints, action plans, document tasks in TASKS.md, and organize work with intermediate tasks and structured sequencing.
+
+### 📋 What Changed
+
+All protocols now **require** that AI:
+1. **Create sprints** for organizing work in iterations
+2. **Create action plans** for complex tasks (detailed in previous section)
+3. **Document tasks in TASKS.md** for tracking and organization
+4. **Define intermediate tasks** to break down complex work
+5. **Structure sequencing** to organize dependencies and priorities
+
+### 🎯 How It Works
+
+**Step 1: Read Documentation**
+- AI reads 100% of project documentation first (Step 1.0)
+
+**Step 2: Define Tasks**
+- AI documents all required functionalities in `docs/TASKS.md`
+- Uses ordinal organization for dependencies (if applicable)
+- Classifies by status, complexity, and priority (MoSCoW)
+
+**Step 3: Create Action Plans**
+- For complex tasks, AI creates detailed action plans
+- Breaks down into intermediate steps
+- Defines completion criteria for each step
+
+**Step 4: Organize Sprints**
+- Groups related tasks into sprints
+- Prioritizes based on dependencies and urgency
+- Defines sprint goals and deliverables
+
+**Step 5: Execute and Track**
+- AI executes tasks following the plan
+- Updates task status in TASKS.md
+- Marks action plan progress
+- Documents completed work in docs/
+
+### 🎯 Why This Is Important
+
+- ✅ **Better Organization**: Clear structure for complex work
+- ✅ **Predictability**: Know what's next and why
+- ✅ **Traceability**: History of what was done and why
+- ✅ **Continuity**: Easy to resume if interrupted
+- ✅ **Quality**: Systematic approach reduces errors
+- ✅ **Professionalism**: Structured development process
+
+### 📝 Example Sprint Structure
+
+```markdown
+## 🚀 Sprint 1: Foundation (Week 1)
+
+**Goal**: Setup project infrastructure and core data structures
+
+**Tasks**:
+- [x] A.1. Create directory structure (Done)
+- [x] A.2. Configure dependencies (Done)
+- [ ] B.1. Implement Node class (In Progress)
+- [ ] B.2. Implement ExpressionTree (Not Started)
+
+**Deliverable**: Working infrastructure + core classes with tests
+```
+
+### 🎯 Rationale
+
+- ✅ **Software must be well-structured** before implementation
+- ✅ **AI needs organization** to work effectively
+- ✅ **Planning reduces rework** and improves quality
+- ✅ **Documentation enables continuity** across sessions
+- ✅ **Structured approach** scales better
+
+📖 **Complete details**: See sprint and planning guidelines in Step 2 (Planning) of each protocol.
+
+---
+
+## 📝 Editable Questionnaires for User Input (NEW v2.3/2.5/3.4)
+
+> **NEW**: When AI provides questions, they should be documented in editable format for user to fill out manually, then AI reads the filled document.
+
+### 📋 How It Works
+
+**Step 1: AI Creates Questionnaire**
+AI documents questions in a file (e.g., `docs/QUESTIONS.md`) in an editable format.
+
+**Step 2: User Fills Out**
+User manually fills out the questionnaire in their text editor.
+
+**Step 3: AI Reads Answers**
+After user confirms completion, AI reads the filled document to gather answers.
+
+### 📝 Questionnaire Format
+
+AI should provide recommendations and make it easy to fill out. Example:
+
+```markdown
+### 🎯 QUESTION 3: SITE OBJECTIVE AND SCOPE
+
+**❓ What is the main objective of this full-stack site?**
+
+💡 **AI Suggestion**: Define clearly to guide architecture decisions
+
+**Options (mark all that apply):**
+- **A)** ✅ Portfolio/Personal or company presentation
+- **B)** ✅ E-commerce/Virtual store
+- **C)** ✅ Blog/Content system
+- **D)** ✅ Dashboard/Admin panel
+- **E)** ✅ REST API for external consumption
+- **F)** ✅ Authentication/User system
+- **G)** ✅ SaaS application (Software as a Service)
+- **H)** ⚙️ Other: _____
+
+**Your choices:** _______
+```
+
+### 🎯 Benefits
+
+- ✅ **Async Communication**: User can answer when convenient
+- ✅ **Thoughtful Answers**: User has time to think
+- ✅ **Clear Format**: Structured questions are easier to answer
+- ✅ **Documentation**: Questions and answers become part of project docs
+- ✅ **AI Recommendations**: AI provides context and suggestions
+
+### 🎯 Rationale
+
+- ✅ **Better UX**: Text editor is more comfortable than chat for long forms
+- ✅ **Complete Answers**: Users provide more detail when not rushed
+- ✅ **Permanent Record**: Answers are documented for future reference
+- ✅ **Asynchronous**: User and AI don't need to be synced
+
+### 💡 Important
+
+AI **should provide recommendations** based on project understanding and what it perceives as user needs. This helps guide decisions and ensures better outcomes.
+
+📖 **Complete details**: See questionnaire guidelines in requirement gathering steps of each protocol.
+
+---
+
+## 📝 Mandatory Documentation in `docs/` Folder
+
+> **CRITICAL**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
+
+All three protocols now include a **Mandatory Documentation Requirement** that must be followed in each cycle:
+
+### 📚 Documentation Golden Rule
+
+**For AI Assistants:**
+
+The AI **MUST** document **ALL** implementations in the `docs/` folder:
+- ✅ Implemented functionalities (detailed description + behaviors)
+- ✅ Created/modified code (files + changes)
+- ✅ Architectural decisions (applied patterns + justifications)
+- ✅ Integrations and dependencies
+- ✅ Implemented tests (coverage + scenarios)
+- ✅ Practical usage examples
+
+### 📂 Minimum Mandatory Structure
+
+```
+docs/
+├── REQUIREMENTS.md          # Tasks and requirements (updated each cycle)
+├── vX.Y.Z-SPECIFICATIONS.md # Detailed version specifications
+├── CHANGELOG.md             # History of all changes
+├── ARCHITECTURE.md          # Architectural decisions
+└── [other files per protocol]
+```
+
+### 🎯 By Protocol
+
+- **Simplicity 1**: Complete basic documentation (functionalities + architecture + tests)
+- **Simplicity 2**: + Formal ADRs + OWASP + API docs + Accessibility
+- **Simplicity 3**: + Mandatory OWASP + Rollback plans + Decision notes
+
+### ⚠️ Validation Before Commit
+
+The AI **MUST NOT** commit without:
+- [ ] ✅ `docs/` folder updated
+- [ ] ✅ SPECIFICATIONS.md created/updated
+- [ ] ✅ All functionalities documented
+- [ ] ✅ All behaviors described
+- [ ] ✅ Technical decisions justified
+
+**Rationale**: Complete documentation ensures traceability, maintainability, continuity, and professionalism. It's especially critical for production projects and solo development.
+
+📖 **Complete details**: See Step 12 of each protocol for templates, checklists, and examples.
+
+---
+
+## 📋 Task Management (TASKS.md)
+
+All Simplicity protocols now include integrated support for task management through a `TASKS.md` file (or alternative file of your choice).
+
+### Task System Features:
+- ✅ **Default File**: `TASKS.md` in project root (ASCII format: `.md`, `.txt`)
+- 🔄 **Flexible**: Use any file name/location (as long as it's ASCII)
+- 📊 **Classification System**: Integrated Status, Complexity, and Prioritization
+- 🤖 **AI Recommendations (Optional)**: Intelligent system for suggesting new tasks
+- 📊 **Growth Curve**: Recommendations follow quadratic pattern (grow, peak, then decrease)
+- 🎯 **Scope Control**: Only project-relevant suggestions
+- 🔢 **Configurable Limit**: Default of 30 new recommended tasks (customizable)
+
+### 📊 Task Classification System
+
+All three protocols include a standardized classification system to facilitate organization by AI:
+
+#### **Task Status**
+- 🔴 **Not Started** - Awaiting start
+- 🟡 **In Progress** - Active development
+- 🟢 **Done** - Completed and tested
+- 🔵 **Blocked** - Blocked by dependency
+
+#### **Complexity**
+- 🟢 **Simple** (0-1h) - Low risk, few dependencies, clear scope
+- 🟡 **Medium** (1-2h) - Medium risk, some integrations
+- 🔴 **Complex** (>2h) - High risk, many dependencies, open scope
+
+#### **MoSCoW Prioritization**
+- 🔴 **Must Have** - Critical for system functionality, release blocker
+- 🟡 **Should Have** - Important but not blocking
+- 🟢 **Could Have** - Desirable if time permits, low priority
+- ⚪ **Won't Have** (Later) - Out of current scope, for future versions
+
+#### **Advanced Frameworks (Optional)**
+- **RICE Matrix**: For quantitative analysis (Reach × Impact × Confidence / Effort)
+- **Eisenhower Matrix**: For urgency management (Urgent × Important)
+- **Decision Matrix**: Numeric scoring 0-35 points (Simplicity 2/3)
+
+**Combined usage example**:
+```markdown
+### 🔴 MUST HAVE
+- 🔴🟢 [ ] Implement authentication (Not Started, Simple, 1h)
+- 🟡🟡 [ ] Add validation (In Progress, Medium, 1.5h, 60% complete)
+- 🟢🟢 [x] Configure database (Done, Simple, 0.5h)
+```
+
+### How AI Recommendations Work:
+AI can dynamically suggest new tasks as the project evolves, following a 5-phase pattern:
+1. **Phase 1 (0-20%)**: Initial growth - few essential tasks
+2. **Phase 2 (20-40%)**: Acceleration - main features
+3. **Phase 3 (40-70%)**: Maximum peak - maximum ideas and opportunities
+4. **Phase 4 (70-90%)**: Deceleration - only critical tasks
+5. **Phase 5 (90-100%)**: Exhaustion - stop adding features
+
+📖 **Complete details**: See "Task Classification Legend" and "AI Task Recommendations" sections in Step 12 of each protocol.
+
+---
+
+## 🎯 Action Plans (ACTION_PLANS.md)
+
+**All Simplicity protocols now include support for Action Plans** - a practical and urgent tool to guide complex tasks through well-defined intermediate steps.
+
+### 📋 What Are Action Plans?
+
+**Action Plans** are detailed step-by-step roadmaps for executing tasks involving:
+- 🔧 **Maintenance**: Dependency updates, legacy code refactoring
+- 🐛 **Correction**: Complex bugs requiring multiple steps
+- 🚀 **Evolution**: New features requiring intermediate planning
+- 🔄 **Adaptation**: API changes, technology migrations
+
+### 🎯 Action Plans vs TASKS.md: What's the Difference?
+
+| Aspect | TASKS.md | ACTION_PLANS.md |
+| :--- | :--- | :--- |
+| **Purpose** | General project task management | Detailed execution guide for specific tasks |
+| **Scope** | List of features, improvements, bugs | Intermediate steps of ONE complex task |
+| **Horizon** | Medium/long term (sprints, versions) | Short term (hours, days) |
+| **Detail Level** | High-level description | Granular step-by-step |
+| **Urgency** | Varies (Must/Should/Could/Won't) | Usually urgent and important |
+| **Duration** | Permanent (project history) | Temporary (discarded after completion) |
+| **Analogy** | Project map (where to go) | GPS with instructions (how to get there) |
+
+**Practical example:**
+- **TASKS.md**: `[ ] Implement OAuth2 authentication`
+- **ACTION_PLANS.md**: 
+  ```
+  ACTION PLAN #01: Implement OAuth2
+  ├─ Step 1: Install passport.js library
+  ├─ Step 2: Configure Google OAuth strategy
+  ├─ Step 3: Create /auth/google and /auth/callback routes
+  ├─ Step 4: Implement authentication middleware
+  └─ Step 5: Add integration tests
+  ```
+
+### 📂 ACTION_PLANS.md File Structure
+
+Action plans can be organized in two ways:
+
+#### **Option 1: Consolidated File** `docs/ACTION_PLANS.md`
+**Location**: `docs/ACTION_PLANS.md` (same directory as TASKS.md)  
+**Usage**: All action plans in a single file, separated by sections
+
+#### **Option 2: Individual Plans Directory** `docs/plans/`
+**Location**: `docs/plans/` (dedicated directory for individual plans)  
+**Usage**: Each action plan in its own file, facilitating organization and versioning  
+**Recommended structure**:
+```
+docs/
+├── TASKS.md                    # General task list
+├── ACTION_PLANS.md            # [OPTIONAL] Index/summary of plans
+└── plans/                     # Individual plans directory
+    ├── plan-001-oauth2.md     # Action plan #001
+    ├── plan-002-migration.md  # Action plan #002
+    └── plan-003-refactoring.md # Action plan #003
+```
+
+**Recommendation**: For projects with multiple complex tasks, use `docs/plans/` for better organization. For smaller projects, `ACTION_PLANS.md` is sufficient.
+
+**Action Plan Template:**
+
+```markdown
+# Action Plans - [Project Name]
+
+## 🎯 ACTION PLAN #[ID]: [Objective Title]
+
+**📅 Date**: YYYY-MM-DD  
+**🕐 Time**: HH:MM  
+**⚡ Priority**: 🔴 Critical | 🟡 High | 🟢 Normal  
+**🏷️ Type**: Maintenance | Correction | Evolution | Adaptation  
+**⏱️ Estimate**: [total estimated time]  
+**📌 Task ID**: Task #X from TASKS.md (mandatory link)  
+**🎯 Main Function**: [Main objective of this plan]  
+**📋 Desired Requirement**: [What needs to be achieved]  
+**✅ Expected Result**: [Measurable success criteria]
+
+### 📝 Context
+[Why was this action plan created? What problem does it solve?]
+
+### 🎯 Final Objective
+[What will be achieved upon completing all steps?]
+
+### 📋 Intermediate Steps
+
+- [ ] **Step 1**: [Detailed description]
+  - **Completion criteria**: [How to know it's complete]
+  - **Estimated time**: [duration]
+  - **Dependencies**: [what needs to be ready before]
+
+- [ ] **Step 2**: [Detailed description]
+  - **Completion criteria**: [...]
+  - **Estimated time**: [...]
+  - **Dependencies**: Step 1 complete
+
+[...continue for all steps...]
+
+### ✅ Completion Criteria
+- [ ] All intermediate steps completed
+- [ ] Tests passing
+- [ ] Documentation updated
+- [ ] Code review approved (if applicable)
+
+### 📊 Plan Status
+**Progress**: X/Y steps completed ([%]%)  
+**Status**: 🔴 Not Started | 🟡 In Progress | 🟢 Completed | ⏸️ Paused | ❌ Cancelled
+
+---
+```
+
+### 📝 Mandatory Action Plan Fields
+
+Each action plan **MUST** contain the following mandatory fields:
+
+1. **📅 Date** (YYYY-MM-DD): Plan creation date
+   - Allows tracking when plan was elaborated
+   - Facilitates temporal analysis of recurring problems
+
+2. **🕐 Time** (HH:MM): Plan creation time
+   - Useful for work sessions and duration estimates
+   - Helps identify productivity patterns
+
+3. **🎯 Main Function**: Main objective of the action plan
+   - Describes concisely what the plan aims to achieve
+   - Ex: "Implement OAuth2 authentication", "Fix memory leak", "Migrate to PostgreSQL"
+
+4. **📋 Desired Requirement**: What needs to be achieved
+   - Specifies functional and non-functional requirements
+   - Ex: "Authentication via Google and GitHub with refresh tokens"
+
+5. **✅ Expected Result**: Measurable success criteria
+   - Defines how to measure implementation success
+   - Ex: "System authenticates users in < 2s, tokens expire in 24h"
+
+6. **📌 Task ID**: Link with TASKS.md (mandatory)
+   - Identifies the related task from TASKS.md
+   - Ex: "Task #42", "Bug #127", "Feature #15"
+   - **CRITICAL**: Ensures traceability between planning and execution
+
+**Why are these fields mandatory?**
+- ✅ **Traceability**: Clear link between TASKS.md and action plans
+- ✅ **Temporal Context**: Date/time help understand urgency and history
+- ✅ **Objective Clarity**: Main function, requirement, and result eliminate ambiguities
+- ✅ **Maintainability**: Future developers understand the "why" and "what" was done
+- ✅ **Quality**: Success criteria force thinking about validation
+
+### 📁 Naming Convention for docs/plans/
+
+When using the `docs/plans/` directory, follow this naming convention:
+
+**Format**: `plan-[ID]-[descriptive-slug].md`
+
+**Examples**:
+```
+docs/plans/plan-001-oauth2-authentication.md
+docs/plans/plan-042-memory-leak-fix.md
+docs/plans/plan-127-postgresql-migration.md
+```
+
+**Rules**:
+- **ID**: Sequential 3-digit number (001, 002, 003...)
+- **Slug**: Short description in kebab-case (lowercase, separated by hyphens)
+- **Maximum 50 characters** in filename for easy navigation
+
+### 🤖 How AI Should Use Action Plans
+
+**When to create an Action Plan:**
+1. ✅ Complex task with multiple interdependent steps
+2. ✅ Critical bug requiring step-by-step diagnosis
+3. ✅ Refactoring affecting multiple modules
+4. ✅ Technology or framework version migration
+5. ✅ Implementation that can be divided into testable subtasks
+
+**When NOT to create an Action Plan:**
+1. ❌ Simple single-step task
+2. ❌ Trivial correction (typo, simple CSS adjustment)
+3. ❌ Task already well-defined in TASKS.md
+
+**Workflow:**
+```
+1. Consult TASKS.md to see pending tasks
+2. Identify complex task needing Action Plan
+3. Create detailed Action Plan:
+   - Option A: Add to docs/ACTION_PLANS.md
+   - Option B: Create file in docs/plans/plan-[ID]-[name].md
+4. BEFORE starting implementation: review and validate plan
+5. Execute step by step, marking progress in plan
+6. Consult plan whenever necessary during implementation
+7. Upon completion, mark task in TASKS.md as complete
+8. Archive completed plan (move to history or docs/plans/archive/)
+```
+
+**Importance of Creating Plan BEFORE**:
+- ✅ **Anticipatory Planning**: Identifies problems before coding
+- ✅ **Accurate Estimates**: Detailed steps improve time estimates
+- ✅ **Avoid Rework**: Thinking before implementing saves time
+- ✅ **Reliable Guide**: Serves as map throughout implementation
+- ✅ **Living Documentation**: Useful for maintenance and future updates
+
+**Consult Plan Whenever Necessary**:
+- 📖 **During Implementation**: To not get lost among steps
+- 🔄 **When Resuming Work**: Know exactly where you stopped
+- 🤝 **In Meetings**: Communicate progress based on concrete steps
+- 🐛 **During Debug**: Review if all steps were followed correctly
+
+### 🎯 Benefits of Action Plans
+
+- ✅ **Clarity**: Breaks complex problems into manageable steps
+- ✅ **Traceability**: Detailed history of how it was resolved
+- ✅ **Continuity**: Easy to resume where left off if interrupted
+- ✅ **Learning**: Documents resolution process for future reference
+- ✅ **Quality**: Forces review of each step before proceeding
+- ✅ **Communication**: Facilitates explaining progress to stakeholders
+
+### ⏱️ When to Discard an Action Plan
+
+After completion, you can:
+1. **Move to "📚 Completed Plans History" section** (if using ACTION_PLANS.md)
+2. **Archive in dedicated directory**: 
+   - `docs/plans/archive/[year]/plan-[id].md`
+   - Or `docs/action_plans_history/[year]/plan-[id].md`
+3. **Keep in docs/plans/** (if plan has reference value)
+4. **Delete** (only if no historical value - not recommended)
+
+**Recommendation**: Keep history of complex plans in `docs/plans/archive/` for:
+- ✅ Future consultation when implementing similar features
+- ✅ Analysis of recurring problem patterns
+- ✅ Onboarding of new developers (real examples)
+- ✅ Documentation of important technical decisions
+
+### 📊 Complete Real Example
+
+```markdown
+## 🎯 ACTION PLAN #003: Fix Memory Leak in Cache System
+
+**📅 Date**: 2025-12-26  
+**🕐 Time**: 14:30  
+**⚡ Priority**: 🔴 Critical  
+**🏷️ Type**: Correction  
+**⏱️ Estimate**: 4-6 hours  
+**📌 Task ID**: Bug #127 from TASKS.md  
+**🎯 Main Function**: Eliminate memory leak in Redis cache module  
+**📋 Desired Requirement**: Stable memory consumption without growth over time  
+**✅ Expected Result**: Stable memory < 300MB for 48h continuous operation
+
+### 📝 Context
+Application showing growing memory consumption (from 200MB to 4GB in 48h).
+Profiling indicated leak in Redis cache module.
+
+### 🎯 Final Objective
+Eliminate memory leak and ensure stable memory consumption below 300MB.
+
+### 📋 Intermediate Steps
+
+- [x] **Step 1**: Reproduce problem in local environment
+  - **Completion criteria**: Test script showing consistent leak
+  - **Estimated time**: 30min
+  - **Result**: `test_memory_leak.py` script created, reproduces in 5min
+
+- [x] **Step 2**: Analyze with memory profiler
+  - **Completion criteria**: Identify code line causing leak
+  - **Estimated time**: 1h
+  - **Result**: Problem in `cache.py:145` - listeners not removed
+
+- [ ] **Step 3**: Implement correction
+  - **Completion criteria**: Stable memory after 1h testing
+  - **Estimated time**: 1h
+  - **Dependencies**: Steps 1-2 complete
+
+- [ ] **Step 4**: Add regression tests
+  - **Completion criteria**: Automated test detecting leaks
+  - **Estimated time**: 1.5h
+
+- [ ] **Step 5**: Validate in staging
+  - **Completion criteria**: 24h without memory increase
+  - **Estimated time**: 30min setup + 24h wait
+
+### ✅ Completion Criteria
+- [ ] Stable memory < 300MB for 48h
+- [ ] Regression tests passing
+- [ ] Documentation updated
+- [ ] Production deploy validated
+
+### 📊 Plan Status
+**Progress**: 2/5 steps completed (40%)  
+**Status**: 🟡 In Progress  
+**Last update**: 2025-12-26 15:30
+```
+
+**Location of this plan**: `docs/plans/plan-003-memory-leak-fix.md`
+
+---
+
+📖 **Complete details**: See "Action Plans" section in Step 2 (Read Existing Code) of each protocol for specific instructions on when and how to create action plans.
+
+---
+
+## 📧 Mandatory Requirement: Contact Methods for Feedback
+
+> **NEW**: All protocols now require AI to ask the developer about including contact methods for user feedback.
+
+### 📋 What Changed
+
+Starting from the latest versions, **all three protocols** now include a mandatory question about **Contact Methods for User Feedback** during the first session.
+
+### 🎯 When to Apply
+During the **first session** of interaction with the programmer, right after defining code language preferences.
+
+### 📧 What is Required
+
+The AI must:
+1. **Ask the programmer** if they want to include contact methods
+2. **Recommend email as default** to receive all types of feedback
+3. **Offer alternatives**: GitHub Issues, contact form, multiple channels
+4. **Document in README.md** the contact/feedback section
+5. **Implement form** (if applicable for the application)
+6. **Include feedback policy** (response time, privacy)
+
+### 📮 Types of Feedback Covered
+
+- 💬 **Comments** general about the project
+- 💡 **Suggestions** for improvements and new features
+- 🐛 **Criticisms** constructive and bug reports
+- 😞 **Complaints** about problems encountered
+- 🎉 **Compliments** and recognition for the work
+- 📝 **Opinions** about design decisions and features
+
+### 🎯 Rationale
+- ✅ **Continuous Improvement**: Direct feedback identifies problems and opportunities
+- ✅ **Engagement**: Users feel more connected when they can contribute
+- ✅ **Quality**: Criticisms and suggestions improve software
+- ✅ **Prioritization**: Feedback helps understand what is important
+- ✅ **Motivation**: Compliments motivate the development team
+- ✅ **Professionalism**: Open channel demonstrates commitment to users
+
+### 📝 Implementation Example
+
+```markdown
+## 📮 Feedback and Contact
+
+We'd love to hear from you! Send your comments, suggestions, 
+criticisms, complaints, compliments, and opinions to:
+
+- **Email**: feedback@myproject.com
+- **Response**: We typically respond within 48 hours
+
+Your feedback helps us improve continuously!
+```
+
+### ⏱️ Estimated Time
+**5-10 minutes** to add to README - minimal investment for essential communication channel.
+
+📖 **Complete details**: See "Contact Methods for User Feedback" section in each protocol for complete options, form examples, privacy policies, and best practices.
+
+---
+
+## 🤖 How to Use with AI (Cursor / GitHub Copilot)
+
+These protocols were designed to be read by AI Assistants. To get the best results, configure your AI as follows:
+
+### In Cursor (Rules for AI)
+Add the following prompt to your global or project settings:
+
+> "Always analyze the project context. If it's a new project or prototype, strictly follow `PROTOCOLO_SIMPLICIDADE_1.md`. If I inform you that it's a production project and I'm working alone, adopt `PROTOCOLO_SIMPLICIDADE_3.md` and validate each security step with me. Always consult TASKS.md to manage project tasks."
+
+### In GitHub Copilot
+When starting a task, invoke the context:
+
+> "@workspace Today we're working on Task #42 from TASKS.md. As this is a critical production project, read `PROTOCOLO_SIMPLICIDADE_3.md` and guide me step-by-step starting from Step 1."
+
+---
+
+## 🔍 Online Research: AI Capability to Solve Complex Problems
+
+**All Simplicity protocols now include guidance on online research for AI:**
+
+### 📋 When AI Should Research Online
+
+If the artificial intelligence has **many doubts** about how to solve a particular problem, or has **significant difficulties** solving that same problem, it **can and should perform online research**.
+
+### 🎯 Where to Search
+
+Research can be performed on:
+
+1. **📚 GitHub Documentation of Related Projects**:
+   - Similar repositories or those that solve similar problems
+   - Relevant Issues and Pull Requests
+   - Wiki and technical documentation of open source projects
+
+2. **📖 Online Documentation Platforms**:
+   - Official documentation of libraries and frameworks
+   - Specialized tutorials and technical guides
+   - Technical blogs from experienced developers
+
+3. **💬 Question and Answer Platforms**:
+   - **StackOverflow**: Main platform for programming questions
+   - **GitHub Discussions**: For project-specific questions
+   - Other relevant technical communities
+
+### ✅ Why This is Important
+
+- ✅ **Saves time**: Complex problems may already have documented solutions
+- ✅ **Best practices**: Learn from implementations already validated by the community
+- ✅ **Avoid reinventing the wheel**: Many problems have already been solved by others
+- ✅ **Reduces errors**: Community-tested solutions have fewer bugs
+- ✅ **Stay updated**: Discover the most modern approaches
+
+**Complete details**: See "🌐 Online Research" section in Step 3 of each protocol.
+
+---
+
+## 🌐 Code Language: Variable Naming and Comments
+
+**All Simplicity protocols now include guidelines about code language:**
+
+### 📋 Default Rule
+- **By default**: Variable names and comments should be in **native language** for national projects (e.g., Portuguese for Brazil/Portugal)
+- **Alternative**: English can be used for international or open-source projects
+- **Flexibility**: Allows mixed option (variables in English, comments in native language)
+
+### 🤔 Mandatory Question
+**The AI must ask the programmer in the first session** which language to prefer for:
+- Variable names
+- Code comments
+- Docstrings
+
+This preference will be registered and applied consistently throughout the project.
+
+### 🎯 Rationale
+- **National Projects**: Native language facilitates understanding and maintenance for local teams
+- **International Projects**: English facilitates collaboration with developers worldwide
+- **Consistency**: Defining standard at the start avoids confusing language mixing
+
+**Complete details**: See "🌐 Code Language" section in each protocol.
+
+---
+
+## 🌳 Tree Imports Analogy
+
+**New complementary document to the Simplicity Protocols!**
+
+The **[Tree Imports Analogy](TREE_IMPORTS_ANALOGY.md)** is a powerful mental model for understanding and organizing the dependency architecture in software projects.
+
+### 📚 What Is It?
+
+A guide that visualizes your project's import structure as a hierarchical tree:
+- 🌲 **Root**: Main file (orchestrator)
+- 🌿 **Branches**: Intermediate modules (coordinators)
+- 🍃 **Leaves**: Terminal modules (executors)
+
+### 🎯 What Is It For?
+
+- ✅ **Understanding** existing architecture
+- ✅ **Planning** new modules
+- ✅ **Refactoring** code organically
+- ✅ **Communicating** design decisions
+
+### 🔄 Development Approaches
+
+The document describes three complementary approaches:
+- **Top-Down**: From root to leaves (ideal for refactoring)
+- **Bottom-Up**: From leaves to root (ideal for reusable components)
+- **Middle-Out**: From middle outward (ideal for new modules)
+
+### 📖 Access the Document
+
+- **🇺🇸 English**: [TREE_IMPORTS_ANALOGY.md](TREE_IMPORTS_ANALOGY.md)
+- **🇧🇷 Português**: [../pt/ANALOGIA_ARVORE_IMPORTACOES.md](../pt/ANALOGIA_ARVORE_IMPORTACOES.md)
+
+### 🌍 Applicable to All Languages
+
+Python, JavaScript, Java, C++, and any language that supports module importing.
+
+**Golden Rule:**
+> *"The main file (root) should be the orchestrator, not the executor.  
+> The simpler the leaf, the more reusable the code."*
+
+---
+
+## 🧠 Associative Memory Factor
+
+> **INTEGRATED**: Fundamental concept to enable AI to learn from error patterns and apply accumulated knowledge.
+
+The **Associative Memory Factor** is now **fully integrated** into all three Simplicity Protocols, allowing AI to develop a "memory" of problems and solutions.
+
+### 🎯 What is it?
+
+AI's ability to:
+- 🧠 **Recognize patterns** recurring in errors
+- 🔗 **Associate causes and effects** in different contexts
+- 📈 **Generalize solutions** from specific cases to general rules
+- 📉 **Deduce problems** from general to specific (top-down)
+- 📊 **Induce rules** from specific to general (bottom-up)
+
+### 🐍 Connection with Python Traceback
+
+Python's Traceback presents errors in **top-down** structure (from outside to inside):
+- **Root** (orchestrator) → **Branches** (coordinators) → **Leaves** (executors)
+- Investigation follows the same deductive path
+- Associative memory helps identify level and root cause quickly
+
+### 🔬 Complementary Approaches
+
+**Deductive (General → Specific)**:
+- Apply known general rules to diagnose error
+- Example: "AttributeError usually indicates uninitialized object"
+
+**Inductive (Specific → General)**:
+- Observe repeated specific cases to create general rule
+- Example: "70% of IndexError are from incorrect index manipulation"
+
+**Neuro-Symbolic (Combination)**:
+- Unites deduction (symbolic AI) with induction (neural AI)
+- Learns continuously while applying established rules
+
+### 🐛 Defect Taxonomy
+
+Five categories of highly undesirable defects:
+
+1. **Incorrect Fact**: Wrong or outdated information in code
+2. **Extraneous Information**: Code/comments that don't belong to context
+3. **Ambiguity**: Code that can be interpreted in multiple ways
+4. **Inconsistency**: Violation of established project patterns
+5. **Omission**: Missing code or logic (validations, error handling)
+
+### 🔄 Error Patterns
+
+**Input-Independent Errors**:
+- Always occur, regardless of data
+- Indicate structural problem in logic
+
+**Specific Scope Errors**:
+- Confined to specific module/function
+- One bug, multiple symptoms
+
+**Common Import Errors**:
+- Multiple modules fail because they import buggy code
+- Fix once resolves all cases
+
+### 📖 Where to Find
+
+The **complete Associative Memory Factor documentation** is now integrated into each protocol:
+
+- **📘 Simplicity Protocol 1** (in English): Section "Associative Memory Factor - Complete Documentation"
+- **📕 Simplicity Protocol 2** (in English): Section "Associative Memory Factor - Complete Documentation"  
+- **📗 Simplicity Protocol 3** (in English): Section "Associative Memory Factor - Complete Documentation"
 
 - **📘 Protocolo Simplicidade 1** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
 - **📕 Protocolo Simplicidade 2** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
 - **📗 Protocolo Simplicidade 3** (em português): Seção "Fator de Memória Associativa - Documentação Completa"
 
-- **📘 Simplicity Protocol 1** (in English): Section "Associative Memory Factor - Complete Documentation"
-- **📕 Simplicity Protocol 2** (in English): Section "Associative Memory Factor - Complete Documentation"
-- **📗 Simplicity Protocol 3** (in English): Section "Associative Memory Factor - Complete Documentation"
+Each protocol contains the full documentation with:
+- ✅ Detailed top-down investigation methodology
+- ✅ Neuro-symbolic debugging cycle
+- ✅ Practical examples of each defect type
+- ✅ Error pattern knowledge base
+- ✅ Integration with HDC (Hyperdimensional Computing)
+- ✅ Complete usage checklist for AIs
 
-Cada protocolo contém a documentação completa com:
-- ✅ Metodologia detalhada de investigação top-down
-- ✅ Ciclo de debugging neuro-simbólico
-- ✅ Exemplos práticos de cada tipo de defeito
-- ✅ Base de conhecimento de padrões de erro
-- ✅ Integração com HDC (Hyperdimensional Computing)
-- ✅ Checklist completo de uso para IAs
+### 🎯 Benefits
 
-### 🎯 Benefícios
+- ✅ Faster error diagnosis
+- ✅ More effective corrections
+- ✅ Prevention of recurring problems
+- ✅ Continuously growing knowledge base
+- ✅ Better service to developer and client requirements
 
-- ✅ Diagnóstico mais rápido de erros
-- ✅ Correções mais efetivas
-- ✅ Prevenção de problemas recorrentes
-- ✅ Base de conhecimento em crescimento contínuo
-- ✅ Melhor atendimento aos requisitos de desenvolvedores e clientes
-
-**Integração**: Este conceito está integrado em todos os três protocolos nas etapas de correção de erros e debugging.
+**Integration**: This concept is integrated into all three protocols in the error correction and debugging steps.
 
 ---
 
-## 📝 Créditos e Versionamento
+## 📝 Credits and Versioning
 
-- **Autor:** Josué Amaral
-- **Licença:** Uso interno e educacional.
+- **Author:** Josué Amaral
+- **License:** Internal and educational use.
 - **Status:**
-    - Simplicidade 1: `v2.3`
-    - Simplicidade 2: `v2.5`
-    - Simplicidade 3: `v3.4`
-    - Analogia da Árvore de Importações: `v1.0`
-    - Fator de Memória Associativa: `v1.0`
+    - Simplicity 1: `v2.3`
+    - Simplicity 2: `v2.5`
+    - Simplicity 3: `v3.4`
+    - Tree Imports Analogy: `v1.0`
+    - Associative Memory Factor: `v1.0`
 
-> *"Quero um trabalho completo e profissional!"*
-
-## Atualização 2026-01-05: Documentação de Respostas
-
-Todos os protocolos Simplicidade (1, 2 e 3) agora incluem **seção obrigatória sobre documentação de respostas do usuário**. 
-
-**Resumo da nova regra**:
-- ✅ Após fazer perguntas e receber respostas, a IA **DEVE documentar** essas respostas
-- ✅ Documentação deve incluir: pergunta, resposta literal, interpretação da IA com suas próprias palavras
-- ✅ Local: docs/DECISIONS.md, docs/REQUIREMENTS.md ou comentários no código
-- ✅ Objetivo: Criar compreensão profunda, rastreabilidade e referência futura
-
-Esta regra está detalhada na seção "📝 Documentar Respostas do Usuário às Perguntas" de todos os protocolos.
+> *"I want complete and professional work!"*
