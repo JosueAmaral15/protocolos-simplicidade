@@ -9815,6 +9815,24 @@ def main():
 - Necessidade de logging em tempo real
 - Necessidade de cancelamento manual durante execução
 
+**Regra Obrigatória - Proteção contra Saturação de RAM**:
+
+> A IA, o desenvolvedor ou qualquer automação está **PROIBIDA** de executar processo, thread, teste, script, job de build, crawler, processamento de arquivo ou experimento que possa elevar o uso total da memória principal (RAM) do sistema para **95% ou mais** sem limites explícitos, monitoramento ativo e capacidade de encerramento imediato.
+
+**Limites operacionais obrigatórios**:
+- **85% de RAM total**: limite seguro padrão para abortar ou reduzir a execução antes de causar instabilidade.
+- **90% de RAM total**: zona crítica; parar novas tarefas, reduzir paralelismo e encerrar graciosamente processos de risco.
+- **95% de RAM total**: falha operacional grave; encerrar imediatamente o processo e seus filhos (`terminate()` e, se necessário, `kill()`).
+
+**Por quê?**: Saturar RAM pode causar swap thrashing, travar o ambiente gráfico, bloquear periféricos de entrada, fazer mouse/teclado pararem de responder e forçar reinicialização do sistema. Segurança operacional do computador do usuário vem antes de concluir testes ou builds.
+
+**Regras práticas**:
+- Operações com risco de alto consumo de memória **NÃO devem rodar em thread pura dentro do processo principal**; use processo separado para permitir encerramento forçado.
+- Antes de executar tarefas pesadas, estimar volume de dados, usar streaming/lazy loading/batches e limitar paralelismo.
+- Monitorar RAM total do sistema e memória do processo/filhos em tempo real quando houver risco.
+- Se a RAM total chegar a 90%, interromper novas tarefas e iniciar encerramento controlado.
+- Se a RAM total chegar a 95%, matar o processo de risco imediatamente e reportar o ocorrido ao usuário.
+
 **Implementação com `multiprocessing.Process`**:
 
 ```python
@@ -9993,6 +10011,7 @@ python tests/run_tests_monitored.py
 - ✅ **Estatísticas**: Passa/falha em tempo real
 - ✅ **Isolamento**: Testes rodam em processo separado (não travam o terminal)
 - ✅ **Cleanup garantido**: `terminate()` + `kill()` forçado se necessário
+- ✅ **Proteção de RAM**: Evita saturar memória do sistema e travar desktop, mouse ou teclado
 
 **Configurações Opcionais**:
 
@@ -10028,6 +10047,10 @@ python tests/run_tests_monitored.py
 [ ] Implementar logging em tempo real (Queue)
 [ ] Testar cancelamento manual (Ctrl+C)
 [ ] Verificar cleanup de processos (ps aux | grep pytest)
+[ ] Avaliar risco de alto consumo de RAM antes de executar
+[ ] Definir limite seguro de RAM total (85%) e limite crítico (95%)
+[ ] Monitorar RAM total e memória do processo/filhos quando houver risco
+[ ] Encerrar processo/filhos se RAM total atingir 95%
 ```
 
 **Quando NÃO usar**:
