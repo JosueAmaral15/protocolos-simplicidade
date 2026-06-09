@@ -10213,6 +10213,7 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Registrar decisões, preferências do usuário, contexto atual, tarefas pendentes, dúvidas resolvidas e próximos passos
    - Atualizar ao final de sessões relevantes ou quando decisões importantes forem tomadas
    - Não registrar segredos, senhas, tokens, chaves privadas ou dados sensíveis desnecessários
+   - Usar o template do repositório dos protocolos `docs/templates/history-chat-template.pt.md` como modelo quando criar ou reorganizar `history-chat.md`
    - Se a pasta do projeto estiver dentro de uma coleção de projetos, combinar com o usuário a criação/atualização de `global-history-chat.md` na pasta pai; em árvores maiores, também combinar possíveis `global-history-chat.md` em pastas ancestrais relevantes
 
 #### **📂 Estrutura Obrigatória de Documentação**
@@ -10233,6 +10234,7 @@ docs/
 - Se o repositório/pasta pai for uma coleção de pastas de projeto, a IA deve combinar com o usuário a criação de `global-history-chat.md` no pai (ex.: `../global-history-chat.md`)
 - Se houver uma árvore de diretórios com múltiplos níveis de projetos, a IA deve combinar com o usuário quais ancestrais também precisam de `global-history-chat.md`
 - Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+- Usar o template do repositório dos protocolos `docs/templates/global-history-chat-template.pt.md` como modelo para manter apenas aprendizados reutilizáveis e de escopo amplo
 
 **Criação Automática**:
 - Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA

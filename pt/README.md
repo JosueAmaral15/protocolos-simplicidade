@@ -457,6 +457,7 @@ A IA **DEVE** documentar **TODAS** as implementações na pasta `docs/` e manter
 - ✅ Testes implementados (cobertura + cenários)
 - ✅ Exemplos de uso práticos
 - ✅ Memória de conversa em `history-chat.md` na raiz do projeto, com decisões, preferências, contexto, pendências e próximos passos
+- ✅ Templates de memória de conversa disponíveis neste repositório dos protocolos: `docs/templates/history-chat-template.pt.md` e `docs/templates/global-history-chat-template.pt.md`
 
 ### 📂 Estrutura Mínima Obrigatória
 

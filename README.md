@@ -1200,6 +1200,7 @@ The AI **MUST** document **ALL** implementations in the `docs/` folder and maint
 - ✅ Implemented tests (coverage + scenarios)
 - ✅ Practical usage examples
 - ✅ Conversation memory in `history-chat.md` at the project root, with decisions, preferences, context, pending items, and next steps
+- ✅ Conversation memory templates available in this protocol repository: `docs/templates/history-chat-template.en.md` and `docs/templates/global-history-chat-template.en.md`
 
 ### 📂 Minimum Mandatory Structure
 

@@ -7307,16 +7307,37 @@ Se QUALQUER item acima for ❌ NÃO: PARAR, documentar dúvidas, e consultar sta
 **[ESPECÍFICO ENTERPRISE]**:
 > "Em ambientes enterprise, documentação desatualizada causa incidentes em produção. ADRs (Architecture Decision Records) são OBRIGATÓRIOS antes de mudanças arquiteturais. Compliance e auditoria exigem docs atualizados. Documentação bloqueante é ainda mais crítica em enterprise."
 
+#### 📖 Leitura Inicial Obrigatória de Memória e Documentação
+
+Antes de planejar ou implementar, a IA **DEVE** ler:
+- ✅ `README.md` - visão geral do projeto
+- ✅ `history-chat.md` - memória resumida da conversa específica do projeto
+- ✅ `global-history-chat.md` - memória ampla em pasta pai/ancestral, se existir e estiver combinada com o usuário
+- ✅ `docs/REQUIREMENTS.md` - requisitos funcionais e não-funcionais
+- ✅ `docs/TASKS.md` - tarefas existentes e status
+- ✅ `docs/ARCHITECTURE.md` - arquitetura e decisões técnicas
+- ✅ `docs/ADR/*.md` - ADRs formais existentes
+- ✅ `docs/SECURITY.md` - checklist OWASP e mitigação de vulnerabilidades
+- ✅ `docs/ROLLBACK.md` - planos de rollback enterprise, se existir
+- ✅ Qualquer outro `.md` relevante no workspace
+
+**Comando recomendado**:
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+find .. -maxdepth 3 -name "global-history-chat.md" -type f 2>/dev/null
+```
+
 **Fluxo correto**:
 ```
-Tarefa → Dúvidas? (perguntar) → Documentar ANTES → Corrigir erros → Implementar
+Tarefa → Ler documentação/memórias → Dúvidas? (perguntar) → Documentar ANTES → Corrigir erros → Implementar
 ```
 
 **Checklist de Desbloqueio**:
 ```markdown
-[ ] 1️⃣ Zero dúvidas (perguntas respondidas)
-[ ] 2️⃣ Documentação necessária escrita/atualizada
-[ ] 3️⃣ Zero erros no workspace
+[ ] 1️⃣ Documentação e memórias lidas (`history-chat.md` e `global-history-chat.md`, se existir)
+[ ] 2️⃣ Zero dúvidas (perguntas respondidas)
+[ ] 3️⃣ Documentação necessária escrita/atualizada
+[ ] 4️⃣ Zero erros no workspace
 [ ] ✅ DESBLOQUEADO: Pode implementar
 ```
 
@@ -9870,7 +9891,7 @@ A IA DEVE:
 #### 📊 Checklist Obrigatório (Enterprise)
 
 ```markdown
-[ ] 1. Li 100% da documentação (README, REQUIREMENTS, ADRs existentes)
+[ ] 1. Li 100% da documentação e memórias (README, history-chat.md, global-history-chat.md se existir, REQUIREMENTS, ADRs existentes)
 [ ] 2. Criei/atualizei TASKS.md com sprints aprovados pelo PO
 [ ] 3. Documentei arquitetura e criei ADRs necessários
 [ ] 4. Time estimou e aprovou tarefas
@@ -12897,20 +12918,22 @@ def test_find_duplicates_performance(benchmark):
 
 ---
 
-### 🔟.6️⃣ **CI/CD Quality Gates** ⭐ (Opcional - ALTA PRIORIDADE)
+### 🔟.6️⃣ **CI/CD Quality Gates** ⭐ [OBRIGATÓRIO ENTERPRISE]
 
 **Quando Aplicar**:
-- ✅ Projetos em equipe (2+ pessoas)
-- ✅ Código em produção ou crítico
-- ✅ Open-source com contribuidores
-- ✅ Quando precisa garantir qualidade consistente
-- ✅ Ambientes com múltiplos branches
+- ✅ **OBRIGATÓRIO** para projetos enterprise
+- ✅ **OBRIGATÓRIO** para código em produção ou crítico
+- ✅ **OBRIGATÓRIO** quando há múltiplos branches, revisores ou stakeholders
+- ✅ **OBRIGATÓRIO** para deploys automatizados ou ambientes regulados
+- ✅ Recomendado para open-source com contribuidores
 
-**Não Aplicar Se**:
-- ❌ Projeto solo/experimental
-- ❌ Protótipo descartável
-- ❌ Scripts de uso único
-- ❌ Sem infraestrutura CI (GitHub/GitLab/Jenkins)
+**Exceções Permitidas**:
+- ⚠️ Protótipo descartável sem usuários, dados reais ou integração com produção
+- ⚠️ Scripts de uso único sem impacto em produção, compliance ou dados
+- ⚠️ Infraestrutura CI indisponível temporariamente; neste caso, documentar limitação, criar plano de implantação de CI/CD e executar validação local equivalente
+
+**Regra Enterprise**:
+> Em Simplicidade 2, CI/CD Quality Gates deixam de ser opcionais quando há ambiente enterprise, produção, dados reais, múltiplos contribuidores, compliance ou release formal. Sem quality gates equivalentes, a tarefa não deve avançar para deploy.
 
 **Pre-commit Hooks - Validação Local**:
 
@@ -13910,6 +13933,7 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Registrar decisões, preferências do usuário, contexto atual, tarefas pendentes, dúvidas resolvidas e próximos passos
    - Atualizar ao final de sessões relevantes ou quando decisões importantes forem tomadas
    - Não registrar segredos, senhas, tokens, chaves privadas ou dados sensíveis desnecessários
+   - Usar o template do repositório dos protocolos `docs/templates/history-chat-template.pt.md` como modelo quando criar ou reorganizar `history-chat.md`
    - Se a pasta do projeto estiver dentro de uma coleção de projetos, combinar com o usuário a criação/atualização de `global-history-chat.md` na pasta pai; em árvores maiores, também combinar possíveis `global-history-chat.md` em pastas ancestrais relevantes
 
 8. **[SIMPLICIDADE 2] Documentação Enterprise Adicional**:
@@ -13917,7 +13941,8 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Checklist de segurança OWASP preenchido
    - Checklist de acessibilidade WCAG (para GUI)
    - Resultados de profiling (para features críticas)
-   - Planos de rollback documentados
+   - Planos de rollback documentados em `docs/ROLLBACK.md` quando houver produção, dados, APIs públicas, compliance, infraestrutura ou risco alto
+   - Configuração de CI/CD e quality gates documentada
 
 #### **📂 Estrutura Obrigatória de Documentação (Simplicidade 2)**
 
@@ -13934,6 +13959,7 @@ docs/
 │   ├── ADR-001-[decisao].md
 │   └── ADR-002-[decisao].md
 ├── SECURITY.md              # Checklist OWASP e vulnerabilidades mitigadas
+├── ROLLBACK.md              # Planos de rollback enterprise para mudanças críticas/produção
 ├── API/                     # Documentação de API (se aplicável)
 │   └── api-reference.html   # Gerado por Sphinx/pdoc
 └── [feature]-GUIDE.md       # Guias específicos para funcionalidades complexas
@@ -13943,11 +13969,14 @@ docs/
 - Se o repositório/pasta pai for uma coleção de pastas de projeto, a IA deve combinar com o usuário a criação de `global-history-chat.md` no pai (ex.: `../global-history-chat.md`)
 - Se houver uma árvore de diretórios com múltiplos níveis de projetos, a IA deve combinar com o usuário quais ancestrais também precisam de `global-history-chat.md`
 - Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+- Usar o template do repositório dos protocolos `docs/templates/global-history-chat-template.pt.md` como modelo para manter apenas aprendizados reutilizáveis e de escopo amplo
 
 **Criação Automática**:
 - Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA
 - Se um arquivo de documentação não existe, ele **DEVE SER CRIADO** pela IA no primeiro ciclo
 - Se `history-chat.md` não existe na raiz do projeto, ele **DEVE SER CRIADO** pela IA no primeiro ciclo e atualizado quando houver contexto conversacional relevante
+- Se `docs/ROLLBACK.md` não existe e houver qualquer mudança de produção, dados, API pública, infraestrutura, compliance ou risco alto, ele **DEVE SER CRIADO** pela IA antes do commit/deploy
+- Se a configuração de CI/CD estiver ausente em projeto enterprise, a IA **DEVE** documentar a limitação, executar validação local equivalente e criar tarefa/plano para adicionar quality gates de CI/CD
 - Todos os arquivos devem ser atualizados **A CADA CICLO** de implementação
 
 #### **📋 Template Mínimo para SPECIFICATIONS.md (Simplicidade 2)**
@@ -14022,7 +14051,7 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 - ✅ Commits semânticos
 - ✅ **Documentação completa na pasta docs/**
 - ✅ Código limpo (PEP8/ESLint/etc)
-- ✅ Rollback plan documentado (se crítico)
+- ✅ Rollback plan documentado em ROLLBACK.md quando aplicável
 
 ## 📊 Estatísticas
 - TOTAL: X% completo (Y/Z tasks)
@@ -14045,6 +14074,8 @@ Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 - [ ] ✅ Exemplos de uso estão incluídos
 - [ ] ✅ Testes estão documentados
 - [ ] ✅ Checklist de segurança OWASP está completo (em SECURITY.md)
+- [ ] ✅ Configuração CI/CD e quality gates documentados e executados quando aplicável
+- [ ] ✅ Rollback plan documentado em ROLLBACK.md para produção, dados, APIs públicas, infraestrutura, compliance ou risco alto
 - [ ] ✅ Resultados de profiling documentados (se aplicável)
 - [ ] ✅ Documentação de API gerada (se biblioteca pública)
 - [ ] ✅ Code review aprovado e documentado
@@ -14333,20 +14364,23 @@ Para equipes enterprise (Simplicidade 2), as recomendações da IA devem ser **r
 
 ---
 
-### 1️⃣2️⃣.5️⃣ **Rollback Plans** (Opcional - Para Features Críticas)
+### 1️⃣2️⃣.5️⃣ **Rollback Plans** ⭐ [OBRIGATÓRIO ENTERPRISE]
 
 **Quando Aplicar**:
-- ✅ Features críticas em produção
-- ✅ Mudanças em schema de dados/migrations
-- ✅ Alterações em APIs públicas
-- ✅ Deploy de features com risco alto
-- ✅ Quando downtime é inaceitável
+- ✅ **OBRIGATÓRIO** para mudanças em produção
+- ✅ **OBRIGATÓRIO** para mudanças em schema de dados/migrations
+- ✅ **OBRIGATÓRIO** para alterações em APIs públicas ou contratos entre serviços
+- ✅ **OBRIGATÓRIO** para deploy de features com risco alto
+- ✅ **OBRIGATÓRIO** quando downtime é inaceitável ou há SLA/SLO
+- ✅ **OBRIGATÓRIO** para mudanças de infraestrutura, autenticação, billing, compliance ou dados sensíveis
 
-**Não Aplicar Se**:
-- ❌ Feature experimental/beta (flag controlada)
-- ❌ Mudança interna sem impacto usuário
-- ❌ Protótipo ou ambiente dev/staging apenas
-- ❌ Hotfix trivial (typo, css)
+**Exceções Permitidas**:
+- ⚠️ Protótipo ou ambiente dev/staging apenas, sem dados reais e sem caminho direto para produção
+- ⚠️ Hotfix trivial sem risco funcional, por exemplo typo ou ajuste visual isolado
+- ⚠️ Feature experimental totalmente isolada por feature flag, sem impacto em usuários, dados, APIs, compliance ou infraestrutura
+
+**Regra Enterprise**:
+> Em Simplicidade 2, rollback plan é obrigatório para qualquer mudança que possa afetar produção, dados, contratos públicos, segurança, compliance, receita, SLA/SLO ou operação de outro time. Se não existe rollback documentado e testável, a mudança não está pronta para deploy.
 
 **O que é Rollback Plan?**
 
@@ -15203,7 +15237,7 @@ Reunião (ou documento, se solo) ao final de cada sprint/milestone para refletir
 > "Quero um trabalho completo e profissional!"
 
 **Este protocolo garante**:
-- ✅ Qualidade profissional (13 etapas obrigatórias + 10 opcionais avançadas)
+- ✅ Qualidade profissional (15 etapas obrigatórias + 8 opcionais avançadas)
 - ✅ Progresso incremental (do simples ao complexo)
 - ✅ Documentação completa (nunca esquecer o que foi feito)
 - ✅ Código testado e seguro (100% confiável)

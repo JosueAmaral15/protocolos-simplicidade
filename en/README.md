@@ -1125,6 +1125,117 @@ AI **should provide recommendations** based on project understanding and what it
 
 ---
 
+## 📝 Mandatory Documentation in `docs/` Folder
+
+> **CRITICAL**: Everything that the artificial intelligence does in the project, in each implementation cycle, in each code, each implemented functionality, **MUST BE DOCUMENTED IN THE `docs/` FOLDER AS A MANDATORY REQUIREMENT** to mark new functionalities and new behaviors.
+
+All three protocols now include a **Mandatory Documentation Requirement** that must be followed in each cycle:
+
+### 📚 Documentation Golden Rule
+
+**For AI Assistants:**
+
+The AI **MUST** document **ALL** implementations in the `docs/` folder and maintain conversation memory at the project root:
+- ✅ Implemented functionalities (detailed description + behaviors)
+- ✅ Created/modified code (files + changes)
+- ✅ Architectural decisions (applied patterns + justifications)
+- ✅ Integrations and dependencies
+- ✅ Implemented tests (coverage + scenarios)
+- ✅ Practical usage examples
+- ✅ Conversation memory in `history-chat.md` at the project root, with decisions, preferences, context, pending items, and next steps
+- ✅ Conversation memory templates available in this protocol repository: `docs/templates/history-chat-template.en.md` and `docs/templates/global-history-chat-template.en.md`
+
+### 📂 Minimum Mandatory Structure
+
+```
+history-chat.md              # Summarized conversation memory for the specific project
+docs/
+├── REQUIREMENTS.md          # Tasks and requirements (updated each cycle)
+├── vX.Y.Z-SPECIFICATIONS.md # Detailed version specifications
+├── CHANGELOG.md             # History of all changes
+├── ARCHITECTURE.md          # Architectural decisions
+└── [other files per protocol]
+```
+
+### 🎯 By Protocol
+
+- **Simplicity 1**: Complete basic documentation (functionalities + architecture + tests)
+- **Simplicity 2**: + Formal ADRs + OWASP + API docs + Accessibility
+- **Simplicity 3**: + Mandatory OWASP + Rollback plans + Decision notes
+
+### ⚠️ Validation Before Commit
+
+The AI **MUST NOT** commit without:
+- [ ] ✅ `docs/` folder updated
+- [ ] ✅ SPECIFICATIONS.md created/updated
+- [ ] ✅ All functionalities documented
+- [ ] ✅ All behaviors described
+- [ ] ✅ Technical decisions justified
+- [ ] ✅ `history-chat.md` created/updated when conversation context changed
+
+**Rationale**: Complete documentation ensures traceability, maintainability, continuity, and professionalism. It's especially critical for production projects and solo development.
+
+📖 **Complete details**: See Step 12 of each protocol for templates, checklists, and examples.
+
+---
+
+## 📋 Task Management (TASKS.md)
+
+All Simplicity protocols now include integrated support for task management through a `TASKS.md` file (or alternative file of your choice).
+
+### Task System Features:
+- ✅ **Default File**: `TASKS.md` in project root (ASCII format: `.md`, `.txt`)
+- 🔄 **Flexible**: Use any file name/location (as long as it's ASCII)
+- 📊 **Classification System**: Integrated Status, Complexity, and Prioritization
+- 🤖 **AI Recommendations (Optional)**: Intelligent system for suggesting new tasks
+- 📊 **Growth Curve**: Recommendations follow quadratic pattern (grow, peak, then decrease)
+- 🎯 **Scope Control**: Only project-relevant suggestions
+- 🔢 **Configurable Limit**: Default of 30 new recommended tasks (customizable)
+
+### 📊 Task Classification System
+
+All three protocols include a standardized classification system to facilitate organization by AI:
+
+#### **Task Status**
+- 🔴 **Not Started** - Awaiting start
+- 🟡 **In Progress** - Active development
+- 🟢 **Done** - Completed and tested
+- 🔵 **Blocked** - Blocked by dependency
+
+#### **Complexity**
+- 🟢 **Simple** (0-1h) - Low risk, few dependencies, clear scope
+- 🟡 **Medium** (1-2h) - Medium risk, some integrations
+- 🔴 **Complex** (>2h) - High risk, many dependencies, open scope
+
+#### **MoSCoW Prioritization**
+- 🔴 **Must Have** - Critical for system functionality, release blocker
+- 🟡 **Should Have** - Important but not blocking
+- 🟢 **Could Have** - Desirable if time permits, low priority
+- ⚪ **Won't Have** (Later) - Out of current scope, for future versions
+
+#### **Advanced Frameworks (Optional)**
+- **RICE Matrix**: For quantitative analysis (Reach × Impact × Confidence / Effort)
+- **Eisenhower Matrix**: For urgency management (Urgent × Important)
+- **Decision Matrix**: Numeric scoring 0-35 points (Simplicity 2/3)
+
+**Combined usage example**:
+```markdown
+### 🔴 MUST HAVE
+- 🔴🟢 [ ] Implement authentication (Not Started, Simple, 1h)
+- 🟡🟡 [ ] Add validation (In Progress, Medium, 1.5h, 60% complete)
+- 🟢🟢 [x] Configure database (Done, Simple, 0.5h)
+```
+
+### How AI Recommendations Work:
+AI can dynamically suggest new tasks as the project evolves, following a 5-phase pattern:
+1. **Phase 1 (0-20%)**: Initial growth - few essential tasks
+2. **Phase 2 (20-40%)**: Acceleration - main features
+3. **Phase 3 (40-70%)**: Maximum peak - maximum ideas and opportunities
+4. **Phase 4 (70-90%)**: Deceleration - only critical tasks
+5. **Phase 5 (90-100%)**: Exhaustion - stop adding features
+
+📖 **Complete details**: See "Task Classification Legend" and "AI Task Recommendations" sections in Step 12 of each protocol.
+
 ---
 
 📖 **Complete details**: See "Action Plans" section in Step 2 (Read Existing Code) of each protocol for specific instructions on when and how to create action plans.

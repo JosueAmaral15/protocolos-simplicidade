@@ -207,7 +207,7 @@
 
 | Aspect | Simplicity 1 | Simplicity 2 | Simplicity 3 |
 |---|---|---|---|
-| **Steps** | 13 mandatory | 13 mand + 10 opt | 16 mand + 3 opt |
+| **Steps** | 13 mandatory | 15 mand + 8 opt | 16 mand + 3 opt |
 | **Scenario** | Prototypes/internal | **Enterprise teams** | Solo in production |
 | **Security** | ❌ No | ✅ OWASP mandatory | ✅ OWASP mandatory |
 | **CI/CD** | ❌ No | ✅ Mandatory | ✅ Mandatory |
@@ -240,7 +240,7 @@
 - ❌ High-impact/high-risk features
 - ❌ Projects with large teams (>5 devs)
 
-### **Simplicity Protocol 2** (13 mandatory + 10 optional = 23 steps)
+### **Simplicity Protocol 2** (15 mandatory + 8 optional = 23 steps)
 **Use for**:
 - ✅ **Critical production applications** with a team
 - ✅ Systems with **sensitive data** (LGPD, GDPR, PCI-DSS)
@@ -4984,7 +4984,7 @@ I need to clarify requirements before implementing:
 
 **Work Order (Enterprise)**:
 ```
-1. 📖 Read 100% documentation (ADRs, security, compliance)
+1. 📖 Read 100% documentation and memories (README, history-chat.md, global-history-chat.md if present, ADRs, security, compliance)
 2. 🔍 Study existing code deeply
 3. 🏛️ Review architectural patterns
 4. ❓ Ask ALL necessary questions (formal)
@@ -5858,6 +5858,26 @@ If ANY item above is ❌ NOT: STOP, document doubts, and consult appropriate Sta
 
 **[SPECIFIC FOR ENTERPRISE]**:
 > "In enterprise, outdated documentation causes production incidents. ADRs (Architecture Decision Records) are MANDATORY before architectural changes. Compliance and auditing require updated docs. Blocking documentation is even more critical in enterprise."
+
+#### 📖 Mandatory Initial Reading of Memory and Documentation
+
+Before planning or implementing, the AI **MUST** read:
+- ✅ `README.md` - project overview
+- ✅ `history-chat.md` - summarized conversation memory for the specific project
+- ✅ `global-history-chat.md` - broader memory in a parent/ancestor folder, if it exists and was agreed with the user
+- ✅ `docs/REQUIREMENTS.md` - functional and non-functional requirements
+- ✅ `docs/TASKS.md` - existing tasks and status
+- ✅ `docs/ARCHITECTURE.md` - architecture and technical decisions
+- ✅ `docs/ADR/*.md` - existing formal ADRs
+- ✅ `docs/SECURITY.md` - OWASP checklist and vulnerability mitigations
+- ✅ `docs/ROLLBACK.md` - enterprise rollback plans, if present
+- ✅ Any other relevant `.md` file in the workspace
+
+**Recommended command**:
+```bash
+find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+find .. -maxdepth 3 -name "global-history-chat.md" -type f 2>/dev/null
+```
 
 **Golden Rule**: "Questions → Documentation → Bugs → Features. In this order."
 
@@ -8764,20 +8784,22 @@ def test_find_duplicates_performance(benchmark):
 
 ---
 
-### 10.6 **CI/CD Quality Gates** ⭐ (Optional - HIGH PRIORITY)
+### 10.6 **CI/CD Quality Gates** ⭐ [MANDATORY ENTERPRISE]
 
 **When to Apply**:
-- ✅ Team projects (2+ people)
-- ✅ Production or critical code
-- ✅ Open-source with contributors
-- ✅ When consistent quality needs to be ensured
-- ✅ Environments with multiple branches
+- ✅ **MANDATORY** for enterprise projects
+- ✅ **MANDATORY** for production or critical code
+- ✅ **MANDATORY** when there are multiple branches, reviewers, or stakeholders
+- ✅ **MANDATORY** for automated deploys or regulated environments
+- ✅ Recommended for open-source with contributors
 
-**Do Not Apply If**:
-- ❌ Solo/experimental project
-- ❌ Disposable prototype
-- ❌ Single-use scripts
-- ❌ No CI infrastructure (GitHub/GitLab/Jenkins)
+**Allowed Exceptions**:
+- ⚠️ Disposable prototype without users, real data, or production integration
+- ⚠️ Single-use scripts with no production, compliance, or data impact
+- ⚠️ CI infrastructure temporarily unavailable; in this case, document the limitation, create a CI/CD rollout plan, and run equivalent local validation
+
+**Enterprise Rule**:
+> In Simplicity 2, CI/CD Quality Gates stop being optional when there is an enterprise environment, production, real data, multiple contributors, compliance, or a formal release. Without equivalent quality gates, the task should not proceed to deploy.
 
 **Pre-commit Hooks - Local Validation**:
 
@@ -9733,6 +9755,7 @@ This PR implements **ADR-004: Migrate to SQLite**.
 - ✅ **`history-chat.md`** - Project-specific summarized conversation memory at the project root
 - ✅ **Conversation context updates** - Decisions, user preferences, current status, pending tasks, resolved questions, and next steps
 - ✅ **Sensitive-data hygiene** - Do not record secrets, passwords, tokens, private keys, or unnecessary sensitive data
+- ✅ **Template** - Use the protocol repository template `docs/templates/history-chat-template.en.md` when creating or reorganizing `history-chat.md`
 - ✅ **`global-history-chat.md` by agreement** - If the parent folder is a collection of projects, agree with the user on maintaining a broader memory file in the parent or relevant ancestor folders
 
 #### **🏢 Enterprise-Specific Documentation (Simplicity 2)**
@@ -9742,6 +9765,8 @@ In addition to base documentation requirements, Simplicity 2 adds:
 **Additional Documentation for Enterprise**:
 - ✅ **ADRs** (Architecture Decision Records) - Formal documentation in `docs/ADR/`
 - ✅ **OWASP Security Checklist** - Complete and documented in `docs/SECURITY.md`
+- ✅ **Rollback Plans** - Documented in `docs/ROLLBACK.md` for production, data, public APIs, compliance, infrastructure, or high-risk changes
+- ✅ **CI/CD Quality Gates** - Documented pipeline setup and validation results
 - ✅ **WCAG Accessibility Checklist** - For GUI applications in `docs/ACCESSIBILITY.md`
 - ✅ **API Documentation** - Generated with Sphinx/pdoc in `docs/API/`
 - ✅ **Performance Profiling Results** - For critical features
@@ -9760,6 +9785,7 @@ docs/
 │   ├── ADR-001-[decision].md
 │   └── ADR-002-[decision].md
 ├── SECURITY.md              # OWASP checklist and mitigations
+├── ROLLBACK.md              # Enterprise rollback plans for critical/production changes
 ├── ACCESSIBILITY.md         # WCAG compliance (if GUI)
 ├── API/                     # API documentation
 │   └── api-reference.html   # Generated by Sphinx/pdoc
@@ -9768,7 +9794,11 @@ docs/
 └── [feature]-GUIDE.md
 ```
 
-If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`.
+If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`. Use the protocol repository template `docs/templates/global-history-chat-template.en.md` as the model to keep only reusable, broad-scope lessons.
+
+**Automatic Creation for Enterprise Additions**:
+- If `docs/ROLLBACK.md` does not exist and there is any production, data, public API, infrastructure, compliance, or high-risk change, it **MUST BE CREATED** by the AI before commit/deploy
+- If CI/CD configuration is missing in an enterprise project, the AI **MUST** document the limitation, run equivalent local validation, and create a task/plan to add CI/CD quality gates
 
 **🔍 Additional Validation for Enterprise**:
 
@@ -9776,6 +9806,8 @@ Before commit, AI must also verify:
 - [ ] ✅ `history-chat.md` exists and was updated when relevant conversation context changed
 - [ ] ✅ ADRs created for important architectural decisions
 - [ ] ✅ OWASP security checklist complete in SECURITY.md
+- [ ] ✅ CI/CD configuration and quality gates documented and executed when applicable
+- [ ] ✅ Rollback plan documented in ROLLBACK.md for production, data, public APIs, infrastructure, compliance, or high-risk changes
 - [ ] ✅ Profiling results documented (if critical feature)
 - [ ] ✅ API documentation generated (if public library)
 - [ ] ✅ Code review approved and documented
@@ -10050,20 +10082,23 @@ For enterprise teams (Simplicity 2), AI recommendations should be **reviewed in 
 
 ---
 
-### 12.5 **Rollback Plans** (Optional - For Critical Features)
+### 12.5 **Rollback Plans** ⭐ [MANDATORY ENTERPRISE]
 
 **When to Apply**:
-- ✅ Critical features in production
-- ✅ Data schema changes/migrations
-- ✅ Changes to public APIs
-- ✅ Deploying high-risk features
-- ✅ When downtime is unacceptable
+- ✅ **MANDATORY** for production changes
+- ✅ **MANDATORY** for data schema changes/migrations
+- ✅ **MANDATORY** for changes to public APIs or service contracts
+- ✅ **MANDATORY** for high-risk feature deploys
+- ✅ **MANDATORY** when downtime is unacceptable or there is an SLA/SLO
+- ✅ **MANDATORY** for infrastructure, authentication, billing, compliance, or sensitive-data changes
 
-**Do Not Apply If**:
-- ❌ Experimental/beta feature (flag controlled)
-- ❌ Internal change with no user impact
-- ❌ Prototype or dev/staging environment only
-- ❌ Trivial hotfix (typo, css)
+**Allowed Exceptions**:
+- ⚠️ Prototype or dev/staging environment only, with no real data and no direct path to production
+- ⚠️ Trivial hotfix with no functional risk, such as typo or isolated visual adjustment
+- ⚠️ Experimental feature fully isolated by feature flag, with no impact on users, data, APIs, compliance, or infrastructure
+
+**Enterprise Rule**:
+> In Simplicity 2, a rollback plan is mandatory for any change that can affect production, data, public contracts, security, compliance, revenue, SLA/SLO, or another team's operation. If there is no documented and testable rollback, the change is not ready for deploy.
 
 **What is a Rollback Plan?**
 
@@ -10856,7 +10891,7 @@ A meeting (or document, if solo) at the end of each sprint/milestone to reflect 
 > "I want a complete and professional job!"
 
 **This protocol guarantees**:
-- ✅ Professional quality (13 mandatory + 10 advanced optional steps)
+- ✅ Professional quality (15 mandatory + 8 advanced optional steps)
 - ✅ Incremental progress (from simple to complex)
 - ✅ Complete documentation (never forget what was done)
 - ✅ Tested and secure code (100% reliable)

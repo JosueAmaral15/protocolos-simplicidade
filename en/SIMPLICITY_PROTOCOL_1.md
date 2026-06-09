@@ -6571,7 +6571,7 @@ Ensure software is **well-structured** and **well-planned** by AI from existing 
 #### 📋 Mandatory Checklist (BEFORE implementing any code)
 
 ```markdown
-[ ] 1. Read 100% existing documentation (README, REQUIREMENTS, TASKS, ARCHITECTURE)
+[ ] 1. Read 100% existing documentation (README, history-chat.md, global-history-chat.md if agreed, REQUIREMENTS, TASKS, ARCHITECTURE)
 [ ] 2. Created/updated docs/TASKS.md with complete structure
 [ ] 3. Defined at least 3 sprints with clear objectives
 [ ] 4. Broke each sprint into atomic tasks (max 4h each)
@@ -8882,6 +8882,7 @@ For **EACH implementation cycle**, the AI must document in the `docs/` folder:
    - Record decisions, user preferences, current context, pending tasks, resolved questions, and next steps
    - Update it at the end of relevant sessions or whenever important decisions are made
    - Do not record secrets, passwords, tokens, private keys, or unnecessary sensitive data
+   - Use the protocol repository template `docs/templates/history-chat-template.en.md` as the model when creating or reorganizing `history-chat.md`
    - If the project folder is inside a collection of projects, agree with the user on creating/updating `global-history-chat.md` in the parent folder; in deeper directory trees, also agree on possible `global-history-chat.md` files in relevant ancestor folders
 
 #### **📂 Mandatory Documentation Structure**
@@ -8902,6 +8903,7 @@ docs/
 - If the parent repository/folder is a collection of project folders, the AI must agree with the user on creating `global-history-chat.md` in the parent (e.g., `../global-history-chat.md`)
 - If there is a multi-level project directory tree, the AI must agree with the user on which ancestor folders also need `global-history-chat.md`
 - Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+- Use the protocol repository template `docs/templates/global-history-chat-template.en.md` as the model to keep only reusable, broad-scope lessons
 
 **Automatic Creation**:
 - If the `docs/` folder doesn't exist, it **MUST BE AUTOMATICALLY CREATED** by the AI

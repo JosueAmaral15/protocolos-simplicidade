@@ -6855,6 +6855,64 @@ Planejamento perfeito não existe, planejamento "bom o suficiente" sim.
 **Total**: 14 base + 3 obrigatórias novas ⭐ + 3 opcionais = **17-20 etapas**
 
 ### 1️⃣ **Ler a Documentação**
+
+> **🚨 CRÍTICO PARA IAs - PRIMEIRA AÇÃO OBRIGATÓRIA**: Antes de QUALQUER coisa, a IA **DEVE** procurar e ler **100% da documentação markdown local** existente no projeto.
+
+#### 📖 **Etapa 1.0: Busca e Leitura Completa de Documentação** [PRIORITÁRIO]
+
+**Funcionalidade base**: Igual ao Protocolo Simplicidade 1 Etapa 1.0, com os seguintes **acréscimos para solo developer**:
+
+**Arquivos críticos adicionais a ler (Solo)**:
+- ✅ `history-chat.md` - **Memória de conversa do projeto (CRÍTICO)**
+- ✅ `global-history-chat.md` - **Memória ampla de conversa se combinada com o usuário**
+- ✅ `docs/security/OWASP-checklist.md` - **Checklist de segurança (CRÍTICO)**
+- ✅ `docs/rollback/*.md` - **Planos de rollback (CRÍTICO)**
+- ✅ Notas de decisão - Entender por que VOCÊ escolheu X em vez de Y
+
+**[ESPECÍFICO PARA SIMPLICIDADE 3 - SOLO]**:
+- ✅ **Notas de Decisão**: Entender por que você (desenvolvedor) escolheu X em vez de Y
+- ✅ **Planos de Rollback**: Como reverter mudanças se algo der errado
+- ✅ **Checklist de Segurança**: OWASP é obrigatório - ler antes de qualquer implementação
+
+**Estrutura Mínima Solo em Produção** (se criar do zero):
+```
+📁 Raiz do Projeto
+├── README.md
+├── TASKS.md
+├── history-chat.md
+└── 📁 docs/
+    ├── REQUIREMENTS.md
+    ├── ARCHITECTURE.md
+    ├── v0.1.0-SPECIFICATIONS.md
+    ├── 📁 security/             # OBRIGATÓRIO
+    │   └── OWASP-checklist.md
+    └── 📁 rollback/             # OBRIGATÓRIO
+        └── rollback-template.md
+```
+
+### 📁 Regra de Organização: Documentos na Pasta `docs/`
+
+**OBRIGATÓRIO**: Arquivos markdown de documentação **DEVEM** ficar na pasta `docs/`, exceto arquivos aprovados de memória/metadados na raiz, para manter a raiz do projeto organizada.
+
+**✅ Permitidos na Raiz do Projeto**:
+- `README.md` (visão geral do projeto)
+- `history-chat.md` (memória resumida da conversa específica do projeto)
+- Arquivos de estrutura do projeto: `CONTRIBUTING.md`, `LICENSE.md`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`
+- `global-history-chat.md` pode existir na pasta pai ou em ancestrais combinados com o usuário quando a pasta pai for uma coleção de projetos
+
+**❌ Devem ir para `docs/`**:
+- `TASKS.md` → `docs/TASKS.md`
+- `ACTION_PLANS.md` → `docs/ACTION_PLANS.md`
+- Planos de execução → `docs/plans/`
+- Arquivos de fase/sprint → `docs/`
+- Relatórios → `docs/reports/`
+- Especificações → `docs/v*.*.*.md`
+- Qualquer outro arquivo de documentação
+
+**Rationale**: Manter a raiz do projeto limpa e organizada facilita navegação e profissionalismo.
+
+---
+
 #### 🌳 **Analogia da Árvore de Importações**
 
 **Conceito**: A estrutura de importações de um programa pode ser visualizada como uma árvore, onde cada módulo importa outros módulos, formando uma hierarquia de dependências.
@@ -9359,6 +9417,7 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Registrar decisões, preferências do usuário, contexto atual, tarefas pendentes, dúvidas resolvidas e próximos passos
    - Atualizar ao final de sessões relevantes ou quando decisões importantes forem tomadas
    - Não registrar segredos, senhas, tokens, chaves privadas ou dados sensíveis desnecessários
+   - Usar o template do repositório dos protocolos `docs/templates/history-chat-template.pt.md` como modelo quando criar ou reorganizar `history-chat.md`
    - Se a pasta do projeto estiver dentro de uma coleção de projetos, combinar com o usuário a criação/atualização de `global-history-chat.md` na pasta pai; em árvores maiores, também combinar possíveis `global-history-chat.md` em pastas ancestrais relevantes
 
 #### **📂 Estrutura Obrigatória de Documentação (Simplicidade 3)**
@@ -9382,6 +9441,7 @@ docs/
 - Se o repositório/pasta pai for uma coleção de pastas de projeto, a IA deve combinar com o usuário a criação de `global-history-chat.md` no pai (ex.: `../global-history-chat.md`)
 - Se houver uma árvore de diretórios com múltiplos níveis de projetos, a IA deve combinar com o usuário quais ancestrais também precisam de `global-history-chat.md`
 - Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+- Usar o template do repositório dos protocolos `docs/templates/global-history-chat-template.pt.md` como modelo para manter apenas aprendizados reutilizáveis e de escopo amplo
 
 **Criação Automática**:
 - Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA

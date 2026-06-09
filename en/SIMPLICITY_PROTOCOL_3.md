@@ -7788,6 +7788,7 @@ Rule of thumb:
 
 **Additional critical files to read (Solo)**:
 - ✅ `history-chat.md` - **Project conversation memory (CRITICAL)**
+- ✅ `global-history-chat.md` - **Broader conversation memory if agreed with the user**
 - ✅ `docs/security/OWASP-checklist.md` - **Security checklist (CRITICAL)**
 - ✅ `docs/rollback/*.md` - **Rollback plans (CRITICAL)**
 - ✅ Decision notes - Understand why YOU chose X instead of Y
@@ -11777,6 +11778,7 @@ docs/
 - ✅ **`history-chat.md`** - Project-specific summarized conversation memory at the project root
 - ✅ **Conversation context updates** - Decisions, user preferences, current status, pending tasks, resolved questions, and next steps
 - ✅ **Sensitive-data hygiene** - Do not record secrets, passwords, tokens, private keys, or unnecessary sensitive data
+- ✅ **Template** - Use the protocol repository template `docs/templates/history-chat-template.en.md` when creating or reorganizing `history-chat.md`
 - ✅ **`global-history-chat.md` by agreement** - If the parent folder is a collection of projects, agree with the user on maintaining a broader memory file in the parent or relevant ancestor folders
 
 #### **👤 Solo Developer in Production - Specific Documentation (Simplicity 3)**
@@ -11805,7 +11807,7 @@ docs/
 └── [feature]-GUIDE.md
 ```
 
-If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`.
+If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`. Use the protocol repository template `docs/templates/global-history-chat-template.en.md` as the model to keep only reusable, broad-scope lessons.
 
 **🔍 Additional Validation for Solo Production**:
 
