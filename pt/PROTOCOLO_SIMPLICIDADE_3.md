@@ -2358,8 +2358,10 @@ Qual prefere?"
 1️⃣ **Reler sua própria documentação**
 ```bash
 cat README.md
+cat history-chat.md 2>/dev/null
 cat docs/*.md
 grep -r "palavra-chave" docs/
+find .. -maxdepth 3 -name "global-history-chat.md" -type f
 ```
 
 2️⃣ **Perguntar a você (solo dev)** com contexto completo
@@ -2370,8 +2372,9 @@ Tarefa: Implementar cache Redis
 
 Tentei:
 1. ✅ Li seu README (não menciona Redis)
-2. ✅ Busquei no código (sem Redis ainda)
-3. ✅ Procurei em docs/ (nada sobre cache)
+2. ✅ Li `history-chat.md` (sem decisão sobre Redis)
+3. ✅ Busquei no código (sem Redis ainda)
+4. ✅ Procurei em docs/ (nada sobre cache)
 
 Dúvida específica:
 - Instalar Redis local ou usar Redis Cloud (grátis 30MB)?
@@ -9184,7 +9187,8 @@ python tests/run_tests_monitored.py
       - ✅ Exemplo: `tests/unit/`, `tests/integration/`, `tests/fixtures/`
    
    b) **Documentos e Markdown** → `docs/`
-      - ✅ Todos arquivos `.md` (exceto README.md raiz) → `docs/`
+      - ✅ Todos arquivos `.md` (exceto `README.md` raiz e `history-chat.md` raiz) → `docs/`
+      - ✅ `global-history-chat.md` pode ficar na pasta pai ou em ancestrais combinados com o usuário
       - ✅ Arquivos de documentação → `docs/`
       - ✅ **Organização recursiva dentro de `docs/`**:
         - `docs/api/` - Documentação de API
@@ -9350,11 +9354,19 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Configuração de CI/CD e quality gates
    - Notas sobre como você resolveu problemas específicos (importante para lembrar depois)
 
+8. **Memória de Conversa do Projeto**:
+   - Criar e manter `history-chat.md` na raiz da pasta do projeto com um resumo objetivo da conversa com o usuário
+   - Registrar decisões, preferências do usuário, contexto atual, tarefas pendentes, dúvidas resolvidas e próximos passos
+   - Atualizar ao final de sessões relevantes ou quando decisões importantes forem tomadas
+   - Não registrar segredos, senhas, tokens, chaves privadas ou dados sensíveis desnecessários
+   - Se a pasta do projeto estiver dentro de uma coleção de projetos, combinar com o usuário a criação/atualização de `global-history-chat.md` na pasta pai; em árvores maiores, também combinar possíveis `global-history-chat.md` em pastas ancestrais relevantes
+
 #### **📂 Estrutura Obrigatória de Documentação (Simplicidade 3)**
 
-A pasta `docs/` deve conter no mínimo:
+A pasta `docs/` deve conter no mínimo os documentos técnicos abaixo, e a raiz do projeto deve conter a memória resumida de conversa:
 
 ```
+history-chat.md              # Memória resumida da conversa específica do projeto
 docs/
 ├── REQUIREMENTS.md          # Lista de tarefas e requisitos (atualizado a cada ciclo)
 ├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão atual
@@ -9366,9 +9378,15 @@ docs/
 └── [feature]-GUIDE.md       # Guias específicos para funcionalidades complexas
 ```
 
+**Memória Global Opcional**:
+- Se o repositório/pasta pai for uma coleção de pastas de projeto, a IA deve combinar com o usuário a criação de `global-history-chat.md` no pai (ex.: `../global-history-chat.md`)
+- Se houver uma árvore de diretórios com múltiplos níveis de projetos, a IA deve combinar com o usuário quais ancestrais também precisam de `global-history-chat.md`
+- Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+
 **Criação Automática**:
 - Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA
 - Se um arquivo de documentação não existe, ele **DEVE SER CRIADO** pela IA no primeiro ciclo
+- Se `history-chat.md` não existe na raiz do projeto, ele **DEVE SER CRIADO** pela IA no primeiro ciclo e atualizado quando houver contexto conversacional relevante
 - Todos os arquivos devem ser atualizados **A CADA CICLO** de implementação
 
 #### **📋 Template Mínimo para SPECIFICATIONS.md (Simplicidade 3)**
@@ -9460,6 +9478,7 @@ Cada arquivo de especificações de versão deve conter no mínimo:
 Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 
 - [ ] ✅ Pasta `docs/` existe e está atualizada
+- [ ] ✅ `history-chat.md` existe na raiz e foi atualizado quando o contexto da conversa mudou
 - [ ] ✅ Arquivo SPECIFICATIONS.md criado/atualizado para este ciclo
 - [ ] ✅ TODAS as funcionalidades implementadas estão documentadas
 - [ ] ✅ TODOS os comportamentos novos estão descritos

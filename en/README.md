@@ -12,7 +12,7 @@ Important note to programmers and software developers: you can read the protocol
 To begin programming, some steps must be taken:
 
 1. Choose one of the simplicity protocols, for example, simplicity protocol 3, and have the artificial intelligence read 100% of the protocol. This is the first step;
-2. After the protocol has been 100% read, have the artificial intelligence study 100% of the documentation, and if there is code, study 100% of the code if it has not been read or studied. Finally, tell the artificial intelligence to study and investigate the algorithm's behavior with the test codes from the tests folder, running them;
+2. After the protocol has been 100% read, have the artificial intelligence study 100% of the documentation, including `history-chat.md` and, when agreed with the user, `global-history-chat.md`; if there is code, study 100% of the code if it has not been read or studied. Finally, tell the artificial intelligence to study and investigate the algorithm's behavior with the test codes from the tests folder, running them;
 3. If docs/TASKS.md does not exist, ask the artificial intelligence to document the tasks you provide in docs/ORIGINAL-TASKS.md to divide the tasks in a more organized way. This way, the artificial intelligence can better organize itself to implement the requirements and functionalities you want, using this protocol to organize the tasks from docs/ORIGINAL-TASKS.md to docs/TASKS.md. If you have these requirements yourself, put them in docs/ORIGINAL-TASKS.md; otherwise, if you don't, discuss with the artificial intelligence what you need to implement, and these should be listed directly in docs/TASKS.md. Documenting the functionalities is key to making the protocol more effective and ensuring that the requirements are documented and remembered later.
 4. With the documentation read and the tasks defined, ask the artificial intelligence to complete the tasks, one by one, according to the simplicity protocol. You don't need to choose which one, as the central rule of the protocol is to solve the simplest tasks and those on which other tasks depend to be executed, so the choice of task, sprint, functionality, or requirement is automatic;
 5. Answer the questions that the artificial intelligence asks you in each session, so that you can refine the requirements and allow the artificial intelligence to better understand what it should do. Observe the protocol in action at this stage, and your software being developed;
@@ -207,10 +207,12 @@ Starting from the latest versions (v2.2, v2.4, v3.3), **all three protocols** no
 AI must search for **ALL** `.md` files in the workspace:
 ```bash
 find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+find .. -maxdepth 3 -name "global-history-chat.md" -type f 2>/dev/null
 ```
 
 **Locations to search**:
-- 📂 Root: `README.md`, `TASKS.md`, `CHANGELOG.md`
+- 📂 Root: `README.md`, `TASKS.md`, `CHANGELOG.md`, `history-chat.md`
+- 📂 Parent folder/agreed ancestor folders: `global-history-chat.md`
 - 📂 `docs/`: All structured documentation
 - 📂 `docs/plans/`: Action plans
 - 📂 `docs/ADR/`: Architecture Decision Records (Simplicity 2)
@@ -223,6 +225,8 @@ find . -name "*.md" -type f | grep -v node_modules | grep -v venv
 AI must read **COMPLETELY** all found files:
 - ✅ `README.md` - Project overview
 - ✅ `TASKS.md` - Pending and completed tasks
+- ✅ `history-chat.md` - Summarized conversation memory for the specific project
+- ✅ `global-history-chat.md` - Broader summarized memory when it exists in a parent/agreed ancestor folder
 - ✅ `docs/REQUIREMENTS.md` - Functional and non-functional requirements
 - ✅ `docs/ARCHITECTURE.md` - Architectural decisions and stack
 - ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Version specifications
@@ -254,6 +258,7 @@ AI must create minimum mandatory structure:
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -264,6 +269,7 @@ docs/
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -280,6 +286,7 @@ docs/
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -289,6 +296,8 @@ docs/
 └── rollback/
     └── rollback-template.md
 ```
+
+If the parent folder is a collection of projects, the AI must agree with the user on creating `global-history-chat.md` in that parent folder. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md` and broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`. In deeper project trees, also agree on which ancestor folders need `global-history-chat.md`.
 
 ### ✅ Mandatory Checklist (For AIs)
 

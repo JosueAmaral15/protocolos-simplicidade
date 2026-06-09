@@ -1528,11 +1528,13 @@ Before each interaction, the AI must verify:
 ```bash
 # Search for relevant documents
 find . -name "*.md" -type f | xargs grep -l "keyword"
+find .. -maxdepth 3 -name "global-history-chat.md" -type f
 
 # Read related files
 cat docs/ARCHITECTURE.md
 cat docs/API.md  
 cat README.md
+cat history-chat.md 2>/dev/null
 ```
 
 #### 2️⃣ **Ask the client user**
@@ -8771,7 +8773,8 @@ python tests/run_tests_monitored.py
       - ✅ Example: `tests/unit/`, `tests/integration/`, `tests/fixtures/`
    
    b) **Documents and Markdown** → `docs/`
-      - ✅ All `.md` files (except root README.md) → `docs/`
+      - ✅ All `.md` files (except root `README.md` and root `history-chat.md`) → `docs/`
+      - ✅ `global-history-chat.md` may stay in the parent folder or agreed ancestor folders
       - ✅ Documentation files → `docs/`
       - ✅ **Recursive organization within `docs/`**:
         - `docs/api/` - API documentation
@@ -8874,11 +8877,19 @@ For **EACH implementation cycle**, the AI must document in the `docs/` folder:
    - Code examples (CLI, API, GUI)
    - Practical use cases
 
+7. **Project Conversation Memory**:
+   - Create and maintain `history-chat.md` at the project root with an objective summary of the conversation with the user
+   - Record decisions, user preferences, current context, pending tasks, resolved questions, and next steps
+   - Update it at the end of relevant sessions or whenever important decisions are made
+   - Do not record secrets, passwords, tokens, private keys, or unnecessary sensitive data
+   - If the project folder is inside a collection of projects, agree with the user on creating/updating `global-history-chat.md` in the parent folder; in deeper directory trees, also agree on possible `global-history-chat.md` files in relevant ancestor folders
+
 #### **📂 Mandatory Documentation Structure**
 
-The `docs/` folder must contain at minimum:
+The `docs/` folder must contain the technical documents below at minimum, and the project root must contain the summarized conversation memory:
 
 ```
+history-chat.md              # Summarized conversation memory for the specific project
 docs/
 ├── REQUIREMENTS.md          # Task and requirements list (updated each cycle)
 ├── vX.Y.Z-SPECIFICATIONS.md # Detailed specifications for current version
@@ -8887,9 +8898,15 @@ docs/
 └── [feature]-GUIDE.md       # Specific guides for complex functionalities
 ```
 
+**Optional Global Memory**:
+- If the parent repository/folder is a collection of project folders, the AI must agree with the user on creating `global-history-chat.md` in the parent (e.g., `../global-history-chat.md`)
+- If there is a multi-level project directory tree, the AI must agree with the user on which ancestor folders also need `global-history-chat.md`
+- Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
+
 **Automatic Creation**:
 - If the `docs/` folder doesn't exist, it **MUST BE AUTOMATICALLY CREATED** by the AI
 - If a documentation file doesn't exist, it **MUST BE CREATED** by the AI in the first cycle
+- If `history-chat.md` does not exist at the project root, it **MUST BE CREATED** by the AI in the first cycle and updated whenever there is relevant conversational context
 - All files must be updated **EVERY CYCLE** of implementation
 
 #### **📋 Minimum Template for SPECIFICATIONS.md**
@@ -8958,6 +8975,7 @@ Each version specification file must contain at minimum:
 Before finalizing each cycle (Step 13 - Commit), the AI **MUST VERIFY**:
 
 - [ ] ✅ `docs/` folder exists and is updated
+- [ ] ✅ `history-chat.md` exists at the project root and was updated when conversation context changed
 - [ ] ✅ SPECIFICATIONS.md file created/updated for this cycle
 - [ ] ✅ ALL implemented functionalities are documented
 - [ ] ✅ ALL new behaviors are described

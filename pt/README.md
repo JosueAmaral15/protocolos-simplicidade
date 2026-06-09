@@ -15,7 +15,7 @@ Observação importante para os programadores e desenvolvedores de software: voc
 Para começar a programar, alguns passos devem ser dados:
 
 1. Escolher um dos protocolos simplicidade, por exemplo, o protocolo simplicidade 3, e fazer a inteligência artificial ler 100% do protocolo. Este é o primeiro passo;
-2. Depois que o protocolo estiver 100% lido, faça a inteligência artificial estudar 100% da documentação, e se houver código, estudar 100% do código caso não houver lido ou estudado. Por fim, fale à inteligência artificial estudar e investigar o comportamento do algoritmo com os códigos de testes da pasta tests, executando-os;
+2. Depois que o protocolo estiver 100% lido, faça a inteligência artificial estudar 100% da documentação, incluindo `history-chat.md` e, quando combinado, `global-history-chat.md`; se houver código, estudar 100% do código caso não houver lido ou estudado. Por fim, fale à inteligência artificial estudar e investigar o comportamento do algoritmo com os códigos de testes da pasta tests, executando-os;
 3. Caso docs/TASKS.md não existir, Pedir para a inteligência artificial documentar as tarefas que você fornecer em docs/ORIGINAL-TASKS.md para dividir as tarefas de forma mais organizada. Assim, a inteligência artificial poderá se organizar melhor para implementar os requisitos e as funcionalidades que você quer, utilizando este protocolo para organizar as tarefas de docs/ORIGINAL-TASKS.md em docs/TASKS.md. Se você mesmo tem esses requisitos, coloque-os em docs/ORIGINAL-TASKS.md, do contrário, se não tem, converse com a inteligência artificial do que você precisa implementar e que devem ser listados diretamente em docs/TASKS.md. Documentar as funcionalidades é a peça-chave para que o protocolo tenha mais eficácia, e para que os requisitos sejam documentados e lembrados, posteriormente;
 4. Com a documentação lida e as tarefas definidas, peça para a inteligência artificial cumprir as tarefas, uma a uma, conforme o protocolo simplicidade. Você não precisa escolher qual, pois a regra central do protocolo é resolver as tarefas mais simples e aquelas cujas outras tarefas dependem para serem executadas, então a escolha da tarefa, da sprint, da funcionalidade ou do requisito é automático;
 5. Responda às perguntas que a inteligência artificial fizer para você a cada sessão, para que você possa refinar os requisitos e possibilitar maior entendimento da inteligência artificial do que ela deve fazer. Observe o protocolo entrar em ação nesta etapa, e o seu software sendo desenvolvido;
@@ -267,10 +267,12 @@ A partir das versões mais recentes (v2.2, v2.4, v3.3), **todos os três protoco
 A IA deve procurar **TODOS** os arquivos `.md` no workspace:
 ```bash
 find . -name "*.md" -type f | grep -v node_modules | grep -v venv
+find .. -maxdepth 3 -name "global-history-chat.md" -type f 2>/dev/null
 ```
 
 **Locais a buscar**:
-- 📂 Raiz: `README.md`, `TASKS.md`, `CHANGELOG.md`
+- 📂 Raiz: `README.md`, `TASKS.md`, `CHANGELOG.md`, `history-chat.md`
+- 📂 Pasta pai/ancestrais combinados com o usuário: `global-history-chat.md`
 - 📂 `docs/`: Toda documentação estruturada
 - 📂 `docs/plans/`: Planos de ação
 - 📂 `docs/ADR/`: Architecture Decision Records (Simplicidade 2)
@@ -283,6 +285,8 @@ find . -name "*.md" -type f | grep -v node_modules | grep -v venv
 A IA deve ler **COMPLETAMENTE** todos os arquivos encontrados:
 - ✅ `README.md` - Visão geral do projeto
 - ✅ `TASKS.md` - Tarefas pendentes e concluídas
+- ✅ `history-chat.md` - Memória resumida da conversa específica do projeto
+- ✅ `global-history-chat.md` - Memória resumida ampla quando existir em pasta pai/ancestral combinada com o usuário
 - ✅ `docs/REQUIREMENTS.md` - Requisitos funcionais e não-funcionais
 - ✅ `docs/ARCHITECTURE.md` - Decisões arquiteturais e stack
 - ✅ `docs/vX.Y.Z-SPECIFICATIONS.md` - Especificações de versões
@@ -314,6 +318,7 @@ A IA deve criar estrutura mínima obrigatória:
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -324,6 +329,7 @@ docs/
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -340,6 +346,7 @@ docs/
 ```
 README.md
 TASKS.md
+history-chat.md
 docs/
 ├── REQUIREMENTS.md
 ├── ARCHITECTURE.md
@@ -349,6 +356,8 @@ docs/
 └── rollback/
     └── rollback-template.md
 ```
+
+Se a pasta pai for uma coleção de projetos, a IA deve combinar com o usuário a criação de `global-history-chat.md` nesse pai. Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md` e memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`. Em árvores maiores de projetos, combine também quais ancestrais precisam de `global-history-chat.md`.
 
 ### ✅ Checklist Obrigatório (Para IAs)
 
@@ -440,17 +449,19 @@ Todos os três protocolos agora incluem um **Requisito Obrigatório de Documenta
 
 **Para Assistentes de IA:**
 
-A IA **DEVE** documentar **TODAS** as implementações na pasta `docs/`:
+A IA **DEVE** documentar **TODAS** as implementações na pasta `docs/` e manter a memória de conversa na raiz do projeto:
 - ✅ Funcionalidades implementadas (descrição detalhada + comportamentos)
 - ✅ Código criado/modificado (arquivos + mudanças)
 - ✅ Decisões arquiteturais (padrões aplicados + justificativas)
 - ✅ Integrações e dependências
 - ✅ Testes implementados (cobertura + cenários)
 - ✅ Exemplos de uso práticos
+- ✅ Memória de conversa em `history-chat.md` na raiz do projeto, com decisões, preferências, contexto, pendências e próximos passos
 
 ### 📂 Estrutura Mínima Obrigatória
 
 ```
+history-chat.md              # Memória resumida da conversa específica do projeto
 docs/
 ├── REQUIREMENTS.md          # Tarefas e requisitos (atualizado a cada ciclo)
 ├── vX.Y.Z-SPECIFICATIONS.md # Especificações detalhadas da versão
@@ -473,6 +484,7 @@ A IA **NÃO DEVE** fazer commit sem:
 - [ ] ✅ Todas funcionalidades documentadas
 - [ ] ✅ Todos comportamentos descritos
 - [ ] ✅ Decisões técnicas justificadas
+- [ ] ✅ `history-chat.md` criado/atualizado quando o contexto da conversa mudou
 
 **Rationale**: Documentação completa garante rastreabilidade, manutenibilidade, continuidade e profissionalismo. É especialmente crítica para projetos em produção e desenvolvimento solo.
 

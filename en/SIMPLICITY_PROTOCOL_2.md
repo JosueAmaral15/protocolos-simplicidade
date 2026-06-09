@@ -9375,7 +9375,8 @@ python tests/run_tests_monitored.py
       - ✅ Example: `tests/unit/`, `tests/integration/`, `tests/fixtures/`
    
    b) **Documents and Markdown** → `docs/`
-      - ✅ All `.md` files (except root README.md) → `docs/`
+      - ✅ All `.md` files (except root `README.md` and root `history-chat.md`) → `docs/`
+      - ✅ `global-history-chat.md` may stay in the parent folder or agreed ancestor folders
       - ✅ Documentation files → `docs/`
       - ✅ **Recursive organization within `docs/`**:
         - `docs/api/` - API documentation
@@ -9728,6 +9729,12 @@ This PR implements **ADR-004: Migrate to SQLite**.
 
 **📖 See SIMPLICITY_PROTOCOL_1.md. - Step 12** for complete documentation requirements, templates, and validation checklists.
 
+**Mandatory Conversation Memory**:
+- ✅ **`history-chat.md`** - Project-specific summarized conversation memory at the project root
+- ✅ **Conversation context updates** - Decisions, user preferences, current status, pending tasks, resolved questions, and next steps
+- ✅ **Sensitive-data hygiene** - Do not record secrets, passwords, tokens, private keys, or unnecessary sensitive data
+- ✅ **`global-history-chat.md` by agreement** - If the parent folder is a collection of projects, agree with the user on maintaining a broader memory file in the parent or relevant ancestor folders
+
 #### **🏢 Enterprise-Specific Documentation (Simplicity 2)**
 
 In addition to base documentation requirements, Simplicity 2 adds:
@@ -9743,6 +9750,7 @@ In addition to base documentation requirements, Simplicity 2 adds:
 **📂 Enterprise Documentation Structure**:
 
 ```
+history-chat.md              # Project-specific summarized conversation memory
 docs/
 ├── REQUIREMENTS.md
 ├── vX.Y.Z-SPECIFICATIONS.md
@@ -9760,9 +9768,12 @@ docs/
 └── [feature]-GUIDE.md
 ```
 
+If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`.
+
 **🔍 Additional Validation for Enterprise**:
 
 Before commit, AI must also verify:
+- [ ] ✅ `history-chat.md` exists and was updated when relevant conversation context changed
 - [ ] ✅ ADRs created for important architectural decisions
 - [ ] ✅ OWASP security checklist complete in SECURITY.md
 - [ ] ✅ Profiling results documented (if critical feature)
