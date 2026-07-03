@@ -8801,6 +8801,28 @@ def test_find_duplicates_performance(benchmark):
 **Enterprise Rule**:
 > In Simplicity 2, CI/CD Quality Gates stop being optional when there is an enterprise environment, production, real data, multiple contributors, compliance, or a formal release. Without equivalent quality gates, the task should not proceed to deploy.
 
+**Mandatory Quality Control Platforms**:
+- ✅ **SonarQube/SonarCloud** - mandatory quality gate for bugs, vulnerabilities, code smells, duplication, and new-code coverage
+- ✅ **Codecov, Coveralls, or Codacy Coverage** - mandatory coverage status check for pull requests and main branches
+- ✅ **GitHub CodeQL/GitHub Advanced Security, GitLab SAST, or Semgrep** - mandatory SAST analysis for vulnerabilities and unsafe patterns
+- ✅ **Snyk, Dependabot, OWASP Dependency-Check, or equivalent** - mandatory dependency, license, and known-vulnerability analysis
+- ✅ **Qodana, Codacy, Code Climate, DeepSource, or equivalent** - complementary quality analysis when the stack, organization, or risk requires coverage beyond SonarQube
+
+**Coverage Rule Before Push/Deploy**:
+- ✅ Before merge, or before any allowed direct push to `main`, `master`, `production`, `release/*`, or any primary branch, coverage **MUST** be analyzed and recorded
+- ✅ Before deploy, total coverage and new/changed-code coverage **MUST** be above the project's defined threshold
+- ✅ Recommended enterprise default: **minimum 80% coverage on new code**, no unjustified total coverage drop, and no critical file without tests
+- ✅ The SonarQube/SonarCloud quality gate and the coverage status check (Codecov/Coveralls/Codacy or equivalent) **MUST** block merge/deploy when they fail
+- ✅ If remote infrastructure is unavailable, the AI **MUST** run equivalent local validation, document the limitation, record evidence, and create a task to restore the remote gate before the next release
+- ❌ Do not deploy or push directly to a primary branch with unknown coverage, missing reports, or a red quality gate
+
+**Minimum Evidence Required**:
+- Local or CI coverage report (`coverage.xml`, `lcov.info`, HTML report, or equivalent)
+- SonarQube/SonarCloud quality gate result
+- Result from the chosen coverage platform
+- SAST/dependency scanning result
+- Record in `docs/CHANGELOG.md`, `docs/REQUIREMENTS.md`, `docs/ROLLBACK.md` when applicable, or equivalent release documentation
+
 **Pre-commit Hooks - Local Validation**:
 
 ```yaml
@@ -9767,6 +9789,8 @@ In addition to base documentation requirements, Simplicity 2 adds:
 - ✅ **OWASP Security Checklist** - Complete and documented in `docs/SECURITY.md`
 - ✅ **Rollback Plans** - Documented in `docs/ROLLBACK.md` for production, data, public APIs, compliance, infrastructure, or high-risk changes
 - ✅ **CI/CD Quality Gates** - Documented pipeline setup and validation results
+- ✅ **SonarQube/SonarCloud + coverage gate** - Quality gate, new-code coverage, and status check before merge/push/deploy to primary branches
+- ✅ **Complementary quality platforms** - Codecov/Coveralls/Codacy for coverage; CodeQL/Semgrep/Snyk/Dependabot/Qodana/Codacy/Code Climate/DeepSource according to risk and stack
 - ✅ **WCAG Accessibility Checklist** - For GUI applications in `docs/ACCESSIBILITY.md`
 - ✅ **API Documentation** - Generated with Sphinx/pdoc in `docs/API/`
 - ✅ **Performance Profiling Results** - For critical features
@@ -9807,6 +9831,9 @@ Before commit, AI must also verify:
 - [ ] ✅ ADRs created for important architectural decisions
 - [ ] ✅ OWASP security checklist complete in SECURITY.md
 - [ ] ✅ CI/CD configuration and quality gates documented and executed when applicable
+- [ ] ✅ SonarQube/SonarCloud executed and quality gate approved before merge/push/deploy to a primary branch
+- [ ] ✅ Coverage analyzed by a local tool and an external platform (Codecov/Coveralls/Codacy or equivalent), meeting the project's minimum threshold
+- [ ] ✅ SAST/dependency scanning executed (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check or equivalent)
 - [ ] ✅ Rollback plan documented in ROLLBACK.md for production, data, public APIs, infrastructure, compliance, or high-risk changes
 - [ ] ✅ Profiling results documented (if critical feature)
 - [ ] ✅ API documentation generated (if public library)

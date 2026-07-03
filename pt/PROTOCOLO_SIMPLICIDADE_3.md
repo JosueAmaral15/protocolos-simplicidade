@@ -9409,7 +9409,7 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
 7. **[SIMPLICIDADE 3] Documentação Solo em Produção**:
    - Checklist de segurança OWASP preenchido (OBRIGATÓRIO)
    - Planos de rollback documentados (OBRIGATÓRIO)
-   - Configuração de CI/CD e quality gates
+   - Configuração de CI/CD, SonarQube/SonarCloud, coverage gates e plataformas complementares de qualidade
    - Notas sobre como você resolveu problemas específicos (importante para lembrar depois)
 
 8. **Memória de Conversa do Projeto**:
@@ -9442,6 +9442,15 @@ docs/
 - Se houver uma árvore de diretórios com múltiplos níveis de projetos, a IA deve combinar com o usuário quais ancestrais também precisam de `global-history-chat.md`
 - Exemplo: projeto em `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; memória ampla em `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`
 - Usar o template do repositório dos protocolos `docs/templates/global-history-chat-template.pt.md` como modelo para manter apenas aprendizados reutilizáveis e de escopo amplo
+
+**Controle de Qualidade Rigoroso Obrigatório (Solo em Produção)**:
+- Usar **SonarQube/SonarCloud** como quality gate principal para bugs, vulnerabilidades, code smells, duplicação e coverage de código novo
+- Usar pelo menos uma plataforma externa de coverage, como **Codecov**, **Coveralls** ou **Codacy Coverage**, para status check em PRs e branches principais
+- Usar análise SAST/dependências com **GitHub CodeQL/GitHub Advanced Security**, **Semgrep**, **Snyk**, **Dependabot**, **OWASP Dependency-Check** ou equivalente
+- Considerar **Qodana**, **Codacy**, **Code Climate**, **DeepSource** ou equivalente para análise complementar de qualidade quando o projeto tiver risco de produção, stack complexo ou manutenção longa
+- Antes de deploy, merge ou push direto para `main`, `master`, `production`, `release/*` ou branch principal, a IA **DEVE** confirmar coverage local + coverage externo + quality gate aprovado
+- Padrão recomendado: **mínimo de 80% de coverage em código novo**, zero queda injustificada de coverage total e nenhum arquivo crítico sem testes
+- Se uma plataforma remota estiver indisponível, executar validação local equivalente, documentar a limitação e não fazer deploy até haver evidência suficiente para rollback seguro
 
 **Criação Automática**:
 - Se a pasta `docs/` não existe, ela **DEVE SER CRIADA AUTOMATICAMENTE** pela IA
@@ -9549,6 +9558,9 @@ Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 - [ ] ✅ Testes estão documentados
 - [ ] ✅ **Checklist de segurança OWASP está completo (SECURITY.md) - OBRIGATÓRIO**
 - [ ] ✅ **Plano de rollback documentado para features críticas (ROLLBACK.md) - OBRIGATÓRIO**
+- [ ] ✅ **SonarQube/SonarCloud executado e quality gate aprovado antes de merge/push/deploy em branch principal**
+- [ ] ✅ **Coverage analisado localmente e por plataforma externa (Codecov/Coveralls/Codacy ou equivalente) antes de deploy ou push direto para branch principal**
+- [ ] ✅ **SAST/dependency scanning executado (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check ou equivalente)**
 - [ ] ✅ Configuração CI/CD documentada
 
 **Se algum item não estiver completo, a IA NÃO DEVE prosseguir para o commit** até completar a documentação.

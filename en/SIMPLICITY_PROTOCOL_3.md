@@ -11789,7 +11789,7 @@ In addition to base documentation requirements, Simplicity 3 adds:
 - ✅ **OWASP Security Checklist** - MANDATORY in `docs/SECURITY.md`
 - ✅ **Rollback Plans** - MANDATORY in `docs/ROLLBACK.md` for critical features
 - ✅ **Decision Notes** - Pragmatic ADRs (simplified) in `docs/DECISIONS.md`
-- ✅ **CI/CD Configuration** - Documented setup and quality gates
+- ✅ **CI/CD Configuration** - Documented setup with SonarQube/SonarCloud, coverage gates, and complementary quality platforms
 - ✅ **"Why I Did This" Notes** - Important for remembering context after 3-6 months
 
 **📂 Solo Production Documentation Structure**:
@@ -11809,12 +11809,24 @@ docs/
 
 If the parent folder is a collection of project folders, the AI must agree with the user on creating/updating `global-history-chat.md` in that parent folder. In deeper project trees, agree on which ancestor folders need their own `global-history-chat.md`. Example: project memory at `/home/josue/Documents/josue-writter-workspace/books/history-chat.md`; broad memory at `/home/josue/Documents/josue-writter-workspace/global-history-chat.md`. Use the protocol repository template `docs/templates/global-history-chat-template.en.md` as the model to keep only reusable, broad-scope lessons.
 
+**Mandatory Rigorous Quality Control (Solo in Production)**:
+- Use **SonarQube/SonarCloud** as the primary quality gate for bugs, vulnerabilities, code smells, duplication, and new-code coverage
+- Use at least one external coverage platform, such as **Codecov**, **Coveralls**, or **Codacy Coverage**, for status checks on PRs and primary branches
+- Use SAST/dependency analysis with **GitHub CodeQL/GitHub Advanced Security**, **Semgrep**, **Snyk**, **Dependabot**, **OWASP Dependency-Check**, or equivalent
+- Consider **Qodana**, **Codacy**, **Code Climate**, **DeepSource**, or equivalent for complementary quality analysis when the project has production risk, a complex stack, or long-term maintenance
+- Before deploy, merge, or direct push to `main`, `master`, `production`, `release/*`, or a primary branch, the AI **MUST** confirm local coverage + external coverage + approved quality gate
+- Recommended default: **minimum 80% coverage on new code**, no unjustified total coverage drop, and no critical file without tests
+- If a remote platform is unavailable, run equivalent local validation, document the limitation, and do not deploy until there is enough evidence for safe rollback
+
 **🔍 Additional Validation for Solo Production**:
 
 Before commit, AI must also verify:
 - [ ] ✅ `history-chat.md` exists and was updated when relevant conversation context changed
 - [ ] ✅ **OWASP security checklist complete in SECURITY.md (MANDATORY)**
 - [ ] ✅ **Rollback plan documented for critical features (MANDATORY)**
+- [ ] ✅ **SonarQube/SonarCloud executed and quality gate approved before merge/push/deploy to a primary branch**
+- [ ] ✅ **Coverage analyzed locally and by an external platform (Codecov/Coveralls/Codacy or equivalent) before deploy or direct push to a primary branch**
+- [ ] ✅ **SAST/dependency scanning executed (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check or equivalent)**
 - [ ] ✅ Decision notes created for important choices (DECISIONS.md)
 - [ ] ✅ CI/CD configuration documented
 - [ ] ✅ Context notes for future self (why specific solutions were chosen)

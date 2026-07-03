@@ -12935,6 +12935,28 @@ def test_find_duplicates_performance(benchmark):
 **Regra Enterprise**:
 > Em Simplicidade 2, CI/CD Quality Gates deixam de ser opcionais quando há ambiente enterprise, produção, dados reais, múltiplos contribuidores, compliance ou release formal. Sem quality gates equivalentes, a tarefa não deve avançar para deploy.
 
+**Plataformas Obrigatórias de Controle de Qualidade**:
+- ✅ **SonarQube/SonarCloud** - quality gate obrigatório para bugs, vulnerabilidades, code smells, duplicação e coverage de código novo
+- ✅ **Codecov, Coveralls ou Codacy Coverage** - status check obrigatório de cobertura em pull requests e branches principais
+- ✅ **GitHub CodeQL/GitHub Advanced Security, GitLab SAST ou Semgrep** - análise SAST obrigatória para vulnerabilidades e padrões inseguros
+- ✅ **Snyk, Dependabot, OWASP Dependency-Check ou equivalente** - análise obrigatória de dependências, licenças e vulnerabilidades conhecidas
+- ✅ **Qodana, Codacy, Code Climate, DeepSource ou equivalente** - análise complementar de qualidade quando o stack, a organização ou o risco exigir cobertura além do SonarQube
+
+**Regra de Coverage Antes de Push/Deploy**:
+- ✅ Antes de merge ou antes de qualquer push direto permitido para `main`, `master`, `production`, `release/*` ou qualquer branch principal, a cobertura **DEVE** ser analisada e registrada
+- ✅ Antes de deploy, a cobertura total e a cobertura de código novo/alterado **DEVEM** estar acima do mínimo definido no projeto
+- ✅ Padrão recomendado para enterprise: **mínimo de 80% de coverage em código novo**, zero queda injustificada de coverage total e nenhum arquivo crítico sem testes
+- ✅ O quality gate do SonarQube/SonarCloud e o status check de coverage (Codecov/Coveralls/Codacy ou equivalente) **DEVEM** bloquear merge/deploy quando falharem
+- ✅ Se a infraestrutura remota estiver indisponível, a IA **DEVE** executar validação local equivalente, documentar a limitação, registrar evidências e criar tarefa para restaurar o gate remoto antes do próximo release
+- ❌ Não fazer deploy nem push direto para branch principal com coverage desconhecido, relatório ausente ou quality gate vermelho
+
+**Evidências mínimas exigidas**:
+- Relatório de coverage local ou do CI (`coverage.xml`, `lcov.info`, relatório HTML ou equivalente)
+- Resultado do SonarQube/SonarCloud quality gate
+- Resultado da plataforma de coverage usada
+- Resultado de SAST/dependency scanning
+- Registro no `docs/CHANGELOG.md`, `docs/REQUIREMENTS.md`, `docs/ROLLBACK.md` quando aplicável ou documentação de release equivalente
+
 **Pre-commit Hooks - Validação Local**:
 
 ```yaml
@@ -13943,6 +13965,7 @@ Para **CADA ciclo de implementação**, a IA deve documentar na pasta `docs/`:
    - Resultados de profiling (para features críticas)
    - Planos de rollback documentados em `docs/ROLLBACK.md` quando houver produção, dados, APIs públicas, compliance, infraestrutura ou risco alto
    - Configuração de CI/CD e quality gates documentada
+   - SonarQube/SonarCloud, coverage gate e plataformas complementares de qualidade documentadas antes de merge/push/deploy em branches principais
 
 #### **📂 Estrutura Obrigatória de Documentação (Simplicidade 2)**
 
@@ -14075,6 +14098,9 @@ Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 - [ ] ✅ Testes estão documentados
 - [ ] ✅ Checklist de segurança OWASP está completo (em SECURITY.md)
 - [ ] ✅ Configuração CI/CD e quality gates documentados e executados quando aplicável
+- [ ] ✅ SonarQube/SonarCloud executado e quality gate aprovado antes de merge/push/deploy em branch principal
+- [ ] ✅ Coverage analisado por ferramenta local e plataforma externa (Codecov/Coveralls/Codacy ou equivalente), com mínimo do projeto atendido
+- [ ] ✅ SAST/dependency scanning executado (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check ou equivalente)
 - [ ] ✅ Rollback plan documentado em ROLLBACK.md para produção, dados, APIs públicas, infraestrutura, compliance ou risco alto
 - [ ] ✅ Resultados de profiling documentados (se aplicável)
 - [ ] ✅ Documentação de API gerada (se biblioteca pública)

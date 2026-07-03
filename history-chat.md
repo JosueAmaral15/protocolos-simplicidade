@@ -70,3 +70,30 @@ Data/hora: 2026-06-09
 - Não registrar segredos, tokens, senhas, chaves privadas ou dados sensíveis desnecessários.
 - Manter este histórico objetivo e útil para retomar o projeto.
 - Registrar no `global-history-chat.md` apenas aprendizados reutilizáveis e somente por combinação com o usuário.
+
+## Atualização 2026-07-03 - Quality gates, SonarQube e coverage antes de branch principal
+
+O usuário pediu para incluir nos Protocolos Simplicidade 2 e 3 a necessidade de usar SonarQube e outras plataformas de teste/controle de qualidade para controle rigoroso, com análise de coverage antes de deploy ou push para branches principais.
+
+Ações realizadas:
+
+- Pesquisadas fontes oficiais sobre quality gates, coverage checks, code scanning e segurança de dependências.
+- Atualizado o Protocolo 2 em português e inglês para exigir:
+  - SonarQube/SonarCloud como quality gate principal;
+  - plataforma externa de coverage como Codecov, Coveralls ou Codacy Coverage;
+  - SAST com CodeQL/GitHub Advanced Security, GitLab SAST ou Semgrep;
+  - análise de dependências com Snyk, Dependabot, OWASP Dependency-Check ou equivalente;
+  - plataformas complementares como Qodana, Codacy, Code Climate ou DeepSource quando o risco/stack exigir;
+  - bloqueio de merge/deploy/push direto em branch principal quando coverage ou quality gate falhar.
+- Atualizado o Protocolo 3 em português e inglês com regra equivalente para solo developer em produção.
+- Validado com `git diff --check` sem problemas.
+
+Estado atual:
+
+- Há mudanças locais não commitadas nos arquivos:
+  - `pt/PROTOCOLO_SIMPLICIDADE_2.md`;
+  - `en/SIMPLICITY_PROTOCOL_2.md`;
+  - `pt/PROTOCOLO_SIMPLICIDADE_3.md`;
+  - `en/SIMPLICITY_PROTOCOL_3.md`;
+  - `history-chat.md`.
+- O commit anterior `7590d0a docs: add memory templates and sync protocols` ainda está localmente à frente do remoto, se ainda não tiver sido publicado.
