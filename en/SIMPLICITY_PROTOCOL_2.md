@@ -2111,6 +2111,19 @@ git push origin COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
 If yes, what title and description would you like for the PR?
 ```
 
+### 🌿 Enterprise Integration Branch Rule (`develop` → `main`)
+
+When the repository has a persistent integration branch such as `develop`, `staging`, or `release/*`, enterprise work **MUST** use that branch as the cumulative integration target:
+
+- ✅ Work branch: `COM-[UUID]`
+- ✅ Integration branch: `develop` or the project-defined equivalent
+- ✅ Production branch: `main`, `master`, or the project-defined production branch
+- ✅ Merge `COM-[UUID]` into the integration branch only after local tests, lint, build, security audit, coverage, and required quality gates pass
+- ✅ Promote the integration branch to `main` only with explicit release/MVP approval and evidence from the exact commit being promoted
+- ✅ Before promotion to `main`, verify: usable release scope, lint/tests/build, dependency/security scan, coverage threshold, SonarQube/SonarCloud quality gate when configured, rollback plan, known limitations, and no unresolved Blocker/Critical issue
+- ❌ Do not treat a successful merge into `develop` as permission to deploy or promote to `main`
+- ❌ Do not delete work branches before auditing commits unique to them and confirming they were integrated into the expected target
+
 ### 🚫 Exceptions (when to work on main)
 
 **Only work directly on `main` if:**
@@ -8823,6 +8836,16 @@ def test_find_duplicates_performance(benchmark):
 - SAST/dependency scanning result
 - Record in `docs/CHANGELOG.md`, `docs/REQUIREMENTS.md`, `docs/ROLLBACK.md` when applicable, or equivalent release documentation
 
+**Defense-in-Depth Evidence Model**:
+- ✅ SonarQube/SonarCloud is required evidence, but it is **never the only proof of quality**
+- ✅ Every material risk **MUST** be mapped to direct evidence: business rules → unit tests; module collaboration → integration tests; API/schema drift → contract tests; critical user paths → E2E tests; authorization/RLS → negative isolation tests; migrations → clean-install, upgrade, rollback, and data-preservation tests; performance risk → repeatable latency/resource tests
+- ✅ Critical authorization, financial, state-transition, compliance, and calculation logic **SHOULD** use mutation testing periodically; surviving mutants require stronger tests, dead-code removal, or documented technical approval
+- ✅ Database tests **MUST NOT** use only administrator/service credentials, because they can bypass policies that must be verified
+- ✅ Secret scanning **MUST** cover the working tree and Git history; any discovered secret must be revoked and rotated, not merely removed from the current file
+- ✅ CI actions and reusable workflows **MUST** be pinned to immutable commit SHAs when the platform supports it; workflow permissions must use least privilege
+- ✅ Flaky tests **MUST NOT** be rerun until green and counted as evidence; fix them or quarantine them with owner, reason, risk, issue, and deadline
+- ✅ Quality evidence **MUST** identify the exact analyzed commit, CI run/commands, coverage metrics, failed/skipped/quarantined tests, scanner results, SonarQube status, known limitations, and remaining risks
+
 **Pre-commit Hooks - Local Validation**:
 
 ```yaml
@@ -9834,6 +9857,8 @@ Before commit, AI must also verify:
 - [ ] ✅ SonarQube/SonarCloud executed and quality gate approved before merge/push/deploy to a primary branch
 - [ ] ✅ Coverage analyzed by a local tool and an external platform (Codecov/Coveralls/Codacy or equivalent), meeting the project's minimum threshold
 - [ ] ✅ SAST/dependency scanning executed (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check or equivalent)
+- [ ] ✅ Defense-in-depth evidence recorded for material risks (tests, scanners, coverage, CI run, exact commit, limitations)
+- [ ] ✅ Flaky tests, skipped tests, scanner suppressions, and accepted vulnerabilities documented with owner, reason, issue, deadline, and expiry
 - [ ] ✅ Rollback plan documented in ROLLBACK.md for production, data, public APIs, infrastructure, compliance, or high-risk changes
 - [ ] ✅ Profiling results documented (if critical feature)
 - [ ] ✅ API documentation generated (if public library)

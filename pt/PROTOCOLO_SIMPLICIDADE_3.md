@@ -8834,6 +8834,14 @@ def find_duplicates_fast(tasks):
 - ✅ **Confiança**: Sabe que código quebrado não vai para produção
 - ✅ **Rápido**: Feedback em minutos (não horas debugando)
 
+**Qualidade em Profundidade Pragmática**:
+- ✅ SonarQube/SonarCloud é importante, mas não substitui testes que executam comportamento real
+- ✅ Para cada mudança arriscada, mapear risco para evidência: regra de negócio → testes unitários; integrações → testes de integração; fluxo crítico de usuário → smoke/E2E; autenticação/isolamento de tenant → testes negativos de autorização; migrações → checagens de upgrade/rollback/preservação de dados
+- ✅ Para solo em produção, mutation testing é recomendado em lógica crítica de autorização, cobrança, transição de estado e cálculo quando o custo de execução for aceitável
+- ✅ Secret/dependency scanning deve rodar antes de release ou push direto para branch principal; qualquer segredo encontrado deve ser revogado/rotacionado, não apenas removido do arquivo
+- ✅ Testes flaky não são evidência de release; corrija-os ou documente quarentena temporária com motivo, risco, issue e prazo
+- ✅ Registrar commit exato, comandos/CI executados, coverage, status do SonarQube, testes ignorados/quarentenados, scanners, limitações e prontidão de rollback
+
 **Pre-commit Hooks** (validação local):
 
 ```yaml
@@ -9561,6 +9569,7 @@ Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 - [ ] ✅ **SonarQube/SonarCloud executado e quality gate aprovado antes de merge/push/deploy em branch principal**
 - [ ] ✅ **Coverage analisado localmente e por plataforma externa (Codecov/Coveralls/Codacy ou equivalente) antes de deploy ou push direto para branch principal**
 - [ ] ✅ **SAST/dependency scanning executado (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check ou equivalente)**
+- [ ] ✅ **Evidência de qualidade registrada com commit exato, comandos/CI, coverage, scanners, testes ignorados/quarentenados, limitações e prontidão de rollback**
 - [ ] ✅ Configuração CI/CD documentada
 
 **Se algum item não estiver completo, a IA NÃO DEVE prosseguir para o commit** até completar a documentação.

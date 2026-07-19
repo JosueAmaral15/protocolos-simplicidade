@@ -88,6 +88,27 @@ Ações realizadas:
 - Atualizado o Protocolo 3 em português e inglês com regra equivalente para solo developer em produção.
 - Validado com `git diff --check` sem problemas.
 
+Estado final:
+
+- As mudanças foram commitadas e publicadas em `origin/main`.
+- Commits enviados:
+  - `7590d0a docs: add memory templates and sync protocols`;
+  - `72bfc30 docs: require quality gates and coverage checks`.
+
+## Atualização 2026-07-19 - Releitura dos protocolos em Downloads e incorporação seletiva
+
+O usuário pediu para reler `/home/josue/Downloads/SIMPLICITY_PROTOCOL_2.md` e `/home/josue/Downloads/SIMPLICITY_PROTOCOL_3.md`, comparar novamente com os protocolos originais do projeto e incorporar apenas recomendações que fizessem sentido, evitando redundâncias e equívocos.
+
+Ações realizadas:
+
+- Comparado o P2 baixado com `en/SIMPLICITY_PROTOCOL_2.md`.
+- Comparado o P3 baixado com `en/SIMPLICITY_PROTOCOL_3.md`.
+- Confirmado que o P2 baixado tem uma seção útil ausente no projeto: defesa de qualidade em profundidade, com evidência por risco, SonarQube como prova necessária mas insuficiente, mutation testing, testes de banco/autorização/migração, secret scanning, supply-chain security e governança de flaky tests.
+- Confirmado que o P3 baixado não tem títulos novos em relação ao P3 do projeto; o P3 do projeto está mais atualizado em memória de conversa, `global-history-chat.md`, proteção contra saturação de RAM e regras de SonarQube/coverage.
+- Incorporada uma versão compacta e não redundante da defesa em profundidade nos Protocolos 2 e 3, em português e inglês.
+- Acrescentados itens nos checklists finais para exigir evidência registrável: commit exato, comandos/CI, coverage, scanners, testes ignorados/quarentenados, limitações, expiração de exceções e prontidão de rollback.
+- Incorporada no Protocolo 2, em português e inglês, uma regra enterprise condicional para projetos com branch persistente de integração: `COM-[UUID]` integra em `develop`/equivalente, e `main` recebe promoção apenas com aprovação explícita e evidências completas.
+
 Estado atual:
 
 - Há mudanças locais não commitadas nos arquivos:
@@ -96,4 +117,3 @@ Estado atual:
   - `pt/PROTOCOLO_SIMPLICIDADE_3.md`;
   - `en/SIMPLICITY_PROTOCOL_3.md`;
   - `history-chat.md`.
-- O commit anterior `7590d0a docs: add memory templates and sync protocols` ainda está localmente à frente do remoto, se ainda não tiver sido publicado.

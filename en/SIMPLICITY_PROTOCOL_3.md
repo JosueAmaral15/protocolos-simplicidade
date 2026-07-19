@@ -11245,6 +11245,14 @@ def find_duplicates_fast(tasks):
 - ✅ **Confidence**: You know broken code won't go to production
 - ✅ **Fast**: Feedback in minutes (not hours debugging)
 
+**Pragmatic Defense-in-Depth Quality**:
+- ✅ SonarQube/SonarCloud is important, but it does not replace tests that execute real behavior
+- ✅ For each risky change, map the risk to evidence: business logic → unit tests; integrations → integration tests; user-critical path → smoke/E2E test; auth/tenant isolation → negative authorization tests; migrations → upgrade/rollback/data-preservation checks
+- ✅ For solo production, mutation testing is recommended for critical authorization, billing, state-transition, and calculation logic when the runtime cost is acceptable
+- ✅ Secret/dependency scanning should run before release or direct push to a primary branch; any secret found must be revoked/rotated, not only removed from the file
+- ✅ Flaky tests are not release evidence; fix them or document a temporary quarantine with reason, risk, issue, and deadline
+- ✅ Record the exact commit, commands/CI run, coverage result, SonarQube status, skipped/quarantined tests, scanner results, limitations, and rollback readiness
+
 **Pre-commit Hooks** (local validation):
 
 ```yaml
@@ -11827,6 +11835,7 @@ Before commit, AI must also verify:
 - [ ] ✅ **SonarQube/SonarCloud executed and quality gate approved before merge/push/deploy to a primary branch**
 - [ ] ✅ **Coverage analyzed locally and by an external platform (Codecov/Coveralls/Codacy or equivalent) before deploy or direct push to a primary branch**
 - [ ] ✅ **SAST/dependency scanning executed (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check or equivalent)**
+- [ ] ✅ **Quality evidence recorded with exact commit, commands/CI run, coverage, scanners, skipped/quarantined tests, limitations, and rollback readiness**
 - [ ] ✅ Decision notes created for important choices (DECISIONS.md)
 - [ ] ✅ CI/CD configuration documented
 - [ ] ✅ Context notes for future self (why specific solutions were chosen)

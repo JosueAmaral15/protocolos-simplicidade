@@ -2413,6 +2413,19 @@ git push origin COM-a5e531b2-5d4f-a827-b3c8-24a52b27f281
 Se sim, qual título e descrição deseja para o PR?
 ```
 
+### 🌿 Regra Enterprise de Branch de Integração (`develop` → `main`)
+
+Quando o repositório tiver uma branch persistente de integração como `develop`, `staging` ou `release/*`, o trabalho enterprise **DEVE** usar essa branch como alvo cumulativo de integração:
+
+- ✅ Branch de trabalho: `COM-[UUID]`
+- ✅ Branch de integração: `develop` ou equivalente definido pelo projeto
+- ✅ Branch de produção: `main`, `master` ou branch de produção definida pelo projeto
+- ✅ Fazer merge de `COM-[UUID]` na branch de integração apenas depois de testes locais, lint, build, auditoria de segurança, coverage e quality gates obrigatórios passarem
+- ✅ Promover a branch de integração para `main` apenas com aprovação explícita de release/MVP e evidência do commit exato sendo promovido
+- ✅ Antes de promover para `main`, verificar: escopo de release utilizável, lint/testes/build, scan de dependências/segurança, limite de coverage, quality gate SonarQube/SonarCloud quando configurado, rollback plan, limitações conhecidas e ausência de issue Blocker/Critical aberta
+- ❌ Não tratar merge bem-sucedido em `develop` como permissão para deploy ou promoção para `main`
+- ❌ Não deletar branches de trabalho antes de auditar commits exclusivos e confirmar integração no alvo esperado
+
 ### 🚫 Exceções (quando trabalhar na main)
 
 **Apenas trabalhe diretamente na `main` se:**
@@ -12957,6 +12970,16 @@ def test_find_duplicates_performance(benchmark):
 - Resultado de SAST/dependency scanning
 - Registro no `docs/CHANGELOG.md`, `docs/REQUIREMENTS.md`, `docs/ROLLBACK.md` quando aplicável ou documentação de release equivalente
 
+**Modelo de Evidência em Profundidade**:
+- ✅ SonarQube/SonarCloud é evidência obrigatória, mas **nunca é a única prova de qualidade**
+- ✅ Todo risco material **DEVE** ser mapeado para evidência direta: regra de negócio → testes unitários; colaboração entre módulos → testes de integração; drift de API/schema → testes de contrato; fluxos críticos de usuário → testes E2E; autorização/RLS → testes negativos de isolamento; migrações → clean-install, upgrade, rollback e preservação de dados; risco de performance → testes repetíveis de latência/recursos
+- ✅ Lógica crítica de autorização, finanças, transição de estado, compliance e cálculo **DEVE PREFERENCIALMENTE** usar mutation testing periodicamente; mutantes sobreviventes exigem testes mais fortes, remoção de código morto ou aprovação técnica documentada
+- ✅ Testes de banco **NÃO DEVEM** usar apenas credenciais de administrador/serviço, porque elas podem contornar políticas que precisam ser verificadas
+- ✅ Secret scanning **DEVE** cobrir árvore de trabalho e histórico Git; qualquer segredo descoberto deve ser revogado e rotacionado, não apenas removido do arquivo atual
+- ✅ Actions e workflows reutilizáveis de CI **DEVEM** ser fixados em commit SHAs imutáveis quando a plataforma permitir; permissões de workflow devem usar privilégio mínimo
+- ✅ Testes flaky **NÃO DEVEM** ser reexecutados até passar e contados como evidência; corrija-os ou coloque-os em quarentena com responsável, motivo, risco, issue e prazo
+- ✅ Evidência de qualidade **DEVE** identificar commit exato analisado, execução de CI/comandos, métricas de coverage, testes falhos/ignorados/quarentenados, scanners, status do SonarQube, limitações conhecidas e riscos restantes
+
 **Pre-commit Hooks - Validação Local**:
 
 ```yaml
@@ -14101,6 +14124,8 @@ Antes de finalizar cada ciclo (Etapa 13 - Commit), a IA **DEVE VERIFICAR**:
 - [ ] ✅ SonarQube/SonarCloud executado e quality gate aprovado antes de merge/push/deploy em branch principal
 - [ ] ✅ Coverage analisado por ferramenta local e plataforma externa (Codecov/Coveralls/Codacy ou equivalente), com mínimo do projeto atendido
 - [ ] ✅ SAST/dependency scanning executado (CodeQL/Semgrep/Snyk/Dependabot/OWASP Dependency-Check ou equivalente)
+- [ ] ✅ Evidência de defesa em profundidade registrada para riscos materiais (testes, scanners, coverage, execução de CI, commit exato, limitações)
+- [ ] ✅ Testes flaky, testes ignorados, supressões de scanners e vulnerabilidades aceitas documentados com responsável, motivo, issue, prazo e expiração
 - [ ] ✅ Rollback plan documentado em ROLLBACK.md para produção, dados, APIs públicas, infraestrutura, compliance ou risco alto
 - [ ] ✅ Resultados de profiling documentados (se aplicável)
 - [ ] ✅ Documentação de API gerada (se biblioteca pública)
